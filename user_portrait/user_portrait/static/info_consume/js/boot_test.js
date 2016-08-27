@@ -331,9 +331,7 @@
                     if(keyword == ''){  //检查输入词是否为空
                     alert('请输入关键词！');
                     }else{
-                    var keyword_string = keyword.split(/\s+/g); 
-                   
-                   
+                    var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){ 
                     var user_id = '1618051664';
                     var user_url = '/manage/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
@@ -355,11 +353,12 @@
             //实现“近一周各领域影响力用户排行”
               $(function () { 
               var sort_scope = 'in_limit_topic';  
-              $('#table-user-user').parent().parent().parent().css("display","none");
-              $('#table-user-user').parent().parent().parent().next().css("display","none");
-              $('#table-user').parent().parent().parent().css("display","block");
-              $('#table-user').parent().parent().parent().next().css("display","block");
+             
               $('#education').click(function () {
+                  $('#table-user-user').css("display","none");
+                  $('#table-user-user').next().css("display","none");
+                  $('#table-user').parent().parent().parent().css("display","block");
+                  $('#table-user').parent().parent().parent().next().css("display","block"); 
                   var keyword = '教育类';
                   var area_url = '/user_rank/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
