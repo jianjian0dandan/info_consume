@@ -334,7 +334,7 @@
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){ 
                     var user_id = '1618051664';
-                    var user_url = '/manage/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
+                    var user_url = '/user_rank/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
                     console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
                     //manage 相似用户搜索
