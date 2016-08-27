@@ -7,19 +7,20 @@
 		微博那些事儿
 	</title>
 
-	<script type="text/javascript" src='/static/js/jquery.js'></script>
-	<script src="/static/js/echarts.js"></script>
-	<script type="text/javascript" src="/static/js/echarts-all.js"></script>
+	<script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+	<script src="/static/info_consume/js/echarts.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/tagcloud.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/weiborecommend.js"></script>
 
    <!--引用css-->
-		<link rel="stylesheet" type="text/css" href="/static/css/daohanglan.css"> 
-		<link rel="stylesheet" type="text/css" href="/static/css/biaoqian.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/search.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/button.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan.css"> 
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/biaoqian.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/search.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/button.css">
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
   
   
@@ -374,7 +375,7 @@
 			{
 			//	alert(tag);
 			//	alert(content);
-				for(i=1; i <6; i++)
+				for(i=1; i <3; i++)
 				{
 					if ("tag"+i==tag)
 						{
@@ -501,7 +502,7 @@
 
 	<div  style="width:100%;height:70px;background: #06D995;position: fixed;z-index:999;top:0;">	
 
-		 <img src="/static/image/title.png" width="150px" height="80px" style="float:left ;margin-top:0px;margin-left:1%">
+		 <img src="/static/info_consume/image/title.png" width="150px" height="80px" style="float:left ;margin-top:0px;margin-left:1%">
 			
 
 			<ul id="daohanglan" style="font-size:20px;margin-left:35%;font-family: 微软雅黑;">
@@ -560,7 +561,7 @@
 
 			    <!--版面1的左半部分-->	
 			    <div style="float:left;margin-left:100px;">
-					<img src="/static/image/baoman.png" width="200px" height="200px" style="float:left ;margin-top:20%;margin-left:20px;">
+					<img src="/static/info_consume/image/baoman.png" width="200px" height="200px" style="float:left ;margin-top:20%;margin-left:20px;">
 					<p style="margin-left:15%;margin-top:50px;font-size:x-large;font-weight: bold;color:#06D995;">世界辣么大</p>
 					<p style="margin-left:30%;margin-top:20%;font-size:x-large;font-weight: bold;color:#06D995;">我想去看看</p>
 			    </div>
@@ -621,7 +622,7 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading" style="background-color: aliceblue;">
 				      <h4 class="panel-title">
-				        <a data-toggle="collapse" data-parent="#accordion" 
+				        <a id="get_hot_text" data-toggle="collapse" data-parent="#accordion" onclick="get_hot_text()" 
 				          href="#collapseOne" style="text-decoration: none;">
 				          热点事件1：孙杨1500无缘奖牌   
 				        </a>
