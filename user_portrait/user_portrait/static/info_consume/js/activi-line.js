@@ -1,5 +1,5 @@
-     //近一个月圈子影响力走势;id=influen-line
-      var myChart = echarts.init(document.getElementById('influen-line'),'shine');
+      //近一个月群体活跃度走势;id=activi-line
+      var myChart = echarts.init(document.getElementById('activi-line'),'macarons');
       var option = {
     title : {
         text: '',
