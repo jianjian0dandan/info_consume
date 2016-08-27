@@ -87,6 +87,7 @@ def city_weibo_count(topic,start_ts,end_ts,province,unit=MinInterval):
     return results
 
 def get_weibo_content(topic,start_ts,end_ts,province,sort_item='timestamp',unit=MinInterval):
+    print topic,start_ts,end_ts,type(province)
     city = {}
     if (end_ts - start_ts < unit):
         upbound = long(math.ceil(end_ts / (unit * 1.0)) * unit)
@@ -121,6 +122,7 @@ def get_weibo_content(topic,start_ts,end_ts,province,sort_item='timestamp',unit=
                 weibo_content['photo_url'] = 'unknown'
             weibo_dict[weibo_content['mid']] = weibo_content
     results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
+    #print results
     return results
 
 
