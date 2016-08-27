@@ -1,0 +1,64 @@
+#daohanglan ul {
+        font-family: 微软雅黑;
+        font-size: 18px;
+        /*margin: 0;*/
+       /* padding: 0;*/
+        margin-top: 0px;
+        font-weight: bold;
+        /*添加导航栏*/
+        margin-left:20%;
+      
+      
+      }
+      /*调整导航栏位置*/
+ ul li {
+        display: block; 
+        position: relative;     
+         float: left;
+        vertical-align: middle;
+        margin-top: 2%;
+        color: #ffffff;
+
+
+      }
+
+  li ul { display: none; 
+     }
+
+/*第一栏原始的样子*/
+   ul li a {
+        display: block;
+        text-decoration: none;  /*没有下划线*/
+        /*font-weight:bold;/*//*字体加粗*/
+        color: #ffffff;
+        padding: 0px 15px 0px 15px;  /*导航栏每个模块间隔*/
+        background: #06D995;  
+        white-space: nowrap;
+        font-size: 20px;
+
+      }
+      
+      /*鼠标在一级标题下*/
+    ul li a:hover { background: #00CC99;color: #ffffff; text-decoration: none;}
+
+     /* li:hover ul {
+        display: block;
+        position: absolute;
+        text-decoration: none;
+        
+        background-color: #06D995;
+      }
+
+  */
+
+      /*鼠标在二级标题下*/
+   li:hover li a:hover { background: #00CC99;color: #ffffff; }
+
+.kw {
+      font-size: 18px;
+      font-weight: bold;
+      color:#06D995;
+      margin-left: 5px;
+
+}
+      

@@ -1,0 +1,80 @@
+body {
+  background-color: #f2f4f8;
+}
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  background-color: #f2f4f8;
+ }
+  .col-md-12 {
+    width: 100%;
+  }
+  .col-md-11 {
+    width: 91.66666667%;
+  }
+  .col-md-10 {
+    width: 83.33333333%;
+  }
+  .col-md-9 {
+    width: 75%;
+  }
+  .col-md-8 {
+    width: 66.66666667%;
+  }
+  .col-md-7 {
+    width: 58.33333333%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-5 {
+    width: 41.66666667%;
+  }
+  .col-md-4 {
+    width: 33.33333333%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-2 {
+    width: 16.66666667%;
+  }
+  .col-md-1 {
+    width: 8.33333333%;
+  }
+  .myContainer {
+  margin-left: 150px;
+  margin-right: 150px;
+}
+  #circle-Tab .active {
+    border-top: 2px solid #d12610;
+    margin-top: 0; 
+  }
+  .nav-tabs li a{
+    border-radius: 0 !important;
+    margin-right: 0;
+    font-size:16px;
+  }
+.panel-heading {
+    padding: 8px 8px;
+  }
+.panel .yellow {
+  background-color: #ffb848;
+  color:#fff;
+}
+.panel .green {
+  background-color: #35aa47;
+  color:#fff;
+}
+.panel .purple {
+  background-color: #6d1b81;
+  color:#fff;
+}
+.panel .red {
+  background-color: #e02222;
+  color:#fff;
+}
+.panel .blue {
+  background-color: #169ef4;
+  color:#fff;
+}
+  
+  

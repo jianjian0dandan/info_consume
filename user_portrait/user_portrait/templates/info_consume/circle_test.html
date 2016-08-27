@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap Test__editor GuoJia</title>
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-table.css" rel="stylesheet" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">
+    <!--自己的css样式，顺序靠后优先级越高-->
+    <link href="../static/css/circle_test.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="myContainer">
+      <div class="row">
+        <div class="col-md-12"><h1>系统主导航</h1></div>
+      </div>
+      <div class="row" id="circle-analysis" style="display:none;">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <ul id="circle-Tab" class="nav nav-tabs">
+            <li class="active"><a href="#basic-feature" data-toggle="tab">基本特征</a></li>
+            <li><a href="#active-feature" data-toggle="tab">活跃特征</a></li>
+            <li><a href="#interest-feature" data-toggle="tab">兴趣特征</a></li>
+            <li><a href="#social-feature" data-toggle="tab">社交特征</a></li>
+            <li><a href="#mood-feature" data-toggle="tab">情绪特征</a></li>
+            <li style="float:right;"><button id="close-circle" class="btn btn-primary">收起</button></li>
+          </ul>            
+          <div id="circleTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="basic-feature">
+              <p>基本特征</p>
+              <div class="row">
+                <div class="col-md-12">
+              群体基本特征
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading green"><b>影响力</b></div>
+                    <div id="influence-line" class="panel-body" style="padding:10px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading blue"><b>用户身份分布</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading"><b>用户领域分布</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="active-feature">
+              <p>活跃特征</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading yellow"><b>近一个月群体活跃度走势</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading purple"><b>主要活跃用户</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading yellow"><b>主要非活跃用户</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading blue"><b>近一个月地理活跃度分布</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="interest-feature">
+              <p>兴趣特征</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading red"><b>关键词</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading blue"><b>微话题</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading green"><b>相关话题微博</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="social-feature">
+              <p>社交特征</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading green"><b>内部转发关系图</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading purple"><b>外部转发关系图</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading blue"><b>相关转发话题微博</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="mood-feature">
+              <p>情绪特征</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading purple"><b>近一周群体情绪分布</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading yellow"><b>正向情绪发布用户</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default panel-success" border="1">
+                    <div class="panel-heading green"><b>负向情绪发布用户</b></div>
+                    <div class="panel-body"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+        <div class="row" id="circle-manage">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">          
+             <div class="panel panel-default" border="1">
+               <div class="panel-heading"><b>管理群组</b></div>
+                <div class="panel-body" style="padding:10px;">
+                  <table id="cicle-task" class="table table-hover table-condensed" data-height="500"></table>
+                </div>
+             </div> 
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+      </div>
+    <script src="../static/js/jquery-1.11.3.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/bootstrap-table.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/js/circle_test.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script src="../static/js/influence-line.js"></script>
+  </body>
+</html>

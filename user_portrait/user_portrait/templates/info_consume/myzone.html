@@ -1,0 +1,158 @@
+{% extends 'index.html' %}
+
+{% block title %}
+我的地盘
+{% endblock %}
+
+{% block main %}
+<div class='up_box'  style="border:1px #F2F4F8 solid;width:80%;">
+	<img src="../static/image/head.jpg" width="150px" height="150px" style="margin:auto; float:left;">
+	<p style="font-size:18px;margin-top:30px;margin-left:10px;float:left;">Hi，粽粽粽粽粽粽粽，一日之计在于晨，记得吃早饭哦~ </p>
+</div>
+
+
+<ul id="zone_tab" class="nav nav-tabs">
+   <li id="zone_left_tab" class="active">
+      <a href="#mysteward" data-toggle="tab">我的管家</a>
+	</li>
+   <li><a href="#myfriends" data-toggle="tab">我的好友</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content"><!--我的管家页面-->
+  <!--我的管家-->
+  <!--我的发帖-->
+    <div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+    	<div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的发帖</h3>
+			</div>
+			<div class="panel-body">
+				<ul id="myTab" class="nav nav-tabs">
+				   <li class="active">
+				      <a href="#zhuanfa" data-toggle="tab">
+				         转发最多
+				      </a>
+				   </li>
+				   <li><a href="#tixing" data-toggle="tab">评论最多</a></li>
+				   <li><a href="#hudong" data-toggle="tab">点赞最多</a></li>
+				   
+				</ul>
+				<div id="myTabContent" class="tab-content">
+				   <div class="tab-pane fade in active" id="zhuanfa" style="margin-left: 20%;">
+				   转发
+				   </div>
+
+				   <div class="tab-pane fade" id="tixing">
+					评论
+				   </div>
+
+				   <div class="tab-pane fade" id="hudong">
+					点赞		
+				   </div>
+				</div>
+			</div>
+		</div>
+  
+	    <!--我最爱说-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
+				</div>
+				<div class="panel-body">
+					这里是一个地图
+				</div>
+			</div>
+	   </div>
+
+	    <!--我的领域-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的领域</h3>
+				</div>
+				<div class="panel-body">
+					这里是我的领域
+				</div>
+			</div>
+	   </div>
+
+	    <!--我的影响力-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
+				</div>
+				<div class="panel-body">
+					影响力
+				</div>
+			</div>
+	   </div>
+
+	    <!--我的足迹-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的足迹</h3>
+				</div>
+				<div class="panel-body">
+					足迹地图
+				</div>
+			</div>
+	   </div>
+
+	    <!--智能情绪管家-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">智能情绪管家</h3>
+				</div>
+				<div class="panel-body">
+					情绪管家
+				</div>
+			</div>
+	   </div>
+	</div>
+<!--我的好友页面--> <!--我的好友页面-->  <!--我的好友页面--> <!--我的好友页面--> <!--我的好友页面--> 
+   <div class="tab-pane fade" id="myfriends">
+   <!--好友排行-->
+    	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+    		<div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">好友排行</h3>
+				</div>
+				<div class="panel-body">
+				
+				</div>
+			</div>
+   		</div>
+	    <!--亲密度排行-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">亲密度排行</h3>
+				</div>
+				<div class="panel-body">
+					亲密度排行
+				</div>
+			</div>
+  		 </div>
+    	 <!--社交网络-->
+	   	<div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
+	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">社交网络</h3>
+				</div>
+				<div class="panel-body">
+					一张大网
+				</div>
+			</div>
+	   </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+

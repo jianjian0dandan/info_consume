@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% block head_meta %}
+	<meta charset="utf-8">
+	<title>{% block title %}微世界{% endblock %}</title>   
+	<style type="text/css">
+	body { font-family:"Microsoft Yahei";
+			background-color:#F2F4F8; }	
+	</style>
+{% endblock %}
+	<!-- end head 标签 -->
+
+	<!-- 布局CSS -->
+{% block css%}
+	<link rel="stylesheet" type="text/css" href="../static/css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+	<link href="../static/css/dashboard.css" rel="stylesheet">
+<!-- end css -->
+ {% endblock %}
+
+<!-- 引入js -->
+ {% block head_js%}
+
+	<script type="text/javascript" src='../static/js/jquery.js'></script>
+	<script type="text/javascript" src='../static/js/jquery.min.js'></script>
+	<script src="../js/echarts.js"></script>
+	<script type="text/javascript" src="../static/js/echarts-all.js"></script>
+	<script type="text/javascript" src="../static/js/sliders.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+ {% endblock %}
+ <!-- end js -->
+</head> 
+<body>
+	<!--top nav-->
+  {% block header %}	
+	<div class="topnav">	 
+		 <img src="../static/image/title.png">		
+			<ul id="menu" style="margin-left:45%">
+				<li><a href="">我的管家</a>
+					<ul>
+						<li><a href="">微博统计</a></li>
+						<li><a href="">性格感知</a></li>
+						<li><a href="">我的好友</a></li>
+					</ul>
+				</li> 				  
+				<li><a href="">用户分析</a></li>
+				<li><a href="">微博那些事</a></li>
+				<li><a href="">商业推荐</a></li>
+			</ul>
+	</div>
+	{% endblock %}
+
+	{% block main %}
+	<div class="up_box">
+		<div class="l_box">
+				{% block headimg %}<img src="../static/image/head.jpg" width="150px" height="150px" style="margin:auto;">
+				{% endblock %} 
+				{% block leftbox %}
+				<div class="col-sm-3 col-md-2 sidebar">
+					
+						<div class="drop-navigation drop-navigation">
+						  <ul class="nav nav-sidebar">
+							<li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a></li>
+							<li><a href="/" class="menu1"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>我的管家<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+								<ul class="cl-effect-2">
+									<li><a href="movies.html">我的发帖</a></li>                                             
+									<li><a href="movies.html">我最爱说</a></li>
+									<li><a href="movies.html">我的领域</a></li> 
+									<li><a href="movies.html">我的影响力</a></li>
+									<li><a href="movies.html">我的足迹</a></li>
+									<li><a href="movies.html">情绪管家</a></li>
+								</ul>
+								<!-- script-for-menu -->
+								<script>
+									$( "li a.menu1" ).click(function() {
+									$( "ul.cl-effect-2" ).slideToggle( 300, function() {
+									// Animation complete.
+									});
+									});
+								</script>
+							<li><a href="/" class="menu"><span class="glyphicon glyphicon-film glyphicon-king" aria-hidden="true"></span>我的好友<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+								<ul class="cl-effect-1">
+									<li><a href="sports.html">亲密度排行</a></li>                                             
+									<li><a href="sports.html">最近访问</a></li>
+									<li><a href="sports.html">人际圈</a></li>   
+								</ul>
+								<!-- script-for-menu -->
+								<script>
+									$( "li a.menu" ).click(function() {
+									$( "ul.cl-effect-1" ).slideToggle( 300, function() {
+									// Animation complete.
+									});
+									});
+								</script>
+							<li><a href="movies.html" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>用户分析</a></li>
+							<li><a href="news.html" class="news-icon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>微博那些事</a></li>
+						  </ul>
+						  <!-- script-for-menu -->
+								<script>
+									$( ".top-navigation" ).click(function() {
+									$( ".drop-navigation" ).slideToggle( 300, function() {
+									// Animation complete.
+									});
+									});
+								</script>
+							<div class="side-bottom">
+								<div class="side-bottom-icons">
+									<ul class="nav2">
+										<li><a href="#" class="facebook"> </a></li>
+										<li><a href="#" class="facebook twitter"> </a></li>
+										<li><a href="#" class="facebook chrome"> </a></li>
+										<li><a href="#" class="facebook dribbble"> </a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+		        </div>
+		        {% endblock %}
+	    </div>
+
+		<div class="m_box">
+			
+			<p style="font-size:18px;margin-top:5px;">{% block greet %}Hi，粽粽粽粽粽粽粽 ，一日之计在于晨，记得吃早饭哦~ {% endblock %}</p>
+			<script> </script><!--时间规则判断函数-->
+			
+			{% block board %}
+			<div class='wel_count'>		
+		        <ul>
+		          <li><a id="weibo" href="#" target="_blank">微博<br>1234</a></li>
+		          <li><a id="fans" href="#" target="_blank">粉丝<br>1244</a></li>
+		          <li><a id="fav" href="#" target="_blank">收藏<br>1244</a></li>
+		          <li><a id="focus" href="#" target="_blank">关注<br>1244</a></li>
+		        </ul>
+			</div>
+
+			<div class="dashboard content_dashboard boxshadow">
+				<img id="draw_img" src="../static/image/icon_draw.png" width="30px" height="30px" >
+				<h1 id="board_title">我的形象画板</h1>
+				<img id="body_board" src="../static/image/bodymodel_woman.png">
+				<p id="draw_p1">Painter</p><!--interesting word1-->
+				<p id="draw_p2">Japan comic</p><!--interesting word2-->
+				<p id="draw_p3">Lady Gaga</p><!--friends name-->
+				<p id="draw_p4">China,Guangzhou</p><!--location-->
+
+   				<img id="influ_img" src="../static/image/icon_inf.png " width="30px" height="30px" >
+				<h1 id="influ_title">我的个人影响力</h1>
+					<div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left bk-vcenter text-center">
+							<small style=" font: 16px/1.5 'Microsoft Yahei';color:#ffffff;">我的影响力得分：35分</small>
+							<div class="progress bk-margin-off-bottom" style="height: 15px;">
+								<div class="progress thin progress-striped active">
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;">
+										<span class="sr-only">35% Complete</span>
+									</div>
+							    </div>
+						    </div>
+						</div>
+					</div>
+
+
+   				<img id="act_img" src="../static/image/icon_act.png " width="30px" height="30px" >
+				<h1 id="act_title">我的活跃度:30分</h1>				
+				<h1 id="act_text">最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>				
+			</div>
+			{% endblock %}		
+		</div>
+		
+		{% block rightbox %}
+		<div class="r_box">
+			<div class="weather boxshadow">
+			<iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="300" height="200" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+			</iframe>
+			</div>
+			<!--Personal acconunt infomation-->
+			<div class="panel panel-success boxshadow" id="account">
+					<div class="panel-heading">
+						<h3 class="panel-title">账户信息</h3>
+					</div>
+					<div class="panel-body">
+					<p style="font-size:16px !important;">
+					用户ID：1991194723 <br><br>
+					昵称：粽粽粽粽粽粽粽 <br><br>
+					是否认证：否 <br><br>
+					认证类型：普通用户 <br><br>
+					注册地：其他 <br><br>
+					个人描述：胆小认生 不易相处。<br><br>
+					</p>
+					</div>
+			</div>
+			<!--最近交互-->
+			<div class="panel panel-success boxshadow" id="his_vis">
+				<div class="panel-heading">
+					<ul id="myTab" class="nav nav-tabs panel-title">
+					   <li class="active">
+					      <a href="#others_me" data-toggle="tab">最近@我</a>
+					   </li>
+					   <li><a href="#me_others" data-toggle="tab">我@谁</a></li>
+					</ul>
+				</div>
+					
+				<div id="myTabContent" class="tab-content">
+				   <div class="tab-pane fade in active" id="others_me">
+				      <p>插入好友访问</p>
+				   </div>
+				   <div class="tab-pane fade" id="me_others">
+				      <p>插入我的访问</p>
+				   </div>
+				</div>
+
+			</div>
+		</div>
+		{% endblock %}
+		<p class="clear"></p>
+	</div>
+
+
+	{% block downbox %}
+	<div class="down_box"><!--微博动态-->
+	    <div class="panel panel-success" style="width:100%;height:100%;margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+			<div class="panel-heading">
+				<h3 class="panel-title">最近动态</h3>
+			</div>
+			<div class="panel-body">
+					<ul id="myTab" class="nav nav-tabs">
+						<li class="active"><a href="#time" 
+						data-toggle="tab" style="width:100px; text-align:center;"> 时间</a></li>
+						 <li><a href="#zhuanfashu" data-toggle="tab" style="width:100px; text-align:center;">转发数</a></li>
+						 <li><a href="#pinglun" data-toggle="tab" style="width:100px; text-align:center;">评论数</a></li>
+						 <li><a href="#dianzan" data-toggle="tab" style="width:100px; text-align:center;">点赞数</a></li>		  
+					</ul>
+
+						<div id="myTabContent" class="tab-content">
+						   <div class="tab-pane fade in active" id="time">
+
+						      <div style="float:left;padding:5px;width: 100%;background:whitesmoke;">
+						      		<p style="margin-left:10px;">1、昵称：<a target="_blank" href="/index/personal/?uid=1863675294">董锤锤</a>(中国	上海	上海)&nbsp;&nbsp;发布内容:<font color="black">博尔特。。。一个跑在最前面还不忘看镜头的人</font></p><p style="float:left;width:100%;margin-top:-5px;margin-left:10px;"><span style="float:right;padding-right: 10px;color:#858585"><span>转发数(5056)&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数(3282)</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>言论敏感度(0)</span></span><span style="float:left"><u>2016-08-15 12:35:08</u> - <a color:#e0e0e0="" target="_blank" href="http://weibo.com/1863675294/E3EJcqnwV">微博</a>-<a target="_blank" href="/index/personal_detail/?uid=1863675294">用户详情</a></span></p>
+						      </div>
+
+						      <div style="float:left;padding:5px;width: 100%;">
+						      		<p style="margin-left:10px;">
+						      			2、昵称：
+						      			<a target="_blank" href="/index/personal/?uid=1863675294">董锤锤</a>(中国	贵州	贵阳)&nbsp;&nbsp;发布内容:<font color="black">回覆@五截y:感谢科普！不是伤病的话就更好啦 //@五截y:那是有助于减少乳酸缓解肌肉疲劳的.... //@董锤锤:两位老将身上都布满了膏药[泪][泪]</font></p><p style="float:left;width:100%;margin-top:-5px;margin-left:10px;"><span style="float:right;padding-right: 10px;color:#858585"><span>转发数(2546)&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数(141)</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>言论敏感度(0)</span></span><span style="float:left"><u>2016-08-19 21:11:46</u> - <a color:#e0e0e0="" target="_blank" href="http://weibo.com/1863675294/E4jOTaYjt">微博</a>-<a target="_blank" href="/index/personal_detail/?uid=1863675294">用户详情</a></span>
+						      		</p>
+						      </div>
+
+
+						   </div>
+
+						   <div class="tab-pane fade" id="zhuanfashu">
+						      <p>转发</p>
+						   </div>
+
+						   <div class="tab-pane fade" id="pinglun">
+						      <p>评论</p>
+						   </div>
+
+						   <div class="tab-pane fade" id="dianzan">
+						      <p>点赞</p>
+						   </div>
+						  
+						</div>
+
+			</div>
+		</div>		
+	</div>
+	{% endblock %}
+	{% endblock %}
+	<!--
+	{% block footer %}
+	<div class="footer">
+	  <p class="ft-copyright">网民画像系统 Design by Rcsc 京ICP 1234567</p>
+	</div>
+	{% endblock %}
+	-->
+
+</body>
+</html>
