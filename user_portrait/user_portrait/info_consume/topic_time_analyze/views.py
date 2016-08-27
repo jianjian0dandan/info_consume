@@ -2,7 +2,7 @@
 
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
-from utils import all_weibo_count, get_weibo_content, get_weibo_by_time, get_weibo_by_hot
+from utils import  get_weibo_by_time, get_weibo_by_hot
 
 mod = Blueprint('topic_time_analyze',__name__,url_prefix='/topic_time_analyze')
 
@@ -49,3 +49,4 @@ def HotOrderWeibos():
     start_ts = long(start_ts)
     ts_arr = []
     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
+
