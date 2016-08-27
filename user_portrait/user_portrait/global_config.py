@@ -2,6 +2,8 @@
 
 import os
 from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+from elasticsearch import Elasticsearch
 
 REDIS_CLUSTER_HOST_FLOW1 = '219.224.134.213'
 REDIS_CLUSTER_HOST_FLOW1_LIST = ["219.224.134.211", "219.224.134.212", "219.224.134.213"]
@@ -106,3 +108,50 @@ WEIBO_API_PORT = ''
 # redis/elasticsearch path
 redis_path = '/home/redis-3.0.1'
 es_path = '/home/elasticsearch-1.6.0'
+
+
+
+
+#jln info_consume
+mtype_kv = {'origin':1, 'comment': 2, 'forward':3}
+emotions_kv = {'happy': 1, 'angry': 2, 'sad': 3, 'news': 4}
+emotions_zh_kv = {'happy': '高兴', 'angry': '愤怒', 'sad': '悲伤', 'news': '新闻'}
+MYSQL_HOST = '219.224.135.222' #47
+MYSQL_USER = 'root'
+MYSQL_DB = 'weibocase'
+MONGODB_HOST = '219.224.135.222' #47
+MONGODB_PORT = 27019
+SSDB_PORT = 8888
+SSDB_HOST = '219.224.134.222' # SSDB服务器在47
+
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:@219.224.134.222/weibocase?charset=utf8'
+# Create application
+app = Flask('xxx')
+# Create dummy secrey key so we can use sessions
+app.config['SECRET_KEY'] = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+# Create database
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_ECHO'] = False
+db = SQLAlchemy(app)
+
+#jln:for getTopicByNameStEt
+TOPIC_ES_HOST = '219.224.134.211:9204'
+topic_es = Elasticsearch(TOPIC_ES_HOST,timeout=1000)
+topic_index_name = 'topics'
+topic_index_type ='text'
+
+WEIBO_ES_HOST = '219.224.134.211:9204'
+weibo_es = Elasticsearch(WEIBO_ES_HOST,timeout=1000)
+weibo_index_name = 'weibo'
+weibo_index_type ='text'
+topics_river_index_name='topics_river'
+topics_river_index_type='text'
+subopinion_index_type='text'
+subopinion_index_name='subopinion'
+
+es_user_profile = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 1000)
+es_retweet = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 1000)
+retweet_index_name_pre = '1225_retweet_' # retweet: 'retweet_1' or 'retweet_2'
+retweet_index_type = 'user'
+profile_index_name = 'weibo_user'  # user profile es
+profile_index_type = 'user'

@@ -14,6 +14,9 @@ from global_config import UNAME2UID_HOST, UNAME2UID_PORT
 from global_config import RETWEET_REDIS_HOST, RETWEET_REDIS_PORT
 from global_config import COMMENT_REDIS_HOST, COMMENT_REDIS_PORT
 
+#jln
+from global_config import weibo_index_type,topic_es,weibo_es,topic_index_name,topic_index_type,weibo_index_name
+
 #uname2uid redis
 uname2uid_redis = redis.StrictRedis(host=UNAME2UID_HOST, port=UNAME2UID_PORT)
 
@@ -236,3 +239,39 @@ COPY_USER_PORTRAIT_ACTIVENESS = "copy_user_portrait_activeness"
 COPY_USER_PORTRAIT_ACTIVENESS_TYPE = 'activeness'
 COPY_USER_PORTRAIT_SENSITIVE = "copy_user_portrait_sensitive"
 COPY_USER_PORTRAIT_SENSITIVE_TYPE = 'sensitive'
+
+
+'''
+jln:query_to_es
+2016.8.8
+'''
+def getTopicByNameStEt(topic,start_date,end_date):
+
+    query_body = {
+        'query':{
+            'bool':{
+                'must':[
+                    {'term':{'start_ts':start_date}},
+                    {'term':{'end_ts':end_date}},
+                    {'term':{'name':topic}}
+                ]
+            }
+        }
+    }
+    search_result = topic_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)['hits']['hits']
+    return search_result
+
+def getWeiboByNameStEt(topic,start_date,end_date):
+    print weibo_es
+    query_body= {
+        'query':{
+            'filtered':{
+                'filter':{
+                    'range':{'timestamp':{'gte':start_date,'lte':end_date}}
+                    }
+            }
+        }
+    }
+    search_result = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)
+    print search_result
+    return search_result
