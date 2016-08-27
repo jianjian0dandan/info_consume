@@ -8,9 +8,10 @@ from user_portrait.time_utils import ts2datetime
 from User_sort_interface import user_sort_interface
 from Offline_task import search_user_task , getResult , delOfflineTask
 from temporal_rank import get_temporal_rank
+from user_portrait.global_utils import R_ADMIN
 from imagine import imagine
 
-mod = Blueprint('user_rank', __name__, url_prefix='/user_rank')
+mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
 
 @mod.route('/user_sort/', methods=['GET', 'POST'])
 def user_sort():
