@@ -42,6 +42,10 @@ def ts2HourlyTime(ts, interval):
     ts = ts - ts % interval
     return ts
 
+def full_datetime2ts(date):
+    return int(time.mktime(time.strptime(date,'%Y-%m-%d %H:%M:%S')))
+
+
 def ts2datetime_full(ts):
     return time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(ts))
 
