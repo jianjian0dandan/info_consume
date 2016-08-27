@@ -7,12 +7,12 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Bootstrap Test__editor GuoJia</title>
     <!-- Bootstrap -->
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/bootstrap-table.css" rel="stylesheet" >
+    <link href="../../static/info_consume/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/info_consume/css/bootstrap-table.css" rel="stylesheet" >
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" >
     <!--自己的css样式，顺序靠后优先级越高-->
-    <link href="../static/css/boot_test.css" rel="stylesheet">
+    <link href="../../static/info_consume/css/boot_test.css" rel="stylesheet">
   </head>
   <body>
     <div class="myContainer">
@@ -26,11 +26,11 @@
         <div class="col-md-8 input-group">
           <div class="input-group-btn">  
             <select id="search_norm" name="type" class="form-control selectpicker" data-style="btn-success">  
-              <option value="话题">话题</option>  
-              <option value="用户">用户</option>  
+              <option>话题</option>  
+              <option>用户</option>  
             </select>  
           </div>  
-            <input id="keyword_hashtag" type="text" class="form-control" placeholder="请输入搜索内容关键词"><span class="input-group-addon btn btn-success" onclick="submit_rank()">搜索</span>
+            <input id="keyword_hashtag" type="text" class="form-control" placeholder="请输入搜索内容关键词"><span id="search-btn" class="input-group-addon btn btn-success">搜索</span>
         </div> 
         <div class="col-md-2"></div>            
       </div>
@@ -51,23 +51,25 @@
   		   <ul class="ver-inline-menu" style="margin-bottom:25px;">
     		 <li class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周用户影响力排行</a></li>
     		    <li><a id="education" href="#" data-toggle="tab"><i class="fa fa-graduation-cap" aria-hidden="true"></i>教育领域排行</a></li>
+            <li><a id="politics" href="#" data-toggle="tab"><i class="fa fa-university" aria-hidden="true"></i>政治领域排行</a></li>
             <li><a id="military" href="#" data-toggle="tab"><i class="fa fa-rocket" aria-hidden="true"></i>军事领域排行</a></li>
             <li><a id="tech" href="#" data-toggle="tab"><i class="fa fa-flask" aria-hidden="true"></i>科技领域排行</a></li>
-            <li><a id="sports" href="#" data-toggle="tab"><i class="fa fa-music" aria-hidden="true"></i>文体领域排行</a></li>
-            <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-heartbeat" aria-hidden="true"></i>民生领域排行</a></li>
-            <li><a id="politics" href="#" data-toggle="tab"><i class="fa fa-university" aria-hidden="true"></i>政治领域排行</a></li>
+            <li><a id="amusement" href="#" data-toggle="tab"><i class="fa fa-music" aria-hidden="true"></i>娱乐领域排行</a></li>
+            <li><a id="sports" href="#" data-toggle="tab"><i class="fa fa-bicycle" aria-hidden="true"></i>体育领域排行</a></li>
             <li><a id="business" href="#" data-toggle="tab"><i class="fa fa-briefcase" aria-hidden="true"></i>商业领域排行</a></li>
+            <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-heartbeat" aria-hidden="true"></i>民生领域排行</a></li>
             <li><a id="others" href="#" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i>其他领域排行</a></li>
           </ul>
 		  </div>
         <div class="col-md-9">
           <div id="sort-panel" class="panel panel-default">
-            <div class="panel-heading"><b>用户排序</b></div>
+            <div class="panel-heading"><b>排序结果</b></div>
             <div class="panel-body">
               <div id="toolbar">
                 <div class="btn btn-success" data-toggle="modal" data-target="#addModal">添加群组</div>
               </div>
               <table id="table-user" class="table table-hover"></table>
+              <table id="table-user-user" class="table table-hover"></table>
               <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
                    <div class="modal-dialog">
                         <div class="modal-content">
@@ -96,11 +98,11 @@
         </div>
       </div>
     </div>
-    <script src="../static/js/jquery-1.11.3.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/bootstrap-table.js"></script>
-    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
-    <script src="../static/js/boot_test.js"></script>
+    <script src="../../static/info_consume/js/jquery-1.11.3.min.js"></script>
+    <script src="../../static/info_consume/js/bootstrap.min.js"></script>
+    <script src="../../static/info_consume/js/bootstrap-table.js"></script>
+    <script src="../../static/info_consume/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../../static/info_consume/js/boot_test.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
   </body>
 </html>

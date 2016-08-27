@@ -1,4 +1,4 @@
-$('#cicle-task').bootstrapTable({
+            $('#cicle-task').bootstrapTable({
                   url: 'data3.json',
                   search: true,//是否搜索
                   pagination: true,//是否分页
