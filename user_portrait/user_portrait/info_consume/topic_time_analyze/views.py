@@ -13,7 +13,7 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
-@mod.route('/mtype_count')
+@mod.route('/mtype_count/')
 def MtypeCount():      #每类微博的数量
     topic = request.args.get('topic','')
     during = request.args.get('pointInterval', Fifteenminutes)   #默认查询时间粒度为900秒
