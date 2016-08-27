@@ -1,0 +1,10 @@
+<uwsgi>
+    <http>10.128.55.83:9002</http>
+    <chdir>/home/user_portrait_0320/revised_user_portrait/user_portrait</chdir>
+    <callable>app</callable>
+    <master>1</master>
+    <wsgi-file>run.py</wsgi-file>
+    <processes>10</processes>
+    <threads>2</threads>
+</uwsgi>
+

@@ -1,0 +1,173 @@
+{% import 'admin/layout.html' as layout with context -%}
+{% import 'admin/static.html' as admin_static with context %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% if admin_view.category %}{{ admin_view.category }} - {% endif %}{{ admin_view.name }} - {{ admin_view.admin.name }}{% endblock %}</title>
+    {% block head_meta %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    {% endblock %}
+    {% block head_css %}
+         <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+	<link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}" rel="stylesheet">
+        <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}" rel="stylesheet">
+        <link href="{{ admin_static.url(filename='admin/css/bootstrap3/admin.css', v='1.1.1') }}" rel="stylesheet">
+        <style>
+        body {
+            padding-top: 4px;
+        }
+        </style>
+    {% endblock %}
+    {% block head %}
+    {% endblock %}
+    {% block head_tail %}
+    {% endblock %}
+ <script src="/static/js/jquery-1.8.2.min.js"></script>
+
+        <script type="text/javascript">
+        $(function () {
+            /*
+            var winw = parseInt($(window).width());
+            $('.menu .nav .box').css({'padding-left':(winw-960)/2,'padding-right':(winw-960)/2,'margin-left':-(winw-960)/2});
+            */
+            var navLi=$(".menu .nav li");
+            navLi.mouseover(function () {
+                $(this).find("a").addClass("current");
+                var num = $(this).find("a").length - 1;
+                $('.menu .nav .box').css({'width':118*num});
+                $(this).find(".box").stop().slideDown(200);
+                })
+            navLi.mouseleave(function(){
+                $(this).find("a").removeClass("current");
+                $(this).find(".box").stop().slideUp(200);
+                })
+        })
+        </script>
+
+  </head>
+  <body>
+             <div id="header">
+                <div><a href="/"><h1 class="headtitle">网民画像系统</h1></a></div>
+                <div class="menu" style="width:800px;">
+                        <ul class="nav">
+                    	<li><a href="/index/user_rank/">用户排行</a></li>
+                    	<li><a href="/index/mood_detect">情绪监测</a></li>
+                    	<li><a href="">网民画像</a>
+                            <div class="box">
+                                <a href="/index/portrait_in/">网民入库推荐</a>
+                                <a href="/index/search_portrait/">查看人物画像</a>
+                                <a href="/index/search_contrast/">人物对比分析</a>
+                                <a href="/index/search_connect/">人物关联分析</a>
+                            </div>
+                        </li>
+                        <li><a href="">群体分析</a>
+                            <div class="box">
+                                <a href="#">群体发现</a>
+                                <a href="#">群体分析</a>
+                            </div>
+                        </li>
+                        <li><a href="/index/social_sensing/">社会感知</a></li>
+
+                        <li><a href="#">系统管理</a>
+                            <div class="box">
+                                <a href="/admin/">权限管理</a>
+                                <a href="/index/logmanage/">日志管理</a>
+                                <a href="/index/recommend_in_out/">出入库操作</a>
+                            </div>
+                        </li>
+                        <li><a href="/index/usercenter/">个人中心</a>
+                            <div class="box">
+                                 {% if not g.user.is_anonymous %}
+                                     <a href="/index/usercenter/" style="font-size:12px;"><span>{{g.user.email}}</span> </a>
+                                     <a href="/logout/"> 登出 </a>
+                                 {% else %}
+                                     <a href="/login"> 登陆 </a>
+                                 {% endif %}
+                           </div>
+                      </li>
+                </ul>
+          </div>
+                <!--
+                <div><a title="logout" href="" style="color:white;font-weight:bold;text-decoration:underline;margin-top:75px;float:right;margin-right:20px;font-size:13px;"> 登出 </a></div>-->
+  </div>
+<!-- end_menu -->
+
+
+
+
+    {% block page_body %}
+    <div class="container">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {% block brand %}
+          <a class="navbar-brand" href="#">{{ admin_view.admin.name }}</a>
+          {% endblock %}
+        </div>
+        <!-- navbar content -->
+        <div class="collapse navbar-collapse" id="admin-navbar-collapse">
+          {% block main_menu %}
+          <ul class="nav navbar-nav" id="submenu">
+            {{ layout.menu() }}
+          </ul>
+          {% endblock %}
+
+          {% block menu_links %}
+          <ul class="nav navbar-nav navbar-right">
+            {{ layout.menu_links() }}
+          </ul>
+          {% endblock %}
+          {% block access_control %}
+          {% endblock %}
+        </div>
+      </nav>
+
+      {% block messages %}
+      {{ layout.messages() }}
+      {% endblock %}
+
+      {# store the jinja2 context for form_rules rendering logic #}
+      {% set render_ctx = h.resolve_ctx() %}
+
+      {% block body %}{% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block tail_js %}
+    <script src="{{ admin_static.url(filename='vendor/jquery.min.js', v='2.1.4') }}" type="text/javascript"></script>
+    <script src="{{ admin_static.url(filename='bootstrap/bootstrap3/js/bootstrap.min.js', v='3.3.5') }}" type="text/javascript"></script>
+    <script src="{{ admin_static.url(filename='vendor/moment.min.js', v='2.9.0') }}" type="text/javascript"></script>
+    <script src="{{ admin_static.url(filename='vendor/select2/select2.min.js', v='3.5.2') }}" type="text/javascript"></script>
+    {% endblock %}
+
+    {% block tail %}
+    {% endblock %}
+
+<script>
+    console.log('sdf')
+    $('#submenu').find('li:first').css('display', 'none');
+    //$('#submenu').find('li:first').append('主页');
+    $('#submenu li').eq(1).empty();
+    $('#submenu li').eq(1).append('<a href="/admin/user/">用户管理</a>');
+    //$('#submenu li').eq(1).css('padding', '15px');
+    $('#submenu li').eq(1).css('color', '#777777');
+    $('#submenu li').eq(2).empty();
+    $('#submenu li').eq(2).append('<a href="/admin/role/">权限管理</a>');
+    //$('#submenu li').eq(2).css('padding', '15px');
+    $('#submenu li').eq(2).css('color', '#777777');
+
+
+</script>
+
+  </body>
+</html>

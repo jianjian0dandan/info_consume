@@ -1,0 +1,64 @@
+{%extends "tbase.html" %}
+{% block title %}个人基本属性{% endblock title %}
+{% block head_title %}个人基本属性{% endblock head_title %}
+
+{% block css %}
+{{ super() }}
+<link  type="text/css" href="/static/personal/css/style.css" rel="stylesheet"/>
+<link  type="text/css" href="/static/personal/css/basic.css" rel="stylesheet"/>
+<link  type="text/css" href="/static/personal/css/framestyle.css" rel="stylesheet"/>
+{% endblock css %}
+
+{% block main %}
+<div style="width:1100px">
+<div id="p_useremail" hidden>{{g.user.email}}</div>
+<div id = "porphoto" style="width:245px;float:left;">
+    <span class="img-photo" style="margin-left:45px;margin-top:0px;margin-bottom:10px;display:block;float:left;"><img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" alt="Photo" width="120" height="120"></span>
+    <span class="portrait_href" style="font-size:13px;float:right;margin-top:120px;"> <a id="portrait_detail"  onclick="turn_detail()" style="">查看详细属性</a>
+</div>
+<div class="overall_evaluation" style="float:left;" >
+    <h4 class="title">整体评价</h4>
+    <div class = "row" style="font-size:13px; line-height:30px;" >
+        <span style="color:#1C41CE;margin-left:20px;font-size:13px;">活跃度</span> <span id="activePower" style="margin-left:20px;"></span>&nbsp(NO.<span id="activeness_rank"></span>/<span id="activeness_total"></span>)&nbsp <span class="gray">最高值</span><span id="Hactiveness"></span>/<span class="gray">最低值</span><span id="Lactiveness"></span>
+        <span style="color:#1C41CE;margin-left:20px;font-size:13px;">身份敏感度</span> <span id="importantPower" style="margin-left:20px;"></span>&nbsp(NO.<span id="importance_rank"></span>/<span id="importance"></span>)&nbsp <span class="gray">最高值</span><span id="Himportance"></span>/<span class="gray">最低值</span><span id="Limportance"></span>
+    </div>
+    <div class = "row" style="font-size:13px;line-height:30px;margin-top:10px;" >
+        <span style="color:#1C41CE;margin-left:20px;font-size:14px;">影响力</span> <span id="influencePower" style="margin-left:20px;"></span>&nbsp(NO.<span id="influence_rank"></span>/<span id="influence"></span>)&nbsp <span class="gray">最高值</span><span id="Hinfluence"></span>/<span class="gray">最低值</span><span id="Linfluence"></span>
+        <span style="color:#1C41CE;margin-left:20px;font-size:14px;">言论敏感度</span> <span id="sensitivePower" style="margin-left:20px;"></span>&nbsp(NO.<span id="sensitive_rank"></span>/<span id="sensitiveness"></span>)&nbsp <span class="gray">最高值</span><span id="Hsensitiveness"></span>/<span class="gray">最低值</span><span id="Lsensitiveness"></span>
+    </div>
+    <div style="border-top:1px solid #ccc;width:100%;float:left;padding-left:20px;line-height:40px;">
+	    <span>注：当前数值是通过计算近7日信息获得，最高、最低值统计范围为近30日。</span>
+	</div>
+</div>
+<div class="" style="float:left;width:245px;">
+	<div class="basicinfo" style="float:left;width:245px;min-height:525px;" >
+		<h4 class="title" style="background:#77ACF4;color:#fff;">注册信息</h4>
+		<ul>
+			<li><span>用户ID：</span><span id="uid"></span></li>
+			<li><span>昵称：</span><span id="uname"></span></li>
+			<li><span>是否认证：</span><span id="verf"></span></li>
+			<li><span>认证类型：</span><span id="verf_type"></span></li>
+			<li><span title="用户当前最新粉丝数">粉丝数*：</span><span id="fansum"></span></li>
+			<li><span>关注数：</span><span id="attentionsum"></span></li>
+			<li><span title="用户近30天发布微博总数">微博数*：</span><span id="weibosum"></span></li>
+			<li><span>注册地：</span><span id="location"></span></li>
+			<li><span>个人描述：</span><span id="description"></span></li>
+			<li><span>微博主页：</span></li>
+			<li><a href="" id="homepage" ></a></li>
+		</ul>
+	</div>
+
+  <div class="" style="float:left;margin-left:22px;">
+    <div class="locationinfo" style="width:330px;float:left;border:1px solid #77ACF4;background:#fff;">
+        <h4 class="title" style="background:#77ACF4;color:#fff;">活动信息</h4>
+        <ul>
+            <li><span style="color:#1C41CE;">当前位置</span><span id="cur_ip" style="margin-left:20px;"></span>(<span id="cur_loca"></span>)</li>
+			<li><span style="color:#1C41CE;">异常位置</span><span id="ab_ip" style="margin-left:20px;"></span>(<span id="ab_loca"></span>)</li>
+            <li><span style="color:#1C41CE;">活跃位置</span><span id="act_ip" style="margin-left:20px;"></span>(<span id="act_loca"></span>)</li>
+			<li><span style="color:#1C41CE;">家庭位置</span><span id="fam_ip" style="margin-left:20px;"></span>(<span id="fam_loca"></span>)</li>
+			<li><span style="color:#1C41CE;">工作位置</span><span id="work_ip" style="margin-left:20px;"></span>(<span id="work_loca"></span>)</li>
+        </ul>
+    </div>
+  </div>	
+
+

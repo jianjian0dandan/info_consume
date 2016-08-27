@@ -1,0 +1,113 @@
+{% extends "tbase.html" %}
+{% block title %}网民入库推荐{% endblock title %}
+{% block head_title %}网民入库推荐{% endblock head_title %}
+{% block ex_link %}/index/nouns_explain/#portrait{% endblock %}
+{% block css %}
+{{ super() }}
+<link  type="text/css" href="/static/personal/css/style.css" rel="stylesheet"/>
+<style>
+	.shadow {
+		-webkit-box-shadow:5px 6px 3px #ABA8A8;
+		-moz-box-shadow:5px 6px 3px #ABA8A8;
+		box-shadow:5px 6px 3px #ABA8A8;
+	}
+    .dataTables_filter{text-align:right;margin-bottom:5px;}
+    .dataTables_paginate{margin-top:-10px;margin-bottom:-20px;}
+</style>
+{% endblock css %}
+{% block main %}
+	<div id='' style="width:1000px;padding-bottom:20px;">
+		<h4>推荐设置</h4>
+        <div id="useremail" hidden>{{g.user.email}}</div>
+		<table class="shadow" style="margin:20px 30px;width:900px; border: 2px solid #cccccc;">
+			<tr style="border-bottom: 1px solid #cccccc;">
+				<th style="width:150px;height:50px;background-color: #E4E4E4;text-align: center;">推荐方式</td>
+				<td>
+					<select id="input_choose" class="type_sub" style="float:left;width:140px;height:25px;">
+						<option value='influence'>影响力推荐</option>
+						<option value='sensitive'>言论敏感度推荐</option>
+						<option value='auto'>智能推荐</option>
+						<option value='upload'>用户推荐</option>
+					</select>
+					<div id="detect_choose_detail" style="float: left;margin-left:15px;"></div>
+				</td>
+			</tr>
+			<tr style="border-bottom: 1px solid #cccccc;">
+				<th  id="second_level" style="width:150px;height:50px;background-color: #E4E4E4;text-align: center;">推荐日期</th>
+				<td id="second_content">
+		              <select id="recommend_date_select" style="float:left;width:110px;height:20px;"></select></span>
+        <div id='upload_panel' style="display:none;">
+            <span style='float:left;'>
+            <select id='file_type'>
+                <option value='uid'>用户ID</option>
+                <option value='uname'>用户昵称</option>
+                <option value='url'>用户相册URL</option>
+            </select></span>
+	        <form enctype="multipart/form-data" method="post" style="float:left;margin-left:20px">
+                    <input type="file" id="seed_file_upload" class="fleft" style='border:1px solid #999'/>  
+                    <input type="button" value="上传" id="uploadbtn" class="fleft"/>
+                </form>
+                <div class="col-lg-9" id="file_status" style="display:none;padding:0px;">
+                    <span class="input-group-addon" style="color:#2c3251;font-weight:bold;width:100px;border:1px solid white;background-color:white;display:inline-block">上传成功！</span>
+                    <span id="add_file" class="input-group-addon" style="width:250px;border:1px solid white;background-color:white;display:inline-block" ></span>
+                    <a id="delete_file" style="cursor:pointer;">删除</a>
+                </div>
+        </div>
+					<span id="recommend_date_button" title="确定日期选择"  class="portrait_button" style='float:right;cursor:pointer;margin-right:20px;width: 45px;height: 25px;text-align: center;line-height: 25px;'>提交</span>		
+				</td>
+			</tr>
+          </tbody>
+        </table>
+		<div id="in_onload" style="width:100%;"><center>正在加载，请稍候...</center></div>
+		<div id="recommend" style="width:900px;margin-left:30px;margin-top:10px"></div>
+        <!--<div id='upload_panel' style="display:none;">
+            <span style='float:left;margin-top:10px;'>
+            文件内容：</span>
+            <span style='float:left;margin-top:10px;'>
+            <select id='file_type'>
+                <option value='uid'>用户ID</option>
+                <option value='uname'>用户昵称</option>
+                <option value='url'>用户相册URL</option>
+            </select></span>
+	        <form enctype="multipart/form-data" method="post" style="float:left;margin:10px 15px;height:25px;">
+                    <input type="file" id="seed_file_upload" class="fleft" style='border:1px solid #999'/>  
+                    <input type="button" value="上传" id="uploadbtn" class="fleft"/>
+                </form>
+                <div class="col-lg-9" id="file_status" style="display:none;padding:0px;">
+                    <span class="input-group-addon" style="color:#2c3251;font-weight:bold;width:100px;border:1px solid white;background-color:white;display:inline-block">上传成功！</span>
+                    <span id="add_file" class="input-group-addon" style="width:250px;border:1px solid white;background-color:white;display:inline-block" ></span>
+                    <a id="delete_file" style="cursor:pointer;">删除</a>
+                </div>
+        </div>-->
+	<div id="choose_in" style="text-align:right;margin-right:70px;">
+	    <button class="btn btn-primary btn-sm" style="width:80px;height:40px;margin-left:10px" name="recommend_button" id="recommend_button">选择入库</button>
+	</div>
+    </div>
+</div>
+
+<div class="modal fade" id="details_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width:820px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">用户详情</h4>
+      </div>
+      <div class="modal-body" style="width:820px">
+        <h4 style="text-align:center">微博走势</h4>
+        <div id="line_chart" style="margin-top:0px;height:350px;width:780px"></div>
+        <div id="in_detail">
+            <span id="place" style="margin-top:0px;margin-left:20px;width:340px;float:left"></span>
+            <span id="hashtag" style="margin-top:0px;margin-right:20px;width:340px;float:right"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block Own_js %}
+{{ super() }}
+<script type="text/javascript" src="/static/js/portrait/identify_table.js"></script>
+<script type="text/javascript" src="/static/js/portrait/portrait_in.js"></script>
+{% endblock Own_js %}

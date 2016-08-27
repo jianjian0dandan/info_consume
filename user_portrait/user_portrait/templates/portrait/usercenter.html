@@ -1,0 +1,584 @@
+{%extends "tbase.html" %}
+    {% block title %}个人中心{% endblock title%}
+      {% block css %}
+		<link href="/static/css/dashboard.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/static/css/jquery.datetimepicker.css"/>
+        <link rel="stylesheet" href="/static/css/portrait.css">
+      {{ super() }}    
+    <style type="text/css">
+    *{
+    font-family:微软雅黑;
+    }
+    body {
+  font-family: '微软雅黑';
+  font-size: 14px;
+	}
+  .shadow {
+    -webkit-box-shadow:5px 6px 3px #ABA8A8;
+    -moz-box-shadow:5px 6px 3px #ABA8A8;
+    box-shadow:5px 6px 3px #ABA8A8;
+    /*width: 500px;*/
+    padding: 10px;
+    border: 2px solid #B3B0B0;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  #user_center{
+      font-size: 15px;
+  }
+  #user_center li{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #cccccc;
+  }
+  .p_title{
+    width:65px;
+    margin-left:20px;
+    font-size:14px;
+    color:#555;
+   line-height:34px; 
+  }
+
+  .searchinput0{
+    width:200px;
+    border-radius:4px !important;
+        padding: 6px 12px;
+            font-size: 14px;
+                line-height: 1.42857143;
+                    color: #555;
+                        background-color: #fff;
+                            background-image: none;
+                                border: 1px solid #ccc;
+  }
+ 	</style>
+ {% endblock css %}
+
+ {% block head_js %}
+  {{ super() }}
+  <script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
+	<script type="text/javascript">
+  </script>   
+  {% endblock head_js %}
+
+    {% block head_title %}<img src="/static/img/rank.jpg" style="width:32px;">个人中心{% endblock %}
+    {% block ex_link %}/index/nouns_explain/#ucenter{% endblock %}
+    {% block main %}
+    <div style="width:1000px;">
+    <div id="tag_user" hidden>{{g.user.email}}</div>
+    <div id="user_center">
+      <b>
+        用户名：{{g.user.email}}
+      </b>
+      <br>
+      <div style="margin-top:30px;">
+        <div style="width:100%">
+            <b>用户权限</b>
+            <b style="margin-left:440px;">离线任务最大值</b>
+         </div>
+        <div class="shadow" style="width:46%;float:left;margin-left:20px;">
+          {% with roles = g.user.roles %}
+          {% if roles %}
+            <ul>
+			<li><div style="width:150px;float:left;">权限名称</div><span style="float:left;margin-left:20px">权限描述</span></li>
+            {% for role in roles %}
+            <li class=""><div style="width:150px;float:left;">{{ role.chname }}</div><span style="float:left;margin-left:20px">{{role.description}}</span> </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="shadow" style="width:40%;float:left;">
+            <ul>
+            <li><div  style="width:150px;float:left;">权限名称</div><span style="float:left;margin-left:20px">任务量</span></li>
+            {% with roles = g.user.roles%}
+            {% if roles %}
+            {% for role in roles %}
+                {% if role.name == 'userrank' %}
+                    <li class=""><div style="width:150px;float:left;">用户排行</div><span style="float:left;margin-left:20px">{{g.user.usernum}}</span></li>
+                {% endif %}
+
+                {% if role.name == 'sentiment' %}
+                    <li class=""><div style="width:150px;float:left;">情绪监测</div><span style="float:left;margin-left:20px">{{g.user.moodnum}}</span></li>
+                {% endif %}
+                {% if role.name == 'network' %}
+                <li class=""><div style="width:150px;float:left;">网络分析</div><span style="float:left;margin-left:20px">{{g.user.netnum}}</span></li>
+                {% endif %}
+                {% if role.name == 'group' %}
+                <li class=""><div style="width:150px;float:left;">群体发现</div><span style="float:left;margin-left:20px">{{g.user.findnum}}</span></li>
+                <li class=""><div style="width:150px;float:left;">群体分析</div><span style="float:left;margin-left:20px">{{g.user.analysisnum}}</span></li>
+                {% endif %}
+                {% if role.name == 'socialsensing' %}
+                <li class=""><div style="width:150px;float:left;">社会感知</div><span style="float:left;margin-left:20px">{{g.user.sensingnum}}</span></li>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            </ul>
+        </div>
+      </div>
+<div id="tag_uesr" hidden>{{g.user.email}}</div>	  
+	  <div style="margin-top:30px;">
+	    
+    <div id="float-wrap" class="hidden"></div>
+<div class="ch-container" style="width:1000px;">
+
+    <div class="row">
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+			<div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner" style="width:900px;min-height:150px;">
+                <div class="box-header well" data-original-title="" style="padding-top:5px;">
+                   <span class="TabTitle"  >标签管理列表</span>
+                </div>
+				<div style="float:right">
+<a id="turnback" href="" style="float:right;margin-right:40px;font-size:14px;">查看全部标签</a>
+<a id="searchTable_m" href="" style="font-size:14px;"  data-toggle="modal" data-target="#SearchTab_m" style="margin-right:20px;">表单搜索</a>
+<a id="searchTable0" href="" style="font-size:14px;" data-toggle="modal" data-target="#add" style="margin-bottom:10px;">添加</a>
+                </div>
+                <div class="box-content" id="Tagtable"  style="900px">
+                    
+                </div>
+            </div>
+        </div>
+    </div><!--/span-->
+
+    <!-- content ends -->
+		</div><!--/#content.col-md-0-->
+	</div><!--/fluid-row-->
+
+
+</div><!--/.fluid-container-->
+</div>
+
+<div class="modal fade" id="editor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" role="document" style="margin-top: 10%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑标签</h4>
+      </div>
+      <div class="modal-body" id="EDIT" style="padding:30px;">
+        
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="modifySave2">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document"  style="margin-top:10%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加标签</h4>
+      </div>
+      <div class="modal-body" id="ADDTAG">
+        <div class="tagCols">
+			<span  style="margin-left:55px;">标签类别</span>
+			<input name="attribute_name" id="tagClass" class="inputbox" type="text" value="" style="line-height:36px;" placeholder="如：危险">
+		</div>
+		<div class="tagCols" >
+			<span style="margin-left:95px;">标签名</span>
+			<input name="attribute_value" class="inputbox " type="text" value="" style="margin-left:35px;line-height:36px;" placeholder="如：一级">
+			<span class="addIcon" id="addTag" style="margin-bottom:-10px;"></span>
+		</div>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="newTag">添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+	  </div>
+    </div>
+	
+	
+	
+<div style="margin-top:30px;">
+<div class="ch-container" style="width:900px;">
+
+    <div class="row">
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+			<div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner" style="width:900px;min-height:150px;">
+                <div class="box-header well" data-original-title="" style="padding-top:5px;">
+                   <span class="TabTitle"  >个人工作统计</span>
+                </div>
+				<div class="fleft">
+</div>
+
+        <div class="box-content" id="Work2table" >
+          {% with roles = g.user.roles %}
+          {% if roles %}
+            <table class="table table-bordered table-striped table-condensed datatable" >
+                <thead><tr style="text-align:center;">
+                <th>任务ID</th><th>任务内容</th><th>提交时间</th><th>处理状态</th>
+                </tr></thead>
+                <tbody>
+                    <tr>
+                    <td>09XPX70</td>
+                    <td>入库推荐</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#recomment_detail">查看详情</u></td>
+                    </tr>
+                  {% for role in roles %}
+                    {% if role.name == 'userrank' %}
+                    <tr>
+                    <td>09XPX71</td>
+                    <td>用户排行</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#rank_task_detail">查看详情</u></td>
+                    </tr>
+                    {% endif %}
+                    {% if role.name == 'sentiment' %}
+                    <tr>
+                    <td>09XPX72</td>
+                    <td>情绪监测</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#sentiment_task_detail">查看详情</u></td>
+                    </tr>
+                  {% endif %}
+                  {% if role.name == 'network' %}
+                    <tr>
+                    <td>09XPX76</td>
+                    <td>网络分析</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#network_task_detail">查看详情</u></td>
+                    </tr>
+                  {% endif %}
+                  {% if role.name == 'group' %}
+                    <tr>
+                    <td>09XPX73</td>
+                    <td>群体发现</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#group_detect_detail">查看详情</u></td>
+                    </tr>
+                    <tr>
+                    <td>09XPX74</td>
+                    <td>群体分析</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#group_analysis_detail">查看详情</u></td>
+                    </tr>
+                  {% endif %}
+                  {% if role.name == 'socialsensing' %}
+                    <tr>
+                    <td>09XPX75</td>
+                    <td>社会感知</td>
+                    <td class="work_date"></td>
+                    <td><u style="cursor:pointer;" class="detail_button" type="button" data-toggle="modal" data-target="#sensing_task_detail">查看详情</u></td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+                  </tbody>
+              </table>
+          {% endif %}
+          {% endwith %}
+        </div>
+    </div><!--/span-->
+
+    <!-- content ends -->
+		</div><!--/#content.col-md-0-->
+	</div><!--/fluid-row-->
+{% with roles = g.user.roles %}
+{% if 'administration' in roles%}
+    <div class="row">
+        <div id="content" class="col-lg-10 col-sm-10">
+            <!-- content starts -->
+			<div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner" style="width:900px;min-height:150px;">
+                <div class="box-header well" data-original-title="" style="padding-top:5px;">
+                   <span class="TabTitle"  >用户工作汇总</span>
+                </div>
+				<div style="float:right;font-size:14px;">
+                    <a id="turnback_all" href="" style="float:right;margin-right:40px;">查看全部</a>
+                    <a id="searchworkTable" href=""  data-toggle="modal" data-target="#SearchTab_all" style="margin-right:20px;">表单搜索</a>
+                </div>
+                <div class="box-content" id="all_work_table"  style="900px">
+                    
+                </div>
+            </div>
+        </div>
+    </div><!--/span-->
+
+    <!-- content ends -->
+		</div><!--/#content.col-md-0-->
+	</div><!--/fluid-row-->
+{% endif %}
+{% endwith %}
+</div><!--/.fluid-container-->
+<div class="modal fade" id="SearchTab_all" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 500px;margin-left: 48px;">
+      <div class="modal-header" style="float:inherit;margin:initial;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel_u">搜索条件</h4>
+      </div>
+      <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+        <div class="decoration">
+          <ul class="">
+            <p style="margin: 25px 0;">用户名
+            <input type="text"  class="form-control"  style="margin-left:20px;width:175px;display: inline;height: 34px;border-radius: 4px !important;" id="workuser_name"></p>
+            <p style="margin: 25px 0;">时间范围
+                <input type='checkbox' id="work_time_checkbox"class='inline-checkbox' style="margin-left:10px;">
+                <span id="work_time_choose_modal" style="margin-left:5px;">
+                    <input id="work_weibo_from_modal" type="text" class="form-control" style="width:175px; display:inline-block;height:34px;border-radius: 4px !important;" disabled>&nbsp;-&nbsp;
+                    <input id="work_weibo_to_modal" type="text" class="form-control" style="width:175px; display:inline-block;height:34px;border-radius: 4px !important;" disabled>
+                </span>
+            </p>
+            <li><input name="submit" type="submit" class="bluebtn" id="work_searchbtn" onclick="search_work()" data-dismiss="modal" aria-label="Close" value="确定"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="SearchTab_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 500px;margin-left: 48px;">
+      <div class="modal-header" style="float:inherit;margin:initial;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel_u">搜索条件</h4>
+      </div>
+      <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+        <div class="decoration">
+          <ul class="">
+            <li><span class="p_title">标签类别</span><input type="text"  id="groupName" class="searchinput0" name="attribute_name" placeholder="请输入标签类别"/></li>
+            <li><span class="p_title">标签名</span><input type="text" id="groupState" class="searchinput0" name="attribute_value" placeholder="请输入标签名"/></li>
+            <li><span class="p_title">时间</span><input type="text" id="groupState" class="searchinput0" name="date" placeholder="请输入时间2015-07-15"/></li>
+            <li><input name="submit" type="submit" class="bluebtn" id="searchbtn"  data-dismiss="modal" aria-label="Close" value="确定"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="modal fade" id="recomment_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel_u">入库推荐</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="recomment_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="rank_task_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">用户排行</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="rank_task_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="sentiment_task_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">情绪监测</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="sentiment_task_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="network_task_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">网络分析</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="network_task_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="group_detect_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">群体发现</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="group_detect_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="group_analysis_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">群体分析</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="group_analysis_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="sensing_task_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="position: absolute;margin-top: 40px;float :none;width: 900px;margin-left: -135px;">
+          <div class="modal-header" style="float:inherit;margin:initial;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">社会感知</h4>
+          </div>
+          <div class="modal-body" style="float:none;max-height: 400px;overflow-y: auto;">
+            <div id="sensing_task_detail_modal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock main %}
+
+{% block Own_js %}
+    {{ super() }}
+{% endblock Own_js %}
+    {% block end_js %}
+    {{ super() }}
+	 <script>
+	var m = $('#aaa').text();
+    var centerUser = "{{g.user.email}}";
+   // console.log(centerUser);
+    //console.log(m);
+/*    $("#uploadbtn1").off("click").click(function(){
+		$("#float-wrap").removeClass("hidden");
+		$("#uploadFile").removeClass("hidden");
+		return false;
+	});
+	$("#searchTable_888").off("click").click(function(){
+		$("#float-wrap").removeClass("hidden");
+		$("#SearchTab").removeClass("hidden");
+		return false;
+	});
+	$(".close1").off("click").click(function(){
+		$("#float-wrap").addClass("hidden");
+		$("#uploadFile").addClass("hidden");
+	});
+	$(".close2").off("click").click(function(){
+		$("#float-wrap").addClass("hidden");
+		$("#SearchTab").addClass("hidden");
+    });
+	
+*/	
+</script>
+<script type="text/javascript" src="/static/js/portrait/tag.js"></script> 
+<script type="text/javascript" src="/static/js/portrait/ucenter.js"></script> 
+ 
+<script>
+    var add_flag;
+    var tagname2 = new Array();
+    var date = new Date();
+    var to_date = new Date();
+    to_date.setTime(date.getTime() - 60*60*24*7*1000);
+    console.log(to_date);
+    var from_date = date.format('yyyy/MM/dd');
+    to_date = to_date.format('yyyy/MM/dd');
+$('.work_date').append(to_date + ' 至 ' + from_date)
+$(function(){
+    $('a[id^="currentEdit"]').click(function(e){
+        add_flag = false;
+        var tagNames =  $(this).text();
+        console.log(tagNames);
+        if (tagNames.indexOf('/') > -1){
+            tagname2 = tagNames.split('/');
+        }else{
+            tagname2.push(tagNames)
+        }
+  		$('#EDIT').empty();
+  		var html = '';
+  		html += '<div class="" style="margin-bottom:10px;"><span style="">标签类别&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+  		html += '<span style="color:blue;" id="attributeName">'+$(this).parent().prev().html()+'</span ></div>';
+  		html += '<div class="" id=""><span style="margin-right:15px;">标签名</span>';
+  		for(i=0;i<tagname2.length;i++){
+  			html += '<span class="tagbg" id="" name="attrName"><span class="tagName">'+tagname2[i]+'</span><a  class="delCon" id="delIcon"></a></span>';
+  		}
+  		//html += '<input name="attribute_value" class="inputbox " type="text" value="" style="line-height:36px;">'
+  		html += '<span class="smallAdd"></span>'
+  		html += '</div>';
+  		$('#EDIT').append(html);
+  		$(".smallAdd").click(function(){
+              //console.log("sadsd");
+              if (!add_flag){
+                  add_flag = true;
+                  $(".smallAdd").before('<input name="newtag" id="newtag" class="input_tag_box" style="width:110px;" onkeydown="javascript:if (event.keyCode==13) addNew();"type="text" value="" style="line-height:36px;">');
+              }
+          });
+  		$('a[id^="delIcon"]').click(function(e){
+  			$(this).parent().remove();
+  		});
+	});
+});
+    $(".addIcon").off("click").click(function(){
+        var html = '';
+        html += '<div class="tagCols"><span style="margin-left:65px;">标签名</span><input name="attribute_value" class="inputbox " type="text" value="" style="margin-left:35px;line-height:36px;"></div>';
+        $('#ADDTAG').append(html);
+	});
+	function addNew(){
+        var newtag = $('.input_tag_box').val();
+        if (newtag == ''){
+            alert("标签名不能为空！");
+            return;
+        }
+        var tagnames = $('.tagName').length;
+        var nameszh = [];
+        for(i=0;i<tagnames;i++){
+            nameszh.push($(".tagName").eq(i).html());
+            //console.log(value);
+        }
+        var count = 0;
+        for(i=0;i<nameszh.length;i++){
+            if(newtag==nameszh[i]){
+                count = count +0;
+            }else{
+                count = count +1;
+            }
+        }
+        if(count==nameszh.length){
+            add_flag = false;
+            $(".input_tag_box").remove();
+            $(".smallAdd").before('<span class="tagbg" id="" name="attrName"><span class="tagName">'+newtag+'</span><a  class="delCon" id="delIcon"></a></span>');
+        }else{
+            alert("已经存在相同标签名，请重新输入！");
+        }
+			
+			
+			$('a[id^="delIcon"]').click(function(e){
+                $(this).parent().remove();
+            });
+	}
+</script>
+    {% endblock end_js %}

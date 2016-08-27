@@ -1,0 +1,210 @@
+{%extends "tbase.html" %}
+{% block title %}网络分析{% endblock title %}
+
+{% block css %}
+{{ super() }}
+<link  type="text/css" href="/static/personal/css/style.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.datetimepicker.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-switch.css"/>
+<style>
+.shadow {
+    -webkit-box-shadow:5px 6px 3px #ABA8A8;
+    -moz-box-shadow:5px 6px 3px #ABA8A8;
+    box-shadow:5px 6px 3px #ABA8A8;
+}
+#modechoose li{float:left;margin-left:20px;}
+#rank_table_filter{display:none}
+.col-md-6{margin-left:30px;}
+#main hr{
+    width:920px !important;
+}
+</style>
+{% endblock css %}
+{% block head_js %}
+{{ super() }}
+<script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
+<script src="/static/js/bootstrap-switchi2.js"></script>
+{% endblock %}
+
+{% block head_title %}
+<div style="line-height:50px;">网络分析</div>
+{% endblock head_title %}
+{% block ex_link %}/index/nouns_explain/#net{% endblock %}
+{% block main %}
+<div style="width:1000px;">
+<h4 id="title_chart"><center>当日活跃网民数趋势图</center></h4>
+<div id="show_tab"  style="float:left; margin-left: 730px;margin-top:-40px;">
+<input type="checkbox" style="width:160px;" class="switch switch-small" name="my-checkbox" data-on-text="实时排名" data-off-text="关键词任务" checked=""></div>
+<div id="p_useremail" hidden>{{g.user.email}}</div>
+<!--
+<div style="margin-left:350px;margin-bottom:11px;">
+    <button class="portrait_button p_d" id="by_time" onclick="hidden_keywords()" type='button' style="margin-right:32px;background-color:#3351B7" title="实时排名" >实时排名</button>
+    <button class="portrait_button p_d" id="by_keywords" onclick="hidden_time()" type='button' style="margin-right:32px;" title="关键词任务" >关键词任务</button>
+</div>
+-->
+
+<div id="framecontent" style="width:850px;">
+    <div class ="framepost" style="height:350px;">
+        <!--<h3 class="title">节点趋势图</h3>-->
+        <div  class="entry" style="width:55%;float:left;">
+            <div id="Activezh" style="height:349px;width:900px;margin-top:0px;" class="fleft"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="show_keywords" style="width:850px;" class="hidden">
+    <div class ="framepost" style="height:auto;">
+        <h4 class="title" style="margin-bottom:0;">关键词分析</h4>
+        <div  class="entry" style="width:55%;float:left;">
+            <table class="shadow" style="margin:20px 30px;width:900px; border: 2px solid #cccccc;">
+			<tr style="border-bottom: 1px solid #cccccc;">
+				<th style="width:150px;height:50px;background-color: #E4E4E4;text-align: center;">关键词</td>
+				<td>
+					<input id="keyword_detect" type="text" class="form-control" style="width:275px;height:25px;" placeholder="请输入关键词，多个词用空格分开">
+				</td>
+			</tr>
+			<tr>
+				<th  style="width:150px;height:50px;background-color: #E4E4E4;text-align: center;">时间范围</th>
+				<td>
+					<span id="detect_time_choose">
+						<input id="weibo_from" type="text" class="form-control" style="width:145px; display:inline-block;height:25px;">&nbsp;-&nbsp;
+						<input id="weibo_to" type="text" class="form-control" style="width:145px; display:inline-block;height:25px">				
+					</span>
+					<span id="detect_submit"  class="portrait_button" style='float:right;cursor:pointer;margin-right:20px;width: 45px;height: 25px;text-align: center;line-height: 25px;'>监测</span>		
+				</td>
+			</tr>		
+		</table>
+		<h4><span style="float:left;">任务状态</span>
+            <span id="open" style="cursor:pointer;"><i class="iconfont" style="font-weight: lighter; font-size: 14px;">&#xe668;</i></span>
+            <span id="close_c" style="display:none;cursor:pointer;"><i class="iconfont" style="font-weight: lighter; font-size: 14px;">&#xe611;</i></span>
+        </h4>
+		<div id="detect_net_task_status" style="width:920px;display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="common_result">
+<h4 style="float:left;width:100%;margin:10px 0;">结果分析</h4>
+<div id="result_analysis"class="" style="float:left;margin-left: 30px;padding:10px;background-color:#E1E6FF;width: 900px;font-size:14px;border:1px solid #B0CEFB"><b>
+<span><span id="keyDescrip"></span>：<span id="detect_range" style="color:brown;"></span></span>
+	<span id="detect_type"></span><span id='detect_detail'></span>
+	<span style="margin-left: 20px;">计算时间：<span id="detect_time_range" style="color:brown;"></span></span>
+</b></div>
+
+<div style="float:right;margin-right:70px;">
+	    <span style= "margin-left:30px;margin-top:13px;float:left;">排序方式：</span>
+		<ul style="float:left;margin-top:10px;" id="modechoose">
+			<li style="margin-left:20px;">
+		        <input type="radio" name="mode_choose" value="pr" checked="checked">
+                <span class="mode" style="">PR影响力</span>
+			</li>
+			<li id='pr_diff'>
+                <input type="radio" name="mode_choose" value="pr_diff">
+                <span class="mode" style="">PR影响力变动</span>
+			</li style="float:left;">
+			<li>
+				<input type="radio" name="mode_choose" value="dg" >
+				<span class="mode" style="">交互网民人数</span>
+			</li>
+			<li id='dg_diff'>
+                <input type="radio" name="mode_choose" value="dg_diff">
+                <span class="mode" style="">交互网民人数变动</span>
+			</li>
+		</ul>
+	</div>
+    <div style="clear:both;"></div>
+<div id="result_rank_table" style="float:left;margin-top:-33px;"></div>
+</div>
+
+<div id="float-wrap" class="hidden"></div>
+</div>
+<!-- 模态框 -->
+<div class="modal fade" id="detect_search_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="width:500px;">
+    <div class="modal-content" style="margin-top:20%;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="font-size:18px" id="myModalLabel">任务搜索</h4>
+      </div>
+      <div class="modal-body" id='' style="height:200px;">
+      	<!-- <div ></div> -->
+      	<p>关 键 词<input type="text"  class="form-control" placeholder='多个词用英文逗号分开' style="margin-left:20px;width:175px;display: inline;height: 25px;" id="search_key"></p>
+	   <p>是否完成
+				<select id="search_status" class="type_sub" style="margin-left:10px;">
+					<option name="search_status" value="2">不限</option>
+					<option name="search_status" value="1">计算完成</option>
+					<option name="search_status" value="0">正在计算</option>
+				</select>
+	      	</p>
+      	<p>监控时间
+		    <input type='checkbox' id="time_checkbox"class='inline-checkbox' style="margin-left:10px;">
+			<span id="detect_time_choose_modal" style="margin-left:5px;">
+				<input id="weibo_from_modal" type="text" class="form-control" style="width:175px; display:inline-block;height:25px;" disabled>&nbsp;-&nbsp;
+				<input id="weibo_to_modal" type="text" class="form-control" style="width:175px; display:inline-block;height:25px" disabled>				
+			</span>
+      	</p>
+      	<p>提交时间
+            <input type='checkbox' id="time_checkbox_submit"class='inline-checkbox' style="margin-left:10px;">
+			<span id="search_date" style="margin-left:5px;">
+				<input id="weibo_modal" type="text" class="form-control" style="width:175px; display:inline-block;height:25px;" disabled>
+			</span>
+      	</p>
+      	<span onclick="search_task()" class="portrait_button" style="float:right;cursor:pointer;margin-right:20px;width: 45px;height: 25px;text-align: center;line-height: 25px;"  class="close" data-dismiss="modal" aria-label="Close">确定</span>
+      	<!-- //<p>关键词<input ></p> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="detail_network" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 800px;">
+    <div class="modal-content" style="width: 800px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="font-size:18px" id="myModalLabel">网络详情</h4>
+      </div>
+      <div class="modal-body" id='network' style="width: 800px;height:550px;">
+		<div id="netchoose">
+			<span style="margin-left:250px;"><input type="radio" name="tweet_choose" value="retweet" checked="checked"><span class="mode" style="">转发关系图</span></span>
+			<span style="margin-left:50px;"><input type="radio" name="tweet_choose" value="be_retweet"><span class="mode" style="">被转发关系图</span></span>
+		</div>
+		<div class="modal-body" id='networkDetail' style="width: 800px;height:500px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/static/js/portrait/group_table.js"></script>
+<script src="/static/js/highstock.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/portrait/net.js"></script> 
+<script type="text/javascript">
+var net_max_count = "{{g.user.netnum}}";
+//console.log(net_max_count);
+var netuser = "{{g.user.email}}";
+</script>
+
+
+
+
+{% endblock main %}
+
+{% block Own_js %}
+{{ super() }}
+<script>
+$('#open').click(function(){
+    $('#detect_net_task_status').css('display', 'block');
+    $('#close_c').css('display', 'block');
+    $(this).css('display', 'none');
+})
+
+$('#close_c').click(function(){
+    $('#detect_net_task_status').css('display', 'none');
+    $('#open').css('display', 'block');
+    $(this).css('display', 'none');
+})
+</script>
+{% endblock Own_js%}
+
