@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask
+from flask import Flask,render_template
 from elasticsearch import Elasticsearch
 from flask_debugtoolbar import DebugToolbarExtension
 from user_portrait.extensions import admin
@@ -21,10 +21,18 @@ from user_portrait.ucenter.views import mod as ucenterModule
 from user_portrait.social_sensing.views import mod as sensingModule
 from user_portrait.sentiment.views import mod as sentimentModule
 from user_portrait.network.views import mod as networkModule
+#jln先不要这个登录
 from user_portrait.extensions import db, security, user_datastore, admin, User, Role, roles_users, AdminAccessView, mongo
 from flask.ext.security import SQLAlchemyUserDatastore
 from flask_admin.contrib import sqla
 from user_portrait.user_rank.views import mod as userrankModule
+#jln
+from info_consume.topic_sen_analyze.views import mod as topicSenModule
+from info_consume.topic_language_analyze.views import mod as topicLanModule
+from info_consume.topic_geo_analyze.views import mod as topicGeoModule
+from info_consume.index.views import mod as infoIndexModule
+
+
 
 def create_app():
     app = Flask(__name__)
@@ -51,6 +59,11 @@ def create_app():
     app.register_blueprint(sentimentModule)
     app.register_blueprint(networkModule)
     app.register_blueprint(userrankModule)
+    #jln
+    app.register_blueprint(topicSenModule)
+    app.register_blueprint(topicLanModule)
+    app.register_blueprint(topicGeoModule)    
+    app.register_blueprint(infoIndexModule) 
     # the debug toolbar is only enabled in debug mode
     app.config['DEBUG'] = True
 
@@ -142,6 +155,11 @@ def create_app():
     # init mongo
     mongo.init_app(app)
     '''
+
+    @app.route('/')
+    def index():
+        return render_template('/info_consume/index.html')
+
     return app
    
 
