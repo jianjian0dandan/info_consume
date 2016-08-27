@@ -368,7 +368,10 @@ footer {
 #zone_tab a:hover {
   color:#06d995  !important;
 }
-
+#myfriends {
+  margin-left: 150px;
+  margin-right: 150px;
+}
 
 /*----他人页面.html----*/
 /*他人页面.html*/
