@@ -328,7 +328,7 @@ class PropagateWeibos(db.Model):
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     mtype = db.Column(db.Integer(1, unsigned=True))
-    limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
+    limit = db.Column(db.BigInteger(10, unsigned=True))
     weibos = db.Column(db.Text) # weibos=[weibos]
 
     def __init__(self, topic, end, range, mtype, limit, weibos):
@@ -1384,3 +1384,6 @@ class OpinionHot(db.Model):
     @classmethod
     def _name(cls):
         return u'OpinionHot'
+
+if __name__ == '__main__':
+    db.create_all()

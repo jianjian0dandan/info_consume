@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type
-from cp_model import PropagateCount, PropagateWeibos 
+from cp_model import PropagateCount, PropagateWeibos,PropagateTimeWeibos
 import math
 import json
 from sqlalchemy import func
@@ -17,9 +17,9 @@ Day = Hour * 24
 MinInterval = Fifteenminutes
 
 def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
-    items = db.session.query(PropagateWeibos).filter(PropagateWeibos.topic==topic,\
-                                                    PropagateWeibos.end <= end_ts,\
-                                                     PropagateWeibos.end >= start_ts
+    items = db.session.query(PropagateTimeWeibos).filter(PropagateTimeWeibos.topic==topic,\
+                                                    PropagateTimeWeibos.end <= end_ts,\
+                                                     PropagateTimeWeibos.end >= start_ts
                                             ).all()
     weibo_dict = {}
     print items
@@ -53,7 +53,7 @@ def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
             else:
                 pass
             
-        results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=False)
+        results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
         #for result in results:
             #print result
         return results
