@@ -15,16 +15,21 @@ def weibo_count():
     hashtag_list = {}
     for uid in uid_list:
     	hashtag = r_cluster.hget('hashtag_'+'1378483200',uid)
-    	print type(hashtag)
-    	hashtag = json.loads(hashtag)
-    	print type(hashtag)
+    	# print type(hashtag)
     	if hashtag != None:
+    		hashtag = hashtag.encode('utf8')
+	    	hashtag = json.loads(hashtag)
+
     		for k,v in hashtag.iteritems():
     			try:
 	    			hashtag_list[k] += v
 	    		except:
 	    			hashtag_list[k] = v
     	#r_cluster.hget('hashtag_'+str(a))
+
+
+    hashtag_list = sorted(hashtag_list.items(),key=lambda x:x[1],reverse=True)
+
     return json.dumps(hashtag_list)
 
 
