@@ -116,7 +116,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 			for k, v in mtype_dict.iteritems():
 				mtype = k
 				count = v
-				item = PropagateCount(topic, during, ts, mtype,json.dumps({'other': count}))
+				item = PropagateCount(topic, ts, during, mtype,count)#json.dumps({'other': count})
 				item_exist = db.session.query(PropagateCount).filter(PropagateCount.topic==topic, \
 															PropagateCount.range==during, \
 															PropagateCount.end==ts, \
@@ -132,7 +132,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 			for k, v in mtype_dict.iteritems():
 				mtype = k
 				kcount = v
-				item = PropagateKeywords(topic, during, klimit, ts, mtype, json.dumps(kcount))
+				item = PropagateKeywords(topic, ts, during, mtype, klimit,json.dumps(kcount))
 				#print item
 				item_exist = db.session.query(PropagateKeywords).filter(PropagateKeywords.topic==topic, \
                                                                 PropagateKeywords.range==during, \
@@ -151,7 +151,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 			for k,v in mtype_dict.iteritems():
 				mtype = k
 				weibo = v
-				item = PropagateWeibos(topic, during, wlimit, ts, mtype, json.dumps(weibo))
+				item = PropagateWeibos(topic, ts, during, mtype, wlimit, json.dumps(weibo))
 				item_exist = db.session.query(PropagateWeibos).filter(PropagateWeibos.query==topic, 
                                                                                    PropagateWeibos.range==during, 
                                                                                    PropagateWeibos.end==ts, 
