@@ -19,13 +19,17 @@ def weibo_count():
     	if hashtag != None:
     		hashtag = hashtag.encode('utf8')
 	    	hashtag = json.loads(hashtag)
+
     		for k,v in hashtag.iteritems():
     			try:
 	    			hashtag_list[k] += v
 	    		except:
 	    			hashtag_list[k] = v
     	#r_cluster.hget('hashtag_'+str(a))
+
+
     hashtag_list = sorted(hashtag_list.items(),key=lambda x:x[1],reverse=True)
+
     return json.dumps(hashtag_list)
 
 

@@ -96,20 +96,24 @@
         function get_result(data)
              { 
               data = data['result'];
+              $('#table-user-contain').css("display","block");
+              $('#table-user-user-contain').css("display","none");
               $('#table-user').bootstrapTable('refresh', {url: data});
              }
         //定义删除任务
         function delete_result(data)
              { 
               data = data['result'];
+              $('#table-user-contain').css("display","block");
+              $('#table-user-user-contain').css("display","none");
               $('#table-user').bootstrapTable('refresh', {url: data});
              }
         //定义刷新相似用户列表
-         function similar_user(data){
-          $('#table-user').parent().parent().parent().css("display","none");
-          $('#table-user').parent().parent().parent().next().css("display","none");
-            data_len = data.length;
-            data = data.slice(1,len-2);
+      function similar_user(data){
+          $('#table-user-contain').css("display","none");
+          $('#table-user-user-contain').css("display","block");
+           var data_len = data.length;
+           var data = data[1,data_len-2];
             $('#table-user-user').bootstrapTable({
                   url: data,
                   search: true,//是否搜索
@@ -200,15 +204,10 @@
                       }
                     }]
              });
-                
-            for(var i=0;i<data.length;i++){
-
-            }
-         }
+         };
         //定义展示离线任务表格
         function task_status (data) {
             var data = data.data;
-              //console.log(data);
             $('#topic-task').bootstrapTable({
                   url: data,
                   search: true,//是否搜索
@@ -333,10 +332,11 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){ 
-                    var user_id = '1618051664';
+                    var user_id = '2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
                     console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
+                    //similar_user(user_url);
                     //manage 相似用户搜索
                      }else{ 
                     var sort_scope = 'all_limit_keyword';
@@ -353,42 +353,57 @@
             //实现“近一周各领域影响力用户排行”
               $(function () { 
               var sort_scope = 'in_limit_topic';  
-             
+              $('#week-influ').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
+                  var influ_scope = 'all_nolimit'; 
+                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
+                  console.log(influ_url);
+                  $('#table-user').bootstrapTable('refresh', {url: influ_url});
+              });
               $('#education').click(function () {
-                  $('#table-user-user').css("display","none");
-                  $('#table-user-user').next().css("display","none");
-                  $('#table-user').parent().parent().parent().css("display","block");
-                  $('#table-user').parent().parent().parent().next().css("display","block"); 
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '教育类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#military').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '军事类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#tech').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '科技类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#sports').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '文体类_体育';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#amusement').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '文体类_娱乐';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#livehood').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   //var keyword = ['environment','medicine','traffic','employment','house','law','social-security'];
                   var keyword ='民生类_社会保障';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
@@ -396,6 +411,8 @@
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#politics').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   //var keyword = ['politics','anti-corruption','fear-of-violence','peace','religion'];
                   var keyword ='政治类_外交';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
@@ -403,12 +420,16 @@
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               });
               $('#business').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '经济类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
               }); 
               $('#others').click(function () {
+                  $('#table-user-contain').css("display","block");
+                  $('#table-user-user-contain').css("display","none");
                   var keyword = '其他类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
