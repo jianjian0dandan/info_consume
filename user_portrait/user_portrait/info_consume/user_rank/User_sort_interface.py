@@ -41,6 +41,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
         if sort_scope == 'all_limit_keyword':
             #offline job
             #add job to es index
+            print '**************'
             during = ( datetime2ts(et) - datetime2ts(st) ) / DAY + 1
             time = 7
             if during > 3:
@@ -48,6 +49,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
             elif during > 16:
                 time = 30
             running_number = es_user_portrait.count(index='user_rank_keyword_task', doc_type='user_rank_task', body=query_task_number(username))['count']
+            print 'running',running_number
             if running_number > task_number-1:
                 return "more than limit"
             search_id = add_task( username ,"keyword" , "all" ,'flow_text_' , during , st ,et, arg , sort_norm , sort_scope, time, isall, number)
@@ -55,7 +57,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
             return {"flag":True , "search_id" : search_id }
         elif sort_scope == 'all_nolimit':
             #online job
-            print "all_sort, ", number
+            print "all_sort, ", number,sort_norm
             user_list = all_sort_filter(None,sort_norm,time,False,number)
     else:
         if sort_scope == 'in_limit_keyword':
@@ -87,7 +89,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
         else:
             #find the scope
             user_list = in_sort_filter(time , sort_norm,sort_scope , arg,[], False, number)
-    
+            print user_list
     result = make_up_user_info(user_list,isall , time , sort_norm)
     print "user_list:", len(user_list)
     return result
