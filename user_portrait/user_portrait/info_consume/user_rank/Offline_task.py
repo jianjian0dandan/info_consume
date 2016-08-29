@@ -58,7 +58,7 @@ def search_user_task(user_name):
             result_temp['search_type'] = item['fields']['search_type'][0]
             #jln
             #result_temp['keyword'] = json.loads(item['fields']['keyword'][0])
-            result_temp['keyword'] = item['fields']['keyword'][0]
+            result_temp['keyword'] = json.loads(item['fields']['keyword'][0])
             result_temp['sort_scope'] = item['fields']['sort_scope'][0]
             result_temp['sort_norm'] = item['fields']['sort_norm'][0]
             # result_temp['start_time'] = ts2datetime(item['fields']['start_time'][0])
