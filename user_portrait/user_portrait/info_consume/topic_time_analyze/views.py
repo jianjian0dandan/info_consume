@@ -29,7 +29,7 @@ def MtypeCount():      #每类微博的数量
     return json.dumps(results)
 @mod.route('/time_order_weibos/')
 def TimeOrderWeibos():
-    topic =results.args.get('topic', '')
+    topic =request.args.get('topic', '')
     end_ts = request.args.get('end_ts', '')     #''代表默认值为空
     end_ts = long(end_ts)
     start_ts = request.args.get('start_ts', '')
