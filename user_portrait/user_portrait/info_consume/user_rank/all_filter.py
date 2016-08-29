@@ -125,9 +125,10 @@ def history_sort( prefix ,index_name , index_type , uid_list , time , ischange =
     sorted_uid_list = []
     for item in result :
         sorted_uid_list.append(item['_id'].encode("utf-8") )
-    none_in_list = set(uid_list) - set(sorted_uid_list)
-    if none_in_list:
-        sorted_uid_list.extend(list(none_in_list))
+    #jln
+    #none_in_list = set(uid_list) - set(sorted_uid_list)
+    # if none_in_list:
+    #     sorted_uid_list.extend(list(none_in_list))
     return sorted_uid_list
 
 

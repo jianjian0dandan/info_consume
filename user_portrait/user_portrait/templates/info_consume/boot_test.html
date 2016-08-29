@@ -41,7 +41,7 @@
             <div class="panel-heading green"><b>话题任务管理<i class="fa fa-bars" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="collapse" data-parent="#sort-result" href="#topic-manage"></i></b>
             </div>
             <div id="topic-manage" class="panel-body collapse" style="padding:10px;">
-              <table id="topic-task" class="table table-hover table-condensed" data-height="500"></table>
+              <table id="topic-task" class="table table-hover table-condensed"></table>
             </div>
           </div> 
         </div>
@@ -49,7 +49,7 @@
       <div id="sort-result" class="row">
          <div class="col-md-3 sidebar-content">
   		   <ul class="ver-inline-menu" style="margin-bottom:25px;">
-    		 <li class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周用户影响力排行</a></li>
+    		    <li id="week-influ" class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周用户影响力排行</a></li>
     		    <li><a id="education" href="#" data-toggle="tab"><i class="fa fa-graduation-cap" aria-hidden="true"></i>教育领域排行</a></li>
             <li><a id="politics" href="#" data-toggle="tab"><i class="fa fa-university" aria-hidden="true"></i>政治领域排行</a></li>
             <li><a id="military" href="#" data-toggle="tab"><i class="fa fa-rocket" aria-hidden="true"></i>军事领域排行</a></li>
@@ -68,8 +68,8 @@
               <div id="toolbar">
                 <div class="btn btn-success" data-toggle="modal" data-target="#addModal">添加群组</div>
               </div>
-              <table id="table-user" class="table table-hover"></table>
-              <table id="table-user-user" class="table table-hover"></table>
+              <div id="table-user-contain"><table id="table-user" class="table table-hover"></table></div>
+              <div id="table-user-user-contain"><table id="table-user-user" class="table table-hover"></table></div>
               <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
                    <div class="modal-dialog">
                         <div class="modal-content">
@@ -82,13 +82,13 @@
                             <div class="modal-body">
                                 <form role="form" action="javascript:void(0)">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="name" placeholder="请输入名称">
+                                        <input type="text" class="form-control" id="cicle_name" placeholder="请输入名称">
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary" id="addRecord">提交</button>
+                                <button type="button" class="btn btn-primary" id="addRecord" onclick="group_analyze_confirm_button()">提交</button>
                             </div>
                         </div>
                     </div>

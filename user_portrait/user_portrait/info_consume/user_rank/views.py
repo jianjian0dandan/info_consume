@@ -16,9 +16,11 @@ mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
 @mod.route('/user_sort/', methods=['GET', 'POST'])
 def user_sort():
     end_time = datetime.datetime.now()
-    end_time_nyr = start_time.strftime('%Y-%m-%d')
-    start_time = start_time + datetime.timedelta(days=-7)
-    start_time_nyr = end_time.strftime('%Y-%m-%d') 
+    #end_time_nyr = end_time.strftime('%Y-%m-%d')
+    end_time_nyr = '2013-09-07'
+    #start_time = end_time + datetime.timedelta(days=-7)
+    #start_time_nyr = start_time.strftime('%Y-%m-%d') 
+    start_time_nyr = '2013-09-07'
     username = request.args.get('username', '') 
     search_time = request.args.get('time', '7')
     sort_norm = request.args.get('sort_norm', 'bci')

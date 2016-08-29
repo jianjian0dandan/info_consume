@@ -3,7 +3,6 @@
 * { 
   margin: 0;
   box-sizing: border-box
-  font-family:'Microsoft Yahei';
 }
 a { 
   background-color: transparent;
@@ -13,9 +12,10 @@ a:link, a:visited {
   color: #666;
 }
 body { 
-  font: 12px/1.5 'Microsoft Yahei', 'Simsun'; 
+  font: 12px/1.5; 
   color: #666666; 
   background:#F2F4F8 !important;
+  font-family:'Microsoft Yahei', 'Simsun' !important;
 }
 img { 
   border: 0;
@@ -31,7 +31,7 @@ body a {
   -ms-transition: 0.5s all;}/*标签动态效果*/
 
 .boxshadow {
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
 }
 .clear {
   clear: left;
@@ -289,7 +289,7 @@ body a {
 }
 #account {
   width: 300px;
-  height: 300px;
+  height: 350px;
   float: left;
   margin-top: 30px;
   position: relative;
@@ -368,7 +368,10 @@ footer {
 #zone_tab a:hover {
   color:#06d995  !important;
 }
-
+#myfriends {
+  margin-left: 150px;
+  margin-right: 150px;
+}
 
 /*----他人页面.html----*/
 /*他人页面.html*/

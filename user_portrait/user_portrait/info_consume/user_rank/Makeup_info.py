@@ -116,9 +116,9 @@ def in_makeup_info(uid_list , sort_norm , time):
     results = []
     ts = datetime2ts(ts2datetime(TIME.time()-DAY))
     field_bci , field_sen ,field_imp ,field_act = get_in_filed(sort_norm,time)
-    field_dict = {"uid":"uid","uname":"uname","location":"location","topic":"topic_string","domain":"domain","fans":"fansnum", "act":"activeness", "imp":"importance", "bci":"influence", "sen":"sensitive"}
+    field_dict = {"uid":"uid","uname":"uname","location":"location","topic":"topic_string","domain":"domain","fans":"fansnum", "act":"activeness", "imp":"importance", "bci":"influence"}#
     if uid_list:
-        search_results = es_user_portrait.mget(index=USER_INDEX_NAME, doc_type=USER_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=["uid","uname","location","topic_string","domain","fansnum", "influence", "importance", "activeness", "sensitive"])["docs"]
+        search_results = es_user_portrait.mget(index=USER_INDEX_NAME, doc_type=USER_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=["uid","uname","location","topic_string","domain","fansnum", "influence", "importance", "activeness"])["docs"]#, "sensitive"
         
         bci_results = es.mget(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=[field_bci,"user_fansnum", "weibo_month_sum"])["docs"]
         imp_results = es.mget(index=IMP_INDEX_NAME, doc_type=IMP_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=[field_imp])["docs"]
@@ -156,11 +156,11 @@ def in_makeup_info(uid_list , sort_norm , time):
                 item['bci'] = bci_value
             except:
                 item['bci'] = 0 
-            try:
-                sen_value = sen_results[i]['fields'][field_sen][0]
-                tmp['sen'] = sen_value
-            except:
-                item['sen'] = 0
+            # try:
+            #     sen_value = sen_results[i]['fields'][field_sen][0]
+            #     tmp['sen'] = sen_value
+            # except:
+            #     item['sen'] = 0
             
             results.append(item)
 
