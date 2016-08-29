@@ -1,0 +1,864 @@
+<!DOCTYPE html >
+<html >
+<head>
+	<meta charset="utf-8">
+	
+	<title>
+		微博那些事儿
+	</title>
+
+	<script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+	<script src="/static/info_consume/js/echarts.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/weiborecommend.js"></script>
+
+   <!--引用css-->
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan.css"> 
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/biaoqian.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/search.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/button.css">
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  
+  
+
+<style type="text/css">
+/* tab*/
+	body {
+	
+	margin-right: auto;
+	margin-bottom: 10px;
+	margin-left: auto;
+	text-align: center;
+	height: auto;
+	width: auto;
+	font-size: 12px;
+	color: #000000;
+	 padding:0;
+	}
+
+	#container {
+	text-align: left;
+	width:1000px;
+	height: 600px;
+	background-color: #FFFFFF;
+	padding: 20px;
+	}
+	#container #title {
+	height: 28px;
+	}
+	#container #title li {
+	float: left;
+	list-style-type: none;
+	/*height: 40px;*/
+
+	text-align: center;
+	margin-right: 20px;
+	}
+	#container #title ul {
+	background-color: #FFFFFF;
+	height: 28px;
+	}
+	/*原始的样式*/
+	#container #title a {
+	text-decoration: none;
+	/*color: #000000;*/
+	display: block;
+	width: auto;
+	height:35px; 
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 18px;
+		
+	}
+
+	/*鼠标放在上面*/
+	#container #title #tag1 a:hover {
+	text-decoration: none;
+	color: #ffffff;
+	display: block;
+	/*width: auto;*/
+
+	border: 1px solid transparent;
+    border-radius: 4px;
+    /* background-color: #06D995; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	
+	}
+	#container #title #tag1 a:hover span{
+	display: block;
+
+	
+	}
+
+	/*鼠标放在上面*/
+	#container #title #tag2 a:hover {
+	text-decoration: none;
+	color: #ffffff;
+	display: block;
+	/*width: auto;*/
+	border: 1px solid transparent;
+    border-radius: 4px;
+    /* background-color: #06D995; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	}
+	#container #title #tag2 a:hover span{
+	display: block;
+
+	}
+
+	/*选中了之后*/
+	#container #title .selectli1 {
+	text-decoration: none;
+	color: #ffffff;
+	display: block;
+	width: 130px;
+	height:35px;
+	background-color: #00BD8E;	
+	border-radius: 4px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	}
+
+	#container #title a .selectspan1 {
+	display: block;
+
+	}
+
+	/*选中了之后*/
+	#container #title .selectli2 {
+	text-decoration: none;
+	color: #ffffff;
+	display: block;
+	width: 130px;
+	height:35px;
+	background-color: #00BD8E;	
+	border-radius: 4px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	
+	}
+
+	#container #title a .selectspan2 {
+	display: block;
+
+	}
+
+	#container #content ul {margin: 10px;}
+	#container #content li {margin: 5px; }
+	#container #content li img {margin: 5px;display:block;}
+	#container #content {
+	height: 530px;
+	padding: 10px;
+	}
+	.hidecontent {display:none;}
+
+
+
+
+/* search*/
+
+@import url(http://fonts.googleapis.com/css?family=Cabin:400);
+.webdesigntuts-workshop {
+	
+	height: 100%;
+	
+	text-align: center;
+	width: 100%;
+}
+
+.webdesigntuts-workshop:before {
+	background: #444;
+	background: -webkit-linear-gradient(left, #151515, #444, #151515);
+	background: -moz-linear-gradient(left, #151515, #444, #151515);
+	background: -o-linear-gradient(left, #151515, #444, #151515);
+	background: -ms-linear-gradient(left, #151515, #444, #151515);
+	background: linear-gradient(left, #151515, #444, #151515);
+	top: 192px;
+}
+
+.webdesigntuts-workshop:after {
+	background: #000;
+	background: -webkit-linear-gradient(left, #151515, #000, #151515);	
+	background: -moz-linear-gradient(left, #151515, #000, #151515);	
+	background: -o-linear-gradient(left, #151515, #000, #151515);	
+	background: -ms-linear-gradient(left, #151515, #000, #151515);	
+	background: linear-gradient(left, #151515, #000, #151515);	
+	top: 191px;
+}
+
+.webdesigntuts-workshop form {
+
+	
+	display: inline-block;
+	padding: 20px;
+
+}
+
+.webdesigntuts-workshop input {
+	
+	background: linear-gradient(#ffffff, #ffffff);	
+	border: 1px solid #ccc;
+	border-radius: 5px 0 0 5px;
+	
+	color: #ffffff;
+	display: block;
+	float: left;
+	font-family: 'Cabin', helvetica, arial, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	height: 40px;
+	margin: 0;
+	padding: 0 10px;
+	
+	width: 200px;
+}
+
+.ie .webdesigntuts-workshop input {
+	line-height: 40px;
+}
+
+.webdesigntuts-workshop input::-webkit-input-placeholder {
+   color: #ccc;
+}
+
+.webdesigntuts-workshop input:-moz-placeholder {
+   color: #ccc;
+}
+
+.webdesigntuts-workshop input:focus {
+	-webkit-animation: glow 800ms ease-out infinite alternate;
+	-moz-animation: glow 800ms ease-out infinite alternate;
+	-o-animation: glow 800ms ease-out infinite alternate;
+	-ms-animation: glow 800ms ease-out infinite alternate;
+	animation: glow 800ms ease-out infinite alternate;
+	background: #ccc;
+	background: -webkit-linear-gradient(#ffffff, #ffffff);
+	background: -moz-linear-gradient(#ffffff, #ffffff);
+	background: -o-linear-gradient(#ffffff, #ffffff);
+	background: -ms-linear-gradient(#ffffff, #ffffff);
+	background: linear-gradient(#ffffff, #ffffff);
+	
+	
+	color: #ccc;
+	outline: none;
+}
+
+.webdesigntuts-workshop input:focus::-webkit-input-placeholder { 
+	color: #ccc;
+}
+
+.webdesigntuts-workshop input:focus:-moz-placeholder {
+	color: #ccc;
+}
+
+
+
+.webdesigntuts-workshop button {
+	
+	background: linear-gradient(#ccc, #ccc);
+	
+	font-weight: bold;
+	border: 1px solid #ccc;
+	border-left-color: #ccc;
+	border-radius: 0 5px 5px 0;
+	/*box-shadow: 0 2px 0 #4cae4c;*/
+	color: #000;
+	
+	float: left;
+	font-family: 'Cabin', helvetica, arial, sans-serif;
+	font-size: 13px;	
+	height: 40px;
+	width: 80px;
+}	
+
+.webdesigntuts-workshop button:hover,
+.webdesigntuts-workshop button:focus {
+	background: #4cae4c;
+	background: -webkit-linear-gradient(#4cae4c, #4cae4c);	
+	background: -moz-linear-gradient(#4cae4c, #4cae4c);	
+	background: -o-linear-gradient(#4cae4c, #4cae4c);	
+	background: -ms-linear-gradient(#4cae4c, #4cae4c);	
+	background: linear-gradient(#4cae4c, #4cae4c);
+	color: #fff;
+	outline: none;
+}
+
+.webdesigntuts-workshop button:active {
+	background: #ccc;
+	background: -webkit-linear-gradient(#4cae4c, #4cae4c);	
+	background: -moz-linear-gradient(#4cae4c, #4cae4c);	
+	background: -o-linear-gradient(#4cae4c, #4cae4c);	
+	background: -ms-linear-gradient(#4cae4c, #4cae4c);	
+	background: linear-gradient(#4cae4c, #4cae4c);
+	/*box-shadow: 0 1px 0 #4cae4c, inset 1px 0 1px #4cae4c;*/
+	top: 1px;
+}
+
+/*字符云的样式*/
+#tagsList {position:relative;margin-left:-30px; width:400px; height:400px;  }
+/*background:#EAEAEA;*/
+#tagsList a {position:absolute; top:0px; left:0px; font-family: Microsoft YaHei; color:#000000; font-weight:bold; text-decoration:none; padding: 3px 6px; }
+#tagsList a:hover { color:#FF0000; }
+
+
+/*关键词云的样式*/
+.biaoqianyun a:hover {color:#ffffff; background-color: #A5DE37; text-decoration: none; border-radius: 100px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
+
+
+
+
+
+	@-webkit-keyframes glow {
+    0% {
+		/*border-color: #393;*/
+		box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #ccc;
+    }	
+    100% {
+		/*border-color: #6f6;*/
+		box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #ccc;
+    }
+}
+
+@-moz-keyframes glow {
+    0% {
+		/*border-color: #393;*/
+		box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #ccc;
+    }	
+    100% {
+		/*border-color: #6f6;*/
+		box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #ccc;
+    }
+}
+
+@-o-keyframes glow {
+    0% {
+		/*border-color: #393;*/
+		box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #ccc;
+    }	
+    100% {
+		/*border-color: #6f6;*/
+		box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #ccc;
+    }
+}
+
+@-ms-keyframes glow {
+    0% {
+		/*border-color: #393;*/
+		box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #ccc;
+    }	
+    100% {
+		/*border-color: #6f6;*/
+		box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #ccc;
+    }
+}
+
+@keyframes glow {
+    0% {
+		/*border-color: #393;*/
+		box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #ccc;
+    }	
+    100% {
+		/*border-color: #6f6;*/
+		box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #ccc;
+    }
+    /*字符云*/
+
+
+
+	
+
+  
+</style>
+
+		<script language="javascript">
+			function switchTag(tag,content)
+			{
+			//	alert(tag);
+			//	alert(content);
+				for(i=1; i <3; i++)
+				{
+					if ("tag"+i==tag)
+						{
+						document.getElementById(tag).getElementsByTagName("a")[0].className="selectli"+i;
+						document.getElementById(tag).getElementsByTagName("a")[0].getElementsByTagName("span")
+						[0].className="selectspan"+i;
+						}
+						else
+							{
+							document.getElementById("tag"+i).getElementsByTagName("a")[0].className="";
+
+							document.getElementById("tag"+i).getElementsByTagName("a")[0].getElementsByTagName("span")
+							//[0].className="";
+							}
+					if ("content"+i==content)
+						{
+							document.getElementById(content).className="";
+						}
+						else
+						{
+							document.getElementById("content"+i).className="hidecontent";
+						}
+						document.getElementById("content").className=content;
+				}
+			}
+		</script>
+
+	<script type="text/javascript" >
+		/*弹出对话框*/
+			function tishikuang()
+			{
+				var t=document.getElementById("guanjianci").value;
+				if (t!=null&&t!="")
+				{
+					if (!isNaN(t)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						window.open("https://www.baidu.com/");
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+
+		<script type="text/javascript" >
+		/*弹出对话框*/
+			function tishikuang2()
+			{
+				var t=document.getElementById("keyword").value;
+				if (t!=null&&t!="")
+				{
+					if (!isNaN(t)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						window.open("https://www.baidu.com/");
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+
+		<script type="text/javascript">
+			function entersearch1()
+			{
+				var t=document.getElementById("keyword").value;
+
+					if (t!=null&&t!="")
+				{
+					if (!isNaN(t)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						window.open("https://www.baidu.com/");
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+
+		</script>
+
+		<script type="text/javascript">
+			function entersearch2()
+			{
+				var t=document.getElementById("guanjianci").value;
+					if (t!=null&&t!="")
+				{
+					if (!isNaN(t)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						window.open("https://www.baidu.com/");
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+		
+
+		
+
+</head>
+
+
+	
+<body style="background-color:#F2F4F8">
+
+	<div  style="width:100%;height:70px;background: #06D995;position: fixed;z-index:999;top:0;">	
+
+		 <img src="/static/info_consume/image/title.png" width="150px" height="80px" style="float:left ;margin-top:0px;margin-left:1%">
+			
+
+			<ul id="daohanglan" style="font-size:20px;margin-left:35%;font-family: 微软雅黑;">
+				<li class="dropdown">
+					<a  data-toggle="dropdown" href="#" style="text-decoration: none;color:#ffffff">
+						我的管家 
+					</a>
+					<ul class="dropdown-menu" style="width:20px;border:0;background-color:transparent;border-radius: 0px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);">
+						<li><a href="#" style="color:#ffffff;">微博统计</a></li>
+						<li><a href="#" style="color:#ffffff;">性格感知</a></li>
+						<li><a href="#" style="color:#ffffff;">我的好友</a></li>
+						
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;color:#ffffff">
+						用户分析
+					</a>
+					<ul class="dropdown-menu" style="border:0;background-color:transparent;border-radius: 0px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);">
+						<li><a href="#" style="color:#ffffff;">用户发现</a></li>
+						<li><a href="#" style="color:#ffffff;">管理群组</a></li>					
+					</ul>
+				</li>
+						<li><a href="#" style="text-decoration: none;color:#ffffff">微博那些事儿</a></li>
+						<li><a href="#" style="text-decoration: none;color:#ffffff">商业推荐</a></li>
+   
+			</ul>
+	</div>
+
+
+
+<div id="container" style="margin-left:17%;margin-top:7%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border: 1px solid transparent;border-radius: 5px">
+
+		<div id="title">
+		<!--定义切换的标签-->	
+			<ul>
+				<li id="tag1" style=" margin-top:-5px;margin-left: 10%;">
+					<a href="#" onclick="switchTag('tag1','content1');this.blur();" class="selectli1" >
+					<span class="selectspan1" style="font-family: 微软雅黑;">直输胸臆</span></a>
+				</li>
+
+				<li id="tag2" style=" margin-top:-5px;margin-left: 5%; ">
+					<a href="#" onclick="switchTag('tag2','content2');this.blur();" >
+					<span style="font-family: 微软雅黑;">突如其来</span></a>
+				</li>
+
+			</ul>
+		</div>
+
+		
+		<div id="content" class="content1">			
+		<!--第一个面板显示的内容-->	
+
+			<div id="content1">
+
+			    <!--版面1的左半部分-->	
+			    <div style="float:left;margin-left:100px;">
+					<img src="/static/info_consume/image/baoman.png" width="200px" height="200px" style="float:left ;margin-top:20%;margin-left:20px;">
+					<p style="margin-left:15%;margin-top:50px;font-size:x-large;font-weight: bold;color:#06D995;">世界辣么大</p>
+					<p style="margin-left:30%;margin-top:20%;font-size:x-large;font-weight: bold;color:#06D995;">我想去看看</p>
+			    </div>
+
+				<div id="content1"> 
+				<!--版面1的右半部分-->	
+					
+					<div style="float:left">
+					<!--搜索框-->	
+						<section class="webdesigntuts-workshop" >
+						    <form action="" method="" style="margin-left:150px;">		    
+							<input id="keyword" type="search" onkeydown="if(event.keyCode==13){entersearch1()}"  placeholder="输入你感兴趣的关键词">	
+
+							<button type="button" onclick="tishikuang2()">搜索</button>
+
+
+						    </form>
+			        	</section>
+			        	
+					</div>
+
+					<!--字符云-->
+					<div id="zifuyun" style="height:400px; width:50%;float:right;margin-right:10px;" >
+						<div id="tagsList">
+
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:blueviolet;">蔡红旺</a></span>
+				        <span><a href="http://user.qzone.qq.com/976499921/main" style="color:coral">徐明敏</a></span>
+				        <span><a href="http://user.qzone.qq.com/976499921/main" style="color:violet">刘超</a></span>
+				        <span><a href="http://user.qzone.qq.com/976499921/main" style="color:turquoise">叶晓毅</a></span>
+				        <span><a href="http://user.qzone.qq.com/976499921/main" style="color:tomato">何金蓉</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:chartreuse">李钦钦</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:darkslateblue">李玉雪</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:deepskyblue">徐进</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:deeppink">蔡伟</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:orange">侯张波</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:green">黄卫星</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:lawngreen">徐淼</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:blueviolet">杨海军</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:coral">安忠华</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:turquoise">高阳南</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:darkslateblue">殷浩</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:deepskyblue">郑超</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:chartreuse">陈丽萍</a></span>
+						<span><a href="http://user.qzone.qq.com/976499921/main" style="color:blueviolet">徐丽兰</a></span>
+	
+					</div>
+
+					</div>
+
+			    </div>
+
+			</div>					
+		
+
+			<div id="content2" class="hidecontent">
+				<!--第2个面板,显示热门事件内容-->	
+				<div class="panel-group" id="accordion">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" style="background-color: aliceblue;">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" 
+				          href="#collapseOne" style="text-decoration: none;">
+				            热点事件1：<span>“</span><span id="hot_one_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_one_time"></span><span>”</span><span>发布</span>
+				          <!-- onclick="get_hot_text()"  -->
+				        </a>
+				      </h4>
+				    </div>
+
+				    <div id="collapseOne" class="panel-collapse collapse in" >
+					      <div id="hot_one_text" class="panel-body">
+					        <!-- <p>
+					        	<span id="hot_one_text" > </span><br />
+					        </p> -->
+
+
+					      </div>
+
+
+<!--字符云id="tagsList" -->
+
+	<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px;">
+			<p class="label label-success" style="font-size:16px;margin-left:30px;margin-right:20px;">话题关键词:</p>
+	
+			<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">孙杨</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">奥运会</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">中国</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">金牌</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">1500米</a></span>
+			<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">游泳</a></span>
+				
+	</div>
+
+			 <div id="button1" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="height:20px; margin-left:20%;margin-bottom:10px;">
+				<p style="margin-top: -8px;font-size:bold;">没有兴趣？</p>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+				  <div class="panel panel-default">
+				    <div class="panel-heading" style="background-color: linen;">
+				      <h4 class="panel-title">
+				        <a  data-toggle="collapse" data-parent="#accordion" 
+				          href="#collapseTwo" style="text-decoration: none;">
+					      热点事件2：<span>“</span><span id="hot_two_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_two_time"></span><span>”</span><span>发布</span> 
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseTwo" class="panel-collapse collapse">
+				      <div id="hot_two_text" class="panel-body">
+				        
+
+				      </div>
+
+		<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
+			<p class="label label-success" style="font-size:16px;margin-left:30px;margin-right:20px;">话题关键词:</p>
+			<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">里约</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">奥运会</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">中国</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">国旗</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">五星</a></span>
+			<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">巴西奥委会</a></span>
+				
+		</div>
+
+					     <div id="button2" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="height:20px; margin-left:20%;margin-bottom:20px;">
+					      	<p style="margin-top: -8px;font-size:bold;">没有兴趣？</p>
+					     </div>   
+
+				    </div>
+				  </div>
+
+
+				  <div class="panel panel-default">
+				    <div class="panel-heading" style="background-color: lemonchiffon;">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" 
+				          href="#collapseThree" style="text-decoration: none;">
+				          热点事件3：<span>“</span><span id="hot_three_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_three_time"></span><span>”</span><span>发布</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseThree" class="panel-collapse collapse">
+				      <div id="hot_three_text" class="panel-body">
+				        
+
+
+				      </div>
+				        
+		<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
+			<p class="label label-success" style="font-size:16px;margin-left:30px;margin-right:20px;">话题关键词:</p>
+			<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">王宝强</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">马蓉</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">宋哲</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">出轨事件</a></span>
+	        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">经纪人</a></span>
+			<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">法庭</a></span>
+				
+		</div>
+
+		<div id="button3" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="height:20px; margin-left:20%;margin-bottom:20px;">
+				<p style="margin-top: -8px;font-size:bold;">没有兴趣？</p>
+		</div>
+				        
+
+				    </div>
+				  </div>
+				
+
+
+
+				  <div class="panel panel-default" >
+				    <div class="panel-heading" style="background-color: whitesmoke;">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" 
+				          href="#collapseFour" style="text-decoration: none;">
+				          热点事件4：<span>“</span><span id="hot_four_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_four_time"></span><span>”</span><span>发布</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseFour" class="panel-collapse collapse">
+				      <div id="hot_four_text" class="panel-body">
+				        
+
+
+				      </div>
+
+						<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
+							<p class="label label-success" style="font-size:16px;margin-left:30px;margin-right:20px;">话题关键词:</p>
+							<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">林丹</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">李宗伟</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">羽毛球</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">奥运会</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">金牌</a></span>
+						
+								
+						</div>
+
+					     <div id="button4" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="height:20px; margin-left:20%;margin-bottom:20px;">
+					      	<p style="margin-top: -8px;font-size:bold;">没有兴趣？</p>
+					     </div>   
+
+				    </div>
+				  </div>
+
+
+				  <div class="panel panel-default" >
+				    <div class="panel-heading" style="background-color: powderblue;">
+				      <h4 class="panel-title">
+				        <a  data-toggle="collapse" data-parent="#accordion" 
+				          href="#collapseFive" style="text-decoration: none;">
+				          热点事件5：<span>“</span><span id="hot_five_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_five_time"></span><span>”</span><span>发布</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapseFive" class="panel-collapse collapse">
+				      <div id="hot_five_text" class="panel-body">
+				        
+
+
+
+				      </div>
+
+						<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
+							<p class="label label-success" style="font-size:16px;margin-left:30px;margin-right:20px;">话题关键词:</p>
+							<span><a href="http://user.qzone.qq.com/976499921/main" class="kw">郎教练</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">女排</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">朱婷</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">夺冠</a></span>
+					        <span><a href="http://user.qzone.qq.com/976499921/main" class="kw">奥运会</a></span>
+							
+								
+						</div>
+
+					     <div id="button5" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="height:20px; margin-left:20%;margin-bottom:20px;">
+					      	<p style="margin-top: -8px;font-size:bold;">没有兴趣？</p>
+					     </div>   
+
+				    </div>
+				  </div>
+								
+			
+			</div>
+
+
+                <!-- 模态框（Modal） -->
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+							   aria-labelledby="myModalLabel" aria-hidden="true">
+							   <div class="modal-dialog">
+							      <div class="modal-content">
+							         <div class="modal-header">
+							            <button type="button" class="close" 
+							               data-dismiss="modal" aria-hidden="true">
+							                  &times;
+							            </button>
+							            <h4 class="modal-title" id="myModalLabel">
+							               请输入与此热门事件相关的其他关键词
+							            </h4>
+							         </div>
+
+
+							         <div class="modal-body">
+							         	
+								          <div class="form-group">
+								            <label for="recipient-name" class="control-label">请输入关键词</label>
+								            <input type="text" class="form-control" id="guanjianci" onkeydown="if(event.keyCode==13){entersearch2()}" >
+								          </div>
+											注：关键词不可以为空，且只能为字符！			    								 
+							         </div>
+							         <div class="modal-footer">
+							            <button type="button" class="btn btn-default" 
+							               data-dismiss="modal">关闭
+							            </button>
+							            <button type="button" class="btn btn-primary" onclick="tishikuang()">
+							               确定
+							            </button>
+							         </div>
+							      </div><!-- /.modal-content -->
+							</div><!-- /.modal -->
+							</div>
+
+			</div>
+			
+
+		</div> 			
+				
+
+</div>
+		
+		<footer>
+		  <p style="color: #fff; line-height: 24px; background:#ccc;margin-top:5%;margin-bottom:3%;">网民画像系统 Design by Rcsc 京ICP 1234567</p>
+		</footer>
+		
+
+</body>
+</html>
+

@@ -73,6 +73,9 @@
        				<div class="form-group">
         	    		<div class='input-group date' id='datetimepicker1' style="width: 202px;margin-top: -0.5%;margin-left: 0%;">
                 			<input type='text' class="form-control" id='datetimepicker1_input'/>
+                			    <!-- <script type="text/javascript">
+    								$(".datetimepicker1_input").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+								</script>  -->
                 			<span class="input-group-addon">
                 				<span class="glyphicon glyphicon-calendar"></span>
                 			</span>
@@ -84,6 +87,9 @@
         			<div class="form-group" style="float: left;width: 8%;">
             			<div class='input-group date' id='datetimepicker2' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
                 			<input type='text' class="form-control" id='datetimepicker2_input'/>
+                			<!-- <script type="text/javascript">
+    								$(".datetimepicker2_input").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+								</script>  -->
                 			<span class="input-group-addon">
                 				<span class="glyphicon glyphicon-calendar"></span>
                 			</span>
@@ -92,7 +98,7 @@
     			</div>
 
     			<div class="btn_commit" class="bs-example">
-   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;" onclick="getValue_time()">确定</button>
+   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;" onclick="set_timestamp()">确定</button>
 				</div>
 
 			</div>
@@ -122,16 +128,16 @@
 		<div><p id="per_time">单位时间：</p></div>
 		<div class="btn-group" data-toggle="buttons">
 			
-   			<label class="btn btn-primary" id="label1" value="900" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time(this.value)">
+   			<label class="btn btn-primary" id="label1" value="900" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('900')">
      			<input type="radio" name="options" id="option1" onClick="changecolor(this)"> 15min
    			</label>
-   			<label class="btn btn-primary" id="label2" value="1800" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time(this.value)">
+   			<label class="btn btn-primary" id="label2" value="1800" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('1800')">
       			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 30min
    			</label>
-   			<label class="btn btn-primary" id="label3" value="3600" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time(this.value)">
+   			<label class="btn btn-primary" id="label3" value="3600" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('3600')">
       			<input type="radio" name="options" id="option3" onClick="changecolor(id)"> 1 hour
    			</label>
-   			<label class="btn btn-primary" id="label4" value="86400" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time(this.value)">
+   			<label class="btn btn-primary" id="label4" value="86400" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('86400')">
       			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 1 day
    			</label>
    			
@@ -145,11 +151,7 @@
 <div id="main_time">
 	
 </div>
- 	
-
-	<!-- $("#main_time").draw_timetrend(); -->
-	<!-- window.onload = draw_timetrend() -->
-	
+ 		
 	
 <!-- 分割线 -->
 		<div class="halving_line2"></div>
@@ -465,7 +467,7 @@
 	</div>
 </div>
 
- 	<script type="text/javascript">
+ 	<!-- <script type="text/javascript">
  	var myChart = echarts.init(document.getElementById('main_place'));
  	
  
@@ -483,7 +485,7 @@ require(
 			// 基于准备好的dom，初始化echarts图表
 			//var myChart = ec.init(document.getElementById('main')); 
 			var myChart = echarts.init(document.getElementById('main_place'));
-			// 过渡---------------------
+			// 过渡-
 			var curIndx = 0;
 			var mapType = [
 				    'china',
@@ -955,7 +957,7 @@ require(
 				                    
 				
 
-	</script>
+	</script> -->
 
 <!-- <div id="left_line_right"></div> -->
 
@@ -3442,36 +3444,51 @@ require(
 </div>
 
 </body>
-<script type="text/javascript">
-	var topic = $('#topic_text').text();
-	var pointInterval = $('#label1').text();
- 	// var start_ts = '123';
- 	// var end_ts = '';
- 	console.log('aaaa');
- 	function getValue_time() {
- 		//var start_ts = '';
- 		//var end_ts = '';
-		// var start_ts = $('#datetimepicker1_input').val(); 
-		//var start_ts = $('#datetimepicker1_1').get[UTC]Date();
-		//start_ts = $('#datetimepicker1_1').val().toUTCString();
-		var val = $('#datetimepicker1_input').val().getMonth();
-		alert(val);
- 		// console.log('cccc');
- 		// console.log(val);
- 		// var ux = Date.UTC(start_ts.getFullYear(),start_ts.getMonth(),start_ts.getDay(),start_ts.getHours(),start_ts.getMinutes(),start_ts.getSeconds())/1000
- 		// console.log(ux);
- 		//return console.log(end_ts);
+<!-- <script type="text/javascript">
+	// var topic = $('#topic_text').text();
+	// var pointInterval = $('#label1').text();
+ // 	// var start_ts = '123';
+ // 	// var end_ts = '';
+ // 	console.log('aaaa');
+ // 	function getValue_time() {
+ // 		var date_time_string = $('#datetimepicker1_input').val();
+ // 		var date_time_array =date_time_string.split(/[/: ]/);
+ // 		var date_array_new = [date_time_array[2],date_time_array[0],date_time_array[1]];
+ 		
+ // 		//var time_array_new_update = [];
+ // 		if (date_time_array[5] == 'PM'){
+ // 			//time_array_new_update = time_array_new.splice(0,date_time_array[2]+12); //替换元素，小时数字加12
+ // 			date_time_array[3] = parseInt(date_time_array[3])+12;
+ // 		}
+ // 		var time_array_new = [date_time_array[3],date_time_array[4],'00'];
+ // 		var timestamp_date_str = date_array_new.join('/');
+ // 		var timestamp_time_str = time_array_new.join(':');
+ // 		var timestamp_time_array = [timestamp_date_str,timestamp_time_str]
+ // 		var timestamp_str = timestamp_time_array.join(' ');
 
-	}
+	// //new Date(time).getTime();返回的是NaN；  改为：  
+	// //eval("new Date("+ time.replace(/\D+/g,",")+")").getTime();
+	// 	//var timestamp = (new Date("timestamp_str")).getTime()/1000;
+ // 		var timestamp = (new Date(timestamp_str)).getTime()/1000;
+ // 		// var start_ts = (new Date("2015/06/23 08:00:20")).getTime()/1000;
 
-	console.log(topic);
-	console.log('bbbb');
-	console.log(pointInterval);
+ // 		console.log(date_time_string);
+ // 		//console.log(date);
+ // 		console.log(timestamp_str);
+ // 		console.log(timestamp);
+ // 		// console.log(start_ts);
+	// }
+
+	// console.log(topic);
+	// console.log('bbbb');
+	// console.log(pointInterval);
 	
-function get_per_time(val) {
-	//return val;
-	alert(val);
-}
+
+
+
+</script> -->
+
+
 
 
 </script>
