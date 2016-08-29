@@ -30,8 +30,10 @@ from user_portrait.user_rank.views import mod as userrankModule
 from info_consume.topic_sen_analyze.views import mod as topicSenModule
 from info_consume.topic_language_analyze.views import mod as topicLanModule
 from info_consume.topic_geo_analyze.views import mod as topicGeoModule
+from info_consume.topic_time_analyze.views import mod as topicTimeModule
 from info_consume.index.views import mod as infoIndexModule
-
+from info_consume.user_rank.views import mod as infoUserrankModule
+from info_consume.weibo_hashtag.views import mod as weiboHashtagModule
 
 
 def create_app():
@@ -63,7 +65,10 @@ def create_app():
     app.register_blueprint(topicSenModule)
     app.register_blueprint(topicLanModule)
     app.register_blueprint(topicGeoModule)    
+    app.register_blueprint(topicTimeModule) 
     app.register_blueprint(infoIndexModule) 
+    app.register_blueprint(infoUserrankModule)
+    app.register_blueprint(weiboHashtagModule)
     # the debug toolbar is only enabled in debug mode
     app.config['DEBUG'] = True
 

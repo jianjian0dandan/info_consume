@@ -116,6 +116,16 @@ es_path = '/home/elasticsearch-1.6.0'
 mtype_kv = {'origin':1, 'comment': 2, 'forward':3}
 emotions_kv = {'happy': 1, 'angry': 2, 'sad': 3, 'news': 4}
 emotions_zh_kv = {'happy': '高兴', 'angry': '愤怒', 'sad': '悲伤', 'news': '新闻'}
+
+#jln
+SENTIMENT_TYPE_COUNT = 7
+SENTIMENT_FIRST = ['0', '1', '7']
+SENTIMENT_SECOND = ['2', '3', '4', '5', '6']
+MAX_REPOST_SEARCH_SIZE = '100'
+MAX_FREQUENT_WORDS = 100
+MAX_LANGUAGE_WEIBO = 200
+
+
 MYSQL_HOST = '219.224.135.222' #47
 MYSQL_USER = 'root'
 MYSQL_DB = 'weibocase'

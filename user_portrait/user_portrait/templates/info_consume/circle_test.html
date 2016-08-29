@@ -7,18 +7,18 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Bootstrap Test__editor GuoJia</title>
     <!-- Bootstrap -->
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/bootstrap-table.css" rel="stylesheet" >
+    <link href="../../static/info_consume/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../static/info_consume/css/bootstrap-table.css" rel="stylesheet" >
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">
     <!--自己的css样式，顺序靠后优先级越高-->
-    <link href="../static/css/circle_test.css" rel="stylesheet">
+    <link href="../../static/info_consume/css/circle_test.css" rel="stylesheet">
   </head>
   <body>
     <div class="myContainer">
       <div class="row">
         <div class="col-md-12"><h1>系统主导航</h1></div>
       </div>
-      <div class="row" id="circle-analysis" style="display:none;">
+      <div class="row" id="circle-analysis" style="display:block;">
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <ul id="circle-Tab" class="nav nav-tabs">
@@ -40,8 +40,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
-                    <div class="panel-heading green"><b>影响力</b></div>
-                    <div id="influence-line" class="panel-body" style="padding:10px;">
+                    <div class="panel-heading green"><b>近一月圈子影响力走势</b></div>
+                    <div id="influen-line" class="panel-body" style="margin-left:40px;width:720px;height:400px;">
                     </div>
                   </div>
                 </div>
@@ -50,13 +50,13 @@
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading blue"><b>用户身份分布</b></div>
-                    <div class="panel-body"></div>
+                    <div id="identi-distri" class="panel-body" style="padding-left:20px;width:370px;height:400px;"></div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading"><b>用户领域分布</b></div>
-                    <div class="panel-body"></div>
+                    <div id="area-distri" class="panel-body" style="padding-left:20px;width:370px;height:400px;"></div>
                   </div>
                 </div>
               </div>
@@ -67,7 +67,7 @@
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading yellow"><b>近一个月群体活跃度走势</b></div>
-                    <div class="panel-body"></div>
+                    <div id="activi-line" class="panel-body" style="margin-left:40px;width:720px;height:400px;"></div>
                   </div>
                 </div>
               </div>
@@ -75,13 +75,94 @@
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading purple"><b>主要活跃用户</b></div>
-                    <div class="panel-body"></div>
+                    <div id="activi-users" class="panel-body">
+                      <table class="table table-striped table-hover">
+                       <thead>
+                       <tr>
+                      <th>排名</th>
+                      <th>ID</th>
+                      <th>昵称</th>
+                      <th class="hidden-480">活跃度</th>
+                      <th>活跃等级</th>
+                       </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                      <td>1</td><td>324354355</td><td>微博管家</td>
+                      <td class="hidden-480">95</td>
+                      <td><span class="label label-danger">一级</span></td>
+                      </tr> 
+                      <tr>
+                      <td>2</td>
+                      <td>435465734</td>
+                      <td>回忆小马甲</td>
+                      <td class="hidden-480">93</td>
+                      <td><span class="label label-warning">二级</span></td>
+                      </tr>
+                      <tr>
+                      <td>3</td>
+                      <td>3544657</td>
+                      <td>邓超</td>
+                      <td class="hidden-480">92</td>
+                      <td><span class="label label-success">二级</span></td>
+                      </tr>
+                      <tr>
+                      <td>4</td>
+                      <td>45336434</td>
+                      <td>孙杨</td>
+                      <td class="hidden-480">90</td>
+                      <td><span class="label label-success">三级</span></td>
+                      </tr>
+                  </tbody>
+                </table>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading yellow"><b>主要非活跃用户</b></div>
-                    <div class="panel-body"></div>
+                    <div id="intiactivi-users" class="panel-body">
+                      <table class="table table-striped table-hover">
+                       <thead>
+                       <tr>
+                      <th>排名</th>
+                      <th>ID</th>
+                      <th>昵称</th>
+                      <th class="hidden-480">活跃度</th>
+                      <th>活跃等级</th>
+                       </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                      <td>1</td><td>324354355</td>
+                      <td>朝阳记者</td>
+                      <td class="hidden-480">95</td>
+                      <td><span class="label label-info">四级</span></td>
+                      </tr> 
+                      <tr>
+                      <td>2</td>
+                      <td>435465734</td>
+                      <td>互联网排行</td>
+                      <td class="hidden-480">93</td>
+                      <td><span class="label label-info">四级</span></td>
+                      </tr>
+                      <tr>
+                      <td>3</td>
+                      <td>3544657</td>
+                      <td>孙立平</td>
+                      <td class="hidden-480">92</td>
+                      <td><span class="label label-info">五级</span></td>
+                      </tr>
+                      <tr>
+                      <td>4</td>
+                      <td>45336434</td>
+                      <td>今日早报</td>
+                      <td class="hidden-480">90</td>
+                      <td><span class="label label-info">五级</span></td>
+                      </tr>
+                  </tbody>
+                </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -89,7 +170,7 @@
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading blue"><b>近一个月地理活跃度分布</b></div>
-                    <div class="panel-body"></div>
+                    <div id="geo-distri" class="panel-body"  style="margin-left:40px;width:720px;height:400px;"></div>
                   </div>
                 </div>
               </div>
@@ -100,13 +181,13 @@
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading red"><b>关键词</b></div>
-                    <div class="panel-body"></div>
+                    <div id="keyword-cloud" class="panel-body" style="width:360px;height:400px;"></div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading blue"><b>微话题</b></div>
-                    <div class="panel-body"></div>
+                    <div id="topic-cloud" class="panel-body" style="width:360px;height:400px;"></div>
                   </div>
                 </div>
               </div>
@@ -188,13 +269,19 @@
           <div class="col-md-1"></div>
         </div>
       </div>
-    <script src="../static/js/jquery-1.11.3.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/bootstrap-table.js"></script>
-    <script src="../static/js/bootstrap-table-zh-CN.js"></script>
-    <script src="../static/js/circle_test.js"></script>
+    <script src="../../static/info_consume/js/jquery-1.11.3.min.js"></script>
+    <script src="../../static/info_consume/js/bootstrap.min.js"></script>
+    <script src="../../static/info_consume/js/bootstrap-table.js"></script>
+    <script src="../../static/info_consume/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../../static/info_consume/js/circle_test.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
-    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
-    <script src="../static/js/influence-line.js"></script>
+    <script src="../../static/info_consume/js/echarts-all-guo.js"></script>
+    <script src="../../static/info_consume/js/influence-line.js"></script>
+    <script src="../../static/info_consume/js/identi-distri.js"></script>
+    <script src="../../static/info_consume/js/activi-line.js"></script>
+    <script src="../../static/info_consume/js/area-distri.js"></script>
+    <script src="../../static/info_consume/js/geo-distri.js"></script>
+    <script src="../../static/info_consume/js/keyword-cloud.js"></script>
+    <script src="../../static/info_consume/js/topic-cloud.js"></script>
   </body>
 </html>

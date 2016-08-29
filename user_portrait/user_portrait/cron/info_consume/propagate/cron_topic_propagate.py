@@ -5,6 +5,7 @@ import json
 
 #from config import db
 from model import PropagateCount, PropagateKeywords, PropagateWeibos
+from propagate_time_weibo import PropagateTimeWeibos
 
 sys.path.append('../../../')
 from global_config import db
@@ -105,7 +106,7 @@ def compute_mtype_keywords(topic, begin_ts, end_ts ,k_limit):
 
 	results = all_keyword_dict
 
-	print results
+	#print results
 	return results
 
 def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit=TOP_WEIBOS_LIMIT):
@@ -116,7 +117,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 			for k, v in mtype_dict.iteritems():
 				mtype = k
 				count = v
-				item = PropagateCount(topic, during, ts, mtype,json.dumps({'other': count}))
+				item = PropagateCount(topic, ts, during, mtype,count)#json.dumps({'other': count})
 				item_exist = db.session.query(PropagateCount).filter(PropagateCount.topic==topic, \
 															PropagateCount.range==during, \
 															PropagateCount.end==ts, \
@@ -132,7 +133,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 			for k, v in mtype_dict.iteritems():
 				mtype = k
 				kcount = v
-				item = PropagateKeywords(topic, during, klimit, ts, mtype, json.dumps(kcount))
+				item = PropagateKeywords(topic, ts, during, mtype, klimit,json.dumps(kcount))
 				#print item
 				item_exist = db.session.query(PropagateKeywords).filter(PropagateKeywords.topic==topic, \
                                                                 PropagateKeywords.range==during, \
@@ -143,21 +144,24 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)
-			db.session.commit
+			db.session.commit()
 
 	if calc == 'weibo':
 		for time,mtype_dict in results.iteritems():
 			ts = time
 			for k,v in mtype_dict.iteritems():
-				mtype = k
+				mtype = int(k)
 				weibo = v
-				item = PropagateWeibos(topic, during, wlimit, ts, mtype, json.dumps(weibo))
-				item_exist = db.session.query(PropagateWeibos).filter(PropagateWeibos.query==topic, 
-                                                                                   PropagateWeibos.range==during, 
-                                                                                   PropagateWeibos.end==ts, 
-                                                                                   PropagateWeibos.limit==wlimit, 
-                                                                                   PropagateWeibos.mtype==mtype).first()
-				print item_exist
+				item = PropagateTimeWeibos(topic, ts, during, mtype, wlimit, json.dumps(weibo))
+				item_exist = db.session.query(PropagateTimeWeibos).filter(PropagateTimeWeibos.query==topic, 
+                                                                                   PropagateTimeWeibos.range==during, 
+                                                                                   PropagateTimeWeibos.end==ts, 
+                                                                                   PropagateTimeWeibos.limit==wlimit, 
+                                                                                   PropagateTimeWeibos.mtype==mtype).first()
+				if item_exist:
+					db.session.delete(item_exist)
+				db.session.add(item)
+			db.session.commit()
 			
 def propagateCronTopic(topic, start_ts, over_ts, sort_field=SORT_FIELD, \
     save_fields=RESP_ITER_KEYS, during=Fifteenminutes, w_limit=TOP_WEIBOS_LIMIT, k_limit=TOP_KEYWORDS_LIMIT):
@@ -175,11 +179,12 @@ def propagateCronTopic(topic, start_ts, over_ts, sort_field=SORT_FIELD, \
 
 			begin_ts = over_ts - during * i
 			end_ts = begin_ts + during
+			print begin_ts,end_ts
 			#print begin_ts, end_ts, 'topic %s starts calculate' % topic.encode('utf-8')
 			mtype_count = compute_mtype_count(topic, begin_ts, end_ts)
 			mtype_kcount = compute_mtype_keywords(topic, begin_ts, end_ts ,k_limit)
 			mtype_weibo = compute_mtype_weibo(topic,begin_ts,end_ts,w_limit)
-			#print mtype_count
+
 			save_results('count', topic, mtype_count, during)
 			save_results('kcount', topic, mtype_kcount, during, k_limit, w_limit)
 			save_results('weibo', topic, mtype_weibo, during, k_limit)
@@ -187,7 +192,7 @@ def propagateCronTopic(topic, start_ts, over_ts, sort_field=SORT_FIELD, \
 
 def compute_mtype_count(topic, begin_ts, end_ts):
 		all_mtype_dict = {}
-		print begin_ts,end_ts
+		#print begin_ts,end_ts
 		query_body = {
 			'query':{
 				'filtered':{

@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from config import db
+#from extensions import db
+from user_portrait.global_config import db
 
-__all__ = ['Topics', 'SentimentKeywords', 'SentimentWeibos', 'SentimentPoint', 'SentimentCount', 'SentimentCountRatio',\
-        'OpinionTopic', 'OpinionWeibos', 'Opinion', 'OpinionHot', 'CityTopicCount', 'CityRepost', 'PropagateCount', \
+__all__ = ['Topics', 'SentimentKeywords', 'SentimentGeo','SentimentWeibos', 'SentimentPoint', 'SentimentCount', 'SentimentCountRatio',\
+        'OpinionTopic', 'OpinionWeibos', 'Opinion', 'OpinionHot', 'CityTopicCount', 'CityTopicCountNews', \
+        'CityRepost', 'CityRepostNews','CityWeibos', 'CityNews','PropagateCount', \
         'PropagateCountNews', 'PropagateKeywords', 'PropagateKeywordsNews',\
-        'PropagateWeibos', 'PropagateNews', 'AttentionCount', 'QuicknessCount', 'FirstUser','FirstDomainUser',\
+        'PropagateWeibos', 'PropagateTimeWeibos','PropagateNews', 'AttentionCount', 'QuicknessCount', 'FirstUser','FirstDomainUser',\
            'TopicStatus', 'TopicIdentification', 'OpinionTestRatio',\
-          'OpinionTestTime', 'OpinionTestKeywords', 'OpinionTestWeibos', 'IndexTopic', 'OpinionWeibosNew']
+          'OpinionTestTime', 'OpinionTestKeywords', 'OpinionTestWeibos', 'IndexTopic', 'OpinionWeibosNew',\
+          'FirstUserNews', 'TrendMakerNews', 'TrendPusherNews']
 
 
 class Topics(db.Model):
@@ -174,6 +177,27 @@ class CityTopicCount(db.Model):
     def _name(cls):
         return u'CityTopicCount'
 
+class CityTopicCountNews(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    mtype = db.Column(db.Integer(1, unsigned=True))  #message_type:原创-1、转发-2
+    ccount = db.Column(db.Text)                      #city_count:{city:count}
+    first_item = db.Column(db.Text)          # 原创 初始微博 其他类型为空
+
+    def __init__(self, topic, range, end, mtype, ccount, first_item):
+        self.topic = query 
+        self.range = range
+        self.end = end
+        self.mtype = mtype
+        self.ccount = ccount
+        self.first_item = first_item
+
+    @classmethod
+    def _name(cls):
+        return u'CityTopicCountNews'
+
 class CityRepost(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     original = db.Column(db.Integer(1,unsigned = True))
@@ -194,6 +218,65 @@ class CityRepost(db.Model):
     @classmethod
     def _name(cls):
         return u'CityRepost'
+
+class CityRepostNews(db.Model):
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    original = db.Column(db.Integer(1,unsigned = True))
+    topic = db.Column(db.String(20))
+    mid = db.Column(db.String(20)) # 新闻ID
+    ts = db.Column(db.BigInteger(20, unsigned=True))
+    origin_location = db.Column(db.Text) # 原始新闻发布地点
+    repost_location = db.Column(db.Text) # 转发新闻发布地点
+
+    def __init__(self, original, topic, mid, ts, origin_location, repost_location ):
+        self.topic = topic
+        self.original = original
+        self.mid = mid
+        self.ts = ts
+        self.origin_location = origin_location
+        self.repost_location = repost_location
+
+    @classmethod
+    def _name(cls):
+        return u'CityRepostNews'
+
+class CityWeibos(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
+    weibos = db.Column(db.Text) # weibos=[weibos]
+
+    def __init__(self, topic, end, range, limit, weibos):
+        self.topic = topic
+        self.end = end
+        self.range = range
+        self.limit = limit
+        self.weibos = weibos
+
+    @classmethod
+    def _name(cls):
+        return u'CityWeibos'
+
+class CityNews(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
+    news = db.Column(db.Text) # news=[news]
+
+    def __init__(self, topic, end, range, limit, news):
+        self.topic = topic
+        self.end = end
+        self.range = range
+        self.limit = limit
+        self.news = news
+
+    @classmethod
+    def _name(cls):
+        return u'CityNews'
 
 #时间分析模块
 class PropagateCount(db.Model):
@@ -279,7 +362,7 @@ class QuicknessCount(db.Model):
     @classmethod
     def _name(cls):
         return u'QuicknessCount'
-    
+
 class PropagateKeywords(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     topic = db.Column(db.String(20))
@@ -677,6 +760,71 @@ class FirstUser(db.Model):
     @classmethod
     def _name(cls):
         return u'FirstUser'
+
+class FirstUserNews(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    start_ts = db.Column(db.BigInteger(20, unsigned=True))
+    end_ts = db.Column(db.BigInteger(20, unsigned=True))
+    timestamp = db.Column(db.BigInteger(20, unsigned=True))
+    news_info = db.Column(db.Text)
+
+    def __init__(self, topic, start_ts, end_ts, timestamp, news_info):
+        self.topic = topic
+        self.start_ts = start_ts
+        self.end_ts = end_ts
+        self.timestamp = timestamp
+        self.news_info = news_info
+
+    @classmethod
+    def _name(cls):
+        return u'FirstUserNews'
+
+class TrendMakerNews(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    start_ts = db.Column(db.BigInteger(20, unsigned=True))
+    end_ts = db.Column(db.BigInteger(20, unsigned=True))
+    news_id = db.Column(db.Text)
+    timestamp = db.Column(db.BigInteger(20, unsigned=True))
+    weight = db.Column(db.Float)
+    news_info = db.Column(db.Text)
+
+    def __init__(self, topic, start_ts, end_ts, news_id, timestamp, weight, news_info):
+        self.topic = topic
+        self.start_ts = start_ts
+        self.end_ts = end_ts
+        self.news_id = news_id
+        self.timestamp = timestamp
+        self.weight = weight
+        self.news_info = news_info
+    
+    @classmethod
+    def _name(cls):
+        return u'TrendMakerNews'
+
+class TrendPusherNews(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    start_ts = db.Column(db.BigInteger(20, unsigned=True))
+    end_ts = db.Column(db.BigInteger(20, unsigned=True))
+    news_id = db.Column(db.Text)
+    timestamp = db.Column(db.BigInteger(20, unsigned=True))
+    comments_count = db.Column(db.Integer)
+    news_info = db.Column(db.Text)
+
+    def __init__(self, topic, start_ts, end_ts, news_id, timestamp, comments_count, news_info):
+        self.topic = topic
+        self.start_ts = start_ts
+        self.end_ts = end_ts
+        self.news_id = news_id
+        self.timestamp = timestamp
+        self.comments_count = comments_count
+        self.news_info = news_info
+
+    @classmethod
+    def _name(cls):
+        return u'TrendPusherNews'
 
 class FirstDomainUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -1233,6 +1381,27 @@ class QuotaFSensitivity(db.Model):
     def _name(cls):
         return u'QuotaFSensitivity'
 
+class PropagateTimeWeibos(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    mtype = db.Column(db.Integer(1, unsigned=True))
+    limit = db.Column(db.BigInteger(10, unsigned=True))
+    weibos = db.Column(db.Text) # weibos=[weibos]
+
+    def __init__(self, topic, end, range, mtype, limit, weibos):
+        self.topic = topic
+        self.end = end
+        self.range = range
+        self.mtype = mtype
+        self.limit = limit
+        self.weibos = weibos
+
+    @classmethod
+    def _name(cls):
+        return u'PropagateTimeWeibos'
+
 class QuotaFSentiment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     topic = db.Column(db.String(20))
@@ -1384,3 +1553,22 @@ class OpinionHot(db.Model):
     @classmethod
     def _name(cls):
         return u'OpinionHot'
+
+
+class SentimentGeo(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    sentiment = db.Column(db.Integer(1, unsigned=True))  
+    geo_count = db.Column(db.Text)                
+
+    def __init__(self, topic, range, end, sentiment, geo_count):
+        self.topic = topic 
+        self.range = range
+        self.end = end
+        self.sentiment = sentiment
+        self.geo_count = geo_count
+    @classmethod
+    def _name(cls):
+        return u'SentimentGeo'

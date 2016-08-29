@@ -5,7 +5,6 @@ from elasticsearch import Elasticsearch
 from global_config import ZMQ_VENT_PORT_FLOW1, ZMQ_CTRL_VENT_PORT_FLOW1, ZMQ_VENT_HOST_FLOW1, ZMQ_CTRL_HOST_FLOW1, BIN_FILE_PATH
 from global_config import REDIS_CLUSTER_HOST_FLOW1, REDIS_CLUSTER_PORT_FLOW1,\
                           REDIS_CLUSTER_HOST_FLOW2, REDIS_CLUSTER_PORT_FLOW2,\
-                          REDIS_CLUSTER_HOST_FLOW3, REDIS_CLUSTER_PORT_FLOW3,\
                           REDIS_HOST, REDIS_PORT,REDIS_TEXT_MID_HOST, REDIS_TEXT_MID_PORT
 from global_config import WEIBO_API_HOST, WEIBO_API_PORT,ES_COPY_USER_PORTAIT_HOST
 from global_config import USER_PROFILE_ES_HOST, USER_PROFILE_ES_PORT, ES_CLUSTER_HOST_FLOW1,\
@@ -25,7 +24,8 @@ def _default_cluster_redis(host=REDIS_CLUSTER_HOST_FLOW1, port=REDIS_CLUSTER_POR
 
 R_CLUSTER_FLOW1 = redis.StrictRedis(host=REDIS_CLUSTER_HOST_FLOW1, port=REDIS_CLUSTER_PORT_FLOW1)
 R_CLUSTER_FLOW2 = redis.StrictRedis(host=REDIS_CLUSTER_HOST_FLOW2, port=REDIS_CLUSTER_PORT_FLOW2)
-R_CLUSTER_FLOW3 = redis.StrictRedis(host=REDIS_CLUSTER_HOST_FLOW3, port=REDIS_CLUSTER_PORT_FLOW3)
+######
+R_CLUSTER_FLOW3 = redis.StrictRedis(host=REDIS_CLUSTER_HOST_FLOW2, port=REDIS_CLUSTER_PORT_FLOW2)
 #R_CLUSTER_FLOW1 = _default_cluster_redis(host=REDIS_CLUSTER_HOST_FLOW1, port=REDIS_CLUSTER_PORT_FLOW1)
 #R_CLUSTER_FLOW2 = _default_cluster_redis(host=REDIS_CLUSTER_HOST_FLOW2, port=REDIS_CLUSTER_PORT_FLOW2)
 
@@ -203,7 +203,7 @@ operation_index_type = 'operation'
 
 
 #use to load balck words of weibo keywords
-BLACK_WORDS_PATH = '/home/user_portrait_0320/revised_user_portrait/user_portrait/user_portrait/cron/text_attribute/black.txt'
+BLACK_WORDS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/text_attribute/black.txt'
 
 def load_black_words():
     black_words = set([line.strip('\r\n') for line in file(BLACK_WORDS_PATH)])

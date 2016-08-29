@@ -703,10 +703,12 @@ def new_get_user_weibo(uid, sort_type):
     #step2:get user weibo
     for i in range(7, 0, -1):
         iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
+        iter_date = '2016-05-05'
         index_name = flow_text_index_name_pre + iter_date
         try:
             weibo_result = es_flow_text.search(index=index_name, doc_type=flow_text_index_type,\
                     body={'query':{'filtered':{'filter':{'term': {'uid': uid}}}}, 'size':MAX_VALUE})['hits']['hits']
+            #print weibo_result
         except:
             weibo_result = []
         if weibo_result:

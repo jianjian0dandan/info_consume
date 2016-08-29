@@ -7,19 +7,20 @@
 		微博那些事儿
 	</title>
 
-	<script type="text/javascript" src='/static/js/jquery.js'></script>
-	<script src="/static/js/echarts.js"></script>
-	<script type="text/javascript" src="/static/js/echarts-all.js"></script>
+	<script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+	<script src="/static/info_consume/js/echarts.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/tagcloud.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/weiborecommend.js"></script>
 
    <!--引用css-->
-		<link rel="stylesheet" type="text/css" href="/static/css/daohanglan.css"> 
-		<link rel="stylesheet" type="text/css" href="/static/css/biaoqian.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/search.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/button.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan.css"> 
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/biaoqian.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/search.css">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/button.css">
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
   
   
@@ -374,7 +375,7 @@
 			{
 			//	alert(tag);
 			//	alert(content);
-				for(i=1; i <6; i++)
+				for(i=1; i <3; i++)
 				{
 					if ("tag"+i==tag)
 						{
@@ -501,7 +502,7 @@
 
 	<div  style="width:100%;height:70px;background: #06D995;position: fixed;z-index:999;top:0;">	
 
-		 <img src="/static/image/title.png" width="150px" height="80px" style="float:left ;margin-top:0px;margin-left:1%">
+		 <img src="/static/info_consume/image/title.png" width="150px" height="80px" style="float:left ;margin-top:0px;margin-left:1%">
 			
 
 			<ul id="daohanglan" style="font-size:20px;margin-left:35%;font-family: 微软雅黑;">
@@ -560,7 +561,7 @@
 
 			    <!--版面1的左半部分-->	
 			    <div style="float:left;margin-left:100px;">
-					<img src="/static/image/baoman.png" width="200px" height="200px" style="float:left ;margin-top:20%;margin-left:20px;">
+					<img src="/static/info_consume/image/baoman.png" width="200px" height="200px" style="float:left ;margin-top:20%;margin-left:20px;">
 					<p style="margin-left:15%;margin-top:50px;font-size:x-large;font-weight: bold;color:#06D995;">世界辣么大</p>
 					<p style="margin-left:30%;margin-top:20%;font-size:x-large;font-weight: bold;color:#06D995;">我想去看看</p>
 			    </div>
@@ -623,25 +624,19 @@
 				      <h4 class="panel-title">
 				        <a data-toggle="collapse" data-parent="#accordion" 
 				          href="#collapseOne" style="text-decoration: none;">
-				          热点事件1：孙杨1500无缘奖牌   
+				            热点事件1：<span>“</span><span id="hot_one_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_one_time"></span><span>”</span><span>发布</span>
+				          <!-- onclick="get_hot_text()"  -->
 				        </a>
 				      </h4>
 				    </div>
 
 				    <div id="collapseOne" class="panel-collapse collapse in" >
-					      <div class="panel-body">
-					        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-					        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-					        vice lomo.
-					        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-					        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-					        vice lomo.
-					        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-					        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-					        vice lomo.
-					        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-					        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-					        vice lomo.
+					      <div id="hot_one_text" class="panel-body">
+					        <!-- <p>
+					        	<span id="hot_one_text" > </span><br />
+					        </p> -->
+
+
 					      </div>
 
 
@@ -672,23 +667,16 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading" style="background-color: linen;">
 				      <h4 class="panel-title">
-				        <a data-toggle="collapse" data-parent="#accordion" 
+				        <a  data-toggle="collapse" data-parent="#accordion" 
 				          href="#collapseTwo" style="text-decoration: none;">
-				          热点事件2：里约奥运出现盗版中国国旗
+					      热点事件2：<span>“</span><span id="hot_two_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_two_time"></span><span>”</span><span>发布</span> 
 				        </a>
 				      </h4>
 				    </div>
 				    <div id="collapseTwo" class="panel-collapse collapse">
-				      <div class="panel-body">
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
+				      <div id="hot_two_text" class="panel-body">
+				        
+
 				      </div>
 
 		<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
@@ -715,15 +703,15 @@
 				      <h4 class="panel-title">
 				        <a data-toggle="collapse" data-parent="#accordion" 
 				          href="#collapseThree" style="text-decoration: none;">
-				          热点事件3：王宝强离婚
+				          热点事件3：<span>“</span><span id="hot_three_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_three_time"></span><span>”</span><span>发布</span>
 				        </a>
 				      </h4>
 				    </div>
 				    <div id="collapseThree" class="panel-collapse collapse">
-				      <div class="panel-body">
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
+				      <div id="hot_three_text" class="panel-body">
+				        
+
+
 				      </div>
 				        
 		<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
@@ -753,21 +741,15 @@
 				      <h4 class="panel-title">
 				        <a data-toggle="collapse" data-parent="#accordion" 
 				          href="#collapseFour" style="text-decoration: none;">
-				          热点事件4：李宗盛林丹世纪大战
+				          热点事件4：<span>“</span><span id="hot_four_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_four_time"></span><span>”</span><span>发布</span>
 				        </a>
 				      </h4>
 				    </div>
 				    <div id="collapseFour" class="panel-collapse collapse">
-				      <div class="panel-body">
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
+				      <div id="hot_four_text" class="panel-body">
+				        
+
+
 				      </div>
 
 						<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">
@@ -792,23 +774,18 @@
 				  <div class="panel panel-default" >
 				    <div class="panel-heading" style="background-color: powderblue;">
 				      <h4 class="panel-title">
-				        <a data-toggle="collapse" data-parent="#accordion" 
+				        <a  data-toggle="collapse" data-parent="#accordion" 
 				          href="#collapseFive" style="text-decoration: none;">
-				          热点事件5：女排夺冠
+				          热点事件5：<span>“</span><span id="hot_five_media"></span><span>”</span><span>于</span><span>“</span><span id="hot_five_time"></span><span>”</span><span>发布</span>
 				        </a>
 				      </h4>
 				    </div>
 				    <div id="collapseFive" class="panel-collapse collapse">
-				      <div class="panel-body">
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
-				        Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
-				        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
-				        vice lomo.
+				      <div id="hot_five_text" class="panel-body">
+				        
+
+
+
 				      </div>
 
 						<div class="biaoqianyun" style=" float: left;margin-left: 40px;margin-bottom:10px; ">

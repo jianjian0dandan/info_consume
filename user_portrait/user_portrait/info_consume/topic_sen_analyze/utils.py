@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type
-from cp_model import SentimentCount,SentimentGeo,SentimentWeibos
+from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type
+from user_portrait.info_consume.model import SentimentCount,SentimentGeo,SentimentWeibos
 import math
 import json
 from sqlalchemy import func

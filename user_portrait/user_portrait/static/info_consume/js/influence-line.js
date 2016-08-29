@@ -1,20 +1,22 @@
-            function (ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('influence-line')); 
-                
-                var option = {
-                    tooltip : {
+     //近一个月圈子影响力走势;id=influen-line
+      var myChart = echarts.init(document.getElementById('influen-line'),'shine');
+      var option = {
+    title : {
+        text: '',
+        subtext: ''
+    },
+    tooltip : {
         trigger: 'axis'
     },
     legend: {
-        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        data:['最高值','最低值','平均值']
     },
     toolbox: {
         show : true,
         feature : {
             mark : {show: true},
             dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            magicType : {show: true, type: ['line', 'bar']},
             restore : {show: true},
             saveAsImage : {show: true}
         }
@@ -29,43 +31,60 @@
     ],
     yAxis : [
         {
-            type : 'value'
+            type : 'value',
+            axisLabel : {
+                formatter: '{value}'
+            }
         }
     ],
     series : [
         {
-            name:'邮件营销',
+            name:'最高值',
             type:'line',
-            stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210]
+            data:[11, 11, 15, 13, 12, 13, 10],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
         },
         {
-            name:'联盟广告',
+            name:'最低值',
             type:'line',
-            stack: '总量',
-            data:[220, 182, 191, 234, 290, 330, 310]
+            data:[1, -2, 2, 5, 3, 2, 0],
+            markPoint : {
+                data : [
+                    {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            }
         },
         {
-            name:'视频广告',
+            name:'平均值',
             type:'line',
-            stack: '总量',
-            data:[150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-            name:'直接访问',
-            type:'line',
-            stack: '总量',
-            data:[320, 332, 301, 334, 390, 330, 320]
-        },
-        {
-            name:'搜索引擎',
-            type:'line',
-            stack: '总量',
-            data:[820, 932, 901, 934, 1290, 1330, 1320]
+            data:[6, 4, 8, 6, 4, 9, 7],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            }
         }
     ]
 };
-        
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
+       myChart.setOption(option);
