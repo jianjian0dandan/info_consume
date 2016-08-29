@@ -2,8 +2,8 @@
 import json
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
-from global_config import es_flow_text as es
-
+#from global_config import es_flow_text as es
+from global_config import weibo_es as es
 def write():
 	a = {
 		"_index": "flow_text_2013-09-02",
