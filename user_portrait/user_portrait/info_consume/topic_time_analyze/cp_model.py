@@ -3,7 +3,7 @@
 #from extensions import db
 from cp_global_config import db
 
-__all__ = ['Topics', 'SentimentKeywords', 'SentimentWeibos', 'SentimentPoint', 'SentimentCount', 'SentimentCountRatio',\
+__all__ = ['Topics', 'SentimentKeywords', 'SentimentGeo','SentimentWeibos', 'SentimentPoint', 'SentimentCount', 'SentimentCountRatio',\
         'OpinionTopic', 'OpinionWeibos', 'Opinion', 'OpinionHot', 'CityTopicCount', 'CityTopicCountNews', \
         'CityRepost', 'CityRepostNews','CityWeibos', 'CityNews','PropagateCount', \
         'PropagateCountNews', 'PropagateKeywords', 'PropagateKeywordsNews',\
@@ -1553,3 +1553,22 @@ class OpinionHot(db.Model):
     @classmethod
     def _name(cls):
         return u'OpinionHot'
+
+
+class SentimentGeo(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    sentiment = db.Column(db.Integer(1, unsigned=True))  
+    geo_count = db.Column(db.Text)                
+
+    def __init__(self, topic, range, end, sentiment, geo_count):
+        self.topic = topic 
+        self.range = range
+        self.end = end
+        self.sentiment = sentiment
+        self.geo_count = geo_count
+    @classmethod
+    def _name(cls):
+        return u'SentimentGeo'

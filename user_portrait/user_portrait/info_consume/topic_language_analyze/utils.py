@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
-# from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type,\
-#                             topics_river_index_name,topics_river_index_type,\
-#                             subopinion_index_name,subopinion_index_type
-# from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
-
-# from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
-
-# from user_portrait.info_consume.model import CityTopicCount,CityWeibos
-import math
-import json
-from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
+from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type,\
                             topics_river_index_name,topics_river_index_type,\
                             subopinion_index_name,subopinion_index_type
-from cp_global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
+from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
 
-from cp_time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
+from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
 
-from cp_model import CityTopicCount,CityWeibos
+from user_portrait.info_consume.model import CityTopicCount,CityWeibos
+import math
+import json
+# from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
+#                             topics_river_index_name,topics_river_index_type,\
+#                             subopinion_index_name,subopinion_index_type
+# from cp_global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
+
+# from cp_time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
+
+# from cp_model import CityTopicCount,CityWeibos
 
 
 Minute = 60

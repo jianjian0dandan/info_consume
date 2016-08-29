@@ -3,11 +3,11 @@
 #from extensions import db
 from user_portrait.global_config import db
 
-__all__ = ['Topics', 'SentimentKeywords', 'SentimentWeibos', 'SentimentPoint','SentimentGeo', 'SentimentCount', 'SentimentCountRatio',\
+__all__ = ['Topics', 'SentimentKeywords', 'SentimentGeo','SentimentWeibos', 'SentimentPoint', 'SentimentCount', 'SentimentCountRatio',\
         'OpinionTopic', 'OpinionWeibos', 'Opinion', 'OpinionHot', 'CityTopicCount', 'CityTopicCountNews', \
         'CityRepost', 'CityRepostNews','CityWeibos', 'CityNews','PropagateCount', \
         'PropagateCountNews', 'PropagateKeywords', 'PropagateKeywordsNews',\
-        'PropagateWeibos', 'PropagateNews', 'AttentionCount', 'QuicknessCount', 'FirstUser','FirstDomainUser',\
+        'PropagateWeibos', 'PropagateTimeWeibos','PropagateNews', 'AttentionCount', 'QuicknessCount', 'FirstUser','FirstDomainUser',\
            'TopicStatus', 'TopicIdentification', 'OpinionTestRatio',\
           'OpinionTestTime', 'OpinionTestKeywords', 'OpinionTestWeibos', 'IndexTopic', 'OpinionWeibosNew',\
           'FirstUserNews', 'TrendMakerNews', 'TrendPusherNews']
@@ -1380,6 +1380,27 @@ class QuotaFSensitivity(db.Model):
     @classmethod
     def _name(cls):
         return u'QuotaFSensitivity'
+
+class PropagateTimeWeibos(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    mtype = db.Column(db.Integer(1, unsigned=True))
+    limit = db.Column(db.BigInteger(10, unsigned=True))
+    weibos = db.Column(db.Text) # weibos=[weibos]
+
+    def __init__(self, topic, end, range, mtype, limit, weibos):
+        self.topic = topic
+        self.end = end
+        self.range = range
+        self.mtype = mtype
+        self.limit = limit
+        self.weibos = weibos
+
+    @classmethod
+    def _name(cls):
+        return u'PropagateTimeWeibos'
 
 class QuotaFSentiment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
