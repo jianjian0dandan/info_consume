@@ -14,7 +14,7 @@ sys.path.append('../')
 from time_utils import ts2datetime, datetime2ts, window2time
 from config import xapian_search_user as user_search
 sys.path.append('../../../')
-from flow_text_mapping import get_graph_mappings
+from flow_text_mappings import get_graph_mappings
 from bulk_insert import gexf2es, es2gexf
 
 def acquire_topic_id(name, start_ts, end_ts, module="identify"):
