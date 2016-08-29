@@ -47,7 +47,7 @@ def add_task( user_name ,type = "keyword",range = "all"  ,pre ='flow_text_' , du
 
 def search_user_task(user_name):
     c_result = {}
-    query = {"query":{"bool":{"must":[{"term":{"user_rank_task.submit_user":user_name}}]}},"size":MAX_ITEMS,"sort":[{"start_time":{"order":"desc"}}],"fields":["status","search_type","keyword","submit_user","sort_scope","sort_norm","start_time","user_ts","end_time"]}#"sort":[{"create_time":{"order":"desc"}}],;;field:"create_time", 'number'
+    query = {"query":{"bool":{"must":[{"term":{"user_rank_task.submit_user":user_name}}]}},"size":MAX_ITEMS,"sort":[{"create_time":{"order":"desc"}}],"fields":["status","search_type","keyword","submit_user","sort_scope","sort_norm","start_time","user_ts","end_time","create_time",'number']}#"sort":[{"create_time":{"order":"desc"}}],;;field:"create_time", 'number'
     if 1:
         return_list = []
         result = es.search(index=USER_RANK_KEYWORD_TASK_INDEX , doc_type=USER_RANK_KEYWORD_TASK_TYPE , body=query)['hits']
@@ -67,8 +67,8 @@ def search_user_task(user_name):
             result_temp['end_time'] = item['fields']['end_time'][0]
 
             result_temp['status'] = item['fields']['status'][0]
-            # result_temp['create_time'] = ts2date(item['fields']['create_time'][0])
-            # result_temp['search_id'] = item['fields']['user_ts'][0]
+            result_temp['create_time'] = ts2date(item['fields']['create_time'][0])
+            result_temp['search_id'] = item['fields']['user_ts'][0]
             tmp = item['fields'].get('number', 0)
             if tmp:
                 result_temp['number'] = int(tmp[0])
