@@ -112,7 +112,7 @@ def imagine(submit_user, uid, query_fields_dict,index_name=portrait_index_name, 
     result = es.search(index=index_name, doc_type=doctype, body=query_body)['hits']['hits']
     field_list = ['uid','uname', 'activeness','importance', 'influence']
     evaluate_index_list = ['activeness', 'importance', 'influence']
-    return_list = []
+    return_dict = {}
     count = 0
 
     if len(result) > 1 and result:
@@ -127,41 +127,29 @@ def imagine(submit_user, uid, query_fields_dict,index_name=portrait_index_name, 
         if uid == item['_id'] or uid in filter_uid:
             score = item['_score']
             continue
-        info = []
+        uid = ''
         for field in field_list:
-            if field in evaluate_index_list:
+            if field == 'uid':
+                uid = item['_source'][field]
+                normal_value = uid
+                return_dict[uid] = {}
+            elif field in evaluate_index_list:
                 value = item['_source'][field]
                 normal_value = math.log(value / float(evaluate_max_dict[field] )* 9 + 1, 10) * 100
             else:
                 normal_value = item['_source'][field]
-                if not normal_value:
-                    normal_value = item['_id']
-            info.append(normal_value)
-        info.append(item['_score']/float(top_score)*100)
-        return_list.append(info)
+                # if not normal_value:
+                #     normal_value = item['_id']
+            # info.append(normal_value)
+        #info.append(item['_score']/float(top_score)*100)
+            return_dict[uid][field] = normal_value
+            return_dict[uid]['similiar'] = item['_score']/float(top_score)*100
         count += 1
 
         if count == query_number:
             break
 
-    return_list.append(number)
-
-    temp_list = []
-    for field in field_list:
-        if field in evaluate_index_list:
-            value = personal_info[field]
-            normal_value = math.log(value / float(evaluate_max_dict[field]) * 9 + 1, 10) * 100
-        else:
-            normal_value = personal_info[field]
-        temp_list.append(normal_value)
-
-    results = []
-    results.append(temp_list)
-    results.extend(return_list)
-    results.append(default_setting_dict)
-
-
-    return results
+    return return_dict
 
 
 
