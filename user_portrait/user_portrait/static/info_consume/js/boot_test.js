@@ -54,8 +54,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          if(value=="unknown"||value==""){
-                            value="未知";
+                          if(value == "unknown"||value ==""){
+                           var value = "未知";
                           }
                           return value;
                         }
@@ -66,8 +66,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          if(value=="unknown"||value==""){
-                            value="未知";
+                          if(value == "unknown"||value == ""){
+                           var value = "未知";
                           }
                           return value;
                         }
@@ -79,8 +79,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value=value.toFixed(2);
-                          return value;
+                         var val = value.toFixed(2);
+                          return val;
                         }
                     },
                     {
@@ -105,8 +105,8 @@
                         valign: "middle",//垂直
                         visible: false,
                         formatter: function (value) { 
-                          value=value.toFixed(2);
-                          return value;
+                          var val = value.toFixed(2);
+                          return val;
                         }
                     },
                     {
@@ -117,8 +117,8 @@
                         valign: "middle",//垂直
                         visible: false,
                         formatter: function (value) { 
-                          value=value.toFixed(2);
-                          return value;
+                          var val =value.toFixed(2);
+                          return val;
                         }
                     }]
              });
@@ -192,9 +192,9 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                           if(value=="unknown"||value==""){
-                            value="未知";
+                            var value="未知";
                           }
-                          return value;
+                           return value;
                         }
                     },
                     {
@@ -204,8 +204,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value=value.toFixed(2);
-                          return value;
+                          var val=value.toFixed(2);
+                          return val;
                         }
                     },
                     {
@@ -215,8 +215,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value=value.toFixed(2);
-                          return value;
+                          var val=value.toFixed(2);
+                          return val;
                         }
                     },
                     {
@@ -226,8 +226,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value=value.toFixed(2);
-                          return value;
+                          var val=value.toFixed(2);
+                          return val;
                         }
                     }]
              });
@@ -372,7 +372,7 @@
                     //similar_user(user_url);
                      }else{ 
                     var sort_scope = 'all_limit_keyword';
-                    var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string;
+                    var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&all=True';
                     console.log(topic_url);
                     //var url = '/user_rank/user_sort/?time=-1&username='+username+'&st='+time_from +'&et='+time_to+'&sort_norm='+sort_norm+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&task_number='+task_num+'&number='+number_sort;
                     //var task_num = "{{g.user.usernum}}";
@@ -392,6 +392,11 @@
                   var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
                   console.log(influ_url);
                   $('#table-user').bootstrapTable('refresh', {url: influ_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'imp');
+                  $('#table-user').bootstrapTable('hideColumn', 'act');
+                  $('#table-user').bootstrapTable('showColumn', 'fans');
+                  $('#table-user').bootstrapTable('showColumn', 'weibo_count');
+                   
               });
               $('#education').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -400,6 +405,11 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  
               });
               $('#military').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -408,6 +418,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#tech').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -416,6 +430,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#sports').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -424,6 +442,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#amusement').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -432,6 +454,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#livehood').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -440,7 +466,10 @@
                   var keyword ='民生类_社会保障';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#politics').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -450,6 +479,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#business').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -458,6 +491,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               }); 
               $('#others').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -466,6 +503,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });  
           })
 
