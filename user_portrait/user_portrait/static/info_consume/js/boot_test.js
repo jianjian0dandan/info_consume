@@ -141,72 +141,41 @@
                     },
                     {
                         title: "用户ID",//标题
-                        field: "",//键名
+                        field: "uid",//键名
                         sortable: true,//是否可排序
                         order: "desc",//默认排序方式
                         align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter:function(value,row,index){    
-                        for(var i=0;i<data.length;i++){ 
-                          var e ='<span>'+data[i][0]+'</span>';
-                          return e;
-                         } 
-                      }
+                        valign: "middle"//垂直
                     },
                     {
                         title: "昵称",
-                        field: "",
+                        field: "uname",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter:function(value,row,index){    
-                        for(var i=0;i<data.length;i++){ 
-                          var e ='<span>'+data[i][1]+'</span>';
-                          return e;
-                         } 
-                      }
+                        valign: "middle"//垂直
                     },
                     {
                         title: "相关度",                        
-                        field: "",
+                        field: "similiar",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter:function(value,row,index){    
-                        for(var i=0;i<data.length;i++){ 
-                          var e ='<span>'+data[i][5]+'</span>';
-                          return e;
-                         } 
-                      }
+                        valign: "middle"//垂直
                     },
                     {
                         title: "影响力",
-                        field: "",
+                        field: "influence",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter:function(value,row,index){    
-                        for(var i=0;i<data.length;i++){ 
-                          var e ='<span>'+data[i][4]+'</span>';
-                          return e;
-                         } 
-                      }
+                        valign: "middle"//垂直
                     },
                     {
                         title: "活跃度",
-                        field: "",
+                        field: "activeness",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter:function(value,row,index){    
-                        for(var i=0;i<data.length;i++){ 
-                          var e ='<span>'+data[i][2]+'</span>';
-                          return e;
-                         } 
-                      }
+                        valign: "middle"//垂直
                     }]
              });
-
          };
         //定义展示离线任务表格
         function task_status (data) {
@@ -443,3 +412,7 @@
           })
 
 
+   //选择用户提交群组分析
+   function group_analyze_confirm_button(){
+
+   }
