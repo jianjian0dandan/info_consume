@@ -13,23 +13,24 @@
 
 	<!-- 布局CSS -->
 {% block css%}
-	<link rel="stylesheet" type="text/css" href="../static/css/mystyle.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
-	<link href="../static/css/dashboard.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
+	<link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
 <!-- end css -->
  {% endblock %}
 
 <!-- 引入js -->
  {% block head_js%}
 
-	<script type="text/javascript" src='../static/js/jquery.js'></script>
-	<script type="text/javascript" src='../static/js/jquery.min.js'></script>
-	<script src="../static/js/echarts.js"></script>
-	<script type="text/javascript" src="../static/js/echarts-all.js"></script>
-	<script type="text/javascript" src="../static/js/sliders.js"></script>
+	<script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+	<script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
+	<script src="/static/info_consume/js/echarts.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/homepage.js"></script>
  {% endblock %}
  <!-- end js -->
 </head> 
@@ -37,7 +38,7 @@
 	<!--top nav-->
   {% block header %}	
 	<div class="topnav">	 
-		 <img src="../static/image/title.png">		
+		 <img src="../../static/info_consume/image/title.png">		
 			<ul id="menu" style="margin-left:45%">
 				<li><a href="">我的管家</a>
 					<ul>
@@ -56,7 +57,7 @@
 	{% block main %}
 	<div class="up_box">
 		<div class="l_box">
-				{% block headimg %}<img src="../static/image/head.jpg" width="150px" height="150px" style="margin:auto;">
+				{% block headimg %}<img src="../../static/info_consume/image/head.jpg" width="150px" height="150px" style="margin:auto;">
 				{% endblock %} 
 				{% block leftbox %}
 				<div class="col-sm-3 col-md-2 sidebar">
@@ -137,15 +138,15 @@
 			</div>
 
 			<div class="dashboard content_dashboard boxshadow">
-				<img id="draw_img" src="../static/image/icon_draw.png" width="30px" height="30px" >
+				<img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
 				<h1 id="board_title">我的形象画板</h1>
-				<img id="body_board" src="../static/image/bodymodel_woman.png">
+				<img id="body_board" src="../../static/info_consume/image/bodymodel_woman.png">
 				<p id="draw_p1">Painter</p><!--interesting word1-->
 				<p id="draw_p2">Japan comic</p><!--interesting word2-->
 				<p id="draw_p3">Lady Gaga</p><!--friends name-->
 				<p id="draw_p4">China,Guangzhou</p><!--location-->
 
-   				<img id="influ_img" src="../static/image/icon_inf.png " width="30px" height="30px" >
+   				<img id="influ_img" src="../../static/info_consume/image/icon_inf.png " width="30px" height="30px" >
 				<h1 id="influ_title">我的个人影响力</h1>
 					<div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left bk-vcenter text-center">
@@ -161,7 +162,7 @@
 					</div>
 
 
-   				<img id="act_img" src="../static/image/icon_act.png " width="30px" height="30px" >
+   				<img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" >
 				<h1 id="act_title">我的活跃度:30分</h1>				
 				<h1 id="act_text">最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>				
 			</div>
@@ -180,14 +181,50 @@
 						<h3 class="panel-title">账户信息</h3>
 					</div>
 					<div class="panel-body">
-					<p style="font-size:16px !important;">
-					用户ID：1991194723 <br><br>
-					昵称：粽粽粽粽粽粽粽 <br><br>
-					是否认证：否 <br><br>
-					认证类型：普通用户 <br><br>
-					注册地：其他 <br><br>
-					个人描述：胆小认生 不易相处。<br><br>
-					</p>
+						<div class="basicinfo" style="float:left;width:245px;min-height:525px;" >
+							<ul>
+								<li>
+								  <span>用户ID：</span>
+								  <span id="uid"></span>
+								</li>
+								<li>
+								  <span>昵称：</span>
+								  <span id="uname"></span>
+								</li>
+								<li>
+								  <span>是否认证：</span>
+								  <span id="verf"></span>
+								</li>
+								<li>
+								  <span>认证类型：</span>
+								  <span id="verf_type"></span>
+								</li>
+								<li>
+								  <span title="用户当前最新粉丝数">粉丝数*：</span>
+								  <span id="fansum"></span>
+								</li>
+								<li>
+								  <span>关注数：</span>
+								  <span id="attentionsum"></span>
+								</li>
+								<li>
+								  <span title="用户近30天发布微博总数">微博数*：</span>
+								  <span id="weibosum"></span></li>
+								<li>
+								  <span>注册地：</span>
+								  <span id="location"></span>
+								</li>
+								<li>
+								  <span style="float:left">个人描述：</span>
+								  <span id="description" style="word-break:break-all;display: block;float: left;width: 150px;"></span></li>
+								<li>
+								  <span>微博主页：</span>
+								</li>
+								<li>
+								  <a href="" id="homepage" ></a>
+								</li>
+							</ul>
+						</div>
 					</div>
 			</div>
 			<!--最近交互-->
@@ -275,6 +312,87 @@
 	</div>
 	{% endblock %}
 	-->
+
+<script type="text/javascript">
+ function Personal(){
+	this.ajax_method = 'GET';
+}
+Personal.prototype = {
+ personData:function(data){
+  personalData = data ;
+        //console.log('personData',data);
+        var homepage_url = 'http://weibo.com/u/' + uid;
+        document.getElementById('homepage').innerHTML = homepage_url;
+        document.getElementById('homepage').href = homepage_url;
+		var UID = document.getElementById('uid');
+		UID.innerHTML = personalData.uid;
+        var Uname = document.getElementById('uname');
+		if(personalData.nick_name == ''){
+		    Pname = uid;
+		}else{
+		    Pname = personalData.nick_name;
+		}
+		Uname.innerHTML = Pname;
+        var Verfi = document.getElementById('verf');
+		if( personalData.verified_type==""){
+		    personalData.verified_type = "暂无数据";
+		}
+        var verf = personalData.verified_type;
+        var Verf_type = document.getElementById('verf_type');
+        if(verf != 0 && verf != 1 && verf != 2 && verf != 3 && verf != 4 && verf != 5 && verf != 6 && verf != 7 && verf != 8 && verf != 200 && verf != 220 && verf != 400 ){
+		    Verfi.innerHTML = "否";
+		    if(verf == -1){
+		    	Verf_type.innerHTML = personalData.verified_type_ch;
+		    }else{
+		    	Verf_type.innerHTML = "无";
+		    }
+		}else{
+		    Verfi.innerHTML = "是";
+			Verf_type.innerHTML = personalData.verified_type_ch;
+		}
+        var Fansum = document.getElementById('fansum');
+		if( personalData.fansnum==""){
+		    personalData.fansnum = "暂无数据";
+		}
+        Fansum.innerHTML = personalData.fansnum;
+		var Attentionsum = document.getElementById('attentionsum');
+		if( personalData.friendsnum==""){
+		    personalData.friendsnum = "暂无数据";
+		}
+        Attentionsum.innerHTML = personalData.friendsnum;
+		var Weibosum = document.getElementById('weibosum');
+		if( personalData.statusnum==""){
+		    personalData.statusnum = "暂无数据";
+		}
+        Weibosum.innerHTML = personalData.statusnum;
+		var Loca = document.getElementById('location');
+		if( personalData.user_location==""){
+		    personalData.user_location = "暂无数据";
+		}
+		Loca.innerHTML = personalData.user_location;
+		var Descrip = document.getElementById('description');
+		if( personalData.description==""){
+		    personalData.description = "暂无数据";
+		}
+		Descrip.innerHTML = personalData.description;
+        var img = document.getElementById('portraitImg');
+        if(personalData.photo_url == ""){
+            img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
+        }else{
+            img.src = personalData.photo_url;
+        }
+	},	
+}
+var uid = "{{ uid }}";
+var Personal = new Personal();
+var personalData; 
+var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=retweet_count";
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
+</script>
+
+
+
 
 </body>
 </html>
