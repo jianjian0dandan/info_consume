@@ -29,7 +29,7 @@ from get_first_user import get_first_node
 from area import _utf8_unicode
 from fu_tr import get_interval_count
 
-sys.path.append('../../')
+sys.path.append('../../../')
 from global_config import db, GRAPH_PATH
 from model import TopicStatus, Topics
 
