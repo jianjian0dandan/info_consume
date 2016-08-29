@@ -37,7 +37,9 @@
                         order: "desc",//默认排序方式
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value, row, index) { return index+1;}
+                        formatter: function (value, row, index) { 
+                          return index+1;
+                        }
                     },
                     {
                         title: "用户ID",
@@ -50,20 +52,36 @@
                         field: "location",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value=="unknown"||value==""){
+                            value="未知";
+                          }
+                          return value;
+                        }
                     },
                     {
                         title: "昵称",
                         field: "uname",
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value=="unknown"||value==""){
+                            value="未知";
+                          }
+                          return value;
+                        }
                     },
                     {
                         title: "影响力",
                         field: "bci",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          value=value.toFixed(2);
+                          return value;
+                        }
                     },
                     {
                         title: "粉丝数",
@@ -78,6 +96,30 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle"//垂直
+                    },
+                    {
+                        title: "重要度",
+                        field: "imp",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible: false,
+                        formatter: function (value) { 
+                          value=value.toFixed(2);
+                          return value;
+                        }
+                    },
+                    {
+                        title: "活跃度",
+                        field: "act",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible: false,
+                        formatter: function (value) { 
+                          value=value.toFixed(2);
+                          return value;
+                        }
                     }]
              });
                 
@@ -95,29 +137,24 @@
         //定义展示任务
         function get_result(data)
              { 
-              data = data['result'];
+              var data = data['result'];
               $('#table-user-user-contain').css("display","none");
               $('#table-user-contain').css("display","block");
-              $('#table-user').bootstrapTable('refresh', {url: data});
+              $('#table-user').bootstrapTable('refresh', {data: data});
              }
         //定义删除任务
         function delete_result(data)
              { 
-              data = data['result'];
+              var data = data['result'];
               $('#table-user-user-contain').css("display","none");
               $('#table-user-contain').css("display","block");
-              $('#table-user').bootstrapTable('refresh', {url: data});
+              $('#table-user').bootstrapTable('refresh', {data: data});
              }
         //定义刷新相似用户列表
       function similar_user(data){
-           var data_len = data.length;
-           var si_data = new Array();
-           for(var i=1,j=0;i<data_len-2;i++){ 
-              si_data[j++] = data[i];
-            } 
-           var data = si_data;
             $('#table-user-user').bootstrapTable({
-                  url: data,
+                 // url: data,
+                  data:data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 20,//单页记录数
@@ -152,28 +189,46 @@
                         field: "uname",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value=="unknown"||value==""){
+                            value="未知";
+                          }
+                          return value;
+                        }
                     },
                     {
                         title: "相关度",                        
                         field: "similiar",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          value=value.toFixed(2);
+                          return value;
+                        }
                     },
                     {
                         title: "影响力",
                         field: "influence",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          value=value.toFixed(2);
+                          return value;
+                        }
                     },
                     {
                         title: "活跃度",
                         field: "activeness",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          value=value.toFixed(2);
+                          return value;
+                        }
                     }]
              });
          };
@@ -181,7 +236,7 @@
         function task_status (data) {
             var data = data.data;
             $('#topic-task').bootstrapTable({
-                  url: data,
+                  data: data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 10,//单页记录数
@@ -222,35 +277,38 @@
                         title: "进度显示",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter:function(value,row,index){  
-                        for(var i=0;i<data.length;i++){ 
-                        if(data[i].status == -1){
+                        formatter:function(value){ 
+                        if(value == -1){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%;font-valign:middle;font-size:12px;">50%</div></div>';
-                        }else if(data[i].status == 1){
+                        }else if(value == 1){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:100%;font-valign:middle;font-size:12px;">100%</div></div>';
-                        }else if(data[i].status == 0){
+                        }else if(value == 0){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:0%;font-valign:middle;font-size:12px;">0%</div></div>';
                           }
                           return e;
-                         } 
                       }
                     },
                     {
-                        field: "analysis",
+                        field: "search_id",
+                        title: "任务ID",
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible: false
+                    },
+                    {
+                        field: "view",
                         title: "任务查看",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter:function(value,row,index){  
-                        for(var i=0;i<data.length;i++){ 
-                        if(data[i].status == -1){
-                          var e = '<span style="display:none;">'+data[i].search_id+'</span>'+'<span>正在计算</span>';
-                        }else if(data[i].status == 1){
-                          var e = '<span style="display:none;">'+data[i].search_id+'</span>'+'<a class="view-analysis" href="">点击查看</a>';
-                        }else if(data[i].status == 0){
-                          var e = '<span style="display:none;">'+data[i].search_id+'</span>'+'<span>尚未计算</span>';
+                        formatter:function(value,row){  
+                        if(value == -1){
+                          var e = '<span style="display:none;">'+row.search_id+'</span>'+'<span>正在计算</span>';
+                        }else if(value == 1){
+                          var e = '<span style="display:none;">'+row.search_id+'</span>'+'<a class="view-analysis" href="">点击查看</a>';
+                        }else if(value == 0){
+                          var e = '<span style="display:none;">'+row.search_id+'</span>'+'<span>尚未计算</span>';
                           }
                           return e;
-                      }  
                      }
                     },
                     {
@@ -259,7 +317,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+data[i].search_id+'</span>'+'<a class="dele-analysis" href="#">删除</a>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<a class="dele-analysis" href="#">删除</a>';  
                         return d;  
                       }
                     }],
@@ -284,11 +342,12 @@
              
         //定义提交离线话题搜索任务
              function submit_offline(data){
+              console.log(data);
               if(data.flag == true){
                 alert('提交成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url)
-                    call_sync_ajax_request(task_url, task_status);
+                call_sync_ajax_request(task_url, task_status);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
                 }else{
@@ -308,10 +367,9 @@
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
-                    console.log(user_url);
+                   // console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
                     //similar_user(user_url);
-                    //manage 相似用户搜索
                      }else{ 
                     var sort_scope = 'all_limit_keyword';
                     var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string;
