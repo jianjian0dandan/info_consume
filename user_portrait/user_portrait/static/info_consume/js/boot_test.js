@@ -122,7 +122,7 @@
                         }
                     }]
              });
-                
+            
            })
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
@@ -232,14 +232,13 @@
                     }]
              });
          };
-        //定义展示离线任务表格
-        function task_status (data) {
-            var data = data.data;
-            $('#topic-task').bootstrapTable({
+      function draw_topic_tasks(data){
+         var data = data.data;
+         $('#topic-task').bootstrapTable({
                   data: data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
-                  pageSize: 10,//单页记录数
+                  pageSize: 5,//单页记录数
                   pageList: [5, 10, 20, 50],//分页步进值
                   sidePagination: "client",//服务端分页
                   searchAlign: "left",
@@ -296,17 +295,17 @@
                         visible: false
                     },
                     {
-                        field: "view",
                         title: "任务查看",
+                        field: "status",
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row){  
                         if(value == -1){
-                          var e = '<span style="display:none;">'+row.search_id+'</span>'+'<span>正在计算</span>';
+                          var e = '<span>正在计算</span>';
                         }else if(value == 1){
-                          var e = '<span style="display:none;">'+row.search_id+'</span>'+'<a class="view-analysis" href="">点击查看</a>';
+                          var e = '<a id="view-analysis" href="">点击查看</a>';
                         }else if(value == 0){
-                          var e = '<span style="display:none;">'+row.search_id+'</span>'+'<span>尚未计算</span>';
+                          var e = '<span>尚未计算</span>';
                           }
                           return e;
                      }
@@ -317,7 +316,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<a class="dele-analysis" href="#">删除</a>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<a id="dele-analysis" href="#">删除</a>';  
                         return d;  
                       }
                     }],
@@ -328,7 +327,7 @@
                       }
                     }
              });
-              $('#view-analysis').click(function () {
+               $('#view-analysis').click(function () {
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
@@ -338,8 +337,12 @@
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
               });
-          }
-             
+            }
+         $(function(){
+           var user_tasks_url = '/influence_sort/search_task/?username='+username;
+           console.log(user_tasks_url)
+           call_sync_ajax_request(user_tasks_url, draw_topic_tasks);
+         })
         //定义提交离线话题搜索任务
              function submit_offline(data){
               console.log(data);
@@ -347,7 +350,7 @@
                 alert('提交成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url)
-                call_sync_ajax_request(task_url, task_status);
+                call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
                 }else{
