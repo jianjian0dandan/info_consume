@@ -57,7 +57,7 @@
 	{% block main %}
 	<div class="up_box">
 		<div class="l_box">
-				{% block headimg %}<img src="../../static/info_consume/image/head.jpg" width="150px" height="150px" style="margin:auto;">
+				{% block headimg %}<img src="../../static/info_consume/image/head.jpg" width="150px" height="150px" style="margin:auto;" title="1314608344" >
 				{% endblock %} 
 				{% block leftbox %}
 				<div class="col-sm-3 col-md-2 sidebar">
@@ -311,87 +311,7 @@
 	  <p class="ft-copyright">网民画像系统 Design by Rcsc 京ICP 1234567</p>
 	</div>
 	{% endblock %}
-	-->
-
-<script type="text/javascript">
- function Personal(){
-	this.ajax_method = 'GET';
-}
-Personal.prototype = {
- personData:function(data){
-  personalData = data ;
-        //console.log('personData',data);
-        var homepage_url = 'http://weibo.com/u/' + uid;
-        document.getElementById('homepage').innerHTML = homepage_url;
-        document.getElementById('homepage').href = homepage_url;
-		var UID = document.getElementById('uid');
-		UID.innerHTML = personalData.uid;
-        var Uname = document.getElementById('uname');
-		if(personalData.nick_name == ''){
-		    Pname = uid;
-		}else{
-		    Pname = personalData.nick_name;
-		}
-		Uname.innerHTML = Pname;
-        var Verfi = document.getElementById('verf');
-		if( personalData.verified_type==""){
-		    personalData.verified_type = "暂无数据";
-		}
-        var verf = personalData.verified_type;
-        var Verf_type = document.getElementById('verf_type');
-        if(verf != 0 && verf != 1 && verf != 2 && verf != 3 && verf != 4 && verf != 5 && verf != 6 && verf != 7 && verf != 8 && verf != 200 && verf != 220 && verf != 400 ){
-		    Verfi.innerHTML = "否";
-		    if(verf == -1){
-		    	Verf_type.innerHTML = personalData.verified_type_ch;
-		    }else{
-		    	Verf_type.innerHTML = "无";
-		    }
-		}else{
-		    Verfi.innerHTML = "是";
-			Verf_type.innerHTML = personalData.verified_type_ch;
-		}
-        var Fansum = document.getElementById('fansum');
-		if( personalData.fansnum==""){
-		    personalData.fansnum = "暂无数据";
-		}
-        Fansum.innerHTML = personalData.fansnum;
-		var Attentionsum = document.getElementById('attentionsum');
-		if( personalData.friendsnum==""){
-		    personalData.friendsnum = "暂无数据";
-		}
-        Attentionsum.innerHTML = personalData.friendsnum;
-		var Weibosum = document.getElementById('weibosum');
-		if( personalData.statusnum==""){
-		    personalData.statusnum = "暂无数据";
-		}
-        Weibosum.innerHTML = personalData.statusnum;
-		var Loca = document.getElementById('location');
-		if( personalData.user_location==""){
-		    personalData.user_location = "暂无数据";
-		}
-		Loca.innerHTML = personalData.user_location;
-		var Descrip = document.getElementById('description');
-		if( personalData.description==""){
-		    personalData.description = "暂无数据";
-		}
-		Descrip.innerHTML = personalData.description;
-        var img = document.getElementById('portraitImg');
-        if(personalData.photo_url == ""){
-            img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
-        }else{
-            img.src = personalData.photo_url;
-        }
-	},	
-}
-var uid = "{{ uid }}";
-var Personal = new Personal();
-var personalData; 
-var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=retweet_count";
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-
-</script>
-
-
+	-->	
 
 
 </body>
