@@ -23,7 +23,9 @@ def weiborecommand():
 @mod.route('/viewinformation')
 def viewinformation():
 	return render_template('/info_consume/viewinformation.html')
-
+@mod.route('/daohang_public')
+def daohang_public():
+	return render_template('/info_consume/daohang_public.html')
 
 @mod.route('/others')
 def others():

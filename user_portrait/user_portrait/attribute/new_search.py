@@ -71,9 +71,12 @@ def new_get_user_profile(uid):
         results['verified_type_ch'] = verified_ch_type
     
     if bci_history_result:
-        results['fansnum'] = int(bci_history_result['user_fansnum'])
-        results['friendsnum'] = int(bci_history_result['user_friendsnum'])
-        results['statusnum'] = int(bci_history_result['weibo_month_sum'])
+        try:
+            results['fansnum'] = int(bci_history_result['user_fansnum'])
+            results['friendsnum'] = int(bci_history_result['user_friendsnum'])
+            results['statusnum'] = int(bci_history_result['weibo_month_sum'])
+        except:
+            pass
     
     return results
 
@@ -314,6 +317,8 @@ def new_get_user_location(uid):
     results = {}
     now_date = ts2datetime(time.time())
     now_date_ts = datetime2ts(now_date)
+    #jln
+    now_date_ts = 1378310400
     #run type
     if RUN_TYPE == 0:
         now_date_ts = datetime2ts(RUN_TEST_TIME) - DAY

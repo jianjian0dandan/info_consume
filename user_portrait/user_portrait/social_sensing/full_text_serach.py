@@ -124,7 +124,7 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
             mid = item[0]
             iter_text = text_dict.get(mid, {})
             temp = []
-            # uid, nick_name, photo_url, text, sentiment, timestamp, geo, common_keywords, message_type
+            # uid, nick_name, photo_url, text, sentiment, timestamp, geo, keywords_string, message_type
             if iter_text:
                 uid = iter_text['uid']
                 temp.append(uid)
@@ -144,6 +144,7 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
                     temp.append(3)
                 else:
                     temp.append(iter_text['message_type'])
+                temp.append(iter_text['keywords_string'])
                 temp.append(item[2])
                 temp.append(item[3])
                 temp.append(iter_text.get('sensitive', 0))
@@ -152,6 +153,9 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
                 temp.append(mid)
                 results.append(temp)
             count_n += 1
+
+
+                
 
         results = sorted(results, key=operator.itemgetter(-4, -2, -6), reverse=True) # -4 -2 -3
         sort_results = []

@@ -30,7 +30,7 @@
               <option>用户</option>  
             </select>  
           </div>  
-            <input id="keyword_hashtag" type="text" class="form-control" placeholder="请输入搜索内容关键词"><span id="search-btn" class="input-group-addon btn btn-success">搜索</span>
+            <input id="keyword_hashtag" type="text" class="form-control" placeholder="请输入要搜索的话题关键词，多个关键词用空格隔开"><span id="search-btn" class="input-group-addon btn btn-success">搜索</span>
         </div> 
         <div class="col-md-2"></div>            
       </div>
@@ -87,8 +87,8 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary" id="addRecord" onclick="group_analyze_confirm_button()">提交</button>
+                                <button id="cancel_model" type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="addRecord" onclick="groupanalyze_confirm()">提交</button>
                             </div>
                         </div>
                     </div>

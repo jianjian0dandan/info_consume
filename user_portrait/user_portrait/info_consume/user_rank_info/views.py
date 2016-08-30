@@ -10,7 +10,11 @@ from Offline_task import search_user_task , getResult , delOfflineTask
 from temporal_rank import get_temporal_rank
 from user_portrait.global_utils import R_ADMIN
 from imagine import imagine
+from utils import submit_task, search_task, get_group_list,\
+       delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
+       get_group_user_track, search_group_results, get_influence_content
 
+                  
 mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
 
 @mod.route('/user_sort/', methods=['GET', 'POST'])
@@ -106,3 +110,15 @@ def ajax_imagine():
     return json.dumps([])
 
 
+@mod.route('/submit_task/',methods=['GET', 'POST'])
+def ajax_submit_task():
+    input_data = dict()
+    input_data = request.get_json()
+    try:
+        submit_user = input_data['submit_user']
+    except:
+        return 'no submit_user information'
+    now_ts = int(time.time())
+    input_data['submit_date'] = now_ts
+    status = submit_task(input_data)
+    return json.dumps(status)
