@@ -233,6 +233,7 @@
                     }]
              });
          };
+        
       function draw_topic_tasks(data){
          var data = data.data;
          $('#topic-task').bootstrapTable({
@@ -310,7 +311,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;" onclick="delete_span()">删除</span>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;">删除</span>';  
                         return d;  
                       }
                     }],
@@ -326,12 +327,14 @@
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
               }); 
-               function delete_span(){
+                
+                $('.dele-analysis').click(function(){
                   var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
-              }
+               });  
             }
+
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
            console.log(user_tasks_url)
@@ -361,7 +364,7 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){
-                   	$('#table-user-contain').css("display","none");
+                    $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
