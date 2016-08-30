@@ -532,16 +532,16 @@
              }
             var selected_list = $('#table-user').bootstrapTable('getSelections');
             var list_length = selected_list.length;
-            var uid_list = new Array();
+            var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
-              uid_list[i]=selected_list[i].uid;
+              group_uid_list[i]=selected_list[i].uid;
             }
            console.log(list_length);
-            var group_ajax_url = '/detect/add_detect2analysis/';
-            var group_name = $('#group_name0').text();
-            var admin = 'admin@qq.com'//$('#useremail').text();
-            var group_analysis_count = 5;
-            var job = {"submit_user":admin,"task_name":group_name, "uid_list":uid_list,'task_max_count':group_analysis_count};
+            var group_ajax_url = '/influence_sort/add_detect2analysis/';
+            var group_name = $('#cicle_name').text();
+            var admin = 'admin@qq.com'//获取$('#useremail').text();
+            var group_analysis_count = 10;//获取
+            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list,'task_max_count':group_analysis_count};
             //console.log(job);
             $.ajax({
                 type:'POST',
@@ -562,5 +562,5 @@
                 if(data == 'more than limit'){
                     alert('提交任务超出数量');
                 }
-           
- }
+         }  
+       }
