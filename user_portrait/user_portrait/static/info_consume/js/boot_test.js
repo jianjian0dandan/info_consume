@@ -122,6 +122,8 @@
                         }
                     }]
              });
+            $('#table-user-user-contain').css("display","none");
+            $('#table-user-contain').css("display","block");
             
            })
        //定义ajax回调函数
@@ -518,4 +520,47 @@
 
 
    //选择用户提交群组分析
- //  function group_analyze_confirm_button(){
+ function group_analyze_confirm_button(){
+            var arg = $('#table-user-contain').css("display");
+            var artt = $('#table-user-user-contain').css("display");
+             if(arg == "block" && artt == "none"){
+              var $table = $('#table-user');
+             }else if(arg == "none" && artt == "block"){
+              var $table = $('#table-user-user');
+             }else{
+              console.log('表格display冲突！');
+             }
+            var selected_list = $('#table-user').bootstrapTable('getSelections');
+            var list_length = selected_list.length;
+            var uid_list = new Array();
+            for(var i=0;i<list_length;i++){
+              uid_list[i]=selected_list[i].uid;
+            }
+           console.log(list_length);
+            var group_ajax_url = '/detect/add_detect2analysis/';
+            var group_name = $('#group_name0').text();
+            var admin = 'admin@qq.com'//$('#useremail').text();
+            var group_analysis_count = 5;
+            var job = {"submit_user":admin,"task_name":group_name, "uid_list":uid_list,'task_max_count':group_analysis_count};
+            //console.log(job);
+            $.ajax({
+                type:'POST',
+                url: group_ajax_url,
+                contentType:"application/json",
+                data: JSON.stringify(job),
+                dataType: "json",
+                success: callback
+            });
+            function callback(data){
+                console.log(data);
+                if (data == '1'){
+                    alert('提交成功！');
+                }
+                if(data == 'no enough user to analysis'){
+                    alert('没有足够有效用户进行分析');
+                }
+                if(data == 'more than limit'){
+                    alert('提交任务超出数量');
+                }
+           
+ }
