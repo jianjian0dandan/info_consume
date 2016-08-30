@@ -1,0 +1,57 @@
+.topnav {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #06D995;
+  position: fixed;
+  z-index:100;
+  float: none; 
+  font-size: 11px;
+  }
+.topnav img {
+  width: 150px;
+  height: 80px;
+  float: left;
+  margin-left: 3%;
+
+}
+.topnav ul {
+        font-family: "Microsoft YaHei",Arial, Verdana;
+        font-size: 20px;
+        margin: 0; padding: 0;
+        /*添加导航栏*/
+        margin-left:20%;  }
+      /*导航菜单栏属性*/
+.topnav ul li {
+        list-style: none;
+        display: block; 
+        position: relative;     
+        float: left;
+        vertical-align: top;
+      
+      }
+.topnav li ul{display: none;}/*无列表嵌套行*/
+      /*菜单子项属性*/
+.topnav ul li a {               
+        display: block;
+        text-decoration: none;  /*没有下划线*/
+        color: #ffffff;
+        padding: 3px 15px 3px 15px;  /*导航栏每个模块间隔*/
+        background: #06D995;  
+        white-space: nowrap;
+        font-size: 18px;}
+.topnav ul li a:hover {
+ background: #00CC99;
+  }
+.topnav li:hover ul {
+        height: 60px;
+        display: block;
+        position: absolute;
+      }
+.topnav li:hover a {
+ background: #06D995;
+ }
+.topnav li:hover li a:hover {
+  background: #00CC99; 
+}
