@@ -76,9 +76,10 @@ body a {
         display: block;
         text-decoration: none;  /*没有下划线*/
         color: #ffffff;
-        padding: 0px 15px 0px 15px;  /*导航栏每个模块间隔*/
+        padding: 3px 15px 3px 15px;  /*导航栏每个模块间隔*/
         background: #06D995;  
-        white-space: nowrap;}
+        white-space: nowrap;
+        font-size: 18px;}
 .topnav ul li a:hover {
  background: #00CC99;
   }
