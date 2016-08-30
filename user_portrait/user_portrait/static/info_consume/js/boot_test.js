@@ -538,8 +538,7 @@
             for(var i=0;i<list_length;i++){
               group_uid_list[i]=selected_list[i].uid;
             }
-           console.log(list_length);
-            var group_ajax_url = '/influence_sort/add_detect2analysis/';
+            var group_ajax_url = '/influence_sort/submit_task/';
             var group_name = $('#cicle_name').text();
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
@@ -554,7 +553,7 @@
                 success: callback
             });
             function callback(data){
-                console.log(data);
+               console.log(data);
                 if (data == '1'){
                     alert('提交成功！');
                 }

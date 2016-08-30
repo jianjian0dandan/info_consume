@@ -10,10 +10,9 @@ from Offline_task import search_user_task , getResult , delOfflineTask
 from temporal_rank import get_temporal_rank
 from user_portrait.global_utils import R_ADMIN
 from imagine import imagine
-from utils import save_detect_single_task, save_detect_multi_task ,\
-                  save_detect_attribute_task, save_detect_event_task, \
-                  show_detect_task, detect2analysis, delete_task, \
-                  show_detect_result, search_detect_task, submit_sensing
+from utils import submit_task, search_task, get_group_list,\
+       delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
+       get_group_user_track, search_group_results, get_influence_content
 
                   
 mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
@@ -111,9 +110,15 @@ def ajax_imagine():
     return json.dumps([])
 
 
-@mod.route('/add_detect2analysis/',methods=['GET', 'POST'])
-def ajax_add_detect2analysis():
-    input_data = request.get_json() #input_data = {'uid_list':[], 'task_name':xx, 'submit_user':xx}
-    #test
-    results = detect2analysis(input_data)
-    return json.dumps(results)
+@mod.route('/submit_task/',methods=['GET', 'POST'])
+def ajax_submit_task():
+    input_data = dict()
+    input_data = request.get_json()
+    try:
+        submit_user = input_data['submit_user']
+    except:
+        return 'no submit_user information'
+    now_ts = int(time.time())
+    input_data['submit_date'] = now_ts
+    status = submit_task(input_data)
+    return json.dumps(status)
