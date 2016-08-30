@@ -2,12 +2,8 @@
 
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
-<<<<<<< HEAD
-from utils import all_weibo_count, get_weibo_content, get_weibo_by_time, get_weibo_by_hot
-=======
 from utils import  get_weibo_by_time, get_weibo_by_hot,get_time_count
 import json
->>>>>>> 58140b293aab78f630d59c35928b5f467fbf241a
 
 mod = Blueprint('topic_time_analyze',__name__,url_prefix='/topic_time_analyze')
 
@@ -17,6 +13,12 @@ Hour = 3600
 SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
+
+
+@mod.route('/time')
+def time():
+    return render_template('/info_consume/date_detail.html')
+
 
 @mod.route('/mtype_count/')
 def MtypeCount():      #每类微博的数量
@@ -43,7 +45,6 @@ def TimeOrderWeibos():
     weibos = get_weibo_by_time(topic,start_ts,end_ts,sort_item)
     return json.dumps(weibos)
 
-<<<<<<< HEAD
 @mod.route('/hot_order_weibos/')
 def HotOrderWeibos():
     topic =results.args.get('topic', '')
@@ -54,7 +55,6 @@ def HotOrderWeibos():
     start_ts = long(start_ts)
     ts_arr = []
     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
-=======
 # @mod.route('/hot_order_weibos/')
 # def HotOrderWeibos():
 #     topic =results.args.get('topic', '')
@@ -66,4 +66,3 @@ def HotOrderWeibos():
 #     ts_arr = []
 #     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
 
->>>>>>> 58140b293aab78f630d59c35928b5f467fbf241a
