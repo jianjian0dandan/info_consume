@@ -233,7 +233,7 @@
                     }]
              });
          };
-        
+         
       function draw_topic_tasks(data){
          var data = data.data;
          $('#topic-task').bootstrapTable({
@@ -322,18 +322,20 @@
                       }
                     }
              });
-            bootstraptable('click-cell.bs.table',function( e, field, value, row, $element){}）
+           
              $('.view-analysis').click(function () {
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
               }); 
-                $('.dele-analysis').click(function(){
+              //  $('.dele-analysis').click(function(){
+                 
+             //  });
+             document.getElementById('.dele-analysis').onclick=fuction(){
                   var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
-                  $('.dele-analysis').unbind("click");
-               });
+                  }
             }
 
 
@@ -349,7 +351,7 @@
                 alert('提交成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
-                $('#topic-task').bootstrapTable('refresh',{url:task_url});
+               $('#topic-task').bootstrapTable('refresh',{url:task_url});
               //  call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
