@@ -10,7 +10,12 @@ from Offline_task import search_user_task , getResult , delOfflineTask
 from temporal_rank import get_temporal_rank
 from user_portrait.global_utils import R_ADMIN
 from imagine import imagine
+from utils import save_detect_single_task, save_detect_multi_task ,\
+                  save_detect_attribute_task, save_detect_event_task, \
+                  show_detect_task, detect2analysis, delete_task, \
+                  show_detect_result, search_detect_task, submit_sensing
 
+                  
 mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
 
 @mod.route('/user_sort/', methods=['GET', 'POST'])
@@ -106,3 +111,9 @@ def ajax_imagine():
     return json.dumps([])
 
 
+@mod.route('/add_detect2analysis/',methods=['GET', 'POST'])
+def ajax_add_detect2analysis():
+    input_data = request.get_json() #input_data = {'uid_list':[], 'task_name':xx, 'submit_user':xx}
+    #test
+    results = detect2analysis(input_data)
+    return json.dumps(results)
