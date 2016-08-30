@@ -37,7 +37,9 @@
                         order: "desc",//默认排序方式
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value, row, index) { return index+1;}
+                        formatter: function (value, row, index) { 
+                          return index+1;
+                        }
                     },
                     {
                         title: "用户ID",
@@ -50,20 +52,36 @@
                         field: "location",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value == "unknown"||value ==""){
+                           var value = "未知";
+                          }
+                          return value;
+                        }
                     },
                     {
                         title: "昵称",
                         field: "uname",
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value == "unknown"||value == ""){
+                           var value = "未知";
+                          }
+                          return value;
+                        }
                     },
                     {
                         title: "影响力",
                         field: "bci",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                         var val = value.toFixed(2);
+                          return val;
+                        }
                     },
                     {
                         title: "粉丝数",
@@ -78,9 +96,33 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle"//垂直
+                    },
+                    {
+                        title: "重要度",
+                        field: "imp",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible: false,
+                        formatter: function (value) { 
+                          var val = value.toFixed(2);
+                          return val;
+                        }
+                    },
+                    {
+                        title: "活跃度",
+                        field: "act",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible: false,
+                        formatter: function (value) { 
+                          var val =value.toFixed(2);
+                          return val;
+                        }
                     }]
              });
-                
+            
            })
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
@@ -95,29 +137,24 @@
         //定义展示任务
         function get_result(data)
              { 
-              data = data['result'];
+              var data = data['result'];
               $('#table-user-user-contain').css("display","none");
               $('#table-user-contain').css("display","block");
-              $('#table-user').bootstrapTable('refresh', {url: data});
+              $('#table-user').bootstrapTable('refresh', {data: data});
              }
         //定义删除任务
         function delete_result(data)
              { 
-              data = data['result'];
+              var data = data['result'];
               $('#table-user-user-contain').css("display","none");
               $('#table-user-contain').css("display","block");
-              $('#table-user').bootstrapTable('refresh', {url: data});
+              $('#table-user').bootstrapTable('refresh', {data: data});
              }
         //定义刷新相似用户列表
       function similar_user(data){
-           var data_len = data.length;
-           var si_data = new Array();
-           for(var i=1,j=0;i<data_len-2;i++){ 
-              si_data[j++] = data[i];
-            } 
-           var data = si_data;
             $('#table-user-user').bootstrapTable({
-                  url: data,
+                 // url: data,
+                  data:data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 20,//单页记录数
@@ -152,39 +189,56 @@
                         field: "uname",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value=="unknown"||value==""){
+                            var value="未知";
+                          }
+                           return value;
+                        }
                     },
                     {
                         title: "相关度",                        
                         field: "similiar",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          var val=value.toFixed(2);
+                          return val;
+                        }
                     },
                     {
                         title: "影响力",
                         field: "influence",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          var val=value.toFixed(2);
+                          return val;
+                        }
                     },
                     {
                         title: "活跃度",
                         field: "activeness",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          var val=value.toFixed(2);
+                          return val;
+                        }
                     }]
              });
          };
-        //定义展示离线任务表格
-        function task_status (data) {
-            var data = data.data;
-            $('#topic-task').bootstrapTable({
-                  url: data,
+      function draw_topic_tasks(data){
+         var data = data.data;
+         $('#topic-task').bootstrapTable({
+                  data: data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
-                  pageSize: 10,//单页记录数
+                  pageSize: 5,//单页记录数
                   pageList: [5, 10, 20, 50],//分页步进值
                   sidePagination: "client",//服务端分页
                   searchAlign: "left",
@@ -222,35 +276,38 @@
                         title: "进度显示",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter:function(value,row,index){  
-                        for(var i=0;i<data.length;i++){ 
-                        if(data[i].status == -1){
+                        formatter:function(value){ 
+                        if(value == -1){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%;font-valign:middle;font-size:12px;">50%</div></div>';
-                        }else if(data[i].status == 1){
+                        }else if(value == 1){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:100%;font-valign:middle;font-size:12px;">100%</div></div>';
-                        }else if(data[i].status == 0){
+                        }else if(value == 0){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:0%;font-valign:middle;font-size:12px;">0%</div></div>';
                           }
                           return e;
-                         } 
                       }
                     },
                     {
-                        field: "analysis",
-                        title: "任务查看",
+                        field: "search_id",
+                        title: "任务ID",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter:function(value,row,index){  
-                        for(var i=0;i<data.length;i++){ 
-                        if(data[i].status == -1){
-                          var e = '<span style="display:none;">'+data[i].search_id+'</span>'+'<span>正在计算</span>';
-                        }else if(data[i].status == 1){
-                          var e = '<span style="display:none;">'+data[i].search_id+'</span>'+'<a class="view-analysis" href="">点击查看</a>';
-                        }else if(data[i].status == 0){
-                          var e = '<span style="display:none;">'+data[i].search_id+'</span>'+'<span>尚未计算</span>';
+                        visible: false
+                    },
+                    {
+                        title: "任务查看",
+                        field: "status",
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter:function(value,row){  
+                        if(value == -1){
+                          var e = '<span>正在计算</span>';
+                        }else if(value == 1){
+                          var e = '<a id="view-analysis" href="">点击查看</a>';
+                        }else if(value == 0){
+                          var e = '<span>尚未计算</span>';
                           }
                           return e;
-                      }  
                      }
                     },
                     {
@@ -259,7 +316,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+data[i].search_id+'</span>'+'<a class="dele-analysis" href="#">删除</a>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<a id="dele-analysis" href="#">删除</a>';  
                         return d;  
                       }
                     }],
@@ -270,7 +327,7 @@
                       }
                     }
              });
-              $('#view-analysis').click(function () {
+               $('#view-analysis').click(function () {
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
@@ -280,15 +337,20 @@
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
               });
-          }
-             
+            }
+         $(function(){
+           var user_tasks_url = '/influence_sort/search_task/?username='+username;
+           console.log(user_tasks_url)
+           call_sync_ajax_request(user_tasks_url, draw_topic_tasks);
+         })
         //定义提交离线话题搜索任务
              function submit_offline(data){
+              console.log(data);
               if(data.flag == true){
                 alert('提交成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url)
-                    call_sync_ajax_request(task_url, task_status);
+                call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
                 }else{
@@ -308,13 +370,12 @@
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
-                    console.log(user_url);
+                   // console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
                     //similar_user(user_url);
-                    //manage 相似用户搜索
                      }else{ 
                     var sort_scope = 'all_limit_keyword';
-                    var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string;
+                    var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&all=True';
                     console.log(topic_url);
                     //var url = '/user_rank/user_sort/?time=-1&username='+username+'&st='+time_from +'&et='+time_to+'&sort_norm='+sort_norm+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&task_number='+task_num+'&number='+number_sort;
                     //var task_num = "{{g.user.usernum}}";
@@ -334,6 +395,11 @@
                   var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
                   console.log(influ_url);
                   $('#table-user').bootstrapTable('refresh', {url: influ_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'imp');
+                  $('#table-user').bootstrapTable('hideColumn', 'act');
+                  $('#table-user').bootstrapTable('showColumn', 'fans');
+                  $('#table-user').bootstrapTable('showColumn', 'weibo_count');
+                   
               });
               $('#education').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -342,6 +408,11 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  
               });
               $('#military').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -350,6 +421,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#tech').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -358,6 +433,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#sports').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -366,6 +445,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#amusement').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -374,6 +457,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#livehood').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -382,7 +469,10 @@
                   var keyword ='民生类_社会保障';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#politics').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -392,6 +482,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });
               $('#business').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -400,6 +494,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               }); 
               $('#others').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -408,6 +506,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
               });  
           })
 
