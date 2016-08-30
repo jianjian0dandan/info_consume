@@ -322,18 +322,20 @@
                       }
                     }
              });
-               $('.view-analysis').click(function () {
+            bootstraptable('click-cell.bs.table',function( e, field, value, row, $element){}）
+             $('.view-analysis').click(function () {
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
               }); 
-                
                 $('.dele-analysis').click(function(){
                   var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
-               });  
+                  $('.dele-analysis').unbind("click");
+               });
             }
+
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
