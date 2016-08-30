@@ -7,10 +7,12 @@
                 success:callback
               });
             }
-
-
+         $(function(){
+              var current_user = 'admin@qq.com'; //获取
+              var task_url = '/group/show_task/?submit_user='+current_user;
+              console.log(task_url);
             $('#cicle-task').bootstrapTable({
-                  url: '',
+                  url: task_url,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 10,//单页记录数
@@ -29,18 +31,20 @@
                         field: "order",//键名
                         order: "desc",//默认排序方式
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value, row, index) { 
+                          return index+1;
+                        }
                     },
                     {
-                        field: "nick_name",
+                        field: "",
                         title: "群组名称",
                         sortable: true,
-                        titleTooltip: "this is name",
                         align: "center",//水平
                         valign: "middle"//垂直
                     },
                     {
-                        field: "handtime",
+                        field: "",
                         title: "提交时间",
                         sortable: true,
                         align: "center",//水平
