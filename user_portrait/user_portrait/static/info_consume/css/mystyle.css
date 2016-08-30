@@ -68,7 +68,7 @@ body a {
         position: relative;     
         float: left;
         vertical-align: top;
-        margin-top: 2.0%;
+      
       }
 .topnav li ul{display: none;}/*无列表嵌套行*/
       /*菜单子项属性*/

@@ -40,14 +40,14 @@
   <div class="topnav">	 
   	 <img src="../../static/info_consume/image/title.png">		
   		<ul id="menu" style="margin-left:45%">
-  			<li><a href="">我的管家</a>
+  			<li><a href="" style="margin-top: 15px;">我的管家</a>
   				<ul style="margin-left:0px;">
   					<li><a href="">微博统计</a></li>
   					<li><a href="">性格感知</a></li>
   					<li><a href="">我的好友</a></li>
   				</ul>
   			</li> 				  
-  			<li><a href="">用户分析</a>
+  			<li><a href="" style="margin-top: 15px;">用户分析</a>
           <ul style="margin-left:0px;">
             <li><a href="">用户发现</a></li>
             <li><a href="">管理群组</a></li>
@@ -55,10 +55,20 @@
           </ul>
 
         </li>
-  			<li><a href="">微博那些事</a></li>
-  			<li><a href="">商业推荐</a></li>
+  			<li><a href="/index/weiborecommand.html" style="margin-top: 15px;">微博那些事</a></li>
+  			<li><a href="" style="margin-top: 15px;">商业推荐</a></li>
   		</ul>
   </div>
   {% endblock %}
+
+  {% block main %}
+<!--各页面核心内容-->
+  {% endblock %}
+
+  {% block own script %}
+<!--各页面引的js-->
+  {% endblock %}
+
+
 
   </body>
