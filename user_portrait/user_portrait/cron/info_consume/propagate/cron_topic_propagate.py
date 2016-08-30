@@ -117,6 +117,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 			for k, v in mtype_dict.iteritems():
 				mtype = k
 				count = v
+				print topic,ts,during,mtype,count
 				item = PropagateCount(topic, ts, during, mtype,count)#json.dumps({'other': count})
 				item_exist = db.session.query(PropagateCount).filter(PropagateCount.topic==topic, \
 															PropagateCount.range==during, \
