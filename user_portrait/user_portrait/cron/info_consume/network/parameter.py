@@ -4,7 +4,7 @@ import sys
 import pymongo
 from config import MONGODB_HOST, MONGODB_PORT
 #引用改动 import weibo_es weibo_index_type
-sys.path.append('../../')
+sys.path.append('../../../')
 from global_config import weibo_es, weibo_index_type
 #改动：mongodb链接不上啊 mongodb是干嘛的
 #conn = pymongo.Connection(host=MONGODB_HOST, port=MONGODB_PORT)
