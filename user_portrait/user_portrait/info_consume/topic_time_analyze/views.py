@@ -14,6 +14,12 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+
+@mod.route('/time')
+def time():
+    return render_template('/info_consume/date_detail.html')
+
+
 @mod.route('/mtype_count/')
 def MtypeCount():      #每类微博的数量
     topic = request.args.get('topic','')
