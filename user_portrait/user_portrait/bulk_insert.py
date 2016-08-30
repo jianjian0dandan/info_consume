@@ -4,6 +4,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 #from global_config import es_flow_text as es
 from global_config import weibo_es as es
+from flow_text_mappings import get_graph_mappings
 def write():
 	a = {
 		"_index": "flow_text_2013-09-02",
@@ -41,6 +42,27 @@ def gexf2es(indexname, value):
 	source = json.dumps(value)
 	bulk_action.extend([action,source])
 	es.bulk(bulk_action, index=indexname, doc_type='text', timeout=600)
+def save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf):
+	index_name = topic+'_gexffile'
+	
+	get_graph_mappings(index_name)
+	
+	#bulk_action = []
+	#action = {"index":{"_id":999}}
+	source = json.dumps(identifyGexf)
+	action = {
+    			"index":{"_id":999},
+				"_source":{
+					"name":str(identifyDate)+str(identifyWindow),
+					"gexf":source,
+					"date":identifyDate,
+					"window":identifyWindow
+				}
+			}
+	#bulk_action.extend([action,source])
+	es.bulk(action, index=index_name, doc_type='text', timeout=600)
+
+
 
 def es2gexf(indexname):
 	try:

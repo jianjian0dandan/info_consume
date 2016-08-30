@@ -19,19 +19,18 @@ def get_graph_mappings(index_name):
                             'type': 'string',
                             'index': 'not_analyzed'
                             },
-                        'topic':{
+                        
+                        'gexf':{
                             'type': 'string',
+                            'index': 'no'
+                            },
+                        'date':{
+                            'type':'long',
                             'index': 'not_analyzed'
                             },
-                        'submit_user':{
-                            'type': 'string',
+                        'window':{
+                            'type':'long',
                             'index': 'not_analyzed'
-                            },
-                        'start_ts':{
-                            'type':'long',
-                            },
-                        'end_ts':{
-                            'type':'long',
                             }
                         }
                     }
@@ -188,6 +187,7 @@ def get_mappings(index_name):
         es.indices.create(index=index_name, body=index_info, ignore=400)
 
 if __name__=='__main__':
-    index_name = 'monitored_text'
-    get_mappings(index_name)
+    index_name = 'test_gexf'
+    #get_mappings(index_name)
+    get_graph_mappings(index_name)
     #es.indices.put_mapping(index="monitored_text", doc_type="text", body={'properties':{"category":{"type":"string"}}}, ignore=400)

@@ -125,6 +125,9 @@ def main(topic, start_ts, end_ts):
             gexf= make_network_graph(date, topic_pinyin_name, windowsize, all_uid_pr, data)
             #gexf = json.dumps(gexf)
         print 'save gexf'
+        #print '*************************'*10
+        #print gexf
+        #print '*************************'*10
         save_gexf_results(topic_pinyin_name, date, windowsize, gexf, gexf_type)
         print 'start fu_tr'
         get_interval_count(topic_pinyin_name, date, windowsize)

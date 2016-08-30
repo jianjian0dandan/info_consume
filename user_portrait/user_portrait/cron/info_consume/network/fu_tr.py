@@ -79,10 +79,10 @@ def Merge_propagate(items):
 #获取区间发布的微博数，以天为单位， 并获取第一个拐点的时间区间
 #def get_interval_count(topic, date, windowsize, topic_xapian_id):
 def get_interval_count(topic, date, windowsize):
-    results = [0]
+    results = []
     ts_list = []
     start_date = ts2datetime(datetime2ts(date) - windowsize * Day)
-    #unit = 900
+    unit = 900
     print 'start_date:', start_date
     start_ts = datetime2ts(start_date)
     ts_list = [start_ts]
@@ -100,8 +100,10 @@ def get_interval_count(topic, date, windowsize):
                                                         PropagateCount.end<=over_ts ,\
                                                         PropagateCount.end>begin_ts ,\
                                                         PropagateCount.range==unit).all()
+                                                        #).all()
+
         if items:
-            result = Merge_propagate(items)
+            result = len(items)
         else:
             result = 0 
         results.append(float(result))
