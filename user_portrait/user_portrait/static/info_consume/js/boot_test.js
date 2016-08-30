@@ -137,8 +137,8 @@
         //定义展示任务
         function get_result(data)
              { 
-             // var data = data['result'];
-              $('#topic-task').bootstrapTable('refresh', {url: data});
+              var data = data['result'];
+              $('#topic-task').bootstrapTable('refresh', {data: data});
              }
         //定义删除任务
         function delete_result(data)
@@ -149,6 +149,8 @@
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                 $('#topic-task').bootstrapTable('refresh',{url:task_url})
+              }else{
+                alert('删除失败！');
               }
              }
         //定义刷新相似用户列表
@@ -311,7 +313,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;" onclick="dele_span()">删除</span>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;">删除</span>';  
                         return d;  
                       }
                     }],
@@ -323,20 +325,18 @@
                     }
              });
            
-             function dele_span(){
+             $(".dele-analysis").on('click', function(){
+                  var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
+                  console.log(results_url);
+                  call_sync_ajax_request(results_url, delete_result);
+              });
+             $(".view-analysis").on('click', function(){
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
-              }
-              //  $('.dele-analysis').click(function(){
-                 
-             //  });
-             $('.dele-analysis').onclick(){
-                  var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
-                  console.log(delete_url);
-                  call_sync_ajax_request(delete_url, delete_result);
-                  };
+              });
 
+           }
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
@@ -367,6 +367,7 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){
+                    $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
@@ -375,6 +376,7 @@
                     call_sync_ajax_request(user_url, similar_user);
                     //similar_user(user_url);
                      }else{ 
+                    $('#keyword_hashtag').attr("placeholder","请输入要搜索的话题关键词，多个关键词用空格隔开");
                     var sort_scope = 'all_limit_keyword';
                     var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&all=True';
                     console.log(topic_url);
@@ -516,6 +518,4 @@
 
 
    //选择用户提交群组分析
-   function group_analyze_confirm_button(){
-
-   }
+ //  function group_analyze_confirm_button(){
