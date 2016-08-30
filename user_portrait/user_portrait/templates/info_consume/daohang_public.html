@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% block head_meta %}
+  <meta charset="utf-8">
+  <title>{% block title %}微世界{% endblock %}</title>   
+  <style type="text/css">
+  body { font-family:"Microsoft Yahei";
+  	background-color:#F2F4F8; }	
+  </style>
+{% endblock %}
+  <!-- end head 标签 -->
+
+  <!-- 布局CSS -->
+{% block css%}
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
+  <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
+<!-- end css -->
+ {% endblock %}
+
+<!-- 引入js -->
+ {% block head_js%}
+  <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+  <script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
+  <script src="/static/info_consume/js/echarts.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/homepage.js"></script>
+ {% endblock %}
+ <!-- end js -->
+</head> 
+
+<body>
+  <!--top nav-->
+  {% block header %}	
+  <div class="topnav">	 
+  	 <img src="../../static/info_consume/image/title.png">		
+  		<ul id="menu" style="margin-left:45%">
+  			<li><a href="">我的管家</a>
+  				<ul style="margin-left:0px;">
+  					<li><a href="">微博统计</a></li>
+  					<li><a href="">性格感知</a></li>
+  					<li><a href="">我的好友</a></li>
+  				</ul>
+  			</li> 				  
+  			<li><a href="">用户分析</a>
+          <ul style="margin-left:0px;">
+            <li><a href="">用户发现</a></li>
+            <li><a href="">管理群组</a></li>
+            
+          </ul>
+
+        </li>
+  			<li><a href="">微博那些事</a></li>
+  			<li><a href="">商业推荐</a></li>
+  		</ul>
+  </div>
+  {% endblock %}
+
+  </body>
