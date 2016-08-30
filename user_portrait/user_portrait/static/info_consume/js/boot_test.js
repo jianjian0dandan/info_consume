@@ -55,7 +55,7 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                           if(value == "unknown"||value ==""){
-                           var value = "未知";
+                             value = "未知";
                           }
                           return value;
                         }
@@ -67,7 +67,7 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                           if(value == "unknown"||value == ""){
-                           var value = "未知";
+                             value = "未知";
                           }
                           return value;
                         }
@@ -79,8 +79,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                         var val = value.toFixed(2);
-                          return val;
+                           value = value.toFixed(2);
+                          return value;
                         }
                     },
                     {
@@ -105,8 +105,8 @@
                         valign: "middle",//垂直
                         visible: false,
                         formatter: function (value) { 
-                          var val = value.toFixed(2);
-                          return val;
+                          value = value.toFixed(2);
+                          return value;
                         }
                     },
                     {
@@ -117,8 +117,8 @@
                         valign: "middle",//垂直
                         visible: false,
                         formatter: function (value) { 
-                          var val =value.toFixed(2);
-                          return val;
+                          value =value.toFixed(2);
+                          return value;
                         }
                     }]
              });
@@ -137,18 +137,19 @@
         //定义展示任务
         function get_result(data)
              { 
-              var data = data['result'];
-              $('#table-user-user-contain').css("display","none");
-              $('#table-user-contain').css("display","block");
-              $('#table-user').bootstrapTable('refresh', {data: data});
+             // var data = data['result'];
+              $('#topic-task').bootstrapTable('refresh', {url: data});
              }
         //定义删除任务
         function delete_result(data)
              { 
-              var data = data['result'];
-              $('#table-user-user-contain').css("display","none");
-              $('#table-user-contain').css("display","block");
-              $('#table-user').bootstrapTable('refresh', {data: data});
+              console.log(data);
+              if(data.flag == true){
+                alert('删除成功！');
+                var task_url = '/influence_sort/search_task/?username='+username;
+                console.log(task_url);
+                $('#topic-task').bootstrapTable('refresh',{url:task_url})
+              }
              }
         //定义刷新相似用户列表
       function similar_user(data){
@@ -192,7 +193,7 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                           if(value=="unknown"||value==""){
-                            var value="未知";
+                             value = "未知";
                           }
                            return value;
                         }
@@ -204,8 +205,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          var val=value.toFixed(2);
-                          return val;
+                          value = value.toFixed(2);
+                          return value;
                         }
                     },
                     {
@@ -215,8 +216,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          var val=value.toFixed(2);
-                          return val;
+                          value = value.toFixed(2);
+                          return value;
                         }
                     },
                     {
@@ -226,8 +227,8 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          var val=value.toFixed(2);
-                          return val;
+                          value = value.toFixed(2);
+                          return value;
                         }
                     }]
              });
@@ -288,13 +289,6 @@
                       }
                     },
                     {
-                        field: "search_id",
-                        title: "任务ID",
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        visible: false
-                    },
-                    {
                         title: "任务查看",
                         field: "status",
                         align: "center",//水平
@@ -303,7 +297,7 @@
                         if(value == -1){
                           var e = '<span>正在计算</span>';
                         }else if(value == 1){
-                          var e = '<a id="view-analysis" href="">点击查看</a>';
+                          var e = '<span style="display:none;">'+row.search_id+'</span><span class="view-analysis" style="cursor:pointer;">点击查看</span>';
                         }else if(value == 0){
                           var e = '<span>尚未计算</span>';
                           }
@@ -316,7 +310,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<a id="dele-analysis" href="#">删除</a>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;" onclick="delete_span()">删除</span>';  
                         return d;  
                       }
                     }],
@@ -327,16 +321,16 @@
                       }
                     }
              });
-               $('#view-analysis').click(function () {
+               $('.view-analysis').click(function () {
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
               }); 
-              $('#dele-analysis').click(function () {
+               function delete_span(){
                   var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
-              });
+              }
             }
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
@@ -349,8 +343,9 @@
               if(data.flag == true){
                 alert('提交成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
-                console.log(task_url)
-                call_sync_ajax_request(task_url, draw_topic_tasks);
+                console.log(task_url);
+                $('#topic-task').bootstrapTable('refresh',{url:task_url});
+              //  call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
                 }else{
