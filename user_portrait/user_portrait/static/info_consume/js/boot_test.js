@@ -311,7 +311,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;">删除</span>';  
+                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;" onclick="dele_span()">删除</span>';  
                         return d;  
                       }
                     }],
@@ -323,20 +323,19 @@
                     }
              });
            
-             $('.view-analysis').click(function () {
+             function dele_span(){
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
-              }); 
+              }
               //  $('.dele-analysis').click(function(){
                  
              //  });
-             document.getElementById('.dele-analysis').onclick=fuction(){
+             $('.dele-analysis').onclick(){
                   var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(delete_url);
                   call_sync_ajax_request(delete_url, delete_result);
-                  }
-            }
+                  };
 
 
          $(function(){

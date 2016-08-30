@@ -80,3 +80,12 @@
                           $("#circle-analysis").slideUp();
                       });
             });
+          call_sync_ajax_request:function(url, method, callback){
+              $.ajax({
+                url: url,
+                type: method,
+                dataType: 'json',
+                async: true,
+                success:callback
+              });
+            }
