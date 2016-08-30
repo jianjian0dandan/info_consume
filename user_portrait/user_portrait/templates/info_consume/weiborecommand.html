@@ -6,22 +6,24 @@
 	<title>
 		微博那些事儿
 	</title>
-
+	<script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
 	<script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
 	<script src="/static/info_consume/js/echarts.js"></script>
 	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
+    
 
 
    <!--引用css-->
-		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan.css"> 
+		 <link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan.css">
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/biaoqian.css">
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/search.css">
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/button.css">
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan_yuyuqi.css">
+
   
   
 
@@ -500,37 +502,28 @@
 	
 <body style="background-color:#F2F4F8">
 
-	<div  style="width:100%;height:70px;background: #06D995;position: fixed;z-index:999;top:0;">	
+	<div class="topnav">	
 
-		 <img src="/static/info_consume/image/title.png" width="150px" height="80px" style="float:left ;margin-top:0px;margin-left:1%">
-			
+		 <img src="../../static/info_consume/image/title.png">		
+  		<ul id="menu" style="margin-left:45%">
+  			<li><a href="" style="margin-top: 0px;font-size: 20px;width: 100px;">我的管家</a>
+  				<ul style="margin-left:0px;margin-top:0px;">
+  					<li><a href="" style="margin-top: -5px;">微博统计</a></li>
+  					<li><a href="" style="margin-top: -5px;">性格感知</a></li>
+  					<li><a href="" style="margin-top: -5px;">我的好友</a></li>
+  				</ul>
+  			</li> 				  
+  			<li><a href="" style="margin-top: 0px;font-size: 20px;width: 100px;">用户分析</a>
+          <ul style="margin-left:0px;margin-top: 0px;">
+            <li><a href="" style="margin-top: -5px;">用户发现</a></li>
+            <li><a href="" style="margin-top: -5px;">管理群组</a></li>
+            
+          </ul>
 
-			<ul id="daohanglan" style="font-size:20px;margin-left:35%;font-family: 微软雅黑;">
-				<li class="dropdown">
-					<a  data-toggle="dropdown" href="#" style="text-decoration: none;color:#ffffff">
-						我的管家 
-					</a>
-					<ul class="dropdown-menu" style="width:20px;border:0;background-color:transparent;border-radius: 0px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);">
-						<li><a href="#" style="color:#ffffff;">微博统计</a></li>
-						<li><a href="#" style="color:#ffffff;">性格感知</a></li>
-						<li><a href="#" style="color:#ffffff;">我的好友</a></li>
-						
-					</ul>
-				</li>
-
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;color:#ffffff">
-						用户分析
-					</a>
-					<ul class="dropdown-menu" style="border:0;background-color:transparent;border-radius: 0px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);">
-						<li><a href="#" style="color:#ffffff;">用户发现</a></li>
-						<li><a href="#" style="color:#ffffff;">管理群组</a></li>					
-					</ul>
-				</li>
-						<li><a href="#" style="text-decoration: none;color:#ffffff">微博那些事儿</a></li>
-						<li><a href="#" style="text-decoration: none;color:#ffffff">商业推荐</a></li>
-   
-			</ul>
+        </li>
+  			<li><a href="/index/weiborecommand.html" style="margin-top: 0px;font-size: 20px;">微博那些事</a></li>
+  			<li><a href="" style="margin-top: 0px;font-size: 20px;width: 100px;">商业推荐</a></li>
+  		</ul>
 	</div>
 
 
