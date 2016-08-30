@@ -542,7 +542,7 @@
             var group_name = $('#cicle_name').text();
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
-            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list};
+            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
             //console.log(job);
             $.ajax({
                 type:'POST',
