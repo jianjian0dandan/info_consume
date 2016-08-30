@@ -51,7 +51,7 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row,index){  
-                        var e = '<a class="view-analysis" href="#circle-manage">点击查看</a> ';   
+                        var e = '<span class="view-analysis" href="#circle-manage">点击查看</a> ';   
                         return e;  
                     }
                     },
@@ -60,10 +60,9 @@
                       field: 'operator',
                       align: 'center',
                       valign: "middle",//垂直
-                      formatter:function(value,row,index){  
-                      var e = '<a href="#" onclick="edit(\''+ row.id + '\')">编辑</a> ';  
-                      var d = '<a href="#" onclick="del(\''+ row.id +'\')">删除</a> ';  
-                        return e+d;  
+                      formatter:function(value,row,index){   
+                      var d = '<span style="cursor:pointer;" onclick="del()">删除</a> ';  
+                        return d;  
                     } 
                   }],
                     rowStyle:function rowStyle(row, index) {
@@ -80,4 +79,4 @@
                      $("#close-circle").click(function(){
                           $("#circle-analysis").slideUp();
                       });
-                    });
+            });
