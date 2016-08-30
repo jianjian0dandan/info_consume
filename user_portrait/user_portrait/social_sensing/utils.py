@@ -59,7 +59,8 @@ def get_text_detail(task_name, ts, text_type, user, order, size=100):
 
     else:
         print "error"
-
+    print '******************'
+    print results
     return results
 
 def get_sensitive_text_detail(task_name, ts, user, order):

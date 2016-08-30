@@ -204,10 +204,10 @@ class PropagateCount(db.Model):
     mtype = db.Column(db.Integer(1, unsigned=True))   
     dcount = db.Column(db.Text) # dcount={domain:count}领域对应的count                      
 
-    def __init__(self, topic, range, end, mtype, dcount):
+    def __init__(self, topic, end, range, mtype, dcount):
         self.topic = topic 
-        self.range = range
         self.end = end
+        self.range = range
         self.mtype = mtype
         self.dcount = dcount
 
