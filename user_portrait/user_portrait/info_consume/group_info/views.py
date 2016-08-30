@@ -16,7 +16,7 @@ from user_portrait.global_config import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 from user_portrait.search_user_profile import es_get_source
 from user_portrait.time_utils import ts2datetime
 
-mod = Blueprint('group', __name__, url_prefix='/group')
+mod = Blueprint('info_group', __name__, url_prefix='/info_group')
 
 # use to upload file
 @mod.route('/upload_file/', methods=['GET', 'POST'])
