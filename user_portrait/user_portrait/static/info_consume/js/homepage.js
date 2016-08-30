@@ -10,8 +10,8 @@ homepageinfo.prototype = {
 		async:false,
 		success:callback
 	})
-},
- personData:function(data){
+  },
+  personData:function(data){
   console.log(data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
@@ -82,8 +82,8 @@ homepageinfo.prototype = {
    var Descrip = document.getElementById('userdes');
    if( personalData.description==""){
        personalData.description = "暂无数据";
-       }else if (personalData.description.length>42){
-       Descrip.innerHTML = personalData.description.substr(0,42)+'...';
+       }else if (personalData.description.length>50){
+       Descrip.innerHTML = personalData.description.substr(0,50)+'...';
            Descrip.title = personalData.description;
       }else{
        Descrip.innerHTML = personalData.description;}
@@ -92,7 +92,18 @@ homepageinfo.prototype = {
                homepage.innerHTML = "无此数据";
            }else{
                homepage.innerHTML = '<a id="openurl" style="cursor:pointer" onclick="openurl();">http://weibo.com/u/'+personalData.uid;
-           }      
+           }  
+    var usersex = document.getElementById('body_board')
+      if (personalData.sex == ""){
+  	    personalData.sex = '暂无数据';
+  	    console.log(none);	
+      } else if (personalData.sex == 1) {
+        usersex.innerHTML = '<img src="/static/info_consume/image/bodymodel_man.png">';
+        console.log(1);
+      }else{
+        usersex.innerHTML = '<img src="/static/info_consume/image/bodymodel_woman.png">';
+        console.log(2);
+      } 
    }
 }
 var uid = 1314608344;
