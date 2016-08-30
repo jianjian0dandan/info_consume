@@ -124,8 +124,10 @@
              });
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
-            
            })
+
+
+
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
                     $.ajax({
@@ -237,7 +239,7 @@
                     }]
              });
          };
-         
+ 
       function draw_topic_tasks(data){
          var data = data.data;
          $('#topic-task').bootstrapTable({
@@ -520,7 +522,7 @@
 
 
    //选择用户提交群组分析
- function group_analyze_confirm_button(){
+        function groupanalyze_confirm(){
             var arg = $('#table-user-contain').css("display");
             var artt = $('#table-user-user-contain').css("display");
              if(arg == "block" && artt == "none"){
@@ -530,7 +532,7 @@
              }else{
               console.log('表格display冲突！');
              }
-            var selected_list = $('#table-user').bootstrapTable('getSelections');
+            var selected_list = $table.bootstrapTable('getSelections');
             var list_length = selected_list.length;
             var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
@@ -563,4 +565,4 @@
                     alert('提交任务超出数量');
                 }
          }  
-       }
+       } 
