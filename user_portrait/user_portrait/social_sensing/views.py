@@ -366,7 +366,6 @@ def ajax_get_warning_detail():
 # 返回某个时间段特定的文本，按照热度排序
 @mod.route('/get_text_detail/')
 def ajax_get_text_detail():
-    print "texttttttttttttttttttttt"
     task_name = request.args.get('task_name','media') # task_name
     user = request.args.get('user', '')
     order = request.args.get('order', 'total') # total, retweeted, comment

@@ -128,17 +128,16 @@ body a {
   background: url(../image/icon_weibo.png) no-repeat scroll 0% 0% transparent;
 }
 .wel_count #fans {
-  background: url(../image/icon_focus.png) no-repeat scroll 0% 0% transparent;
+  background: url(../image/icon_fans.png) no-repeat scroll 0% 0% transparent;
 }
-.wel_count #fav {
-  background: url(../image/icon_fav.png) no-repeat scroll 0% 0% transparent;
-}
+
 .wel_count #focus{
   background: url(../image/icon_focus.png) no-repeat scroll 0% 0% transparent;
 }
 
 .wel_count ul li a {
-  margin-left:10px; 
+  margin-left:20px; 
+  margin-right:10px; 
   position: relative;
   display: block;
   color: #747F8C;
@@ -177,17 +176,29 @@ body a {
   margin-top: 4px;
   margin-left: 4px;
 }
-.dashboard #body_board {
+/*女性体型*/
+/*.dashboard #body_board {
   width: 350px;
   margin-left: -60px;
   float: none;
   margin-top: 60px;
   display: block;
+  opacity:0.8;*/
 }
+/*男性体型*/
+.dashboard #body_board {
+  width: 105px;
+  margin-left: 40px;
+  float: none;
+  margin-top: 60px;
+  display: block;
+  height: 300px;
+}
+
 
 .dashboard #draw_p1 {
   border: none;
-  position: relative;
+  position: absolute;
   margin-left: 272px;
   margin-top: -307px;
   float: left;
@@ -196,7 +207,7 @@ body a {
 }
 .dashboard #draw_p2 {
   border: none;
-  position: relative;
+  position: absolute;
   margin-left: 295px;
   margin-top: -235px;
   float: left;
@@ -205,7 +216,7 @@ body a {
 }
 .dashboard #draw_p3 {
   border: none;
-  position: relative;
+  position: absolute;
   margin-left: 295px;
   margin-top: -125px;
   float: left;
@@ -214,7 +225,7 @@ body a {
 }
 .dashboard #draw_p4 {
   border: none;
-  position: relative;
+  position: absolute;
   margin-left: 255px;   
   margin-top: -60px;
   float: left;
@@ -293,6 +304,9 @@ body a {
   float: left;
   margin-top: 30px;
   position: relative;
+}
+#account li {
+  margin-top: 5px;
 }
 #his_vis {
   width: 300px;

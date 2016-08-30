@@ -71,9 +71,12 @@ def new_get_user_profile(uid):
         results['verified_type_ch'] = verified_ch_type
     
     if bci_history_result:
-        results['fansnum'] = int(bci_history_result['user_fansnum'])
-        results['friendsnum'] = int(bci_history_result['user_friendsnum'])
-        results['statusnum'] = int(bci_history_result['weibo_month_sum'])
+        try:
+            results['fansnum'] = int(bci_history_result['user_fansnum'])
+            results['friendsnum'] = int(bci_history_result['user_friendsnum'])
+            results['statusnum'] = int(bci_history_result['weibo_month_sum'])
+        except:
+            pass
     
     return results
 
