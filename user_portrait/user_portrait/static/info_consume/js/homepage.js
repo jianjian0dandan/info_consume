@@ -128,11 +128,12 @@ homepageinfo.prototype = {
        }else{
           AP.innerHTML = '0';
        }
-     var actScore = data.activeness[0];
-     console.log(actScore);
-     	if (actScore>0) {
-     		$("#act_text").innerHTML("Hello world");
-     	}
+     var actScore = document.getElementById('act_text');
+     	if (data.activeness[0]<80) {
+        actScore.innerHTML = '最近活跃度有所下降哦，宝宝不开心了￣へ￣';
+      }else if (data.activeness[0]>=80){
+        actScore.innerHTML = '最近很活跃，么么哒(づ￣ 3￣)づ';
+      }
      
     }
   }
