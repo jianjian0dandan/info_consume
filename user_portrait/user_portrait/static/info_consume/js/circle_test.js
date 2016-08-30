@@ -9,7 +9,7 @@
             }
          $(function(){
               var current_user = 'admin@qq.com'; //获取
-              var task_url = '/group/show_task/?submit_user='+current_user;
+              var task_url = '/info_group/show_task/?submit_user='+current_user;
               console.log(task_url);
             $('#cicle-task').bootstrapTable({
                   url: task_url,
@@ -37,27 +37,41 @@
                         }
                     },
                     {
-                        field: "",
+                        field: "task_name",
                         title: "群组名称",
                         sortable: true,
                         align: "center",//水平
                         valign: "middle"//垂直
                     },
                     {
-                        field: "",
+                        field: "submit_date",
                         title: "提交时间",
                         sortable: true,
                         align: "center",//水平
                         valign: "middle"//垂直
                     },
                     {
-                        field: "process",
+                        field: "group_count",
+                        title: "群组人数",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle"//垂直
+                    },
+                    {
+                        field: "status",
                         title: "进度显示",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter:function(value,row,index){  
-                        var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%;font-valign:middle;font-size:12px;">50%</div></div> ';  
-                        return e;
+                        formatter:function(value){ 
+                        if(value == -1){
+                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%;font-valign:middle;font-size:12px;">50%</div></div>';
+                        }else if(value == 1){
+                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:100%;font-valign:middle;font-size:12px;">100%</div></div>';
+                        }else if(value == 0){
+                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:0%;font-valign:middle;font-size:12px;">0%</div></div>';
+                          }
+                          return e;
+                      }
                     }
                     },
                     {
@@ -66,7 +80,7 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row,index){  
-                        var e = '<span class="view-analysis" href="#circle-manage">点击查看</a> ';   
+                        var e = '<span class="view-analysis" href="#circle-manage">点击查看</span> ';   
                         return e;  
                     }
                     },
