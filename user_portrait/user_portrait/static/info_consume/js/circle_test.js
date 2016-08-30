@@ -1,5 +1,16 @@
+         function call_sync_ajax_request(url, method, callback){
+              $.ajax({
+                url: url,
+                type: method,
+                dataType: 'json',
+                async: true,
+                success:callback
+              });
+            }
+
+
             $('#cicle-task').bootstrapTable({
-                  url: 'data3.json',
+                  url: '',
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 10,//单页记录数
@@ -80,12 +91,5 @@
                           $("#circle-analysis").slideUp();
                       });
             });
-          call_sync_ajax_request:function(url, method, callback){
-              $.ajax({
-                url: url,
-                type: method,
-                dataType: 'json',
-                async: true,
-                success:callback
-              });
-            }
+         
+
