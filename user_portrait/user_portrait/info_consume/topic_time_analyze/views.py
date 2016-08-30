@@ -39,10 +39,6 @@ def TimeOrderWeibos():
     weibos = get_weibo_by_time(topic,start_ts,end_ts,sort_item)
     return json.dumps(weibos)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8503b3dc2fb89e2f0716fb69c4373ebfedf50279
 @mod.route('/hot_order_weibos/')
 def HotOrderWeibos():
     topic =results.args.get('topic', '')
@@ -53,10 +49,6 @@ def HotOrderWeibos():
     start_ts = long(start_ts)
     ts_arr = []
     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
-<<<<<<< HEAD
-=======
-
->>>>>>> 8503b3dc2fb89e2f0716fb69c4373ebfedf50279
 # @mod.route('/hot_order_weibos/')
 # def HotOrderWeibos():
 #     topic =results.args.get('topic', '')
@@ -68,7 +60,3 @@ def HotOrderWeibos():
 #     ts_arr = []
 #     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8503b3dc2fb89e2f0716fb69c4373ebfedf50279
