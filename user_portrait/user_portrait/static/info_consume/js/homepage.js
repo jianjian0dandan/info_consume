@@ -15,7 +15,6 @@ homepageinfo.prototype = {
   console.log(data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
-  console.log(uid_div);
   if(personalData.uid){
       //console.log(personalData.uid)
       uid_div.innerHTML = personalData.uid;
@@ -39,17 +38,7 @@ homepageinfo.prototype = {
   }else{
       nickName.innerHTML = "无此数据";
   }
-  //    var u_verified = document.getElementById('verified');
-  //    if(personalData.verified){
-  //        if (personalData.verified == 'unknown') {
-  //             u_verified.innerHTML = '未知';
-  //        }
-  //        else{
-  //             u_verified.innerHTML = personalData.verified;
-  //        }
-  //    }else{
-  //        u_verified.innerHTML = "无此数据";
-  //    }
+
 
         
     var Verfi = document.getElementById('verified');
@@ -57,7 +46,7 @@ homepageinfo.prototype = {
         personalData.verified_type = "暂无数据";
     }
         var verf = personalData.verified_type;
-        var Verf_type = document.getElementById('vertype');
+        var Verf_type = document.getElementById('verfType');
         if(verf != 0 && verf != 1 && verf != 2 && verf != 3 && verf != 4 && verf != 5 && verf != 6 && verf != 7 && verf != 8 && verf != 200 && verf != 220 && verf != 400 ){
         Verfi.innerHTML = "否";
         if(verf == -1){
@@ -69,17 +58,17 @@ homepageinfo.prototype = {
         Verfi.innerHTML = "是";
       Verf_type.innerHTML = personalData.verified_type_ch;
     }
-        var Fansum = document.getElementById('userFans');
+        var Fansum = document.getElementById('fansum');
     if( personalData.fansnum==""){
         personalData.fansnum = "暂无数据";
     }
         Fansum.innerHTML = personalData.fansnum;
-    var Attentionsum = document.getElementById('userFriend');
+    var Attentionsum = document.getElementById('attentionsum');
     if( personalData.friendsnum==""){
         personalData.friendsnum = "暂无数据";
     }
         Attentionsum.innerHTML = personalData.friendsnum;
-    var Weibosum = document.getElementById('userWeibo');
+    var Weibosum = document.getElementById('weibosum');
     if( personalData.statusnum==""){
         personalData.statusnum = "暂无数据";
     }
@@ -102,10 +91,8 @@ homepageinfo.prototype = {
                 homepage.innerHTML = "无此数据";
             }else{
                 homepage.innerHTML = '<a id="openurl" style="cursor:pointer" onclick="openurl();">http://weibo.com/u/'+personalData.uid;
-            } 
+            }      
     }
-
-
 }
 var uid = 1314608344;
 var Personal = new homepageinfo();
@@ -113,3 +100,5 @@ var personalData; // global data
 
 var url = "/attribute/new_user_profile/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
+
+
