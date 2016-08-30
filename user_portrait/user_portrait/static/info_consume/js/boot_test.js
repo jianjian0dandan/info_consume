@@ -537,12 +537,14 @@
             var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
               group_uid_list[i]=selected_list[i].uid;
-            }
+            }           
+            
             var group_ajax_url = '/influence_sort/submit_task/';
             var group_name = $('#cicle_name').text();
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
             var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+            }
             //console.log(job);
             $.ajax({
                 type:'POST',
@@ -557,11 +559,12 @@
                 if (data == '1'){
                     alert('提交成功！');
                 }
-                if(data == 'no enough user to analysis'){
-                    alert('没有足够有效用户进行分析');
+                if(data == '0'){
+                    alert('提交失败，请重试！');
                 }
                 if(data == 'more than limit'){
                     alert('提交任务超出数量');
                 }
-         }  
+          
+              $('#cancel_model').click();
        } 
