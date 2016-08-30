@@ -124,8 +124,10 @@
              });
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
-            
            })
+
+
+
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
                     $.ajax({
@@ -237,7 +239,7 @@
                     }]
              });
          };
-         
+ 
       function draw_topic_tasks(data){
          var data = data.data;
          $('#topic-task').bootstrapTable({
@@ -520,7 +522,7 @@
 
 
    //选择用户提交群组分析
- function group_analyze_confirm_button(){
+        function groupanalyze_confirm(){
             var arg = $('#table-user-contain').css("display");
             var artt = $('#table-user-user-contain').css("display");
              if(arg == "block" && artt == "none"){
@@ -530,18 +532,19 @@
              }else{
               console.log('表格display冲突！');
              }
-            var selected_list = $('#table-user').bootstrapTable('getSelections');
+            var selected_list = $table.bootstrapTable('getSelections');
             var list_length = selected_list.length;
             var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
               group_uid_list[i]=selected_list[i].uid;
-            }
-           console.log(list_length);
-            var group_ajax_url = '/influence_sort/add_detect2analysis/';
+            }           
+            
+            var group_ajax_url = '/influence_sort/submit_task/';
             var group_name = $('#cicle_name').text();
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
-            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list,'task_max_count':group_analysis_count};
+            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+            }
             //console.log(job);
             $.ajax({
                 type:'POST',
@@ -552,15 +555,16 @@
                 success: callback
             });
             function callback(data){
-                console.log(data);
+               console.log(data);
                 if (data == '1'){
                     alert('提交成功！');
                 }
-                if(data == 'no enough user to analysis'){
-                    alert('没有足够有效用户进行分析');
+                if(data == '0'){
+                    alert('提交失败，请重试！');
                 }
                 if(data == 'more than limit'){
                     alert('提交任务超出数量');
                 }
-         }  
-       }
+          
+              $('#cancel_model').click();
+       } 
