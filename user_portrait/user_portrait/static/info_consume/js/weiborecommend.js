@@ -16,6 +16,11 @@ weiborecommend.prototype=
 			beforeSend:LoadFunction,
 			error:erryFunction
 		});
+	},
+
+	weibo_hashtag:function(data)
+	{
+
 	}
 
 } 
@@ -83,4 +88,13 @@ function get_hot_text(){
 	url = '/social_sensing/get_text_detail/';
 	weiborecommend.call_sync_ajax_request(url,callback);
 }
+
+function get_weibo_hashtag(){
+
+	url = '/weibo_hashtag/get_weibo_hashtag/';
+	weiborecommend.call_sync_ajax_request(url,weiborecommend.weibo_hashtag);
+}
+
+
+
 get_hot_text();
