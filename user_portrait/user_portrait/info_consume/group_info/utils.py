@@ -193,7 +193,7 @@ def search_task(task_name, submit_date, state, status, submit_user):
         except:
             status = 0
         #result.append([task_dict['_source']['task_name'], task_dict['_source']['submit_date'], task_dict['_source']['count'], state, status])
-        result.append({'task_name':task_dict['_source']['task_name'],'submit_date':task_dict['_source']['submit_date'], 'group_count':task_dict['_source']['count'], 'status':status})
+        result.append({'task_name':task_dict['_source']['task_name'],'submit_date':ts2date(task_dict['_source']['submit_date']), 'group_count':task_dict['_source']['count'], 'status':status})
     
     return result
 
