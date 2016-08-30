@@ -122,8 +122,12 @@
                         }
                     }]
              });
-            
+            $('#table-user-user-contain').css("display","none");
+            $('#table-user-contain').css("display","block");
            })
+
+
+
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
                     $.ajax({
@@ -137,8 +141,8 @@
         //定义展示任务
         function get_result(data)
              { 
-             // var data = data['result'];
-              $('#topic-task').bootstrapTable('refresh', {url: data});
+              var data = data['result'];
+              $('#topic-task').bootstrapTable('refresh', {data: data});
              }
         //定义删除任务
         function delete_result(data)
@@ -149,6 +153,8 @@
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                 $('#topic-task').bootstrapTable('refresh',{url:task_url})
+              }else{
+                alert('删除失败！');
               }
              }
         //定义刷新相似用户列表
@@ -233,7 +239,7 @@
                     }]
              });
          };
-         
+ 
       function draw_topic_tasks(data){
          var data = data.data;
          $('#topic-task').bootstrapTable({
@@ -323,21 +329,18 @@
                     }
              });
            
-             $('.view-analysis').click(function () {
+             $(".dele-analysis").on('click', function(){
+                  var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
+                  console.log(results_url);
+                  call_sync_ajax_request(results_url, delete_result);
+              });
+             $(".view-analysis").on('click', function(){
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
-              }); 
-              //  $('.dele-analysis').click(function(){
-                 
-             //  });
-             document.getElementById('.dele-analysis').onclick=fuction(){
-                  var delete_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
-                  console.log(delete_url);
-                  call_sync_ajax_request(delete_url, delete_result);
-                  }
-            }
+              });
 
+           }
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
@@ -368,6 +371,7 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){
+                    $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
@@ -376,6 +380,7 @@
                     call_sync_ajax_request(user_url, similar_user);
                     //similar_user(user_url);
                      }else{ 
+                    $('#keyword_hashtag').attr("placeholder","请输入要搜索的话题关键词，多个关键词用空格隔开");
                     var sort_scope = 'all_limit_keyword';
                     var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&all=True';
                     console.log(topic_url);
@@ -517,6 +522,49 @@
 
 
    //选择用户提交群组分析
-   function group_analyze_confirm_button(){
-
-   }
+        function groupanalyze_confirm(){
+            var arg = $('#table-user-contain').css("display");
+            var artt = $('#table-user-user-contain').css("display");
+             if(arg == "block" && artt == "none"){
+              var $table = $('#table-user');
+             }else if(arg == "none" && artt == "block"){
+              var $table = $('#table-user-user');
+             }else{
+              console.log('表格display冲突！');
+             }
+            var selected_list = $table.bootstrapTable('getSelections');
+            var list_length = selected_list.length;
+            var group_uid_list = new Array();
+            for(var i=0;i<list_length;i++){
+              group_uid_list[i]=selected_list[i].uid;
+            }           
+            
+            var group_ajax_url = '/influence_sort/submit_task/';
+            var group_name = $('#cicle_name').text();
+            var admin = 'admin@qq.com'//获取$('#useremail').text();
+            var group_analysis_count = 10;//获取
+            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+            }
+            //console.log(job);
+            $.ajax({
+                type:'POST',
+                url: group_ajax_url,
+                contentType:"application/json",
+                data: JSON.stringify(job),
+                dataType: "json",
+                success: callback
+            });
+            function callback(data){
+               console.log(data);
+                if (data == '1'){
+                    alert('提交成功！');
+                }
+                if(data == '0'){
+                    alert('提交失败，请重试！');
+                }
+                if(data == 'more than limit'){
+                    alert('提交任务超出数量');
+                }
+          
+              $('#cancel_model').click();
+       } 
