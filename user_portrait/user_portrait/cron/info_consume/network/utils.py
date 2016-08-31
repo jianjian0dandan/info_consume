@@ -13,8 +13,9 @@ from model import Topics, TsRank, TopicStatus, TopicIdentification, DsTopicIdent
 sys.path.append('../')
 from time_utils import ts2datetime, datetime2ts, window2time
 from config import xapian_search_user as user_search
-from flow_text_mapping import get_graph_mappings
-from bulk_insert import gexf2es, es2gexf
+sys.path.append('../../../')
+from flow_text_mappings import get_graph_mappings
+from bulk_insert import gexf2es, es2gexf, save_long_gexf
 
 def acquire_topic_id(name, start_ts, end_ts, module="identify"):
     item = db.session.query(TopicStatus).filter_by(topic=name, start=start_ts, end=end_ts, module=module).first()
@@ -207,7 +208,8 @@ def save_gexf_results(topic, identifyDate, identifyWindow, identifyGexf, gexf_ty
     print 'key', key.encode('utf-8')
     key = str(key)
     value = identifyGexf
-    gexf2es(key, value)
+    #gexf2es(key, value)
+    save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf)
     #result = ssdb.request('set',[key,value])
     
     print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())),'save Gexf success'
