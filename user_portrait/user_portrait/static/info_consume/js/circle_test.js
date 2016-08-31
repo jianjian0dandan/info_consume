@@ -72,17 +72,20 @@
                           }
                           return e;
                       }
-                    }
                     },
                     {
-                        field: "analysis",
+                        field: "status",
                         title: "群体分析",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter:function(value,row,index){  
-                        var e = '<span class="view-analysis" href="#circle-manage">点击查看</span> ';   
-                        return e;  
-                    }
+                        formatter:function(value,row){  
+                        if(value == 0){
+                          var e = '<span>正在计算</span>';
+                        }else if(value == 1){
+                          var e = '<a class="view-analysis" href="#circle-manage">点击查看</a>';
+                        }
+                          return e;
+                     }
                     },
                     {
                       title: '操作',
@@ -101,7 +104,6 @@
                       };
                     }
              });
-                   $(document).ready(function(){
                      $(".view-analysis").click(function(){
                           $("#circle-analysis").slideDown();
                       });
