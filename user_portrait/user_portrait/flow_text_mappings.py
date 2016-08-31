@@ -6,6 +6,81 @@ from elasticsearch import Elasticsearch
 from global_utils import es_flow_text as es
 #from global_utils import es_user_portrait as es
 
+def get_graph_mappings(index_name):
+    index_info = {
+            'settings':{
+                'number_of_shards':5,
+                'number_of_replicas':0
+            },
+            'mappings':{
+                'text':{
+                    'properties':{
+                        'name':{
+                            'type': 'string',
+                            'index': 'not_analyzed'
+                            },
+                        
+                        'gexf':{
+                            'type': 'string',
+                            'index': 'no'
+                            },
+                        'date':{
+                            'type':'long',
+                            'index': 'not_analyzed'
+                            },
+                        'window':{
+                            'type':'long',
+                            'index': 'not_analyzed'
+                            }
+                        }
+                    }
+                }
+            }
+    exist_indice = es.indices.exists(index=index_name)
+    print index_name,type(index_name)
+    print exist_indice
+    if not exist_indice:
+        print es.indices.create(index=index_name, body=index_info)
+
+
+def get_topic_mappings(index_name):
+    index_info = {
+            'settings':{
+                'number_of_shards':5,
+                'number_of_replicas':0
+            },
+            'mappings':{
+                'text':{
+                    'properties':{
+                        'name':{
+                            'type': 'string',
+                            'index': 'not_analyzed'
+                            },
+                        'index_name':{
+                            'type': 'string',
+                            'index': 'not_analyzed'
+                            },
+                        'submit_user':{
+                            'type': 'string',
+                            'index': 'not_analyzed'
+                            },
+                        'start_ts':{
+                            'type':'long',
+                            },
+                        'end_ts':{
+                            'type':'long',
+                            }
+                        }
+                    }
+                }
+            }
+    exist_indice = es.indices.exists(index=index_name)
+    print index_name,type(index_name)
+    print exist_indice
+    if not exist_indice:
+        print es.indices.create(index=index_name, body=index_info)
+
+
 
 def get_mappings(index_name):
     index_info = {
@@ -112,6 +187,7 @@ def get_mappings(index_name):
         es.indices.create(index=index_name, body=index_info, ignore=400)
 
 if __name__=='__main__':
-    index_name = 'monitored_text'
-    get_mappings(index_name)
+    index_name = 'test_gexf'
+    #get_mappings(index_name)
+    get_graph_mappings(index_name)
     #es.indices.put_mapping(index="monitored_text", doc_type="text", body={'properties':{"category":{"type":"string"}}}, ignore=400)
