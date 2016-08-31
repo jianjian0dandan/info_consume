@@ -1,3 +1,6 @@
+{% extends "info_consume/daohang_public.html" %}
+
+{% block main %}
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -18,7 +21,7 @@
       <div class="row">
         <div class="col-md-12"><h1>系统主导航</h1></div>
       </div>
-      <div class="row" id="circle-analysis" style="display:block;">
+      <div class="row" id="circle-analysis">
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <ul id="circle-Tab" class="nav nav-tabs">
@@ -31,10 +34,8 @@
           </ul>            
           <div id="circleTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="basic-feature">
-              <p>基本特征</p>
               <div class="row">
                 <div class="col-md-12">
-              群体基本特征
                 </div>
               </div>
               <div class="row">
@@ -62,7 +63,6 @@
               </div>
             </div>
             <div class="tab-pane fade" id="active-feature">
-              <p>活跃特征</p>
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
@@ -176,7 +176,6 @@
               </div>
             </div>
             <div class="tab-pane fade" id="interest-feature">
-              <p>兴趣特征</p>
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
@@ -201,7 +200,6 @@
               </div>
             </div>
             <div class="tab-pane fade" id="social-feature">
-              <p>社交特征</p>
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
@@ -228,7 +226,6 @@
               </div>
             </div>
             <div class="tab-pane fade" id="mood-feature">
-              <p>情绪特征</p>
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
@@ -284,4 +281,5 @@
     <script src="../../static/info_consume/js/keyword-cloud.js"></script>
     <script src="../../static/info_consume/js/topic-cloud.js"></script>
   </body>
+  {% endblock %}
 </html>
