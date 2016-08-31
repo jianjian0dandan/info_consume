@@ -94,6 +94,7 @@ def submit_task(input_data):
     }
     exist_compute_result = es_group_result.search(index=group_index_name, doc_type=group_index_type, body=query_body)['hits']['hits']
     exist_compute_count = len(exist_compute_result)
+    print es_group_result
     if exist_compute_count >= task_max_count:
         return 'more than limit'
     #identify the task name is valid
