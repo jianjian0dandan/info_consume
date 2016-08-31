@@ -1,5 +1,65 @@
 
-var 
+var topic = 'aoyunhui';
+var start_ts = 1468166400;
+var end_ts = 1468170900;
+var province = '陕西';
+//var sort_item = 'timestamp';
+
+
+// var topic = $('#topic_text').text();
+// var start_ts = set_timestamp().start_timestamp_return; 
+// var end_ts = set_timestamp().end_timestamp_return;
+// var start_ts,end_ts,pointInterval;
+
+
+// function set_timestamp(){
+// 	var start_time_new = get_timestamp().start_return;
+// 	var end_time_new = get_timestamp().end_return; 
+// 	var start_timestamp = datetime_to_timestamp(start_time_new);
+// 	var end_timestamp = datetime_to_timestamp(end_time_new);
+	
+// 	start_ts = start_timestamp;
+// 	end_ts = end_timestamp;
+
+// 	Draw_geo_map_result();
+// }
+
+
+// function get_timestamp(){
+// 	var start_time = $('#datetimepicker3_input').val(); 
+// 	var end_time = $('#datetimepicker4_input').val();
+// 	return {
+// 		start_return:start_time,
+// 		end_return:end_time
+// 	};
+// }
+
+
+// function datetime_to_timestamp(datetime) {
+//  		var date_time_string = datetime;
+//  		var date_time_array =date_time_string.split(/[/: ]/);
+//  		var date_array_new = [date_time_array[2],date_time_array[0],date_time_array[1]];
+//  		if (date_time_array[5] == 'PM'){
+//  			date_time_array[3] = parseInt(date_time_array[3])+12;  //替换元素，小时数字加12
+//  		}
+//  		var time_array_new = [date_time_array[3],date_time_array[4],'00'];
+//  		var timestamp_date_str = date_array_new.join('/');
+//  		var timestamp_time_str = time_array_new.join(':');
+//  		var timestamp_time_array = [timestamp_date_str,timestamp_time_str]
+//  		var timestamp_str = timestamp_time_array.join(' ');
+//  		var timestamp = (new Date(timestamp_str)).getTime()/1000;
+//  		return timestamp;
+// 	}
+
+
+// function get_per_time(val) {
+// 	pointInterval = val;
+// 	set_timestamp();
+// }
+
+
+
+
 
 function topic_analysis_place(){
  
@@ -16,15 +76,16 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
     });
   },
 	Draw_geo_map:function(data){
-		var topic = $('#topic_text').text();
-		var start_ts = (new Date($('#datetimepicker5').val())).getTime()/1000;
-	 	var end_ts = $('#datetimepicker6').val();
-	 	var pointInterval = $()
-	 	var num_origin = 0; //原创
-	 	var num_forwarding = 0;  //转发
-	 	var num_comment = 0;  //评论
 
-
+		// var topic = $('#topic_text').text();
+		// var start_ts = (new Date($('#datetimepicker5').val())).getTime()/1000;
+	 // 	var end_ts = $('#datetimepicker6').val();
+	 // 	var pointInterval = $()
+	 // 	var num_origin = 0; //原创
+	 // 	var num_forwarding = 0;  //转发
+	 // 	var num_comment = 0;  //评论
+	 	var item = data;
+	 	console.log(item);
 	 	var myChart = echarts.init(document.getElementById('main_place'));
 
 		require(
@@ -507,9 +568,93 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			                myChart.setOption(option);     
 						
 		}
-		),		
+		)	
 
 	},
+
+	Draw_blog_scan_area: function(data){
+
+  	//$('#blog_scan_area_time').empty();
+    var item = data;
+	var html = '';
+	//console.log("执行了微博浏览区函数！");
+	// //console.log(item);
+	// for(var key in data){
+	// 	console.log(key);
+	// 	console.log(data[0]);
+		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
+		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+		//console.log(data.length);
+		
+		if (item.length == 0){
+		html += '<div style="color:grey;">暂无数据</div>'
+		}else{
+			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
+			// for( k =  )	
+		
+			for (i=0;i < Math.min(10,item.length);i++){
+			// 	// item[i][1]
+			// 	for(j=0;j<item[].length;j++){
+
+				// }
+			
+			//for(i=0;i<item.length;i++){
+			// for(j=0;j<8;j++){	
+				//var item_timestamp_datetime = new Date(item[i][1].timestamp*1000).format('yyyy/MM/dd hh:mm');
+				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+				html += '<div class="blog_time">';
+				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
+				html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
+				html +=	'<div>';
+				//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
+				html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
+				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
+				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
+				html += '</div>';
+				html += '<div class="blog_text">'
+				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
+				html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
+				html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
+				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
+				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
+				html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>'
+				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+				html += '</p>';
+				html += '</div>';							 	
+				html += '</div>';
+			// }
+			}
+
+			html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+		    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		    html += '<span id="S_First" class="disabled" >首页</span>'
+		    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
+		    html += '<span id="S_navi"><!--页号导航--></span>'
+		    html += '<span id="S_Next"  class="disabled" >下一页</span>'
+		    html += '<span id="S_Last"  class="disabled" >末页</span>'
+		    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+		    html += '<span id="P_GO" >GO</span>'
+			html += '</div>'
+		
+		}
+		// html += '<ul class="pagination">'
+		// html += '<li><a href="#">&laquo;</a></li>';
+		// html += '<li class="active"><a href="#">1</a></li>';
+		// html += '<li><a href="#">2</a></li>';
+		// html += '<li><a href="#">3</a></li>';
+		// html += '<li><a href="#">4</a></li>';
+		// html += '<li><a href="#">5</a></li>';
+		// html += '<li><a href="#">&raquo;</a></li>';
+		// html += '</ul>';
+		$('#blog_scan_area_time').append(html);
+		
+		
+	
+  	},
 
 }
 
@@ -518,11 +663,26 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 var topic_analysis_place = new topic_analysis_place();
  
 function Draw_geo_map_result(){
-    url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
+    url = "/topic_geo_analyze/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
  	console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
+}	
+
+function Draw_blog_scan_area_result(){
+    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province'+province;
+ 	console.log(url);
+ 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area);
 }		
 
 
 
+// function Draw_geo_map_result(){
+//     url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
+//  	console.log(url);
+//  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
+// }		
+
+
+Draw_geo_map_result();
+Draw_blog_scan_area_result();
 
