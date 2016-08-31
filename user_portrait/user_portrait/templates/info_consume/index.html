@@ -1,6 +1,23 @@
 
 {% extends "info_consume/daohang_public.html" %}
 
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
+  <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block head_js %}
+  <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+  <script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
+  <script src="/static/info_consume/js/echarts.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+{% endblock %}
+
 {% block main %}
   <div class="up_box">
     <div class="l_box">
