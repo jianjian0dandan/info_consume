@@ -372,7 +372,7 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){
-                    $('#keyword_hashtag').attr("placeholder")="请输入要搜索的用户ID";
+                 //   $('#keyword_hashtag').attr("placeholder")="请输入要搜索的用户ID";
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
