@@ -69,7 +69,7 @@ viewinformation.prototype=
 					               
 					                {
 					                    value : num,
-					                    name : '罗纳尔多'
+					                    
 					                }
 					            ]
 					        }
