@@ -97,10 +97,14 @@ def submit_task(input_data):
     #identify the task name is valid
     try:
         result = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
+        print 'submit_task_utils'
+        print result
     except:
         status = 1
+        print 'except'
     
     if status != 0 and 'uid_file' not in input_data:
+        print 'aaaaaaaaaaaaaaaaaaaa'
         input_data['status'] = 0 # mark the task not compute
         count = len(input_data['uid_list'])
         input_data['count'] = count
@@ -109,9 +113,12 @@ def submit_task(input_data):
         input_data['detect_type'] = ''
         input_data['detect_process'] = ''
         input_data['task_id'] = task_id
-        print 'input_data:', input_data
         add_es_dict = {'task_information': input_data, 'query_condition':''}
+        print es_group_result,group_index_name,group_index_type
+        print r
+        print '**********************8'
         es_group_result.index(index=group_index_name, doc_type=group_index_type, id=task_id, body=input_data)
+        print es_group_result,group_index_name,group_index_type
         r.lpush(group_analysis_queue_name, json.dumps(input_data))
     
     return status
