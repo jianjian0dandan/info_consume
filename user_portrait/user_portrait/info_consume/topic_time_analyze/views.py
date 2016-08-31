@@ -45,6 +45,7 @@ def TimeOrderWeibos():
     weibos = get_weibo_by_time(topic,start_ts,end_ts,sort_item)
     return json.dumps(weibos)
 
+
 @mod.route('/hot_order_weibos/')
 def HotOrderWeibos():
     topic =results.args.get('topic', '')
@@ -55,6 +56,7 @@ def HotOrderWeibos():
     start_ts = long(start_ts)
     ts_arr = []
     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
+
 # @mod.route('/hot_order_weibos/')
 # def HotOrderWeibos():
 #     topic =results.args.get('topic', '')

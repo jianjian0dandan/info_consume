@@ -5,6 +5,8 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from elasticsearch import Elasticsearch
 
+GRAPH_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../graph/')
+
 REDIS_CLUSTER_HOST_FLOW1 = '219.224.134.213'
 REDIS_CLUSTER_HOST_FLOW1_LIST = ["219.224.134.211", "219.224.134.212", "219.224.134.213"]
 REDIS_CLUSTER_PORT_FLOW1 = '6379'
