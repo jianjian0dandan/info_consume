@@ -29,7 +29,6 @@
   <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  
  {% endblock %}
  <!-- end js -->
 </head> 
@@ -64,23 +63,18 @@
 
   
 <!--各页面核心内容-->
-	<div style=" position: relative;margin-top: 80px;margin-left: 150px;">
-		
+  {% block main %}
 
-			{% block main %}
+  {% endblock %}
 
-			{% endblock %}
-	</div>
   
     <!-- DIY js -->
 	{% block Own_js %}
 
 
+
 	{% endblock %}
 	<!-- end DIY -->
-
- 
-
 
 
   </body>
