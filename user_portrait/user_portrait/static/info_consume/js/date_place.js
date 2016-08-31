@@ -85,7 +85,24 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 	 // 	var num_forwarding = 0;  //转发
 	 // 	var num_comment = 0;  //评论
 	 	var item = data;
-	 	console.log(item);
+	 	//console.log(item);
+	 // 	var item = [];
+	 // 	var y_item_origin = [];
+		// var y_item_forwarding = [];
+		// var y_item_comment = [];
+	 	for (i=0;i<item.length;i++){
+	 		console.log(item[i][1]);
+			//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
+			//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+			//console.log(key_datetime);
+			//x_item.push(key_datetime);
+
+			// y_item_origin.push(data[key][1]);
+			// y_item_forwarding.push(data[key][2]);
+			// y_item_comment.push(data[key][3]);
+		}
+
+
 	 	var myChart = echarts.init(document.getElementById('main_place'));
 
 		require(
