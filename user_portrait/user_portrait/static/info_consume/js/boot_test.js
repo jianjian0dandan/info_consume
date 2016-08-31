@@ -534,6 +534,10 @@
              }
             var selected_list = $table.bootstrapTable('getSelections');
             var list_length = selected_list.length;
+            if( list_length == 0){
+              alert('请选择用户！');
+            }else{
+            $('#addModal').attr("data-target","addModal");
             var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
               group_uid_list[i]=selected_list[i].uid;
@@ -565,4 +569,7 @@
                     alert('提交任务超出数量');
                 }
             }
+           }
+              $('#addModal').modal('hide');
+              $table.bootstrapTable('refresh');
           }
