@@ -4,6 +4,10 @@ from flask import Blueprint,render_template
 mod = Blueprint('index', __name__, url_prefix='/index')
 
 @mod.route('/')
+@mod.route('/date_index')
+def date_index():
+    return render_template('/info_consume/date_index.html')
+
 @mod.route('/index')
 def content():
     return render_template('/info_consume/index.html')
