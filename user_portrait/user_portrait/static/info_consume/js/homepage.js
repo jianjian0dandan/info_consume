@@ -108,7 +108,7 @@ homepageinfo.prototype = {
         console.log(2);
       } 
    },
-
+   //影响力和活跃度数据
     overallData:function(data){
     console.log(data);
     //影响力
@@ -128,15 +128,26 @@ homepageinfo.prototype = {
        }else{
           AP.innerHTML = '0';
        }
-     var actScore = data.activeness[0];
-     console.log(actScore);
-     	if (actScore>0) {
-     		$("#act_text").innerHTML("Hello world");
-     	}
+     var actScore = document.getElementById('act_text');
+     	if (data.activeness[0]<80) {
+        actScore.innerHTML = '最近活跃度有所下降哦，宝宝不开心了￣へ￣';
+      }else if (data.activeness[0]>=80){
+        actScore.innerHTML = '最近很活跃，么么哒(づ￣ 3￣)づ';
+      }
      
     }
+  //微博数据处理
+    weiboData:function(data){;
+    	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
+        $('#per_onload').css('display','none');
+        $('#group_influ_weibo').css('display', 'block')
+    }  
+
   }
-var uid = 1640601392;
+
+
+
+var uid = 2625203751;
 var Personal = new homepageinfo();
 var personalData; // global data
 
@@ -149,3 +160,19 @@ function openurl(){
   var ourl = $('#openurl').text();
   window.open(ourl);
  }
+
+$(function(){
+	$('#modechoose').click(function(){
+	var box = document.getElementsByName('mode_choose');
+	for(var i=0;i<box.length;i++){
+		if(box[i].checked){
+			sort_type = box[i].value;
+		}
+    }
+$('#per_onload').css('display', 'block');
+$('#group_influ_weibo').css('display', 'none')
+	var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
+	//console.log('ddd',url);
+        Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+	});
+});

@@ -42,16 +42,21 @@ def province_weibo_count(topic,start_ts,end_ts,unit=MinInterval):
         items = db.session.query(CityTopicCount).filter(CityTopicCount.end>lowbound, \
                                                          CityTopicCount.end<=upbound, \
                                                          CityTopicCount.topic==topic).all()
-    province_dict = {}
+    count_dict = {}
     for item in items:          
         geo = _json_loads(item.ccount)
-        for k,v in geo.iteritems():
-            try:
-                province_dict[k] += v['total']
-            except:
-                province_dict[k] = v['total']
-    print province_dict
-    results = sorted(province_dict.iteritems(),key=lambda x:x[1],reverse=True)
+        for province,city_dict in geo.iteritems():
+            for k,v in city_dict.iteritems():
+                try:
+                    count_dict[k] += v
+                except:
+                    count_dict[k] = v
+            # try:
+            #     province_dict[k] += v['total']
+            # except:
+            #     province_dict[k] = v['total']
+    #print province_dict
+    results = sorted(count_dict.iteritems(),key=lambda x:x[1],reverse=True)
     #print results
     return results
 
