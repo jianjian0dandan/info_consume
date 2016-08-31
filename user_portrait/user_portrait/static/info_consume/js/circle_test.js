@@ -93,7 +93,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){   
-                      var d = '<span style="cursor:pointer;" onclick="del()">删除</a> ';  
+                      var d = '<span style="cursor:pointer;" onclick="deletetr(this)">删除</a> ';  
                         return d;  
                     } 
                   }],
@@ -110,6 +110,10 @@
                      $("#close-circle").click(function(){
                           $("#circle-analysis").slideUp();
                       });
+                     function deletetr(tdobject){  
+                      var td=$(tdobject);  
+                      td.parents("tr").remove();  
+                  }  
             });
          
 
