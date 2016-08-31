@@ -538,14 +538,13 @@
             for(var i=0;i<list_length;i++){
               group_uid_list[i]=selected_list[i].uid;
             }           
-            
             var group_ajax_url = '/influence_sort/submit_task/';
-            var group_name = $('#cicle_name').text();
+            var group_name = $('#cicle_name').val();
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
             var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-            }
-            //console.log(job);
+            console.log(job);
+            
             $.ajax({
                 type:'POST',
                 url: group_ajax_url,
@@ -553,7 +552,7 @@
                 data: JSON.stringify(job),
                 dataType: "json",
                 success: callback
-            });
+            }); 
             function callback(data){
                console.log(data);
                 if (data == '1'){
@@ -565,6 +564,5 @@
                 if(data == 'more than limit'){
                     alert('提交任务超出数量');
                 }
-          
-              $('#cancel_model').click();
-       } 
+            }
+          }

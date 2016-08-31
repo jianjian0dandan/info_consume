@@ -9,7 +9,7 @@ from gexf import Gexf
 from lxml import etree
 import networkx as nx
 
-from gquota import compute_quota
+#from gquota import compute_quota
 #from localbridge import GetLocalBridge
 from snowball1 import SnowballSampling
 # from hadoop_utils import generate_job_id

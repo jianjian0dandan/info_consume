@@ -14,7 +14,7 @@ from parameter import Day, domain_list
 from global_utils_do import es_user_profile, profile_index_name, profile_index_type, load_scws, cut, cut_filter, re_cut
 #print os.getcwd()
 sys.path.append('domain')
-from test_domain_v2 import domain_classfiy
+#from test_domain_v2 import domain_classfiy
 #from domain.test_domain_v2 import domain_classfiy
 sys.path.append('../')
 from time_utils import ts2datetime, datetime2ts
@@ -146,6 +146,7 @@ def get_first_node(topic, start_ts, end_ts, windowsize, date):
             'sort': {"timestamp": {"order": "asc"}}
         }
         es_search_weibos = weibo_es.search(index=topic, doc_type=weibo_index_type, body=query_body)['hits']['hits']
+        #print es_search_weibos
         user_list = []
         time_top_nodes = es_search_weibos
         if not time_top_nodes:
