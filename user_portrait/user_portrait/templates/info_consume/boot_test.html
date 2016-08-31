@@ -1,3 +1,7 @@
+{% extends "info_consume/daohang_public.html" %}
+
+{% block main %}
+
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -20,7 +24,6 @@
         <div class="col-md-12"><h1>系统主导航</h1></div>
         <span id="username" style='display:none'>{{ g.user }}</span>
       </div>
-      <hr style="border:1px dashed #987cb9;width:100%;height:1px" />
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8 input-group">
@@ -38,7 +41,7 @@
       <div class="row">
         <div class="col-md-12" style="margin-left:40px;">          
           <div class="panel panel-default" border="1" style="margin-right:40px;">
-            <div class="panel-heading green"><b>话题任务管理<i class="fa fa-bars" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="collapse" data-parent="#sort-result" href="#topic-manage"></i></b>
+            <div class="panel-heading"><b>话题任务管理<i class="fa fa-bars" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="collapse" data-parent="#sort-result" href="#topic-manage"></i></b>
             </div>
             <div id="topic-manage" class="panel-body collapse" style="padding:10px;">
               <table id="topic-task" class="table table-hover table-condensed"></table>
@@ -98,6 +101,7 @@
         </div>
       </div>
     </div>
+
     <script src="../../static/info_consume/js/jquery-1.11.3.min.js"></script>
     <script src="../../static/info_consume/js/bootstrap.min.js"></script>
     <script src="../../static/info_consume/js/bootstrap-table.js"></script>
@@ -105,4 +109,5 @@
     <script src="../../static/info_consume/js/boot_test.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
   </body>
+    {% endblock %}
 </html>

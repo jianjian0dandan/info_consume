@@ -80,9 +80,9 @@
                         valign: "middle",//垂直
                         formatter:function(value,row){  
                         if(value == 0){
-                          var e = '<span>正在计算</span>';
+                          var e = '<a class="view-analysis" href="#circle-analysis">正在计算</a>';
                         }else if(value == 1){
-                          var e = '<a class="view-analysis" href="#circle-manage">点击查看</a>';
+                         // var e = '<a class="view-analysis" href="#circle-manage">点击查看</a>';
                         }
                           return e;
                      }
@@ -93,7 +93,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){   
-                      var d = '<span style="cursor:pointer;" onclick="del()">删除</a> ';  
+                      var d = '<span style="cursor:pointer;">删除</a> ';  
                         return d;  
                     } 
                   }],
@@ -104,12 +104,13 @@
                       };
                     }
              });
-                     $(".view-analysis").click(function(){
+                     $("#view-analysis").click(function(){
                           $("#circle-analysis").slideDown();
                       });
                      $("#close-circle").click(function(){
                           $("#circle-analysis").slideUp();
                       });
+                    
             });
          
 
