@@ -328,12 +328,13 @@
                       }
                     }
              });
-           
-             $(".dele-analysis").on('click', function(){
-                  var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
+            
+            $(".dele-analysis").on('click', function(){
+                 var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, delete_result);
-              });
+             });
+               }  
              $(".view-analysis").on('click', function(){
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
