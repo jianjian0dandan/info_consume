@@ -80,11 +80,11 @@ function set_order_type(type){
 
 
 
-function topic_analysis(){
+function topic_analysis_time(){
  
 }
 
-topic_analysis.prototype = {   //获取数据，重新画表
+topic_analysis_time.prototype = {   //获取数据，重新画表
   call_sync_ajax_request:function(url,callback){
     $.ajax({
       url: url,
@@ -225,7 +225,7 @@ topic_analysis.prototype = {   //获取数据，重新画表
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
 			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-			for( k =  )	
+			// for( k =  )	
 		
 			for (i=0;i < Math.min(10,item.length);i++){
 			// 	// item[i][1]
@@ -294,12 +294,12 @@ topic_analysis.prototype = {   //获取数据，重新画表
 }
 
 
-var topic_analysis = new topic_analysis();
+var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
     url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
- 	topic_analysis.call_sync_ajax_request(url,topic_analysis.Draw_time_trend_line);
+ 	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
 }		
 
 function Draw_blog_scan_area_order_result(){
@@ -307,7 +307,7 @@ function Draw_blog_scan_area_order_result(){
  	console.log('下面是微博排序url');
  	console.log(url_order);
 
- 	topic_analysis.call_sync_ajax_request(url_order,topic_analysis.Draw_blog_scan_area);
+ 	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
 }	
 
 
