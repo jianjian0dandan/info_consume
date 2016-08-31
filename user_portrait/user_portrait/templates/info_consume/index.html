@@ -37,7 +37,7 @@
   <!--top nav-->
   {% block header %}	
   <div class="topnav">	 
-  	 <img src="../../static/info_consume/image/title.png">		
+  	 <img src="../../static/info_consume/image/title.png">		f
   		<ul id="menu" style="margin-left:45%">
   			<li><a href="">我的管家</a>
   				<ul>
@@ -64,28 +64,27 @@
   					<div class="drop-navigation drop-navigation">
   					  <ul class="nav nav-sidebar">
   						<li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a></li>
-  						<li><a href="/" class="menu1"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>我的管家<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+  						<li class="menu1"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>我的管家<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></li>
   							<ul class="cl-effect-2">
-  								<li><a href="movies.html">我的发帖</a></li>                                             
-  								<li><a href="movies.html">我最爱说</a></li>
-  								<li><a href="movies.html">我的领域</a></li> 
-  								<li><a href="movies.html">我的影响力</a></li>
-  								<li><a href="movies.html">我的足迹</a></li>
-  								<li><a href="movies.html">情绪管家</a></li>
+  								<li><a href="#">我最爱说</a></li>
+  								<li><a href="#">我的领域</a></li> 
+  								<li><a href="#">我的影响力</a></li>
+  								<li><a href="#">我的足迹</a></li>
+  								<li><a href="#">情绪管家</a></li>
   							</ul>
   							<!-- script-for-menu -->
   							<script>
-  								$( "li a.menu1" ).click(function() {
-  								$( "ul.cl-effect-2" ).slideToggle( 300, function() {
-  								// Animation complete.
-  								});
-  								});
+                  $( "li a.menu1" ).click(function() {
+                  $( "ul.cl-effect-2" ).slideToggle( 300, function() {
+                  // Animation complete.
+                  });
+                  });
   							</script>
-  						<li><a href="/" class="menu"><span class="glyphicon glyphicon-film glyphicon-king" aria-hidden="true"></span>我的好友<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+  						<li><a href="#" class="menu"><span class="glyphicon glyphicon-film glyphicon-king" aria-hidden="true"></span>我的好友<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
   							<ul class="cl-effect-1">
-  								<li><a href="sports.html">亲密度排行</a></li>                                             
-  								<li><a href="sports.html">最近访问</a></li>
-  								<li><a href="sports.html">人际圈</a></li>   
+  								<li><a href="#">亲密度排行</a></li>                                             
+  								<li><a href="#">最近访问</a></li>
+  								<li><a href="#">人际圈</a></li>   
   							</ul>
   							<!-- script-for-menu -->
   							<script>
@@ -124,7 +123,7 @@
   	<div class="m_box">
   		
   		<span style="font-size:18px;margin-top:5px;">Hi，</span> 
-  		<sapn id="username_greet" style="font-size:18px;margin-top:5px;">粽粽粽粽粽粽粽</sapn>
+  		<sapn id="username_greet" style="font-size:18px;margin-top:5px;">  </sapn>
   		<span style="font-size:18px;margin-top:5px;">,&nbsp
            <script>
            　　var enabled = 0; today = new Date();
@@ -155,7 +154,7 @@
            　　if ((hr==13) || (hr==14))
            　　document.write("你不睡午觉？")
            　　if ((hr==15) || (hr==16) || (hr==17))
-           　　document.write("下午好！")
+           　　document.write("下午好！困了就喝杯咖啡吧~")
            　　if ((hr==18) || (hr==19))
            　　document.write("吃晚饭了吧？")
            　　if ((hr==20) || (hr==21) || (hr==22))
@@ -177,7 +176,7 @@
   		<div class="dashboard content_dashboard boxshadow">
   			<img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
   			<h1 id="board_title">我的形象画板</h1>
-  			<img id="body_board" src="../../static/info_consume/image/bodymodel_man.png">
+  			<img id="body_board" src=" ">
   			<p id="draw_p1">Painter</p><!--interesting word1-->
   			<p id="draw_p2">Japan comic</p><!--interesting word2-->
   			<p id="draw_p3">Lady Gaga</p><!--friends name-->
@@ -187,10 +186,10 @@
   			<h1 id="influ_title">我的个人影响力</h1>
   				<div>
   					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left bk-vcenter text-center">
-  						<small style=" font: 16px/1.5 'Microsoft Yahei';color:#ffffff;">我的影响力得分：35分</small>
+  						<small style=" font: 16px/1.5 'Microsoft Yahei';color:#ffffff;">我的影响力得分：<span id="influencePower"></span>分</small>
   						<div class="progress bk-margin-off-bottom" style="height: 15px;">
   							<div class="progress thin progress-striped active">
-  								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;">
+  								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;" id="percentBar">
   									<span class="sr-only">35% Complete</span>
   								</div>
   						    </div>
@@ -200,8 +199,9 @@
 
 
    			<img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" >
-  			<h1 id="act_title">我的活跃度:30分</h1>				
-  			<h1 id="act_text">最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>				
+  			<h1 id="act_title">我的活跃度:<span id="activePower"></span>分</h1>				
+  			<h1 id="act_text">最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>	
+          			
   		</div>	
   	</div>
   	

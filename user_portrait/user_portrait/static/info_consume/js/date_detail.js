@@ -7,6 +7,7 @@ var topic = 'aoyunhui';
 var start_ts = 1468426500;
 var end_ts = 1468442700;
 var pointInterval = 3600;
+var sort_item = 'timestamp';
 
 
 // var topic = $('#topic_text').text();
@@ -58,9 +59,26 @@ var pointInterval = 3600;
 // 	pointInterval = val;
 // 	set_timestamp();
 // }
-function set_order_type(type){
 
+
+function set_order_type(type){
+	if(type=='time'){
+		sort_item = 'timestamp';
+		Draw_blog_scan_area_order_result();
+
+	}else if(type=='hot'){
+		sort_item = 'retweeted';
+		Draw_blog_scan_area_order_result();
+	}
 }
+
+// function loading_more(){
+// 	loading_more.innerHTML = '<div class="loading"></div>';
+// }
+
+
+
+
 
 function topic_analysis(){
  
@@ -87,17 +105,14 @@ topic_analysis.prototype = {   //获取数据，重新画表
 	var y_item_comment = [];
  	for (var key in data){
  		console.log(key);
+		//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
 		key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+		console.log(key_datetime);
 		x_item.push(key_datetime);	
 		y_item_origin.push(data[key][1]);
 		y_item_forwarding.push(data[key][2]);
 		y_item_comment.push(data[key][3]);
 	}
-	console.log(data);
-	console.log(x_item);
-	console.log(y_item_origin);
-	console.log(y_item_forwarding);
-	console.log(y_item_comment);
 
  	var myChart = echarts.init(document.getElementById('main_time'));
 	//Chart.showLoading({text: '正在努力的读取数据中...'  });
@@ -123,8 +138,8 @@ topic_analysis.prototype = {   //获取数据，重新画表
 		    {
 		    type : 'category',
 		    boundaryGap : false,
-		    //data : x_item
-		    data: ['周一','周二','周三','周四','周五','周六','周日','周五','周六','周日']
+		    data : x_item
+		    //data: ['周一','周二','周三','周四','周五','周六','周日','周五','周六','周日']
 		        }
 		],
 		yAxis : [
@@ -139,8 +154,8 @@ topic_analysis.prototype = {   //获取数据，重新画表
 		    {
 		    name:'原创',
 		    type:'line',
-		    //data:y_item_origin,
-		    data:[56,25,19,39,58,62,8,17,53,65],
+		    data:y_item_origin,
+		    //data:[56,25,19,39,58,62,8,17,53,65],
 		    markPoint : {
 		        data : [
 		            {type : 'max', name: '最大值'},
@@ -156,8 +171,8 @@ topic_analysis.prototype = {   //获取数据，重新画表
 		    {
 		    name:'评论',
 		    type:'line',
-		    //data:y_item_comment,
-		    data:[21,0,3,20,30,36,4,8,31,11],
+		    data:y_item_comment,
+		    //data:[21,0,3,20,30,36,4,8,31,11],
 		    markPoint : {
 		        data : [
 		            {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
@@ -172,8 +187,8 @@ topic_analysis.prototype = {   //获取数据，重新画表
 		    {
 		    name:'转发',
 		    type:'line',
-		    //data:y_item_forwarding,
-		    data:[17,2,4,19,34,34,5,11,30,14],
+		    data:y_item_forwarding,
+		    //data:[17,2,4,19,34,34,5,11,30,14],
 		    markPoint : {
 		    data : [
 		        {type : 'max', name: '最大值'},
@@ -197,34 +212,83 @@ topic_analysis.prototype = {   //获取数据，重新画表
   	//$('#blog_scan_area_time').empty();
     var item = data;
 	var html = '';
-	//var item_time = '';
-	if (item.length == 0){
-		html += '<div style="color:grey;">暂无数据</div>'
-	}else{
-		//for(i=0;i<item.length;i++){
-		for(i=0;i<8;i++){	
-			html += '<div class="blog_time">';
-			html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
-			//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
-			html +=	'<div>';
-			html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
-			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
-			html += '</div>';
-			html += '<div class="blog_text">'
-			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
-			html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
-			html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
-			html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-			html += '<span>转发数(2546)&nbsp;|&nbsp;</span>';
-			html += '<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-			html += '</p>';
-			html += '</div>';							 	
-			html += '</div>';
-		}
+	console.log("执行了微博浏览区函数！");
+	// //console.log(item);
+	// for(var key in data){
+	// 	console.log(key);
+	// 	console.log(data[0]);
+		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
+		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+		//console.log(data.length);
 		
-	}
-	$('#blog_scan_area_time').append(html);
+		if (item.length == 0){
+		html += '<div style="color:grey;">暂无数据</div>'
+		}else{
+			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
+			for( k =  )	
+		
+			for (i=0;i < Math.min(10,item.length);i++){
+			// 	// item[i][1]
+			// 	for(j=0;j<item[].length;j++){
 
+				// }
+			
+			//for(i=0;i<item.length;i++){
+			// for(j=0;j<8;j++){	
+				//var item_timestamp_datetime = new Date(item[i][1].timestamp*1000).format('yyyy/MM/dd hh:mm');
+				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+				html += '<div class="blog_time">';
+				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
+				html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
+				html +=	'<div>';
+				//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
+				html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
+				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
+				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
+				html += '</div>';
+				html += '<div class="blog_text">'
+				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
+				html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
+				html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
+				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
+				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
+				html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>'
+				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+				html += '</p>';
+				html += '</div>';							 	
+				html += '</div>';
+			// }
+			}
+
+			html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+		    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		    html += '<span id="S_First" class="disabled" >首页</span>'
+		    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
+		    html += '<span id="S_navi"><!--页号导航--></span>'
+		    html += '<span id="S_Next"  class="disabled" >下一页</span>'
+		    html += '<span id="S_Last"  class="disabled" >末页</span>'
+		    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+		    html += '<span id="P_GO" >GO</span>'
+			html += '</div>'
+		
+		}
+		// html += '<ul class="pagination">'
+		// html += '<li><a href="#">&laquo;</a></li>';
+		// html += '<li class="active"><a href="#">1</a></li>';
+		// html += '<li><a href="#">2</a></li>';
+		// html += '<li><a href="#">3</a></li>';
+		// html += '<li><a href="#">4</a></li>';
+		// html += '<li><a href="#">5</a></li>';
+		// html += '<li><a href="#">&raquo;</a></li>';
+		// html += '</ul>';
+		$('#blog_scan_area_time').append(html);
+		
+		
+	
   },
 				                    				
 }
@@ -238,14 +302,15 @@ function Draw_time_trend_line_result(){
  	topic_analysis.call_sync_ajax_request(url,topic_analysis.Draw_time_trend_line);
 }		
 
-function Draw_blog_scan_area_result(){
-    url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
- 	console.log(url);
- 	topic_analysis.call_sync_ajax_request(url,topic_analysis.Draw_blog_scan_area);
+function Draw_blog_scan_area_order_result(){
+    url_order = "/topic_time_analyze/time_order_weibos/?topic=" + topic + '&start_ts=' + start_ts + '&end_ts=' + end_ts + '&sort_item=' + sort_item;
+ 	console.log('下面是微博排序url');
+ 	console.log(url_order);
+
+ 	topic_analysis.call_sync_ajax_request(url_order,topic_analysis.Draw_blog_scan_area);
 }	
 
 
 Draw_time_trend_line_result();
-Draw_blog_scan_area_result();
-
+Draw_blog_scan_area_order_result();
 
