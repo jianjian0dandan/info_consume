@@ -355,6 +355,7 @@
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
+               $('#topic-manage').collapse('show');
               //  call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
@@ -570,6 +571,5 @@
                 }
             }
            }
-              $('#addModal').modal('hide');
               $table.bootstrapTable('refresh');
           }
