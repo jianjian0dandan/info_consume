@@ -42,23 +42,6 @@ personZone.prototype = {
   }
    
         
-   var Verfi = document.getElementById('verified');
-   if( personalData.verified_type==""){
-       personalData.verified_type = "暂无数据";
-   }
-       var verf = personalData.verified_type;
-       var Verf_type = document.getElementById('verfType');
-       if(verf != 0 && verf != 1 && verf != 2 && verf != 3 && verf != 4 && verf != 5 && verf != 6 && verf != 7 && verf != 8 && verf != 200 && verf != 220 && verf != 400 ){
-       Verfi.innerHTML = "否";
-       if(verf == -1){
-         Verf_type.innerHTML = personalData.verified_type_ch;
-       }else{
-         Verf_type.innerHTML = "无";
-       }
-   }else{
-       Verfi.innerHTML = "是";
-     Verf_type.innerHTML = personalData.verified_type_ch;
-   }
        var Fansum = document.getElementById('fansum');
    if( personalData.fansnum==""){
        personalData.fansnum = "暂无数据";
@@ -156,7 +139,7 @@ function openurl(){
   var ourl = $('#openurl').text();
   window.open(ourl);
  }
-
+/*
 $(function(){
 	$('#modechoose').click(function(){
 	var box = document.getElementsByName('mode_choose');
@@ -386,7 +369,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     html += '</div>'; 
     $('#'+sub_div_name).append(html);
 }
-
+*/
 var url = "/attribute/new_user_profile/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
 var url = "/attribute/new_user_evaluate/?uid=" + uid;
