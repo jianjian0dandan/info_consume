@@ -32,7 +32,7 @@
 <body>
 <div id="time_top">
 	<div>
-		<a href="file:///C:/Users/YuanHR/Desktop/D-A-T-E system/templates/date_index.html" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 90%;float: left;">首页</a>
+		<a href="http://219.224.134.225:9056/index/date_index" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 90%;float: left;">首页</a>
 		<span style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 0.5%;float: left;">/</span>
 		<a href="https://123.sogou.com/" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 0.5%;float: left;">关于</a>
 	</div>
@@ -63,8 +63,8 @@
 	   <div class="tab-pane fade in active" id="time">
 	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	      <p class="topic_text" id="topic_text">#里约奥运#</p>
-	      <p class="topic_time">DATE:</p>
-	      <p class="topic_time_from">From</p>
+	      <p class="topic_time">日期:</p>
+	      <p class="topic_time_from">从</p>
 
 	      
 <!-- 时间段选择 -->
@@ -82,7 +82,7 @@
            		 		</div>
         			</div>
     			</div>
-    			   <p class="topic_time_to">To</p>
+    			   <p class="topic_time_to">到</p>
     			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
         			<div class="form-group" style="float: left;width: 8%;">
             			<div class='input-group date' id='datetimepicker2' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
@@ -164,10 +164,10 @@
 	</div>
 
 	<div id="blog_scan_area_time">
-		<div id="blog_scan_title_line2"></div>
-		<div id="blog_scan_title_line3"></div>
-		<p id="blog_scan_title2">排序方式：</p>
-		<div class="btn-group" data-toggle="buttons" id="btn_radio">
+		<div id="blog_scan_title_line2_time"></div>
+		<div id="blog_scan_title_line3_time"></div>
+		<p id="blog_scan_title2_time">排序方式：</p>
+		<div class="btn-group" data-toggle="buttons" id="btn_radio_time">
    			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type('time')">
      			<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
    			</label>
@@ -191,8 +191,8 @@
 	<div class="tab-pane fade" id="place">
 	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	      <p class="topic_text">#里约奥运#</p>
-	      <p class="topic_time">DATE:</p>
-	      <p class="topic_time_from">From</p>
+	      <p class="topic_time">日期:</p>
+	      <p class="topic_time_from">从</p>
 
 			<!-- 时间段选择 -->
 	    	<div class="container">
@@ -206,7 +206,7 @@
            		 		</div>
         			</div>
     			</div>
-    			   <p class="topic_time_to">To</p>
+    			   <p class="topic_time_to">到</p>
     			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
         			<div class="form-group" style="float: left;width: 8%;">
             			<div class='input-group date' id='datetimepicker4' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
@@ -271,7 +271,9 @@
 				<p id="publish">发布量</p>
 				<div id="right_col_title_2_halving_line"></div>
 			</div>
-			
+			<div id="top10_content">
+				
+			</div>
 		</div>
 	</div>
 </div>
@@ -291,10 +293,10 @@
 	</div>
 
 	<div id="blog_scan_area_place">
-		<div id="blog_scan_title_line2"></div>
-		<div id="blog_scan_title_line3"></div>
-		<p id="blog_scan_title2">排序方式：</p>
-		<div class="btn-group" data-toggle="buttons" id="btn_radio">
+		<div id="blog_scan_title_line2_place"></div>
+		<div id="blog_scan_title_line3_place"></div>
+		<p id="blog_scan_title2_place">排序方式：</p>
+		<div class="btn-group" data-toggle="buttons" id="btn_radio_place">
    			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
      			<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
    			</label>
@@ -546,8 +548,8 @@
 	<div class="tab-pane fade" id="network">
 	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	      <p class="topic_text">#里约奥运#</p>
-	      <p class="topic_time">DATE:</p>
-	      <p class="topic_time_from">From</p>
+	      <p class="topic_time">日期:</p>
+	      <p class="topic_time_from">从</p>
 
 <!-- 时间段选择 -->
 	    	<div class="container">
@@ -561,7 +563,7 @@
            		 		</div>
         			</div>
     			</div>
-    			   <p class="topic_time_to">To</p>
+    			   <p class="topic_time_to">到</p>
     			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
         			<div class="form-group" style="float: left;width: 8%;">
             			<div class='input-group date' id='datetimepicker6' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
@@ -690,10 +692,10 @@
 			</div>
 
 			<div id="blog_scan_area_network">
-				<div id="blog_scan_title_line2"></div>
-				<div id="blog_scan_title_line3"></div>
-				<p id="blog_scan_title2">排序方式：</p>
-				<div class="btn-group" data-toggle="buttons" id="btn_radio">
+				<div id="blog_scan_title_line2_network"></div>
+				<div id="blog_scan_title_line3_network"></div>
+				<p id="blog_scan_title2_network">排序方式：</p>
+				<div class="btn-group" data-toggle="buttons" id="btn_radio_network">
 		   			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
 		     			<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
 		   			</label>
@@ -909,8 +911,8 @@
 	<div class="tab-pane fade" id="emotion">
 	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	      <p class="topic_text">#里约奥运#</p>
-	      <p class="topic_time">DATE:</p>
-	      <p class="topic_time_from">From</p>
+	      <p class="topic_time">日期:</p>
+	      <p class="topic_time_from">从</p>
 
 <!-- 时间段选择 -->
 	    	<div class="container">
@@ -924,7 +926,7 @@
            		 		</div>
         			</div>
     			</div>
-    			   <p class="topic_time_to">To</p>
+    			   <p class="topic_time_to">到</p>
     			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
         			<div class="form-group" style="float: left;width: 8%;">
             			<div class='input-group date' id='datetimepicker8' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
@@ -986,98 +988,7 @@
 
 <!-- 引入情绪走势图 -->
 <div id="main_emotion_1"></div>
- 	<script type="text/javascript">
- 		var myChart = echarts.init(document.getElementById('main_emotion_1'));
- 		var option = {
-	 		title : {
-
-		        text: '情绪变化',
-		        subtext: '纯属虚构'
-	    	},
-	    	tooltip : {
-	        	trigger: 'axis'
-	   		},
-	    	legend: {
-	        	data:['正向','中立','负向']
-	    	},
-	    	toolbox: {
-		        show : true,
-		        feature : {
-		            mark : {show: true},
-		            dataView : {show: true, readOnly: false},
-		            magicType : {show: true, type: ['line', 'bar']},
-		            restore : {show: true},
-		            saveAsImage : {show: true}
-	        }
-	    },
-	   		calculable : true,
-	    	xAxis : [
-	        {
-	            type : 'category',
-	            boundaryGap : false,
-	            data : ['7月1日','7月2日','7月3日','7月4日','7月5日','7月6日','7月7日','7月8日','7月9日','7月10日']
-	        }
-	    	],
-	    	yAxis : [
-	        {
-	            type : 'value',
-	            axisLabel : {
-	                formatter: '{value} °C'
-	            }
-	        }
-	    	],
-	    	series : [
-	        {
-	            name:'原创',
-	            type:'line',
-	            data:[11, 11, 15, 13, 12, 13, 10, 9, 6, 7],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name: '平均值'}
-	                ]
-	            }
-	        },
-	        {
-	            name:'评论',
-	            type:'line',
-	            data:[1, -2, 2, 5, 3, 2, 0, 4, 2, 1],
-	            markPoint : {
-	                data : [
-	                    {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name : '平均值'}
-	                ]
-	            }
-	        },
-	      	{
-	            name:'转发',
-	            type:'line',
-	            data:[9, 10, 5, 10, 15, 11, 14, 10, 6, 8],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name: '平均值'}
-	                ]
-	            }
-	        }
-	    ]
-	};
-		myChart.setOption(option) ;     
-	</script>
+ 	<!-- 见date_emotion.js文件 -->
  
 <!-- 分割线 -->
 		<div class="halving_line2"></div>
@@ -1613,10 +1524,10 @@ require(
 	</div>
 
 	<div id="blog_scan_area_emotion">
-		<div id="blog_scan_title_line2"></div>
-		<div id="blog_scan_title_line3"></div>
-		<p id="blog_scan_title2">排序方式：</p>
-		<div class="btn-group" data-toggle="buttons" id="btn_radio">
+		<div id="blog_scan_title_line2_emotion"></div>
+		<div id="blog_scan_title_line3_emotion"></div>
+		<p id="blog_scan_title2_emotion">排序方式：</p>
+		<div class="btn-group" data-toggle="buttons" id="btn_radio_emotion">
    			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
      			<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
    			</label>
@@ -1834,8 +1745,8 @@ require(
 	<div class="tab-pane fade" id="meaning">
 	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	      <p class="topic_text">#里约奥运#</p>
-	      <p class="topic_time">DATE:</p>
-	      <p class="topic_time_from">From</p>
+	      <p class="topic_time">日期:</p>
+	      <p class="topic_time_from">从</p>
 <!-- 时间段选择 -->
 	    	<div class="container">
     			<div class='col-md-3' id="date1">
@@ -1848,7 +1759,7 @@ require(
            		 		</div>
         			</div>
     			</div>
-    			   <p class="topic_time_to">To</p>
+    			   <p class="topic_time_to">到</p>
     			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
         			<div class="form-group" style="float: left;width: 8%;">
             			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
@@ -1905,90 +1816,8 @@ require(
 	}
 	</style>
 
-	<script type="text/javascript">
-	// $("#.append_div").html("");
-		function test(){
-			
-			// 
-			$('#my_favorite_latin_words').empty();
-			console.log("yuan")
-			// $('.append_div').contents().find(':hidden').remove()
-			// document.getElementById(.append_div).innerHTML = '';
-			// $("#.append_div").remove();
-		setTimeout(function(){
-			var string_ = "";
-			for (var i = 0; i < data.length; i++) {
-				var string_f = data[i][0];
-				var string_n = data[i][1];
-				string_ += "{text: '" + string_f + "', weight: '" + string_n + "',html: {'class': 'span_list',onmouseover:'on_mouseover(this,event)',onmouseout:'on_mouseout()'}},";
-			}
-
-
 	
-			var string_list = string_;
-			var word_list = eval("[" + string_list + "]");
-			
-			
-				$("#my_favorite_latin_words").jQCloud(word_list);
-
-		},500);
-
-		}
-
-		var data = [
-						['广州', 13, 100],
-						['浙江', 10, 123],
-						['江苏', 9, 222],
-						['北京', 8, 111],
-						['上海', 7, 111],
-						['河南', 6, 111],
-						['河北', 5, 111],
-						['四川', 5, 111],
-						['安徽', 5, 111],
-						['湖北', 5, 111],
-						['福建', 4, 111],
-						['辽宁', 4, 111],
-						['湖南', 3, 111],
-						['陕西', 3, 111],
-						['广西', 3, 111],
-						['江西', 3, 111],
-						['重庆', 3, 111],
-						['天津', 3, 111],
-						['云南', 2, 111],
-						['山西', 2, 111],
-						['黑龙江', 2, 111],
-						['吉林', 2, 111],
-						['内蒙古', 2, 111],
-						['贵州', 2, 111],
-						['甘肃', 2, 111],
-						['海南', 2, 111],
-						['宁夏', 2, 111],
-						['青海', 1, 111],
-						['西藏', 1, 111],
-						['香港', 1, 111],
-						['未知', 1, 111],
-						['台湾', 1, 111]
-					];
-
-		function on_mouseout() {
-					$(".append_div").remove();
-				}
-
-		function on_mouseover(e, ev) {
-			var txt = $(e).html();
-			ev = ev || event;
-			$.each(data, function(i, item) {
-				if(txt == item[0]){
-					var html = item[0]+"<br />发布量"+item[1]+"<br />"+item[2];
-					$("#my_favorite_latin_words").after("<div class='append_div' style='left:" + 
-						(ev.clientX - 400 )+ "px; top:" + (ev.clientY -70) + "px; '>" + html + "</div>");
-					return;
-				}
-				
-			});
-		}
-	</script>
-
+<!-- 画图见date_meaning.js文件 -->
 
 
 		</div>
@@ -2524,10 +2353,10 @@ require(
 
 	<div id="blog_scan_area_meaning">
 		<div style="margin-left:16%">
-			<div id="blog_scan_title_line2"></div>
-			<div id="blog_scan_title_line3"></div>
-			<p id="blog_scan_title2">排序方式：</p>
-			<div class="btn-group" data-toggle="buttons" id="btn_radio">
+			<div id="blog_scan_title_line2_meaning"></div>
+			<div id="blog_scan_title_line3_meaning"></div>
+			<p id="blog_scan_title2_meaning">排序方式：</p>
+			<div class="btn-group" data-toggle="buttons" id="btn_radio_meaning">
    				<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
      				<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
    				</label>
@@ -2813,5 +2642,7 @@ require(
 </script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_time.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_place.js"></script>
+ 	<script type="text/javascript" src="../../static/info_consume/js/date_emotion.js"></script>
+ 	<script type="text/javascript" src="../../static/info_consume/js/date_meaning.js"></script>
 
 </html>

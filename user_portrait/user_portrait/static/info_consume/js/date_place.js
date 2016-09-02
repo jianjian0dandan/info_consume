@@ -1,7 +1,9 @@
 
 var topic = 'aoyunhui';
-var start_ts = 1468166400;
-var end_ts = 1468170900;
+//var start_ts = 1468166400;
+var start_ts = 1468167300;
+//var end_ts = 1468170900;
+var end_ts = 1468167300;
 var province = '陕西';
 //var sort_item = 'timestamp';
 
@@ -57,7 +59,10 @@ var province = '陕西';
 // 	set_timestamp();
 // }
 
+//应该直接排序，然后再取前十名，不应该求最大值，然后将其删除再取最大值。
 
+
+ 
 
 
 
@@ -77,31 +82,23 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
   },
 	Draw_geo_map:function(data){
 
-		// var topic = $('#topic_text').text();
-		// var start_ts = (new Date($('#datetimepicker5').val())).getTime()/1000;
-	 // 	var end_ts = $('#datetimepicker6').val();
-	 // 	var pointInterval = $()
-	 // 	var num_origin = 0; //原创
-	 // 	var num_forwarding = 0;  //转发
-	 // 	var num_comment = 0;  //评论
 	 	var item = data;
 	 	var item_json = [];
 	 	var html = '';
-	 	for (i=0;i<item.length;i++){
-	 		
+	 	for (i=0;i<item.length;i++){		
 	 		item_json.push({name:item[i][0],value:item[i][1]});
-	 		// if(item.length<=10){
-	 		// 	html += '<div id="top10_content">'
-	 		// 	for (j=0;j<item.length;j++){
-	 				
-				// 	html += '<div id="top10_content">'
-					
-	 		// 	}
-	 		// 	html += '</div>'
-	 		// }
-
 		}
-		console.log(item_json);
+
+
+
+		// console.log(item_json);
+		// var arry=[1,2,3,5,2,9,97,34,54,100];
+		// console.log(item_json);
+
+		// console.log(item_json[0].name);
+		// console.log(item_json[0].value);
+		// console.log(item);
+		
 
 	 	var myChart = echarts.init(document.getElementById('main_place'));
 
@@ -217,29 +214,39 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 					        }
 					    ]
 					};
-			 		// };
+			 		
 			 		
 			                myChart.setOption(option);     
 						
 		}
 		)	
 
-
+		item_json.sort(function(a,b){
+            return b.value-a.value});
+		var rank_html = '';
+        for(var k=0;k<Math.min(10,item_json.length);k++){
+			rank_html += '<p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].value+'<p>';
+			/*rank_html += '<div style="margin-left:-70%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+(k+1)+'</p></div>';
+			rank_html += '<div style="margin-left:16%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].name+'</p><div>';
+			//rank_html += '<div>';
+			//rank_html += '<p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<p>';
+			rank_html += '<div style="margin-left:8%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].value+'</p><div>'*/
+            // document.writeln('<div id="top10_content"><br />&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<div>');
+            }
+            $('#top10_content').append(rank_html);
 	},
 
-	Draw_blog_scan_area: function(data){
+	// Draw_geo_map{}
+
+
+	Draw_blog_scan_area_place: function(data){
 
   	//$('#blog_scan_area_time').empty();
     var item = data;
 	var html = '';
-	//console.log("执行了微博浏览区函数！");
-	// //console.log(item);
-	// for(var key in data){
-	// 	console.log(key);
-	// 	console.log(data[0]);
+	
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-		//console.log(data.length);
 		
 		if (item.length == 0){
 		html += '<div style="color:grey;">暂无数据</div>'
@@ -248,14 +255,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			// for( k =  )	
 		
 			for (i=0;i < Math.min(10,item.length);i++){
-			// 	// item[i][1]
-			// 	for(j=0;j<item[].length;j++){
-
-				// }
 			
-			//for(i=0;i<item.length;i++){
-			// for(j=0;j<8;j++){	
-				//var item_timestamp_datetime = new Date(item[i][1].timestamp*1000).format('yyyy/MM/dd hh:mm');
 				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 				html += '<div class="blog_time">';
 				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
@@ -323,10 +323,10 @@ function Draw_geo_map_result(){
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
 }	
 
-function Draw_blog_scan_area_result(){
-    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province'+province;
+function Draw_blog_scan_area_place_result(){
+    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province='+province;
  	console.log(url);
- 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area);
+ 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
 }		
 
 
@@ -339,5 +339,5 @@ function Draw_blog_scan_area_result(){
 
 
 Draw_geo_map_result();
-Draw_blog_scan_area_result();
+Draw_blog_scan_area_place_result();
 
