@@ -147,7 +147,7 @@ homepageinfo.prototype = {
 
 
 
-var uid = 2625203751;
+var uid = 1640601392;
 var Personal = new homepageinfo();
 var personalData; // global data
 

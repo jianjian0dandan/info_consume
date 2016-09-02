@@ -239,8 +239,21 @@
                     }]
              });
          };
- 
+      function dele_analysis(data){
+             var a = confirm('确定要删除吗？');
+                if (a == true){
+                 var results_url = '/influence_sort/delete_task/?search_id='+data;
+                  console.log(results_url);
+                  call_sync_ajax_request(results_url, delete_result);
+                }
+             }; 
+     function view_analysis(data){
+       var results_url = '/influence_sort/get_result/?search_id='+data;
+       console.log(results_url);
+       call_sync_ajax_request(results_url, get_result);
+     };
       function draw_topic_tasks(data){
+       
          var data = data.data;
          $('#topic-task').bootstrapTable({
                   data: data,
@@ -265,6 +278,13 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value, row, index) { return index+1;}
+                    },
+                     {
+                        field: "search_id",
+                        title: "话题关键词",
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible: false
                     },
                     {
                         field: "keyword",
@@ -304,7 +324,7 @@
                         if(value == -1){
                           var e = '<span>正在计算</span>';
                         }else if(value == 1){
-                          var e = '<span style="display:none;">'+row.search_id+'</span><span class="view-analysis" style="cursor:pointer;">点击查看</span>';
+                          var e = '<span style="cursor:pointer;" onclick="view_analysis(\''+ row.search_id +'\')">点击查看</span>';
                         }else if(value == 0){
                           var e = '<span>尚未计算</span>';
                           }
@@ -317,7 +337,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){  
-                      var d = '<span style="display:none;">'+row.search_id+'</span>'+'<span class="dele-analysis" style="cursor:pointer;">删除</span>';  
+                      var d = '<span style="cursor:pointer;" onclick="dele_analysis(\''+ row.search_id +'\')">删除</span>';  
                         return d;  
                       }
                     }],
@@ -327,18 +347,8 @@
                         css: {"padding-top": "1px","padding-bottom": "1px"}
                       }
                     }
-             });  
-                
-            $(".dele-analysis").on('click', function(){
-                 var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
-                  console.log(results_url);
-                  call_sync_ajax_request(results_url, delete_result);
              }); 
-             $(".view-analysis").on('click', function(){
-                  var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
-                  console.log(results_url);
-                  call_sync_ajax_request(results_url, get_result);
-              });
+         
            }
 
 
