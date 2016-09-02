@@ -425,6 +425,81 @@ footer {
   margin-right: 150px;
 }
 
+#modechoose li {
+  float:left;
+  display: block;
+  padding: 0 10px;
+  border-radius: 30px;
+  text-decoration: none;
+  list-style: none;
+  font-size: 13px;  
+  line-height: 1.7;
+}
+#modechoose li.on {
+  color:#ffffff;
+  background:#76EEC6;
+  border:1px solid #76EEC6;
+}
+
+#pageGro .pageUp{
+    text-indent:23px;
+    /*border:1px solid #999;*/
+    cursor:pointer;
+}
+#pageGro span ul li.on{
+    color:#fff;
+    background:#76EEC6;
+    border:1px solid #76EEC6;
+}
+#pageGro span ul li{
+    width:22px;
+    text-align:center;
+    border:1px solid #999;
+    cursor:pointer;
+    margin-left:20px;
+}
+#pageGro .pageDown{
+    text-indent:5px;
+    width:63px;
+    /*border:1px solid #999;*/
+    cursor:poointer;
+}
+
+#pageGro span ul li{
+    float:left;
+}
+
+.demo--label {
+  display:inline-block
+}
+.demo--radio{
+  display:none
+}
+.demo--radioInput{
+  background-color:#fff;
+  border:1px solid rgba(0,0,0,0.15);
+  border-radius:100%;
+  display:inline-block;
+  height:16px;
+  margin-right:10px;
+  margin-top:-1px;
+  vertical-align:middle;
+  width:16px;
+  line-height:1
+}
+.demo--radio:checked + .demo--radioInput:after{
+  background-color:#57ad68;
+  border-radius:100%;
+  content:"";
+  display:inline-block;
+  height:12px;
+  margin:1px 1px;
+  width:12px
+}
+.demo--checkbox.demo--radioInput,.demo--radio:checked + .demo--checkbox.demo--radioInput:after{
+  border-radius:0
+}
+
 /*----他人页面.html----*/
 /*他人页面.html*/
 .personhead {
@@ -454,8 +529,7 @@ footer {
 
     }
 
-  .word{
-
+.word{
     height: 150px;
     width: 130px;  
     float: left;

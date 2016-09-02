@@ -10,7 +10,7 @@ from time_utils import datetime2ts, ts2HourlyTime
 from global_utils import getTopicByNameStEt
 #from dynamic_xapian_weibo import getXapianWeiboByTopic
 from global_config import mtype_kv, db,weibo_es,weibo_index_name,weibo_index_type
-from model import CityTopicCount, CityWeibos
+from model import CityTopicCount, CityWeibos,ProvinceWeibos
 from utils import geo2city, IP2city,split_city
 
 Minute = 60
@@ -41,12 +41,18 @@ def save_rt_results(topic, results, during, first_item):
         db.session.add(item)
     db.session.commit()
 
-def save_ws_results(topic, ts, during, n_limit, weibos):
-    item = CityWeibos(topic , ts, during, n_limit, json.dumps(weibos))
-    item_exist = db.session.query(CityWeibos).filter(CityWeibos.topic==topic, \
-                                                          CityWeibos.range==during, \
-                                                          CityWeibos.end==ts, \
-                                                          CityWeibos.limit==n_limit).first()
+def save_ws_results(topic, ts, during, n_limit, province,city,weibos):
+    item = ProvinceWeibos(topic,ts, during, n_limit, province,city,json.dumps(weibos))
+    item_exist = db.session.query(ProvinceWeibos).filter(ProvinceWeibos.topic==topic, \
+                                                          ProvinceWeibos.range==during, \
+                                                          ProvinceWeibos.end==ts, \
+                                                          ProvinceWeibos.city==city,\
+                                                          ProvinceWeibos.limit==n_limit).first()
+    # item_exist = db.session.query(CityWeibos).filter(CityWeibos.topic==topic, \
+    #                                                       CityWeibos.range==during, \
+    #                                                       CityWeibos.end==ts, \
+    #                                                       CityWeibos.city=city,\
+    #                                                       CityWeibos.limit==n_limit).first()
     if item_exist:
         db.session.delete(item_exist)
     db.session.add(item)
@@ -87,7 +93,7 @@ def cityTopic(topic,start_ts,over_ts,during=Fifteenminutes, n_limit=TOP_WEIBOS_L
                     'size':n_limit
                     }
                 mtype_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']
-                save_ws_results(topic, end_ts, during, n_limit, mtype_weibo)    
+                #save_ws_results(topic, end_ts, during, n_limit, mtype_weibo)    
                 #微博直接保存下来
                 if len(mtype_weibo) == 0:
                     continue
@@ -106,7 +112,7 @@ def cityTopic(topic,start_ts,over_ts,during=Fifteenminutes, n_limit=TOP_WEIBOS_L
                             province_dict[province] = {}
                             province_dict[province][city] = 1
                             province_dict[province]['total'] = 1
-
+                        save_ws_results(topic, end_ts, during, n_limit,province,city,weibo) 
                         # try:
                         #     city_dict[city] += 1
                         # except:
