@@ -530,9 +530,7 @@
               });  
           })
 
-
-   //选择用户提交群组分析
-        function groupanalyze_confirm(){
+         function addgroup(){
             var arg = $('#table-user-contain').css("display");
             var artt = $('#table-user-user-contain').css("display");
              if(arg == "block" && artt == "none"){
@@ -543,20 +541,36 @@
               console.log('表格display冲突！');
              }
             var selected_list = $table.bootstrapTable('getSelections');
-            var list_length = selected_list.length;
-            if( list_length == 0){
+            if( selected_list.length == 0){
               alert('请选择用户！');
             }else{
-            $('#addModal').attr("data-target","addModal");
+              $('#addModal').modal('show');
+              groupanalyze_confirm(selected_list);
+            }
+         }
+
+         function unempty(data){
+            if(data=''){
+              alert('请输入群组名称！');
+              return false;
+            }else{
+              return true;
+            }
+         }
+   //选择用户提交群组分析
+        function groupanalyze_confirm(selected_list){
+            var group_name = $('#cicle_name').val();
+            while(unempty(group_name)==true){
+            var list_length = selected_list.length;
             var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
-              group_uid_list[i]=selected_list[i].uid;
-            }           
+            group_uid_list[i]=selected_list[i].uid;
+                      
             var group_ajax_url = '/influence_sort/submit_task/';
-            var group_name = $('#cicle_name').val();
+            
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
-            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+            var job = {"submit_user":'admin@qq.com',"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
             console.log(job);
             
             $.ajax({
@@ -581,4 +595,5 @@
             }
            }
               $table.bootstrapTable('refresh');
+              }
           }
