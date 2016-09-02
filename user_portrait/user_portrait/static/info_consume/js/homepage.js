@@ -136,12 +136,12 @@ homepageinfo.prototype = {
       }
      
     }
-  //微博数据处理
-    weiboData:function(data){;
-    	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
-        $('#per_onload').css('display','none');
-        $('#group_influ_weibo').css('display', 'block')
-    }  
+  // //微博数据处理
+  //   weiboData:function(data){;
+  //   	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
+  //       $('#per_onload').css('display','none');
+  //       $('#group_influ_weibo').css('display', 'block')
+  //   }  
 
   }
 
@@ -156,23 +156,23 @@ Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
 var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 
-function openurl(){
-  var ourl = $('#openurl').text();
-  window.open(ourl);
- }
+// function openurl(){
+//   var ourl = $('#openurl').text();
+//   window.open(ourl);
+//  }
 
-$(function(){
-	$('#modechoose').click(function(){
-	var box = document.getElementsByName('mode_choose');
-	for(var i=0;i<box.length;i++){
-		if(box[i].checked){
-			sort_type = box[i].value;
-		}
-    }
-$('#per_onload').css('display', 'block');
-$('#group_influ_weibo').css('display', 'none')
-	var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
-	//console.log('ddd',url);
-        Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-	});
-});
+// $(function(){
+// 	$('#modechoose').click(function(){
+// 	var box = document.getElementsByName('mode_choose');
+// 	for(var i=0;i<box.length;i++){
+// 		if(box[i].checked){
+// 			sort_type = box[i].value;
+// 		}
+//     }
+// $('#per_onload').css('display', 'block');
+// $('#group_influ_weibo').css('display', 'none')
+// 	var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
+// 	//console.log('ddd',url);
+//         Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+// 	});
+// });
