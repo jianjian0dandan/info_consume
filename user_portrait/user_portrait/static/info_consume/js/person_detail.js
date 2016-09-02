@@ -1,8 +1,7 @@
-
-function homepageinfo() {
+function personZone() {
 	this.ajax_method = 'GET';
 }
-homepageinfo.prototype = {
+personZone.prototype = {
   call_sync_ajax_request:function(url,method,callback) {
 	  $.ajax({
 		url: url,
@@ -15,17 +14,18 @@ homepageinfo.prototype = {
   personData:function(data){
   //console.log(data);
   personalData = data ;
-  var uid_div = document.getElementById('uid');
-  if(personalData.uid){
-      //console.log(personalData.uid)
-      uid_div.innerHTML = personalData.uid;
-  }else{
-      uid_div.innerHTML = "无此数据";
-  }
+  // var uid_div = document.getElementById('uid');
+  // if(personalData.uid){
+  //     //console.log(personalData.uid)
+  //     uid_div.innerHTML = personalData.uid;
+  // }else{
+  //     uid_div.innerHTML = "无此数据";
+  // }
   var img = document.getElementById('portraitImg');
   if(personalData.photo_url == "unknown"){
       img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
   }else{
+  	  console.log('here is pic');
       img.src = personalData.photo_url;
   }
 
@@ -41,8 +41,6 @@ homepageinfo.prototype = {
       nickName.innerHTML = "无此数据";
   }
    
-   var nickName_greet = document.getElementById('username_greet');
-     nickName_greet.innerHTML = personalData.nick_name;
         
    var Verfi = document.getElementById('verified');
    if( personalData.verified_type==""){
@@ -111,44 +109,44 @@ homepageinfo.prototype = {
    
    },
    //影响力和活跃度数据
-    overallData:function(data){
-    //console.log(data);
-    //影响力
-     var FP = document.getElementById('influencePower');
-       if(data.influence[0] !=""){
-           FP.innerHTML = data.influence[0].toFixed(2);
-       }else{
-           FP.innerHTML = '0';
-       }
-      var perofinf = data.influence[0];
-      perofinf = perofinf/100*440;
-      $("#percentBar").css("width",perofinf);
-    //活跃度
-     var AP = document.getElementById('activePower');
-       if(data.activeness[0] !=""){
-          AP.innerHTML = data.activeness[0].toFixed(2);
-       }else{
-          AP.innerHTML = '0';
-       }
-     var actScore = document.getElementById('act_text');
-     	if (data.activeness[0]<80) {
-        actScore.innerHTML = '最近活跃度有所下降哦，宝宝不开心了￣へ￣';
-      }else if (data.activeness[0]>=80){
-        actScore.innerHTML = '最近很活跃，么么哒(づ￣ 3￣)づ';
-      }
-    },
+    // overallData:function(data){
+    // //console.log(data);
+    // //影响力
+    //  var FP = document.getElementById('influencePower');
+    //    if(data.influence[0] !=""){
+    //        FP.innerHTML = data.influence[0].toFixed(2);
+    //    }else{
+    //        FP.innerHTML = '0';
+    //    }
+    //   var perofinf = data.influence[0];
+    //   perofinf = perofinf/100*440;
+    //   $("#percentBar").css("width",perofinf);
+    // //活跃度
+    //  var AP = document.getElementById('activePower');
+    //    if(data.activeness[0] !=""){
+    //       AP.innerHTML = data.activeness[0].toFixed(2);
+    //    }else{
+    //       AP.innerHTML = '0';
+    //    }
+    //  var actScore = document.getElementById('act_text');
+    //  	if (data.activeness[0]<80) {
+    //     actScore.innerHTML = '最近活跃度有所下降哦，宝宝不开心了￣へ￣';
+    //   }else if (data.activeness[0]>=80){
+    //     actScore.innerHTML = '最近很活跃，么么哒(づ￣ 3￣)づ';
+    //   }
+    // },
 
     // 微博数据
-    weiboData:function(data){
-      weiboData = data;
-      var testtext ="hello";
-      console.log(testtext);
-    	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
-        $('#per_onload').css('display','none');
-        $('#group_influ_weibo').css('display', 'block');
-    }
+    // weiboData:function(data){
+    //   weiboData = data;
+    //   var testtext ="hello";
+    //   console.log(testtext);
+    // 	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
+    //     $('#per_onload').css('display','none');
+    //     $('#group_influ_weibo').css('display', 'block');
+    // }
 }
-var Personal = new homepageinfo();
+var Personal = new personZone();
 var personalData; // global data
 var overallData;
 var weiboData;
