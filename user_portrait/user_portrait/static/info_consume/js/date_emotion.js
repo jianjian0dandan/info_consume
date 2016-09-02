@@ -1,6 +1,7 @@
 var topic = 'aoyunhui';
 var start_ts = 1468166400;
 var end_ts = 1468949400;
+var pointInterval=3600;
 // var province = '陕西';
 
 
