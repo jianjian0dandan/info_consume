@@ -283,7 +283,7 @@ position: absolute;
 	width: 6px;
 	height: 25px;
 	position: relative;
-	margin-left: -17.3%;
+	margin-left: 1%;
 	margin-top: 1.4%;
 	float: left;
 }
@@ -293,7 +293,7 @@ position: absolute;
 	width: 6px;
 	height: 25px;
 	position: relative;
-	margin-left: -16.5%;
+	margin-left: 0.2%;
 	margin-top: 1.4%;
 	float: left;
 }
@@ -303,7 +303,7 @@ position: absolute;
 	font-family: Microsoft YaHei;
 	color: #868686;
 	position: relative;
-	margin-left: -14.5%;
+	margin-left: 1%;
 	margin-top: 1.4%;
 	float: left;
 }
@@ -311,7 +311,7 @@ position: absolute;
 
 #btn_radio_place {
 	position: relative;
-	margin-left: -2%;
+	margin-left: 0%;
 	margin-top: 1.1%;
 	float: left;
 }
@@ -660,12 +660,15 @@ div.pager span.disabled {
 
 #blog_scan_area_place {
 	background-color: #E4E4E4;
-	width:60%;
-	height:1050px;
-	position: relative;
-	margin-left: 20%;
-	margin-top: 5%;
-	margin-bottom: 10%;
+    width: 60%;
+    height: 1050px;
+    position: relative;
+    margin-left: -12.5%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    display: table;
+    height: auto;
+    float: left;
 }
 
 #left_line_right {

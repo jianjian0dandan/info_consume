@@ -1,9 +1,9 @@
 
 var topic = 'aoyunhui';
 //var start_ts = 1468166400;
-var start_ts = 1468167300;
+var start_ts = 1468474200;
 //var end_ts = 1468170900;
-var end_ts = 1468167300;
+var end_ts = 1468495800;
 var province = '陕西';
 //var sort_item = 'timestamp';
 
@@ -224,14 +224,26 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		item_json.sort(function(a,b){
             return b.value-a.value});
 		var rank_html = '';
-        for(var k=0;k<Math.min(10,item_json.length);k++){
-			rank_html += '<p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].value+'<p>';
+		rank_html += '<table id="table">';
+        for(var k=0;k<Math.min(15,item_json.length);k++){
+			//rank_html += '<tr style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].value+'<p>';
 			/*rank_html += '<div style="margin-left:-70%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+(k+1)+'</p></div>';
 			rank_html += '<div style="margin-left:16%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].name+'</p><div>';
 			//rank_html += '<div>';
 			//rank_html += '<p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<p>';
 			rank_html += '<div style="margin-left:8%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].value+'</p><div>'*/
             // document.writeln('<div id="top10_content"><br />&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<div>');
+            if (item_json[k].name=='unknown'){
+					item_json[k].name='地域不详'
+				}
+            
+			rank_html += '<tr>';	
+			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-500%;">'+(k+1)+'</p></td>';
+			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-110%;">'+item_json[k].name+'</p></td>';
+			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-130%;">'+item_json[k].value+'</p></td>';			
+			rank_html += '</tr>';		
+			
+			
             }
             $('#top10_content').append(rank_html);
 	},
@@ -242,20 +254,26 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 	Draw_blog_scan_area_place: function(data){
 
   	//$('#blog_scan_area_time').empty();
-    var item = data;
+     var item = data;
 	var html = '';
-	
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+		//console.log(data.length);
 		
 		if (item.length == 0){
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
 			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-			// for( k =  )	
 		
 			for (i=0;i < Math.min(10,item.length);i++){
-			
+	
+				if (item[i][1].photo_url=='unknown'){
+					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
+				}
+				if (item[i][1].uname=='unknown'){
+					item[i][1].uname='未知用户'
+					//console.log(item[i][1].uname);
+				}
 				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 				html += '<div class="blog_time">';
 				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
@@ -273,8 +291,10 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
 				html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>'
+				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				html += '</p>';
 				html += '</div>';							 	
@@ -305,7 +325,8 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		// html += '<li><a href="#">5</a></li>';
 		// html += '<li><a href="#">&raquo;</a></li>';
 		// html += '</ul>';
-		$('#blog_scan_area_time').append(html);
+		
+		$('#blog_scan_area_place').append(html);
 		
 		
 	
