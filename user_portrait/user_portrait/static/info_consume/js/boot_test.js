@@ -327,20 +327,20 @@
                         css: {"padding-top": "1px","padding-bottom": "1px"}
                       }
                     }
-             });
-           
-             $(".dele-analysis").on('click', function(){
-                  var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
+             });  
+                
+            $(".dele-analysis").on('click', function(){
+                 var results_url = '/influence_sort/delete_task/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, delete_result);
-              });
+             }); 
              $(".view-analysis").on('click', function(){
                   var results_url = '/influence_sort/get_result/?search_id='+$(this).prev().text();
                   console.log(results_url);
                   call_sync_ajax_request(results_url, get_result);
               });
-
            }
+
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
@@ -355,6 +355,7 @@
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
+               $('#topic-manage').collapse('show');
               //  call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
@@ -371,7 +372,7 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){
-                    $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
+                    $('#keyword_hashtag').attr("placeholder")="请输入要搜索的用户ID";
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
@@ -380,7 +381,6 @@
                     call_sync_ajax_request(user_url, similar_user);
                     //similar_user(user_url);
                      }else{ 
-                    $('#keyword_hashtag').attr("placeholder","请输入要搜索的话题关键词，多个关键词用空格隔开");
                     var sort_scope = 'all_limit_keyword';
                     var topic_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword_string+'&all=True';
                     console.log(topic_url);
@@ -534,18 +534,21 @@
              }
             var selected_list = $table.bootstrapTable('getSelections');
             var list_length = selected_list.length;
+            if( list_length == 0){
+              alert('请选择用户！');
+            }else{
+            $('#addModal').attr("data-target","addModal");
             var group_uid_list = new Array();
             for(var i=0;i<list_length;i++){
               group_uid_list[i]=selected_list[i].uid;
             }           
-            
             var group_ajax_url = '/influence_sort/submit_task/';
-            var group_name = $('#cicle_name').text();
+            var group_name = $('#cicle_name').val();
             var admin = 'admin@qq.com'//获取$('#useremail').text();
             var group_analysis_count = 10;//获取
             var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-            }
-            //console.log(job);
+            console.log(job);
+            
             $.ajax({
                 type:'POST',
                 url: group_ajax_url,
@@ -553,7 +556,7 @@
                 data: JSON.stringify(job),
                 dataType: "json",
                 success: callback
-            });
+            }); 
             function callback(data){
                console.log(data);
                 if (data == '1'){
@@ -565,6 +568,7 @@
                 if(data == 'more than limit'){
                     alert('提交任务超出数量');
                 }
-          
-              $('#cancel_model').click();
-       } 
+            }
+           }
+              $table.bootstrapTable('refresh');
+          }

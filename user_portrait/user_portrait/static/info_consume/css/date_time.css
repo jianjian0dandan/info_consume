@@ -232,7 +232,7 @@ position: absolute;
 	width:60%;
 	height:1000px;
 	position: relative;
-	margin-left: -10%;
+	margin-left: -11%;
 	margin-top: 5%;
 	margin-bottom: 10%;
 	display: table;
@@ -941,5 +941,12 @@ background-color:#FFFFFF;
 	float: left;
 }
 
-
-
+#top10_content{
+	/*background-color: #E4E4E4;*/
+	background-color: #00CC00;
+	width: 284px;
+	height: 470px;
+	position: relative;
+	margin-left: 0%;
+	margin-top: 1%;
+}

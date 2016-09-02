@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<meta charset="utf-8">
 	<title>{% block title %}微世界{% endblock %}</title>   
 	<style type="text/css">
@@ -12,66 +11,48 @@
 
 	<!-- 布局CSS -->
 
-	<link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
-	<link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
-	
-	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-	<link href="/static/css/dashboard.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/static/css/daohanglan.css"> 
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
 <!-- end css -->
 
 
 <!-- 引入js -->
-
-
-	<script type="text/javascript" src='/static/js/jquery.js'></script>
-	<script src="../js/echarts.js"></script>
-	<script type="text/javascript" src="/static/js/echarts-all.js"></script>
-	<script type="text/javascript" src="/static/js/sliders.js"></script>
-	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+	<script src="/static/info_consume/js/echarts.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+	<script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="/static/info_consume/js/viewinformation.js"></script>
 
  <!-- end js -->
 </head> 
 
 <body>
-	<!--top nav-->
-	<div  style="width:100%;height:70px;background: #06D995;position: fixed;z-index:999;top:0;">	
+	 <div class="topnav">	 
+  	 <img src="../../static/info_consume/image/title.png">		
+  		<ul id="menu" style="margin-left:45%">
+  			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">我的管家</a>
+  				<ul style="margin-left:0px;">
+  					<li><a href="">微博统计</a></li>
+  					<li><a href="">性格感知</a></li>
+  					<li><a href="">我的好友</a></li>
+  				</ul>
+  			</li> 				  
+  			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">用户分析</a>
+          <ul style="margin-left:0px;">
+            <li><a href="">用户发现</a></li>
+            <li><a href="">管理群组</a></li>
+            
+          </ul>
 
-		 <img src="/static/image/title.png" width="150px" height="80px" style="
-		 float:left ;margin-top:0px;margin-left:1%">
-			
-
-			<ul id="daohanglan" style="font-size:20px;margin-left:35%;font-family: 微软雅黑;">
-				<li class="dropdown">
-					<a  data-toggle="dropdown" href="#" style="text-decoration: none;color:#ffffff">
-						我的管家 
-					</a>
-					<ul class="dropdown-menu" style="width:20px;border:0;background-color:transparent;border-radius: 0px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);">
-						<li><a href="#" style="color:#ffffff;">微博统计</a></li>
-						<li><a href="#" style="color:#ffffff;">性格感知</a></li>
-						<li><a href="#" style="color:#ffffff;">我的好友</a></li>
-						
-					</ul>
-				</li>
-
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration: none;color:#ffffff">
-						用户分析
-					</a>
-					<ul class="dropdown-menu" style="border:0;background-color:transparent;border-radius: 0px; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);">
-						<li><a href="#" style="color:#ffffff;">用户发现</a></li>
-						<li><a href="#" style="color:#ffffff;">管理群组</a></li>					
-					</ul>
-				</li>
-						<li><a href="#" style="text-decoration: none;color:#ffffff">微博那些事儿</a></li>
-						<li><a href="#" style="text-decoration: none;color:#ffffff">商业推荐</a></li>
-   
-			</ul>
-	</div>
-
-	
+        </li>
+  			<li><a href="/index/weiborecommand.html" style="margin-top: 15px;font-size: 20px;">微博那些事</a></li>
+  			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">商业推荐</a></li>
+  		</ul>
+  </div>
 
 
 	
@@ -89,7 +70,7 @@
 							<div class="panel-body">
 
 							 	<div style="float:left;">
-							 		<img src="/static/image/head2.png" style="margin-top:15px;width:80px;height:80px;margin-left:0px;float:left;">
+							 		<img src="/static/info_consume/image/head2.png" style="margin-top:15px;width:80px;height:80px;margin-left:0px;float:left;">
 							 	</div>
 
 							 	<table style="margin-left:120px;">
@@ -124,7 +105,7 @@
 
 						<!--第一行三个图标-->
 						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 300px;margin-top: -170px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
-							<img src="/static/image/weibo.png" style="width:60px;height:60px;float:left;margin-left: 35px;margin-top: 10px;">
+							<img src="/static/info_consume/image/weibo.png" style="width:60px;height:60px;float:left;margin-left: 35px;margin-top: 10px;">
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
@@ -143,7 +124,7 @@
 						</div>
 
 						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 530px;margin-top: -170px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
-							<img src="/static/image/friend.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
+							<img src="/static/info_consume/image/friend.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
@@ -164,7 +145,7 @@
 						
 						<!--第二行三个图标-->
 						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 300px;margin-top: -70px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border-radius: 4px;">
-							<img src="/static/image/shoucang.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
+							<img src="/static/info_consume/image/shoucang.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
@@ -182,7 +163,7 @@
 						</div>
 
 						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 530px;margin-top: -80px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
-							<img src="/static/image/guanzhu.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
+							<img src="/static/info_consume/image/guanzhu.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
@@ -216,7 +197,7 @@
 				
 
 				<div style="width:100%;height:50px;">
-				    <img src="/static/image/u103.png" style="height:80%;width:10%;float:left;margin-left:10%;margin-top: 12px;">
+				    <img src="/static/info_consume/image/u103.png" style="height:80%;width:10%;float:left;margin-left:10%;margin-top: 12px;">
 				    
 				    <table style="font-family: 微软雅黑;font-size: 18px;float:left;margin-top: 14px;font-weight:bold">
 				    	<tr>
@@ -232,55 +213,7 @@
 				</div>
 
 				<div id="main" style="height:350px;margin-top:3px;">
-					<script type="text/javascript">
-						var myChart = echarts.init(document.getElementById('main'));
-						option = {
-					    
-					    tooltip : {
-					        trigger: 'axis'
-					    },
-					   
-					   
-					    calculable : true,
-					    polar : [
-					        {
-					            indicator : [
-					                {text : '进攻', max  : 100},
-					                {text : '防守', max  : 100},
-					                {text : '体能', max  : 100},
-					                {text : '速度', max  : 100},
-					                {text : '力量', max  : 100},
-					                {text : '技巧', max  : 100}
-					            ],
-					            radius : 130
-					        }
-					    ],
-					    series : [
-					        {
-					            name: '完全实况球员数据',
-					            type: 'radar',
-					            itemStyle: {
-					                normal: {
-					                    areaStyle: {
-					                        type: 'default'
-					                    }
-					                }
-					            },
-					            data : [
-					               
-					                {
-					                    value : [97, 32, 74, 95, 88, 92],
-					                    name : '罗纳尔多'
-					                }
-					            ]
-					        }
-					    ]
-					};
-						myChart.setOption(option);
-
-					</script>
-				
-
+					<!--雷达图区域-->
 				</div>
 		</div>
     </div>
@@ -330,7 +263,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -349,7 +282,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -368,7 +301,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -387,7 +320,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -406,7 +339,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -452,7 +385,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -471,7 +404,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -490,7 +423,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -509,7 +442,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -528,7 +461,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -573,7 +506,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -592,7 +525,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -611,7 +544,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -630,7 +563,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -649,7 +582,7 @@
 
 										<tr>
 												<td>
-													<img src="/static/image/head.jpg" style="height:50px;width:50px;">
+													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
 													
 												</td>
 													
@@ -737,7 +670,11 @@
 		<footer>
 		  <p class="ft-copyright" >网民画像系统 Design by Rcsc 京ICP 1234567</p>
 		</footer>
-		
+	{% block Own_js %}
+
+
+
+	{% endblock %}
 
 </body>
 </html>

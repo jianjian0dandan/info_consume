@@ -2009,8 +2009,11 @@ def get_online_pattern(now_ts, uid):
 #output: keywords, hashtag, domain, topic
 def search_preference_attribute(uid):
     results = {}
+    print 'really?'
     try:
+        print es_user_portrait,portrait_index_name
         portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid)['_source']
+        
     except:
         return None
     #keywords

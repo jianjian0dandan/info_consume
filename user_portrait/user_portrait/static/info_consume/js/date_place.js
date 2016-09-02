@@ -1,19 +1,16 @@
-// var topic = 'aoyunhui';
-// var start_ts = 1468426500;
-// var end_ts = 1468459800;
-// var pointInterval = 3600;
 
 var topic = 'aoyunhui';
-var start_ts = 1468426500;
-var end_ts = 1468442700;
-var pointInterval = 3600;
-var sort_item = 'timestamp';
+var start_ts = 1468166400;
+var end_ts = 1468170900;
+var province = '陕西';
+//var sort_item = 'timestamp';
 
 
 // var topic = $('#topic_text').text();
-// //var start_ts = set_timestamp().start_timestamp_return; 
-// //var end_ts = set_timestamp().end_timestamp_return;
+// var start_ts = set_timestamp().start_timestamp_return; 
+// var end_ts = set_timestamp().end_timestamp_return;
 // var start_ts,end_ts,pointInterval;
+
 
 // function set_timestamp(){
 // 	var start_time_new = get_timestamp().start_return;
@@ -24,13 +21,13 @@ var sort_item = 'timestamp';
 // 	start_ts = start_timestamp;
 // 	end_ts = end_timestamp;
 
-// 	Draw_time_trend_line_result();
+// 	Draw_geo_map_result();
 // }
 
 
 // function get_timestamp(){
-// 	var start_time = $('#datetimepicker1_input').val(); 
-// 	var end_time = $('#datetimepicker2_input').val();
+// 	var start_time = $('#datetimepicker3_input').val(); 
+// 	var end_time = $('#datetimepicker4_input').val();
 // 	return {
 // 		start_return:start_time,
 // 		end_return:end_time
@@ -61,30 +58,14 @@ var sort_item = 'timestamp';
 // }
 
 
-function set_order_type(type){
-	if(type=='time'){
-		sort_item = 'timestamp';
-		Draw_blog_scan_area_order_result();
-
-	}else if(type=='hot'){
-		sort_item = 'retweeted';
-		Draw_blog_scan_area_order_result();
-	}
-}
-
-// function loading_more(){
-// 	loading_more.innerHTML = '<div class="loading"></div>';
-// }
 
 
 
-
-
-function topic_analysis_time(){
+function topic_analysis_place(){
  
 }
 
-topic_analysis_time.prototype = {   //获取数据，重新画表
+topic_analysis_place.prototype = {   //获取数据，重新画表
   call_sync_ajax_request:function(url,callback){
     $.ajax({
       url: url,
@@ -94,120 +75,159 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
       success:callback
     });
   },
+	Draw_geo_map:function(data){
 
-// //设置ajax访问后台填充折线图
+		// var topic = $('#topic_text').text();
+		// var start_ts = (new Date($('#datetimepicker5').val())).getTime()/1000;
+	 // 	var end_ts = $('#datetimepicker6').val();
+	 // 	var pointInterval = $()
+	 // 	var num_origin = 0; //原创
+	 // 	var num_forwarding = 0;  //转发
+	 // 	var num_comment = 0;  //评论
+	 	var item = data;
+	 	var item_json = [];
+	 	var html = '';
+	 	for (i=0;i<item.length;i++){
+	 		
+	 		item_json.push({name:item[i][0],value:item[i][1]});
+	 		// if(item.length<=10){
+	 		// 	html += '<div id="top10_content">'
+	 		// 	for (j=0;j<item.length;j++){
+	 				
+				// 	html += '<div id="top10_content">'
+					
+	 		// 	}
+	 		// 	html += '</div>'
+	 		// }
 
-  Draw_time_trend_line: function(data){
- 	
- 	var x_item = [];
- 	var y_item_origin = [];
-	var y_item_forwarding = [];
-	var y_item_comment = [];
- 	for (var key in data){
- 		//console.log(key);
-		//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
-		key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-		//console.log(key_datetime);
-		x_item.push(key_datetime);	
-		y_item_origin.push(data[key][1]);
-		y_item_forwarding.push(data[key][2]);
-		y_item_comment.push(data[key][3]);
-	}
+		}
+		console.log(item_json);
 
- 	var myChart = echarts.init(document.getElementById('main_time'));
-	//Chart.showLoading({text: '正在努力的读取数据中...'  });
-	var option = {
-		tooltip : {
-		    trigger: 'axis'
-		},
-		legend: {
-		    data:['原创','评论','转发']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-			    mark : {show: true},
-			    dataView : {show: true, readOnly: false},
-			    magicType : {show: true, type: ['line', 'bar']},
-			    restore : {show: true},
-			    saveAsImage : {show: true}
-		    }
-		},
-		calculable : true,
-		xAxis : [
-		    {
-		    type : 'category',
-		    boundaryGap : false,
-		    data : x_item
-		    //data: ['周一','周二','周三','周四','周五','周六','周日','周五','周六','周日']
-		        }
-		],
-		yAxis : [
-		    {
-		    type : 'value',
-		    axisLabel : {
-		        formatter: '{value} 次'
-		        }
-		    }
-		],
-		series : [
-		    {
-		    name:'原创',
-		    type:'line',
-		    data:y_item_origin,
-		    //data:[56,25,19,39,58,62,8,17,53,65],
-		    markPoint : {
-		        data : [
-		            {type : 'max', name: '最大值'},
-		            {type : 'min', name: '最小值'}
-		        ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name: '平均值'}
-		        ]
-		    }
-		    },
-		    {
-		    name:'评论',
-		    type:'line',
-		    data:y_item_comment,
-		    //data:[21,0,3,20,30,36,4,8,31,11],
-		    markPoint : {
-		        data : [
-		            {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
-		        ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name : '平均值'}
-		        ]
-		    }
-		    },
-		    {
-		    name:'转发',
-		    type:'line',
-		    data:y_item_forwarding,
-		    //data:[17,2,4,19,34,34,5,11,30,14],
-		    markPoint : {
-		    data : [
-		        {type : 'max', name: '最大值'},
-		        {type : 'min', name: '最小值'}
-		    ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name: '平均值'}
-		        ]
-		    }
-		    }
-		]
-    };
-		myChart.setOption(option) ;   		
-	
-  },
+	 	var myChart = echarts.init(document.getElementById('main_place'));
 
-  Draw_blog_scan_area: function(data){
+		require(
+				[
+					'echarts',
+					'echarts/chart/map' // 使用柱状图就加载bar模块，按需加载
+				],
+				function (ec) {
+					var ecConfig = require('echarts/config'); //放进require里的function{}里面
+					var zrEvent = require('zrender/tool/event');
+							
+					// 基于准备好的dom，初始化echarts图表
+					//var myChart = ec.init(document.getElementById('main')); 
+					var myChart = echarts.init(document.getElementById('main_place'));
+					// 过渡---------------------
+					var curIndx = 0;
+					var mapType = [
+						    'china',
+						    // 23个省
+						    '广东', '青海', '四川', '海南', '陕西', 
+						    '甘肃', '云南', '湖南', '湖北', '黑龙江',
+						    '贵州', '山东', '江西', '河南', '河北',
+						    '山西', '安徽', '福建', '浙江', '江苏', 
+						    '吉林', '辽宁', '台湾',
+						    // 5个自治区
+						    '新疆', '广西', '宁夏', '内蒙古', '西藏', 
+						    // 4个直辖市
+						    '北京', '天津', '上海', '重庆',
+						    // 2个特别行政区
+						    '香港', '澳门'
+						];
+					document.getElementById('main_place').onmousewheel = function (e){
+					    var event = e || window.event;
+					    curIndx += zrEvent.getDelta(event) > 0 ? (-1) : 1;
+					    if (curIndx < 0) {
+					        curIndx = mapType.length - 1;
+					    }
+					    var mt = mapType[curIndx % mapType.length];
+					    if (mt == 'china') {
+					        option.tooltip.formatter = '滚轮切换或点击进入该省<br/>{b}';
+					    }
+					    else{
+					        option.tooltip.formatter = '滚轮切换省份或点击返回全国<br/>{b}';
+					    }
+					    option.series[0].mapType = mt;
+					    option.title.subtext = mt + ' （滚轮或点击切换）';
+					    myChart.setOption(option, true);
+					    
+					    zrEvent.stop(event);
+					};
+					myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+					    var len = mapType.length;
+					    var mt = mapType[curIndx % len];
+					    if (mt == 'china') {
+					        // 全国选择时指定到选中的省份
+					        var selected = param.selected;
+					        for (var i in selected) {
+					            if (selected[i]) {
+					                mt = i;
+					                while (len--) {
+					                    if (mapType[len] == mt) {
+					                        curIndx = len;
+					                    }
+					                }
+					                break;
+					            }
+					        }
+					        option.tooltip.formatter = '滚轮切换省份或点击返回全国<br/>{b}';
+					    }
+					    else {
+					        curIndx = 0;
+					        mt = 'china';
+					        option.tooltip.formatter = '滚轮切换或点击进入该省<br/>{b}';
+					    }
+					    option.series[0].mapType = mt;
+					    option.title.subtext = mt + ' （滚轮或点击切换）';
+					    myChart.setOption(option, true);
+					});
+					var option = {
+					    title: {
+					        text : '全国34个省市自治区',
+					        subtext : 'china （滚轮或点击切换）'
+					    },
+					    tooltip : {
+					        trigger: 'item',
+					        formatter: '滚轮切换或点击进入该省<br/>{b}'
+					    },
+					    legend: {
+					        orient: 'vertical',
+					        x:'right',
+					        data:['随机数据']
+					    },
+					    dataRange: {
+					        min: 0,
+					        max: 1000,
+					        color:['orange','yellow'],
+					        text:['高','低'],           // 文本，默认为数值文本
+					        calculable : true
+					    },
+					    series : [
+					        {
+					            name: '随机数据',
+					            type: 'map',
+					            mapType: 'china',
+					            selectedMode : 'single',
+					            itemStyle:{
+					                normal:{label:{show:true}},
+					                emphasis:{label:{show:true}}
+					            },
+					            data:item_json
+					
+					        }
+					    ]
+					};
+			 		// };
+			 		
+			                myChart.setOption(option);     
+						
+		}
+		)	
+
+
+	},
+
+	Draw_blog_scan_area: function(data){
 
   	//$('#blog_scan_area_time').empty();
     var item = data;
@@ -289,28 +309,35 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		
 		
 	
-  },
-				                    				
+  	},
+
 }
 
 
-var topic_analysis_time = new topic_analysis_time();
+
+var topic_analysis_place = new topic_analysis_place();
  
-function Draw_time_trend_line_result(){
-    url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
- 	//console.log(url);
- 	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
-}		
-
-function Draw_blog_scan_area_order_result(){
-    url_order = "/topic_time_analyze/time_order_weibos/?topic=" + topic + '&start_ts=' + start_ts + '&end_ts=' + end_ts + '&sort_item=' + sort_item;
- 	//console.log('下面是微博排序url');
- 	//console.log(url_order);
-
- 	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
+function Draw_geo_map_result(){
+    url = "/topic_geo_analyze/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+ 	console.log(url);
+ 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
 }	
 
+function Draw_blog_scan_area_result(){
+    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province'+province;
+ 	console.log(url);
+ 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area);
+}		
 
-Draw_time_trend_line_result();
-Draw_blog_scan_area_order_result();
+
+
+// function Draw_geo_map_result(){
+//     url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
+//  	console.log(url);
+//  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
+// }		
+
+
+Draw_geo_map_result();
+Draw_blog_scan_area_result();
 

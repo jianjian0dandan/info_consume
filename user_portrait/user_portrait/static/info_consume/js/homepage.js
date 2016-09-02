@@ -154,10 +154,10 @@ var overallData;
 var weiboData;
 var uid = 1640601392;
 
-function openurl(){
-  var ourl = $('#openurl').text();
-  window.open(ourl);
- }
+ function openurl(){
+   var ourl = $('#openurl').text();
+   window.open(ourl);
+  }
 
 $(function(){
 	$('#modechoose').click(function(){

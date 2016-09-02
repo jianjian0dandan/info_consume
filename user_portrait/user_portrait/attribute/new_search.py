@@ -318,7 +318,7 @@ def new_get_user_location(uid):
     now_date = ts2datetime(time.time())
     now_date_ts = datetime2ts(now_date)
     #jln
-    now_date_ts = 1378310400
+    #now_date_ts = 1378310400
     #run type
     if RUN_TYPE == 0:
         now_date_ts = datetime2ts(RUN_TEST_TIME) - DAY
@@ -593,6 +593,7 @@ def new_get_user_social(uid):
     #step1:retweet/comment
     retweet_index_name = retweet_index_name_pre + str(db_number)
     comment_index_name = comment_index_name_pre + str(db_number)
+    print es_retweet,retweet_index_name
     try:
         retweet_result = es_retweet.get(index=retweet_index_name, doc_type=retweet_index_type,\
                 id=uid)['_source']['uid_retweet']
