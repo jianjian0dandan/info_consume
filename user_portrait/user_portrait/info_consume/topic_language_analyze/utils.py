@@ -113,6 +113,28 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
                 weibos[clusterid] = i
     return weibos
 
+
+def get_subopinion(topic):
+    query_body = {
+        'query':{
+            'filtered':{
+                'filter':{
+                    'term':{
+                        'name':topic
+                    }
+                }
+            }
+        }
+    }
+    features = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
+    if features:
+        feature = json.loads(features[0]['_source']['features'])
+        return feature.values()
+    else:
+        return 'no results'
+
+
+
 def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微博内容
     weibo_dict = {}
     query_body = {
@@ -128,6 +150,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
         }
     }  #没有查到uid   每次的id不一样   
     weibos = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
+    print opinion
     if weibos:
         weibos = json.loads(weibos[0]['_source']['cluster_dump_dict'])
         for weibo in weibos.values():#jln0825
@@ -148,7 +171,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
                 weibo_content['photo_url'] = 'unknown'
             weibo_dict[weibo_content['mid']] = weibo_content
         results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
-        print results
+        #print results
         return results
     else:
         return 'no results'
