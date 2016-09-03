@@ -55,7 +55,7 @@ def get_during_keywords(topic,start_ts,end_ts,unit=MinInterval):  #关键词云
     }
     keywords_dict = {}
     keyword_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']   
-    print keyword_weibo
+    #print keyword_weibo
     for key_weibo in keyword_weibo:
         keywords_dict_list = json.loads(key_weibo['_source']['keywords_dict'])  #
         #print keywords_dict_list,type(keywords_dict_list)
