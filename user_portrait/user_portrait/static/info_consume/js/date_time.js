@@ -156,50 +156,50 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		    type:'line',
 		    data:y_item_origin,
 		    //data:[56,25,19,39,58,62,8,17,53,65],
-		    markPoint : {
-		        data : [
-		            {type : 'max', name: '最大值'},
-		            {type : 'min', name: '最小值'}
-		        ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name: '平均值'}
-		        ]
-		    }
+		    // markPoint : {
+		    //     data : [
+		    //         {type : 'max', name: '最大值'},
+		    //         {type : 'min', name: '最小值'}
+		    //     ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name: '平均值'}
+		    //     ]
+		    // }
 		    },
 		    {
 		    name:'评论',
 		    type:'line',
 		    data:y_item_comment,
 		    //data:[21,0,3,20,30,36,4,8,31,11],
-		    markPoint : {
-		        data : [
-		            {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
-		        ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name : '平均值'}
-		        ]
-		    }
+		    // markPoint : {
+		    //     data : [
+		    //         {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
+		    //     ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name : '平均值'}
+		    //     ]
+		    // }
 		    },
 		    {
 		    name:'转发',
 		    type:'line',
 		    data:y_item_forwarding,
 		    //data:[17,2,4,19,34,34,5,11,30,14],
-		    markPoint : {
-		    data : [
-		        {type : 'max', name: '最大值'},
-		        {type : 'min', name: '最小值'}
-		    ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name: '平均值'}
-		        ]
-		    }
+		    // markPoint : {
+		    // data : [
+		    //     {type : 'max', name: '最大值'},
+		    //     {type : 'min', name: '最小值'}
+		    // ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name: '平均值'}
+		    //     ]
+		    // }
 		    }
 		]
     };
