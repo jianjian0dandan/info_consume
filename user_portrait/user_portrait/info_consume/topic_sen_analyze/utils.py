@@ -16,6 +16,8 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+down = [2,3,4,5,6,7]
+
 def _json_loads(weibos):
     try:
         return json.loads(weibos)
@@ -32,11 +34,12 @@ def get_sen_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势�
         upbound = long(math.ceil(end_ts / (unit * 1.0)) * unit)
         items = db.session.query(SentimentCount.sentiment,func.sum(SentimentCount.count)).filter(SentimentCount.end==upbound, \
                                                        SentimentCount.query==topic).group_by(SentimentCount.sentiment).all()
-        count[end_ts]={}
+
         for item in items:
             try:
                 count[end_ts][item[0]] += item[1]
             except:
+                count[end_ts]={}
                 count[end_ts][item[0]] = item[1]        
     else:
         upbound = long(math.ceil(end_ts / (unit * 1.0)) * unit)
@@ -45,15 +48,21 @@ def get_sen_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势�
         for i in range(interval, 0, -1):    
             begin_ts = upbound - unit * i
             end_ts = begin_ts + unit
+            print begin_ts,end_ts
             items = db.session.query(SentimentCount.sentiment,func.sum(SentimentCount.count)).filter(SentimentCount.end>begin_ts, \
                                                          SentimentCount.end<=end_ts, \
                                                          SentimentCount.query==topic).group_by(SentimentCount.sentiment).all()
-            count[end_ts] = {}
-            for item in items:
-                try:
-                    count[end_ts][item[0]] += item[1]
-                except:
-                    count[end_ts][item[0]] = item[1]
+            if items:
+                count[end_ts] = {}
+                for item in items:
+                    if item[0] in down:
+                        sen = '2'
+                    else:
+                        sen = str(item[0])
+                    try:
+                        count[end_ts][sen] += str(item[1])
+                    except:
+                        count[end_ts][sen] = str(item[1])
     return count #{1468947600L: {0L: Decimal('82'), 1L: Decimal('8')}, 1468949400L: {0L: Decimal('57'), 1L: Decimal('7'), 2L: Decimal('1'), 6L: Decimal('1')}}
 
 
@@ -70,22 +79,29 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
         items = db.session.query(SentimentGeo).filter(SentimentGeo.end>lowbound, \
                                                          SentimentGeo.end<=upbound, \
                                                          SentimentGeo.topic==topic).all()
-    city_dict = {}
+    count_dict = {}
     for item in items:          
         geo = _json_loads(item.geo_count)
-        print geo
-        try:
-            citys = geo[province]
-            for k,v in geo[province].iteritems():
+        for province,city_dict in geo.iteritems():
+            for k,v in city_dict.iteritems():
+                if k == 'total':
+                    continue                
                 try:
-                    city_dict[k] += v
+                    count_dict[k] += v
                 except:
-                    city_dict[k] = v
-        except:
-            continue            
+                    count_dict[k] = v
+        # print geo
+        # try:
+        #     citys = geo[province]
+        #     for k,v in geo[province].iteritems():
+        #         try:
+        #             city_dict[k] += v
+        #         except:
+        #             city_dict[k] = v
+        # except:
+        #     continue            
 
-    print city_dict
-    results = sorted(city_dict.iteritems(),key=lambda x:x[1],reverse=True)
+    results = sorted(count_dict.iteritems(),key=lambda x:x[1],reverse=True)
     #print results
     return results
 
@@ -120,10 +136,6 @@ def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp'):
     return results
 
 
-   
-    #results = sorted(city_dict.iteritems(),key=lambda x:x[1],reverse=True)
-    #print results
-    #return results
 
 
 if __name__ == '__main__':

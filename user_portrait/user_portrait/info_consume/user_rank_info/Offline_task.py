@@ -52,10 +52,6 @@ def search_user_task(user_name):
         return_list = []
         result = es.search(index=USER_RANK_KEYWORD_TASK_INDEX , doc_type=USER_RANK_KEYWORD_TASK_TYPE , body=query)['hits']
         c_result['flag'] = True
-        print '**********===*'
-        print USER_RANK_KEYWORD_TASK_INDEX,USER_RANK_KEYWORD_TASK_TYPE,user_name,MAX_ITEMS
-        print query
-        print result
         for item in result['hits']:
             result_temp = {}
             result_temp['submit_user'] = item['fields']['submit_user'][0]

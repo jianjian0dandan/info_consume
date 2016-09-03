@@ -2009,8 +2009,11 @@ def get_online_pattern(now_ts, uid):
 #output: keywords, hashtag, domain, topic
 def search_preference_attribute(uid):
     results = {}
+    print 'really?'
     try:
+        print es_user_portrait,portrait_index_name
         portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid)['_source']
+        
     except:
         return None
     #keywords
@@ -2047,10 +2050,10 @@ def search_preference_attribute(uid):
 
     #add school information
     
-    is_school = portrait_result['is_school']
-    school_string= portrait_result['school_string']
-    results['is_school'] = is_school
-    results['school_string'] = school_string
+    # is_school = portrait_result['is_school']
+    # school_string= portrait_result['school_string']
+    # results['is_school'] = is_school
+    # results['school_string'] = school_string
     
     description_text1 = u'该用户所属领域为'
     description_text2 = u'偏好参与的话题为'

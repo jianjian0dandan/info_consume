@@ -236,6 +236,14 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 			//for(i=0;i<item.length;i++){
 			// for(j=0;j<8;j++){	
 				//var item_timestamp_datetime = new Date(item[i][1].timestamp*1000).format('yyyy/MM/dd hh:mm');
+				if (item[i][1].photo_url=='unknown'){
+					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
+					//console.log(item[i][1].photo_url);
+				}
+				if (item[i][1].uname=='unknown'){
+					item[i][1].uname='未知用户'
+					//console.log(item[i][1].uname);
+				}
 				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 				html += '<div class="blog_time">';
 				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
@@ -253,8 +261,10 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
 				html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>'
+				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				html += '</p>';
 				html += '</div>';							 	
@@ -298,14 +308,14 @@ var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
     url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
- 	//console.log(url);
+ 	console.log(url);
  	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
 }		
 
 function Draw_blog_scan_area_order_result(){
     url_order = "/topic_time_analyze/time_order_weibos/?topic=" + topic + '&start_ts=' + start_ts + '&end_ts=' + end_ts + '&sort_item=' + sort_item;
  	//console.log('下面是微博排序url');
- 	//console.log(url_order);
+ 	console.log(url_order);
 
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
 }	

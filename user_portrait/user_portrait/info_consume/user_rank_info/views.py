@@ -114,12 +114,12 @@ def ajax_imagine():
 def ajax_submit_task():
     input_data = dict()
     input_data = request.get_json()
+    print input_data, input_data['submit_user']
     try:
         submit_user = input_data['submit_user']
     except:
         return 'no submit_user information'
     now_ts = int(time.time())
     input_data['submit_date'] = now_ts
-    print input_data
     status = submit_task(input_data)
     return json.dumps(status)
