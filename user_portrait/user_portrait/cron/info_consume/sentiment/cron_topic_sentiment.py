@@ -12,7 +12,7 @@ from global_config import emotions_kv,weibo_es,weibo_index_name,weibo_index_type
                             SENTIMENT_FIRST,SENTIMENT_SECOND
 from time_utils import datetime2ts, ts2HourlyTime
 #jln
-from global_utils import getWeiboById, getTopicByNameStEt,getWeiboByNameStEt
+from global_utils import  getTopicByNameStEt,getWeiboByNameStEt
 #from dynamic_xapian_weibo import getXapianWeiboByTopic
 from model import SentimentCount, SentimentKeywords, SentimentWeibos, SentimentCountRatio,SentimentGeo
 
@@ -340,7 +340,7 @@ if __name__ == '__main__':
 
     topic = 'aoyunhui'
     start_date = '2016-07-20'
-    end_date = '2016-07-24'
+    end_date = '2016-08-24'
 
     #topic = topic.decode('utf-8')
     start_ts = datetime2ts(start_date)
