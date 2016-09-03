@@ -101,7 +101,7 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
         # except:
         #     continue            
 
-    results = sorted(city_dict.iteritems(),key=lambda x:x[1],reverse=True)
+    results = sorted(count_dict.iteritems(),key=lambda x:x[1],reverse=True)
     #print results
     return results
 
