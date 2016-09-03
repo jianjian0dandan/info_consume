@@ -1,76 +1,15 @@
-
 var topic = 'aoyunhui';
-//var start_ts = 1468166400;
-var start_ts = 1468474200;
-//var end_ts = 1468170900;
-var end_ts = 1468495800;
-var province = '陕西';
-//var sort_item = 'timestamp';
+var start_ts = 1468166400;
+var end_ts = 1468949400;
+var pointInterval=3600;
+// var province = '陕西';
 
 
-// var topic = $('#topic_text').text();
-// var start_ts = set_timestamp().start_timestamp_return; 
-// var end_ts = set_timestamp().end_timestamp_return;
-// var start_ts,end_ts,pointInterval;
-
-
-// function set_timestamp(){
-// 	var start_time_new = get_timestamp().start_return;
-// 	var end_time_new = get_timestamp().end_return; 
-// 	var start_timestamp = datetime_to_timestamp(start_time_new);
-// 	var end_timestamp = datetime_to_timestamp(end_time_new);
-	
-// 	start_ts = start_timestamp;
-// 	end_ts = end_timestamp;
-
-// 	Draw_geo_map_result();
-// }
-
-
-// function get_timestamp(){
-// 	var start_time = $('#datetimepicker3_input').val(); 
-// 	var end_time = $('#datetimepicker4_input').val();
-// 	return {
-// 		start_return:start_time,
-// 		end_return:end_time
-// 	};
-// }
-
-
-// function datetime_to_timestamp(datetime) {
-//  		var date_time_string = datetime;
-//  		var date_time_array =date_time_string.split(/[/: ]/);
-//  		var date_array_new = [date_time_array[2],date_time_array[0],date_time_array[1]];
-//  		if (date_time_array[5] == 'PM'){
-//  			date_time_array[3] = parseInt(date_time_array[3])+12;  //替换元素，小时数字加12
-//  		}
-//  		var time_array_new = [date_time_array[3],date_time_array[4],'00'];
-//  		var timestamp_date_str = date_array_new.join('/');
-//  		var timestamp_time_str = time_array_new.join(':');
-//  		var timestamp_time_array = [timestamp_date_str,timestamp_time_str]
-//  		var timestamp_str = timestamp_time_array.join(' ');
-//  		var timestamp = (new Date(timestamp_str)).getTime()/1000;
-//  		return timestamp;
-// 	}
-
-
-// function get_per_time(val) {
-// 	pointInterval = val;
-// 	set_timestamp();
-// }
-
-//应该直接排序，然后再取前十名，不应该求最大值，然后将其删除再取最大值。
-
-
- 
-
-
-
-function topic_analysis_place(){
+function topic_analysis_emotion(){
  
 }
 
-topic_analysis_place.prototype = {   //获取数据，重新画表
+topic_analysis_emotion.prototype = {   //获取数据，重新画表
   call_sync_ajax_request:function(url,callback){
     $.ajax({
       url: url,
@@ -80,32 +19,128 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
       success:callback
     });
   },
-	Draw_geo_map:function(data){
 
-	 	var item = data;
+  Draw_emotion_trend_line:function(data){
+  		var x_item = [];
+	 	var y_item_pos = [];
+		var y_item_neu = [];
+		var y_item_neg = [];
+	 	for (var key in data){
+	 		//console.log(key);
+			//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
+			key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+			//console.log(key_datetime);
+			x_item.push(key_datetime);	
+			y_item_pos.push(data[key][1]);
+			y_item_neu.push(data[key][0]);
+			y_item_neg.push(data[key][2]);
+		}
+		
+  		var myChart = echarts.init(document.getElementById('main_emotion_1'));
+ 		var option = {
+	    	tooltip : {
+	        	trigger: 'axis'
+	   		},
+	    	legend: {
+	        	data:['正向','中立','负向']
+	    	},
+	    	toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: true},
+		            dataView : {show: true, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+	        }
+	    },
+	   		calculable : true,
+	    	xAxis : [
+	        {
+	            type : 'category',
+	            boundaryGap : false,
+	            data : x_item
+	        }
+	    	],
+	    	yAxis : [
+	        {
+	            type : 'value',
+	            axisLabel : {
+	                formatter: '{value} 次'
+	            }
+	        }
+	    	],
+	    	series : [
+	        {
+	            name:'正向',
+	            type:'line',
+	            data:y_item_pos,
+	            // markPoint : {
+	            //     data : [
+	            //         {type : 'max', name: '最大值'},
+	            //         {type : 'min', name: '最小值'}
+	            //     ]
+	            // },
+	            // markLine : {
+	            //     data : [
+	            //         {type : 'average', name: '平均值'}
+	            //     ]
+	            // }
+	        },
+	        {
+	            name:'中立',
+	            type:'line',
+	            data:y_item_neu,
+	            // markPoint : {
+	            //     data : [
+	            //         {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
+	            //     ]
+	            // },
+	            // markLine : {
+	            //     data : [
+	            //         {type : 'average', name : '平均值'}
+	            //     ]
+	            // }
+	        },
+	      	{
+	            name:'负向',
+	            type:'line',
+	            data:y_item_neg,
+	            // markPoint : {
+	            //     data : [
+	            //         {type : 'max', name: '最大值'},
+	            //         {type : 'min', name: '最小值'}
+	            //     ]
+	            // },
+	            // markLine : {
+	            //     data : [
+	            //         {type : 'average', name: '平均值'}
+	            //     ]
+	            // }
+	        }
+	    ]
+	};
+		myChart.setOption(option) ;     
+
+
+  },
+
+  Draw_emotion_map:function(data){
+  		var item = data;
 	 	var item_json = [];
 	 	var html = '';
 	 	for (i=0;i<item.length;i++){		
 	 		item_json.push({name:item[i][0],value:item[i][1]});
 		}
+ 		
 
-
-
-		// console.log(item_json);
-		// var arry=[1,2,3,5,2,9,97,34,54,100];
-		// console.log(item_json);
-
-		// console.log(item_json[0].name);
-		// console.log(item_json[0].value);
-		// console.log(item);
-		
-
-	 	var myChart = echarts.init(document.getElementById('main_place'));
+ 		var myChart = echarts.init(document.getElementById('main_emotion_2'));
+ 		// var option {
 
 		require(
 				[
 					'echarts',
-					'echarts/chart/map' // 使用柱状图就加载bar模块，按需加载
+					'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
 				],
 				function (ec) {
 					var ecConfig = require('echarts/config'); //放进require里的function{}里面
@@ -113,7 +148,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 							
 					// 基于准备好的dom，初始化echarts图表
 					//var myChart = ec.init(document.getElementById('main')); 
-					var myChart = echarts.init(document.getElementById('main_place'));
+					var myChart = echarts.init(document.getElementById('main_emotion_2'));
 					// 过渡---------------------
 					var curIndx = 0;
 					var mapType = [
@@ -131,7 +166,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 						    // 2个特别行政区
 						    '香港', '澳门'
 						];
-					document.getElementById('main_place').onmousewheel = function (e){
+					document.getElementById('main_emotion_2').onmousewheel = function (e){
 					    var event = e || window.event;
 					    curIndx += zrEvent.getDelta(event) > 0 ? (-1) : 1;
 					    if (curIndx < 0) {
@@ -210,16 +245,14 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 					                emphasis:{label:{show:true}}
 					            },
 					            data:item_json
-					
 					        }
 					    ]
 					};
-			 		
-			 		
+			 		// };	 		
 			                myChart.setOption(option);     
 						
 		}
-		)	
+		)		
 
 		item_json.sort(function(a,b){
             return b.value-a.value});
@@ -245,16 +278,12 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			
 			
             }
-            $('#top15_content_place').append(rank_html);
-	},
+            $('#top15_content_emotion').append(rank_html);
 
-	// Draw_geo_map{}
+  },
 
-
-	Draw_blog_scan_area_place: function(data){
-
-  	//$('#blog_scan_area_time').empty();
-     var item = data;
+  Draw_blog_scan_area_emotion:function(data){
+  	 var item = data;
 	var html = '';
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
@@ -326,39 +355,33 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		// html += '<li><a href="#">&raquo;</a></li>';
 		// html += '</ul>';
 		
-		$('#blog_scan_area_place').append(html);
+		$('#blog_scan_area_emotion').append(html);
 		
-		
-	
-  	},
-
+  },
 }
 
+var topic_analysis_emotion = new topic_analysis_emotion();
 
-
-var topic_analysis_place = new topic_analysis_place();
- 
-function Draw_geo_map_result(){
-    url = "/topic_geo_analyze/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+function Draw_emotion_trend_line_result(){
+	url = "/topic_sen_analyze/sen_time_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
- 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
-}	
+ 	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_trend_line);
+}
 
-function Draw_blog_scan_area_place_result(){
-    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province='+province;
+function Draw_emotion_map_result(){
+    url = "/topic_sen_analyze/sen_province_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
  	console.log(url);
- 	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
+ 	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_map);
+}
+
+function Draw_blog_scan_area_emotion_result(){
+    url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province='+province;
+ 	console.log(url);
+ 	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
 
 
 
-// function Draw_geo_map_result(){
-//     url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
-//  	console.log(url);
-//  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
-// }		
-
-
-Draw_geo_map_result();
-Draw_blog_scan_area_place_result();
-
+Draw_emotion_trend_line_result();
+Draw_emotion_map_result();
+Draw_blog_scan_area_emotion_result();
