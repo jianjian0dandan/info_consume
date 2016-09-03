@@ -156,50 +156,50 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		    type:'line',
 		    data:y_item_origin,
 		    //data:[56,25,19,39,58,62,8,17,53,65],
-		    markPoint : {
-		        data : [
-		            {type : 'max', name: '最大值'},
-		            {type : 'min', name: '最小值'}
-		        ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name: '平均值'}
-		        ]
-		    }
+		    // markPoint : {
+		    //     data : [
+		    //         {type : 'max', name: '最大值'},
+		    //         {type : 'min', name: '最小值'}
+		    //     ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name: '平均值'}
+		    //     ]
+		    // }
 		    },
 		    {
 		    name:'评论',
 		    type:'line',
 		    data:y_item_comment,
 		    //data:[21,0,3,20,30,36,4,8,31,11],
-		    markPoint : {
-		        data : [
-		            {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
-		        ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name : '平均值'}
-		        ]
-		    }
+		    // markPoint : {
+		    //     data : [
+		    //         {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
+		    //     ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name : '平均值'}
+		    //     ]
+		    // }
 		    },
 		    {
 		    name:'转发',
 		    type:'line',
 		    data:y_item_forwarding,
 		    //data:[17,2,4,19,34,34,5,11,30,14],
-		    markPoint : {
-		    data : [
-		        {type : 'max', name: '最大值'},
-		        {type : 'min', name: '最小值'}
-		    ]
-		    },
-		    markLine : {
-		        data : [
-		            {type : 'average', name: '平均值'}
-		        ]
-		    }
+		    // markPoint : {
+		    // data : [
+		    //     {type : 'max', name: '最大值'},
+		    //     {type : 'min', name: '最小值'}
+		    // ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name: '平均值'}
+		    //     ]
+		    // }
 		    }
 		]
     };
@@ -212,11 +212,6 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
   	//$('#blog_scan_area_time').empty();
     var item = data;
 	var html = '';
-	//console.log("执行了微博浏览区函数！");
-	// //console.log(item);
-	// for(var key in data){
-	// 	console.log(key);
-	// 	console.log(data[0]);
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
@@ -225,20 +220,11 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
 			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-			// for( k =  )	
 		
 			for (i=0;i < Math.min(10,item.length);i++){
-			// 	// item[i][1]
-			// 	for(j=0;j<item[].length;j++){
-
-				// }
-			
-			//for(i=0;i<item.length;i++){
-			// for(j=0;j<8;j++){	
-				//var item_timestamp_datetime = new Date(item[i][1].timestamp*1000).format('yyyy/MM/dd hh:mm');
+	
 				if (item[i][1].photo_url=='unknown'){
 					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
-					//console.log(item[i][1].photo_url);
 				}
 				if (item[i][1].uname=='unknown'){
 					item[i][1].uname='未知用户'

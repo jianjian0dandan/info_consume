@@ -1,14 +1,74 @@
-{% extends 'index.html' %}
+{% extends '/info_consume/daohang_public.html' %}
 
 {% block title %}
 我的地盘
 {% endblock %}
 
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
+  <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block head_js %}
+  <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+  <script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
+  <script src="/static/info_consume/js/echarts.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+{% endblock %}
+
 {% block main %}
 <div class='up_box'  style="border:1px #F2F4F8 solid;width:80%;">
-	<img src="../static/image/head.jpg" width="150px" height="150px" style="margin:auto; float:left;">
-	<p style="font-size:18px;margin-top:30px;margin-left:10px;float:left;">Hi，粽粽粽粽粽粽粽，一日之计在于晨，记得吃早饭哦~ </p>
+	<img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left" title="1314608344" >
+	<span style="font-size:18px;margin-top:30px;margin-left:30px;float:left;">Hi，</span> 
+      <sapn id="username" style="font-size:18px;margin-top:30px;float:left;">  </sapn>
+      <span style="font-size:18px;margin-top:30px;float:left;">,&nbsp
+           <script>
+           　　var enabled = 0; today = new Date();
+           　　var day;   
+               var date;
+           　　day = new Date()
+           　　hr = day.getHours()
+           　　if (hr ==1)
+           　　document.write("凌晨一点已过，别忘了休息喔！")
+           　　if (hr ==2)
+           　　document.write("该休息了，身体可是革命的本钱啊！")
+           　　if (hr ==3)
+           　　document.write("夜深人静，只有你敲击鼠标的声音...")
+           　　if (hr ==4)
+           　　document.write("四点过了，你明天不上班？？？")
+           　　if (hr ==5)
+           　　document.write("该去晨运了！！！")
+           　　if (hr ==6)
+           　　document.write("你知道吗，此时是国内网络速度最快的时候！")
+           　　if (hr ==7)
+           　　document.write("新的一天又开始了，祝你过得快乐！")
+           　　if ((hr ==8) || (hr == 9) || (hr ==10))
+           　　document.write("上午好！今天你看上去好精神哦！")
+           　　if (hr ==11)
+           　　document.write("十一点过了，快下班了吧？")
+           　　if (hr ==12)
+           　　document.write("十二点过了，还不下班？")
+           　　if ((hr==13) || (hr==14))
+           　　document.write("你不睡午觉？")
+           　　if ((hr==15) || (hr==16) || (hr==17))
+           　　document.write("下午好！困了就喝杯咖啡吧~")
+           　　if ((hr==18) || (hr==19))
+           　　document.write("吃晚饭了吧？")
+           　　if ((hr==20) || (hr==21) || (hr==22))
+           　　document.write("今晚又在这玩电脑了，没节目？")
+           　　if (hr==23)
+           　　document.write("真是越玩越精神，不打算睡了？")
+           　　if (hr==0)
+           　　document.write("凌晨了，还不睡？")           　
+          </script>
+       </span>  
 </div>
+
 
 
 <ul id="zone_tab" class="nav nav-tabs">
@@ -69,20 +129,22 @@
 					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
 				</div>
 				<div class="panel-body">
-					<div id="hashtag_words" style="float: left; width: 410px; height: 300px; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; cursor: default; background-color: rgba(0, 0, 0, 0);" _echarts_instance_="1472176974052">
-						<div style="position: relative; overflow: hidden; width: 410px; height: 300px;">
-							<div data-zr-dom-id="bg" class="zr-element" style="position: absolute; left: 0px; top: 0px; width: 410px; height: 300px; -webkit-user-select: none;">
-							</div>
-							<canvas width="410" height="300" data-zr-dom-id="0" class="zr-element" style="position: absolute; left: 0px; top: 0px; width: 410px; height: 300px; -webkit-user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-							</canvas>
-							<canvas width="410" height="300" data-zr-dom-id="1" class="zr-element" style="position: absolute; left: 0px; top: 0px; width: 410px; height: 300px; -webkit-user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-							</canvas>
-							<canvas width="410" height="300" data-zr-dom-id="_zrender_hover_" class="zr-element" style="position: absolute; left: 0px; top: 0px; width: 410px; height: 300px; -webkit-user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-							</canvas>
-							<div class="echarts-tooltip zr-element" style="position: absolute; display: none; border: 0px solid rgb(51, 51, 51); white-space: nowrap; transition: left 0.4s, top 0.4s; border-radius: 4px; color: rgb(255, 255, 255); padding: 5px; left: 179px; top: 42px; background-color: rgba(0, 0, 0, 0.701961);">和赵丽颖同框 : 1
-							</div>
-						</div>
-					</div>
+<!-- 				  <div id="framecontent" style="height:388px;width:100%;margin-top:5px;float:left;">
+				      <div class ="framepost" style="height:388px;">
+				          <h3 class="title">
+				          关键词
+				              <div class="showmore" id="key_more" style="float:right; font-size:16px;margin-right: 15px;margin-top: 0px;" type="button" data-toggle="modal" data-target="#p_more_keyWords"><u>查看更多</u>
+				              </div>
+				          </h3>
+				          <div  style="width:100%;float:left;height:350px">
+				              <div id="Language" style="width:840px;height:280px;">
+				              	<script type="text/javascript"></script>
+				              </div> 
+				          </div>
+				      </div>
+				  </div> -->
+				  <div id="keyword-cloud" class="panel-body" style="width:360px;height:400px;"></div>
+
 				</div>
 			</div>
 
@@ -98,8 +160,8 @@
 					</div>
 					<div class="right_chart" style="width:50%;float:left;">
 						<p style="color:#808080;font-size:18px;margin-top:10px;">封你为</p>
-						<img src="../static/image/crown.png" width="50px" height="50px" style="float:left;margin-top:25px;margin-left:5px;z-index:10px;">			
-						<img src="../static/image/expert_art.png" width="240px" height="60px" style="float:left;margin-left:-15px;margin-top:-8px;">
+						<img src="/static/info_consume/image/crown.png" width="50px" height="50px" style="float:left;margin-top:25px;margin-left:5px;z-index:10px;">			
+						<img src="/static/info_consume/image/expert_art.png" width="240px" height="60px" style="float:left;margin-left:-15px;margin-top:-8px;">
 						<p style="float:left;margin-top:20px;margin-left:80px;" >想了解其他更多达人的信息吗？</p>
 						<button type="button" class="btn btn-link" style="float:left;margin-top:14px;">点击这里</button>
 						<div></div>
@@ -120,9 +182,9 @@
 					<p>你的影响力距红人榜还差:</p><p>39.5分</p>
 					<p>快快加油哦~</p>
 					<div id="any_influ" style="width:100%;height:50%;">
-						<img src="../static/image/icon_inf.png" width="50px" height="50px">
+						<img src="/static/info_consume/image/icon_inf.png" width="50px" height="50px">
 						<h3>我的影响力分析</h3> 
-						<img src="../static/image/qmark.png" width="50px" height="50px">
+						<img src="/static/info_consume/image/qmark.png" width="50px" height="50px">
 						<h3>了解如何提升</h3> 
 						<hr>
 						<div id="tabfordate">
@@ -198,5 +260,13 @@
 
 
 {% endblock %}
+
+
+{% block Own_js %}
+<script type="text/javascript" src="/static/info_consume/js/person_detail.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/language.js"></script>
+
+{% endblock %}
+
 
 
