@@ -245,7 +245,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			
 			
             }
-            $('#top10_content').append(rank_html);
+            $('#top15_content_place').append(rank_html);
 	},
 
 	// Draw_geo_map{}

@@ -968,9 +968,12 @@ background-color:#FFFFFF;
 	width:60%;
 	height:1020px;
 	position: relative;
-	margin-left: 20%;
+	margin-left: -12.5%;
 	margin-top: 5%;
 	margin-bottom: 10%;
+	display:table;
+	height:auto;
+	float:left;
 }
 
 
@@ -1098,7 +1101,7 @@ background-color:#FFFFFF;
 	float: left;
 }
 
-#top10_content{
+#top15_content_place{
 	/*background-color: #E4E4E4;*/
 	/*background-color: #00CC00;*/
 	width: 284px;
@@ -1107,4 +1110,15 @@ background-color:#FFFFFF;
 	margin-left: 0%;
 	margin-top: 1%;
 }
+
+#top15_content_emotion{
+	/*background-color: #E4E4E4;*/
+	/*background-color: #00CC00;*/
+	width: 284px;
+	height: 470px;
+	position: relative;
+	margin-left: 0%;
+	margin-top: 1%;
+}
+
 
