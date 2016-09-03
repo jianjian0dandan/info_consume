@@ -83,6 +83,8 @@ def get_topics_river(topic,start_ts,end_ts,unit=MinInterval):#主题河
             }
         }
     }
+    print query_body
+    print topics_river_index_name,topics_river_index_type
     news_topics = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['features']
     print news_topics
     zhutihe_results = cul_key_weibo_time_count(topic,json.loads(news_topics),start_ts,end_ts,unit)
@@ -104,6 +106,7 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
     }
     symbol_weibos = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['cluster_dump_dict']
     symbol_weibos = json.loads(symbol_weibos)
+    print symbol_weibos
     begin_ts = end_ts - unit
     for clusterid,contents in symbol_weibos.iteritems():
         print clusterid
