@@ -24,7 +24,7 @@ def during_keywords():
     end_ts = long(end_ts)
     start_ts = request.args.get('start_ts', '')
     start_ts = long(start_ts)
-    keywords = get_during_keywords(topic,start_ts,end_ts,during)
+    keywords = json.loads(get_during_keywords(topic,start_ts,end_ts,during))
     #keywords = get_during_keywords('aoyunhui',1468944000,1471622400,during)
     return json.dumps(keywords)
 
