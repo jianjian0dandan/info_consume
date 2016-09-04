@@ -1057,6 +1057,8 @@ background-color:#FFFFFF;
 	margin-left: 20%;
 	margin-top: 1%;
 	margin-bottom: 10%;
+	display:table;
+	height: auto;
 	float: left;
 }
 
@@ -1066,7 +1068,7 @@ background-color:#FFFFFF;
 	width: 6px;
 	height: 25px;
 	position: relative;
-	margin-left: 1%;
+	margin-left: -17.5%;
 	margin-top: 1.4%;
 	float: left;
 }
@@ -1079,7 +1081,7 @@ background-color:#FFFFFF;
 	width: 6px;
 	height: 25px;
 	position: relative;
-	margin-left: 0.2%;
+	margin-left: -16.4%;
 	margin-top: 1.4%;
 	float: left;
 }
@@ -1089,14 +1091,14 @@ background-color:#FFFFFF;
 	font-family: Microsoft YaHei;
 	color: #868686;
 	position: relative;
-	margin-left: 1%;
+	margin-left: -14%;
 	margin-top: 1.4%;
 	float: left;
 }
 
 #btn_radio_meaning {
 	position: relative;
-	margin-left: -2%;
+	margin-left: 0%;
 	margin-top: 1.1%;
 	float: left;
 }
