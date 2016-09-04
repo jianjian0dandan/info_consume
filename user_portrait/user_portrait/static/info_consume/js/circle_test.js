@@ -1,3 +1,5 @@
+        //当前用户名
+          s_user = 'admin@qq.com';
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
@@ -25,9 +27,7 @@
               }
             } 
       function view_analysis(data){
-          var module_tag = 'basic';
-          var group_result_url = '/info_group/show_group_result/?task_name='+data+'&submit_user=admin@qq.com'+'&module'+module_tag;     
-          call_sync_ajax_request(url,'GET',Draw_table);
+          g_name = data;
       }
                 
          $(function(){
@@ -137,6 +137,5 @@
             });
 
 
-var group_result_url = '/info_group/show_group_result/?task_name='+name+'&submit_user='+user+'&module=influence';     
-call_sync_ajax_request(url,'GET',Draw_table);
+
                 

@@ -1,5 +1,9 @@
-     var group_influ_url = '/info_group/show_group_result/?task_name='+name+'&submit_user='+user+'&module=influence';
      //近一个月圈子影响力走势;id=influen-line
+    
+     var influence_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user'+s_user+'&module=influence';     
+     call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
+    function Draw_influence_line(data){
+      var data = data['influence_trend'];
       var myChart = echarts.init(document.getElementById('influen-line'),'shine');
       var option = {
     title : {
@@ -89,3 +93,4 @@
     ]
 };
        myChart.setOption(option);
+}
