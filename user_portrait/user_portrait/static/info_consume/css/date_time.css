@@ -480,6 +480,17 @@ position: absolute;
 	float: left;
 }
 
+#opinions {
+	background-color: #E4E4E4;
+	width: 95%;
+	height: 4.5%;
+	position: relative;
+	margin-left: 2.6%;
+	margin-top: 1%;
+	float: left;
+}
+
+
 .blog_time {
 	background-color: #FFFFFF;
 	width: 96%;

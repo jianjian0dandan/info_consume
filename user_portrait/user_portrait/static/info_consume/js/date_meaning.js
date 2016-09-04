@@ -1,6 +1,8 @@
 var topic='aoyunhui';
-var start_ts=1468944000;
-var end_ts=1471622400;
+// var start_ts=1468944000;
+var start_ts=1468166400;
+// var end_ts=1471622400;
+var end_ts=1468949400;
 var opinion=["姐姐", "综艺节目", "网络"];
 
 function topic_analysis_meaning(){
@@ -29,7 +31,7 @@ Draw_keywords_cloud:function(data){
       // item_data.push(item[i][0].replace('\\"',''))
       item_json.push({name:item[i][0],value:item[i][1],itemStyle: createRandomItemStyle()});
     }
-// console.log(item_json);
+  
   function createRandomItemStyle() {
     return {
         normal: {
@@ -422,43 +424,26 @@ Draw_time_line:function(){
 },
 
 
-Draw_blog_opinion:function(){
-   var item = data;
+Draw_blog_opinion:function(data){
+    var item = data;
+    var opinion = [];
     var html = '';
-    //var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
-    //key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-    //console.log(data.length);
     
     if (item.length == 0){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
-      var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-    
-      for (i=0;i < Math.min(10,item.length);i++){
-  
-        if (item[i][1].photo_url=='unknown'){
-          item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
-        }
-        
-        var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-        html += '<span class="label place_label" style="color: #868686;">'张继科你醒醒啊'</span>';
-        
+      
+      for (i=0;i < item.length;i++){
+        // console.log('qqqqqq');
+        // var opinion = item[i].join("+");
+        html += '<span class="label place_label" style="color: #868686;">'+item[i].join("+")+'</span>';
+        // console.log(item[i].join("+"));
       }
 
-      
-    
     }
+    // console.log(opinion);
     
-    $('#places').append(html);
-      
-      <span class="label place_label" style="color: #868686;">爱酱不哭</span>
-      <span class="label place_label" style="color: #868686;">大张伟表白薛之谦</span>
-      <span class="label place_label" style="color: #868686;">盗墓笔记吐槽</span>
-      <span class="label place_label" style="color: #868686;">张继科你醒醒啊</span>
-      <span class="label place_label" style="color: #868686;">爱酱不哭</span>
-      <span class="label place_label" style="color: #868686;">大张伟表白薛之谦</span>
-      <span class="label place_label" style="color: #868686;">盗墓笔记吐槽</span>
-
+    $('#opinions').append(html);
 },
 
 
@@ -540,7 +525,7 @@ var topic_analysis_meaning = new topic_analysis_meaning();
 
 function Draw_keywords_cloud_result(){
 	url = "/topic_language_analyze/during_keywords/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
- 	//console.log(url);
+ 	console.log(url);
  	topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_keywords_cloud);
 }
 
@@ -548,6 +533,12 @@ function Draw_event_river_result(){
   url = "/topic_language_analyze/topics_river/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_event_river);
+}
+
+function Draw_blog_opinion_result(){
+  url = "/topic_language_analyze/subopinion/?topic="+topic;
+  console.log(url);
+  topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning. Draw_blog_opinion);
 }
 
 function Draw_blog_scan_area_meaning_result(){
@@ -559,4 +550,5 @@ function Draw_blog_scan_area_meaning_result(){
 
 Draw_keywords_cloud_result();
 Draw_event_river_result();
+Draw_blog_opinion_result();
 Draw_blog_scan_area_meaning_result();
