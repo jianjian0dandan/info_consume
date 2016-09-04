@@ -8,7 +8,7 @@ AB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../public/')
 sys.path.append(AB_PATH)
 #print sys.path
 #sys.path.append('../public/')
-from global_utils import getWeiboById, getTopicByNameStEt,getWeiboByNameStEt
+from global_utils import getTopicByNameStEt,getWeiboByNameStEt
 from time_utils import datetime2ts, ts2HourlyTime,ts2datetime_full
 from global_config import db,weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO,\
                             topics_river_index_name,topics_river_index_type,subopinion_index_name,subopinion_index_type
@@ -440,4 +440,4 @@ if __name__ == '__main__':
     # start_ts = 1469680510
     # end_ts = 1469680515
     print 'topic: ', topic, 'from %s to %s' % (start_ts, end_ts)    
-    count_fre(topic, start_ts=start_ts, over_ts=end_ts,w_limit=MAX_FREQUENT_WORDS,weibo_limit=100)#w_limit=MAX_FREQUENT_WORDS,weibo_limit=MAX_LANGUAGE_WEIBO
+    count_fre(topic, start_ts=start_ts, over_ts=end_ts,w_limit=MAX_FREQUENT_WORDS,weibo_limit=2000)#w_limit=MAX_FREQUENT_WORDS,weibo_limit=MAX_LANGUAGE_WEIBO

@@ -16,6 +16,7 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+
 def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
     items = db.session.query(PropagateTimeWeibos).filter(PropagateTimeWeibos.topic==topic,\
                                                     PropagateTimeWeibos.end <= end_ts,\
