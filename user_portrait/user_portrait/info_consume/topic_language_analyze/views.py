@@ -24,13 +24,13 @@ def topics():
 @mod.route('/during_keywords/')
 def during_keywords():
     topic = request.args.get('topic','')
-    during = request.args.get('pointInterval',60*60) # 默认查询时间粒度为3600秒
-    during = int(during)
+    # during = request.args.get('pointInterval',60*60) # 默认查询时间粒度为3600秒
+    # during = int(during)
     end_ts = request.args.get('end_ts', '')
     end_ts = long(end_ts)
     start_ts = request.args.get('start_ts', '')
     start_ts = long(start_ts)
-    keywords = json.loads(get_during_keywords(topic,start_ts,end_ts,during))
+    keywords = json.loads(get_during_keywords(topic,start_ts,end_ts))
     #keywords = get_during_keywords('aoyunhui',1468944000,1471622400,during)
     return json.dumps(keywords)
 
