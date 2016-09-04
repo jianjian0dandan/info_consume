@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type,\
                             topics_river_index_name,topics_river_index_type,\
-                            subopinion_index_name,subopinion_index_type
+                            subopinion_index_name,subopinion_index_type,topic_index_name,topic_index_type
 from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
 
 from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
@@ -35,18 +35,31 @@ def _json_loads(weibos):
         else:
             return None
 
-def get_during_keywords(topic,start_ts,end_ts,unit=MinInterval):  #关键词云
+
+def get_topics():
+    results = {}
+    topics = weibo_es.search(index=topic_index_name,doc_type=topic_index_type)
+    if topics:
+        topics = topics['hits']['hits']
+        for topic in topics:
+            print topic
+            results[topic['_source']['index_name']]=topic['_source']['name']
+    return json.dumps(results)
+
+
+def get_during_keywords(topic,start_ts,end_ts):  #关键词云,unit=MinInterval
     keywords = []
-    if (end_ts-start_ts)>unit:
-        begin_ts = end_ts-unit
-    else:
-        begin_ts = start_ts
+    # if (end_ts-start_ts)>unit:
+    #     begin_ts = end_ts-unit
+    # else:
+    #     begin_ts = start_ts
+    # print begin_ts,end_ts
     query_body = {
         'query':{
             'filtered':{
                 'filter':{
                     'range':{
-                        'timestamp':{'gte': begin_ts, 'lt':end_ts} 
+                        'timestamp':{'gte': start_ts, 'lt':end_ts} 
                     }
                 }
             }
@@ -83,6 +96,8 @@ def get_topics_river(topic,start_ts,end_ts,unit=MinInterval):#主题河
             }
         }
     }
+    print query_body
+    print topics_river_index_name,topics_river_index_type
     news_topics = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['features']
     print news_topics
     zhutihe_results = cul_key_weibo_time_count(topic,json.loads(news_topics),start_ts,end_ts,unit)
@@ -104,6 +119,7 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
     }
     symbol_weibos = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['cluster_dump_dict']
     symbol_weibos = json.loads(symbol_weibos)
+    print symbol_weibos
     begin_ts = end_ts - unit
     for clusterid,contents in symbol_weibos.iteritems():
         print clusterid
@@ -112,6 +128,28 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
             if ts >= start_ts and ts <= end_ts:  #start_ts应该改成begin_ts，现在近15分钟没数据，所以用所有的
                 weibos[clusterid] = i
     return weibos
+
+
+def get_subopinion(topic):
+    query_body = {
+        'query':{
+            'filtered':{
+                'filter':{
+                    'term':{
+                        'name':topic
+                    }
+                }
+            }
+        }
+    }
+    features = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
+    if features:
+        feature = json.loads(features[0]['_source']['features'])
+        return feature.values()
+    else:
+        return 'no results'
+
+
 
 def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微博内容
     weibo_dict = {}
@@ -128,6 +166,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
         }
     }  #没有查到uid   每次的id不一样   
     weibos = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
+    print opinion
     if weibos:
         weibos = json.loads(weibos[0]['_source']['cluster_dump_dict'])
         for weibo in weibos.values():#jln0825
@@ -148,7 +187,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
                 weibo_content['photo_url'] = 'unknown'
             weibo_dict[weibo_content['mid']] = weibo_content
         results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
-        print results
+        #print results
         return results
     else:
         return 'no results'
@@ -158,36 +197,37 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
     key_weibo_time_count = {}
     time_dict = {}
     for clusterid,keywords in news_topics.iteritems(): #{u'd2e97cf7-fc43-4982-8405-2d215b3e1fea': [u'\u77e5\u8bc6', u'\u5e7f\u5dde', u'\u9009\u624b']}
-        start_ts = int(start_ts)
-        over_ts = int(over_ts)
+        if len(keywords)>0:
+            start_ts = int(start_ts)
+            over_ts = int(over_ts)
 
-        over_ts = ts2HourlyTime(over_ts, during)
-        interval = (over_ts - start_ts) / during
+            over_ts = ts2HourlyTime(over_ts, during)
+            interval = (over_ts - start_ts) / during
 
 
-        for i in range(interval, 0, -1):    #时间段取每900秒的
+            for i in range(interval, 0, -1):    #时间段取每900秒的
 
-            begin_ts = over_ts - during * i
-            end_ts = begin_ts + during
-            must_list=[]
-            must_list.append({'range':{'timestamp':{'gte':begin_ts,'lt':end_ts}}})
-            temp = []
-            for word in keywords:
-                sentence =  {"wildcard":{"keywords_string":"*"+word+"*"}}
-                temp.append(sentence)
-            must_list.append({'bool':{'should':temp}})
+                begin_ts = over_ts - during * i
+                end_ts = begin_ts + during
+                must_list=[]
+                must_list.append({'range':{'timestamp':{'gte':begin_ts,'lt':end_ts}}})
+                temp = []
+                for word in keywords:
+                    sentence =  {"wildcard":{"keywords_string":"*"+word+"*"}}
+                    temp.append(sentence)
+                must_list.append({'bool':{'should':temp}})
 
-            query_body = {"query":{
-                            "bool":{
-                                "must":must_list
+                query_body = {"query":{
+                                "bool":{
+                                    "must":must_list
+                                }
                             }
                         }
-                    }
-            key_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)
-            key_weibo_count = key_weibo['hits']['total']  #分时间段的类的数量
-            time_dict[end_ts] = key_weibo_count
-        key_weibo_time_count[clusterid] = time_dict
-        return key_weibo_time_count
+                key_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)
+                key_weibo_count = key_weibo['hits']['total']  #分时间段的类的数量
+                time_dict[end_ts] = key_weibo_count
+            key_weibo_time_count[clusterid] = time_dict
+    return key_weibo_time_count
 
 
 if __name__ == '__main__':

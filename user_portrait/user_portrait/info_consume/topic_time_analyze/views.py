@@ -33,6 +33,7 @@ def MtypeCount():      #每类微博的数量
     results = get_time_count(topic,start_ts,end_ts,during)
     #results = mtype_count('aoyunhui',1468944000,1471622400,1) 
     return json.dumps(results)
+
 @mod.route('/time_order_weibos/')
 def TimeOrderWeibos():
     topic =request.args.get('topic', '')

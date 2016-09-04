@@ -335,8 +335,6 @@ function pageDown(pageNum,pageCount){
   }
 }
 
-
-
 function page_icon(page,count,eq){
 	var ul_html = "";
 	for(var i=page; i<=count; i++){
@@ -388,6 +386,11 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     html += '</div>'; 
     $('#'+sub_div_name).append(html);
 }
+
+var uid = 1640601392;
+var Personal = new homepageinfo();
+var personalData; // global data
+
 
 var url = "/attribute/new_user_profile/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);

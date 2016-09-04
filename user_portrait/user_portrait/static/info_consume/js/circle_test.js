@@ -7,6 +7,25 @@
                 success:callback
               });
             }
+          function del(data){
+		//console.log(data);
+		     if(data==true){
+		   	alert('操作成功！');
+			   location.reload();
+		      }
+        }
+
+      function dele_analysis(data){
+              var a = confirm('确定要删除吗？');
+                if (a == true){
+                  var url = '/info_group/delete_group_task/?';
+                url = url + 'task_name=' + data +'&submit_user=' + 'admin@qq.com';//$('#useremail').text();
+                console.log(url);
+                call_sync_ajax_request(url,'GET',del);
+              }
+            } 
+       
+                
          $(function(){
               var current_user = 'admin@qq.com'; //获取
               var task_url = '/info_group/show_task/?submit_user='+current_user;
@@ -93,7 +112,7 @@
                       align: 'center',
                       valign: "middle",//垂直
                       formatter:function(value,row,index){   
-                      var d = '<span style="cursor:pointer;">删除</a> ';  
+                      var d = '<span style="cursor:pointer;" onclick="dele_analysis(\''+ row.task_name +'\')">删除</span> ';  
                         return d;  
                     } 
                   }],
@@ -104,13 +123,14 @@
                       };
                     }
              });
-                     $("#view-analysis").click(function(){
+                     $(".view-analysis").click(function(){
                           $("#circle-analysis").slideDown();
                       });
                      $("#close-circle").click(function(){
                           $("#circle-analysis").slideUp();
                       });
-                    
+                 
             });
          
 
+                
