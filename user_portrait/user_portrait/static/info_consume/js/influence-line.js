@@ -1,3 +1,4 @@
+     var group_influ_url = '/info_group/show_group_result/?task_name='+name+'&submit_user='+user+'&module=influence';
      //近一个月圈子影响力走势;id=influen-line
       var myChart = echarts.init(document.getElementById('influen-line'),'shine');
       var option = {

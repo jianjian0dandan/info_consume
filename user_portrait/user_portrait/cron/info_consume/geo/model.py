@@ -4,7 +4,7 @@ from config import db
 
 __all__ = ['Topics', 'SentimentKeywords', 'SentimentWeibos', 'SentimentPoint', 'SentimentCount', 'SentimentCountRatio',\
            'OpinionTopic', 'OpinionWeibos', 'Opinion', 'OpinionHot', 'CityTopicCount', 'CityTopicCountNews', \
-           'CityRepost', 'PropagateCount', 'CityRepostNews', 'CityWeibos', 'CityNews','SentimentGeo']
+           'CityRepost', 'ProvinceWeibos','PropagateCount', 'CityRepostNews', 'CityWeibos', 'CityNews','SentimentGeo']
 
 
 class Topics(db.Model):
@@ -338,3 +338,26 @@ class SentimentGeo(db.Model):
         self.end = end
         self.sentiment = sentiment
         self.geo_count = geo_count
+
+
+class ProvinceWeibos(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    topic = db.Column(db.String(20))
+    end = db.Column(db.BigInteger(10, unsigned=True))
+    range = db.Column(db.BigInteger(10, unsigned=True))
+    limit = db.Column(db.BigInteger(10, unsigned=True))
+    province = db.Column(db.String(20)) 
+    city = db.Column(db.String(20)) 
+    weibos = db.Column(db.Text)                
+
+    def __init__(self, topic, end, range, limit, province,city,weibos):
+        self.topic = topic 
+        self.end = end
+        self.range = range
+        self.limit = limit
+        self.province = province
+        self.city = city
+        self.weibos = weibos
+
+if __name__ == '__main__':
+    db.create_all()

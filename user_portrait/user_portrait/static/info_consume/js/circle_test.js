@@ -99,7 +99,7 @@
                         valign: "middle",//垂直
                         formatter:function(value,row){  
                         if(value == 0){
-                          var e = '<a class="view-analysis" href="#circle-analysis">正在计算</a>';
+                          var e = '<a class="view-analysis" href="#circle-manage">正在计算</a>';
                         }else if(value == 1){
                          // var e = '<a class="view-analysis" href="#circle-manage">点击查看</a>';
                         }
@@ -131,6 +131,8 @@
                       });
                  
             });
-         
 
+
+var group_result_url = '/info_group/show_group_result/?task_name='+name+'&submit_user='+user+'&module=influence';     
+call_sync_ajax_request(url,'GET',Draw_table);
                 
