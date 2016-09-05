@@ -230,59 +230,15 @@ def search_attention(uid, top_count):
     return {'in_portrait_list':in_portrait_list, 'in_portrait_result':in_portrait_result, 'out_portrait_list':out_portrait_list}
 
 
-#abandon in version:15-12-08
-'''
-#search:'retweet_'+uid return attention {r_uid1:count1, r_uid2:count2...}
-#redis:{'retweet_'+uid:{ruid:count}}
-#return results: {ruid:[uname,count]}
-def search_attention(uid):
-    stat_results = dict()
-    results = dict()
-    for db_num in R_DICT:
-        r = R_DICT[db_num]
-        ruid_results = r.hgetall('retweet_'+str(uid))
-        if ruid_results:
-            for ruid in ruid_results:
-                if ruid != uid:
-                    try:
-                        stat_results[ruid] += ruid_results[ruid]
-                    except:
-                        stat_results[ruid] = ruid_results[ruid]
-    # print 'results:', stat_results
-    if not stat_results:
-        return [None, 0]
-    try:
-        sort_state_results = sorted(stat_results.items(), key=lambda x:x[1], reverse=True)[:20]
-    except:
-        return [None, 0]
-    uid_list = [item[0] for item in sort_state_results]
-    es_profile_results = es_user_profile.mget(index='weibo_user', doc_type='user', body={'ids':uid_list})['docs']
-    es_portrait_results = es_user_portrait.mget(index='user_portrait', doc_type='user', body={'ids':uid_list})['docs']
-    result_list = []
-    for i in range(len(es_profile_results)):
-        item = es_profile_results[i]
-        uid = item['_id']
-        try:
-            source = item['_source']
-            uname = source['nick_name']
-        except:
-            uname = u'未知'
-        # identify uid is in the user_portrait
-        portrait_item = es_portrait_results[i]
-        try:
-            source = portrait_item[i]
-            in_status = 1
-        except:
-            in_status = 0
 
-        result_list.append([uid,[uname, stat_results[uid], in_status]])
-       
-    return [result_list[:20], len(stat_results)]
-'''
 
 #use to get user be_retweet from es: be_retweet_1 or be_retweet_2
 #input: uid, top_count
 def search_follower(uid, top_count):
+    if run_type == 0:
+        fields = ['user_fansnum', 'weibo_month_sum', 'user_friendsnum','bci_week_ave']
+    else:
+        fields = ['bci_week_sum', 'bci_month_ave', 'bci_month_sum','bci_week_ave']
     results = {}
     evaluate_max_dict = get_evaluate_max()
     now_ts = time.time()
@@ -292,75 +248,60 @@ def search_follower(uid, top_count):
     try:
         retweet_result = es_retweet.get(index=index_name, doc_type=be_retweet_index_type, id=uid)['_source']
     except:
-        retweet_result = {}
+        return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_be_retweet'])
-    else:
-        retweet_dict = {}
-    sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
-    count = 0
-    in_portrait_list = []
-    out_portrait_list = []
-    in_portrait_result = {} # {'topic':{'topic1':count,...}, 'domain':{'domain1':count}}
-    in_portrait_topic_list = []
-    in_portrait_result['domain'] = {}
-    while True:
-        uid_list = [item[0] for item in sort_retweet_result[count:count+20]]
+        uid_list = retweet_dict.keys()
+        portrait_result = []
         try:
-            portrait_result = es_user_portrait.mget(index=portrait_index_name, doc_type=portrait_index_type, body={'ids':uid_list})['docs']
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':out_portrait_list})['docs']
         except:
-            portrait_result = {}
-        for item in portrait_result:
-            uid = item['_id']
-            if item['found'] == True and uid != center_uid:
-                if len(in_portrait_list)<top_count:
-                    source = item['_source']
-                    uname = source['uname']
-                    influence = source['influence']
-                    #normal
-                    influence = math.log(influence / evaluate_max_dict['influence'] * 9 + 1, 10) * 100
-                    importance = source['importance']
-                    #normal
-                    importance = math.log(importance / evaluate_max_dict['importance'] * 9 + 1, 10) * 100
-                    activeness = source['activeness']
-                    #normal
-                    activeness = math.log(activeness / evaluate_max_dict['activeness'] * 9 + 1, 10) * 100
-                    sensitive = source['sensitive']
-                    #normal
-                    sensitive = math.log(sensitive / evaluate_max_dict['sensitive'] * 9 + 1, 10) * 100
-                    topic_list = source['topic_string'].split('&')
-                    domain = source['domain']
-                    try:
-                        in_portrait_result['domain'][domain] += 1
-                    except:
-                        in_portrait_result['domain'][domain] = 1
-                    in_portrait_topic_list.extend(topic_list)
-                    retweet_count = int(retweet_dict[uid])
-                    in_portrait_list.append([uid,uname,influence, importance, retweet_count, activeness, sensitive])
+            user_result = []
+        try:
+            bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
+        except:
+            bci_history_result = []
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                if uname == '':
+                    uname = u'未知'
+                #location = source['user_location']
+                friendsnum = source['friendsnum']
             else:
-                if len(out_portrait_list)<top_count and uid != center_uid:
-                    out_portrait_list.append(uid)
-        if len(out_portrait_list)==top_count and len(in_portrait_list)==top_count:
-            break
-        elif count >= len(sort_retweet_result):
-            break
-        else:
-            count += 20
-    in_portrait_result['topic'] = {}
-    for topic_item in in_portrait_topic_list:
-        try:
-            in_portrait_result['topic'][topic_item] += 1
-        except:
-            in_portrait_result['topic'][topic_item] = 1
-    
-    #sort in_portrait_result domain and topic
-    topic_dict = in_portrait_result['topic']
-    sort_topic_dict = sorted(topic_dict.items(), key=lambda x:x[1], reverse=True)
-    domain_dict = in_portrait_result['domain']
-    sort_domain_dict = sorted(domain_dict.items(), key=lambda x:x[1], reverse=True)
-    in_portrait_result['topic'] = sort_topic_dict
-    in_portrait_result['domain'] = sort_domain_dict
-    
+                uname = u'未知'
+                location = ''
+                friendsnum = ''
+
+            #add index from bci_history
+            try:
+                bci_history_item = bci_history_result[iter_count]
+            except:
+                bci_history_item = {'found': False}
+            if bci_history_item['found']==True:
+                fansnum = bci_history_item['fields']['user_fansnum'][0]
+                user_weibo_count = bci_history_item['fields']['weibo_month_sum'][0]
+                user_friendsnum = bci_history_item['fields']['user_friendsnum'][0]
+                influence = bci_history_item['fields']['bci_week_ave'][0]
+            else:
+                fansnum = ''
+                user_weibo_count = ''
+                user_friendsnum = ''
+            #retweet_count = int(retweet_dict[uid])
+            out_portrait_list.append([uid, uname, influence, fansnum,  user_friendsnum, user_weibo_count])#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
+    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+
+
+
+'''
     #use to get user information from user profile
     out_portrait_result = []
     try:
@@ -406,7 +347,7 @@ def search_follower(uid, top_count):
         iter_count += 1
 
     return {'in_portrait_list':in_portrait_list, 'in_portrait_result':in_portrait_result, 'out_portrait_list':out_portrait_list}
-
+'''
 
 
 #use to get user comment from es: comment_1, comment_2
