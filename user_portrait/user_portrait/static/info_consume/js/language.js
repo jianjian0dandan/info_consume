@@ -77,7 +77,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
 	$('#'+ more_div).empty();
   if(data.length == 0||data[0]==undefined|| (data.length == 1 && data[0][0] == 'm')){
      //console.log(div_name);
-      html = '<h4 style="text-align:center;margin-top:120px;">暂无数据</h4>';
+      html = '<h4 style="text-align:center;margin-top:120px;margin-left:20px;">暂无数据</h4>';
       //$('#'+ more_div).append(html);
       $('#'+ div_name).append(html);
       $('#'+ more).empty();
@@ -140,14 +140,14 @@ function Draw_keyword(data, div_name, more_div, more,title){
               },
               series: [{
                   type: 'wordCloud',
-                  size: ['100%', '100%'],
-                  //textRotation : [0, 45, 90, -45],
+                  size: ['150%', '200%'],
+                  textRotation : [0, 45, 90, -45],
                   textPadding: 0,
-                  //autoSize: {
-                  //  enable: true,
-                  //minSize: 14
-                  //}
-                  //,
+                  autoSize: {
+                    enable: true,
+                  minSize: 14
+                  }
+                  ,
                   data: keyword
                }]
           };

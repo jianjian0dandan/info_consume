@@ -42,53 +42,53 @@ personZone.prototype = {
   }
    
         
-       var Fansum = document.getElementById('fansum');
-   if( personalData.fansnum==""){
-       personalData.fansnum = "暂无数据";
-   }
-       Fansum.innerHTML = personalData.fansnum;
-   var Attentionsum = document.getElementById('attentionsum');
-   if( personalData.friendsnum==""){
-       personalData.friendsnum = "暂无数据";
-   }
-       Attentionsum.innerHTML = personalData.friendsnum;
-   var Weibosum = document.getElementById('weibosum');
-   if( personalData.statusnum==""){
-       personalData.statusnum = "暂无数据";
-   }
-       Weibosum.innerHTML = personalData.statusnum;
-   var Loca = document.getElementById('userLocation');
-   if( personalData.user_location==""){
-       personalData.user_location = "暂无数据";
-   }
-   Loca.innerHTML = personalData.user_location;
-   var Descrip = document.getElementById('userdes');
-   if( personalData.description==""){
-       personalData.description = "暂无数据";
-       }else if (personalData.description.length>50){
-       Descrip.innerHTML = personalData.description.substr(0,50)+'...';
-           Descrip.title = personalData.description;
-      }else{
-       Descrip.innerHTML = personalData.description;}
-           var homepage = document.getElementById('uhome');
-           if(!personalData.uid ){
-               homepage.innerHTML = "无此数据";
-           }else{
-               homepage.innerHTML = '<a id="openurl" style="cursor:pointer" onclick="openurl();">http://weibo.com/u/'+personalData.uid;
-           }  
-    var userImg = document.getElementById('body_board')
-      //console.log(userImg);
-      if (personalData.sex == ""){
-  	    personalData.sex = '暂无数据';
-  	    //console.log(none);	
-      } else if (personalData.sex == 1) {
-        userImg.src = "/static/info_consume/image/bodymodel_man.png";
-      //  console.log(1);
-      }else if (personalData.sex == 2) {
-        userImg.src = "/static/info_consume/image/bodymodel_woman.png";
-        userImg.style = "width: 350px;margin-left: -77px;float: none;margin-top: 60px;display: block;opacity:0.8;";
-       // console.log(2);
-      } 
+  //      var Fansum = document.getElementById('fansum');
+  //  if( personalData.fansnum==""){
+  //      personalData.fansnum = "暂无数据";
+  //  }
+  //      Fansum.innerHTML = personalData.fansnum;
+  //  var Attentionsum = document.getElementById('attentionsum');
+  //  if( personalData.friendsnum==""){
+  //      personalData.friendsnum = "暂无数据";
+  //  }
+  //      Attentionsum.innerHTML = personalData.friendsnum;
+  //  var Weibosum = document.getElementById('weibosum');
+  //  if( personalData.statusnum==""){
+  //      personalData.statusnum = "暂无数据";
+  //  }
+  //      Weibosum.innerHTML = personalData.statusnum;
+  //  var Loca = document.getElementById('userLocation');
+  //  if( personalData.user_location==""){
+  //      personalData.user_location = "暂无数据";
+  //  }
+  //  Loca.innerHTML = personalData.user_location;
+  //  var Descrip = document.getElementById('userdes');
+  //  if( personalData.description==""){
+  //      personalData.description = "暂无数据";
+  //      }else if (personalData.description.length>50){
+  //      Descrip.innerHTML = personalData.description.substr(0,50)+'...';
+  //          Descrip.title = personalData.description;
+  //     }else{
+  //      Descrip.innerHTML = personalData.description;}
+  //          var homepage = document.getElementById('uhome');
+  //          if(!personalData.uid ){
+  //              homepage.innerHTML = "无此数据";
+  //          }else{
+  //              homepage.innerHTML = '<a id="openurl" style="cursor:pointer" onclick="openurl();">http://weibo.com/u/'+personalData.uid;
+  //          }  
+  //   var userImg = document.getElementById('body_board')
+  //     //console.log(userImg);
+  //     if (personalData.sex == ""){
+  // 	    personalData.sex = '暂无数据';
+  // 	    //console.log(none);	
+  //     } else if (personalData.sex == 1) {
+  //       userImg.src = "/static/info_consume/image/bodymodel_man.png";
+  //     //  console.log(1);
+  //     }else if (personalData.sex == 2) {
+  //       userImg.src = "/static/info_consume/image/bodymodel_woman.png";
+  //       userImg.style = "width: 350px;margin-left: -77px;float: none;margin-top: 60px;display: block;opacity:0.8;";
+  //      // console.log(2);
+  //     } 
    
    },
    //影响力和活跃度数据
