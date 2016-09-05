@@ -1,3 +1,6 @@
+        //当前用户名
+          s_user = 'admin@qq.com';
+          g_name = '';
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
@@ -24,7 +27,9 @@
                 call_sync_ajax_request(url,'GET',del);
               }
             } 
-       
+      function view_analysis(data){
+          g_name = data;
+      }
                 
          $(function(){
               var current_user = 'admin@qq.com'; //获取
@@ -98,10 +103,10 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row){  
-                        if(value == 0){
-                          var e = '<a class="view-analysis" href="#circle-analysis">正在计算</a>';
-                        }else if(value == 1){
-                         // var e = '<a class="view-analysis" href="#circle-manage">点击查看</a>';
+                        if(value == 1){
+                          var e = '<span">正在计算</span>';
+                        }else if(value == 0){
+                         var e = '<span style="cursor:pointer;" onclick="view_analysis(\''+ row.task_name +'\')">点击查看</span> ';
                         }
                           return e;
                      }
@@ -131,6 +136,7 @@
                       });
                  
             });
-         
+
+
 
                 

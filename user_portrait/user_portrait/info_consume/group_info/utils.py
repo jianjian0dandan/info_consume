@@ -397,10 +397,12 @@ def show_vary_detail(task_name, submit_user, vary_pattern):
 def search_group_results(task_name, module, submit_user):
     result = {}
     task_id = submit_user + '-' + task_name
+    #jln
+    task_id = 'mytest030302'
     #step1:identify the task_name exist
     try:
-        source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \
-                id=task_id)['_source']
+               source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \
+               id=task_id)['_source']
     except:
         return 'group task is not exist'
     #step2: identify the task status=1(analysis completed)
@@ -655,8 +657,11 @@ def get_evaluate_max():
 def get_group_list(task_name, submit_user):
     results = []
     task_id = submit_user + '-' + task_name
+    print tesk_id
     try:
-        es_results = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
+        es_results = es_group_result.get(index='test_group_result', doc_type=group_index_type, id=task_id)['_source']
+        #jln  现在的9200里没有
+        #es_results = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
     except:
         return results
     uid_list = es_results['uid_list']
