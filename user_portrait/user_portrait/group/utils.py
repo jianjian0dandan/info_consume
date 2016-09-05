@@ -395,6 +395,7 @@ def show_vary_detail(task_name, submit_user, vary_pattern):
 def search_group_results(task_name, module, submit_user):
     result = {}
     task_id = submit_user + '-' + task_name
+    print es_group_result
     #step1:identify the task_name exist
     try:
         source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \
