@@ -1,6 +1,6 @@
         //当前用户名
           s_user = 'admin@qq.com';
-          g_name = '';
+          g_name = '雷洋'; 
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
