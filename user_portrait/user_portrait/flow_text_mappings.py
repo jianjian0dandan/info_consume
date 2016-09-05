@@ -26,7 +26,7 @@ def get_graph_mappings(index_name):
                             'index': 'no'
                             },
                         'date':{
-                            'type':'long',
+                            'type':'string',
                             'index': 'not_analyzed'
                             },
                         'window':{
