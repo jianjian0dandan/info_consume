@@ -80,28 +80,37 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
                                                          SentimentGeo.end<=upbound, \
                                                          SentimentGeo.topic==topic).all()
     count_dict = {}
-    for item in items:          
-        geo = _json_loads(item.geo_count)
-        for province,city_dict in geo.iteritems():
-            for k,v in city_dict.iteritems():
-                if k == 'total':
-                    continue                
-                try:
-                    count_dict[k] += v
-                except:
-                    count_dict[k] = v
-        # print geo
-        # try:
-        #     citys = geo[province]
-        #     for k,v in geo[province].iteritems():
-        #         try:
-        #             city_dict[k] += v
-        #         except:
-        #             city_dict[k] = v
-        # except:
-        #     continue            
-
-    results = sorted(city_dict.iteritems(),key=lambda x:x[1],reverse=True)
+    if items:
+        for item in items:       
+            geo = _json_loads(item.geo_count)
+            print geo
+            for province,city_dict in geo.iteritems():
+                sen = item.sentiment
+                if sen in down:
+                    sen0 = '2'
+                else:
+                    sen0 = str(sen)
+                for k,v in city_dict.iteritems():
+                    if k == 'total':
+                        continue                
+                    try:
+                        count_dict[sen0][k] += v
+                    except:
+                        try:
+                            count_dict[sen0][k] = v
+                        except:
+                            count_dict[sen0] = {}
+            # print geo
+            # try:
+            #     citys = geo[province]
+            #     for k,v in geo[province].iteritems():
+            #         try:
+            #             city_dict[k] += v
+            #         except:
+            #             city_dict[k] = v
+            # except:
+            #     continue  
+    results = sorted(count_dict.iteritems(),key=lambda x:x[1],reverse=True)
     #print results
     return results
 

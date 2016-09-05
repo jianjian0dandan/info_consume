@@ -189,30 +189,30 @@
 
 <!--页面上半部分到此-->
 
-	<div class="panel panel-success" style="width:27%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left: -22%; margin-top: 20px;">
+	<div class="panel panel-success" style="width: 33%;height: 450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left: -28%; margin-top: 20px;">
+	
+		<div class="panel-heading">
+			<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的身份</h3>
+		</div>
+		<div id="p_so_onload" ><center>小的正在努力的为老大您加载内容，请稍后...</center></div>
+		<div class="panel-body">
+
+				<div id="identity" style="height:350px;margin-top:3px;">
+					<!--雷达图区域-->
+				</div>
+		</div>
+    </div>
+
+
+    <div class="panel panel-success" style="width:33%;height:450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left:12px; margin-top: 20px;">
+
 		<div class="panel-heading">
 			<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的领域</h3>
 		</div>
+		 <div id="p_so_onload1"><center>小的正在努力的为老大您加载内容，请稍后...</center></div>
 		<div class="panel-body">
-				
 
-				<div style="width:100%;height:50px;">
-				    <img src="/static/info_consume/image/u103.png" style="height:80%;width:10%;float:left;margin-left:10%;margin-top: 12px;">
-				    
-				    <table style="font-family: 微软雅黑;font-size: 18px;float:left;margin-top: 14px;font-weight:bold">
-				    	<tr>
-				    		<td style="color: dimgrey;">
-				    			TA属于：
-				    		</td>
-				    		<td style="color: darkorange;"> 
-				    			民间组织
-				    		</td>
-				    	</tr>
-				    </table>
-
-				</div>
-
-				<div id="main" style="height:350px;margin-top:3px;">
+				<div id="domain" style="height:350px;margin-top:3px;">
 					<!--雷达图区域-->
 				</div>
 		</div>
@@ -222,386 +222,61 @@
 	<div>
 	
 
-	    <div class="panel panel-success" style="width:27%;height:80%;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-top:20px;">
+	    <div class="panel panel-success" style="width:67%;height:80%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-top:10px;">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的社交</h3>
 			</div>
 			<div class="panel-body">
 				<ul id="myTab" class="nav nav-tabs">
 				   <li class="active">
-				      <a href="#zhuanfa" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">
-				         最近转发
+				      <a href="#retweet_out" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">
+				         被他转发及评论用户
 				      </a>
 				   </li>
-				   <li><a href="#tixing" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;border-bottom: 1px solid #ddd;">@他的</a></li>
-				   <li><a href="#hudong" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;border-bottom: 1px solid #ddd;">最近互动</a></li>
+
+				   <li><a href="#tweeted_out" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;border-bottom: 1px solid #ddd;">转发及评论他的用户</a></li>
+
+				   <li><a href="#two_way_out" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;border-bottom: 1px solid #ddd;">最近互动</a></li>
+
+				    <li><a href="#related_out" data-toggle="tab" style="width:100%;background:#ffffff;color:#000;border-bottom: 1px solid #ddd;">他@的用户</a></li>
 				   
 				</ul>
+
+
 				<div id="myTabContent" class="tab-content">
-				   <div class="tab-pane fade in active" id="zhuanfa" style="margin-left: 20%;">
-				      	<table style="/*margin-left:10%;*/width:100%;" cellpadding="6"; >
-											<tr>
-												<th>
-													<p>
-														头像
-													</p>
-													
-												</th>
-													
-												<th>
-													<p>
-														昵称
-													</p>
-												</th>
+				   <div class="tab-pane fade in active" id="retweet_out" >
+				    <div id="p_so_onload" ><center>小的正在努力的为老大您加载内容，请稍后...</center></div>
 
-												<th>
-													<p>
-														影响力
-													</p>
-												</th>
-										</tr>
+				    <span id="retweet_out" style="margin-left:0px;float:left;width:110px;"></span>
+					<!-- <a href="#" data-toggle="modal" data-target="#more_retweet" id="moreretweet_out" style="float:left;line-height:30px;margin-left:5px;">更多</a> -->
 
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														小灰灰
-													</p>
-												</td>
-
-												<td>
-													<p>
-														70
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														小小
-													</p>
-												</td>
-
-												<td>
-													<p>
-														60
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														情愿
-													</p>
-												</td>
-
-												<td>
-													<p>
-														55
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														心心
-													</p>
-												</td>
-
-												<td>
-													<p>
-														50
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														美美
-													</p>
-												</td>
-
-												<td>
-													<p>
-														40
-													</p>
-												</td>
-										</tr>
-
-									</table>
 								
-				   </div>
+				</div>
 
-				   <div class="tab-pane fade" id="tixing">
-				      	<table style="margin-left:15%;width:100%;" cellpadding="6"; >
-											<tr>
-												<th>
-													<p>
-														头像
-													</p>
-													
-												</th>
-													
-												<th>
-													<p>
-														昵称
-													</p>
-												</th>
+				<div class="tab-pane fade" id="tweeted_out">
+				    <div id="p_so_onload" ><center>小的正在努力的为老大您加载内容，请稍后...</center></div>
+				    <span id="tweeted_out" style="margin-left:0px;float:left;width:110px;"></span>
+					<!-- <a href="#" data-toggle="modal" data-target="#more_tweeted" id="moretweeted_out" style="float:left;line-height:30px;margin-left:5px;">更多</a> -->
 
-												<th>
-													<p>
-														影响力
-													</p>
-												</th>
-										</tr>
 
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														小灰灰
-													</p>
-												</td>
+				</div>
 
-												<td>
-													<p>
-														70
-													</p>
-												</td>
-										</tr>
+				   
+				<div class="tab-pane fade" id="two_way_out">
+					<div id="p_so_onload" ><center>小的正在努力的为老大您加载内容，请稍后...</center></div>
+					<span id="two_way_out" style="margin-left:0px;float:left;width:110px;"></span>
+					<!-- <a href="#" data-toggle="modal" data-target="#more_two_way"  id="moretwo_way_out" style="float:left;line-height:30px;margin-left:5px;">更多</a> -->
+				</div>
 
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														小小
-													</p>
-												</td>
 
-												<td>
-													<p>
-														60
-													</p>
-												</td>
-										</tr>
 
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														情愿
-													</p>
-												</td>
+				<div class="tab-pane fade" id="related_out">
+					<div id="p_so_onload" ><center>小的正在努力的为老大您加载内容，请稍后...</center></div>
+					<span id="related_out" style="margin-left:0px;float:left;width:110px;"></span>
+					<!-- <a href="#" data-toggle="modal" data-target="#more_related" id="morerelated_out" style="float:left;line-height:30px;margin-left:5px;">更多</a> -->
 
-												<td>
-													<p>
-														55
-													</p>
-												</td>
-										</tr>
 
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														心心
-													</p>
-												</td>
-
-												<td>
-													<p>
-														50
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														美美
-													</p>
-												</td>
-
-												<td>
-													<p>
-														40
-													</p>
-												</td>
-										</tr>
-
-									</table>
-				   </div>
-
-				   <div class="tab-pane fade" id="hudong">
-					      <table style="margin-left:15%;width:100%;" cellpadding="6"; >
-											<tr>
-												<th>
-													<p>
-														头像
-													</p>
-													
-												</th>
-													
-												<th>
-													<p>
-														昵称
-													</p>
-												</th>
-
-												<th>
-													<p>
-														影响力
-													</p>
-												</th>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														小灰灰
-													</p>
-												</td>
-
-												<td>
-													<p>
-														70
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														小小
-													</p>
-												</td>
-
-												<td>
-													<p>
-														60
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														情愿
-													</p>
-												</td>
-
-												<td>
-													<p>
-														55
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														心心
-													</p>
-												</td>
-
-												<td>
-													<p>
-														50
-													</p>
-												</td>
-										</tr>
-
-										<tr>
-												<td>
-													<img src="/static/info_consume/image/head.jpg" style="height:50px;width:50px;">
-													
-												</td>
-													
-												<td>
-													<p>
-														美美
-													</p>
-												</td>
-
-												<td>
-													<p>
-														40
-													</p>
-												</td>
-										</tr>
-
-									</table>
-				   </div>
-
+				</div>
 
 
 			</div>
@@ -609,13 +284,8 @@
 			</div>
 		</div>
 
-
-
-	    
-			    	
-
 				
-	    <div class="panel panel-success" style="width:56%;height:80%;margin-left:22%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+	    <div class="panel panel-success" style="width:67%;height:80%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
 			<div class="panel-heading">
 				<h3 class="panel-title">最近动态</h3>
 			</div>
