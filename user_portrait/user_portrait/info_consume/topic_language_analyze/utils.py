@@ -98,10 +98,13 @@ def get_topics_river(topic,start_ts,end_ts,unit=MinInterval):#主题河
     }
     print query_body
     print topics_river_index_name,topics_river_index_type
-    news_topics = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['features']
-    print news_topics
-    zhutihe_results = cul_key_weibo_time_count(topic,json.loads(news_topics),start_ts,end_ts,unit)
-    return zhutihe_results
+    news_topics = json.loads(weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['features'])
+    zhutihe_results = cul_key_weibo_time_count(topic,news_topics,start_ts,end_ts,unit)
+    results = {}
+    for k,v in news_topics.iteritems():
+        if len(v)>0:
+            results[v[0]] = zhutihe_results[k]
+    return results
 
 
 def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
