@@ -3,7 +3,8 @@
 use to save text from flow_text --for all people 7day
 '''
 from elasticsearch import Elasticsearch
-from global_utils import es_flow_text as es
+#from global_utils import es_flow_text as es
+from global_config import weibo_es as es
 #from global_utils import es_user_portrait as es
 
 def get_graph_mappings(index_name):

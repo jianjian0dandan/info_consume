@@ -47,7 +47,7 @@ def save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf):
 	
 	get_graph_mappings(index_name)
 	
-	#bulk_action = []
+	bulk_action = []
 	#action = {"index":{"_id":999}}
 	source = json.dumps(identifyGexf)
 	action = {
@@ -59,9 +59,10 @@ def save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf):
 					"window":identifyWindow
 				}
 			}
-	#bulk_action.extend([action,source])
-	es.bulk(action, index=index_name, doc_type='text', timeout=600)
-
+	bulk_action.extend([action,])
+	print bulk_action
+	#es.bulk(bulk_action, index=index_name, doc_type='text', timeout=600)
+	es.index(index=index_name, doc_type='text', id=999, body=action)
 
 
 def es2gexf(indexname):
