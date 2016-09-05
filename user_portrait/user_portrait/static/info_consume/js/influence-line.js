@@ -1,13 +1,4 @@
      //近一个月圈子影响力走势;id=influen-line
-    function call_sync_ajax_request(url, method, callback){
-              $.ajax({
-                url: url,
-                type: method,
-                dataType: 'json',
-                async: true,
-                success:callback
-              });
-            }
      var influence_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user'+s_user+'&module=influence';     
      call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
     function Draw_influence_line(data){
