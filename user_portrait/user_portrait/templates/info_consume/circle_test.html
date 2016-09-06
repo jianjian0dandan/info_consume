@@ -75,93 +75,14 @@
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading purple"><b>主要活跃用户</b></div>
-                    <div id="activi-users" class="panel-body">
-                      <table class="table table-striped table-hover">
-                       <thead>
-                       <tr>
-                      <th>排名</th>
-                      <th>ID</th>
-                      <th>昵称</th>
-                      <th class="hidden-480">活跃度</th>
-                      <th>活跃等级</th>
-                       </tr>
-                      </thead>
-                      <tbody>
-                      <tr>
-                      <td>1</td><td>324354355</td><td>微博管家</td>
-                      <td class="hidden-480">95</td>
-                      <td><span class="label label-danger">一级</span></td>
-                      </tr> 
-                      <tr>
-                      <td>2</td>
-                      <td>435465734</td>
-                      <td>回忆小马甲</td>
-                      <td class="hidden-480">93</td>
-                      <td><span class="label label-warning">二级</span></td>
-                      </tr>
-                      <tr>
-                      <td>3</td>
-                      <td>3544657</td>
-                      <td>邓超</td>
-                      <td class="hidden-480">92</td>
-                      <td><span class="label label-success">二级</span></td>
-                      </tr>
-                      <tr>
-                      <td>4</td>
-                      <td>45336434</td>
-                      <td>孙杨</td>
-                      <td class="hidden-480">90</td>
-                      <td><span class="label label-success">三级</span></td>
-                      </tr>
-                  </tbody>
-                </table>
+                    <div id="activi-users" class="panel-body"  style="height:250px;">
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading yellow"><b>主要非活跃用户</b></div>
-                    <div id="intiactivi-users" class="panel-body">
-                      <table class="table table-striped table-hover">
-                       <thead>
-                       <tr>
-                      <th>排名</th>
-                      <th>ID</th>
-                      <th>昵称</th>
-                      <th class="hidden-480">活跃度</th>
-                      <th>活跃等级</th>
-                       </tr>
-                      </thead>
-                      <tbody>
-                      <tr>
-                      <td>1</td><td>324354355</td>
-                      <td>朝阳记者</td>
-                      <td class="hidden-480">95</td>
-                      <td><span class="label label-info">四级</span></td>
-                      </tr> 
-                      <tr>
-                      <td>2</td>
-                      <td>435465734</td>
-                      <td>互联网排行</td>
-                      <td class="hidden-480">93</td>
-                      <td><span class="label label-info">四级</span></td>
-                      </tr>
-                      <tr>
-                      <td>3</td>
-                      <td>3544657</td>
-                      <td>孙立平</td>
-                      <td class="hidden-480">92</td>
-                      <td><span class="label label-info">五级</span></td>
-                      </tr>
-                      <tr>
-                      <td>4</td>
-                      <td>45336434</td>
-                      <td>今日早报</td>
-                      <td class="hidden-480">90</td>
-                      <td><span class="label label-info">五级</span></td>
-                      </tr>
-                  </tbody>
-                </table>
+                    <div id="unactivi-users" class="panel-body" style="height:250px;">
                     </div>
                   </div>
                 </div>
@@ -274,10 +195,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
     <script src="../../static/info_consume/js/echarts-all-guo.js"></script>
     <script src="../../static/info_consume/js/circle_basic.js"></script>
-    <script src="../../static/info_consume/js/activi-line.js"></script>
-    <script src="../../static/info_consume/js/geo-distri.js"></script>
-    <script src="../../static/info_consume/js/keyword-cloud.js"></script>
-    <script src="../../static/info_consume/js/topic-cloud.js"></script>
+    <script src="../../static/info_consume/js/circle_activity.js"></script>
+    <script src="../../static/info_consume/js/circle_preference.js"></script>
   </body>
   {% endblock %}
 </html>
