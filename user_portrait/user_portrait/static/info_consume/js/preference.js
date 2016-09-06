@@ -112,7 +112,7 @@ function Draw_out(data,div){
    // console.log(data[1][1]);
         $('#'+div).empty();
     if(data.length==0){
-        document.getElementById(div).innerHTML = "暂无数据";
+        document.getElementById('domain').innerHTML = "暂无数据";
       // $('#more'+div).css('display','none');
     }else
     {
@@ -136,21 +136,21 @@ function Draw_out(data,div){
 }
 
 
-var uid = 3293303045;
+var uid = 2853982940;
 
 var preference=new preference();
 
 
 function show_domain()
 {
-  url = '/attribute/new_user_social/?uid=3293303045';
+  url = '/attribute/new_user_social/?uid=' + uid;
   console.log(url);
   preference.call_sync_ajax_request(url,preference.domain);
 }
 
 function show_social()
 {
-  url = '/attribute/new_user_social/?uid=3293303045';
+  url = '/attribute/new_user_social/?uid='+ uid;
   preference.call_sync_ajax_request(url,preference.social);
 }
 
