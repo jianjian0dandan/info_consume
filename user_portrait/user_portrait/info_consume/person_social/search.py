@@ -47,6 +47,158 @@ WEEK = 7
 emotion_mark_dict = {'126': 'positive', '127':'negative', '128':'anxiety', '129':'angry'}
 link_ratio_threshold = [0, 0.5, 1]
 
+
+
+
+#search:now_ts , uid return 7day at uid list  {uid1:count1, uid2:count2}
+#{'at_'+Date:{str(uid):'{at_uid:count}'}}
+#return results:{at_uid:[uname,count]}
+def search_mention(now_ts, uid, top_count):
+    date = ts2datetime(now_ts)
+    #evaluate_max_dict = get_evaluate_max()
+    ts = datetime2ts(date)
+    stat_results = dict()
+    results = dict()
+    for i in range(1,8):
+        ts = ts - DAY
+        try:
+            result_string = r_cluster.hget('at_' + str(ts), str(uid))
+        except:
+            result_string = ''
+        if not result_string:
+            continue
+        result_dict = json.loads(result_string)
+        for at_uname in result_dict:
+            try:
+                stat_results[at_uname] += result_dict[at_uname]
+            except:
+                stat_results[at_uname] = result_dict[at_uname]
+    sort_stat_results = sorted(stat_results.items(), key=lambda x:x[1], reverse=True)
+    print sort_stat_results
+    all_count = len(sort_stat_results) # all mention count
+    #select in_portrait and out_portrait
+    in_portrait_list = []
+    out_portrait_list = []
+    count = 0
+    in_portrait_result = {'topic':{}, 'domain':{}}
+    in_portrait_topic_list = []
+    out_list = []
+    while True:
+        if count>=len(sort_stat_results):
+            break
+        nest_body_list = [{'match':{'uname':item[0]}} for item in sort_stat_results[count:count+20]]
+        query = [{'bool':{'should': nest_body_list}}]
+        try:
+            portrait_result = es_user_portrait.search(index=portrait_index_name, doc_type=portrait_index_type, body={'query':{'bool':{'must':query}}, 'size':100})['hits']['hits']
+        except:
+            portrait_result = []
+        for item in portrait_result:
+            if len(in_portrait_list)<top_count:
+                user_dict = item['_source']
+                uname = user_dict['uname']
+                domain = user_dict['domain']
+                influence = user_dict['influence']
+                #normal
+                influence = math.log(influence / evaluate_max_dict['influence'] * 9 + 1, 10) * 100
+                importance = user_dict['importance']
+                #normal
+                importance = math.log(importance / evaluate_max_dict['importance'] * 9 +1 , 10) * 100
+                activeness = user_dict['activeness']
+                #noraml
+                activeness = math.log(activeness / evaluate_max_dict['activeness'] * 9 + 1, 10) * 100
+                sensitive = user_dict['sensitive']
+                sensitive = math.log(sensitive / evaluate_max_dic['sensitive'] * 9 + 1, 10) * 100
+                try:
+                    in_portrait_result['domain'][domain] += 1
+                except:
+                    in_portrait_result['domain'][domain] = 1
+                topic_list = user_dict['topic_string'].split('&')
+                in_portrait_topic_list.extend(topic_list)
+                mention_count = state_results[uname]
+                in_portrait_result.append([uid, uname, influence, importance, mention_count, activeness, sensitive])
+        out_item_list = list(set([item[0] for item in sort_stat_results[count:count+20]]) - set([item['_source']['uname'] for item in portrait_result]))
+        out_list.extend(out_item_list)
+        if len(out_list)>=top_count and len(in_portrait_list)>=top_count:
+            break
+        else:
+            count += 20
+    
+    in_portrait_result['topic'] = {}
+    for topic_item in in_portrait_topic_list:
+        try:
+            in_portrait_result['topic'][topic_item] += 1
+        except:
+            in_portrait_result['topic'][topic_item] = 1
+    #sort topic and domain stat result
+    topic_dict = in_portrait_result['topic']
+    sort_topic_dict = sorted(topic_dict.items(), key=lambda x:x[1], reverse=True)
+    domain_dict = in_portrait_result['domain']
+    sort_domain_dict = sorted(domain_dict.items(), key=lambda x:x[1], reverse=True)
+    in_portrait_result['topic'] = sort_topic_dict
+    in_portrait_result['domain'] = sort_domain_dict
+
+    #use to get user information from user profile
+    out_query_list = [{'match':{'uname':item}} for item in out_list]
+    if len(out_query_list) != 0:
+        query = [{'bool':{'should': out_query_list}}]
+        try:
+            out_profile_result = es_user_profile.search(index=profile_index_name, doc_type=profile_index_type, body={'query':{'bool':{'must':query}}, 'size':100})['hits']['hits']
+        except:
+            out_profile_result = []
+    else:
+        out_profile_result = []
+    out_in_profile_list = []
+    bci_search_id_list = []
+    for out_item in out_profile_result:
+        source = out_item['_source']
+        uname = source['nick_name']
+        uid = source['uid']
+        location = source['location']
+        friendsnum = source['friendsnum']
+        out_portrait_list.append([uid, uname, stat_results[uname], '', location, friendsnum, ''])
+        out_in_profile_list.append(uname)
+        #use to search bci history
+        bci_search_id_list.append(uid)
+    out_out_profile_list = list(set(out_list) - set(out_in_profile_list))
+    for out_out_item in out_out_profile_list:
+        out_portrait_list.append(['', out_out_item, stat_results[out_out_item],'', '', '', ''])
+    
+    #add index from bci_history
+    new_out_portrait_list = []
+    try:
+        bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids': bci_search_id_list}, fields=['user_fansnum', 'weibo_month_sum', 'user_friendsnum'])['docs']
+    except:
+        bci_history_result = []
+    iter_count = 0
+    for out_portrait_item in out_portrait_list:
+        try:
+            bci_history_item = bci_history_result[iter_count]
+        except:
+            bci_history_item = {}
+        new_out_portrait_item = out_portrait_item
+        if bci_history_item:
+            if bci_history_item['found'] == True:
+                fansnum = bci_history_item['fields']['user_fansnum'][0]
+                user_weibo_count = bci_history_item['fields']['weibo_month_sum'][0]
+                user_friendsnum = bci_history_item['fields']['user_friendsnum'][0]
+            else:
+                fansnum = ''
+                user_weibo_count = ''
+                user_friendsnum = ''
+        else:
+            fansnum = ''
+            user_weibo_count = ''
+            user_friendsnum = ''
+        new_out_portrait_item[3] = fansnum
+        new_out_portrait_item[6] = user_weibo_count
+        new_out_portrait_item[-2] = user_friendsnum
+        new_out_portrait_list.append(new_out_portrait_item)
+        iter_count += 1
+    
+    return {'in_portrait_list':in_portrait_list, 'out_portrait_list':new_out_portrait_list, 'in_portrait_result':in_portrait_result}
+
+
+
 def search_identify_uid(uid):
     result = 0
     try:
@@ -866,151 +1018,6 @@ def search_follower(uid):
 '''
 
 
-#search:now_ts , uid return 7day at uid list  {uid1:count1, uid2:count2}
-#{'at_'+Date:{str(uid):'{at_uid:count}'}}
-#return results:{at_uid:[uname,count]}
-def search_mention(now_ts, uid, top_count):
-    date = ts2datetime(now_ts)
-    evaluate_max_dict = get_evaluate_max()
-    ts = datetime2ts(date)
-    stat_results = dict()
-    results = dict()
-    for i in range(1,8):
-        ts = ts - DAY
-        try:
-            result_string = r_cluster.hget('at_' + str(ts), str(uid))
-        except:
-            result_string = ''
-        if not result_string:
-            continue
-        result_dict = json.loads(result_string)
-        for at_uname in result_dict:
-            try:
-                stat_results[at_uname] += result_dict[at_uname]
-            except:
-                stat_results[at_uname] = result_dict[at_uname]
-    sort_stat_results = sorted(stat_results.items(), key=lambda x:x[1], reverse=True)
-    all_count = len(sort_stat_results) # all mention count
-    #select in_portrait and out_portrait
-    in_portrait_list = []
-    out_portrait_list = []
-    count = 0
-    in_portrait_result = {'topic':{}, 'domain':{}}
-    in_portrait_topic_list = []
-    out_list = []
-    while True:
-        if count>=len(sort_stat_results):
-            break
-        nest_body_list = [{'match':{'uname':item[0]}} for item in sort_stat_results[count:count+20]]
-        query = [{'bool':{'should': nest_body_list}}]
-        try:
-            portrait_result = es_user_portrait.search(index=portrait_index_name, doc_type=portrait_index_type, body={'query':{'bool':{'must':query}}, 'size':100})['hits']['hits']
-        except:
-            portrait_result = []
-        for item in portrait_result:
-            if len(in_portrait_list)<top_count:
-                user_dict = item['_source']
-                uname = user_dict['uname']
-                domain = user_dict['domain']
-                influence = user_dict['influence']
-                #normal
-                influence = math.log(influence / evaluate_max_dict['influence'] * 9 + 1, 10) * 100
-                importance = user_dict['importance']
-                #normal
-                importance = math.log(importance / evaluate_max_dict['importance'] * 9 +1 , 10) * 100
-                activeness = user_dict['activeness']
-                #noraml
-                activeness = math.log(activeness / evaluate_max_dict['activeness'] * 9 + 1, 10) * 100
-                sensitive = user_dict['sensitive']
-                sensitive = math.log(sensitive / evaluate_max_dic['sensitive'] * 9 + 1, 10) * 100
-                try:
-                    in_portrait_result['domain'][domain] += 1
-                except:
-                    in_portrait_result['domain'][domain] = 1
-                topic_list = user_dict['topic_string'].split('&')
-                in_portrait_topic_list.extend(topic_list)
-                mention_count = state_results[uname]
-                in_portrait_result.append([uid, uname, influence, importance, mention_count, activeness, sensitive])
-        out_item_list = list(set([item[0] for item in sort_stat_results[count:count+20]]) - set([item['_source']['uname'] for item in portrait_result]))
-        out_list.extend(out_item_list)
-        if len(out_list)>=top_count and len(in_portrait_list)>=top_count:
-            break
-        else:
-            count += 20
-    
-    in_portrait_result['topic'] = {}
-    for topic_item in in_portrait_topic_list:
-        try:
-            in_portrait_result['topic'][topic_item] += 1
-        except:
-            in_portrait_result['topic'][topic_item] = 1
-    #sort topic and domain stat result
-    topic_dict = in_portrait_result['topic']
-    sort_topic_dict = sorted(topic_dict.items(), key=lambda x:x[1], reverse=True)
-    domain_dict = in_portrait_result['domain']
-    sort_domain_dict = sorted(domain_dict.items(), key=lambda x:x[1], reverse=True)
-    in_portrait_result['topic'] = sort_topic_dict
-    in_portrait_result['domain'] = sort_domain_dict
-
-    #use to get user information from user profile
-    out_query_list = [{'match':{'uname':item}} for item in out_list]
-    if len(out_query_list) != 0:
-        query = [{'bool':{'should': out_query_list}}]
-        try:
-            out_profile_result = es_user_profile.search(index=profile_index_name, doc_type=profile_index_type, body={'query':{'bool':{'must':query}}, 'size':100})['hits']['hits']
-        except:
-            out_profile_result = []
-    else:
-        out_profile_result = []
-    out_in_profile_list = []
-    bci_search_id_list = []
-    for out_item in out_profile_result:
-        source = out_item['_source']
-        uname = source['nick_name']
-        uid = source['uid']
-        location = source['location']
-        friendsnum = source['friendsnum']
-        out_portrait_list.append([uid, uname, stat_results[uname], '', location, friendsnum, ''])
-        out_in_profile_list.append(uname)
-        #use to search bci history
-        bci_search_id_list.append(uid)
-    out_out_profile_list = list(set(out_list) - set(out_in_profile_list))
-    for out_out_item in out_out_profile_list:
-        out_portrait_list.append(['', out_out_item, stat_results[out_out_item],'', '', '', ''])
-    
-    #add index from bci_history
-    new_out_portrait_list = []
-    try:
-        bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids': bci_search_id_list}, fields=['user_fansnum', 'weibo_month_sum', 'user_friendsnum'])['docs']
-    except:
-        bci_history_result = []
-    iter_count = 0
-    for out_portrait_item in out_portrait_list:
-        try:
-            bci_history_item = bci_history_result[iter_count]
-        except:
-            bci_history_item = {}
-        new_out_portrait_item = out_portrait_item
-        if bci_history_item:
-            if bci_history_item['found'] == True:
-                fansnum = bci_history_item['fields']['user_fansnum'][0]
-                user_weibo_count = bci_history_item['fields']['weibo_month_sum'][0]
-                user_friendsnum = bci_history_item['fields']['user_friendsnum'][0]
-            else:
-                fansnum = ''
-                user_weibo_count = ''
-                user_friendsnum = ''
-        else:
-            fansnum = ''
-            user_weibo_count = ''
-            user_friendsnum = ''
-        new_out_portrait_item[3] = fansnum
-        new_out_portrait_item[6] = user_weibo_count
-        new_out_portrait_item[-2] = user_friendsnum
-        new_out_portrait_list.append(new_out_portrait_item)
-        iter_count += 1
-    
-    return {'in_portrait_list':in_portrait_list, 'out_portrait_list':new_out_portrait_list, 'in_portrait_result':in_portrait_result}
 
 
 #use to get user activity geo information by day/week/month

@@ -61,7 +61,25 @@ def ajax_follower():
     return json.dumps(results)
 
 
+#use to get user mention @ user
+#write in version:15-12-08
+#input: uid, top_count
+#output: result
+@mod.route('/mention/')
+def ajax_mention():
+    uid = request.args.get('uid', '')
+    uid = str(uid)
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    #run_type
+    if RUN_TYPE == 1:
+        now_ts = time.time()
+    else:
+        now_ts = test_time
+    results = search_mention(now_ts, uid, top_count)
 
+    return json.dumps(results)
+    
 '''
 # url for new user_portrait overview
 # profile information
