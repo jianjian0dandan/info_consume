@@ -67,11 +67,11 @@ def Merge_propagate(items):
     
     for item in items:
         dcount = json.loads(item.dcount)
-        for domain in domain_list:
-            try:
-                result += dcount[domain]
-            except KeyError:
-                continue
+        
+        try:
+            result += dcount
+        except KeyError:
+            continue
     #print 'merge:', result
     return result
 
@@ -388,10 +388,7 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
                                                         PropagateCount.end<=over_ts ,\
                                                         PropagateCount.end>begin_ts ,\
                                                         PropagateCount.range==unit).all()
-        #**************测试用待删
-        fh = open('item.txt', 'w+')
-        fh.write(str(items))
-        fh.close
+        
         if items:
             result = Merge_propagate(items)
         else:

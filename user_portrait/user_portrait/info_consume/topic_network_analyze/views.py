@@ -37,6 +37,7 @@ def GetPusher():
     date = ts2datetime(end_ts)
     windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
 	result = get_trend_pusher(topic, date, windowsize)
+	return json.dumps(results)
 
 @mod.route('/get_trend_maker/')
 def GetMaker():
@@ -48,3 +49,4 @@ def GetMaker():
     date = ts2datetime(end_ts)
     windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
 	result = get_trend_maker(topic, date, windowsize)
+	return json.dumps(results)

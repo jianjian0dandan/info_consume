@@ -27,18 +27,18 @@ def get_gexf(topic, identifyDate, identifyWindow):
 	return result
 
 def get_trend_pusher(topic, identifyDate, identifyWindow):
-	items_exist = db.session.query(TrendPusher).filter(TrendPusher.topic==topic ,\
+	items = db.session.query(TrendPusher).filter(TrendPusher.topic==topic ,\
 														TrendPusher.date==identifyDate ,\
 														TrendPusher.windowsize==identifyWindow).all()
-	print items_exist
+	return items
 
 
 def get_trend_maker(topic, identifyDate, identifyWindow):
 
-	items_exist = db.session.query(TrendMaker).filter(TrendMaker.topic==topic ,\
+	items = db.session.query(TrendMaker).filter(TrendMaker.topic==topic ,\
 														TrendMaker.date==identifyDate ,\
 														TrendMaker.windowsize==identifyWindow).all()
-	print items_exist
+	return items
     
 
 if __name__ == '__main__':
