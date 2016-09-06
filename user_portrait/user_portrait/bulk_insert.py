@@ -47,20 +47,43 @@ def save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf):
 	
 	get_graph_mappings(index_name)
 	
-	#bulk_action = []
+	bulk_action = []
 	#action = {"index":{"_id":999}}
 	source = json.dumps(identifyGexf)
 	action = {
-    			"index":{"_id":999},
-				"_source":{
-					"name":str(identifyDate)+str(identifyWindow),
-					"gexf":source,
-					"date":identifyDate,
-					"window":identifyWindow
-				}
+    			#"index":{"_id":999},
+				#"_source":{
+				"name":str(identifyDate)+str(identifyWindow),
+				"gexf":source,
+				"date":str(identifyDate),
+				"window":identifyWindow,
+				#}
 			}
-	#bulk_action.extend([action,source])
-	es.bulk(action, index=index_name, doc_type='text', timeout=600)
+	bulk_action.extend([action,])
+	print bulk_action
+	auto_id = [str(i)for i in str(identifyDate)+str(identifyWindow) if i.isdigit()]
+	auto_id = ''.join(auto_id)
+	#es.bulk(bulk_action, index=index_name, doc_type='text', timeout=600)
+	es.index(index=index_name, doc_type='text', id=auto_id, body=action)
+
+def read_long_gexf(topic, identifyDate, identifyWindow):
+	name = str(identifyDate)+str(identifyWindow)
+	query_body = {
+		#"term":{"date":identifyDate}
+		"query":{"term":{"name":name}}
+	}
+	index_name = topic+'_gexffile'
+	try:
+		res = es.search(index=index_name, body=query_body)['hits']['hits']	
+	except:
+		return []
+	if len(res) > 0:
+		#print '!!!!'
+		return res[0]['_source']['gexf']
+	else:
+		return []
+	#print res
+	#res = es.get(index=indexname, doc_type='text',)
 
 
 
