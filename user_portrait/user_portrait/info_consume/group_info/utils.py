@@ -396,12 +396,15 @@ def show_vary_detail(task_name, submit_user, vary_pattern):
 #output: module_result
 def search_group_results(task_name, module, submit_user):
     result = {}
-    task_id = submit_user + '-' + task_name
-    #jln
-    task_id = 'mytest030302'
+    if RUN_TYPE == 0:
+        #jln
+        task_id = 'mytest030302'
+    else:
+        task_id = submit_user + '-' + task_name
+
     #step1:identify the task_name exist
     try:
-               source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \
+        source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \
                id=task_id)['_source']
     except:
         return 'group task is not exist'
@@ -437,6 +440,14 @@ def search_group_results(task_name, module, submit_user):
         result['activeness_his'] = json.loads(source['activeness_his'])
         result['activeness_description'] = source['activeness_description']
         result['online_pattern'] = json.loads(source['online_pattern'])
+        new_geo = {}
+        for uid,geos in result['activity_geo_disribution'].iteritems():
+            for geo,count in geos.iteritems():
+                try:
+                    new_geo[geo] += count
+                except:
+                    new_geo[geo] = count
+        result['new_geo'] = new_geo
         try:
             vary_detail_geo_dict = json.loads(source['vary_detail_geo'])
         except:

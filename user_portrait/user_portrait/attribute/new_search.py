@@ -593,7 +593,7 @@ def new_get_user_social(uid):
     #step1:retweet/comment
     retweet_index_name = retweet_index_name_pre + str(db_number)
     comment_index_name = comment_index_name_pre + str(db_number)
-    print es_retweet,retweet_index_name
+    print es_retweet,retweet_index_name,uid
     try:
         retweet_result = es_retweet.get(index=retweet_index_name, doc_type=retweet_index_type,\
                 id=uid)['_source']['uid_retweet']
