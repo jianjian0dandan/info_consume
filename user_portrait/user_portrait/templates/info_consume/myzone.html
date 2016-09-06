@@ -1,6 +1,7 @@
 {% extends 'info_consume/daohang_public.html' %}
 
 {% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap-table.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
@@ -15,6 +16,9 @@
   <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="/static/info_consume/js/bootstrap-table.min.js"></script>
+  <script src="/static/info_consume/js/bootstrap-table-zh-CN.min.js"></script>
+
 {% endblock %}
 
 
@@ -230,7 +234,42 @@
 					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">好友排行</h3>
 				</div>
 				<div class="panel-body">
-				
+					<!-- <table id="table" data-toggle="table">
+						
+
+					</table> -->
+					<caption>谁转发了您的微博</caption>
+					<table class="table" data-toggle="table" data-pagination="true" pageSize="10" locale= "zh-CN" showRefresh="true">
+						
+						<thead>
+							<tr>
+								<th >ID</th>
+								<th >好友昵称</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="active">
+								<td >产品1</td>
+								<td >23/11/2013</td>
+							</tr>
+							<tr class="success">
+								<td >产品2</td>
+								<td >10/11/2013</td>
+							</tr>
+							<tr  class="warning">
+								<td >产品3</td>
+								<td >20/10/2013</td>
+							</tr>
+							<tr  class="danger">
+								<td >产品4</td>
+								<td >20/10/2013</td>	
+							</tr>
+						</tbody>
+					</table>
+
+
+
+
 				</div>
 			</div>
 	    <!--亲密度排行-->
