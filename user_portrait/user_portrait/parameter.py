@@ -4,7 +4,8 @@ use to save parameter
 '''
 #for test
 RUN_TYPE = 0 #0 mark run for test; 1 mark run for operation
-RUN_TEST_TIME = '2016-03-13'
+#RUN_TEST_TIME = '2016-03-13'
+RUN_TEST_TIME = '2013-09-06'
 
 #for all
 DAY = 24*3600
