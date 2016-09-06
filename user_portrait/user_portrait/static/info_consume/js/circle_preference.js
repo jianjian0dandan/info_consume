@@ -34,7 +34,7 @@ var word_num = Math.min(20, data.length);
                 formatter:  function (params,ticket,callback){
                     var res  = '';
                     var value_after = params.value/100;
-                    res += params.name+' : '+value_after;
+                    res += '关键词：'+params.name+'<br/>'+'词频：'+value_after.toFixed(2);
                     return res;
                 }
             },
@@ -59,8 +59,8 @@ function Draw_preference_weibo(data){
 
 } 
 function Draw_preference_page(data){
-       Draw_keyword_cloud(data,'keyword-cloud');
-       Draw_keyword_cloud(data,'topic-cloud');
+       Draw_keyword_cloud(data.keywords,'keyword-cloud');
+       Draw_keyword_cloud(data.hashtag,'topic-cloud');
        Draw_preference_weibo(data)
 } 
 
