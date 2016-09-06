@@ -708,7 +708,7 @@ div.pager span.disabled {
 	width: 1px;
 	height: 600px;
 	position: relative;
-	margin-left: -24%;
+	margin-left: 2%;
 	margin-top: 0%;
 	float: left;
 }
@@ -728,7 +728,7 @@ div.pager span.disabled {
 	width: 300px;
 	height: 600px;
 	position: relative;
-	margin-left: -21%;
+	margin-left: 2.5%;
 	margin-top: 0%;
 	float: left;
 	}
@@ -990,7 +990,7 @@ background-color:#FFFFFF;
 	width:600px;
 	height:600px;
 	position: relative;
-	margin-left: -5%;
+	margin-left: -33%;
 	margin-top: 0%;
 	float:left;
 }
