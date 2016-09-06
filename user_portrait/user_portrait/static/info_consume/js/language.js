@@ -225,10 +225,19 @@ function show_results(data){
   }
 }
 
+// function show_results0(data){
+//   //console.log(data.results.keywords);
+//   var topic = data.results.topic;
+//   var domain = data.results.domain;
+//   Draw_topic0(topic);
+//   //show_conclusion(conclusion);
+//   show_domain0(domain);
+// }
 
 // function language_load(){
 //   var prefrence_url = '/attribute/preference/?uid=' + uid;
 //   console.log(prefrence_url);
 //   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 //   // call_sync_ajax_request(prefrence_url, ajax_method, show_results0);
-// }
+// }nes                                                     1,8           Top
+ 

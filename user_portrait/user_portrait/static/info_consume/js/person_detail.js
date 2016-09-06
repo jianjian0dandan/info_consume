@@ -37,6 +37,7 @@ personZone.prototype = {
       else{
           nickName.innerHTML = personalData.nick_name;
       }
+
   }else{
       nickName.innerHTML = "无此数据";
   }
@@ -376,5 +377,6 @@ var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-
+var url ='/attribute/new_user_social/?uid=3293303045';
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.my_friend_rank);
 //最新update

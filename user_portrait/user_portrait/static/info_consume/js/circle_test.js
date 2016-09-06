@@ -1,6 +1,6 @@
         //当前用户名
-          s_user = 'admin@qq.com';
-          g_name = '';
+          s_user = 'test';
+          g_name = 'name'; 
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
@@ -27,9 +27,10 @@
                 call_sync_ajax_request(url,'GET',del);
               }
             } 
-      function view_analysis(data){
-          g_name = data;
-      }
+ //获取群组名称
+ //     function view_analysis(data){
+ //       g_name = data;
+ //     }
                 
          $(function(){
               var current_user = 'admin@qq.com'; //获取
