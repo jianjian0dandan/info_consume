@@ -9,7 +9,6 @@ import time
 import json
 import math
 import redis
-from description import active_geo_description, active_time_description, hashtag_description
 
 from user_portrait.time_utils import ts2datetime, datetime2ts, ts2date, datetimestr2ts
 
@@ -234,13 +233,13 @@ def search_attention(uid, top_count):
 
 #use to get user be_retweet from es: be_retweet_1 or be_retweet_2
 #input: uid, top_count
+#output:uid, uname, influence, fansnum,  user_friendsnum, user_weibo_count
 def search_follower(uid, top_count):
-    if run_type == 0:
-        fields = ['user_fansnum', 'weibo_month_sum', 'user_friendsnum','bci_week_ave']
-    else:
+    if RUN_TYPE == 0:
         fields = ['bci_week_sum', 'bci_month_ave', 'bci_month_sum','bci_week_ave']
+    else:
+        fields = ['user_fansnum', 'weibo_month_sum', 'user_friendsnum','bci_week_ave']
     results = {}
-    evaluate_max_dict = get_evaluate_max()
     now_ts = time.time()
     db_number = get_db_num(now_ts)
     index_name = be_retweet_index_name_pre + str(db_number)
@@ -254,13 +253,14 @@ def search_follower(uid, top_count):
         uid_list = retweet_dict.keys()
         portrait_result = []
         try:
-            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':out_portrait_list})['docs']
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
         except:
             user_result = []
         try:
             bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
         except:
             bci_history_result = []
+        print bci_history_result
         iter_count = 0
         out_portrait_list = []
         for out_user_item in user_result:
@@ -283,14 +283,15 @@ def search_follower(uid, top_count):
             except:
                 bci_history_item = {'found': False}
             if bci_history_item['found']==True:
-                fansnum = bci_history_item['fields']['user_fansnum'][0]
-                user_weibo_count = bci_history_item['fields']['weibo_month_sum'][0]
-                user_friendsnum = bci_history_item['fields']['user_friendsnum'][0]
-                influence = bci_history_item['fields']['bci_week_ave'][0]
+                fansnum = bci_history_item['fields'][fields[0]][0]
+                user_weibo_count = bci_history_item['fields'][fields[1]][0]
+                user_friendsnum = bci_history_item['fields'][fields[2]][0]
+                influence = bci_history_item['fields'][fields[3]][0]
             else:
                 fansnum = ''
                 user_weibo_count = ''
                 user_friendsnum = ''
+                influence = ''
             #retweet_count = int(retweet_dict[uid])
             out_portrait_list.append([uid, uname, influence, fansnum,  user_friendsnum, user_weibo_count])#location,
             iter_count += 1

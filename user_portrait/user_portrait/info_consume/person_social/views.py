@@ -6,6 +6,7 @@ import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
 from search import search_attribute_portrait, search_location, search_ip, search_mention, search_activity,\
                    search_attention, search_follower, search_portrait, get_geo_track, get_geo_track_ip, get_online_pattern
+'''
 from search import delete_action, search_identify_uid, get_activeness_trend
 from search import get_activity_weibo, search_comment, search_be_comment
 from search import search_bidirect_interaction, search_preference_attribute, search_sentiment_trend, search_tendency_psy
@@ -18,14 +19,16 @@ from new_search import new_get_user_profile, new_get_user_portrait,\
         new_get_user_weibo, new_get_weibo_tree, new_get_activeness_trend, \
         new_get_influence_trend, new_get_sensitive_words
 #from search_mid import index_mid
+'''
 from user_portrait.search_user_profile import es_get_source
 from user_portrait.global_utils import es_user_portrait as es
 from user_portrait.parameter import SOCIAL_DEFAULT_COUNT, SENTIMENT_TREND_DEFAULT_TYPE
 from user_portrait.parameter import DEFAULT_SENTIMENT, DAY
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.time_utils import ts2datetime, datetime2ts
-from personal_influence import get_user_influence, influenced_detail, influenced_people, influenced_user_detail, statistics_influence_people, tag_vector, comment_on_influence, detail_weibo_influence, influence_summary
-from description import conclusion_on_influence
+
+#from personal_influence import get_user_influence, influenced_detail, influenced_people, influenced_user_detail, statistics_influence_people, tag_vector, comment_on_influence, detail_weibo_influence, influence_summary
+
 
 
 # use to test 13-09-08
@@ -35,10 +38,31 @@ test_time = datetime2ts(RUN_TEST_TIME)
 attribute_index_name = 'custom_attribute'
 attribute_index_type = 'attribute'
 
-mod = Blueprint('person_social', __name__, url_prefix='/person_social')
+mod = Blueprint('info_person_social', __name__, url_prefix='/info_person_social')
 
 
 
+
+
+
+#use to get user be_retweet from es:be_retweet_1 or be_retweet_2
+#write in version:15-12-08
+#input: uid, top_count
+#output: in_portrait_list, in_portrait_result, out_portrait_list
+@mod.route('/follower/')
+def ajax_follower():
+    uid = request.args.get('uid', '')
+    uid = str(uid)
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    results = search_follower(uid, top_count)
+    if not results:
+        results = {}
+    return json.dumps(results)
+
+
+
+'''
 # url for new user_portrait overview
 # profile information
 # write in version: 16-03-15
@@ -367,20 +391,6 @@ def ajax_attention():
         results = {}
     return json.dumps(results)
 
-#use to get user be_retweet from es:be_retweet_1 or be_retweet_2
-#write in version:15-12-08
-#input: uid, top_count
-#output: in_portrait_list, in_portrait_result, out_portrait_list
-@mod.route('/follower/')
-def ajax_follower():
-    uid = request.args.get('uid', '')
-    uid = str(uid)
-    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
-    top_count = int(top_count)
-    results = search_follower(uid, top_count)
-    if not results:
-        results = {}
-    return json.dumps(results)
 
 #use to get user comment from es: comment_1 or comment_2
 #write in version: 15-12-08
@@ -762,3 +772,4 @@ def ajax_summary_influence():
     result = influence_summary(uid, date)
 
     return json.dumps(result)
+'''
