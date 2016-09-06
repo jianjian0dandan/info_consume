@@ -211,21 +211,21 @@ var viewinformation=new viewinformation();
 function show_identity()
 {
 
-	url = '/attribute/new_user_social/?uid=3293303045';
+	url = '/attribute/new_user_social/?uid=2853982940';
 	viewinformation.call_sync_ajax_request(url,viewinformation.identity);
 }
 
 function show_domain()
 {
 
-	url = '/attribute/new_user_social/?uid=3293303045';
+	url = '/attribute/new_user_social/?uid=2853982940';
 	viewinformation.call_sync_ajax_request(url,viewinformation.domain);
 }
 
 function show_social()
 {
 
-	url = '/attribute/new_user_social/?uid=3293303045';
+	url = '/attribute/new_user_social/?uid=2853982940';
 	viewinformation.call_sync_ajax_request(url,viewinformation.social);
 }
 
