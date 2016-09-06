@@ -145,6 +145,12 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 	// console.log(item[0][1].length);
 	 	// console.log(item[1][1].length);
 	 	// console.log(item[2][1].length);
+	 	console.log(item[0][1]);
+	 	console.log(item[1][1]);
+	 	console.log(item[2][1]);
+	 	console.log(item[0][1].length);
+	 	console.log(item[1][1].length);
+	 	console.log(item[2][1].length);
 	 	for (i_pos=0;i_pos<item[0][1].length;i_pos++){	
 	 		item_json_pos.push({name:item[0][1][i_pos],value:item[0][1][i_pos]});
 		}
@@ -254,6 +260,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					        orient: 'horizontal',
 					        x:'right',
 					        data:['正向','中立','负向']
+					        data:['正向']
 					    },
 					    // legend: {
 					    //     //orient: 'vertical',
@@ -288,6 +295,17 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					    case2: series : [
 
 					        {
+					            name: '正向',
+					            type: 'map',
+					            mapType: 'china',
+					            selectedMode : 'single',
+					            itemStyle:{
+					                normal:{label:{show:true}},
+					                emphasis:{label:{show:true}}
+					            },
+					            data:item_json_pos
+					        },
+					        {
 					            name: '中立',
 					            type: 'map',
 					            mapType: 'china',
@@ -303,6 +321,8 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					    case3: series : [
 
 					         {
+					        },
+					        {
 					            name: '负向',
 					            type: 'map',
 					            mapType: 'china',

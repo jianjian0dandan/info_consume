@@ -66,6 +66,7 @@ var option = {
 
 Draw_event_river:function(data){
 
+<<<<<<< HEAD
     var item = data;
     // var item_data = [];
     var item_json = [];
@@ -91,6 +92,8 @@ Draw_event_river:function(data){
     //   item_json.push({name:item[i][0],evolution:item[i][1],itemStyle: createRandomItemStyle()});
     // }
 
+=======
+>>>>>>> e1d7d07445d1f1e01d3207815b7cec19d78e13fb
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
         tooltip : {
@@ -306,6 +309,9 @@ Draw_blog_scan_area_meaning:function(data){
     $('#blog_scan_area_meaning').append(html);
     
   },
+
+
+
 
 
 }
