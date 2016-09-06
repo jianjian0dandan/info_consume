@@ -128,7 +128,7 @@ def create_app():
     #admin.add_view(Roleadmin(db.session))
 
     # init mongo
-    #mongo.init_app(app)    
+    mongo.init_app(app)    
 
     '''
     app.config['MONGO_HOST'] = MONGODB_HOST

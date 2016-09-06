@@ -76,10 +76,11 @@ def ajax_mention():
         now_ts = time.time()
     else:
         now_ts = test_time
+        print test_time
     results = search_mention(now_ts, uid, top_count)
 
     return json.dumps(results)
-    
+
 '''
 # url for new user_portrait overview
 # profile information
