@@ -94,7 +94,6 @@ option = {
             useWorker: false,
             minRadius : 15,
             maxRadius : 25,
-            symbolSize : 10,
             gravity: 1.1,
             scaling: 1.1,
             linkSymbol: 'arrow',
