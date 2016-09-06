@@ -66,15 +66,40 @@ var option = {
 
 Draw_event_river:function(data){
 
+    var item = data;
+    // var item_data = [];
+    var item_json = [];
+    var evolution_json = [];
+    var topic_name = [];
+    var html = '';
+    var length = item.length;
+    console.log('111');
+    console.log(length);
+    for (i=0;i<item.length;i++){    
+      // item_data.push(item[i][0].replace('\\"',''))
+      for (key in item[i]){
+        topic_name.push(key);
+        console.log(key);
+      }
+      evolution_json.push({time:item[i][0],value:item[i][1],});
+      
+    }
+    console.log(topic_name);
+    console.log(evolution_json);
+    // for (j=0;j<item.length;j++){    
+    //   // item_data.push(item[i][0].replace('\\"',''))
+    //   item_json.push({name:item[i][0],evolution:item[i][1],itemStyle: createRandomItemStyle()});
+    // }
+
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
         tooltip : {
             trigger: 'item',
             enterable: true
         },
-        legend: {
-            data:['新闻观点', '微博观点']
-        },
+        // legend: {
+        //     data:['新闻观点', '微博观点']
+        // },
         toolbox: {
             show : true,
             feature : {
@@ -281,9 +306,6 @@ Draw_blog_scan_area_meaning:function(data){
     $('#blog_scan_area_meaning').append(html);
     
   },
-
-
-
 
 
 }

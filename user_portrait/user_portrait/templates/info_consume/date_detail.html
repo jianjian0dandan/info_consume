@@ -807,12 +807,25 @@
 			<p id="time_trend_title">情绪热力图</p>
 			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 		</div>
+		<div><p id="emotion_type">情绪类型：</p></div>
+		<div class="btn-group" data-toggle="buttons">
+   			<label class="btn btn-primary" id="label2" value="1" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('1')">
+      			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 正向
+   			</label>
+   			<label class="btn btn-primary" id="label3" value="2" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('2')">
+      			<input type="radio" name="options" id="option3" onClick="changecolor(id)"> 中立
+   			</label>
+   			<label class="btn btn-primary" id="label4" value="3" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('3')">
+      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 负向
+   			</label>
+   			
+		</div>	
 
 <!-- 引入情绪热力图 -->
 <div id="main_emotion_bigger">
 	<div id="main_emotion_2" ></div>
-	<div id="left_line_right"></div>
-	<div id="right_col">
+	<div id="left_line_right_emotion"></div>
+	<div id="right_col_emotion">
 		<div id="right_col_title_1">
 			<div id="right_col_title_1_blue"></div>
 			<div id="right_col_title_1_green"></div>
