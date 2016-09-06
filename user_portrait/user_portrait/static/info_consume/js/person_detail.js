@@ -92,6 +92,70 @@ personZone.prototype = {
   //     } 
    
    },
+
+
+   // my_friend_rank:function(data)
+   // {
+   //    console.log(data); 
+      // var data_dic =new Array();
+      // for(var i=0;i<data.length;i++)
+      // {
+      //   data_dic.push({uid:data[i][0],uname:data[i][1],influence:data[i][2],fansnum:data[i][3],user_friendsnum:data[i][4],user_weibo_count:data[i][5]});
+      // }
+      // console.log(data_dic);
+      //JSON.stringify(data_dic);
+
+     // $('#table').bootstrapTable({
+     //  data:data_dic, 
+      
+     //  //dataType:json,
+     //  pagination: true, //分页
+     //  data-locale:"zh-US" , //表格汉化     
+     //  sidePagination: "client", //服务端处理分页
+     //      columns: [
+     //              {
+     //                  title: "userID",
+     //                  field: "uid",
+     //                  // align: 'center',
+     //                  // valign: 'middle'
+     //              }, 
+     //              {
+     //                  title: 'username',
+     //                  field: 'uname',
+     //                  align: 'center',
+     //                  valign: 'middle',
+     //              }, 
+     //              {
+     //                  title: 'influence',
+     //                  field: 'influence',
+     //                  align: 'center'
+     //              },
+     //              {
+     //                  title: 'fansnum',
+     //                  field: 'fansnum',
+     //                  align: 'center'
+     //              },
+     //              {
+     //                  title: 'user_friendsnum',
+     //                  field: 'user_friendsnum',
+     //                  align: 'center',
+     //              },
+     //              {
+     //                  title: 'user_weibo_count',
+     //                  field: 'user_weibo_count',
+     //                  align: 'center',
+     //               //    formatter:function(value,row,index){  
+     //               // var e = '<a href="#" mce_href="#" onclick="edit(\''+ row.id + '\')">编辑</a> ';  
+     //               // var d = '<a href="#" mce_href="#" onclick="del(\''+ row.id +'\')">删除</a> ';  
+     //               //      return e+d;  
+     //              } 
+     //              //}
+     //          ]
+     //  }); 
+    //}
+
+
+
    //影响力和活跃度数据
     // overallData:function(data){
     // //console.log(data);
@@ -377,6 +441,6 @@ var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-var url ='/attribute/new_user_social/?uid=3293303045';
+var url ='/info_person_social/follower/?uid=2029036025';
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.my_friend_rank);
 //最新update

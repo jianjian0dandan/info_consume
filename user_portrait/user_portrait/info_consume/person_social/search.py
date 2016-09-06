@@ -107,7 +107,7 @@ def search_follower(uid, top_count):
                 user_friendsnum = ''
                 influence = ''
             #retweet_count = int(retweet_dict[uid])
-            out_portrait_list.append([uid, uname, influence, fansnum,  user_friendsnum, user_weibo_count])#location,
+            out_portrait_list.append({'uid':uid,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
             iter_count += 1
         return out_portrait_list
     else:
@@ -147,8 +147,6 @@ def search_mention(now_ts, uid, top_count):
     out_portrait_list = []
     out_list = stat_results.keys()
 
-    
-
     #use to get user information from user profile
     out_query_list = [{'match':{'uname':item}} for item in out_list]
     if len(out_query_list) != 0:
@@ -183,11 +181,15 @@ def search_mention(now_ts, uid, top_count):
         bci_history_result = []
     iter_count = 0
     for out_portrait_item in out_portrait_list:
+        append_dict = {}
         try:
             bci_history_item = bci_history_result[iter_count]
         except:
             bci_history_item = {}
         new_out_portrait_item = out_portrait_item
+        append_dict['uid'] = out_portrait_item[0]
+        append_dict['uname'] = out_portrait_item[1]
+        append_dict['count'] = out_portrait_item[2]
         if bci_history_item:
             if bci_history_item['found'] == True:
                 fansnum = bci_history_item['fields']['user_fansnum'][0]
@@ -201,12 +203,16 @@ def search_mention(now_ts, uid, top_count):
             fansnum = ''
             user_weibo_count = ''
             user_friendsnum = ''
-        new_out_portrait_item[3] = fansnum
-        new_out_portrait_item[6] = user_weibo_count
-        new_out_portrait_item[-2] = user_friendsnum
-        new_out_portrait_list.append(new_out_portrait_item)
+        append_dict['fansnum'] = fansnum
+        append_dict['weibo_count'] = user_weibo_count
+        append_dict['friendsnum'] = user_friendsnum
+        # new_out_portrait_item[3] = fansnum
+        # new_out_portrait_item[6] = user_weibo_count
+        # new_out_portrait_item[-2] = user_friendsnum
+        #new_out_portrait_list.append(new_out_portrait_item)
+        new_out_portrait_list.append(append_dict)
         iter_count += 1
-    
+        print append_dict
     return new_out_portrait_list  #  uid，名字，提及次数,粉丝数，注册地，关注数，微博数
 
 
