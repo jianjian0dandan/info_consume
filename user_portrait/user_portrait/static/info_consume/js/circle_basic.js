@@ -27,6 +27,26 @@
        var option = {
         tooltip : {
             trigger: 'axis',
+             formatter: function (params) {
+        var max_user_name = [];
+        var min_user_name = [];
+        for(var i=0; i<max_data.length;i++){
+            if(max_data[i][2]=='unknown'||max_data[i][2]==''){
+                max_data[i][2] = max_data[i][0];
+            }
+            if(min_data[i][2]=='unknown'||min_data[i][2]==''){
+                min_data[i][2] = min_data[i][0];
+            }
+            max_user_name.push(max_data[i][2]);
+            min_user_name.push(min_data[i][2]);
+
+        };
+            var res = '' + params[0].name;
+            var index = params[0].dataIndex;
+            res +=  '<br/>最高值用户: ' + max_user_name[index] ;
+            res +=  '<br/>最低值用户: ' + min_user_name[index] ;
+            return res
+        }
         },
         legend: {
             data:['最高值','平均值','最低值']
@@ -195,7 +215,7 @@
  }
 
 
-  function Draw_basic_table(data){
+  function Draw_basic_page(data){
         Draw_area_distri(data);
         Draw_identi_distri(data);
     }
@@ -204,4 +224,4 @@
  var basic_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=basic';
 
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
- call_sync_ajax_request(basic_url,'GET',Draw_basic_table);
+ call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
