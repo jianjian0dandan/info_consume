@@ -190,7 +190,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 					    legend: {
 					        orient: 'vertical',
 					        x:'right',
-					        data:['随机数据']
+					        data:['微博数据']
 					    },
 					    dataRange: {
 					        min: 0,
@@ -220,6 +220,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 						
 		}
 		)	
+		console.log(item_json);
 
 		item_json.sort(function(a,b){
             return b.value-a.value});

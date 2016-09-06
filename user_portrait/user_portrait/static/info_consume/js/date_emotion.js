@@ -6,7 +6,8 @@ var pointInterval=3600;
 
 function get_emotion_type(val) {
  	case_val = val;
- 	//Draw_emotion_map_result();
+ 	// $(#main_emotion_2).empty();
+ 	Draw_emotion_map_result();
  	//可以设置默认值（正向），随着页面加载。
  }
 
@@ -103,7 +104,9 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
   },
 
   Draw_emotion_map:function(data){
-
+  		
+  		$(#main_emotion_2).empty();
+  		$(#top15_content_emotion).empty();
  	
 		var item = data;
 	 	var item_json_pos = [];
@@ -112,17 +115,19 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 	var html = '';
 	 	
 		for (var key in item[0][1]){	
-	 		item_json_pos.push({name:key,value:item[0][1].key});
+	 		item_json_pos.push({name:key,value:item[0][1][key]});
 		}
 		// console.log(item_json_pos);
 		for (var key in item[1][1]){	
-	 		item_json_neu.push({name:key,value:item[1][1].key});
+	 		item_json_neu.push({name:key,value:item[1][1][key]});
 		}
 
 		for (var key in item[2][1]){	
-	 		item_json_neg.push({name:key,value:item[2][1].key});
+	 		item_json_neg.push({name:key,value:item[2][1][key]});
+	 		// console.log();
 		}
  		
+
  		item_legend = '正向';
 		item_item = item_json_pos;
 
@@ -171,7 +176,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 						    // 2个特别行政区
 						    '香港', '澳门'
 						];
-					document.getElementById('main_place').onmousewheel = function (e){
+					document.getElementById('main_emotion_2').onmousewheel = function (e){
 					    var event = e || window.event;
 					    curIndx += zrEvent.getDelta(event) > 0 ? (-1) : 1;
 					    if (curIndx < 0) {
@@ -227,11 +232,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					        trigger: 'item',
 					        formatter: '滚轮切换或点击进入该省<br/>{b}'
 					    },
-					    legend: {
-					        orient: 'vertical',
-					        x:'right',
-					        data:item_legend
-					    },
+					    // legend: {
+					    //     orient: 'vertical',
+					    //     x:'right',
+					    //     data:'正向'
+					    // },
 					    dataRange: {
 					        min: 0,
 					        max: 1000,
@@ -261,8 +266,8 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		}
 		)	
 
-
-		item_json_pos.sort(function(a,b){
+		console.log(item_item);
+		item_item.sort(function(a,b){
             return b.value-a.value});
 		var rank_html = '';
 		rank_html += '<table id="table">';
@@ -279,9 +284,9 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				}
             
 			rank_html += '<tr>';	
-			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-500%;">'+(k+1)+'</p></td>';
-			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-110%;">'+item_item[k].name+'</p></td>';
-			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-130%;">'+item_item[k].value+'</p></td>';			
+			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-1000%;">'+(k+1)+'</p></td>';
+			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-170%;">'+item_item[k].name+'</p></td>';
+			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-30%;">'+item_item[k].value+'</p></td>';			
 			rank_html += '</tr>';		
 			
 			
