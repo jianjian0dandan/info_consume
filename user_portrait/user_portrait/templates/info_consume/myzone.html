@@ -18,7 +18,14 @@
   <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  
+  <style type="text/css">
+  	.fixed-table-body
+  	 {
+	    overflow-x: auto;
+	    overflow-y: auto;
+	    height: 400px;
+	 }
+  </style>
 
 {% endblock %}
 
@@ -246,7 +253,7 @@
 				</div>
 			</div>
 	</div>
-	<!--好友排汗模态框-->
+	<!--好友排行模态框-->
 
 	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" 
 							   aria-labelledby="myModalLabel" aria-hidden="true">
@@ -254,7 +261,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							                  &times;
+						&times;
 					</button>
 					<h4 class="modal-title" id="myModalLabel">
 							               查看好友排行的详细信息
@@ -263,16 +270,28 @@
 
 
 					<div class="modal-body">
-							         	
-						
-								模态框1            
-						
-														    								 
+						<table  data-toggle="table" class="warning" >
+						<thead >
+							<tr>
+								<th>好友ID</th>
+								<th >好友昵称</th>
+								<th >好友数</th>
+								<th >粉丝数</th>
+								<th >微博数</th>
+								<th id="influence">影响力</th>
+							</tr>
+						</thead>
+						<tbody id="friend_rank_detail"> 
+							<tr class="no-records-found">
+								<td colspan="6">正在很努力很努力的加载内容...</td>
+							</tr>							
+							</tbody>
+					</table>			    								 
 					</div>
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" >确定</button>
+						<!-- <button type="button" class="btn btn-primary" >确定</button> -->
 					</div>
 			</div>
 		</div><!-- /.modal-content -->
@@ -295,15 +314,28 @@
 				 </div>
 
 					<div class="modal-body">
-							         	
-						
-							模态框2            
-																		    								 
+						<table  data-toggle="table" class="warning" >
+						<thead >
+							<tr>
+								<th>好友ID</th>
+								<th >好友昵称</th>
+								<th >好友数</th>
+								<th >粉丝数</th>
+								<th >微博数</th>
+								<th >提及数</th>
+							</tr>
+						</thead>
+						<tbody id="intimacy_rank_detail"> 
+							<tr class="no-records-found">
+								<td colspan="6">正在很努力很努力的加载内容...</td>
+							</tr>							
+							</tbody>
+					</table>										    								 
 					</div>
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" >确定</button>
+						<!-- <button type="button" class="btn btn-primary" >确定</button> -->
 					</div>
 			</div>
 		</div><!-- /.modal-content -->
@@ -341,12 +373,40 @@
 				</div>
 			</div>
     	 <!--社交网络-->
-	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+	   		<div class="panel panel-success" style="width:76%;height:300px;margin-top:2%; margin-left:11.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
 				<div class="panel-heading">
 					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">社交网络</h3>
 				</div>
 				<div class="panel-body">
-					一张大网
+					<div class="panel-body">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#transmit" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁转发了你的微博</a></li>
+							<li><a href="#mention" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁@了你</a></li>
+							<li><a href="#comment" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁评论了你</a></li>
+							<li><a href="#closest" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁和你关系密切</a></li>		  
+						</ul>
+
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade in active" id="transmit">
+															
+							</div>
+
+							<div class="tab-pane fade" id="mention">
+								 <p>@</p>
+							</div>
+
+							<div class="tab-pane fade" id="comment">
+									<p>评论</p>
+							</div>
+
+							<div class="tab-pane fade" id="closest">
+									<p>亲密</p>
+							</div>
+											  
+							</div>
+
+						</div>
+					</div>
 				</div>
 			</div>
     </div>
