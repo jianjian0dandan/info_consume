@@ -1,16 +1,14 @@
 function Draw_retwwie_in(data){
-var nodes_from = {};
-var nodes_to = {};
-var links_single = {};
 var nodes_total = [];
 var links_total = [];
 if(data.length==0){
  $('#in-retwwie').empty();
- var html = '<span style="margin-left:300px;font-size:20px;">暂无数据</span>'; 
+ var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
  $('#in-retwwie').append(html);
 }else{
   for (var i=0;i<data.length;i++){
   var s = i.toString();
+  var nodes_from = {};
   nodes_from['category'] = 0;
   if(data[s]['4']=='unknown'||data[s]['4']==''){
      nodes_from['name'] = data[s]['1'];
@@ -18,8 +16,10 @@ if(data.length==0){
      nodes_from['name'] = data[s]['4'];
   };
    nodes_from['value'] = 10;
+   nodes_from['draggable'] = true;
    nodes_total.push(nodes_from);
 
+  var nodes_to = {};
   nodes_to['category'] = 1;
   if(data[s]['3']=='unknown'||data[s]['3']==''){
      nodes_to['name'] = data[s]['0'];
@@ -27,8 +27,10 @@ if(data.length==0){
      nodes_to['name'] = data[s]['3'];
   };
    nodes_to['value'] = 10;
+   nodes_to['draggable'] = true;
    nodes_total.push(nodes_to);
 
+   var links_single = {};
    links_single['source'] = nodes_from['name'];
    links_single['target'] = nodes_to['name'];
    links_single['weight'] = data[s]['2'];
@@ -39,7 +41,7 @@ option = {
 
     tooltip : {
         trigger: 'item',
-        formatter: '{a} : {b}'
+        formatter: '{a}  {b}'
     },
     toolbox: {
         show : true,
@@ -57,10 +59,15 @@ option = {
         {
             type:'force',
             name : "群组内部转发关系",
+            size:'80%',
+            center: ['50%','50%'],
             ribbonType: false,
             categories : [
                 {
-                    name: '群组用户'
+                    name: '转发用户'
+                },
+                {
+                    name: '被转发用户'
                 }
             ],
             itemStyle: {
@@ -94,12 +101,15 @@ option = {
             useWorker: false,
             minRadius : 15,
             maxRadius : 25,
-            gravity: 1.1,
-            scaling: 1.1,
+            gravity: 1.5,
+            scaling: 1.2,
+            steps: 10,
+            coolDown: 0.9,
             linkSymbol: 'arrow',
             roam: 'move',
             nodes: nodes_total,
-            links: links_total
+            links: links_total,
+            symbolSize: 15
         }
     ]
 };
@@ -107,40 +117,41 @@ option = {
 }
 } 
 
-function Draw_retwwie_out(data,div_name){
-var nodes_from = {};
-var nodes_to = {};
-var links_single = {};
+function Draw_retwwie_out(data){
 var nodes_total = [];
 var links_total = [];
 if(data.length==0){
  $('#out-retwwie').empty();
- var html = '<span style="margin-left:300px;font-size:20px;">暂无数据</span>'; 
+ var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
  $('#out-retwwie').append(html);
 }else{
   for (var i=0;i<data.length;i++){
   var s = i.toString();
-  nodes_from['category'] = 0;
+  var nodes_from = {};
+  nodes_from['category'] = '0';
   if(data[s]['4']=='unknown'||data[s]['4']==''){
-     nodes_from['name'] = data[s]['1'];
+     nodes_from['name'] = data[s]['0'];
  }else{
      nodes_from['name'] = data[s]['4'];
   };
-   nodes_from['value'] = 10;
+   nodes_from['draggable'] = true;
    nodes_total.push(nodes_from);
 
-  nodes_to['category'] = 1;
-  if(data[s]['3']=='unknown'||data[s]['3']==''){
-     nodes_to['name'] = data[s]['0'];
+  var nodes_to = {};
+  nodes_to['category'] ='1';
+  if(data[s]['5']=='unknown'||data[s]['5']==''){
+     nodes_to['name'] = data[s]['1'];
  }else{
-     nodes_to['name'] = data[s]['3'];
+     nodes_to['name'] = data[s]['5'];
   };
-   nodes_to['value'] = 10;
+   nodes_to['draggable'] = true;
+   nodes_to['value'] = data[s]['3']/10;
    nodes_total.push(nodes_to);
-
+ 
+   var links_single = {};
    links_single['source'] = nodes_from['name'];
    links_single['target'] = nodes_to['name'];
-   links_single['weight'] = data[s]['2'];
+   links_single['weight'] = data[s]['2']*10;
    links_total.push(links_single);
   }
 var myChart = echarts.init(document.getElementById('out-retwwie'),'shine');
@@ -169,8 +180,11 @@ option = {
             ribbonType: false,
             categories : [
                 {
-                    name: '微博用户'
-                }
+                    name: '群组内部用户'
+                },
+                {
+                    name: '群组外部用户'
+                },
             ],
             itemStyle: {
                 normal: {
@@ -201,14 +215,15 @@ option = {
                 }
             },
             useWorker: false,
+            size:'80%',
             minRadius : 15,
             maxRadius : 25,
-            gravity: 1.1,
+            gravity: 1.5,
             scaling: 1.1,
-            linkSymbol: 'arrow',
             roam: 'move',
             nodes: nodes_total,
-            links: links_total
+            links: links_total,
+            symbolSize: 15
         }
     ]
 };
