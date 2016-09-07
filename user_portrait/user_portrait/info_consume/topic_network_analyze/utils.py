@@ -29,7 +29,9 @@ def get_gexf(topic, identifyDate, identifyWindow):
 def get_trend_pusher(topic, identifyDate, identifyWindow):
 	items = db.session.query(TrendPusher).filter(TrendPusher.topic==topic ,\
 														TrendPusher.date==identifyDate ,\
-														TrendPusher.windowsize==identifyWindow).all()
+													TrendPusher.windowsize==identifyWindow).all()
+	#for item in items:
+		#print dir(item)
 	return items
 
 
@@ -41,7 +43,63 @@ def get_trend_maker(topic, identifyDate, identifyWindow):
 	return items
     
 
+def get_pusher_weibos_byts(topic, identifyDate, identifyWindow):
+	items = db.session.query(TrendPusher).filter(TrendPusher.topic==topic ,\
+														TrendPusher.date==identifyDate ,\
+													TrendPusher.windowsize==identifyWindow).all()
+	weibos = []
+	for item in items:
+		#print len(json.loads(item.weibo_info))
+		weibos.append(json.loads(item.weibo_info)[0])
+	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['timestamp'])
+	#for weibo in sorted_weibos:
+		#print weibo['_source']['timestamp']
+	return sorted_weibos
+def get_pusher_weibos_byhot(topic, identifyDate, identifyWindow):
+	items = db.session.query(TrendPusher).filter(TrendPusher.topic==topic ,\
+														TrendPusher.date==identifyDate ,\
+													TrendPusher.windowsize==identifyWindow).all()
+	weibos = []
+	for item in items:
+		#print len(json.loads(item.weibo_info))
+		weibos.append(json.loads(item.weibo_info)[0])
+	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['retweeted'], reverse=True)
+	#for weibo in sorted_weibos:
+		#print weibo['_source']['retweeted']
+	return sorted_weibos
+
+def get_maker_weibos_byts(topic, identifyDate, identifyWindow):
+	items = db.session.query(TrendMaker).filter(TrendMaker.topic==topic ,\
+														TrendMaker.date==identifyDate ,\
+														TrendMaker.windowsize==identifyWindow).all()
+
+	weibos = []
+	for item in items:
+		#print len(json.loads(item.weibo_info))
+		weibos.append(json.loads(item.weibo_info)[0])
+	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['timestamp'])
+	#for weibo in sorted_weibos:
+		#print weibo['_source']['timestamp']
+	return sorted_weibos
+
+def get_maker_weibos_byhot(topic, identifyDate, identifyWindow):
+	items = db.session.query(TrendMaker).filter(TrendMaker.topic==topic ,\
+														TrendMaker.date==identifyDate ,\
+														TrendMaker.windowsize==identifyWindow).all()
+	weibos = []
+	for item in items:
+		#print len(json.loads(item.weibo_info))
+		weibos.append(json.loads(item.weibo_info)[0])
+	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['retweeted'], reverse=True)
+	#for weibo in sorted_weibos:
+		#print weibo['_source']['retweeted']
+	return sorted_weibos
+
 if __name__ == '__main__':
 	#get_gexf('aoyunhui', "2016-08-11", 37 )
 	#get_trend_maker('aoyunhui', "2016-08-11", 37 )
-	get_trend_pusher('aoyunhui', "2016-08-11", 37 )
+	#get_trend_pusher('aoyunhui', "2016-08-11", 37 )
+	#get_pusher_weibos_byts('aoyunhui', "2016-08-11", 37 )
+	#get_maker_weibos_byts('aoyunhui', "2016-08-11", 37 )
+	#get_pusher_weibos_byhot('aoyunhui', "2016-08-11", 37 )
+	get_maker_weibos_byhot('aoyunhui', "2016-08-11", 37 )
