@@ -155,6 +155,7 @@ def comments_rubbish_clustering_calculation(comments, logger, cluster_num=COMMEN
         # 结合新闻，过滤评论
         _inputs = filter_comment(_inputs)
         inputs = [r for r in _inputs if r['rub_label'] == 0]
+        print 'inputs:',len(inputs)
         inputs_rubbish = [r for r in _inputs if r['rub_label'] == 1]
         for r in inputs_rubbish:
             r['clusterid'] =  NON_CLUSTER_ID + '_rub'
@@ -180,7 +181,7 @@ def comments_rubbish_clustering_calculation(comments, logger, cluster_num=COMMEN
             for label, items in recommend_text.iteritems():
                 if label != OTHER_CLUSTER_ID:
                     clusters_infos['features'][label] = results[label]
-
+                    print '11111',results[label]
                     for item in items:
                         item['clusterid'] = label
                         item['weight'] = item['weight']
@@ -195,6 +196,7 @@ def comments_rubbish_clustering_calculation(comments, logger, cluster_num=COMMEN
             tfidf_word, input_dict = tfidf_v2(inputs)
             uuid_label = str(uuid.uuid4())
             clusters_infos['features'][uuid_label] = [kw for kw, count in tfidf_word]
+            print '22222222',clusters_infos['features'][uuid_label]
             for r in inputs:
                 r['clusterid'] = uuid_label
                 r['weight'] = global_weight_cal_tfidf(tfidf_word, r)
