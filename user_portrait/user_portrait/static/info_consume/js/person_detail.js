@@ -26,7 +26,7 @@ personZone.prototype = {
   if(personalData.photo_url == "unknown"){
       img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
   }else{
-  	  console.log('here is pic');
+  	  //console.log('here is pic');
       img.src = personalData.photo_url;
   }
 
@@ -93,69 +93,306 @@ personZone.prototype = {
   //     } 
    
    },
+   //好友排行
+   my_friend_rank:function(data)
+   {
+      // console.log(data); 
+      // console.log(data.length);
+      // console.log(data[0]['influence']);
+      //对返回的字典按照影响力进行排序
+      data.sort(function(a,b){
+            return b.influence-a.influence});
+      //根据后台数据画表
+      $('#friend_rank').empty();
+      if(data.length==0)
+      {
+         document.getElementById('friend_rank').innerHTML = "暂无数据";
+      }else
+          {
+            var lengh_final;
+            //默认显示前10个好友（按照影响力排行）
+            if(data.length<10)
+            {
+              lengh_final=data.length;            
+            }else
+            {
+              lengh_final=10;
+            }  
+            for(var i=0;i<lengh_final;i++)
+              {  
+                var html ='<tr style="background-color:#ECFFCE;">';
+                if(data[i]['uid']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uid']+'</td>';
+                }
 
+                if(data[i]['uname']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uname']+'</td>';
+                }
+                 
+                 if(data[i]['friendsnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['friendsnum']+'</td>';
+                 }
 
-   // my_friend_rank:function(data)
-   // {
-   //    console.log(data); 
-      // var data_dic =new Array();
-      // for(var i=0;i<data.length;i++)
-      // {
-      //   data_dic.push({uid:data[i][0],uname:data[i][1],influence:data[i][2],fansnum:data[i][3],user_friendsnum:data[i][4],user_weibo_count:data[i][5]});
-      // }
-      // console.log(data_dic);
-      //JSON.stringify(data_dic);
+                 if(data[i]['fansnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['fansnum']+'</td>';
+                 }
 
-     // $('#table').bootstrapTable({
-     //  data:data_dic, 
-      
-     //  //dataType:json,
-     //  pagination: true, //分页
-     //  data-locale:"zh-US" , //表格汉化     
-     //  sidePagination: "client", //服务端处理分页
-     //      columns: [
-     //              {
-     //                  title: "userID",
-     //                  field: "uid",
-     //                  // align: 'center',
-     //                  // valign: 'middle'
-     //              }, 
-     //              {
-     //                  title: 'username',
-     //                  field: 'uname',
-     //                  align: 'center',
-     //                  valign: 'middle',
-     //              }, 
-     //              {
-     //                  title: 'influence',
-     //                  field: 'influence',
-     //                  align: 'center'
-     //              },
-     //              {
-     //                  title: 'fansnum',
-     //                  field: 'fansnum',
-     //                  align: 'center'
-     //              },
-     //              {
-     //                  title: 'user_friendsnum',
-     //                  field: 'user_friendsnum',
-     //                  align: 'center',
-     //              },
-     //              {
-     //                  title: 'user_weibo_count',
-     //                  field: 'user_weibo_count',
-     //                  align: 'center',
-     //               //    formatter:function(value,row,index){  
-     //               // var e = '<a href="#" mce_href="#" onclick="edit(\''+ row.id + '\')">编辑</a> ';  
-     //               // var d = '<a href="#" mce_href="#" onclick="del(\''+ row.id +'\')">删除</a> ';  
-     //               //      return e+d;  
-     //              } 
-     //              //}
-     //          ]
-     //  }); 
-    //}
+                if(data[i]['weibo_count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['weibo_count']+'</td>';
+                 }
 
+                 if(data[i]['influence']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['influence']+'</td>';
+                 }
+                 html+="</tr>";
+                $('#friend_rank').append(html);
+              }    
+          }
+   
+   },
+   //模态框（显示所有的好友排行信息）
+   friend_rank_detail:function(data)
+   {
+      // console.log(data); 
+      // console.log(data.length);
+      // console.log(data[0]['influence']);
+      //对返回的字典按照影响力进行排序
+      data.sort(function(a,b){
+            return b.influence-a.influence});
+      //根据后台数据画表
+      $('#friend_rank_detail').empty();
+      if(data.length==0)
+      {
+         document.getElementById('friend_rank_detail').innerHTML = "暂无数据";
+      }else
+          {
+           
+            for(var i=0;i<data.length;i++)
+              {  
+                var html ='<tr>';
+                if(data[i]['uid']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uid']+'</td>';
+                }
 
+                if(data[i]['uname']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uname']+'</td>';
+                }
+                 
+                 if(data[i]['friendsnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['friendsnum']+'</td>';
+                 }
+
+                 if(data[i]['fansnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['fansnum']+'</td>';
+                 }
+
+                if(data[i]['weibo_count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['weibo_count']+'</td>';
+                 }
+
+                 if(data[i]['influence']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['influence']+'</td>';
+                 }
+                 html+="</tr>";
+                $('#friend_rank_detail').append(html);
+              }    
+          }
+   
+   },
+
+      //亲密度排行
+      intimacy_rank:function(data)
+      {
+        
+        data.sort(function(a,b){
+            return b.count-a.count});
+        //console.log(data);
+
+         //根据后台数据画表
+      $('#intimacy_rank').empty();
+      if(data.length==0)
+      {
+         document.getElementById('intimacy_rank').innerHTML = "暂无数据";
+      }else
+          {
+            var lengh_final;
+            //默认显示10条亲密度排行信息
+            if(data.length<10)
+            {
+              lengh_final=data.length;            
+            }else
+            {
+              lengh_final=10;
+            }  
+            for(var i=0;i<lengh_final;i++)
+              {  
+                var html ='<tr style="background-color:#ECFFCE;">';
+                if(data[i]['uid']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uid']+'</td>';
+                }
+
+                if(data[i]['uname']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uname']+'</td>';
+                }
+                 
+                 if(data[i]['friendsnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['friendsnum']+'</td>';
+                 }
+
+                 if(data[i]['fansnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['fansnum']+'</td>';
+                 }
+
+                if(data[i]['weibo_count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['weibo_count']+'</td>';
+                 }
+
+                 if(data[i]['count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['count']+'</td>';
+                 }
+                 html+="</tr>";
+                $('#intimacy_rank').append(html);
+              }    
+          }
+      },
+      //模态框显示所有亲密度排行信息
+      intimacy_rank_detail:function(data)
+      {
+        
+        data.sort(function(a,b){
+            return b.count-a.count});
+            //console.log(data);
+
+         //根据后台数据画表
+      $('#intimacy_rank_detail').empty();
+      if(data.length==0)
+      {
+         document.getElementById('intimacy_rank_detail').innerHTML = "暂无数据";
+      }else
+          { 
+            for(var i=0;i<data.length;i++)
+              {  
+                var html ='<tr>';
+                if(data[i]['uid']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uid']+'</td>';
+                }
+
+                if(data[i]['uname']=="")
+                {
+                  html+='<td >--</td>';
+                }else{
+                  html+='<td>'+data[i]['uname']+'</td>';
+                }
+                 
+                 if(data[i]['friendsnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['friendsnum']+'</td>';
+                 }
+
+                 if(data[i]['fansnum']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['fansnum']+'</td>';
+                 }
+
+                if(data[i]['weibo_count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['weibo_count']+'</td>';
+                 }
+
+                 if(data[i]['count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['count']+'</td>';
+                 }
+                 html+="</tr>";
+                $('#intimacy_rank_detail').append(html);
+              }    
+          }
+      },
+      transmit_relationship:function(data)
+      {
+        console.log(data);
+      },
 
    //影响力和活跃度数据
     // overallData:function(data){
@@ -205,6 +442,9 @@ function openurl(){
   var ourl = $('#openurl').text();
   window.open(ourl);
  }
+
+
+
 /*
 $(function(){
 	$('#modechoose').click(function(){
@@ -442,6 +682,20 @@ var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+//好友排行
 var url ='/info_person_social/follower/?uid=2029036025';
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.my_friend_rank);
+//好友排行详细信息
+var url ='/info_person_social/follower/?uid=2029036025';
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.friend_rank_detail);
+//亲密度排行
+var url ='/info_person_social/mention/?uid=1831090244';
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);
+//亲密度排行详细信息
+var url ='/info_person_social/mention/?uid=1831090244';
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank_detail);
+//转发关系网络
+var uid_transmit=2029036025;
+var url ='/info_person_social/follower/?uid='+uid_transmit;
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.transmit_relationship);
 //最新update

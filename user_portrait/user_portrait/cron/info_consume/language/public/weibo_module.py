@@ -141,12 +141,15 @@ def comments_rubbish_clustering_calculation(comments, logger, cluster_num=COMMEN
 
     # 按新闻对评论归类
     results = comment_news(inputs)
+    #print '144-results:',results
 
     final_inputs = []
     for news_id, _inputs in results.iteritems():
         # 结合新闻，过滤评论
         _inputs = filter_comment(_inputs)
         inputs = [r for r in _inputs if r['rub_label'] == 0]
+        #print 'inputs:',len(inputs)
+        #print news_id
         inputs_rubbish = [r for r in _inputs if r['rub_label'] == 1]
         for r in inputs_rubbish:
             r['clusterid'] =  NON_CLUSTER_ID + '_rub'
