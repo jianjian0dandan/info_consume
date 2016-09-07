@@ -3,21 +3,6 @@ var start_ts=1468944000;
 var end_ts=1471622400;
 var opinion=["姐姐", "综艺节目", "网络"];
 
-function add0(m){return m<10?'0'+m:m }
-function format(shijianchuo)
-{
-//shijianchuo是整数，否则要parseInt转换
-var time = new Date(shijianchuo);
-var y = time.getFullYear();
-var m = time.getMonth()+1;
-var d = time.getDate();
-var h = time.getHours();
-var mm = time.getMinutes();
-var s = time.getSeconds();
-// return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
-return y+'-'+add0(m)+'-'+add0(d);
-}
-
 
 function topic_analysis_meaning(){
  
@@ -85,90 +70,80 @@ Draw_event_river:function(data){
     var item = data;
     // var item_data = [];
     var item_json = [];
-    var evolution_json = [];
+    
     var topic_name = [];
     var data_json = [];
     var html = '';
     
-    console.log('111');
+    // console.log('111');
     
     for (var key in item){
-        topic_name.push(key);
-        // console.log(item[key]);
-        // console.log(item[key].length);
+
+        var evolution_json = [];
+
         for (var i in item[key]){    
-          // i_datetime = new Date(parseInt(i) * 1000).toLocaleString().replace(/:\d{1,2}$/,'-');
-          i_datetime = format(parseInt(i)); 
-          evolution_json.push({"time":i_datetime,"value":item[key][i]});
-          // console.log(i);
-          // console.log(item[key][i]);
-          console.log(i_datetime);
+          evolution_json.push({"time":i,"value":item[key][i],});
+          
         }
-        data_json.push({"name":key,"evolution":evolution_json})
+        console.log(evolution_json);
+        data_json.push({"name":key,"evolution":evolution_json});
       }
     
-    // console.log(topic_name);
-    // console.log(evolution_json);
-    // console.log(i_datetime);
     console.log(data_json);
-    console.log([
-                    {
-                        "name": "Apec峰会", 
-                        "evolution": [
-                            {
-                                "time": "2016/7/20 上午1:00", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2016/7/21 上午1:00", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2016/7/22 上午1:00", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2016/7/23 上午1:00", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2016/7/24 上午1:00", 
-                                "value": 0, 
-                            }
-                        ]
-                    }, 
-                    {
-                        "name": "运城官帮透视", 
-                        // "weight": 123, 
-                        "evolution": [
-                            {
-                                "time": "2014-05-08", 
-                                "value": 4, 
-                            }, 
-                            {
-                                "time": "2014-05-09", 
-                                "value": 14, 
-                            }, 
-                            {
-                                "time": "2014-05-10", 
-                                "value": 30, 
-                            }, 
-                            {
-                                "time": "2014-05-11", 
-                                "value": 20, 
-                            }, 
-                            {
-                                "time": "2014-05-12", 
-                                "value": 10, 
-                            }
-                        ]
-                    }, 
+    // console.log( [
+    //                 {
+    //                     "name": "Apec峰会", 
+    //                     "evolution": [
+    //                         {
+    //                             "time": "2014-05-06", 
+    //                             "value": 8927, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-07", 
+    //                             "value": 18672, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-08", 
+    //                             "value": 3937, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-09", 
+    //                             "value": 102349, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-10", 
+    //                             "value": 8729, 
+    //                         }
+    //                     ]
+    //                 }, 
+    //                 {
+    //                     "name": "运城官帮透视", 
+    //                     // "weight": 123, 
+    //                     "evolution": [
+    //                         {
+    //                             "time": "2014-05-08", 
+    //                             "value": 4827, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-09", 
+    //                             "value": 1432, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-10", 
+    //                             "value": 3098, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-11", 
+    //                             "value": 2023, 
+    //                         }, 
+    //                         {
+    //                             "time": "2014-05-12", 
+    //                             "value": 1035, 
+    //                         }
+    //                     ]
+    //                 }, 
                     
-                ]);
-    // for (j=0;j<item.length;j++){    
-    //   // item_data.push(item[i][0].replace('\\"',''))
-    //   item_json.push({name:item[i][0],evolution:item[i][1],itemStyle: createRandomItemStyle()});
-    // }
+    //             ]);
 
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
@@ -199,61 +174,61 @@ Draw_event_river:function(data){
                 "type": "eventRiver", 
                 "weight": 123, 
                 // [{name:,weight:}]
-                // "data":data_json
-                "data": [
-                    {
-                        "name": "Apec峰会", 
-                        "evolution": [
-                            {
-                                "time": "2014-05-06", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2014-05-07", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2014-05-08", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2014-05-09", 
-                                "value": 0, 
-                            }, 
-                            {
-                                "time": "2014-05-10", 
-                                "value": 0, 
-                            }
-                        ]
-                    }, 
-                    {
-                        "name": "运城官帮透视", 
-                        // "weight": 123, 
-                        "evolution": [
-                            {
-                                "time": "2014-05-08", 
-                                "value": 4, 
-                            }, 
-                            {
-                                "time": "2014-05-09", 
-                                "value": 14, 
-                            }, 
-                            {
-                                "time": "2014-05-10", 
-                                "value": 30, 
-                            }, 
-                            {
-                                "time": "2014-05-11", 
-                                "value": 20, 
-                            }, 
-                            {
-                                "time": "2014-05-12", 
-                                "value": 10, 
-                            }
-                        ]
-                    }, 
+                 "data":data_json
+                // "data": [
+                //     {
+                //         "name": "Apec峰会", 
+                //         "evolution": [
+                //             {
+                //                 "time": "2014-05-06", 
+                //                 "value": 8927, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-07", 
+                //                 "value": 18672, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-08", 
+                //                 "value": 3937, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-09", 
+                //                 "value": 102349, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-10", 
+                //                 "value": 8729, 
+                //             }
+                //         ]
+                //     }, 
+                //     {
+                //         "name": "运城官帮透视", 
+                //         // "weight": 123, 
+                //         "evolution": [
+                //             {
+                //                 "time": "2014-05-08", 
+                //                 "value": 4827, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-09", 
+                //                 "value": 1432, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-10", 
+                //                 "value": 3098, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-11", 
+                //                 "value": 2023, 
+                //             }, 
+                //             {
+                //                 "time": "2014-05-12", 
+                //                 "value": 1035, 
+                //             }
+                //         ]
+                //     }, 
                     
-                ]
+                // ]
             }
         ]
 };
@@ -261,8 +236,116 @@ Draw_event_river:function(data){
 
 },
 
-Draw_time_line:function(){
+Draw_time_line:function(data){
+    var item = data;
+    var html = '';
+    
+    
+        <div class="row">
+            <div class="col-md-12" style="width:58%;">
+                <div class="VivaTimeline">
+                    <dl style="margin-left:-18%;">
+                        <dt>Aug 2016</dt>
+                        <dd class="pos-left clearfix">
+                            <div class="circ"></div>
+                            <div class="time">Aug 12</div>
+                            <div class="events">
+                                <div class="events-header">奥运网红身价涨多少？傅园慧“主播”身价至少涨20倍</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                       <!--  <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/dog01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中国新闻网&nbsp;&nbsp;&nbsp;&nbsp;2016-08-12 11:03:00 </br>据了解，目前傅园慧的广告身价约为800万以上，按照单条代言的价格，已经可以比肩游泳队的两名“网红”孙杨、宁泽涛，这一价格比她赛前的身价至少翻了4到5倍。而其接受直播等商业活动的价格也在60万到100万之间，这一价格是此前的近20倍。
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/dog02.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            北京青年报&nbsp;&nbsp;&nbsp;&nbsp;2016-08-12 10:03:00 </br>本届奥运会上，国家游泳队运动员傅园慧凭借赛后采访时真实率性的回答和夸张的表情动作意外走红，被网友称为“行走的表情包”。她的微博4天增加了400万粉丝，平均每条微博下都有数万条留言、几十万个点赞。10日，傅园慧在微博上发布了其走红以来的第一条广告，随后又在某直播平台上进行了长达一个小时的直播首秀。虽然她极力澄清自己没有商业化，这些都是服从队里的安排、早就接下的活动，但依然无法避免外界对她身价的猜测。
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/dog03.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-12 12:03:00 </br>两天时间微博圈粉300万，奥运“网红”傅园慧有多少商业价值？今天，傅园慧微博已经发布了一条广告内容，网友留言表示好评，“什么！你打广告的方式竟然这么简单！果然和外面的那些妖艳贱货不一样！” 　　傅园慧彻底火了。这两天爆出另一股“洪荒之力”的傅园慧，两天时间微博圈粉300万，成为本届奥运会的最大亮点。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="events-footer">
+                                    123
+                                </div>
+                            </div>
+                        </dd>
+                        <dt>Aug 2016</dt>
+                        <dd class="pos-right clearfix">
+                            <div class="circ"></div>
+                            <div class="time">Aug 10</div>
+                            <div class="events">
+                                <div class="events-header">傅园慧：快被霍顿气死，拥抱孙杨感觉很奇妙</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/cat01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00 </br>关于澳大利亚选手霍顿“嘲讽”孙杨一事，傅园慧表示：“我当时看到差点气死，我觉得这是污蔑，怎么能那么说杨哥。不过我在这儿说也没用，因为我也不能说什么，再说回去不就跟他们一样了吗？”
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/cat02.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                             中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00 </br>“我当时还想，如果我能战胜澳大利亚队的人的话，可能还蛮开心的吧，不过，跟我仰泳的那些其实没什么关系，我们不能迁怒于别人。我还是觉得很过分啊，怎么乱讲啊，杨哥是很努力的人，是很优秀的运动员，根本就没有做过作弊的事情，不是所有的运动员都会吃兴奋剂的。很多人以为出成绩必须吃药，但其实不是这样子的。”
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/cat03.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00 </br>有网友问被孙杨抱的感受，傅园慧说：“他就是祝贺我一下，不过直接摸到肉的感觉还是很奇妙的。”对于宁泽涛，傅园慧说：“宁泽涛也很棒啊，我跟你们讲这都是中国好男人。”
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="events-footer">
 
+                                </div>
+                            </div>
+                        </dd>
+                        
+                        <dt>Jan 2016</dt>
+                        <dt>Dec 2015</dt>
+                        <dt>Oct 2015</dt>
+                        <dt>Sep 2015</dt>
+                        <dt>Aug 2015</dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    
+    window.jQuery || document.write('<script src="../../static/info_consume/js/jquery.min.js"><\/script>')
+   
+    $(document).ready(function () {
+        $('.VivaTimeline').vivaTimeline({
+                carousel: true,
+                carouselTime: 3000
+        });
+    });
+ 
+     
 
 },
 
@@ -373,6 +456,12 @@ function Draw_event_river_result(){
   url = "/topic_language_analyze/topics_river/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_event_river);
+}
+
+function Draw_time_line_result(){
+  url = "/topic_language_analyze/subopinion/?topic="+topic;
+  console.log(url);
+  topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning. Draw_blog_opinion);
 }
 
 function Draw_blog_opinion_result(){
