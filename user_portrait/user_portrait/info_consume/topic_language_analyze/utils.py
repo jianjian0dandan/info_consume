@@ -120,16 +120,18 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
             }
         }
     }
-    symbol_weibos = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['cluster_dump_dict']
-    symbol_weibos = json.loads(symbol_weibos)
-    print symbol_weibos
+    symbol = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']
+    features = json.loads(symbol['features'])
+    symbol_weibos = json.loads(symbol['cluster_dump_dict'])
+    #print symbol_weibos
+    print type(features)
     begin_ts = end_ts - unit
     for clusterid,contents in symbol_weibos.iteritems():
         print clusterid
         for i in contents:
             ts = full_datetime2ts(i['datetime'])
             if ts >= start_ts and ts <= end_ts:  #start_ts应该改成begin_ts，现在近15分钟没数据，所以用所有的
-                weibos[clusterid] = i
+                weibos[features[clusterid][0]] = i
     return weibos
 
 

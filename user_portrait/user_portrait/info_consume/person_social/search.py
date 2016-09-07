@@ -107,7 +107,8 @@ def search_follower(uid, top_count):
                 user_friendsnum = ''
                 influence = ''
             #retweet_count = int(retweet_dict[uid])
-            out_portrait_list.append({'uid':uid,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'count':count,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
             iter_count += 1
         return out_portrait_list
     else:
@@ -215,6 +216,36 @@ def search_mention(now_ts, uid, top_count):
         print append_dict
     return new_out_portrait_list  #  uid，名字，提及次数,粉丝数，注册地，关注数，微博数
 
+
+
+#use to get user be_comment from es: be_comment_1, be_comment_2
+#write in version: 15-12-08
+#input: uid, top_count
+#output: in_portrait_list, in_portrait_result, out_portrait_list
+def search_be_comment(uid, top_count):
+    results = {}
+    now_ts = time.time()
+    
+    #evaluate_max_dict = get_evaluate_max()
+    db_number = get_db_num(now_ts)
+    index_name = be_comment_index_name_pre + str(db_number)
+    center_uid = uid
+    try:
+        retweet_result = es_comment.get(index=index_name, doc_type=be_comment_index_type, id=uid)['_source']
+    except:
+        return None
+
+    content = json.loads(retweet_result['uid_be_comment'])
+    return_list = []
+    for uid,count in content.iteritems():
+        try:
+            uname = es_user_portrait.get(index=profile_index_name,doc_type=profile_index_type,id=uid)['_source']['nick_name']
+        except:
+            uname = u'未知'
+        return_list.append({'uid':uid,'uname':uname,'count':count})
+    return return_list
+
+ 
 
 
 def search_identify_uid(uid):
@@ -586,135 +617,6 @@ def search_comment(uid, top_count):
     return {'in_portrait_list':in_portrait_list, 'in_portrait_result':in_portrait_result, 'out_portrait_list':out_portrait_list}
 
 
-#use to get user be_comment from es: be_comment_1, be_comment_2
-#write in version: 15-12-08
-#input: uid, top_count
-#output: in_portrait_list, in_portrait_result, out_portrait_list
-def search_be_comment(uid, top_count):
-    results = {}
-    now_ts = time.time()
-    evaluate_max_dict = get_evaluate_max()
-    db_number = get_db_num(now_ts)
-    index_name = be_comment_index_name_pre + str(db_number)
-    center_uid = uid
-    try:
-        retweet_result = es_comment.get(index=index_name, doc_type=be_comment_index_type, id=uid)['_source']
-    except:
-        retweet_result = {}
-    if retweet_result:
-        retweet_dict = json.loads(retweet_result['uid_be_comment'])
-    else:
-        retweet_dict = {}
-    sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
-    count = 0
-    in_portrait_list = []
-    out_portrait_list = []
-    in_portrait_result = {} # {'topic':{'topic1':count,...}, 'domain':{'domain1':count}}
-    in_portrait_topic_list = []
-    in_portrait_result['domain'] = {}
-
-    while True:
-        uid_list = [item[0] for item in sort_retweet_result[count:count+20]]
-        try:
-            portrait_result = es_user_portrait.mget(index=portrait_index_name, doc_type=portrait_index_type, body={'ids':uid_list})['docs']
-        except:
-            portrait_result = []
-        for item in portrait_result:
-            uid = item['_id']
-            if item['found'] == True and uid != center_uid:
-                if len(in_portrait_list)<top_count:
-                    source = item['_source']
-                    uname = source['uname']
-                    influence = source['influence']
-                    #normal
-                    influence = math.log(influence / evaluate_max_dict['influence'] * 9 + 1 , 10) * 100
-                    importance = source['importance']
-                    #normal
-                    importance = math.log(importance / evaluate_max_dict['importance'] * 9 + 1, 10) * 100
-                    activeness = source['activeness']
-                    #normal
-                    activeness = math.log(activeness / evaluate_max_dict['activeness'] * 9 + 1, 10) * 10
-                    sensitive = source['sensitive']
-                    #normal
-                    sensitive = math.log(sensitive / evaluate_max_dict['sensitive'] * 9 + 1, 10) * 100
-                    topic_list = source['topic_string'].split('&')
-                    domain = source['domain']
-                    try:
-                        in_portrait_result['domain'][domain] += 1
-                    except:
-                        in_portrait_result['domain'][domain] = 1
-                    in_portrait_topic_list.extend(topic_list)
-                    retweet_count = int(retweet_dict[uid])
-                    in_portrait_list.append([uid,uname,influence, importance, retweet_count, activeness, sensitive])
-            else:
-                if len(out_portrait_list)<top_count and uid != center_uid:
-                    out_portrait_list.append(uid)
-        if len(out_portrait_list)==top_count and len(in_portrait_list)==top_count:
-            break
-        elif count >= len(sort_retweet_result):
-            break
-        else:
-            count += 20
-
-    in_portrait_result['topic'] = {}
-    for topic_item in in_portrait_topic_list:
-        try:
-            in_portrait_result['topic'][topic_item] += 1
-        except:
-            in_portrait_result['topic'][topic_item] = 1
-    
-    #sort in_portrait_result: domain and topic
-    topic_dict = in_portrait_result['topic']
-    sort_topic_dict = sorted(topic_dict.items(), key=lambda x:x[1], reverse=True)
-    domain_dict = in_portrait_result['domain']
-    sort_domain_dict = sorted(domain_dict.items(), key=lambda x:x[1], reverse=True)
-    in_portrait_result['domain'] = sort_domain_dict
-    in_portrait_result['topic'] = sort_topic_dict
-
-    #use to get user information from user profile
-    out_portrait_result = {}
-    try:
-        out_user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':out_portrait_list})['docs']
-    except:
-        out_user_result = []
-    #add index from bci
-    try:
-        bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':out_portrait_list}, fields=['user_fansnum', 'weibo_month_sum', 'user_friendsnum'])['docs']
-    except:
-        bci_history_result = []
-    iter_count = 0
-    out_portrait_list = []
-    for out_user_item in out_user_result:
-        uid = out_user_item['_id']
-        if out_user_item['found'] == True:
-            source = out_user_item['_source']
-            uname = source['nick_name']
-            if uname == '':
-                uname = u'未知'
-            location = source['user_location']
-            friendsnum = source['friendsnum']
-        else:
-            uname = u'未知'
-            location = ''
-            friendsnum = ''
-
-        #add index from bci_history
-        try:
-            bci_history_item = bci_history_result[iter_count]
-        except:
-            bci_history_item = {'found': False}
-        if bci_history_item['found'] == True:
-            fansnum = bci_history_item['fields']['user_fansnum'][0]
-            user_weibo_count = bci_history_item['fields']['weibo_month_sum'][0]
-            user_friendsnum = bci_history_item['fields']['user_friendsnum'][0]
-        else:
-            fansnum = ''
-            user_weibo_count = ''
-            user_friendsnum = ''
-        retweet_count = int(retweet_dict[uid])
-        out_portrait_list.append([uid, uname, retweet_count, fansnum, location, user_friendsnum, user_weibo_count])
-        iter_count += 1
-    return {'in_portrait_list':in_portrait_list, 'in_portrait_result':in_portrait_result, 'out_portrait_list':out_portrait_list}
 
 #use to get user bidirect interaction from es:retweet/be_retweet/comment/be_comment
 #write in version: 15-12-08
@@ -750,21 +652,6 @@ def search_bidirect_interaction(uid, top_count):
         be_retweet_uid_dict = json.loads(be_retweet_result['uid_be_retweet'])
     else:
         be_retweet_uid_dict = {}
-    '''
-    if retweet_uid_list:
-        try:
-            be_retweet_result = es_retweet.mget(index=be_retweet_index_name, doc_type=be_retweet_index_type, body={'ids':retweet_uid_list})['docs']
-        except Exception, e:
-            raise e
-    else:
-        be_retweet_result = []
-    for be_retweet_item in be_retweet_result:
-        be_retweet_uid = be_retweet_item['_id']
-        if be_retweet_item['found']==True and be_retweet_uid != uid:
-            be_retweet_dict = json.loads(be_retweet_item['_source']['uid_be_retweet'])
-            if uid in be_retweet_dict:
-                retweet_inter_dict[be_retweet_uid] = be_retweet_dict[uid] + retweet_uid_dict[be_retweet_uid]
-    '''
     #bidirect interaction in comment and be_comment
     try:
         comment_result = es_comment.get(index=comment_index_name, doc_type=comment_index_type, id=uid)['_source']
@@ -776,7 +663,7 @@ def search_bidirect_interaction(uid, top_count):
         comment_uid_dict = {}
     comment_uid_list = comment_uid_dict.keys()
     try:
-        be_comment_result = es_comment.get(index=be_coment_index_name, doc_type=be_comment_index_type, id=uid)['_source']
+        be_comment_result = es_comment.get(index=be_comment_index_name, doc_type=be_comment_index_type, id=uid)['_source']
     except:
         be_comment_result = {}
     if be_comment_result:
@@ -784,18 +671,7 @@ def search_bidirect_interaction(uid, top_count):
     else:
         be_comment_uid_dict = {}
 
-    '''
-    try:
-        be_comment_result = es_comment.mget(index=be_comment_index_name, doc_type=be_comment_index_type, body={'ids':comment_uid_list})['docs']
-    except:
-        be_comment_result = []
-    for be_comment_item in be_comment_result:
-        be_comment_uid = be_comment_item['_id']
-        if be_comment_item['found']==True and be_comment_uid != uid:
-            be_comment_dict = json.loads(be_comment_item['_source']['uid_be_comment'])
-            if uid in be_comment_dict:
-                comment_inter_dict[be_comment_uid] = be_comment_dict[uid] + comment_uid_dict[be_comment_uid]
-    '''
+
     #get bidirect_interaction dict
     #all_interaction_dict = union_dict(retweet_inter_dict, comment_inter_dict)
     retweet_comment_result = union_dict(retweet_uid_dict, comment_uid_dict)
@@ -810,13 +686,9 @@ def search_bidirect_interaction(uid, top_count):
     sort_all_interaction_dict = sorted(all_interaction_dict.items(), key=lambda x:x[1], reverse=True)
     #get in_portrait_list, in_portrait_results and out_portrait_list
     all_interaction_uid_list = [item[0] for item in sort_all_interaction_dict]
-    in_portrait_list = []
-    in_portrait_result = {}
-    in_portrait_topic_list = []
-    in_portrait_result['domain'] = {}
-    out_portrait_list = []
-    count = 0
-    evaluate_max_dict = get_evaluate_max()
+
+    print '>>>>>>>>>>>>>>>>>>>>>>>>>>'
+    print sort_all_interaction_dict
     while True:
         uid_list = [item for item in all_interaction_uid_list[count: count+20]]
         try:
@@ -829,18 +701,6 @@ def search_bidirect_interaction(uid, top_count):
                 if len(in_portrait_list) < top_count:
                     source = item['_source']
                     uname = source['uname']
-                    influence = source['influence']
-                    #normal
-                    influence = math.log(influence / evaluate_max_dict['influence'] * 9 + 1, 10) * 100
-                    importance = source['importance']
-                    #normal
-                    importance = math.log(importance / evaluate_max_dict['importance'] * 9 +1 , 10) * 100
-                    activeness = source['activeness']
-                    #normal
-                    activeness = math.log(activeness / evaluate_max_dict['activeness'] * 9 + 1, 10) * 100
-                    sensitive = source['sensitive']
-                    #normal
-                    sensitive = math.log(sensitive / evaluate_max_dict['sensitive'] * 9 + 1, 10) * 100
                     topic_list = source['topic_string'].split('&')
                     domain = source['domain']
                     try:
@@ -849,7 +709,7 @@ def search_bidirect_interaction(uid, top_count):
                         in_portrait_result['domain'][domain] = 1
                     in_portrait_topic_list.extend(topic_list)
                     interaction_count = int(all_interaction_dict[uid])
-                    in_portrait_list.append([uid, uname, influence, importance, interaction_count, activeness, sensitive])
+                    in_portrait_list.append([uid, uname])
             else:
                 if len(out_portrait_list)<top_count:
                     out_portrait_list.append(uid)
