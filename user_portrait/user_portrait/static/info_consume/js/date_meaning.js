@@ -3,6 +3,22 @@ var start_ts=1468944000;
 var end_ts=1471622400;
 var opinion=["姐姐", "综艺节目", "网络"];
 
+function add0(m){return m<10?'0'+m:m }
+function format(shijianchuo)
+{
+//shijianchuo是整数，否则要parseInt转换
+var time = new Date(shijianchuo);
+var y = time.getFullYear();
+var m = time.getMonth()+1;
+var d = time.getDate();
+var h = time.getHours();
+var mm = time.getMinutes();
+var s = time.getSeconds();
+// return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+return y+'-'+add0(m)+'-'+add0(d);
+}
+
+
 function topic_analysis_meaning(){
  
 }
@@ -71,21 +87,84 @@ Draw_event_river:function(data){
     var item_json = [];
     var evolution_json = [];
     var topic_name = [];
+    var data_json = [];
     var html = '';
-    var length = item.length;
+    
     console.log('111');
-    console.log(length);
-    for (i=0;i<item.length;i++){    
-      // item_data.push(item[i][0].replace('\\"',''))
-      for (key in item[i]){
+    
+    for (var key in item){
         topic_name.push(key);
-        console.log(key);
+        // console.log(item[key]);
+        // console.log(item[key].length);
+        for (var i in item[key]){    
+          // i_datetime = new Date(parseInt(i) * 1000).toLocaleString().replace(/:\d{1,2}$/,'-');
+          i_datetime = format(parseInt(i)); 
+          evolution_json.push({"time":i_datetime,"value":item[key][i]});
+          // console.log(i);
+          // console.log(item[key][i]);
+          console.log(i_datetime);
+        }
+        data_json.push({"name":key,"evolution":evolution_json})
       }
-      evolution_json.push({time:item[i][0],value:item[i][1],});
-      
-    }
-    console.log(topic_name);
-    console.log(evolution_json);
+    
+    // console.log(topic_name);
+    // console.log(evolution_json);
+    // console.log(i_datetime);
+    console.log(data_json);
+    console.log([
+                    {
+                        "name": "Apec峰会", 
+                        "evolution": [
+                            {
+                                "time": "2016/7/20 上午1:00", 
+                                "value": 0, 
+                            }, 
+                            {
+                                "time": "2016/7/21 上午1:00", 
+                                "value": 0, 
+                            }, 
+                            {
+                                "time": "2016/7/22 上午1:00", 
+                                "value": 0, 
+                            }, 
+                            {
+                                "time": "2016/7/23 上午1:00", 
+                                "value": 0, 
+                            }, 
+                            {
+                                "time": "2016/7/24 上午1:00", 
+                                "value": 0, 
+                            }
+                        ]
+                    }, 
+                    {
+                        "name": "运城官帮透视", 
+                        // "weight": 123, 
+                        "evolution": [
+                            {
+                                "time": "2014-05-08", 
+                                "value": 4, 
+                            }, 
+                            {
+                                "time": "2014-05-09", 
+                                "value": 14, 
+                            }, 
+                            {
+                                "time": "2014-05-10", 
+                                "value": 30, 
+                            }, 
+                            {
+                                "time": "2014-05-11", 
+                                "value": 20, 
+                            }, 
+                            {
+                                "time": "2014-05-12", 
+                                "value": 10, 
+                            }
+                        ]
+                    }, 
+                    
+                ]);
     // for (j=0;j<item.length;j++){    
     //   // item_data.push(item[i][0].replace('\\"',''))
     //   item_json.push({name:item[i][0],evolution:item[i][1],itemStyle: createRandomItemStyle()});
@@ -120,29 +199,30 @@ Draw_event_river:function(data){
                 "type": "eventRiver", 
                 "weight": 123, 
                 // [{name:,weight:}]
+                // "data":data_json
                 "data": [
                     {
                         "name": "Apec峰会", 
                         "evolution": [
                             {
                                 "time": "2014-05-06", 
-                                "value": 14, 
+                                "value": 0, 
                             }, 
                             {
                                 "time": "2014-05-07", 
-                                "value": 34, 
+                                "value": 0, 
                             }, 
                             {
                                 "time": "2014-05-08", 
-                                "value": 60, 
+                                "value": 0, 
                             }, 
                             {
                                 "time": "2014-05-09", 
-                                "value": 40, 
+                                "value": 0, 
                             }, 
                             {
                                 "time": "2014-05-10", 
-                                "value": 20, 
+                                "value": 0, 
                             }
                         ]
                     }, 
@@ -172,36 +252,7 @@ Draw_event_river:function(data){
                             }
                         ]
                     }, 
-                    {
-                        "name": "底层公务员收入超过副部长", 
-                        // "weight": 123, 
-                        "evolution": [
-                            {
-                                "time": "2014-05-11", 
-                                "value": 4, 
-                            }, 
-                            {
-                                "time": "2014-05-12", 
-                                "value": 24, 
-                            }, 
-                            {
-                                "time": "2014-05-13", 
-                                "value": 40, 
-                            }, 
-                            {
-                                "time": "2014-05-14", 
-                                "value": 20, 
-                            }, 
-                            {
-                                "time": "2014-05-15", 
-                                "value": 15, 
-                            }, 
-                            {
-                                "time": "2014-05-16", 
-                                "value": 10, 
-                            }
-                        ]
-                    }
+                    
                 ]
             }
         ]
@@ -337,7 +388,7 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
 
-Draw_keywords_cloud_result();
+// Draw_keywords_cloud_result();
 Draw_event_river_result();
-Draw_blog_opinion_result();
-Draw_blog_scan_area_meaning_result();
+// Draw_blog_opinion_result();
+// Draw_blog_scan_area_meaning_result();

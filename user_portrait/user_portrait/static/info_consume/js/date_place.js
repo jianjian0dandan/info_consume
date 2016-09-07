@@ -220,7 +220,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 						
 		}
 		)	
-		console.log(item_json);
+		
 
 		item_json.sort(function(a,b){
             return b.value-a.value});

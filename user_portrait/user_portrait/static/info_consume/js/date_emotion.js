@@ -2,11 +2,13 @@ var topic = 'aoyunhui';
 var start_ts = 1468166400;
 var end_ts = 1468949400;
 var pointInterval=3600;
+// var case_val = 1;
 // var province = '陕西';
 
 function get_emotion_type(val) {
  	case_val = val;
- 	// $(#main_emotion_2).empty();
+ 	$('#main_emotion_2').empty();
+  	$('#top15_content_emotion').empty();
  	Draw_emotion_map_result();
  	//可以设置默认值（正向），随着页面加载。
  }
@@ -105,9 +107,6 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 
   Draw_emotion_map:function(data){
   		
-  		$(#main_emotion_2).empty();
-  		$(#top15_content_emotion).empty();
- 	
 		var item = data;
 	 	var item_json_pos = [];
 	 	var item_json_neu = [];
@@ -127,23 +126,29 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 		// console.log();
 		}
  		
+ 		// console.log(item_json_pos);
+ 		// console.log(item_json_neu);
+ 		// console.log(item_json_neg);
 
- 		item_legend = '正向';
-		item_item = item_json_pos;
+ 		var item_legend = '正向';
+		var item_item = item_json_pos;
 
 		if(case_val=1){
 			item_legend = '正向';
 			item_item = item_json_pos;
+			console.log(item_item);
 
 		}else if (case_val = 2){
 			item_legend = '中立';
 			item_item = item_json_neu;
+			console.log(item_item);
 		}else if(case_val = 3){
 			item_legend = '负向';
 			item_item = item_json_neg;
+			console.log(item_item);
 		}
 		
-		console.log(item_item.length);
+		// console.log(item_item.length);
 
 	 	var myChart = echarts.init(document.getElementById('main_emotion_2'));
 
@@ -266,7 +271,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		}
 		)	
 
-		console.log(item_item);
+		// console.log(item_item);
 		item_item.sort(function(a,b){
             return b.value-a.value});
 		var rank_html = '';
@@ -396,5 +401,5 @@ function Draw_blog_scan_area_emotion_result(){
 
 
 Draw_emotion_trend_line_result();
-Draw_emotion_map_result();
+// Draw_emotion_map_result();
 Draw_blog_scan_area_emotion_result();
