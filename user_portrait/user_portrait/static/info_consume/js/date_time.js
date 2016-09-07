@@ -77,7 +77,23 @@ function set_order_type(type){
 // }
 
 
-
+function add0(m){return m<10?'0'+m:m }
+function format(shijianchuo)
+{
+//shijianchuo是整数，否则要parseInt转换
+var time = new Date(shijianchuo);
+var y = time.getFullYear();
+var m = time.getMonth()+1;
+var d = time.getDate();
+var h = time.getHours();
+var mm = time.getMinutes();
+var s = time.getSeconds();
+return {
+	formate_data_time:y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s),
+	formate_data:y+'-'+add0(m)+'-'+add0(d)
+};
+// return y+'-'+add0(m)+'-'+add0(d);
+}
 
 
 function topic_analysis_time(){
@@ -107,6 +123,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
  		//console.log(key);
 		//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
 		key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+		// key_datetime = format(parseInt(key).formate_data);
 		//console.log(key_datetime);
 		x_item.push(key_datetime);	
 		y_item_origin.push(data[key][1]);
@@ -231,6 +248,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 					//console.log(item[i][1].uname);
 				}
 				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+				// var item_timestamp_datetime = format(parseInt(item[i][1].timestamp).formate_data_time);
 				html += '<div class="blog_time">';
 				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
 				html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
