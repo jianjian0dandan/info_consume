@@ -6,6 +6,8 @@ import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
 from search import search_attribute_portrait, search_location, search_ip, search_mention, search_activity,\
                    search_attention, search_follower, search_portrait, get_geo_track, get_geo_track_ip, get_online_pattern
+from search import search_be_comment,search_bidirect_interaction
+
 '''
 from search import delete_action, search_identify_uid, get_activeness_trend
 from search import get_activity_weibo, search_comment, search_be_comment
@@ -79,6 +81,36 @@ def ajax_mention():
         print test_time
     results = search_mention(now_ts, uid, top_count)
 
+    return json.dumps(results)
+
+#use to get user be_comment from es: be_comment_1 or be_comment_2
+#write in version: 15-12-08
+#input: uid, top_count
+#output: in_portrait_list. in_portrait_result, out_portrait_list
+@mod.route('/be_comment/')
+def ajax_be_comment():
+    uid = request.args.get('uid', '')
+    uid =str(uid)
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    results = search_be_comment(uid, top_count)
+    if not results:
+        results = {}
+    return json.dumps(results)
+
+#use to get user interaction from es:retweet_1+be_retweet_1, comment_1+be_comment_1
+#write in version: 15-12-08
+#input: uid, top_count
+#output: retweet_inter_list, comment_inter_list
+@mod.route('/bidirect_interaction/')
+def ajax_interaction():
+    uid = request.args.get('uid', '')
+    uid = str(uid)
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    results = search_bidirect_interaction(uid, top_count)
+    if not results:
+        results = {}
     return json.dumps(results)
 
 '''
@@ -380,7 +412,7 @@ def ajax_activity_weibo():
     return json.dumps(results)
 
 #abandon in version-15-12-08
-'''
+
 @mod.route('/activity/')
 def ajax_activity():
     uid = request.args.get('uid', '')
@@ -393,7 +425,7 @@ def ajax_activity():
         return json.dumps(results)
     else:
         return None
-'''
+
 
 #use to get user retweet from es:retweet_1 or be_retweet_2
 #write in version:15-12-08
