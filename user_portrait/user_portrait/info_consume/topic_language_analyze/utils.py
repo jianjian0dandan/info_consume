@@ -4,7 +4,7 @@ from user_portrait.global_config import db,es_user_profile,profile_index_name,pr
                             subopinion_index_name,subopinion_index_type,topic_index_name,topic_index_type
 from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
 
-from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
+from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
 
 from user_portrait.info_consume.model import CityTopicCount,CityWeibos
 import math
@@ -199,6 +199,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
 def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
     key_weibo_time_count = {}
     time_dict = {}
+    during = Day
     for clusterid,keywords in news_topics.iteritems(): #{u'd2e97cf7-fc43-4982-8405-2d215b3e1fea': [u'\u77e5\u8bc6', u'\u5e7f\u5dde', u'\u9009\u624b']}
         if len(keywords)>0:
             start_ts = int(start_ts)
@@ -228,7 +229,7 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
                         }
                 key_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)
                 key_weibo_count = key_weibo['hits']['total']  #分时间段的类的数量
-                time_dict[end_ts] = key_weibo_count
+                time_dict[ts2datetime(end_ts)] = key_weibo_count
             key_weibo_time_count[clusterid] = time_dict
     return key_weibo_time_count
 
