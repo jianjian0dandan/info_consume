@@ -232,7 +232,8 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
                 key_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)
                 key_weibo_count = key_weibo['hits']['total']  #分时间段的类的数量
                 time_dict[ts2datetime(end_ts)] = key_weibo_count
-            key_weibo_time_count[clusterid] = time_dict
+
+            key_weibo_time_count[clusterid] = sorted(time_dict.items(),key=lambda x:x[0])
     return key_weibo_time_count
 
 
