@@ -34,6 +34,7 @@ if(data.length==0){
    links_single['source'] = nodes_from['name'];
    links_single['target'] = nodes_to['name'];
    links_single['weight'] = data[s]['2'];
+   links_single['value'] = data[s]['2'];
    links_total.push(links_single);
   }
 var myChart = echarts.init(document.getElementById('in-retwwie'),'shine');
@@ -41,7 +42,7 @@ option = {
 
     tooltip : {
         trigger: 'item',
-        formatter: '{a}  {b}'
+        formatter: '{b} : {c}'
     },
     toolbox: {
         show : true,
@@ -151,15 +152,18 @@ if(data.length==0){
    var links_single = {};
    links_single['source'] = nodes_from['name'];
    links_single['target'] = nodes_to['name'];
-   links_single['weight'] = data[s]['2']*10;
+   links_single['weight'] = data[s]['2'];
+   links_single['value'] = data[s]['2'];
    links_total.push(links_single);
   }
 var myChart = echarts.init(document.getElementById('out-retwwie'),'shine');
 option = {
-
+    title:{
+    	subtext:'节点数值代表用户影响力大小，边数值代表用户交互次数'
+    },
     tooltip : {
         trigger: 'item',
-        formatter: '{a} : {b}'
+        formatter: '{b} : {c}'
     },
     toolbox: {
         show : true,
@@ -176,7 +180,6 @@ option = {
     series : [
         {
             type:'force',
-            name : "群组外部转发关系",
             ribbonType: false,
             categories : [
                 {
@@ -223,7 +226,6 @@ option = {
             roam: 'move',
             nodes: nodes_total,
             links: links_total,
-            symbolSize: 15
         }
     ]
 };
