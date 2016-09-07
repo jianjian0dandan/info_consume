@@ -4,7 +4,7 @@ from user_portrait.global_config import db,es_user_profile,profile_index_name,pr
                             subopinion_index_name,subopinion_index_type,topic_index_name,topic_index_type
 from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
 
-from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts
+from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
 
 from user_portrait.info_consume.model import CityTopicCount,CityWeibos
 import math
@@ -120,16 +120,18 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
             }
         }
     }
-    symbol_weibos = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['cluster_dump_dict']
-    symbol_weibos = json.loads(symbol_weibos)
-    print symbol_weibos
+    symbol = weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']
+    features = json.loads(symbol['features'])
+    symbol_weibos = json.loads(symbol['cluster_dump_dict'])
+    #print symbol_weibos
+    print type(features)
     begin_ts = end_ts - unit
     for clusterid,contents in symbol_weibos.iteritems():
         print clusterid
         for i in contents:
             ts = full_datetime2ts(i['datetime'])
             if ts >= start_ts and ts <= end_ts:  #start_ts应该改成begin_ts，现在近15分钟没数据，所以用所有的
-                weibos[clusterid] = i
+                weibos[features[clusterid][0]] = i
     return weibos
 
 
@@ -199,6 +201,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
 def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
     key_weibo_time_count = {}
     time_dict = {}
+    during = Day
     for clusterid,keywords in news_topics.iteritems(): #{u'd2e97cf7-fc43-4982-8405-2d215b3e1fea': [u'\u77e5\u8bc6', u'\u5e7f\u5dde', u'\u9009\u624b']}
         if len(keywords)>0:
             start_ts = int(start_ts)
@@ -228,8 +231,9 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
                         }
                 key_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)
                 key_weibo_count = key_weibo['hits']['total']  #分时间段的类的数量
-                time_dict[end_ts] = key_weibo_count
-            key_weibo_time_count[clusterid] = time_dict
+                time_dict[ts2datetime(end_ts)] = key_weibo_count
+
+            key_weibo_time_count[clusterid] = sorted(time_dict.items(),key=lambda x:x[0])
     return key_weibo_time_count
 
 
