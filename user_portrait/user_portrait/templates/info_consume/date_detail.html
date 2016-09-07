@@ -24,6 +24,7 @@
  	<script type="text/javascript" src='../../static/info_consume/js/map.js'></script>
  	<script type="text/javascript" src='../../static/info_consume/js/echarts-map.js'></script>
  	<script src="../../static/info_consume/js/jqcloud-1.0.4.js" type="text/javascript" charset="utf-8"></script>
+ 	<!-- <script type="text/javascript" src="../../static/info_consume/js/jquery.eeyellow.Timeline.js"></script> -->
 
 
 
@@ -53,7 +54,7 @@
 	   <li><a href="#emotion" data-toggle="tab" id="menu_font">
 	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
 	   		情绪</a></li>
-	   <li><a href="#meaning" data-toggle="tab" id="menu_font" onclick='test()'>
+	   <li><a href="#meaning" data-toggle="tab" id="menu_font">
 	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/meaning.png">
 	   		语义</a></li>
 	</ul>
@@ -175,9 +176,9 @@
       			<input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
    			</label>
 		</div>
-		<p id="blog_scan_title3">微博类型：</p>
+		<!-- <p id="blog_scan_title3">微博类型：</p>
 		<p id="blog_scan_title4">原创</p>
-		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+		<img id="img_doubt" src="../../static/info_consume/image/doubt.png"> -->
 		<div class="halving_line3"></div>
 		<!-- 画图，见time_blogscan.js文件（此处移除了所有的） -->
 		<!-- <span class="loading_more" onclick="" >加载更多</span> -->
@@ -807,12 +808,25 @@
 			<p id="time_trend_title">情绪热力图</p>
 			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 		</div>
+		<div><p id="emotion_type">情绪类型：</p></div>
+		<div class="btn-group" data-toggle="buttons">
+   			<label class="btn btn-primary" id="label2" value="1" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('1')">
+      			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 正向
+   			</label>
+   			<label class="btn btn-primary" id="label3" value="2" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('2')">
+      			<input type="radio" name="options" id="option3" onClick="changecolor(id)"> 中立
+   			</label>
+   			<label class="btn btn-primary" id="label4" value="3" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('3')">
+      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 负向
+   			</label>
+   			
+		</div>	
 
 <!-- 引入情绪热力图 -->
 <div id="main_emotion_bigger">
 	<div id="main_emotion_2" ></div>
-	<div id="left_line_right"></div>
-	<div id="right_col">
+	<div id="left_line_right_emotion"></div>
+	<div id="right_col_emotion">
 		<div id="right_col_title_1">
 			<div id="right_col_title_1_blue"></div>
 			<div id="right_col_title_1_green"></div>
@@ -942,7 +956,7 @@
 <!-- 引入话题关键词云图 -->
 		<div id="main_meaning_1">
 			
-			<div class="" style="width: 100%;">
+			<!-- <div class="" style="width: 100%;">
 				<div id="my_favorite_latin_words" style="width: 750px; margin: 0px auto; margin-left: -1%;height: 300px; border: 1px solid #ccc; "></div>
 			</div>
 
@@ -950,7 +964,7 @@
 	.append_div {
 		background: black;color:#FFFFFF; opacity:0.5; text-align: center; position: absolute; height: 60px; width: 80px; z-index: 999999;
 	}
-	</style>
+	</style> -->
 
 	
 <!-- 画图见date_meaning.js文件 -->
@@ -970,359 +984,7 @@
 
 <!-- 引入事件河图 -->
 <div id="main_meaning_2"></div>
- 	<script type="text/javascript">
- 		var myChart = echarts.init(document.getElementById('main_meaning_2'));
- 		var option = {
-		    title : {
-		        text: 'Event River',
-		        subtext: '纯属虚构'
-		    },
-		    tooltip : {
-		        trigger: 'item',
-		        enterable: true
-		    },
-		    legend: {
-		        data:['新闻观点', '微博观点']
-		    },
-		    toolbox: {
-		        show : true,
-		        feature : {
-		            mark : {show: true},
-		            restore : {show: true},
-		            saveAsImage : {show: true}
-		        }
-		    },
-		    xAxis : [
-		        {
-		            type : 'time',
-		            boundaryGap: [0.05,0.1]
-		        }
-		    ],
-		    series : [
-		        {
-		            "name": "新闻观点", 
-		            "type": "eventRiver", 
-		            "weight": 123, 
-		            "data": [
-		                {
-		                    "name": "阿里巴巴上市", 
-		                    "weight": 123, 
-		                    "evolution": [
-		                        {
-		                            "time": "2014-05-01", 
-		                            "value": 14, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-02", 
-		                            "value": 34, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-03", 
-		                            "value": 60, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-04", 
-		                            "value": 40, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-05", 
-		                            "value": 10, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }
-		                    ]
-		                }, 
-		                {
-		                    "name": "阿里巴巴上市2", 
-		                    "weight": 123, 
-		                    "evolution": [
-		                        {
-		                            "time": "2014-05-02", 
-		                            "value": 10, 
-		                            "detail": {
-		                                "link": "www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-03", 
-		                            "value": 34, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-04", 
-		                            "value": 40, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-05", 
-		                            "value": 10, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }
-		                    ]
-		                }, 
-		                {
-		                    "name": "三星业绩暴跌", 
-		                    "weight": 123, 
-		                    "evolution": [
-		                        {
-		                            "time": "2014-05-03", 
-		                            "value": 24, 
-		                            "detail": {
-		                                "link": "www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-04", 
-		                            "value": 34, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-05", 
-		                            "value": 50, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-06", 
-		                            "value": 30, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-07", 
-		                            "value": 20, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }
-		                    ]
-		                }
-		            ]
-		        }, 
-		        {
-		            "name": "微博观点", 
-		            "type": "eventRiver", 
-		            "weight": 123, 
-		            "data": [
-		                {
-		                    "name": "Apec峰会", 
-		                    "weight": 123, 
-		                    "evolution": [
-		                        {
-		                            "time": "2014-05-06", 
-		                            "value": 14, 
-		                            "detail": {
-		                                "link": "www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-07", 
-		                            "value": 34, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-08", 
-		                            "value": 60, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-09", 
-		                            "value": 40, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-10", 
-		                            "value": 20, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }
-		                    ]
-		                }, 
-		                {
-		                    "name": "运城官帮透视", 
-		                    "weight": 123, 
-		                    "evolution": [
-		                        {
-		                            "time": "2014-05-08", 
-		                            "value": 4, 
-		                            "detail": {
-		                                "link": "www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-09", 
-		                            "value": 14, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-10", 
-		                            "value": 30, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-11", 
-		                            "value": 20, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-12", 
-		                            "value": 10, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }
-		                    ]
-		                }, 
-		                {
-		                    "name": "底层公务员收入超过副部长", 
-		                    "weight": 123, 
-		                    "evolution": [
-		                        {
-		                            "time": "2014-05-11", 
-		                            "value": 4, 
-		                            "detail": {
-		                                "link": "www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-12", 
-		                            "value": 24, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-13", 
-		                            "value": 40, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-14", 
-		                            "value": 20, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-15", 
-		                            "value": 15, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }, 
-		                        {
-		                            "time": "2014-05-16", 
-		                            "value": 10, 
-		                            "detail": {
-		                                "link": "http://www.baidu.com", 
-		                                "text": "百度指数", 
-		                                "img": '../asset/ico/favicon.png'
-		                            }
-		                        }
-		                    ]
-		                }
-		            ]
-		        }
-		    ]
-};
-		myChart.setOption(option) ;     
-	</script>
+ 	<!-- 见date_meaning.js文件 -->
 
 <!-- 分割线 -->
 	<div class="halving_line_meaning_2"></div>
@@ -1337,7 +999,7 @@
 
 <!-- 引入时间轴 -->
 <div id="main_meaning_3">
-	<div class="container">
+			<div class="container">
         <div class="row">
             <div class="col-md-12" style="width:58%;">
                 <div class="VivaTimeline">
@@ -1503,214 +1165,16 @@
 		</div>
 		
 	
-		<div id="places">
-			<span class="label place_label" style="color: #868686;">张继科你醒醒啊</span>
-			<span class="label place_label" style="color: #868686;">爱酱不哭</span>
-			<span class="label place_label" style="color: #868686;">大张伟表白薛之谦</span>
-			<span class="label place_label" style="color: #868686;">盗墓笔记吐槽</span>
-			<span class="label place_label" style="color: #868686;">张继科你醒醒啊</span>
-			<span class="label place_label" style="color: #868686;">爱酱不哭</span>
-			<span class="label place_label" style="color: #868686;">大张伟表白薛之谦</span>
-			<span class="label place_label" style="color: #868686;">盗墓笔记吐槽</span>
+		<div id="opinions">
+			<!-- 子观点见date_meaning.js文件 -->
 
 		</div>
 
 		<div class="halving_line3"></div>
 
 
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
 		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-				
-							 	
-		</div>
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-		</div>
-
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-		</div>
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-
-		</div>
-
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-		</div>
-
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-		</div>
-
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-		</div>
-
-		<div class="blog_meaning">
-			<div>
-				<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-			</div>
-			<div>
-				<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-				<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-	 				(中国&nbsp;北京)
-	 				</p>
-			</div>
-		
-			<div class="blog_text">	
-					<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-	 				</p>
-					<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-					<span class="time_info" style="padding-right: 10px;color:#858585">
-						<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-						<span>转发数(2546)&nbsp;|&nbsp;</span>
-						<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					</p>
-	 		</div>
-		</div>
-		<span class="loading_more" onclick="" >加载更多</span>
+		<!-- <span class="loading_more" onclick="" >加载更多</span> -->
 	</div>
 
 

@@ -88,16 +88,6 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 	 	for (i=0;i<item.length;i++){		
 	 		item_json.push({name:item[i][0],value:item[i][1]});
 		}
-
-
-
-		// console.log(item_json);
-		// var arry=[1,2,3,5,2,9,97,34,54,100];
-		// console.log(item_json);
-
-		// console.log(item_json[0].name);
-		// console.log(item_json[0].value);
-		// console.log(item);
 		
 
 	 	var myChart = echarts.init(document.getElementById('main_place'));
@@ -190,7 +180,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 					    legend: {
 					        orient: 'vertical',
 					        x:'right',
-					        data:['随机数据']
+					        data:['微博数据']
 					    },
 					    dataRange: {
 					        min: 0,
@@ -220,9 +210,11 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 						
 		}
 		)	
+		
 
 		item_json.sort(function(a,b){
             return b.value-a.value});
+		// console.log(item_json);
 		var rank_html = '';
 		rank_html += '<table id="table">';
         for(var k=0;k<Math.min(15,item_json.length);k++){
