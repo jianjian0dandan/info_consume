@@ -120,7 +120,8 @@ def submit_task(input_data):
         es_group_result.index(index=group_index_name, doc_type=group_index_type, id=task_id, body=input_data)
         print es_group_result,group_index_name,group_index_type
         r.lpush(group_analysis_queue_name, json.dumps(input_data))
-    
+        print status
+        
     return status
 
 #search task by some condition -whether add download
