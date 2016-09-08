@@ -17,7 +17,8 @@ my_friend.prototype =
 
     personData:function(data){
   
-	  personalData = data ;		  
+	  personalData = data ;	
+	  console.log(personalData);	  
 	  var img = document.getElementById('portraitImg');
 	  if(personalData.photo_url == "unknown"){
 	      img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
@@ -337,6 +338,75 @@ my_friend.prototype =
       transmit_relationship:function(data)
       {
         console.log(data);
+        //获取用户的名称
+        var user_name;
+        user_name=$("#username").html();
+       
+       //获取分节点名称
+       var name=new Array();
+       for(var i=0;i<data.length;i++)
+       {
+       	if(data[i]['uname']=='未知')
+       	{
+       		name[i]=data[i]['uid'];
+       	}else
+       	{
+       		name[i]=data[i]['uname'];
+       	}
+       	
+       }
+       console.log(name);
+       //获取转发量数据
+       var transmit_num=new Array();
+       for(var i=0;i<data.length;i++)
+       {
+	       	if(data[i]['count']=='')
+	       	{
+	       		data[i]['count']=0;
+	       		transmit_num[i]=data[i]['count'];
+	       	}else
+	       	{
+	       		transmit_num[i]=data[i]['count'];
+	       	}   
+       }
+       //console.log(transmit_num);
+       var user_id=new Array();
+        for(var i=0;i<data.length;i++)
+        {
+        	user_id[i]=data[i]['uid'];
+        }
+         //定义label
+         var label=new Array();
+        for(var i=0;i<data.length;i++)
+        {
+        	if(data[i]['name']=='未知')
+        	{
+        		label[i]=data[i]['uid'];
+        	}else
+        	{
+        		label[i]=data[i]['uname']+':'+data[i]['uid'];
+        	}
+        	
+        }
+      
+        //定义node的值；
+        var node_value=new Array();
+        node_value.push({category:0,name:user_name,value:10,label:user_name});
+        for(var i=0;i<data.length;i++)
+        {
+        	node_value.push({category:1,name:name[i],value:transmit_num[i],label:label[i]});
+        }
+        console.log(node_value);
+       
+       
+
+        //定义线的值
+        var line_value=new Array();   
+        for(var i=0;i<data.length;i++)
+        {
+        	line_value.push({source:name[i],target:user_name,value:transmit_num[i],label:transmit_num[i]});
+        }
+       // {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
         var myChart = echarts.init(document.getElementById('transmit'));
         option = {
         title : {
@@ -358,23 +428,20 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['家人','朋友']
+            data:['好友']
         },
         series : [
             {
                 type:'force',
-                name : "人物关系",
+                name : "转发次数",
                 ribbonType: false,
                 categories : [
                     {
-                        name: '人物'
+                        name: '用户'
                     },
                     {
-                        name: '家人'
+                        name: '转发的用户'
                     },
-                    {
-                        name:'朋友'
-                    }
                 ],
                 itemStyle: {
                     normal: {
@@ -410,49 +477,19 @@ my_friend.prototype =
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
-                nodes:[
-                    {category:0, name: '乔布斯', value : 10, label: '乔布斯\n（主要）'},
-                    {category:1, name: '丽萨-乔布斯',value : 2},
-                    {category:1, name: '保罗-乔布斯',value : 3},
-                    {category:1, name: '克拉拉-乔布斯',value : 3},
-                    {category:1, name: '劳伦-鲍威尔',value : 7},
-                    {category:2, name: '史蒂夫-沃兹尼艾克',value : 5},
-                    {category:2, name: '奥巴马',value : 8},
-                    {category:2, name: '比尔-盖茨',value : 9},
-                    {category:2, name: '乔纳森-艾夫',value : 4},
-                    {category:2, name: '蒂姆-库克',value : 4},
-                    {category:2, name: '龙-韦恩',value : 1},
-                ],
-                links : [
-                    {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
-                    {source : '保罗-乔布斯', target : '乔布斯', weight : 2, name: '父亲'},
-                    {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1, name: '母亲'},
-                    {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
-                    {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
-                    {source : '奥巴马', target : '乔布斯', weight : 1},
-                    {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
-                    {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
-                    {source : '蒂姆-库克', target : '乔布斯', weight : 1},
-                    {source : '龙-韦恩', target : '乔布斯', weight : 1},
-                    {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-                    {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-                    {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-                    {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '蒂姆-库克', target : '奥巴马', weight : 1}
-                ]
+                nodes:node_value,
+                links : line_value,
             }
         ]
     };
 	   myChart.setOption(option);
+	   window.onresize = myChart.resize;
        $('#p_so_onload').css('display','none').siblings().css('display','block');  
 },
 
 	mention_relationship:function(data)
 	{
-		console.log(data);
+		//console.log(data);
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
         title : {
@@ -563,13 +600,14 @@ my_friend.prototype =
         ]
     };
 	   myChart.setOption(option);
+	   window.onresize = myChart.resize;
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	},
 
 
 	comment_relationship:function(data)
 	{
-		console.log(data);
+		//console.log(data);
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
         title : {
@@ -680,13 +718,14 @@ my_friend.prototype =
         ]
     };
 	   myChart.setOption(option);
+	   window.onresize = myChart.resize;
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	},
 
 
 	interaction_relationship:function(data)
 	{
-		console.log(data);
+		//console.log(data);
         var myChart = echarts.init(document.getElementById('interaction'));
         option = {
         title : {
@@ -797,6 +836,7 @@ my_friend.prototype =
         ]
     };
 	   myChart.setOption(option);
+	   window.onresize = myChart.resize;
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	}
 }
