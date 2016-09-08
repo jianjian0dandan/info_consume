@@ -130,33 +130,23 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		for (var key in item[2][1]){	
 	 		item_json_neg.push({name:key,value:item[2][1][key]});
 	 		
-		}
- 		
- 		// console.log(item_json_pos);
- 		// console.log(item_json_neu);
- 		// console.log(item_json_neg);
-
- 	// 	var item_legend = '正向';
-		// var item_item = item_json_pos;
+		} 		
 		
 		
-		if(case_val==1){
+		if(case_val == 1){
 			item_legend = '正向';
 			item_item = item_json_pos;
-			console.log(item_item);
 
 		}else if (case_val == 2){
 			item_legend = '中立';
 			item_item = item_json_neu;
-			console.log(item_item);
+
 		}else if(case_val == 3){
 			item_legend = '负向';
 			item_item = item_json_neg;
-			console.log(item_item);
+
 		}
 
-		// console.log(item_item);
-		console.log(item_item.length);
 
 	 	var myChart = echarts.init(document.getElementById('main_emotion_2'));
 
@@ -170,9 +160,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					var zrEvent = require('zrender/tool/event');
 							
 					// 基于准备好的dom，初始化echarts图表
-					//var myChart = ec.init(document.getElementById('main')); 
 					var myChart = echarts.init(document.getElementById('main_emotion_2'));
-					// 过渡---------------------
 					var curIndx = 0;
 					var mapType = [
 						    'china',
@@ -274,11 +262,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		}
 		)	
 
-		console.log(item_item);
+		// console.log(item_item);
 		item_item.sort(function(a,b){
             return b.value-a.value});
 		var rank_html = '';
-		rank_html += '<table id="table">';
+		rank_html += '<table id="table" style="table-layout:fixed">';
         for(var k=0;k<Math.min(15,item_item.length);k++){
 			
             if (item_item[k].name=='unknown'){
@@ -286,9 +274,9 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				}
             
 			rank_html += '<tr>';	
-			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-500%;">'+(k+1)+'</p></td>';
-			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-130%;">'+item_item[k].name+'</p></td>';
-			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-70%;">'+item_item[k].value+'</p></td>';			
+			rank_html += '<td class="td" align="center" style="width:80px;height:32px;">'+(k+1)+'</td>';
+			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_item[k].name+'</td>';
+			rank_html += '<td class="td" align="right" style="width:60px;height:32px;">'+item_item[k].value+'</td>';			
 			rank_html += '</tr>';		
 			
 			

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 
-{% block head_meta %}
+<!-- {% block head_meta %} -->
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>date_detail</title>
 
-{% endblock %}
+<!-- {% endblock %} -->
 
-{% block css%}
+<!-- {% block css%} -->
 	<link rel="stylesheet" type="text/css" href="../../static/info_consume/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="../../static/info_consume/css/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="../../static/info_consume/css/bootstrap-datetimepicker.css" />
@@ -20,9 +20,10 @@
 	<link rel="stylesheet" type="text/css" href="../../static/info_consume/css/date_time.css">
 	<!-- <link rel="stylesheet" type="text/css" href="../css/htmleaf-demo.css"> -->
     <link rel="stylesheet" type="text/css" href="../../static/info_consume/css/jquery.eeyellow.Timeline.css" />
-{% endblock %}
+<!-- {% endblock %} -->
 
-{% block head_js%} <!-- js文件 -->
+<!-- {% block head_js%} 
+<!js文件 --> 
 
 	<script type="text/javascript" src="../../static/info_consume/js/jquery.js"></script>
 	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
@@ -37,14 +38,16 @@
  	<script src="../../static/info_consume/js/jqcloud-1.0.4.js" type="text/javascript" charset="utf-8"></script>
  	<!-- <script type="text/javascript" src="../../static/info_consume/js/jquery.eeyellow.Timeline.js"></script> -->
  	<!-- <iframe src="included.html" width="450" height="400" > -->
-{% endblock %}  <!-- 结束js文件 -->
+<!-- {% endblock %}   -->
+<!-- 结束js文件 -->
  	
 
 </head>
 
 <body>
 
-{% block header %}	<!-- 文件头部导航 -->
+<!-- {% block header %}	 -->
+<!-- 文件头部导航 -->
 
 <div id="time_top">
 	<div>
@@ -53,97 +56,135 @@
 		<a href="https://123.sogou.com/" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 0.5%;float: left;">关于</a>
 	</div>
 
-<div id="myTabContent" class="tab-content">	
-	<img id="date" src="../../static/info_consume/image/date.png">
+	<div id="myTabContent" class="tab-content">	
+		<img id="date" src="../../static/info_consume/image/date.png">
 
-	<ul id="myTab" class="nav nav-tabs">
-	   <li class="active"><a href="#time" data-toggle="tab" id="menu_font">
-	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/time.png">
-	   		时间</a></li>
-	   <li><a href="#place" data-toggle="tab" id="menu_font">
-	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/place.png">
-	   		地域</a></li>
-	   <li><a href="#network" data-toggle="tab" id="menu_font">
-	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/network.png">
-	   		网络</a></li>
-	   <li><a href="#emotion" data-toggle="tab" id="menu_font">
-	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
-	   		情绪</a></li>
-	   <li><a href="#meaning" data-toggle="tab" id="menu_font">
-	   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/meaning.png">
-	   		语义</a></li>
-	</ul>
+		<ul id="myTab" class="nav nav-tabs">
+		   <li class="active"><a href="#time" data-toggle="tab" id="menu_font">
+		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/time.png">
+		   		时间</a></li>
+		   <li><a href="#place" data-toggle="tab" id="menu_font">
+		   <!-- <li><a href="#place" data-toggle="tab" id="menu_font"  onclick="go_to_place();"> -->
+		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/place.png">
+		   		地域</a></li>
+		   <li><a href="#network" data-toggle="tab" id="menu_font">
+		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/network.png">
+		   		网络</a></li>
+		   <li><a href="#emotion" data-toggle="tab" id="menu_font">
+		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
+		   		情绪</a></li>
+		   <li><a href="#meaning" data-toggle="tab" id="menu_font">
+		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/meaning.png">
+		   		语义</a></li>
+		</ul>
+		<script type="text/javascript">
+
+		function go_to_place(){
+			console.log('1234567');
+			// document.getElementById('meaning').style.display="block"; 
+			window.location.href="/topic_geo_analyze/place";
+		}
+			 
+		</script>
 
 
- 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
-	    <p class="topic_text">#里约奥运#</p>
-	    <p class="topic_time">日期:</p>
-	    <p class="topic_time_from">从</p>
-<!-- 时间段选择 -->
-	    	<div class="container">
-    			<div class='col-md-3' id="date1">
-       				<div class="form-group">
-        	    		<div class='input-group date' id='datetimepicker9' style="width: 202px;margin-top: -0.5%;margin-left: 0%;">
-                			<input type='text' class="form-control" id='datetimepicker9_input'/>
-                			<span class="input-group-addon">
-                				<span class="glyphicon glyphicon-calendar"></span>
-                			</span>
-           		 		</div>
-        			</div>
-    			</div>
-    			   <p class="topic_time_to">到</p>
-    			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
-        			<div class="form-group" style="float: left;width: 8%;">
-            			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
-                			<input type='text' class="form-control" id='datetimepicker10_input'/>
-                			<span class="input-group-addon">
-                				<span class="glyphicon glyphicon-calendar"></span>
-                			</span>
-            			</div>
-        			</div>
-    			</div>
+	 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
+		    <p class="topic_text">#里约奥运#</p>
+		    <p class="topic_time">日期:</p>
+		    <p class="topic_time_from">从</p>
+	<!-- 时间段选择 -->
+		    	<div class="container">
+	    			<div class='col-md-3' id="date1">
+	       				<div class="form-group">
+	        	    		<div class='input-group date' id='datetimepicker9' style="width: 202px;margin-top: -0.5%;margin-left: 0%;">
+	                			<input type='text' class="form-control" id='datetimepicker9_input'/>
+	                			<span class="input-group-addon">
+	                				<span class="glyphicon glyphicon-calendar"></span>
+	                			</span>
+	           		 		</div>
+	        			</div>
+	    			</div>
+	    			   <p class="topic_time_to">到</p>
+	    			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
+	        			<div class="form-group" style="float: left;width: 8%;">
+	            			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
+	                			<input type='text' class="form-control" id='datetimepicker10_input'/>
+	                			<span class="input-group-addon">
+	                				<span class="glyphicon glyphicon-calendar"></span>
+	                			</span>
+	            			</div>
+	        			</div>
+	    			</div>
 
-    			<!-- <div class="btn_commit" class="bs-example">
-   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
-				</div> -->
-				<div class="btn_commit" class="bs-example">
-   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
+	    			<!-- <div class="btn_commit" class="bs-example">
+	   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
+					</div> -->
+					<div class="btn_commit" class="bs-example">
+	   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
+					</div>
+
+
 				</div>
+				<script type="text/javascript">
+				    $(function () {
+				        $('#datetimepicker9').datetimepicker();
+				        $('#datetimepicker10').datetimepicker();
+				        $("#datetimepicker9").on("dp.change",function (e) {
+				            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
+				        });
+				        $("#datetimepicker10").on("dp.change",function (e) {
+				            $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
+				        });
+				    });
+				</script>
+	<!-- 分割线 -->
+			<div class="halving_line"></div>
 
 
-			</div>
-			<script type="text/javascript">
-			    $(function () {
-			        $('#datetimepicker9').datetimepicker();
-			        $('#datetimepicker10').datetimepicker();
-			        $("#datetimepicker9").on("dp.change",function (e) {
-			            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-			        });
-			        $("#datetimepicker10").on("dp.change",function (e) {
-			            $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
-			        });
-			    });
-			</script>
-<!-- 分割线 -->
-		<div class="halving_line"></div>
-
-</div>
-
-
-</div>
-{% endblock %}  <!-- 结束文件头部导航 -->
+<!-- {% endblock header %}   -->
+<!-- 结束文件头部导航 -->
 
 
 <!--各页面核心内容-->
-{% block main %}
 
-{% endblock %}
+<!-- 时间 -->
+<div class="tab-pane fade in active" id="time" style="margin-top: -3%;">
+	{% include "info_consume/date_time.html"%}
+</div>
 
+
+<!-- 地域 -->
+<div class="tab-pane fade" id="place">
+	{% include "info_consume/date_place.html"%}
+</div>
+
+
+<!-- 网络 -->
+<div class="tab-pane fade" id="network">
+	{% include "info_consume/date_network.html"%}
+</div>
+
+
+<!-- 情绪 -->
+<div class="tab-pane fade" id="emotion">
+	{% include "info_consume/date_emotion.html"%}
+</div>
+
+
+<!-- 语义 -->
+<div class="tab-pane fade" id="meaning">
+	{% include "info_consume/date_meaning.html"%}
+</div>
+
+
+	</div>
+
+
+</div>
 
 </body>
 
 
-<!-- </script> -->
  	<script type="text/javascript" src="../../static/info_consume/js/date_time.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_place.js"></script>
  	
