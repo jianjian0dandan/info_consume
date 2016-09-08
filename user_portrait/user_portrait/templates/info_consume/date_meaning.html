@@ -1,0 +1,278 @@
+<!-- 语义 -->
+<div class="tab-pane fade" id="meaning">
+	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
+	      <p class="topic_text">#里约奥运#</p>
+	      <p class="topic_time">日期:</p>
+	      <p class="topic_time_from">从</p>
+<!-- 时间段选择 -->
+	    	<div class="container">
+    			<div class='col-md-3' id="date1">
+       				<div class="form-group">
+        	    		<div class='input-group date' id='datetimepicker9' style="width: 202px;margin-top: -0.5%;margin-left: 0%;">
+                			<input type='text' class="form-control" id='datetimepicker9_input'/>
+                			<span class="input-group-addon">
+                				<span class="glyphicon glyphicon-calendar"></span>
+                			</span>
+           		 		</div>
+        			</div>
+    			</div>
+    			   <p class="topic_time_to">到</p>
+    			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
+        			<div class="form-group" style="float: left;width: 8%;">
+            			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
+                			<input type='text' class="form-control" id='datetimepicker10_input'/>
+                			<span class="input-group-addon">
+                				<span class="glyphicon glyphicon-calendar"></span>
+                			</span>
+            			</div>
+        			</div>
+    			</div>
+
+    			<!-- <div class="btn_commit" class="bs-example">
+   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
+				</div> -->
+				<div class="btn_commit" class="bs-example">
+   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
+				</div>
+
+
+			</div>
+			<script type="text/javascript">
+			    $(function () {
+			        $('#datetimepicker9').datetimepicker();
+			        $('#datetimepicker10').datetimepicker();
+			        $("#datetimepicker9").on("dp.change",function (e) {
+			            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
+			        });
+			        $("#datetimepicker10").on("dp.change",function (e) {
+			            $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
+			        });
+			    });
+			</script>
+<!-- 分割线 -->
+		<div class="halving_line"></div>
+
+<!-- 分析指标——话题关键词云图 -->
+		<div>
+			<div id="time_trend_title_line1"></div>
+			<p id="time_trend_title">话题关键词云图</p>
+			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+		</div>
+		
+
+<!-- 引入话题关键词云图 -->
+<div id="main_meaning_1">			
+<!-- 画图见date_meaning.js文件 -->
+</div>
+	
+<!-- 分割线 -->
+		<div class="halving_line_meaning_1"></div>
+
+<!-- 分析指标——事件河图 -->
+		<div>
+			<div id="meaning_title_line1"></div>
+			<p id="meaning_title">观点事件河</p>
+			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+		</div>
+
+<!-- 引入事件河图 -->
+<div id="main_meaning_2"></div>
+ 	<!-- 见date_meaning.js文件 -->
+
+<!-- 分割线 -->
+	<div class="halving_line_meaning_2"></div>
+
+<!-- 分析指标——时间轴 -->
+		<div>
+			<div id="meaning_title_line1"></div>
+			<p id="meaning_title">观点时间轴</p>
+			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+		</div>
+		
+
+<!-- 引入时间轴 -->
+<div id="main_meaning_3">
+			<div class="container">
+        <div class="row">
+            <div class="col-md-12" style="width:58%;">
+                <div class="VivaTimeline">
+                    <dl style="margin-left:-18%;">
+                        <dt>Aug 2016</dt>
+                        <dd class="pos-left clearfix">
+                            <div class="circ"></div>
+                            <div class="time">Aug 12</div>
+                            <div class="events">
+                                <div class="events-header">奥运网红身价涨多少？傅园慧“主播”身价至少涨20倍</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                       <!--  <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/dog01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中国新闻网&nbsp;&nbsp;&nbsp;&nbsp;2016-08-12 11:03:00 </br>据了解，目前傅园慧的广告身价约为800万以上，按照单条代言的价格，已经可以比肩游泳队的两名“网红”孙杨、宁泽涛，这一价格比她赛前的身价至少翻了4到5倍。而其接受直播等商业活动的价格也在60万到100万之间，这一价格是此前的近20倍。
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/dog02.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            北京青年报&nbsp;&nbsp;&nbsp;&nbsp;2016-08-12 10:03:00 </br>本届奥运会上，国家游泳队运动员傅园慧凭借赛后采访时真实率性的回答和夸张的表情动作意外走红，被网友称为“行走的表情包”。她的微博4天增加了400万粉丝，平均每条微博下都有数万条留言、几十万个点赞。10日，傅园慧在微博上发布了其走红以来的第一条广告，随后又在某直播平台上进行了长达一个小时的直播首秀。虽然她极力澄清自己没有商业化，这些都是服从队里的安排、早就接下的活动，但依然无法避免外界对她身价的猜测。
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/dog03.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-12 12:03:00 </br>两天时间微博圈粉300万，奥运“网红”傅园慧有多少商业价值？今天，傅园慧微博已经发布了一条广告内容，网友留言表示好评，“什么！你打广告的方式竟然这么简单！果然和外面的那些妖艳贱货不一样！” 　　傅园慧彻底火了。这两天爆出另一股“洪荒之力”的傅园慧，两天时间微博圈粉300万，成为本届奥运会的最大亮点。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="events-footer">
+                                    123
+                                </div>
+                            </div>
+                        </dd>
+                        <dt>Aug 2016</dt>
+                        <dd class="pos-right clearfix">
+                            <div class="circ"></div>
+                            <div class="time">Aug 10</div>
+                            <div class="events">
+                                <div class="events-header">傅园慧：快被霍顿气死，拥抱孙杨感觉很奇妙</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/cat01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00 </br>关于澳大利亚选手霍顿“嘲讽”孙杨一事，傅园慧表示：“我当时看到差点气死，我觉得这是污蔑，怎么能那么说杨哥。不过我在这儿说也没用，因为我也不能说什么，再说回去不就跟他们一样了吗？”
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/cat02.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                             中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00 </br>“我当时还想，如果我能战胜澳大利亚队的人的话，可能还蛮开心的吧，不过，跟我仰泳的那些其实没什么关系，我们不能迁怒于别人。我还是觉得很过分啊，怎么乱讲啊，杨哥是很努力的人，是很优秀的运动员，根本就没有做过作弊的事情，不是所有的运动员都会吃兴奋剂的。很多人以为出成绩必须吃药，但其实不是这样子的。”
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/cat03.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00 </br>有网友问被孙杨抱的感受，傅园慧说：“他就是祝贺我一下，不过直接摸到肉的感觉还是很奇妙的。”对于宁泽涛，傅园慧说：“宁泽涛也很棒啊，我跟你们讲这都是中国好男人。”
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="events-footer">
+
+                                </div>
+                            </div>
+                        </dd>
+                        <dd class="pos-left clearfix">
+                            <div class="circ"></div>
+                            <div class="time">Aug 08</div>
+                            <div class="events">
+                                <div class="events-header">爆发洪荒之力！神模仿，傅园慧！</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/rabbit01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            东北新闻网&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-8 12:03:00 </br>8月8日，中国游泳运动员傅园慧在里约奥运会女子100米仰泳半决赛后的采访视频在网上被疯传，许多网友都被这位姑娘夸张的表情和开朗的个性萌到了，还有很多娱乐圈艺人也纷纷发文表示被这位女生圈粉了.随着一大波傅园慧表情包在网络上传播，拥有“神作”无数的贾乃亮在网上发布了自己模仿傅园慧的视频，直言傅园慧太可爱了。
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/rabbit01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            东北新闻网&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-8 12:03:00 </br>8月8日，中国游泳运动员傅园慧在里约奥运会女子100米仰泳半决赛后的采访视频在网上被疯传，许多网友都被这位姑娘夸张的表情和开朗的个性萌到了，还有很多娱乐圈艺人也纷纷发文表示被这位女生圈粉了.随着一大波傅园慧表情包在网络上传播，拥有“神作”无数的贾乃亮在网上发布了自己模仿傅园慧的视频，直言傅园慧太可爱了。
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6 pull-left">
+                                            <img class="events-object img-responsive img-rounded" src="img/rabbit01.jpeg" />
+                                        </div> -->
+                                        <div class="events-desc">
+                                            东北新闻网&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-8 12:03:00 </br>8月8日，中国游泳运动员傅园慧在里约奥运会女子100米仰泳半决赛后的采访视频在网上被疯传，许多网友都被这位姑娘夸张的表情和开朗的个性萌到了，还有很多娱乐圈艺人也纷纷发文表示被这位女生圈粉了.随着一大波傅园慧表情包在网络上传播，拥有“神作”无数的贾乃亮在网上发布了自己模仿傅园慧的视频，直言傅园慧太可爱了。
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                        <dt>Jan 2016</dt>
+                        <dt>Dec 2015</dt>
+                        <dt>Oct 2015</dt>
+                        <dt>Sep 2015</dt>
+                        <dt>Aug 2015</dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- <script src="http://libs.useso.com/js/jquery/1.11.0/jquery.min.js" type="text/javascript"></script> -->
+    <script>window.jQuery || document.write('<script src="../../static/info_consume/js/jquery.min.js"><\/script>')</script>
+    <!-- <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript" src="../../static/info_consume/js/jquery.eeyellow.Timeline.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.VivaTimeline').vivaTimeline({
+                carousel: true,
+                carouselTime: 3000
+            });
+        });
+    </script>
+
+</div>
+ 	 <!-- 分割线 -->
+	<div class="halving_line_meaning_2"></div>
+<!-- 微博浏览区 -->
+	<div>
+		<div id="blog_scan_title_line1"></div>
+		<p id="blog_scan_title">微博浏览区</p>
+		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+	</div>
+
+	<div id="blog_scan_area_meaning">
+		<div style="margin-left:16%">
+			<div id="blog_scan_title_line2_meaning"></div>
+			<div id="blog_scan_title_line3_meaning"></div>
+			<p id="blog_scan_title2_meaning">排序方式：</p>
+			<div class="btn-group" data-toggle="buttons" id="btn_radio_meaning">
+   				<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+     				<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
+   				</label>
+   				<label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+      				<input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
+   				</label>
+			</div>
+		</div>
+		
+	
+		<div id="opinions">
+			<!-- 子观点见date_meaning.js文件 -->
+
+		</div>
+
+		<div class="halving_line3"></div>
+
+
+		
+		<!-- <span class="loading_more" onclick="" >加载更多</span> -->
+	</div>
+
+
+
+	</div>
+
+</div>
+
