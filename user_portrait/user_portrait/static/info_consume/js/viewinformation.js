@@ -86,6 +86,8 @@ viewinformation.prototype=
 					    ]
 					};
 						myChart1.setOption(option);
+
+						//Echarts自适应网页窗口大小
 						window.onresize = myChart1.resize;
 
 		//限制打印20个hashtag
