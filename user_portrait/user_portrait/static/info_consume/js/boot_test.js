@@ -552,47 +552,47 @@
             function groupanalyze_confirm(){
                 var group_name = $('#cicle_name').val();
               if(group_name==''){
-              	alert('Ops！不能不给起名儿啊');
+              	alert('Ops！起个名儿呗');
 
               }else{
-              	
-                console.log(group_name);
-                 var list_length = selected_list.length;
+              console.log(group_name);
+              var list_length = selected_list.length;
 	            var group_uid_list = new Array();
 	            for(var i=0;i<list_length;i++){
 	            group_uid_list[i]=selected_list[i].uid;
-	                      
+	            }          
 	            var group_ajax_url = '/influence_sort/submit_task/';
-	            
 	            var admin = 'admin@qq.com'//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
 	            var job = {"submit_user":'admin@qq.com',"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
 	            console.log(job);
-	            
-	            $.ajax({
-	                type:'POST',
-	                url: group_ajax_url,
-	                contentType:"application/json",
-	                data: JSON.stringify(job),
-	                dataType: "json",
-	                success: callback
-	            }); 
-	            function callback(data){
-	               console.log(data);
-	                if (data == '1'){
-	                    alert('恭喜！您新建了个朋友圈！');
-	                    $('#addModal').modal('hide');
-                     	document.getElementById("cicle_name").value="";
-	                }
-	                if(data == '0'){
-	                    alert('提交失败，请重试！');
-	                }
-	                if(data == 'more than limit'){
-	                    alert('提交任务超出数量');
-	                }
-	            }
-	          }
-	          location.reload();
+	             function callback(data){
+                 console.log(data);
+                  if (data == '1'){
+                      alert('恭喜！您新建了个朋友圈！');
+                      $('#addModal').modal('hide');
+                        location.reload();
+                  }
+                  if(data == '0'){
+                      alert('提交失败，请重试！');
+                      $('#addModal').modal('hide');
+                      document.getElementById('cicle_name').value ="";
+                  }
+                  if(data == 'more than limit'){
+                      alert('提交任务超出数量');
+                      $('#addModal').modal('hide');
+                      document.getElementById('cicle_name').value ="";
+                  }
+              }
+
+              $.ajax({
+                  type:'POST',
+                  url: group_ajax_url,
+                  contentType:"application/json",
+                  data: JSON.stringify(job),
+                  dataType: "json",
+                  success: callback
+              }); 
 	         }
            }
    
