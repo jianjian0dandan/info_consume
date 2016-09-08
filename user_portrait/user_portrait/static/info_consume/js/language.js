@@ -1,11 +1,4 @@
 ajax_method = 'GET';
-$(function(){
-  var uid = 1640601392; //获取
-  var prefrence_url = '/attribute/preference/?uid=' + uid;
-  console.log(prefrence_url);
-  call_sync_ajax_request(prefrence_url, ajax_method, show_results);
-  console.log(data);
-});
 
 function call_sync_ajax_request(url, method, callback){
     $.ajax({
@@ -16,6 +9,11 @@ function call_sync_ajax_request(url, method, callback){
       success:callback
     });
   }
+
+  var uid = 1640601392; //获取
+  var prefrence_url = '/attribute/preference/?uid=' + uid;
+  console.log(prefrence_url);
+  call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
 
 // $(function() {s
@@ -127,7 +125,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
   	}
     //console.log(keyword.length);
     if(keyword.leng!=0){
-  	    var myChart = echarts.init(document.getElementById('keyword-cloud')); 
+  	    var myChart = echarts.init(document.getElementById('keyword_cloud')); 
     	var option = {
             tooltip: {
               show: true,
@@ -155,7 +153,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
   //}
   }
   else{
-    document.getElementById('keyword-cloud').innerHTML = '暂无数据';
+    document.getElementById('keyword_cloud').innerHTML = '暂无数据';
   }
   }
 }
@@ -221,9 +219,11 @@ function show_results(data){
     if(tag_vector[i][1] == ''){
       tag_vector[i][1] = '暂无数据'
     }
-    global_tag_vector.push(tag_vector[i]);
+    // global_tag_vector.push(tag_vector[i]);
   }
 }
+
+
 
 // function show_results0(data){
 //   //console.log(data.results.keywords);

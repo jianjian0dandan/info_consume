@@ -10,7 +10,7 @@ sys.path.append(AB_PATH)
 #sys.path.append('../public/')
 from global_utils import getTopicByNameStEt,getWeiboByNameStEt
 from time_utils import datetime2ts, ts2HourlyTime,ts2datetime_full
-from global_config import db,weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO,\
+from global_config import db,weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO,NEWS_LIMIT,\
                             topics_river_index_name,topics_river_index_type,subopinion_index_name,subopinion_index_type
 import re
 #from ad_filter import ad_filter
@@ -32,78 +32,131 @@ Day = Hour * 24
 
 
 def count_fre(topic,start_ts,over_ts,w_limit,weibo_limit,during=Fifteenminutes):   #高频词
-    query_body = {
-        'query':{
-            'filtered':{
-                'filter':{
-                    'range':{
-                        'timestamp':{'gte': start_ts, 'lt':over_ts} 
-                    }
-                }
-            }
-        },
-        'size':weibo_limit  #
-    }
-    keywords_dict = {}
-    keyword_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']   
-    news_list = []#新闻类微博
-    normal_list = []#主观微博
-    print len(keyword_weibo)
-    for key_weibo in keyword_weibo:
-    	keywords_dict_list = json.loads(key_weibo['_source']['keywords_dict'])  #
-        #print keywords_dict_list,type(keywords_dict_list)
-        for k,v in keywords_dict_list.iteritems():
-            try:
-                keywords_dict[k] += v
-            except:
-                keywords_dict[k] = v
-        text_weibo = key_weibo['_source']['text']
-        mid_weibo = key_weibo['_source']['mid']
-        timestamp = key_weibo['_source']['timestamp']
-        comment = key_weibo['_source']['comment']
-        retweeted = key_weibo['_source']['retweeted']
-        uid = key_weibo['_source']['uid']
-        #print text_weibo.encode('utf8')
-        pattern = re.compile(r'【.*】')
-        #print type(text_weibo)
-        find_news = pattern.findall(text_weibo.encode('utf8'))
+    # query_body = {
+    #     'query':{
+    #         'filtered':{
+    #             'filter':{
+    #                 'range':{
+    #                     'timestamp':{'gte': start_ts, 'lt':over_ts} 
+    #                 }
+    #             }
+    #         }
+    #     },
+    #     'size':weibo_limit  #
+    # }
+    # keywords_dict = {}
+    # keyword_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']   
+    # news_list = []#新闻类微博
+    # normal_list = []#主观微博
+    # print len(keyword_weibo)
+    # for key_weibo in keyword_weibo:
+    	#keywords_dict_list = json.loads(key_weibo['_source']['keywords_dict'])  #
+        # for k,v in keywords_dict_list.iteritems():
+        #     try:
+        #         keywords_dict[k] += v
+        #     except:
+        #         keywords_dict[k] = v
+    #     text_weibo = key_weibo['_source']['text']
+    #     mid_weibo = key_weibo['_source']['mid']
+    #     timestamp = key_weibo['_source']['timestamp']
+    #     comment = key_weibo['_source']['comment']
+    #     retweeted = key_weibo['_source']['retweeted']
+    #     uid = key_weibo['_source']['uid']
+    #     pattern = re.compile(r'【.*】')
+    #     find_news = pattern.findall(text_weibo.encode('utf8'))
 
-        if find_news:
-            news_list.append({'news_id':'news','content168':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted})
-        else:
-            normal_list.append({'news_id':'weibo','content':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted,'uid':uid})
+    #     if find_news:
+    #         news_list.append({'news_id':'news','content168':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted})
+    #     else:
+    #         normal_list.append({'news_id':'weibo','content':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted,'uid':uid})
 
-    #词频
-    word_results = sorted(keywords_dict.iteritems(),key=lambda x:x[1],reverse=True)[:w_limit]   
+    # #词频
+    # word_results = sorted(keywords_dict.iteritems(),key=lambda x:x[1],reverse=True)[:w_limit]   
 
     #新闻类微博：词云、主题河、鱼骨图   主题河：拿到主题后，按时间段查相关微博的数量；鱼骨图：每个主题的一个微博及所有微博
     #    return json.dumps({"features":features, "cluster_dump_dict":cluster_dump_dict})
     taskid = topic+'_'+str(start_ts)+'_'+str(over_ts)
-    print len(news_list)
-    news_classify = json.loads(news_comments_list(taskid,weibo_list=news_list))
+
+    news_list = news_content(topic,start_ts,over_ts)   #读新闻微博
+    news_classify = json.loads(news_comments_list(taskid,weibo_list=news_list))  #聚类后存到es里
     #print news_classify,type(news_classify)
-    news_topics = news_classify['features']
-    fish_topics = news_classify['cluster_dump_dict']
+    # news_topics = news_classify['features']
+    # fish_topics = news_classify['cluster_dump_dict']
 
 
     #按类分时间段对应的微博数
-    zhutihe_results = cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during)
+    #zhutihe_results = cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during)
 
 
     #print key_weibo_time_count  #{u'9b2de1b6-ce42-405f-a5b4-661ebe10a5b4': {1469030400: 0, 1469089800: 12, 1469149200: 10, 1468948500: 0, 1469208600: 0}
       
     #主观微博：子观点排序
     #return json.dumps({"features":features,"ratio": ratio_results,"cluster_dump_dict":cluster_dump_dict})
-    weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))
+    
+'''jln 0907
+    normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
+    weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
+'''
+    #聚类后存到es里
     #print weibo_classify,type(weibo_classify)
-    subopinion_results = weibo_classify['features']
-    subopinion_weibo_results = weibo_classify['cluster_dump_dict']
+    # subopinion_results = weibo_classify['features']
+    # subopinion_weibo_results = weibo_classify['cluster_dump_dict']
         
 
-    return json.dumps({'word_results':word_results,'zhutihe_results':zhutihe_results,'subopinion_results':subopinion_results})
+    #return json.dumps({'zhutihe_results':zhutihe_results,'subopinion_results':subopinion_results})
     # for i in w_results:
     #     results.append({i[0]:i[1]})
     # print results
+
+
+def news_content(topic,start_ts,end_ts):
+    query_body ={'query':{
+                    'bool':{
+                        'must':[
+                            {'wildcard':{'text':'*【*】*'}},
+                            {'range':{'timestamp':{'lt':end_ts,'gte':start_ts}}
+                        }]
+                    }
+                },
+                'size':NEWS_LIMIT  
+                }
+    news_results = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']#['_source']
+    # print topic,weibo_index_type,start_ts,end_ts,query_body
+    # print news_results
+    news_list = []
+    for key_weibo in news_results:
+        text_weibo = key_weibo['_source']['text']
+        mid_weibo = key_weibo['_source']['mid']
+        timestamp = key_weibo['_source']['timestamp']
+        comment = key_weibo['_source']['comment']
+        retweeted = key_weibo['_source']['retweeted']
+        uid = key_weibo['_source']['uid']
+        news_list.append({'news_id':'news','content168':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted})
+    return news_list
+
+def subopinion_content(topic,start_ts,end_ts,weibo_limit):
+    query_body ={'query':{
+                    'bool':{
+                        'must_not':[
+                            {'wildcard':{'text':'*【*】*'}}],
+                        'must':[
+                            {'range':{'timestamp':{'lt':end_ts,'gte':start_ts}}
+                        }]
+                    }
+                },
+                'size':200#weibo_limit  
+                }
+    subopinion_results = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']#['_source']
+    normal_list = []
+    for key_weibo in subopinion_results:
+        text_weibo = key_weibo['_source']['text']
+        mid_weibo = key_weibo['_source']['mid']
+        timestamp = key_weibo['_source']['timestamp']
+        comment = key_weibo['_source']['comment']
+        retweeted = key_weibo['_source']['retweeted']
+        uid = key_weibo['_source']['uid']
+        normal_list.append({'news_id':'weibo','content':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted,'uid':uid})
+    return normal_list    
 
 def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
     key_weibo_time_count = {}
@@ -302,6 +355,7 @@ def weibo_comments_list(taskid,weibo_list,cluster_num=-1,cluster_eva_min_size=de
                 "before_filter_count": before_filter_count, "after_filter_count": after_filter_count})
 
     comments = weibo_list
+    print 'weibo_list:',len(comments)
     logfile = os.path.join(LOG_WEIBO_FOLDER, taskid + '.log')
     cal_results = weibo_calculation(comments, logfile=logfile, cluster_num=cluster_num, \
             cluster_eva_min_size=int(cluster_eva_min_size), version=vsm)
@@ -321,8 +375,9 @@ def weibo_comments_list(taskid,weibo_list,cluster_num=-1,cluster_eva_min_size=de
 
     download_items = []
     for comment in item_infos:  
+        #print comment["clusterid"]
         download_item = {}
-        comment = item_infos[comment]
+        #comment = item_infos[comment]
         download_item["id"] = comment["id"]
         download_item["text"] = comment["text"]
         download_item["clusterid"] = comment["clusterid"]
@@ -395,6 +450,7 @@ def weibo_comments_list(taskid,weibo_list,cluster_num=-1,cluster_eva_min_size=de
     # 子观点分类去重
     cluster_dump_dict = dict()
     for clusterid, contents in cluster_results.iteritems():
+        #print clusterid
         if clusterid in features:
             feature = features[clusterid]
             if feature and len(feature):
@@ -411,8 +467,9 @@ def weibo_comments_list(taskid,weibo_list,cluster_num=-1,cluster_eva_min_size=de
     for key in features.keys():
         index_body={'name':task[0],'start_ts':task[1],'end_ts':task[2],'ratio':json.dumps(ratio_results),'cluster':json.dumps(key),'features':json.dumps(features),'keys':json.dumps(features[key]),'cluster_dump_dict':json.dumps(cluster_dump_dict[key])}
         #print index_body
-        print subopinion_index_type,subopinion_index_name
-        print weibo_es.index(index=subopinion_index_name,doc_type=subopinion_index_type,id=key,body=index_body)
+        #print subopinion_index_type,subopinion_index_name
+        #jln  0907
+        weibo_es.index(index=subopinion_index_name,doc_type=subopinion_index_type,id=key,body=index_body)
 
 
     return json.dumps({"features":features,"ratio": ratio_results,"cluster_dump_dict":cluster_dump_dict})#features关键词和类的对应
@@ -428,6 +485,7 @@ if __name__ == '__main__':
     # topic = u'奥运会'
     # topic_id = getTopicByNameStEt(topic,START_TS,END_TS) #通过中文名得到英文名
     # topic = topic_id[0]['_source']['index_name']
+    #print weibo_es.delete(index='subopinion',doc_type='text',id='direct')
 
     topic = 'aoyunhui'
     start_date = '2016-07-20'
