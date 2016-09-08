@@ -190,7 +190,7 @@ def comment_news(inputs):
     results = dict()
 
     for input in inputs:
-        news_id = input["id"]
+        news_id = input["news_id"]
 
         try:
             results[news_id].append(input)
