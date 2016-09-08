@@ -399,9 +399,10 @@ def search_group_results(task_name, module, submit_user):
     if RUN_TYPE == 0:
         #jln
         task_id = 'mytest030302'
+        group_index_type = 'text'
     else:
         task_id = submit_user + '-' + task_name
-
+    print es_group_result,group_index_name,group_index_type,task_id
     #step1:identify the task_name exist
     try:
         source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \

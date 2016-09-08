@@ -76,9 +76,14 @@ def count_fre(topic,start_ts,over_ts,w_limit,weibo_limit,during=Fifteenminutes):
     #新闻类微博：词云、主题河、鱼骨图   主题河：拿到主题后，按时间段查相关微博的数量；鱼骨图：每个主题的一个微博及所有微博
     #    return json.dumps({"features":features, "cluster_dump_dict":cluster_dump_dict})
     taskid = topic+'_'+str(start_ts)+'_'+str(over_ts)
+    normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
+    weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
 
+
+'''
     news_list = news_content(topic,start_ts,over_ts)   #读新闻微博
     news_classify = json.loads(news_comments_list(taskid,weibo_list=news_list))  #聚类后存到es里
+'''
     #print news_classify,type(news_classify)
     # news_topics = news_classify['features']
     # fish_topics = news_classify['cluster_dump_dict']
@@ -92,11 +97,8 @@ def count_fre(topic,start_ts,over_ts,w_limit,weibo_limit,during=Fifteenminutes):
       
     #主观微博：子观点排序
     #return json.dumps({"features":features,"ratio": ratio_results,"cluster_dump_dict":cluster_dump_dict})
-    
-'''jln 0907
-    normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
-    weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
-'''
+
+
     #聚类后存到es里
     #print weibo_classify,type(weibo_classify)
     # subopinion_results = weibo_classify['features']
@@ -465,7 +467,9 @@ def weibo_comments_list(taskid,weibo_list,cluster_num=-1,cluster_eva_min_size=de
 
     task = taskid.split('_')
     for key in features.keys():
-        index_body={'name':task[0],'start_ts':task[1],'end_ts':task[2],'ratio':json.dumps(ratio_results),'cluster':json.dumps(key),'features':json.dumps(features),'keys':json.dumps(features[key]),'cluster_dump_dict':json.dumps(cluster_dump_dict[key])}
+        print features[key],type(features[key])
+        keys = ('_').join(features[key])
+        index_body={'name':task[0],'start_ts':task[1],'end_ts':task[2],'ratio':json.dumps(ratio_results),'cluster':json.dumps(key),'features':json.dumps(features),'keys':keys,'cluster_dump_dict':json.dumps(cluster_dump_dict[key])}
         #print index_body
         #print subopinion_index_type,subopinion_index_name
         #jln  0907
