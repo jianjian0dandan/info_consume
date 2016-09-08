@@ -11,6 +11,7 @@ personZone.prototype = {
 		success:callback
 	});
   },
+  //这里有修改
   personData:function(data){
   //console.log(data);
   personalData = data ;
