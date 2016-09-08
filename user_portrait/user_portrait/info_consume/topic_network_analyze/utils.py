@@ -5,10 +5,10 @@ import math
 import json
 from sqlalchemy import func
 import sys
-from cp_model import TrendMaker, TrendPusher
-from cp_global_config import db, es_user_profile
-sys.path.append('../../')
-from bulk_insert import read_long_gexf
+from user_portrait.info_consume.model import TrendMaker, TrendPusher
+from user_portrait.global_config import db, es_user_profile
+#sys.path.append('../../../')
+from user_portrait.bulk_insert import read_long_gexf
 
 
 Minute = 60
