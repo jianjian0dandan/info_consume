@@ -540,60 +540,59 @@
              }else{
               console.log('表格display冲突！');
              }
-            var selected_list = $table.bootstrapTable('getSelections');
+            selected_list = $table.bootstrapTable('getSelections');
             if( selected_list.length == 0){
               alert('请选择用户！');
             }else{
               $('#addModal').modal('show');
-              groupanalyze_confirm(selected_list);
-            }
          }
+        }
 
-         function unempty(data){
-            if(data=''){
-              alert('请输入群组名称！');
-              return false;
-            }else{
-              return true;
-            }
-         }
-   //选择用户提交群组分析
-        function groupanalyze_confirm(selected_list){
-            var group_name = $('#cicle_name').val();
-            while(unempty(group_name)==true){
-            var list_length = selected_list.length;
-            var group_uid_list = new Array();
-            for(var i=0;i<list_length;i++){
-            group_uid_list[i]=selected_list[i].uid;
-                      
-            var group_ajax_url = '/influence_sort/submit_task/';
-            
-            var admin = 'admin@qq.com'//获取$('#useremail').text();
-            var group_analysis_count = 10;//获取
-            var job = {"submit_user":'admin@qq.com',"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-            console.log(job);
-            
-            $.ajax({
-                type:'POST',
-                url: group_ajax_url,
-                contentType:"application/json",
-                data: JSON.stringify(job),
-                dataType: "json",
-                success: callback
-            }); 
-            function callback(data){
-               console.log(data);
-                if (data == '1'){
-                    alert('提交成功！');
-                }
-                if(data == '0'){
-                    alert('提交失败，请重试！');
-                }
-                if(data == 'more than limit'){
-                    alert('提交任务超出数量');
-                }
-            }
+          //选择用户提交群组分析
+            function groupanalyze_confirm(){
+                var group_name = $('#cicle_name').val();
+              if(group_name==''){
+              	alert('Ops！不能不给起名儿啊');
+
+              }else{
+              	
+                console.log(group_name);
+                 var list_length = selected_list.length;
+	            var group_uid_list = new Array();
+	            for(var i=0;i<list_length;i++){
+	            group_uid_list[i]=selected_list[i].uid;
+	                      
+	            var group_ajax_url = '/influence_sort/submit_task/';
+	            
+	            var admin = 'admin@qq.com'//获取$('#useremail').text();
+	            var group_analysis_count = 10;//获取
+	            var job = {"submit_user":'admin@qq.com',"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+	            console.log(job);
+	            
+	            $.ajax({
+	                type:'POST',
+	                url: group_ajax_url,
+	                contentType:"application/json",
+	                data: JSON.stringify(job),
+	                dataType: "json",
+	                success: callback
+	            }); 
+	            function callback(data){
+	               console.log(data);
+	                if (data == '1'){
+	                    alert('恭喜！您新建了个朋友圈！');
+	                    $('#addModal').modal('hide');
+                     	document.getElementById("cicle_name").value="";
+	                }
+	                if(data == '0'){
+	                    alert('提交失败，请重试！');
+	                }
+	                if(data == 'more than limit'){
+	                    alert('提交任务超出数量');
+	                }
+	            }
+	          }
+	          location.reload();
+	         }
            }
-              $table.bootstrapTable('refresh');
-              }
-          }
+   
