@@ -71,9 +71,9 @@ def subopinion():
 def weibo_content():
     topic = request.args.get('topic','')
     opinion0 = request.args.get('opinion','') # 默认查询时间粒度为3600秒
-    opinion = [i.encode('utf-8') for i in opinion0.split(',')]
-    # print opinion,type(opinion[0])
-    # opinion1=["姐姐", "综艺节目", "网络"]
+    opinion = '_'.join(opinion0.split(','))
+    # print opinion,type(opinion[0]),
+    # opinion1=["看客", "纹身", "高度", "人生", "健力宝"]
     # print opinion1,type(opinion1[0])
     end_ts = request.args.get('end_ts', '')
     end_ts = long(end_ts)

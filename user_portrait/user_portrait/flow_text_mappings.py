@@ -218,6 +218,14 @@ def subopinion(index_name):
                         'cluster_dump_dict':{
                             'type':'string',
                             'index':'no'
+                            },
+                        'ratio':{
+                            'type':'string',
+                            'index':'not_analyzed'
+                            },
+                        'cluster':{
+                            'type':'string',
+                            'index':'not_analyzed'
                             }
                         }
                     }
@@ -235,4 +243,4 @@ if __name__=='__main__':
     #get_mappings(index_name)
     #get_graph_mappings(index_name)
     #es.indices.put_mapping(index="monitored_text", doc_type="text", body={'properties':{"category":{"type":"string"}}}, ignore=400)
-    subopinion('topics_river')
+    subopinion('subopinion')
