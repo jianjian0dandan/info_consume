@@ -1,57 +1,13 @@
+{% extends "info_consume/date_detail.html" %}
+
+
+
+{% block main %}  <!-- 引入本页面的主体内容 -->
+
+
 <!-- 语义 -->
 <div class="tab-pane fade" id="meaning">
-	      <img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
-	      <p class="topic_text">#里约奥运#</p>
-	      <p class="topic_time">日期:</p>
-	      <p class="topic_time_from">从</p>
-<!-- 时间段选择 -->
-	    	<div class="container">
-    			<div class='col-md-3' id="date1">
-       				<div class="form-group">
-        	    		<div class='input-group date' id='datetimepicker9' style="width: 202px;margin-top: -0.5%;margin-left: 0%;">
-                			<input type='text' class="form-control" id='datetimepicker9_input'/>
-                			<span class="input-group-addon">
-                				<span class="glyphicon glyphicon-calendar"></span>
-                			</span>
-           		 		</div>
-        			</div>
-    			</div>
-    			   <p class="topic_time_to">到</p>
-    			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
-        			<div class="form-group" style="float: left;width: 8%;">
-            			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
-                			<input type='text' class="form-control" id='datetimepicker10_input'/>
-                			<span class="input-group-addon">
-                				<span class="glyphicon glyphicon-calendar"></span>
-                			</span>
-            			</div>
-        			</div>
-    			</div>
-
-    			<!-- <div class="btn_commit" class="bs-example">
-   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
-				</div> -->
-				<div class="btn_commit" class="bs-example">
-   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
-				</div>
-
-
-			</div>
-			<script type="text/javascript">
-			    $(function () {
-			        $('#datetimepicker9').datetimepicker();
-			        $('#datetimepicker10').datetimepicker();
-			        $("#datetimepicker9").on("dp.change",function (e) {
-			            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-			        });
-			        $("#datetimepicker10").on("dp.change",function (e) {
-			            $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
-			        });
-			    });
-			</script>
-<!-- 分割线 -->
-		<div class="halving_line"></div>
-
+	      
 <!-- 分析指标——话题关键词云图 -->
 		<div>
 			<div id="time_trend_title_line1"></div>
@@ -80,19 +36,19 @@
  	<!-- 见date_meaning.js文件 -->
 
 <!-- 分割线 -->
-	<div class="halving_line_meaning_2"></div>
+<div class="halving_line_meaning_2"></div>
 
 <!-- 分析指标——时间轴 -->
-		<div>
-			<div id="meaning_title_line1"></div>
-			<p id="meaning_title">观点时间轴</p>
-			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
-		</div>
+<div>
+	<div id="meaning_title_line1"></div>
+	<p id="meaning_title">观点时间轴</p>
+	<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+</div>
 		
 
 <!-- 引入时间轴 -->
 <div id="main_meaning_3">
-			<div class="container">
+	<div class="container">
         <div class="row">
             <div class="col-md-12" style="width:58%;">
                 <div class="VivaTimeline">
@@ -276,3 +232,4 @@
 
 </div>
 
+{% endblock %}  <!-- 结束引入本页面的主体内容 -->

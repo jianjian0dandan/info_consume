@@ -1,3 +1,9 @@
+{% extends "info_consume/date_detail.html" %}
+
+
+
+{% block main %}  <!-- 引入本页面的主体内容 -->
+
 <!-- 情绪 -->
 <div class="tab-pane fade" id="emotion">
 	      
@@ -91,13 +97,13 @@
 		<div class="halving_line2"></div>
 
 <!-- 微博浏览区 -->
-	<div>
-		<div id="blog_scan_title_line1"></div>
-		<p id="blog_scan_title">微博浏览区</p>
-		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
-	</div>
+<div>
+	<div id="blog_scan_title_line1"></div>
+	<p id="blog_scan_title">微博浏览区</p>
+	<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+</div>
 
-	<div id="blog_scan_area_emotion">
+<div id="blog_scan_area_emotion">
 		<div id="blog_scan_title_line2_emotion"></div>
 		<div id="blog_scan_title_line3_emotion"></div>
 		<p id="blog_scan_title2_emotion">排序方式：</p>
@@ -122,4 +128,6 @@
 	</div>
 
 
-	</div>
+</div>
+
+{% endblock %}  <!-- 结束引入本页面的主体内容 -->
