@@ -771,8 +771,9 @@ def get_evaluate_trend(history_dict, evaluate_index):
     for item in history_dict:
         item_list = item.split('_')
         if len(item_list) == 2 and item_list[0]==evaluate_index:
-            evaluate_ts = int(item_list[1])
-            date_evaluate_dict[evaluate_ts] = history_dict[item]
+        	#print item_list
+        	evaluate_ts = int(item_list[1])
+        	date_evaluate_dict[evaluate_ts] = history_dict[item]
     #sort_date_evaluate_list = sorted(date_evaluate_dict.items(), key=lambda x:x[0])
     #timeline = [item[0] for item in sort_date_evaluate_list]
     #evaluate_index = [item[1] for item in sort_date_evaluate_list]
@@ -789,18 +790,23 @@ def new_get_influence_trend(uid, time_segment):
     try:
         influence_history = ES_COPY_USER_PORTRAIT.get(index=COPY_USER_PORTRAIT_INFLUENCE, doc_type=COPY_USER_PORTRAIT_INFLUENCE_TYPE,\
                 id=uid)['_source']
+        print ES_COPY_USER_PORTRAIT,COPY_USER_PORTRAIT_INFLUENCE,COPY_USER_PORTRAIT_INFLUENCE_TYPE,uid
+    	print influence_history
     except:
         influence_history = {}
     if influence_history:
         results = get_evaluate_trend(influence_history, 'bci')
     else:
         results = {}
+    print results
     #deal results for situation---server power off
     new_time_list = []
     new_count_list = []
     new_results = {}
     now_time_ts = time.time()
     now_date_ts  = datetime2ts(ts2datetime(now_time_ts))
+    if RUN_TYPE == 0:
+        now_date_ts = datetime2ts(RUN_TEST_TIME)
     for i in range(time_segment, 0, -1):
         iter_date_ts = now_date_ts - i * DAY
         try:
