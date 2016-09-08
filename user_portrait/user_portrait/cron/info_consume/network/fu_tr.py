@@ -67,11 +67,11 @@ def Merge_propagate(items):
     
     for item in items:
         dcount = json.loads(item.dcount)
-        for domain in domain_list:
-            try:
-                result += dcount[domain]
-            except KeyError:
-                continue
+        
+        try:
+            result += dcount
+        except KeyError:
+            continue
     #print 'merge:', result
     return result
 
@@ -119,9 +119,6 @@ def get_interval_count(topic, date, windowsize):
     print 'trend_makers:', trend_maker
     trend_pusher = get_pushers(topic,new_zeros, new_bottom, ts_list)
     print 'trend_pushers:', trend_pusher
-    fh = open('trend_pusher.txt','w+')
-    fh.write(str(trend_pusher))
-    fh.close()
     save_trend_maker(topic, date, windowsize, trend_maker)
     save_trend_pusher(topic, date, windowsize, trend_pusher)
     
@@ -388,10 +385,7 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
                                                         PropagateCount.end<=over_ts ,\
                                                         PropagateCount.end>begin_ts ,\
                                                         PropagateCount.range==unit).all()
-        #**************测试用待删
-        fh = open('item.txt', 'w+')
-        fh.write(str(items))
-        fh.close
+
         if items:
             result = Merge_propagate(items)
         else:

@@ -1,7 +1,6 @@
 {% extends 'info_consume/daohang_public.html' %}
 
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap-table.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
@@ -18,6 +17,7 @@
   <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/time_for_test.js"></script>
   <style type="text/css">
   	.fixed-table-body
   	 {
@@ -138,7 +138,7 @@
 					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
 				</div>
 				<div class="panel-body">
-				  <div id="keyword-cloud" class="panel-body" style="width:360px;height:400px;"></div>
+				  <div id="keyword_cloud" class="panel-body" style="width:360px;height:400px;"></div>
 				</div>
 			</div>
 
@@ -171,12 +171,13 @@
 
 
 	    <!--我的影响力-->
-	   		<div class="panel panel-success" style="width:95%;height:300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+	   		<div class="panel panel-success" style="width:95%;height:500px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
 				<div class="panel-heading">
 					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
 				</div>
 				<div class="panel-body">
-					<h1>昨日影响力排名：</h1>
+
+					<!-- <h1>昨日影响力排名：</h1>
 					<h1>No.95/1939万</h1>
 					<p>你的影响力距红人榜还差:</p><p>39.5分</p>
 					<p>快快加油哦~</p>
@@ -186,11 +187,11 @@
 						<img src="/static/info_consume/image/qmark.png" width="50px" height="50px">
 						<h3>了解如何提升</h3> 
 						<hr>
-					</div>
-					<div class ="framepost" style="height:300px;">
+					</div> -->
+					<div id="influ_chart" class ="framepost" style="float:left;border:1px solid;">
 					    <h3 class="title">影响力走势图</h3>
 					    <div  class="entry"  >
-					      <div style="font-size:16px;z-index:100;float:left;background-color:white;">
+					      <div id="mychoice" style="font-size:16px;z-index:100;float:left;background-color:white;">
 					       <input name="choose_module" type="radio" checked value=1>近7天
 					       <input style="margin-left:20px;" name="choose_module" type="radio" value=2>近30天
 					      </div>
@@ -233,9 +234,8 @@
 {% block Own_js %}
 <script type="text/javascript" src="/static/info_consume/js/person_detail.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/preference.js"></script>
-<!-- <script type="text/javascript" src="/static/info_consume/js/language.js"></script>
- -->
-<!-- <script type="text/javascript" src="/static/info_consume/js/influence.js"></script> -->
+<script type="text/javascript" src="/static/info_consume/js/language.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/influence.js"></script>
 
 {% endblock %}
 
