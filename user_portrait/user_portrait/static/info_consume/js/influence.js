@@ -121,6 +121,8 @@ var pre_influence_date = new Date(influence_date - 24*60*60*1000);
 var date_str = pre_influence_date.format('yyyy-MM-dd');
 console.log(date_str);
 click_action();
+var influence_url = '/attribute/influence_trend/?uid='+uid + '&time_segment=7';
+Influence.call_ajax_request(influence_url, Influence.ajax_method, Influence.Draw_influence);
 
 // var influence_tag_url = '/attribute/current_tag_vector/?uid='+parent.personalData.uid+'&date='+date_str;
 // Influence.async_call_sync_ajax_request(influence_tag_url, Influence.ajax_method, Influence.Influence_tag_vector);
