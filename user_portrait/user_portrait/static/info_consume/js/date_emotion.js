@@ -1,9 +1,12 @@
 var topic = 'aoyunhui';
 var start_ts = 1468166400;
+// var start_ts = 1468944000;
 var end_ts = 1468949400;
+// var end_ts = 1471622400;
 var pointInterval=3600;
-// var case_val = 1;
-// var province = '陕西';
+var case_val = 1;
+var province = '陕西';
+
 
 function get_emotion_type(val) {
  	case_val = val;
@@ -112,43 +115,48 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 	var item_json_neu = [];
 	 	var item_json_neg = [];
 	 	var html = '';
-	 	
+	 	console.log(item);
+
+
 		for (var key in item[0][1]){	
 	 		item_json_pos.push({name:key,value:item[0][1][key]});
+	 		
 		}
-		// console.log(item_json_pos);
+		
 		for (var key in item[1][1]){	
 	 		item_json_neu.push({name:key,value:item[1][1][key]});
 		}
 
 		for (var key in item[2][1]){	
 	 		item_json_neg.push({name:key,value:item[2][1][key]});
-	 		// console.log();
+	 		
 		}
  		
  		// console.log(item_json_pos);
  		// console.log(item_json_neu);
  		// console.log(item_json_neg);
 
- 		var item_legend = '正向';
-		var item_item = item_json_pos;
-
-		if(case_val=1){
+ 	// 	var item_legend = '正向';
+		// var item_item = item_json_pos;
+		
+		
+		if(case_val==1){
 			item_legend = '正向';
 			item_item = item_json_pos;
 			console.log(item_item);
 
-		}else if (case_val = 2){
+		}else if (case_val == 2){
 			item_legend = '中立';
 			item_item = item_json_neu;
 			console.log(item_item);
-		}else if(case_val = 3){
+		}else if(case_val == 3){
 			item_legend = '负向';
 			item_item = item_json_neg;
 			console.log(item_item);
 		}
-		
-		// console.log(item_item.length);
+
+		// console.log(item_item);
+		console.log(item_item.length);
 
 	 	var myChart = echarts.init(document.getElementById('main_emotion_2'));
 
@@ -237,14 +245,9 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					        trigger: 'item',
 					        formatter: '滚轮切换或点击进入该省<br/>{b}'
 					    },
-					    // legend: {
-					    //     orient: 'vertical',
-					    //     x:'right',
-					    //     data:'正向'
-					    // },
 					    dataRange: {
 					        min: 0,
-					        max: 1000,
+					        max: 10000,
 					        color:['orange','yellow'],
 					        text:['高','低'],           // 文本，默认为数值文本
 					        calculable : true
@@ -271,27 +274,21 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		}
 		)	
 
-		// console.log(item_item);
+		console.log(item_item);
 		item_item.sort(function(a,b){
             return b.value-a.value});
 		var rank_html = '';
 		rank_html += '<table id="table">';
         for(var k=0;k<Math.min(15,item_item.length);k++){
-			//rank_html += '<tr style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].value+'<p>';
-			/*rank_html += '<div style="margin-left:-70%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+(k+1)+'</p></div>';
-			rank_html += '<div style="margin-left:16%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].name+'</p><div>';
-			//rank_html += '<div>';
-			//rank_html += '<p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<p>';
-			rank_html += '<div style="margin-left:8%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].value+'</p><div>'*/
-            // document.writeln('<div id="top10_content"><br />&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<div>');
+			
             if (item_item[k].name=='unknown'){
 					item_item[k].name='地域不详'
 				}
             
 			rank_html += '<tr>';	
-			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-1000%;">'+(k+1)+'</p></td>';
-			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-170%;">'+item_item[k].name+'</p></td>';
-			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-30%;">'+item_item[k].value+'</p></td>';			
+			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-500%;">'+(k+1)+'</p></td>';
+			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-130%;">'+item_item[k].name+'</p></td>';
+			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-70%;">'+item_item[k].value+'</p></td>';			
 			rank_html += '</tr>';		
 			
 			
@@ -387,6 +384,9 @@ function Draw_emotion_trend_line_result(){
 }
 
 function Draw_emotion_map_result(){
+	console.log(start_ts);
+	console.log(end_ts);
+
     url = "/topic_sen_analyze/sen_province_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
  	console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_map);
@@ -401,5 +401,5 @@ function Draw_blog_scan_area_emotion_result(){
 
 
 Draw_emotion_trend_line_result();
-// Draw_emotion_map_result();
+Draw_emotion_map_result();
 Draw_blog_scan_area_emotion_result();
