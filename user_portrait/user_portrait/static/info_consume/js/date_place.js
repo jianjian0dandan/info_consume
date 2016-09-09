@@ -97,21 +97,22 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 	 				continue;
 	 			}
 	 			item_city_json.push({name:key,value:item[i][1][key]});
-	 			for(k=0;k<item_city_json.length;k++){
-	 				if(item_city_json[k].name=='unknown'){
-	 				item_city_json[k].name='未知';
-	 				}
-	 				item_city_json_new.push({name:item_city_json[k].name+'市',value:item_city_json[k].value});
-	 			}
-	 			
 	 			
 	 		}
 		}
-
+		for(k=0;k<item_city_json.length;k++){
+			if(item_city_json[k].name=='unknown'){
+			item_city_json[k].name='未知';
+			}
+			item_city_json_new.push({name:item_city_json[k].name+'市',value:item_city_json[k].value});
+			// console.log(item_city_json[k].name);
+			// console.log(item_city_json[k].value);
+	 	}
+	 			
 		item_json = item_province_json.concat(item_city_json_new);
-		console.log(item_province_json);
-		console.log(item_city_json_new);
-		console.log(item_json);
+		// console.log(item_province_json);
+		// console.log(item_city_json_new);
+		// console.log(item_json);
 
 	 	var myChart = echarts.init(document.getElementById('main_place'));
 
@@ -207,7 +208,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 					    },
 					    dataRange: {
 					        min: 0,
-					        max: 1000,
+					        max: 100,
 					        color:['orange','yellow'],
 					        text:['高','低'],           // 文本，默认为数值文本
 					        calculable : true
@@ -235,29 +236,23 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		)	
 		
 
-		item_json.sort(function(a,b){
+		item_province_json.sort(function(a,b){
             return b.value-a.value});
 		// console.log(item_json);
 		var rank_html = '';
 		rank_html += '<table id="table">';
-        for(var k=0;k<Math.min(15,item_json.length);k++){
-			//rank_html += '<tr style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].value+'<p>';
-			rank_html += '<div style="margin-left:-70%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+(k+1)+'</p></div>';
-			rank_html += '<div style="margin-left:16%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].name+'</p><div>';
-			//rank_html += '<div>';
-			//rank_html += '<p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:3%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<p>';
-			rank_html += '<div style="margin-left:8%;float:left"><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;">'+item_json[k].value+'</p><div>'
-            // document.writeln('<div id="top10_content"><br />&nbsp;&nbsp;&nbsp;&nbsp;'+(k+1)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item_json[k].name+'&nbsp;&nbsp;'+item_json[k].value+'<div>');
-            if (item_json[k].name=='unknown'){
-					item_json[k].name='地域不详'
-				}
-            
-			rank_html += '<tr>';	
-			rank_html += '<td text-align:center><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-500%;">'+(k+1)+'</p></td>';
-			rank_html += '<td text-align:center><p style="font-size: 16px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-110%;">'+item_json[k].name+'</p></td>';
-			rank_html += '<td text-align:right><p style="font-size: 18px;font-family: Microsoft YaHei;color: #868686;float:left;margin-left:-130%;">'+item_json[k].value+'</p></td>';			
-			rank_html += '</tr>';		
+        for(var k=0;k<Math.min(15,item_province_json.length);k++){
 			
+    //         if (item_province_json[k].name=='unknown'){
+				// 	item_province_json[k].name='未知'
+				// }
+            		
+
+			rank_html += '<tr>';	
+			rank_html += '<td class="td" align="center" style="width:80px;height:32px;">'+(k+1)+'</td>';
+			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_province_json[k].name+'</td>';
+			rank_html += '<td class="td" align="right" style="width:60px;height:32px;">'+item_province_json[k].value+'</td>';			
+			rank_html += '</tr>';
 			
             }
             $('#top15_content_place').append(rank_html);
@@ -376,6 +371,6 @@ function Draw_blog_scan_area_place_result(){
 // }		
 
 
-Draw_geo_map_result();
-Draw_blog_scan_area_place_result();
+// Draw_geo_map_result();
+// Draw_blog_scan_area_place_result();
 

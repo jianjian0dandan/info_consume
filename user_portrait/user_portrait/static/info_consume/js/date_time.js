@@ -325,6 +325,6 @@ function Draw_blog_scan_area_order_result(){
 }	
 
 
-Draw_time_trend_line_result();
-Draw_blog_scan_area_order_result();
+// Draw_time_trend_line_result();
+// Draw_blog_scan_area_order_result();
 
