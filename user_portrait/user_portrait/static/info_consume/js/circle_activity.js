@@ -132,12 +132,20 @@
 function Draw_geo_graph(data){
      var geo_data=[];
     for (var key in data){
-     var city_data ={};
-     city_data['value'] = data[key];
-     var s = key.split(/\s+/);
-     var l =s.length;
-     city_data['name'] = s[l-1]+'市';
-     geo_data.push(city_data);
+     var province_data ={};
+     province_data['name']=key;
+     province_data['value']=data[key]['total'];
+     console.log(province_data);
+     geo_data.push(province_data);
+     for(var d_key in data[key]){
+       if(d_key!='total'&&d_key!='未知'){
+        var city_data ={};
+        city_data['value']=data[key][d_key];
+        city_data['name']=d_key+'市';
+        geo_data.push(city_data);
+        console.log(city_data);
+        }
+     }
      }
 
 
@@ -167,8 +175,8 @@ function Draw_geo_graph(data){
         '香港', '澳门'
     ];
   var option = {
-    title: {
-        subtext : 'china （滚轮或点击切换）'
+    title :{
+       subtext:"地理活跃度"
     },
     tooltip : {
         trigger: 'item',
