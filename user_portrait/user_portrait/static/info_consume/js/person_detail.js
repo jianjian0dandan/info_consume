@@ -391,7 +391,7 @@ personZone.prototype = {
       },
       transmit_relationship:function(data)
       {
-        console.log(data);
+       // console.log(data);
       },
 
    //影响力和活跃度数据
