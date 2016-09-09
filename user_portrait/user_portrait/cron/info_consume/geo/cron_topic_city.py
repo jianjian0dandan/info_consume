@@ -141,8 +141,8 @@ def cityTopic(topic,start_ts,over_ts,during=Fifteenminutes, n_limit=TOP_WEIBOS_L
 
 
 if __name__ == '__main__':
-    START_TS = datetime2ts('2016-07-11')
-    END_TS = datetime2ts('2016-07-15')
+    START_TS = datetime2ts('2016-07-20')
+    END_TS = datetime2ts('2016-08-20')
 
     #START_TS = '1467648000'
     #END_TS = '1470900837' 

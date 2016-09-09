@@ -39,6 +39,8 @@ preference.prototype=
     }
     // console.log(domain[0]);
     // console.log(domain[1]);
+   // console.log(domain[0]);
+   // console.log(domain[1]);
     var topdomain = domain[0];
     
     var othernum;
