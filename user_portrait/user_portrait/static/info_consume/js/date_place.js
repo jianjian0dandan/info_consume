@@ -344,6 +344,7 @@ function Draw_blog_scan_area_place_result(){
 
 
 
+
 // function Draw_geo_map_result(){
 //     url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
 //  	console.log(url);

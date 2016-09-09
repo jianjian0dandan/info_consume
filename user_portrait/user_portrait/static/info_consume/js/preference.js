@@ -37,8 +37,8 @@ preference.prototype=
       num[i]=data.in_topic[i][1];
       show_domain.push({text:domain[i],max:maxvalue});
     }
-    console.log(domain[0]);
-    console.log(domain[1]);
+    // console.log(domain[0]);
+    // console.log(domain[1]);
     var topdomain = domain[0];
     
     var othernum;
@@ -121,7 +121,7 @@ var preference=new preference();
 function show_domain()
 {
   url = '/attribute/new_user_social/?uid='+uid;
-  console.log(url);
+ // console.log(url);
   preference.call_sync_ajax_request(url,preference.domain);
 }
 
