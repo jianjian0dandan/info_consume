@@ -99,6 +99,7 @@ def submit_task(input_data):
         result = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
         print 'submit_task_utils'
         print result
+        print status
     except:
         status = 1
         print 'except'

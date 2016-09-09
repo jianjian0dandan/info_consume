@@ -93,40 +93,6 @@ personZone.prototype = {
   //     } 
    
    },
-   //好友排行
-   my_friend_rank:function(data)
-   {
-      // console.log(data); 
-      // console.log(data.length);
-      // console.log(data[0]['influence']);
-      //对返回的字典按照影响力进行排序
-      data.sort(function(a,b){
-            return b.influence-a.influence});
-      //根据后台数据画表
-      $('#friend_rank').empty();
-      if(data.length==0)
-      {
-         document.getElementById('friend_rank').innerHTML = "暂无数据";
-      }else
-          {
-            var lengh_final;
-            //默认显示前10个好友（按照影响力排行）
-            if(data.length<10)
-            {
-              lengh_final=data.length;            
-            }else
-            {
-              lengh_final=10;
-            }  
-            for(var i=0;i<lengh_final;i++)
-              {  
-                var html ='<tr style="background-color:#ECFFCE;">';
-                if(data[i]['uid']=="")
-                {
-                  html+='<td >--</td>';
-                }else{
-                  html+='<td>'+data[i]['uid']+'</td>';
-                }
 
                 if(data[i]['uname']=="")
                 {
@@ -682,20 +648,5 @@ var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-//好友排行
-var url ='/info_person_social/follower/?uid=2029036025';
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.my_friend_rank);
-//好友排行详细信息
-var url ='/info_person_social/follower/?uid=2029036025';
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.friend_rank_detail);
-//亲密度排行
-var url ='/info_person_social/mention/?uid=1831090244';
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);
-//亲密度排行详细信息
-var url ='/info_person_social/mention/?uid=1831090244';
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank_detail);
-//转发关系网络
-var uid_transmit=2029036025;
-var url ='/info_person_social/follower/?uid='+uid_transmit;
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.transmit_relationship);
+
 //最新update

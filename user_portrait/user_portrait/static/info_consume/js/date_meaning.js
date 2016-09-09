@@ -1,7 +1,7 @@
 var topic='aoyunhui';
 var start_ts=1468944000;
 var end_ts=1471622400;
-var opinion=["姐姐", "综艺节目", "网络"];
+var opinion=["圣保罗", "班底", "巴西", "康熙"];
 
 
 function topic_analysis_meaning(){
@@ -370,8 +370,8 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
 
-// Draw_keywords_cloud_result();
-//Draw_event_river_result();
-Draw_time_line_result();
-// Draw_blog_opinion_result();
-// Draw_blog_scan_area_meaning_result();
+Draw_keywords_cloud_result();
+Draw_event_river_result();
+//Draw_time_line_result();
+Draw_blog_opinion_result();
+Draw_blog_scan_area_meaning_result();

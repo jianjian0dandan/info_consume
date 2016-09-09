@@ -164,11 +164,13 @@ def get_subopinion(topic):
 
 def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微博内容
     weibo_dict = {}
+    #a = json.dumps(opinion)
+    opinion = '圣保罗_班底_巴西_康熙'
     query_body = {
         'query':{
             'bool':{
                 'must':[
-                    {'term':{'keys':json.dumps(opinion)}},
+                    {'wildcard':{'keys':opinion}},
                     {'term':{'name':topic}},
                     {'range':{'start_ts':{'lte':start_ts}}},
                     {'range':{'end_ts':{'gte':end_ts}}}
@@ -177,7 +179,8 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
         }
     }  #没有查到uid   每次的id不一样   
     weibos = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
-    print opinion
+    #print weibo_es,subopinion_index_name,subopinion_index_type,query_body
+    print len(weibos)
     if weibos:
         weibos = json.loads(weibos[0]['_source']['cluster_dump_dict'])
         for weibo in weibos.values():#jln0825

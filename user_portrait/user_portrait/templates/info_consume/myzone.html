@@ -41,6 +41,12 @@
   <script type="text/javascript" src="/static/info_consume/js/time_for_test.js"></script>
   <style type="text/css">
 
+  	.fixed-table-body
+  	 {
+	    overflow-x: auto;
+	    overflow-y: auto;
+	    height: 395px;
+	 }
   </style>
   <script type="text/javascript">
     function person_call_ajax_request(url, callback){
@@ -117,7 +123,7 @@
    <li id="zone_left_tab" class="active">
       <a href="#mysteward" data-toggle="tab">我的管家</a>
 	</li>
-   <li><a href="#myfriends" data-toggle="tab">我的好友</a></li>
+  <!--  <li><a href="#myfriends" data-toggle="tab">我的好友</a></li> -->
 </ul>
 
 <div id="myTabContent" class="tab-content"><!--我的管家页面-->
@@ -394,83 +400,7 @@
 					</table>										    								 
 					</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<!-- <button type="button" class="btn btn-primary" >确定</button> -->
-					</div>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-						
-			
-	    <!--亲密度排行-->
-	   		<div class="panel panel-success" style="width:35%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">亲密度排行</h3>
-				</div>
-				<div class="panel-body">
-					<table  data-toggle="table" class="warning" >
-						<thead >
-							<tr>
-								<th>好友ID</th>
-								<th >好友昵称</th>
-								<th >好友数</th>
-								<th >粉丝数</th>
-								<th >微博数</th>
-								<th >提及数</th>
-							</tr>
-						</thead>
-						<tbody id="intimacy_rank"> 
-							<tr class="no-records-found">
-								<td colspan="6">正在很努力很努力的加载内容...</td>
-							</tr>							
-							</tbody>
-					</table>
-					<div>
-						
-						<button style="float:left;margin-left:42%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">查看更多</button>
-					</div>
-					 
-				</div>
-			</div>
-    	 <!--社交网络-->
-	   		<div class="panel panel-success" style="width:76%;height:300px;margin-top:2%; margin-left:11.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">社交网络</h3>
-				</div>
-				<div class="panel-body">
-					<div class="panel-body">
-						<ul id="myTab" class="nav nav-tabs">
-							<li class="active"><a href="#transmit" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁转发了你的微博</a></li>
-							<li><a href="#mention" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁@了你</a></li>
-							<li><a href="#comment" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁评论了你</a></li>
-							<li><a href="#closest" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁和你关系密切</a></li>		  
-						</ul>
-
-						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade in active" id="transmit">
-															
-							</div>
-
-							<div class="tab-pane fade" id="mention">
-								 <p>@</p>
-							</div>
-
-							<div class="tab-pane fade" id="comment">
-									<p>评论</p>
-							</div>
-
-							<div class="tab-pane fade" id="closest">
-									<p>亲密</p>
-							</div>
-											  
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-    </div>
+<!--我的好友页面--> <!--我的好友页面-->  <!--我的好友页面--> <!--我的好友页面--> <!--我的好友页面-->  
 </div>
 
 <script src="/static/info_consume/js/bootstrap-table.js"></script>
