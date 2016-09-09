@@ -12,7 +12,7 @@ function call_sync_ajax_request(url, method, callback){
 
   var uid = 1640601392; //获取
   var prefrence_url = '/attribute/preference/?uid=' + uid;
-  console.log(prefrence_url);
+ // console.log(prefrence_url);
   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
 
@@ -207,7 +207,11 @@ function show_results(data){
   var sen_name = 'sen_Language';
   var senwords_more = 'sen_WordList';
   var sen_more = 'sen_more';
-  console.log(keywords_name);
+<<<<<<< HEAD
+  //console.log(keywords_name);
+=======
+ // console.log(keywords_name);
+>>>>>>> 559fd3b8bdb29fd950e0b8f2b454e19b6c30a12b
 
   Draw_keyword(keywordsCloud, keywords_name, keywords_more, key_more,'关键词');
   Draw_keyword(hashtag, hashtag_name, hashtag_more, hash_more,'微话题');

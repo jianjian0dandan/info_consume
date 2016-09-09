@@ -45,8 +45,21 @@ def province_weibo_count(topic,start_ts,end_ts,unit=MinInterval):
     count_dict = {}
     for item in items:          
         geo = _json_loads(item.ccount)
+        print geo
         for province,city_dict in geo.iteritems():
-            count_dict[province] = city_dict
+            #count_dict[province] = city_dict
+            for k,v in city_dict.iteritems():
+                if k == 'total':
+                    continue
+                #print k.encode('utf8'),v
+                try:
+                    count_dict[province]['total'] += v
+                except:
+                    count_dict[province] = {'total':v}
+                try:
+                    count_dict[province][k] += v
+                except:
+                    count_dict[province][k] = v
             #jln  all citys without province
             # for k,v in city_dict.iteritems():
             #     print k.encode('utf8'),v
