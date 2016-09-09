@@ -14,6 +14,10 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+@mod.route('/place')
+def place():
+    return render_template('/info_consume/date_place.html')
+
 
 @mod.route('/geo_weibo_count/')
 def weibo_count():

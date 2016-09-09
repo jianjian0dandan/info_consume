@@ -122,4 +122,5 @@ def ajax_submit_task():
     now_ts = int(time.time())
     input_data['submit_date'] = now_ts
     status = submit_task(input_data)
+    print 'aaa',status
     return json.dumps(status)

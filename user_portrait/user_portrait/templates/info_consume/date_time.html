@@ -1,0 +1,61 @@
+
+<!-- 分析指标——时间热度图 -->
+		<div>
+			<div id="time_trend_title_line1"></div>
+			<p id="time_trend_title">时间热度图</p>
+			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+		</div>
+		<div><p id="per_time">单位时间：</p></div>
+		<div class="btn-group" data-toggle="buttons">
+			
+   			<label class="btn btn-primary" id="label1" value="900" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('900')">
+     			<input type="radio" name="options" id="option1" onClick="changecolor(this)"> 15min
+   			</label>
+   			<label class="btn btn-primary" id="label2" value="1800" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('1800')">
+      			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 30min
+   			</label>
+   			<label class="btn btn-primary" id="label3" value="3600" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('3600')">
+      			<input type="radio" name="options" id="option3" onClick="changecolor(id)"> 1 hour
+   			</label>
+   			<label class="btn btn-primary" id="label4" value="86400" style="background-color:#E4E4E4;border-color: #E4E4E4;color:#868686" onclick="get_per_time('86400')">
+      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 1 day
+   			</label>
+   			
+		</div>	
+		
+
+<!-- 引入时间热力图 -->
+<div id="main_time">
+	
+</div>
+ 		
+	
+<!-- 分割线 -->
+		<div class="halving_line2"></div>
+
+<!-- 微博浏览区 -->
+	<div>
+		<div id="blog_scan_title_line1"></div>
+		<p id="blog_scan_title">微博浏览区</p>
+		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
+	</div>
+
+	<div id="blog_scan_area_time">
+		<div id="blog_scan_title_line2_time"></div>
+		<div id="blog_scan_title_line3_time"></div>
+		<p id="blog_scan_title2_time">排序方式：</p>
+		<div class="btn-group" data-toggle="buttons" id="btn_radio_time">
+   			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type('time')">
+     			<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
+   			</label>
+   			<label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type('hot')">
+      			<input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
+   			</label>
+		</div>
+		<!-- <p id="blog_scan_title3">微博类型：</p>
+		<p id="blog_scan_title4">原创</p>
+		<img id="img_doubt" src="../../static/info_consume/image/doubt.png"> -->
+		<div class="halving_line3"></div>
+		<!-- 画图，见time_blogscan.js文件（此处移除了所有的） -->
+		<!-- <span class="loading_more" onclick="" >加载更多</span> -->
+	</div>

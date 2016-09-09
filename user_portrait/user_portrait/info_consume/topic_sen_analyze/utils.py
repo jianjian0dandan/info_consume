@@ -80,27 +80,30 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
                                                          SentimentGeo.end<=upbound, \
                                                          SentimentGeo.topic==topic).all()
     count_dict = {}
+    #city_dict = {}
     if items:
         for item in items:       
             geo = _json_loads(item.geo_count)
-            print geo
             for province,city_dict in geo.iteritems():
-                sen = item.sentiment
-                if sen in down:
-                    sen0 = '2'
-                else:
-                    sen0 = str(sen)
-                for k,v in city_dict.iteritems():
-                    if k == 'total':
-                        continue                
-                    try:
-                        count_dict[sen0][k] += v
-                    except:
-                        try:
-                            count_dict[sen0][k] = v
-                        except:
-                            count_dict[sen0] = {}
-            # print geo
+                count_dict[province] = city_dict
+            #jln all citys without province
+            #for province,city_dict in geo.iteritems():
+            #     sen = item.sentiment
+            #     if sen in down:
+            #         sen0 = '2'
+            #     else:
+            #         sen0 = str(sen)
+            #     for k,v in city_dict.iteritems():
+            #         if k == 'total':
+            #             continue                
+            #         try:
+            #             count_dict[sen0][k] += v
+            #         except:
+            #             try:
+            #                 count_dict[sen0][k] = v
+            #             except:
+            #                 count_dict[sen0] = {}
+            #jln 000
             # try:
             #     citys = geo[province]
             #     for k,v in geo[province].iteritems():
@@ -110,8 +113,9 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
             #             city_dict[k] = v
             # except:
             #     continue  
-    results = sorted(count_dict.iteritems(),key=lambda x:x[1],reverse=True)
-    #print results
+            # print citys
+    results = sorted(count_dict.iteritems(),key=lambda x:x[1]['total'],reverse=True)
+    print results
     return results
 
 def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp'):
