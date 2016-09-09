@@ -50,11 +50,12 @@
                   buttonsAlign: "left",//按钮对齐方式
                   locale: "zh-CN",//中文支持
                   detailView: false,
+                  sortName:'submit_date',
+                  sortOrder:"desc",
                   columns: [
                     {
                         title: "序号",//标题
                         field: "order",//键名
-                        order: "desc",//默认排序方式
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value, row, index) { 

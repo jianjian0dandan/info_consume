@@ -3,7 +3,7 @@
               //var username = $('#username').text();
               var username = 'admin@qq.com';
               //#table-user 表格默认显示“近一周全网影响力用户排行”
-             $(function(){ 
+             $(function(){
                  var influ_scope = 'all_nolimit'; 
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
                  console.log(influ_url);
@@ -22,6 +22,8 @@
                   locale: "zh-CN",//中文支持
                   detailView: false,
                   showToggle:true,
+                  sortName:'bci',
+                  sortOrder:"desc",
                   columns: [  
                     {
                         title: "全选",
@@ -45,7 +47,11 @@
                         title: "用户ID",
                         field: "uid",
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                           var e = '<a class="a_tool" href="./viewinformation data-toggle="tooltip" title="点击看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                           return e;
+                        }
                     },
                     {
                         title: "注册地",
@@ -125,12 +131,11 @@
                         visible: false
                     }]
              });
+             
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
            })
-
-
-
+        $(function () { $('.a_tool').tooltip('show');});
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
                     $.ajax({
@@ -178,6 +183,8 @@
                   locale: "zh-CN",//中文支持
                   detailView: false,
                   showToggle:true,
+                  sortName:'similiar',
+                  sortOrder:"desc",
                   columns: [  
                     {
                         title: "全选",
@@ -192,7 +199,11 @@
                         sortable: true,//是否可排序
                         order: "desc",//默认排序方式
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                         formatter: function (value) { 
+                           var e = '<a class="a_tool" href="./viewinformation data-toggle="tooltip" title="点击看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                           return e;
+                        }
                     },
                     {
                         title: "昵称",
@@ -244,6 +255,8 @@
                         }
                     }]
              });
+          
+           $(".a_tool").tooltip();
          };
       function dele_analysis(data){
              var a = confirm('确定要删除吗？');
@@ -275,19 +288,19 @@
                   buttonsAlign: "left",//按钮对齐方式
                   locale: "zh-CN",//中文支持
                   detailView: false,
+                  sortName:'create_time',
+                  sortOrder:"desc",
                   columns: [
                     {
                         title: "序号",//标题
                         field: "",//键名
-                        sortable: true,//是否可排序
-                        order: "desc",//默认排序方式
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value, row, index) { return index+1;}
                     },
                      {
                         field: "search_id",
-                        title: "话题关键词",
+                        title: "任务ID",
                         align: "center",//水平
                         valign: "middle",//垂直
                         visible: false
@@ -296,6 +309,7 @@
                         field: "keyword",
                         title: "话题关键词",
                         align: "center",//水平
+                        sortable: true,
                         valign: "middle"//垂直
                     },
                     {
@@ -303,7 +317,8 @@
                         title: "提交时间",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        sortOrder: "desc"//默认排序方式
                     },
                     {
                         field: "status",
@@ -376,9 +391,19 @@
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
                 }else{
-                alert('提交失败，请重试！')
+                alert('提交失败，请重试！');
               }
+              document.getElementById('keyword_hashtag').value ="";
+
             }
+
+              $('#keyword_hashtag').focus(function () { 
+                if($('#search_norm option:selected').text()=='用户'){
+                  $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
+                 }else{
+                  $('#keyword_hashtag').attr("placeholder","请输入要搜索的话题关键词，多个关键词用空格隔开");
+                 }
+             })
             //搜索按钮的click事件
               $(function () { 
                  $('#search-btn').click(function () {
@@ -388,13 +413,13 @@
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='用户'){
-                 //   $('#keyword_hashtag').attr("placeholder")="请输入要搜索的用户ID";
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
                    // console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
+                    document.getElementById('keyword_hashtag').value ="";
                     //similar_user(user_url);
                      }else{ 
                     var sort_scope = 'all_limit_keyword';
@@ -601,4 +626,7 @@
               }); 
 	         }
            }
+
+
+
    
