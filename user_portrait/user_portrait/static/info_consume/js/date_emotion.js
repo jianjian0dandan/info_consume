@@ -99,7 +99,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	            name:'负向',
 	            type:'line',
 	            data:y_item_neg,
-	           
+	        
 	        }
 	    ]
 	};
@@ -111,39 +111,121 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
   Draw_emotion_map:function(data){
   		
 		var item = data;
+	 	var item_json = [];
+	 	var item_province_json_pos = [];
+	 	var item_province_json_neu = [];
+	 	var item_province_json_neg = [];
+	 	var item_city_json_pos = [];
+	 	var item_city_json_neu = [];
+	 	var item_city_json_neg = [];
+	 	var item_city_json_pos_new=[];
+	 	var item_city_json_neu_new=[];
+	 	var item_city_json_neg_new=[];
 	 	var item_json_pos = [];
 	 	var item_json_neu = [];
 	 	var item_json_neg = [];
 	 	var html = '';
-	 	console.log(item);
 
 
-		for (var key in item[0][1]){	
-	 		item_json_pos.push({name:key,value:item[0][1][key]});
-	 		
+		console.log(item[0][1]);
+		//正向情绪
+		for(key in item[0]){
+			for(i=0;i<item[0][key].length;i++){
+				item_province_json_pos.push({name:item[0][key][i][0],value:item[0][key][i][1].total});
+
+				for(key_val in item[0][key][i][1]){
+		 			if(key_val=='total'){
+		 				continue;
+		 			}
+		 			item_city_json_pos.push({name:key_val,value:item[0][key][i][1][key_val]});
+		 			
+		 		}
+			}
+
 		}
+		for(k=0;k<item_city_json_pos.length;k++){
+			if(item_city_json_pos[k].name=='unknown'){
+			item_city_json_pos[k].name='未知';
+			}
+			item_city_json_pos_new.push({name:item_city_json_pos[k].name+'市',value:item_city_json_pos[k].value});
+			// console.log(item_city_json[k].name);
+			// console.log(item_city_json[k].value);
+	 	}
+	 			
+		item_json_pos = item_province_json_pos.concat(item_city_json_pos_new);
 		
-		for (var key in item[1][1]){	
-	 		item_json_neu.push({name:key,value:item[1][1][key]});
-		}
+		console.log(item_json_pos);
 
-		for (var key in item[2][1]){	
-	 		item_json_neg.push({name:key,value:item[2][1][key]});
-	 		
-		} 		
+
+		//中立情绪
+		for(key in item[1]){
+			for(i=0;i<item[1][key].length;i++){
+				item_province_json_neu.push({name:item[1][key][i][0],value:item[1][key][i][1].total});
+
+				for(key_val in item[1][key][i][1]){
+			 			if(key_val=='total'){
+			 				continue;
+			 			}
+			 			item_city_json_neu.push({name:key_val,value:item[1][key][i][1][key_val]});
+			 			
+		 		}
+			}
+		}
+		for(k=0;k<item_city_json_neu.length;k++){
+			if(item_city_json_neu[k].name=='unknown'){
+			item_city_json_neu[k].name='未知';
+			}
+			item_city_json_neu_new.push({name:item_city_json_neu[k].name+'市',value:item_city_json_neu[k].value});
+			// console.log(item_city_json[k].name);
+			// console.log(item_city_json[k].value);
+	 	}
+	 			
+		item_json_neu = item_province_json_neu.concat(item_city_json_neu_new);
+		
+		console.log(item_json_neu);
+
+		//负向情绪
+		for(key in item[2]){
+			for(i=0;i<item[2][key].length;i++){
+				item_province_json_neg.push({name:item[2][key][i][0],value:item[2][key][i][1].total});
+
+				for(key_val in item[2][key][i][1]){
+			 			if(key_val=='total'){
+			 				continue;
+			 			}
+			 			item_city_json_neg.push({name:key_val,value:item[2][key][i][1][key_val]});
+			 			
+		 		}
+			}
+		}
+		for(k=0;k<item_city_json_neg.length;k++){
+			if(item_city_json_neg[k].name=='unknown'){
+			item_city_json_neg[k].name='未知';
+			}
+			item_city_json_neg_new.push({name:item_city_json_neg[k].name+'市',value:item_city_json_neg[k].value});
+			// console.log(item_city_json[k].name);
+			// console.log(item_city_json[k].value);
+	 	}
+	 			
+		item_json_neg = item_province_json_neg.concat(item_city_json_neg_new);
+		
+		// console.log(item_json_neg);
 		
 		
 		if(case_val == 1){
 			item_legend = '正向';
 			item_item = item_json_pos;
+			item_item_rank = item_province_json_pos;
 
 		}else if (case_val == 2){
 			item_legend = '中立';
 			item_item = item_json_neu;
+			item_item_rank = item_province_json_neu;
 
 		}else if(case_val == 3){
 			item_legend = '负向';
 			item_item = item_json_neg;
+			item_item_rank = item_province_json_neg;
 
 		}
 
@@ -235,7 +317,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					    },
 					    dataRange: {
 					        min: 0,
-					        max: 10000,
+					        max: 1000,
 					        color:['orange','yellow'],
 					        text:['高','低'],           // 文本，默认为数值文本
 					        calculable : true
@@ -263,20 +345,20 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		)	
 
 		// console.log(item_item);
-		item_item.sort(function(a,b){
+		item_item_rank.sort(function(a,b){
             return b.value-a.value});
 		var rank_html = '';
 		rank_html += '<table id="table" style="table-layout:fixed">';
-        for(var k=0;k<Math.min(15,item_item.length);k++){
+        for(var k=0;k<Math.min(15,item_item_rank.length);k++){
 			
-            if (item_item[k].name=='unknown'){
-					item_item[k].name='地域不详'
-				}
+    //         if (item_item[k].name=='unknown'){
+				// 	item_item[k].name='地域不详'
+				// }
             
 			rank_html += '<tr>';	
 			rank_html += '<td class="td" align="center" style="width:80px;height:32px;">'+(k+1)+'</td>';
-			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_item[k].name+'</td>';
-			rank_html += '<td class="td" align="right" style="width:60px;height:32px;">'+item_item[k].value+'</td>';			
+			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_item_rank[k].name+'</td>';
+			rank_html += '<td class="td" align="right" style="width:60px;height:32px;">'+item_item_rank[k].value+'</td>';			
 			rank_html += '</tr>';		
 			
 			
@@ -372,6 +454,10 @@ function Draw_emotion_trend_line_result(){
 }
 
 function Draw_emotion_map_result(){
+
+	var start_ts=1468944000;
+	var end_ts=1471622400;
+
 	console.log(start_ts);
 	console.log(end_ts);
 
