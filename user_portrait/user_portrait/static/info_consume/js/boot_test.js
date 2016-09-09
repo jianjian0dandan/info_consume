@@ -130,6 +130,7 @@
                     }]
              });
             $('.a_tool').tooltip();
+            $('#chase').tooltip();
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
 
@@ -310,14 +311,14 @@
                     },
                     {
                         field: "keyword",
-                        title: "话题关键词",
+                        title: "兴趣圈",
                         align: "center",//水平
                         sortable: true,
                         valign: "middle"//垂直
                     },
                     {
                         field: "create_time",
-                        title: "提交时间",
+                        title: "发现时间",
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
@@ -340,7 +341,7 @@
                       }
                     },
                     {
-                        title: "任务查看",
+                        title: "圈子查看",
                         field: "status",
                         align: "center",//水平
                         valign: "middle",//垂直
@@ -385,7 +386,7 @@
              function submit_offline(data){
               console.log(data);
               if(data.flag == true){
-                alert('提交成功！已添加至离线任务');
+                alert('创建成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
@@ -401,10 +402,10 @@
             }
 
               $('#keyword_hashtag').focus(function () { 
-                if($('#search_norm option:selected').text()=='用户'){
+                if($('#search_norm option:selected').text()=='朋友圈'){
                   $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
                  }else{
-                  $('#keyword_hashtag').attr("placeholder","请输入要搜索的话题关键词，多个关键词用空格隔开");
+                  $('#keyword_hashtag').attr("placeholder","您想找什么圈子呢？");
                  }
              })
             //搜索按钮的click事件
@@ -415,7 +416,7 @@
                     alert('请输入关键词！');
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
-                   if($('#search_norm option:selected').text()=='用户'){
+                   if($('#search_norm option:selected').text()=='朋友圈'){
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
@@ -576,7 +577,7 @@
              }
             selected_list = $table.bootstrapTable('getSelections');
             if( selected_list.length == 0){
-              alert('请选择用户！');
+              alert('您还没有选择用户哦！');
             }else{
               $('#addModal').modal('show');
          }
@@ -603,7 +604,7 @@
 	             function callback(data){
                  console.log(data);
                   if (data == '1'){
-                      alert('恭喜！您新建了个朋友圈！');
+                      alert('恭喜！您新发现了个兴趣圈！');
                       $('#addModal').modal('hide');
                         location.reload();
                   }
