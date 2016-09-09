@@ -44,14 +44,24 @@
                         }
                     },
                     {
+                        title: "昵称",
+                        field: "uname",
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value=="unknown"||value==""){
+                            value = "未知";
+                          }
+                          var e = '<a class="a_tool" href="./viewinformation" data-toggle="tooltip" title="看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                            return e;
+                        }
+                    },
+                    {
                         title: "用户ID",
                         field: "uid",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value) { 
-                           var e = '<a class="a_tool" href="./viewinformation data-toggle="tooltip" title="点击看看他/她是谁" data-placement="right">'+value+'</a>'; 
-                           return e;
-                        }
+                        visible:false
                     },
                     {
                         title: "注册地",
@@ -61,18 +71,6 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                            if(value=="unknown"||value==""){
-                            value = "未知";
-                          }
-                           return value;
-                        }
-                    },
-                    {
-                        title: "昵称",
-                        field: "uname",
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value) { 
-                          if(value=="unknown"||value==""){
                             value = "未知";
                           }
                            return value;
@@ -131,11 +129,11 @@
                         visible: false
                     }]
              });
-             
+            $('.a_tool').tooltip();
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
+
            })
-        $(function () { $('.a_tool').tooltip('show');});
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
                     $.ajax({
@@ -194,16 +192,11 @@
                         valign: "middle"//垂直
                     },
                     {
-                        title: "用户ID",//标题
-                        field: "uid",//键名
-                        sortable: true,//是否可排序
-                        order: "desc",//默认排序方式
+                        title: "序号",//标题
+                        field: "",//键名
                         align: "center",//水平
                         valign: "middle",//垂直
-                         formatter: function (value) { 
-                           var e = '<a class="a_tool" href="./viewinformation data-toggle="tooltip" title="点击看看他/她是谁" data-placement="right">'+value+'</a>'; 
-                           return e;
-                        }
+                        formatter: function (value, row, index) { return index+1;}
                     },
                     {
                         title: "昵称",
@@ -215,8 +208,18 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                           return value;
+                          var e = '<a class="a_tool" href="./viewinformation" data-toggle="tooltip" title="看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                           return e;
                         }
+                    },
+                    {
+                        title: "用户ID",//标题
+                        field: "uid",//键名
+                        sortable: true,//是否可排序
+                        order: "desc",//默认排序方式
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible:false
                     },
                     {
                         title: "相关度",                        
