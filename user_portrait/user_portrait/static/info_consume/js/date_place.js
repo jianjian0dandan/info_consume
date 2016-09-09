@@ -8,6 +8,7 @@ var province = '陕西';
 //var sort_item = 'timestamp';
 
 
+
 // var topic = $('#topic_text').text();
 // var start_ts = set_timestamp().start_timestamp_return; 
 // var end_ts = set_timestamp().end_timestamp_return;
@@ -84,11 +85,33 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 
 	 	var item = data;
 	 	var item_json = [];
+	 	var item_province_json = [];
+	 	var item_city_json = [];
+	 	var item_city_json_new=[];
 	 	var html = '';
+	 	console.log(item.length);
 	 	for (i=0;i<item.length;i++){		
-	 		item_json.push({name:item[i][0],value:item[i][1]});
+	 		item_province_json.push({name:item[i][0],value:item[i][1].total});
+	 		for(key in item[i][1]){
+	 			if(key=='total'){
+	 				continue;
+	 			}
+	 			item_city_json.push({name:key,value:item[i][1][key]});
+	 			for(k=0;k<item_city_json.length;k++){
+	 				if(item_city_json[k].name=='unknown'){
+	 				item_city_json[k].name='未知';
+	 				}
+	 				item_city_json_new.push({name:item_city_json[k].name+'市',value:item_city_json[k].value});
+	 			}
+	 			
+	 			
+	 		}
 		}
-		
+
+		item_json = item_province_json.concat(item_city_json_new);
+		console.log(item_province_json);
+		console.log(item_city_json_new);
+		console.log(item_json);
 
 	 	var myChart = echarts.init(document.getElementById('main_place'));
 
@@ -331,6 +354,9 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 var topic_analysis_place = new topic_analysis_place();
  
 function Draw_geo_map_result(){
+	var start_ts=1468944000;
+	var end_ts=1471622400;
+
     url = "/topic_geo_analyze/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
  	console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
@@ -341,8 +367,6 @@ function Draw_blog_scan_area_place_result(){
  	console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
 }		
-
-
 
 
 // function Draw_geo_map_result(){

@@ -372,6 +372,10 @@ function Draw_emotion_trend_line_result(){
 }
 
 function Draw_emotion_map_result(){
+
+	var start_ts=1468944000;
+	var end_ts=1471622400;
+	
 	console.log(start_ts);
 	console.log(end_ts);
 
