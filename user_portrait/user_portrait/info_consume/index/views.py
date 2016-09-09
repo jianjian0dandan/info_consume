@@ -1,5 +1,5 @@
 #-*- coding:utf-8: -*-
-from flask import Blueprint,render_template
+from flask import Blueprint,render_template,request
 
 mod = Blueprint('index', __name__, url_prefix='/index')
 
@@ -31,7 +31,9 @@ def weiborecommand():
 
 @mod.route('/viewinformation')
 def viewinformation():
-	return render_template('/info_consume/viewinformation.html')
+	uid = request.args.get('uid','')
+	return render_template('/info_consume/viewinformation.html',uid=uid)
+
 @mod.route('/daohang_public')
 def daohang_public():
 	return render_template('/info_consume/daohang_public.html')
@@ -50,3 +52,4 @@ def circle_test():
 @mod.route('/myzone')
 def myzone():
     return render_template('/info_consume/myzone.html')
+

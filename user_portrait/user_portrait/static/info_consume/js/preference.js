@@ -37,6 +37,8 @@ preference.prototype=
       num[i]=data.in_topic[i][1];
       show_domain.push({text:domain[i],max:maxvalue});
     }
+    // console.log(domain[0]);
+    // console.log(domain[1]);
    // console.log(domain[0]);
    // console.log(domain[1]);
     var topdomain = domain[0];
