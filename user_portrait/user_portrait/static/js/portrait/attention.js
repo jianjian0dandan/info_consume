@@ -221,6 +221,7 @@ function attention(data,UserID,UserName,texts){
         function(ec){
             var ecConfig = require('echarts/config');
             function focus(param) {
+              
                 var data = param.data;
                 var links = option.series[0].links;
                 var nodes = option.series[0].nodes;

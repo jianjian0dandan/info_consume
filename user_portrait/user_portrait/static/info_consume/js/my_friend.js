@@ -18,7 +18,7 @@ my_friend.prototype =
     personData:function(data){
   
 	  personalData = data ;	
-	  console.log(personalData);	  
+	  //console.log(personalData);	  
 	  var img = document.getElementById('portraitImg');
 	  if(personalData.photo_url == "unknown"){
 	      img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
@@ -337,8 +337,8 @@ my_friend.prototype =
       },
       transmit_relationship:function(data)
       {
-        console.log(data);
-        //获取用户的名称
+        //console.log(data);
+        //获取主用户的名称
         var user_name;
         user_name=$("#username").html();
        
@@ -355,11 +355,12 @@ my_friend.prototype =
        	}
        	
        }
-       console.log(name);
+       //console.log(name);
        //获取转发量数据
        var transmit_num=new Array();
        for(var i=0;i<data.length;i++)
        {
+         
 	       	if(data[i]['count']=='')
 	       	{
 	       		data[i]['count']=0;
@@ -370,53 +371,40 @@ my_friend.prototype =
 	       	}   
        }
        //console.log(transmit_num);
+       //获取转发用户的id
        var user_id=new Array();
         for(var i=0;i<data.length;i++)
         {
         	user_id[i]=data[i]['uid'];
         }
-         //定义label
-         var label=new Array();
-        for(var i=0;i<data.length;i++)
-        {
-        	if(data[i]['name']=='未知')
-        	{
-        		label[i]=data[i]['uid'];
-        	}else
-        	{
-        		label[i]=data[i]['uname']+':'+data[i]['uid'];
-        	}
-        	
-        }
       
         //定义node的值；
         var node_value=new Array();
-        node_value.push({category:0,name:user_name,value:10,label:user_name});
+        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-        	node_value.push({category:1,name:name[i],value:transmit_num[i],label:label[i]});
+        	node_value.push({category:1,name:'uid'+' : '+user_id[i],value:transmit_num[i],label:name[i]});
         }
-        console.log(node_value);
-       
-       
+        //console.log(node_value);
 
         //定义线的值
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-        	line_value.push({source:name[i],target:user_name,value:transmit_num[i],label:transmit_num[i]});
+        	line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i],name:'转发次数'+' : '+transmit_num[i]});
         }
        // {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
         var myChart = echarts.init(document.getElementById('transmit'));
         option = {
         title : {
         text: '转发关系网络',
+        subtext: '圈圈的大小表示转发的次数哟',
         x:'right',
         y:'bottom'
-   		},
+   	  	},
         tooltip : {
             trigger: 'item',
-            formatter: '{a} : {b}'
+            formatter: '{b}'
         },
         toolbox: {
             show : true,
@@ -433,15 +421,19 @@ my_friend.prototype =
         series : [
             {
                 type:'force',
-                name : "转发次数",
+                // name :'转发',
+
                 ribbonType: false,
                 categories : [
                     {
-                        name: '用户'
+                        name: '核心用户'
                     },
                     {
-                        name: '转发的用户'
+                        name: 'uid'
                     },
+                    {
+                        name: '转发次数'
+                    }
                 ],
                 itemStyle: {
                     normal: {
@@ -478,18 +470,47 @@ my_friend.prototype =
                 scaling: 1.1,
                 roam: 'move',
                 nodes:node_value,
-                links : line_value,
+                links:line_value,
             }
         ]
     };
-	   myChart.setOption(option);
+	   myChart.setOption(option);  
 	   window.onresize = myChart.resize;
-       $('#p_so_onload').css('display','none').siblings().css('display','block');  
+
+     require([
+            'echarts'
+        ],
+        function(ec){
+            var ecConfig = require('echarts/config');
+            function focus(param) {
+                var data = param.data;
+                var links = option.series[0].links;
+                var nodes = option.series[0].nodes;
+                if (
+                    data.source != null
+                    && data.target != null
+                ) { //点击的是边
+                    var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+                    var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+                    } else {
+                    //编辑点击节点事件的部分
+                    var node_url='/index/viewinformation';
+                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
+                    window.open(node_url);          
+                }
+            }
+                myChart.on(ecConfig.EVENT.CLICK, focus)
+                myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+                });
+            }
+    )   
+
+    $('#p_so_onload').css('display','none').siblings().css('display','block');  
 },
 
 	mention_relationship:function(data)
 	{
-		//console.log(data);
+		console.log(data);
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
         title : {

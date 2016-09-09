@@ -37,6 +37,8 @@ if(data.length==0){
    links_single['value'] = data[s]['2'];
    links_total.push(links_single);
   }
+  // console.log(nodes_total);
+  // console.log(links_total);
 var myChart = echarts.init(document.getElementById('in-retwwie'),'shine');
 option = {
 
