@@ -24,6 +24,9 @@ def get_gexf(topic, identifyDate, identifyWindow):
    
     #gexf2es(key, value)
 	result = read_long_gexf(topic, identifyDate, identifyWindow)
+	#fh = open('gexf.txt','w+')
+	#fh.write(json.dumps(result))
+	#fh.close()
 	return result
 
 def get_trend_pusher(topic, identifyDate, identifyWindow):
@@ -32,7 +35,18 @@ def get_trend_pusher(topic, identifyDate, identifyWindow):
 													TrendPusher.windowsize==identifyWindow).all()
 	#for item in items:
 		#print dir(item)
-	return items
+	#return items
+	result = {}
+	results = []
+	for item in items:
+		user_info = json.loads(item.user_info)
+		weibo_info = json.loads(item.weibo_info)
+		result['timestamp'] = item.timestamp
+		result['name'] = user_info['name']
+		result['photo'] = user_info['profile_image_url']
+		result['fans'] = user_info['followers_count']
+		results.append(result)
+	return results
 
 
 def get_trend_maker(topic, identifyDate, identifyWindow):
@@ -40,7 +54,17 @@ def get_trend_maker(topic, identifyDate, identifyWindow):
 	items = db.session.query(TrendMaker).filter(TrendMaker.topic==topic ,\
 														TrendMaker.date==identifyDate ,\
 														TrendMaker.windowsize==identifyWindow).all()
-	return items
+	result = {}
+	results = []
+	for item in items:
+		user_info = json.loads(item.user_info)
+		weibo_info = json.loads(item.weibo_info)
+		result['timestamp'] = item.timestamp
+		result['name'] = user_info['name']
+		result['photo'] = user_info['profile_image_url']
+		result['fans'] = user_info['followers_count']
+		results.append(result)
+	return results
     
 
 def get_pusher_weibos_byts(topic, identifyDate, identifyWindow):
