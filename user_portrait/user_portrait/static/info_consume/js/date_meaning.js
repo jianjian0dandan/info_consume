@@ -352,9 +352,9 @@ function Draw_event_river_result(){
 }
 
 function Draw_time_line_result(){
-  url = "/topic_language_analyze/subopinion/?topic="+topic;
+  url = "/topic_language_analyze/symbol_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
-  topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning. Draw_blog_opinion);
+  topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_time_line);
 }
 
 function Draw_blog_opinion_result(){
@@ -372,6 +372,6 @@ function Draw_blog_scan_area_meaning_result(){
 
 // Draw_keywords_cloud_result();
 // Draw_event_river_result();
-// //Draw_time_line_result();
+Draw_time_line_result();
 // Draw_blog_opinion_result();
 // Draw_blog_scan_area_meaning_result();
