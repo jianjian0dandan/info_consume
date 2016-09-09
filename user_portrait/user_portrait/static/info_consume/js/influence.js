@@ -1,6 +1,7 @@
 function Influence(){
   this.ajax_method = 'GET';
 }
+  //console.log('yoyo');
  // console.log('yoyo');
 
 function getDate_in(tm){
@@ -17,6 +18,11 @@ Influence.prototype = {
           async:false,
           success:callback,
       });
+      //console.log('hah');
+  },
+  
+  Draw_influence:function(data){
+  //console.log(data);
     //  console.log('hah');
   },
   
@@ -101,11 +107,13 @@ function click_action(){
       var index = $('input[name="choose_module"]:checked').val();
       //console.log(index);
       if(index == 1){
+        //console.log('1');
       //  console.log('1');
         var influence_url = '/attribute/influence_trend/?uid='+uid + '&time_segment=7';
         Influence.call_ajax_request(influence_url, Influence.ajax_method, Influence.Draw_influence);
       }
       else{
+        //console.log('2');
       //  console.log('2');
         var influence_url = '/attribute/influence_trend/?uid='+uid + '&time_segment=30';
         Influence.call_ajax_request(influence_url, Influence.call_ajax_requestmethod, Influence.Draw_influence);    
