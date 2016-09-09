@@ -117,7 +117,7 @@
     html += '<table class="table table-striped table-hover">';
     html += '<thead><tr><th style="text-align:center">排名</th><th style="text-align:center">昵称</th><th style="text-align:center">天数</th></tr></thead><tbody>';
     for (var i = 0; i < show_count; i++) {
-        var name_list = data[i][0].split('&');
+        var name_list = data[i]['0'].split('&');
         var name = name_list[1];
         var s = i.toString();
         var m = i + 1;
@@ -130,136 +130,133 @@
     $('#'+div_name).append(html);
  }
 function Draw_geo_graph(data){
-//     var geo_data=[];
-//     for (var key in data){
-//      var city_data ={};
-//      city_data['value'] = data[key];
-//      var s = key.split(/\s+/);
-//      var l =s.length;
-//      city_data['name'] = s[l-1]+'市';
-//      geo_data.push(city_data);
-//      }
-     
-//      console.log(geo_data);
-   
-//     require(
-//      [  
-//             'echarts',
-//             'zrender'
-//         ],  
-//     function(ec){ 
-//     var myChart = echarts.init(document.getElementById('geo-distri'),'shine');
-//     var ecConfig = require('echarts/config');
-//     var zrEvent = require('zrender/tool/event');
-//     var curIndx = 0;
-//     var mapType = [
-//         'china',
-//         // 23个省
-//         '广东', '青海', '四川', '海南', '陕西', 
-//         '甘肃', '云南', '湖南', '湖北', '黑龙江',
-//         '贵州', '山东', '江西', '河南', '河北',
-//         '山西', '安徽', '福建', '浙江', '江苏', 
-//         '吉林', '辽宁', '台湾',
-//         // 5个自治区
-//         '新疆', '广西', '宁夏', '内蒙古', '西藏', 
-//         // 4个直辖市
-//         '北京', '天津', '上海', '重庆',
-//         // 2个特别行政区
-//         '香港', '澳门'
-//     ];
-//   var option = {
-//     title: {
-//         text : '全国34个省市自治区',
-//         subtext : 'china （滚轮或点击切换）'
-//     },
-//     tooltip : {
-//         trigger: 'item',
-//         formatter: '滚轮切换或点击进入该省<br/>{b}:{c}'
-//     },
-//     legend: {
-//         orient: 'vertical',
-//         x:'right',
-//         data:['随机数据']
-//     },
-//     dataRange: {
-//         min: 0,
-//         max: 1000,
-//         color:['#E0022B', '#E09107'],
-//         text:['高','中','低'],           // 文本，默认为数值文本
-//         calculable : true
-//     },
-//     series : [
-//         {
-//             name: '随机数据',
-//             type: 'map',
-//             mapType: 'china',
-//             selectedMode : 'single',
-//             itemStyle:{
-//                 normal:{label:{show:true}},
-//                 emphasis:{label:{show:true}}
-//             },
-//             data:geo_data
-//         }
-//     ]
-// };         
-// document.getElementById('geo-distri').onmousewheel = function (e){
-//     var event = e || window.event;
-//     curIndx += zrEvent.getDelta(event) > 0 ? (-1) : 1;
-//     if (curIndx < 0) {
-//         curIndx = mapType.length - 1;
-//     }
-//     var mt = mapType[curIndx % mapType.length];
-//     if (mt == 'china') {
-//         option.tooltip.formatter = '滚轮切换或点击进入该省<br/>{b}:{c}';
-//     }
-//     else{
-//         option.tooltip.formatter = '滚轮切换省份或点击返回全国<br/>{b}:{c}';
-//     }
-//     option.series[0].mapType = mt;
-//     option.title.subtext = mt + ' （滚轮或点击切换）';
-//     myChart.setOption(option, true);
+     var geo_data=[];
+    for (var key in data){
+     var city_data ={};
+     city_data['value'] = data[key];
+     var s = key.split(/\s+/);
+     var l =s.length;
+     city_data['name'] = s[l-1]+'市';
+     geo_data.push(city_data);
+     }
+
+
+     require(
+     [  
+            'echarts',
+            'zrender'
+        ],  
+    function(ec){ 
+    var myChart = echarts.init(document.getElementById('geo-distri'),'shine');
+    var ecConfig = require('echarts/config');
+    var zrEvent = require('zrender/tool/event');
+    var curIndx = 0;
+    var mapType = [
+        'china',
+        // 23个省
+        '广东', '青海', '四川', '海南', '陕西', 
+        '甘肃', '云南', '湖南', '湖北', '黑龙江',
+        '贵州', '山东', '江西', '河南', '河北',
+        '山西', '安徽', '福建', '浙江', '江苏', 
+        '吉林', '辽宁', '台湾',
+        // 5个自治区
+        '新疆', '广西', '宁夏', '内蒙古', '西藏', 
+        // 4个直辖市
+        '北京', '天津', '上海', '重庆',
+        // 2个特别行政区
+        '香港', '澳门'
+    ];
+  var option = {
+    title: {
+        subtext : 'china （滚轮或点击切换）'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: '滚轮切换或点击进入该省<br/>{b}:{c}'
+    },
+    legend: {
+        orient: 'vertical',
+        x:'right',
+        data:['随机数据']
+    },
+    dataRange: {
+        min: 0,
+        max: 1000,
+        color:['#E0022B', '#E09107'],
+        text:['高','中','低'],           // 文本，默认为数值文本
+        calculable : true
+    },
+    series : [
+        {
+            name: '随机数据',
+            type: 'map',
+            mapType: 'china',
+            selectedMode : 'single',
+            itemStyle:{
+                normal:{label:{show:true}},
+                emphasis:{label:{show:true}}
+            },
+            data:geo_data
+        }
+    ]
+};         
+document.getElementById('geo-distri').onmousewheel = function (e){
+    var event = e || window.event;
+    curIndx += zrEvent.getDelta(event) > 0 ? (-1) : 1;
+    if (curIndx < 0) {
+        curIndx = mapType.length - 1;
+    }
+    var mt = mapType[curIndx % mapType.length];
+    if (mt == 'china') {
+        option.tooltip.formatter = '滚轮切换或点击进入该省<br/>{b}:{c}';
+    }
+    else{
+        option.tooltip.formatter = '滚轮切换省份或点击返回全国<br/>{b}:{c}';
+    }
+    option.series[0].mapType = mt;
+    option.title.subtext = mt + ' （滚轮或点击切换）';
+    myChart.setOption(option, true);
     
-//     zrEvent.stop(event);
-// };
-// myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
-//     var len = mapType.length;
-//     var mt = mapType[curIndx % len];
-//     if (mt == 'china') {
-//         // 全国选择时指定到选中的省份
-//         var selected = param.selected;
-//         for (var i in selected) {
-//             if (selected[i]) {
-//                 mt = i;
-//                 while (len--) {
-//                     if (mapType[len] == mt) {
-//                         curIndx = len;
-//                     }
-//                 }
-//                 break;
-//             }
-//         }
-//         option.tooltip.formatter = '滚轮切换省份或点击返回全国<br/>{b}';
-//     }
-//     else {
-//         curIndx = 0;
-//         mt = 'china';
-//         option.tooltip.formatter = '滚轮切换或点击进入该省<br/>{b}';
-//     }
-//     option.series[0].mapType = mt;
-//     option.title.subtext = mt + ' （滚轮或点击切换）';
-//     myChart.setOption(option, true);
-// });
+    zrEvent.stop(event);
+};
+myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+    var len = mapType.length;
+    var mt = mapType[curIndx % len];
+    if (mt == 'china') {
+        // 全国选择时指定到选中的省份
+        var selected = param.selected;
+        for (var i in selected) {
+            if (selected[i]) {
+                mt = i;
+                while (len--) {
+                    if (mapType[len] == mt) {
+                        curIndx = len;
+                    }
+                }
+                break;
+            }
+        }
+        option.tooltip.formatter = '滚轮切换省份或点击返回全国<br/>{b}:{c}';
+    }
+    else {
+        curIndx = 0;
+        mt = 'china';
+        option.tooltip.formatter = '滚轮切换或点击进入该省<br/>{b}:{c}';
+    }
+    option.series[0].mapType = mt;
+    option.title.subtext = mt + ' （滚轮或点击切换）';
+    myChart.setOption(option, true);
+});
 
          
-//       myChart.setOption(option);
-// })
+      myChart.setOption(option);
+})
  }
 
  
 function Draw_active_page(data){
        Draw_activity_line(data.activeness_trend);
-       Draw_active_table(data);
-       Draw_geo_graph(data.new_geo)
+       Draw_geo_graph(data.new_geo);
 
 }
 

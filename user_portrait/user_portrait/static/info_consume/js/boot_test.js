@@ -54,10 +54,10 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          if(value == "unknown"||value ==""){
-                             value = "未知";
+                           if(value=="unknown"||value==""){
+                            value = "未知";
                           }
-                          return value;
+                           return value;
                         }
                     },
                     {
@@ -66,10 +66,10 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          if(value == "unknown"||value == ""){
-                             value = "未知";
+                          if(value=="unknown"||value==""){
+                            value = "未知";
                           }
-                          return value;
+                           return value;
                         }
                     },
                     {
@@ -79,8 +79,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                           value = value.toFixed(2);
-                          return value;
+                           var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
                         }
                     },
                     {
@@ -103,11 +104,12 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        visible: false,
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
-                        }
+                          var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
+                        },
+                         visible: false
                     },
                     {
                         title: "活跃度",
@@ -115,11 +117,12 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        visible: false,
                         formatter: function (value) { 
-                          value =value.toFixed(2);
-                          return value;
-                        }
+                          var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
+                        },
+                        visible: false
                     }]
              });
             $('#table-user-user-contain').css("display","none");
@@ -199,7 +202,7 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                           if(value=="unknown"||value==""){
-                             value = "未知";
+                            value = "未知";
                           }
                            return value;
                         }
@@ -211,8 +214,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
+                          var e = value;
+                           e = e.toFixed(2);
+                          return e;
                         }
                     },
                     {
@@ -222,8 +226,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
+                          var e = value;
+                           e = e.toFixed(2);
+                          return e;
                         }
                     },
                     {
@@ -233,8 +238,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
+                          var e = value;
+                           e = e.toFixed(2);
+                          return e;
                         }
                     }]
              });
