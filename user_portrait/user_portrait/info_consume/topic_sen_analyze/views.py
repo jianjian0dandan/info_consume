@@ -53,6 +53,6 @@ def sen_province_count():
     start_ts = long(start_ts)
     #weibo_count = all_weibo_count(topic,start_ts,end_ts)
     results = get_sen_province_count(topic,start_ts,end_ts)
-    print results
+    #print results
     return json.dumps(results)
     

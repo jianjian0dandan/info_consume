@@ -112,20 +112,21 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
         db.session.commit()
 
     if calc == 'geo_count': # 地理位置 #{'sentiment':[shijian,{['province':('provice':cishu),()],'city':[(city:cishu)}]}
+        print results
         for sentiment, v in results.items():
             ts = v[0]
             geo_count = v[1]
             item = SentimentGeo(query, during, ts, sentiment, json.dumps(geo_count))
-            item_exist = db.session.query(SentimentGeo).filter(SentimentCountRatio.query==query, \
-                                                                       SentimentCountRatio.range==during, \
-                                                                       SentimentCountRatio.end==ts, \
-                                                                       SentimentCountRatio.sentiment==sentiment).first()
+            item_exist = db.session.query(SentimentGeo).filter(SentimentGeo.topic==query, \
+                                                                       SentimentGeo.range==during, \
+                                                                       SentimentGeo.end==ts, \
+                                                                       SentimentGeo.sentiment==sentiment).first()
 
             if item_exist:
                 db.session.delete(item_exist)
             db.session.add(item)
-        db.session.commit()
-
+        print db.session.commit()
+        print '???????'
 
 
 def sentimentTopic(topic,start_ts, over_ts, sort_field=SORT_FIELD, save_fields=RESP_ITER_KEYS, \
@@ -297,13 +298,15 @@ def compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during):
                 geo = sentiment_weibo[i]['_source']['geo'].encode('utf8')
                 province,city = split_city(geo)
                 if province != 'unknown':
+                    #print province,city
                     try:
-                        province_dict[province][city] += 1  
                         province_dict[province]['total'] += 1
                     except:
-                        province_dict[province] = {}
+                        province_dict[province] = {'total':1}
+                    try:
+                        province_dict[province][city] += 1  
+                    except:
                         province_dict[province][city] = 1
-                        province_dict[province]['total'] = 1
             geo_count[sentiment] = [end_ts,province_dict]
 
         else:
@@ -313,7 +316,7 @@ def compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during):
     results[end_ts] = all_sen_weibo
     save_rt_results('weibos', topic, results, during, k_limit, w_limit)  
     save_rt_results('geo_count',topic,geo_count,during)
-    print geo_count
+    #print geo_count
     return results   #{'时间戳'：{'情绪1'：[{微博字段},{微博字段}],'情绪2'：[]}}
 
 
@@ -340,7 +343,7 @@ if __name__ == '__main__':
 
     topic = 'aoyunhui'
     start_date = '2016-07-20'
-    end_date = '2016-08-24'
+    end_date = '2016-08-20'
 
     #topic = topic.decode('utf-8')
     start_ts = datetime2ts(start_date)

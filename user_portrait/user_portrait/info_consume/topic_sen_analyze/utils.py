@@ -84,8 +84,31 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
     if items:
         for item in items:       
             geo = _json_loads(item.geo_count)
+            #print geo
             for province,city_dict in geo.iteritems():
-                count_dict[province] = city_dict
+                sen = item.sentiment  #每种情绪下，各省的各市的微博数，按省的总数排序
+                if sen in down:
+                    sen0 = '2'
+                else:
+                    sen0 = str(sen)
+                for k,v in city_dict.iteritems():
+                    if k == 'total':
+                        continue
+                    #print k.encode('utf8'),v
+                    try:
+                        count_dict[sen0][province]['total'] += v
+                    except:
+                        try:
+                            count_dict[sen0][province] = {'total':v}
+                        except:
+                            count_dict[sen0] = {province:{'total':v}}
+                    try:
+                        count_dict[sen0][province][k] += v
+                    except:
+                        count_dict[sen0][province][k] = v
+                    #print sen0,count_dict[sen0]
+                #print count_dict
+
             #jln all citys without province
             #for province,city_dict in geo.iteritems():
             #     sen = item.sentiment
@@ -103,7 +126,7 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
             #                 count_dict[sen0][k] = v
             #             except:
             #                 count_dict[sen0] = {}
-            #jln 000
+            #jln 000   城市加起来
             # try:
             #     citys = geo[province]
             #     for k,v in geo[province].iteritems():
@@ -114,8 +137,12 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
             # except:
             #     continue  
             # print citys
-    results = sorted(count_dict.iteritems(),key=lambda x:x[1]['total'],reverse=True)
-    print results
+    #print count_dict
+    results = []
+    for sen,counts in count_dict.iteritems():
+        results.append({sen:sorted(counts.iteritems(),key=lambda x:x[1]['total'],reverse=True)})
+    #results = sorted(count_dict.iteritems(),key=lambda x:x[1].values()[0]['total'],reverse=True)
+    #print results
     return results
 
 def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp'):
