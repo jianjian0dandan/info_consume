@@ -444,10 +444,25 @@ def search_group_results(task_name, module, submit_user):
         new_geo = {}
         for uid,geos in result['activity_geo_disribution'].iteritems():
             for geo,count in geos.iteritems():
-                try:
-                    new_geo[geo] += count
-                except:
-                    new_geo[geo] = count
+                geo = geo.split('\t')
+                if geo[0] == u'中国':
+                    if len(geo) == 1:
+                        geo.append(u'未知',u'未知')
+                    elif len(geo) == 2:
+                        geo.append(u'未知')
+                    try:
+                        new_geo[geo[1]]['total'] += count
+                    except:
+                        new_geo[geo[1]] = {'total':count}
+                    try:
+                        new_geo[geo[1]][geo[2]] += count
+                    except:
+                        new_geo[geo[1]][geo[2]] = count
+
+                # try:
+                #     new_geo[geo] += count
+                # except:
+                #     new_geo[geo] = count
         result['new_geo'] = new_geo
         try:
             vary_detail_geo_dict = json.loads(source['vary_detail_geo'])
