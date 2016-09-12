@@ -3,7 +3,7 @@
               //var username = $('#username').text();
               var username = 'admin@qq.com';
               //#table-user 表格默认显示“近一周全网影响力用户排行”
-             $(function(){ 
+             $(function(){
                  var influ_scope = 'all_nolimit'; 
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
                  console.log(influ_url);
@@ -22,6 +22,8 @@
                   locale: "zh-CN",//中文支持
                   detailView: false,
                   showToggle:true,
+                  sortName:'bci',
+                  sortOrder:"desc",
                   columns: [  
                     {
                         title: "全选",
@@ -42,10 +44,24 @@
                         }
                     },
                     {
+                        title: "昵称",
+                        field: "uname",
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          if(value=="unknown"||value==""){
+                            value = "未知";
+                          }
+                          var e = '<a class="a_tool" href="./viewinformation" data-toggle="tooltip" title="看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                            return e;
+                        }
+                    },
+                    {
                         title: "用户ID",
                         field: "uid",
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        visible:false
                     },
                     {
                         title: "注册地",
@@ -54,22 +70,10 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          if(value == "unknown"||value ==""){
-                             value = "未知";
+                           if(value=="unknown"||value==""){
+                            value = "未知";
                           }
-                          return value;
-                        }
-                    },
-                    {
-                        title: "昵称",
-                        field: "uname",
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value) { 
-                          if(value == "unknown"||value == ""){
-                             value = "未知";
-                          }
-                          return value;
+                           return value;
                         }
                     },
                     {
@@ -79,8 +83,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                           value = value.toFixed(2);
-                          return value;
+                           var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
                         }
                     },
                     {
@@ -103,11 +108,12 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        visible: false,
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
-                        }
+                          var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
+                        },
+                         visible: false
                     },
                     {
                         title: "活跃度",
@@ -115,19 +121,20 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        visible: false,
                         formatter: function (value) { 
-                          value =value.toFixed(2);
-                          return value;
-                        }
+                          var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
+                        },
+                        visible: false
                     }]
              });
+            $('.a_tool').tooltip();
+            $('#chase').tooltip();
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
+
            })
-
-
-
        //定义ajax回调函数
        function call_sync_ajax_request(url, callback){
                     $.ajax({
@@ -175,6 +182,8 @@
                   locale: "zh-CN",//中文支持
                   detailView: false,
                   showToggle:true,
+                  sortName:'similiar',
+                  sortOrder:"desc",
                   columns: [  
                     {
                         title: "全选",
@@ -184,12 +193,11 @@
                         valign: "middle"//垂直
                     },
                     {
-                        title: "用户ID",//标题
-                        field: "uid",//键名
-                        sortable: true,//是否可排序
-                        order: "desc",//默认排序方式
+                        title: "序号",//标题
+                        field: "",//键名
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value, row, index) { return index+1;}
                     },
                     {
                         title: "昵称",
@@ -199,10 +207,20 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                           if(value=="unknown"||value==""){
-                             value = "未知";
+                            value = "未知";
                           }
-                           return value;
+                          var e = '<a class="a_tool" href="./viewinformation" data-toggle="tooltip" title="看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                           return e;
                         }
+                    },
+                    {
+                        title: "用户ID",//标题
+                        field: "uid",//键名
+                        sortable: true,//是否可排序
+                        order: "desc",//默认排序方式
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        visible:false
                     },
                     {
                         title: "相关度",                        
@@ -211,8 +229,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
+                          var e = value;
+                           e = e.toFixed(2);
+                          return e;
                         }
                     },
                     {
@@ -222,8 +241,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
+                          var e = value;
+                           e = e.toFixed(2);
+                          return e;
                         }
                     },
                     {
@@ -233,11 +253,14 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                          value = value.toFixed(2);
-                          return value;
+                          var e = value;
+                           e = e.toFixed(2);
+                          return e;
                         }
                     }]
              });
+          
+           $(".a_tool").tooltip();
          };
       function dele_analysis(data){
              var a = confirm('确定要删除吗？');
@@ -269,35 +292,37 @@
                   buttonsAlign: "left",//按钮对齐方式
                   locale: "zh-CN",//中文支持
                   detailView: false,
+                  sortName:'create_time',
+                  sortOrder:"desc",
                   columns: [
                     {
                         title: "序号",//标题
                         field: "",//键名
-                        sortable: true,//是否可排序
-                        order: "desc",//默认排序方式
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value, row, index) { return index+1;}
                     },
                      {
                         field: "search_id",
-                        title: "话题关键词",
+                        title: "任务ID",
                         align: "center",//水平
                         valign: "middle",//垂直
                         visible: false
                     },
                     {
                         field: "keyword",
-                        title: "话题关键词",
+                        title: "兴趣圈",
                         align: "center",//水平
+                        sortable: true,
                         valign: "middle"//垂直
                     },
                     {
                         field: "create_time",
-                        title: "提交时间",
+                        title: "发现时间",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        sortOrder: "desc"//默认排序方式
                     },
                     {
                         field: "status",
@@ -316,7 +341,7 @@
                       }
                     },
                     {
-                        title: "任务查看",
+                        title: "圈子查看",
                         field: "status",
                         align: "center",//水平
                         valign: "middle",//垂直
@@ -361,7 +386,7 @@
              function submit_offline(data){
               console.log(data);
               if(data.flag == true){
-                alert('提交成功！已添加至离线任务');
+                alert('创建成功！已添加至离线任务');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
@@ -370,9 +395,19 @@
               }else if(data == 'more than limit'){
                     alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
                 }else{
-                alert('提交失败，请重试！')
+                alert('提交失败，请重试！');
               }
+              document.getElementById('keyword_hashtag').value ="";
+
             }
+
+              $('#keyword_hashtag').focus(function () { 
+                if($('#search_norm option:selected').text()=='朋友圈'){
+                  $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
+                 }else{
+                  $('#keyword_hashtag').attr("placeholder","您想找什么圈子呢？");
+                 }
+             })
             //搜索按钮的click事件
               $(function () { 
                  $('#search-btn').click(function () {
@@ -381,14 +416,14 @@
                     alert('请输入关键词！');
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
-                   if($('#search_norm option:selected').text()=='用户'){
-                 //   $('#keyword_hashtag').attr("placeholder")="请输入要搜索的用户ID";
+                   if($('#search_norm option:selected').text()=='朋友圈'){
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
                     var user_id = '2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
                    // console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
+                    document.getElementById('keyword_hashtag').value ="";
                     //similar_user(user_url);
                      }else{ 
                     var sort_scope = 'all_limit_keyword';
@@ -542,7 +577,7 @@
              }
             selected_list = $table.bootstrapTable('getSelections');
             if( selected_list.length == 0){
-              alert('请选择用户！');
+              alert('您还没有选择用户哦！');
             }else{
               $('#addModal').modal('show');
          }
@@ -569,7 +604,7 @@
 	             function callback(data){
                  console.log(data);
                   if (data == '1'){
-                      alert('恭喜！您新建了个朋友圈！');
+                      alert('恭喜！您新发现了个兴趣圈！');
                       $('#addModal').modal('hide');
                         location.reload();
                   }
@@ -595,4 +630,7 @@
               }); 
 	         }
            }
+
+
+
    
