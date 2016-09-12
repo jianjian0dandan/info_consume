@@ -77,6 +77,19 @@
                         }
                     },
                     {
+                        title: "权威值",
+                        field: "imp",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                          var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
+                        },
+                         visible: false
+                    },
+                    {
                         title: "影响力",
                         field: "bci",
                         sortable: true,
@@ -101,19 +114,6 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle"//垂直
-                    },
-                    {
-                        title: "重要度",
-                        field: "imp",
-                        sortable: true,
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value) { 
-                          var e = new Number(value);
-                           e = e.toFixed(2);
-                          return e;
-                        },
-                         visible: false
                     },
                     {
                         title: "活跃度",
@@ -386,16 +386,16 @@
              function submit_offline(data){
               console.log(data);
               if(data.flag == true){
-                alert('创建成功！已添加至离线任务');
+                alert('恭喜！您成功发现了一个兴趣圈！但这需要一点时间才能查看结果哦~');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
                $('#topic-manage').collapse('show');
               //  call_sync_ajax_request(task_url, draw_topic_tasks);
               }else if(data == 'more than limit'){
-                    alert('提交任务数超过用户限制，请等待结果计算完成后提交新任务！');
+                    alert('您当前提交的任务超过数量咯，请稍后继续提交！');
                 }else{
-                alert('提交失败，请重试！');
+                alert('抱歉！进入圈子失败，请重试！');
               }
               document.getElementById('keyword_hashtag').value ="";
 
@@ -403,9 +403,9 @@
 
               $('#keyword_hashtag').focus(function () { 
                 if($('#search_norm option:selected').text()=='朋友圈'){
-                  $('#keyword_hashtag').attr("placeholder","请输入要搜索的用户ID");
+                  $('#keyword_hashtag').attr("placeholder","输入TA的用户ID，看看TA的朋友圈都有谁？");
                  }else{
-                  $('#keyword_hashtag').attr("placeholder","您想找什么圈子呢？");
+                  $('#keyword_hashtag').attr("placeholder","输入感兴趣的关键词（多个词用空格隔开），看看您的兴趣圈都有谁？");
                  }
              })
             //搜索按钮的click事件
@@ -413,7 +413,7 @@
                  $('#search-btn').click(function () {
                     var keyword = $('#keyword_hashtag').val();
                     if(keyword == ''){  //检查输入词是否为空
-                    alert('请输入关键词！');
+                    alert('您还没有输入任何内容哦~');
                     }else{
                     var keyword_string = keyword.split(/\s+/g);                  
                    if($('#search_norm option:selected').text()=='朋友圈'){
@@ -450,8 +450,7 @@
                   $('#table-user').bootstrapTable('hideColumn', 'imp');
                   $('#table-user').bootstrapTable('hideColumn', 'act');
                   $('#table-user').bootstrapTable('showColumn', 'fans');
-                  $('#table-user').bootstrapTable('showColumn', 'weibo_count');
-                   
+                  $('#table-user').bootstrapTable('showColumn', 'weibo_count');                   
               });
               $('#education').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -604,17 +603,17 @@
 	             function callback(data){
                  console.log(data);
                   if (data == '1'){
-                      alert('恭喜！您新发现了个兴趣圈！');
+                      alert('追踪目标已发现！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
                         location.reload();
                   }
                   if(data == '0'){
-                      alert('提交失败，请重试！');
+                      alert('任务提交失败，请重试！');
                       $('#addModal').modal('hide');
                       document.getElementById('cicle_name').value ="";
                   }
                   if(data == 'more than limit'){
-                      alert('提交任务超出数量');
+                      alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
                       $('#addModal').modal('hide');
                       document.getElementById('cicle_name').value ="";
                   }
