@@ -207,11 +207,7 @@ function show_results(data){
   var sen_name = 'sen_Language';
   var senwords_more = 'sen_WordList';
   var sen_more = 'sen_more';
-<<<<<<< HEAD
-  //console.log(keywords_name);
-=======
- // console.log(keywords_name);
->>>>>>> 559fd3b8bdb29fd950e0b8f2b454e19b6c30a12b
+
 
   Draw_keyword(keywordsCloud, keywords_name, keywords_more, key_more,'关键词');
   Draw_keyword(hashtag, hashtag_name, hashtag_more, hash_more,'微话题');
@@ -227,21 +223,3 @@ function show_results(data){
   }
 }
 
-
-
-// function show_results0(data){
-//   //console.log(data.results.keywords);
-//   var topic = data.results.topic;
-//   var domain = data.results.domain;
-//   Draw_topic0(topic);
-//   //show_conclusion(conclusion);
-//   show_domain0(domain);
-// }
-
-// function language_load(){
-//   var prefrence_url = '/attribute/preference/?uid=' + uid;
-//   console.log(prefrence_url);
-//   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
-//   // call_sync_ajax_request(prefrence_url, ajax_method, show_results0);
-// }nes                                                     1,8           Top
- 
