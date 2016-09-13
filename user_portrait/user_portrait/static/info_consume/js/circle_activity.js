@@ -135,7 +135,7 @@ function Draw_geo_graph(data){
      var province_data ={};
      province_data['name']=key;
      province_data['value']=data[key]['total'];
-     console.log(province_data);
+    // console.log(province_data);
      geo_data.push(province_data);
      for(var d_key in data[key]){
        if(d_key!='total'&&d_key!='未知'){
@@ -143,7 +143,7 @@ function Draw_geo_graph(data){
         city_data['value']=data[key][d_key];
         city_data['name']=d_key+'市';
         geo_data.push(city_data);
-        console.log(city_data);
+  //      console.log(city_data);
         }
      }
      }
