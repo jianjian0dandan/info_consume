@@ -45,6 +45,8 @@ def get_trend_pusher(topic, identifyDate, identifyWindow):
 		result['name'] = user_info['name']
 		result['photo'] = user_info['profile_image_url']
 		result['fans'] = user_info['followers_count']
+		result['uid'] = item.uid
+		result['mid'] = weibo_info[0]['_id']
 		results.append(result)
 	return results
 
@@ -63,6 +65,8 @@ def get_trend_maker(topic, identifyDate, identifyWindow):
 		result['name'] = user_info['name']
 		result['photo'] = user_info['profile_image_url']
 		result['fans'] = user_info['followers_count']
+		result['uid'] = item.uid
+		result['mid'] = weibo_info[0]['_id']
 		results.append(result)
 	return results
     
