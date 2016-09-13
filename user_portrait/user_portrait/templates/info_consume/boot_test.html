@@ -36,7 +36,7 @@
               <option>朋友圈</option>  
             </select>  
           </div>  
-            <input id="keyword_hashtag" type="text" class="form-control" placeholder="输入圈子名！"/><span id="search-btn" class="input-group-addon btn btn-success">进入圈子</span>
+            <input id="keyword_hashtag" type="text" class="form-control" placeholder="您想找什么圈子呢？"/><span id="search-btn" class="input-group-addon btn btn-success">进入圈子</span>
         </div> 
         <div class="col-md-2"></div> 
         </div>           
@@ -56,7 +56,7 @@
       <div id="sort-result" class="row">
          <div class="col-md-3 sidebar-content">
   		   <ul class="ver-inline-menu" style="margin-bottom:25px;">
-    		    <li id="week-influ" class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周红人榜单</a></li>
+    		    <li id="week-influ" class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周影响力榜单</a></li>
     		    <li><a id="education" href="#" data-toggle="tab"><i class="fa fa-graduation-cap" aria-hidden="true"></i>教育圈名人榜</a></li>
             <li><a id="politics" href="#" data-toggle="tab"><i class="fa fa-university" aria-hidden="true"></i>政治圈名人榜</a></li>
             <li><a id="military" href="#" data-toggle="tab"><i class="fa fa-rocket" aria-hidden="true"></i>军事圈名人榜</a></li>
@@ -65,7 +65,7 @@
             <li><a id="sports" href="#" data-toggle="tab"><i class="fa fa-bicycle" aria-hidden="true"></i>体育圈名人榜</a></li>
             <li><a id="business" href="#" data-toggle="tab"><i class="fa fa-briefcase" aria-hidden="true"></i>商业圈名人榜</a></li>
             <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-heartbeat" aria-hidden="true"></i>民生圈名人榜</a></li>
-            <li><a id="others" href="#" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i>杂七杂八圈</a></li>
+            <li><a id="others" href="#" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i>小众圈名人榜</a></li>
           </ul>
 		  </div>
         <div class="col-md-9">
@@ -73,7 +73,7 @@
             <div class="panel-heading"><b>发现圈子</b></div>
             <div class="panel-body">
               <div id="toolbar">
-                <div class="btn btn-success" onclick="addgroup()">圈子追踪</div><i class="fa fa-question-circle-o" id="chase" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="tooltip" title="勾选用户添加进圈子，可对其进行详细追踪" data-placement="bottom"></i>
+                <div class="btn btn-success" onclick="addgroup()">圈子追踪</div><i class="fa fa-question-circle-o" id="chase" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="tooltip" title="勾选下表中的任意用户，系统可对您所选群体进行全面分析" data-placement="bottom"></i>
               </div>
               <div id="table-user-contain"><table id="table-user" class="table table-hover"></table></div>
               <div id="table-user-user-contain"><table id="table-user-user" class="table table-hover"></table></div>
@@ -84,7 +84,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel">提交群组分析</h4>
+                                <h4 class="modal-title" id="myModalLabel">提交追踪任务</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="javascript:void(0)">
