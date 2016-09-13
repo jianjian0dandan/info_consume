@@ -166,8 +166,8 @@
     },
     legend: {
         orient : 'horizontal',
-        x : 'left',
-        y : 'top',
+        x : '5px',
+        y : '35px',
         data:['体育类','娱乐类','科技类','经济类','教育类','政治类','民生类','其他类']
     },
     toolbox: {

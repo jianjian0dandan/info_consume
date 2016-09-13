@@ -17,31 +17,35 @@
     <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" >
     <!--自己的css样式，顺序靠后优先级越高-->
     <link href="../../static/info_consume/css/boot_test.css" rel="stylesheet">
+   <link href='//cdn.webfont.youziku.com/webfonts/nomal/91298/19466/57d2c0a2f629d81ac8902aeb.css' rel='stylesheet' type='text/css'/>
   </head>
   <body>
     <div class="myContainer">
       <div class="row">
         <div class="col-md-12"><h1>系统主导航</h1></div>
         <span id="username" style='display:none'>{{ g.user }}</span>
-      </div>
+      </div>      
       <div class="row">
+       <div style="margin-left:53px;margin-right:13px;height:200px;">
+       <div class="row" style="height:140px;text-align:center;"><span style="font-size:29px;color:#5cb85c;padding-top:60px;display:block;" class="css5b469c467164a2"><i class="fa fa-child" aria-hidden="true"></i>世界是个大圈圈<br/>圈起你我还有Ta<i class="fa fa-child" aria-hidden="true"></i></span></div>
         <div class="col-md-2"></div>
         <div class="col-md-8 input-group">
           <div class="input-group-btn">  
             <select id="search_norm" name="type" class="form-control selectpicker" data-style="btn-success">  
-              <option>话题</option>  
-              <option>用户</option>  
+              <option>兴趣圈</option>  
+              <option>朋友圈</option>  
             </select>  
           </div>  
-            <input id="keyword_hashtag" type="text" class="form-control" placeholder="请输入要搜索的话题关键词，多个关键词用空格隔开"><span id="search-btn" class="input-group-addon btn btn-success">搜索</span>
+            <input id="keyword_hashtag" type="text" class="form-control" placeholder="您想找什么圈子呢？"/><span id="search-btn" class="input-group-addon btn btn-success">进入圈子</span>
         </div> 
-        <div class="col-md-2"></div>            
+        <div class="col-md-2"></div> 
+        </div>           
       </div>
       <hr style="border:1px dashed #987cb9;width:100%;height:1px" />
       <div class="row">
         <div class="col-md-12" style="margin-left:40px;">          
           <div class="panel panel-default" border="1" style="margin-right:40px;">
-            <div class="panel-heading"><b>话题任务管理<i class="fa fa-bars" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="collapse" data-parent="#sort-result" href="#topic-manage"></i></b>
+            <div class="panel-heading"><b>我的兴趣圈<i class="fa fa-bars" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="collapse" data-parent="#sort-result" href="#topic-manage"></i></b>
             </div>
             <div id="topic-manage" class="panel-body collapse" style="padding:10px;">
               <table id="topic-task" class="table table-hover table-condensed"></table>
@@ -52,24 +56,24 @@
       <div id="sort-result" class="row">
          <div class="col-md-3 sidebar-content">
   		   <ul class="ver-inline-menu" style="margin-bottom:25px;">
-    		    <li id="week-influ" class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周用户影响力排行</a></li>
-    		    <li><a id="education" href="#" data-toggle="tab"><i class="fa fa-graduation-cap" aria-hidden="true"></i>教育领域排行</a></li>
-            <li><a id="politics" href="#" data-toggle="tab"><i class="fa fa-university" aria-hidden="true"></i>政治领域排行</a></li>
-            <li><a id="military" href="#" data-toggle="tab"><i class="fa fa-rocket" aria-hidden="true"></i>军事领域排行</a></li>
-            <li><a id="tech" href="#" data-toggle="tab"><i class="fa fa-flask" aria-hidden="true"></i>科技领域排行</a></li>
-            <li><a id="amusement" href="#" data-toggle="tab"><i class="fa fa-music" aria-hidden="true"></i>娱乐领域排行</a></li>
-            <li><a id="sports" href="#" data-toggle="tab"><i class="fa fa-bicycle" aria-hidden="true"></i>体育领域排行</a></li>
-            <li><a id="business" href="#" data-toggle="tab"><i class="fa fa-briefcase" aria-hidden="true"></i>商业领域排行</a></li>
-            <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-heartbeat" aria-hidden="true"></i>民生领域排行</a></li>
-            <li><a id="others" href="#" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i>其他领域排行</a></li>
+    		    <li id="week-influ" class="area-title active"><a id="total-influ" href="#" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true"></i>一周影响力榜单</a></li>
+    		    <li><a id="education" href="#" data-toggle="tab"><i class="fa fa-graduation-cap" aria-hidden="true"></i>教育圈名人榜</a></li>
+            <li><a id="politics" href="#" data-toggle="tab"><i class="fa fa-university" aria-hidden="true"></i>政治圈名人榜</a></li>
+            <li><a id="military" href="#" data-toggle="tab"><i class="fa fa-rocket" aria-hidden="true"></i>军事圈名人榜</a></li>
+            <li><a id="tech" href="#" data-toggle="tab"><i class="fa fa-flask" aria-hidden="true"></i>科技圈名人榜</a></li>
+            <li><a id="amusement" href="#" data-toggle="tab"><i class="fa fa-music" aria-hidden="true"></i>娱乐圈名人榜</a></li>
+            <li><a id="sports" href="#" data-toggle="tab"><i class="fa fa-bicycle" aria-hidden="true"></i>体育圈名人榜</a></li>
+            <li><a id="business" href="#" data-toggle="tab"><i class="fa fa-briefcase" aria-hidden="true"></i>商业圈名人榜</a></li>
+            <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-heartbeat" aria-hidden="true"></i>民生圈名人榜</a></li>
+            <li><a id="others" href="#" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i>小众圈名人榜</a></li>
           </ul>
 		  </div>
         <div class="col-md-9">
           <div id="sort-panel" class="panel panel-default">
-            <div class="panel-heading"><b>排序结果</b></div>
+            <div class="panel-heading"><b>发现圈子</b></div>
             <div class="panel-body">
               <div id="toolbar">
-                <div class="btn btn-success" onclick="addgroup()">添加群组</div>
+                <div class="btn btn-success" onclick="addgroup()">圈子追踪</div><i class="fa fa-question-circle-o" id="chase" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="tooltip" title="勾选下表中的任意用户，系统可对您所选群体进行全面分析" data-placement="bottom"></i>
               </div>
               <div id="table-user-contain"><table id="table-user" class="table table-hover"></table></div>
               <div id="table-user-user-contain"><table id="table-user-user" class="table table-hover"></table></div>
@@ -80,7 +84,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel">提交群组分析</h4>
+                                <h4 class="modal-title" id="myModalLabel">提交追踪任务</h4>
                             </div>
                             <div class="modal-body">
                                 <form role="form" action="javascript:void(0)">
@@ -107,7 +111,7 @@
     <script src="../../static/info_consume/js/bootstrap-table.js"></script>
     <script src="../../static/info_consume/js/bootstrap-table-zh-CN.js"></script>
     <script src="../../static/info_consume/js/boot_test.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script> 
   </body>
     {% endblock %}
 </html>
