@@ -9,6 +9,7 @@ from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,
 from user_portrait.info_consume.model import CityTopicCount,CityWeibos
 import math
 import json
+import re
 # from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
 #                             topics_river_index_name,topics_river_index_type,\
 #                             subopinion_index_name,subopinion_index_type
@@ -125,18 +126,20 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
     begin_ts = end_ts - unit
     for clusterid,contents in symbol_weibos.iteritems():
         j = 0
+        content = set()
         for i in contents:
             ts = full_datetime2ts(i['datetime'])
-            if ts >= start_ts and ts <= end_ts:  #start_ts应该改成begin_ts，现在近15分钟没数据，所以用所有的
+            title = re.findall(r'【.*】',i['content'].encode('utf8'))[0]
+            if ts >= start_ts and ts <= end_ts and title not in content:  #start_ts应该改成begin_ts，现在近15分钟没数据，所以用所有的
                 try:
                     weibos[features[clusterid][0]].append(i)
                 except:
                     weibos[features[clusterid][0]] = [i]
+                content.add(title)
                 j += 1
+            #print content
             if j == 3:
                 break
-            print j
-            print features[clusterid][0].encode('utf8'),len(weibos[features[clusterid][0]])
     #print weibos
     return weibos
 

@@ -78,7 +78,7 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+data[i]['uname']+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -228,7 +228,7 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+data[i]['uname']+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -510,7 +510,64 @@ my_friend.prototype =
 
 	mention_relationship:function(data)
 	{
-		console.log(data);
+		//console.log(data);
+    var user_name=$("#username").html();
+    //获取节点名称
+    var name=new Array();
+    for(var i=0;i<data.length;i++)
+       {
+          if(data[i]['uname']=="")
+          {
+            name[i]='暂无数据';
+          }else
+          {
+            name[i]=data[i]['uname'];
+          } 
+       }
+    //console.log(name);
+    //获取节点uid
+    var user_id=new Array();
+    for(var i=0;i<data.length;i++)
+       {
+          if(data[i]['uid']=="")
+          {
+            user_id[i]='暂无数据';
+          }else
+          {
+            user_id[i]=data[i]['uid'];
+          } 
+       }
+    //console.log(user_id);
+    //获取@的数据量
+    var mention_num=new Array();
+    for(var i=0;i<data.length;i++)
+       {
+         
+          if(data[i]['count']=='')
+          {
+            mention_num[i]='暂无数据';
+          }else
+          {
+            mention_num[i]=data[i]['count'];
+          }   
+       }
+   // console.log(mention_num);
+
+    //定义node的值
+     var node_value=new Array();
+     node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
+     for(var i=0;i<data.length;i++)
+        {
+          node_value.push({category:1,name:name[i],value:mention_num[i],label:name[i]});
+        }
+    //console.log(node_value);
+
+    //定义线
+     var line_value=new Array();   
+        for(var i=0;i<data.length;i++)
+        {
+          line_value.push({source:name[i],target:'核心用户'+' : '+user_name,weight:mention_num[i],name:'提及次数'+' : '+mention_num[i]});
+        }
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
         title : {
@@ -520,7 +577,7 @@ my_friend.prototype =
    		},
         tooltip : {
             trigger: 'item',
-            formatter: '{a} : {b}'
+            formatter: '{b}'
         },
         toolbox: {
             show : true,
@@ -532,22 +589,22 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['家人','朋友']
+            data:['好友']
         },
         series : [
             {
                 type:'force',
-                name : "人物关系",
+                // name : "人物关系",
                 ribbonType: false,
                 categories : [
                     {
-                        name: '人物'
+                        name: '核心用户'
                     },
                     {
-                        name: '家人'
+                        name: 'uid'
                     },
                     {
-                        name:'朋友'
+                        name: '提及次数'
                     }
                 ],
                 itemStyle: {
@@ -584,51 +641,107 @@ my_friend.prototype =
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
-                nodes:[
-                    {category:0, name: '乔布斯', value : 10, label: '乔布斯\n（主要）'},
-                    {category:1, name: '丽萨-乔布斯',value : 2},
-                    {category:1, name: '保罗-乔布斯',value : 3},
-                    {category:1, name: '克拉拉-乔布斯',value : 3},
-                    {category:1, name: '劳伦-鲍威尔',value : 7},
-                    {category:2, name: '史蒂夫-沃兹尼艾克',value : 5},
-                    {category:2, name: '奥巴马',value : 8},
-                    {category:2, name: '比尔-盖茨',value : 9},
-                    {category:2, name: '乔纳森-艾夫',value : 4},
-                    {category:2, name: '蒂姆-库克',value : 4},
-                    {category:2, name: '龙-韦恩',value : 1},
-                ],
-                links : [
-                    {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
-                    {source : '保罗-乔布斯', target : '乔布斯', weight : 2, name: '父亲'},
-                    {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1, name: '母亲'},
-                    {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
-                    {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
-                    {source : '奥巴马', target : '乔布斯', weight : 1},
-                    {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
-                    {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
-                    {source : '蒂姆-库克', target : '乔布斯', weight : 1},
-                    {source : '龙-韦恩', target : '乔布斯', weight : 1},
-                    {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-                    {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-                    {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-                    {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '蒂姆-库克', target : '奥巴马', weight : 1}
-                ]
+                nodes:node_value,
+                links:line_value,
             }
         ]
     };
 	   myChart.setOption(option);
 	   window.onresize = myChart.resize;
+     require([
+            'echarts'
+        ],
+        function(ec){
+            var ecConfig = require('echarts/config');
+            function focus(param) {
+                var data = param.data;
+                var links = option.series[0].links;
+                var nodes = option.series[0].nodes;
+                if (
+                    data.source != null
+                    && data.target != null
+                ) { //点击的是边
+                    var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+                    var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+                    } else {
+                    //编辑点击节点事件的部分
+                    var node_url='/index/viewinformation';
+                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
+                    window.open(node_url);          
+                }
+            }
+                myChart.on(ecConfig.EVENT.CLICK, focus)
+                myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+                });
+            }
+    )   
+
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	},
 
 
 	comment_relationship:function(data)
 	{
-		//console.log(data);
+		    //console.log(data);
+        var user_name=$("#username").html();
+       
+       //获取分节点名称
+       var name=new Array();
+       for(var i=0;i<data.length;i++)
+       {
+        if(data[i]['uname']=='未知')
+        {
+          name[i]=data[i]['uid'];
+        }else
+        {
+          name[i]=data[i]['uname'];
+        }
+        
+       }
+       //console.log(name);
+       //获取评论量数据
+       var comment_num=new Array();
+       for(var i=0;i<data.length;i++)
+       {
+         
+          if(data[i]['count']=='')
+          {
+            comment_num[i]=0;
+          }else
+          {
+            comment_num[i]=data[i]['count'];
+          }   
+       }
+       //console.log(comment_num);
+       //获取转发用户的id
+       var user_id=new Array();
+        for(var i=0;i<data.length;i++)
+        {
+          if(data[i]['uid']=="")
+          {
+            user_id[i]='暂无数据'
+          }else
+          {
+            user_id[i]=data[i]['uid'];
+          }
+          
+        }
+      //console.log(user_id);
+        //定义node的值；
+        var node_value=new Array();
+        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
+        for(var i=0;i<data.length;i++)
+        {
+          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:comment_num[i],label:name[i]});
+        }
+        //console.log(node_value);
+
+        //定义线的值
+        var line_value=new Array();   
+        for(var i=0;i<data.length;i++)
+        {
+          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i],name:'评论次数'+' : '+comment_num[i]});
+        }
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
         title : {
@@ -638,7 +751,7 @@ my_friend.prototype =
    		},
         tooltip : {
             trigger: 'item',
-            formatter: '{a} : {b}'
+            formatter: ' {b}'
         },
         toolbox: {
             show : true,
@@ -650,7 +763,7 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['家人','朋友']
+            data:['好友']
         },
         series : [
             {
@@ -659,13 +772,13 @@ my_friend.prototype =
                 ribbonType: false,
                 categories : [
                     {
-                        name: '人物'
+                        name: '核心用户'
                     },
                     {
-                        name: '家人'
+                        name: 'uid'
                     },
                     {
-                        name:'朋友'
+                        name: '转发次数'
                     }
                 ],
                 itemStyle: {
@@ -702,51 +815,98 @@ my_friend.prototype =
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
-                nodes:[
-                    {category:0, name: '乔布斯', value : 10, label: '乔布斯\n（主要）'},
-                    {category:1, name: '丽萨-乔布斯',value : 2},
-                    {category:1, name: '保罗-乔布斯',value : 3},
-                    {category:1, name: '克拉拉-乔布斯',value : 3},
-                    {category:1, name: '劳伦-鲍威尔',value : 7},
-                    {category:2, name: '史蒂夫-沃兹尼艾克',value : 5},
-                    {category:2, name: '奥巴马',value : 8},
-                    {category:2, name: '比尔-盖茨',value : 9},
-                    {category:2, name: '乔纳森-艾夫',value : 4},
-                    {category:2, name: '蒂姆-库克',value : 4},
-                    {category:2, name: '龙-韦恩',value : 1},
-                ],
-                links : [
-                    {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
-                    {source : '保罗-乔布斯', target : '乔布斯', weight : 2, name: '父亲'},
-                    {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1, name: '母亲'},
-                    {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
-                    {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
-                    {source : '奥巴马', target : '乔布斯', weight : 1},
-                    {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
-                    {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
-                    {source : '蒂姆-库克', target : '乔布斯', weight : 1},
-                    {source : '龙-韦恩', target : '乔布斯', weight : 1},
-                    {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-                    {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-                    {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-                    {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '蒂姆-库克', target : '奥巴马', weight : 1}
-                ]
+                nodes:node_value,
+                links:line_value,
             }
         ]
     };
 	   myChart.setOption(option);
 	   window.onresize = myChart.resize;
+     require([
+            'echarts'
+        ],
+        function(ec){
+            var ecConfig = require('echarts/config');
+            function focus(param) {
+                var data = param.data;
+                var links = option.series[0].links;
+                var nodes = option.series[0].nodes;
+                if (
+                    data.source != null
+                    && data.target != null
+                ) { //点击的是边
+                    var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+                    var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+                    } else {
+                    //编辑点击节点事件的部分
+                    var node_url='/index/viewinformation';
+                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
+                    window.open(node_url);          
+                }
+            }
+                myChart.on(ecConfig.EVENT.CLICK, focus)
+                myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+                });
+            }
+    )   
+
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	},
 
 
 	interaction_relationship:function(data)
 	{
-		//console.log(data);
+		    console.log(data);
+        var user_name=$("#username").html();
+        //获取分节点名称
+         var name=new Array();
+         for(var i=0;i<data.length;i++)
+         {
+            if(data[i]['uname']=='未知')
+            {
+              name[i]=data[i]['uid'];
+            }else
+            {
+              name[i]=data[i]['uname'];
+            }
+         }
+         console.log(name);
+
+       var interaction_num=new Array();
+       for(var i=0;i<data.length;i++)
+       {
+         
+          if(data[i]['count']=='')
+          {
+           
+            interaction_num[i]=0;
+          }else
+          {
+            interaction_num[i]=data[i]['count'];
+          }   
+       }
+        var user_id=new Array();
+        for(var i=0;i<data.length;i++)
+        {
+          user_id[i]=data[i]['uid'];
+        }
+
+        //定义node的值；
+        var node_value=new Array();
+        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
+        for(var i=0;i<data.length;i++)
+        {
+          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:interaction_num[i],label:name[i]});
+        }
+        //console.log(node_value);
+
+        //定义线的值
+        var line_value=new Array();   
+        for(var i=0;i<data.length;i++)
+        {
+          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:interaction_num[i],name:'交互次数'+' : '+interaction_num[i]});
+        }
+
         var myChart = echarts.init(document.getElementById('interaction'));
         option = {
         title : {
@@ -756,7 +916,7 @@ my_friend.prototype =
    		},
         tooltip : {
             trigger: 'item',
-            formatter: '{a} : {b}'
+            formatter: '{b}'
         },
         toolbox: {
             show : true,
@@ -768,7 +928,7 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['家人','朋友']
+            data:['好友']
         },
         series : [
             {
@@ -777,13 +937,13 @@ my_friend.prototype =
                 ribbonType: false,
                 categories : [
                     {
-                        name: '人物'
+                        name: '核心用户'
                     },
                     {
-                        name: '家人'
+                        name: 'uid'
                     },
                     {
-                        name:'朋友'
+                        name: '转发次数'
                     }
                 ],
                 itemStyle: {
@@ -820,44 +980,41 @@ my_friend.prototype =
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
-                nodes:[
-                    {category:0, name: '乔布斯', value : 10, label: '乔布斯\n（主要）'},
-                    {category:1, name: '丽萨-乔布斯',value : 2},
-                    {category:1, name: '保罗-乔布斯',value : 3},
-                    {category:1, name: '克拉拉-乔布斯',value : 3},
-                    {category:1, name: '劳伦-鲍威尔',value : 7},
-                    {category:2, name: '史蒂夫-沃兹尼艾克',value : 5},
-                    {category:2, name: '奥巴马',value : 8},
-                    {category:2, name: '比尔-盖茨',value : 9},
-                    {category:2, name: '乔纳森-艾夫',value : 4},
-                    {category:2, name: '蒂姆-库克',value : 4},
-                    {category:2, name: '龙-韦恩',value : 1},
-                ],
-                links : [
-                    {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
-                    {source : '保罗-乔布斯', target : '乔布斯', weight : 2, name: '父亲'},
-                    {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1, name: '母亲'},
-                    {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
-                    {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
-                    {source : '奥巴马', target : '乔布斯', weight : 1},
-                    {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
-                    {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
-                    {source : '蒂姆-库克', target : '乔布斯', weight : 1},
-                    {source : '龙-韦恩', target : '乔布斯', weight : 1},
-                    {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-                    {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-                    {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-                    {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '蒂姆-库克', target : '奥巴马', weight : 1}
-                ]
+                nodes:node_value,
+                links:line_value,
+                
             }
         ]
     };
 	   myChart.setOption(option);
 	   window.onresize = myChart.resize;
+      require([
+            'echarts'
+        ],
+        function(ec){
+            var ecConfig = require('echarts/config');
+            function focus(param) {
+                var data = param.data;
+                var links = option.series[0].links;
+                var nodes = option.series[0].nodes;
+                if (
+                    data.source != null
+                    && data.target != null
+                ) { //点击的是边
+                    var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+                    var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+                    } else {
+                    //编辑点击节点事件的部分
+                    var node_url='/index/viewinformation';
+                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
+                    window.open(node_url);          
+                }
+            }
+                myChart.on(ecConfig.EVENT.CLICK, focus)
+                myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+                });
+            }
+    )   
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	}
 }
@@ -889,10 +1046,10 @@ var uid_mention=1831090244;
 var url ='/info_person_social/mention/?uid='+uid_mention;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.mention_relationship);
 //评论关系网络图
-var uid_comment=1831090244;
+var uid_comment=2298571767;
 var url ='/info_person_social/be_comment/?uid='+uid_comment;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.comment_relationship);
 //交互关系网络图
-var uid_interaction=1831090244;
+var uid_interaction=2298571767;
 var url ='/info_person_social/bidirect_interaction/?uid='+uid_interaction;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.interaction_relationship);
