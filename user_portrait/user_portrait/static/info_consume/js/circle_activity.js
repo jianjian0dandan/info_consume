@@ -190,7 +190,7 @@ function Draw_geo_graph(data){
     dataRange: {
         min: 0,
         max: 1000,
-        color:['#E0022B', '#E09107'],
+        color:['#E0022B', '#E09107','#5cb85c'],    //#49b5f9
         text:['高','中','低'],           // 文本，默认为数值文本
         calculable : true
     },
@@ -270,5 +270,6 @@ function Draw_active_page(data){
 
  var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
  
-
+function g_act_load(){
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
+}

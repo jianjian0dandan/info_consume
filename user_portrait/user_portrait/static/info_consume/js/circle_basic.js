@@ -223,5 +223,7 @@
  var influence_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=influence';
  var basic_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=basic';
 
+function g_bas_load(){
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
  call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
+}

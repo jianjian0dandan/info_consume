@@ -12,7 +12,7 @@
     <!-- Bootstrap -->
     <link href="../../static/info_consume/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../static/info_consume/css/bootstrap-table.css" rel="stylesheet" >
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">-->
     <!--自己的css样式，顺序靠后优先级越高-->
     <link href="../../static/info_consume/css/circle_test.css" rel="stylesheet">
     <script src="../../static/info_consume/js/esl.js"></script>
@@ -26,11 +26,11 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <ul id="circle-Tab" class="nav nav-tabs">
-            <li class="active"><a href="#basic-feature" data-toggle="tab">基本特征</a></li>
-            <li><a href="#active-feature" data-toggle="tab">活跃特征</a></li>
-            <li><a href="#interest-feature" data-toggle="tab">兴趣特征</a></li>
-            <li><a href="#social-feature" data-toggle="tab">社交特征</a></li>
-            <li><a href="#mood-feature" data-toggle="tab">情绪特征</a></li>
+            <li class="active feature_tab" title="基本特征"><a href="#basic-feature" data-toggle="tab">基本特征</a></li>
+            <li class="feature_tab" title="活跃特征"><a href="#active-feature" data-toggle="tab">活跃特征</a></li>
+            <li class="feature_tab" title="兴趣特征"><a href="#interest-feature" data-toggle="tab">兴趣特征</a></li>
+            <li class="feature_tab" title="社交特征"><a href="#social-feature" data-toggle="tab">社交特征</a></li>
+            <li class="feature_tab" title="情绪特征"><a href="#mood-feature" data-toggle="tab">情绪特征</a></li>
             <li style="float:right;"><button id="close-circle" class="btn btn-primary">收起</button></li>
           </ul>            
           <div id="circleTabContent" class="tab-content">
@@ -193,7 +193,7 @@
     <script src="../../static/info_consume/js/bootstrap-table.js"></script>
     <script src="../../static/info_consume/js/bootstrap-table-zh-CN.js"></script>
     <script src="../../static/info_consume/js/circle_test.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>-->
     <script src="../../static/info_consume/js/echarts-all-guo.js"></script>
     <script src="../../static/info_consume/js/map.js"></script>
     <script src="../../static/info_consume/js/echarts-map.js"></script>
@@ -202,6 +202,43 @@
     <script src="../../static/info_consume/js/circle_preference.js"></script>
     <script src="../../static/info_consume/js/circle_social.js"></script>
     <script src="../../static/info_consume/js/circle_psy.js"></script>
+          <script type="text/javascript">
+    /**软件功能切换js**/
+    var g_act_flag = false;
+    var g_pre_flag = false;
+    var g_soc_flag = false;
+    var g_tho_flag = false;
+    g_bas_load();
+    $(".feature_tab").click(function(){
+        var x = $(this).attr("title");
+        g_bas_load();
+        if(x=='基本特征'){
+           //$("#g_bas").css({"display":"block"}).siblings().css({"display":"none"});
+           //$("#qxtz").css({"background-color":"#3351B7"})
+        }else if(x=='活跃特征'){
+           if(g_act_flag==false){
+           g_act_load();
+           g_act_flag = true;
+           }
+        }else if(x=='兴趣特征'){
+           if(g_pre_flag==false){
+           g_pre_load();
+           g_pre_flag = true;
+           }
+        }else if(x=='社交特征'){
+           if(g_soc_flag==false){
+           g_soc_load();
+           g_soc_flag = true;
+           }
+        }else if(x=='情绪特征'){
+           if(g_tho_flag==false){
+           g_tho_load();
+           g_tho_flag = true;
+           }
+        }
+    });
+
+</script>
   </body>
   {% endblock %}
 </html>
