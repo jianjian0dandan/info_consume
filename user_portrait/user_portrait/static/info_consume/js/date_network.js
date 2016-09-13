@@ -42,6 +42,79 @@ function get_trend_type(val) {
  }
 
 
+function Draw_network_pic(){
+     var myChart = echarts.init(document.getElementById('main_network'))
+     require(
+        [
+          'echarts',
+          'echarts/chart/graph' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+          myChart.showLoading();
+          $.getJSON('/topic_network_analyze/networkdata', function (json) {
+          myChart.hideLoading();
+          var option = {
+                  title: {
+                      text: 'NPM Dependencies'
+                  },
+                  animationDurationUpdate: 1500,
+                  animationEasingUpdate: 'quinticInOut',
+                  series : [
+                      {
+                        
+                          type: 'graph',
+                          layout: 'none',
+                          // progressiveThreshold: 700,
+                          data: json.nodes.map(function (node) {
+
+                              return {
+
+                                  x: node.x,
+                                  y: node.y,
+                                  id: node.id,
+                                  name: node.label,
+                                  symbolSize: node.size,
+                                  itemStyle: {
+                                      normal: {
+                                          color: node.color
+                                      }
+                                  }
+                              };
+                          }),
+                          edges: json.edges.map(function (edge) {
+                              return {
+                                  source: edge.sourceID,
+                                  target: edge.targetID
+                              };
+                          }),
+                          label: {
+                              emphasis: {
+                                  position: 'right',
+                                  show: true
+                              }
+                          },
+                          roam: true,
+                          focusNodeAdjacency: true,
+                          lineStyle: {
+                              normal: {
+                                  width: 0.5,
+                                  curveness: 0.3,
+                                  opacity: 0.7
+                              }
+                          }
+                      }
+                  ]
+              }
+              myChart.setOption(option, true);
+          });
+        }
+      )
+        
+          
+  }
+
+
+
 
 function topic_analysis_network(){
  
@@ -58,10 +131,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     });
   },
 
-  Draw_network_pic:function(data){
-     
-  },
-
+  
 
   Draw_trend_maker:function(data){
     var item = data;
@@ -80,7 +150,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         }
         var item_timestamp_datetime = new Date(parseInt(item[k].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         // html += '<td><img title=用户昵称：' +item[k].name+'<br/>粉丝数：'+item[k].fans+'<br/>发布时间：'+item[k].+'style="width:40px;height:40px" class="photo_user" src='+item[k].photo+'/><td>';
-        console.log(item_timestamp_datetime);
+        
         html += '<td><img style="width:40px;height:40px" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
         // html += '<td><img id="photo_user" style="width:40px;height:40px" onmouseover="showInfoCard('${id}')" class="photo_user" src='+item[k].photo+'/><td>';
         // html += '<td><img style="width:40px;height:40px" '+item[k].name+' class="photo_user" src='+item[k].photo+'/><td>';
@@ -213,12 +283,12 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 
 topic_analysis_network = new topic_analysis_network();
 
-function Draw_network_pic_result(){
-  url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-  console.log(url);
-  topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
+// function Draw_network_pic_result(){
+//   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+//   console.log(url);
+//   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
 
-}
+// }
 
 function Draw_trend_maker_result(){
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
@@ -244,7 +314,7 @@ function Draw_blog_scan_area_network_result(){
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_blog_scan_area_network);
 } 
 
-
+Draw_network_pic();
 // Draw_network_pic_result();
 // show_network();
 Draw_trend_maker_result();
