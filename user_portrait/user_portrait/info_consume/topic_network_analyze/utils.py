@@ -80,11 +80,15 @@ def get_pusher_weibos_byts(topic, identifyDate, identifyWindow):
 		#print len(json.loads(item.weibo_info))
 		user_info = json.loads(item.user_info)
 		#print user_info
-		weibo_info = json.loads(item.weibo_info)[0]
-		weibo_info['_source']['uname'] = user_info['name']
-		weibo_info['_source']['photo_url'] = user_info['profile_image_url']
-		#print weibo_info
-		weibos.append(weibo_info)
+		weibos_info = json.loads(item.weibo_info)[:]
+		for weibo_info in weibos_info:
+			weibo_info['_source']['uname'] = user_info['name']
+			weibo_info['_source']['photo_url'] = user_info['profile_image_url']
+			#print weibo_info
+			if weibo_info in weibos:
+				continue
+			else:
+				weibos.append(weibo_info)
 	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['timestamp'])
 	#for weibo in sorted_weibos:
 		#print weibo['_source']['timestamp']
@@ -98,11 +102,15 @@ def get_pusher_weibos_byhot(topic, identifyDate, identifyWindow):
 		#print len(json.loads(item.weibo_info))
 		user_info = json.loads(item.user_info)
 		#print user_info
-		weibo_info = json.loads(item.weibo_info)[0]
-		weibo_info['_source']['uname'] = user_info['name']
-		weibo_info['_source']['photo_url'] = user_info['profile_image_url']
-		#print weibo_info
-		weibos.append(weibo_info)
+		weibos_info = json.loads(item.weibo_info)[:]
+		for weibo_info in weibos_info:
+			weibo_info['_source']['uname'] = user_info['name']
+			weibo_info['_source']['photo_url'] = user_info['profile_image_url']
+			#print weibo_info
+			if weibo_info in weibos:
+				continue
+			else:
+				weibos.append(weibo_info)
 	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['retweeted'], reverse=True)
 	#for weibo in sorted_weibos:
 		#print weibo['_source']['retweeted']
@@ -118,11 +126,15 @@ def get_maker_weibos_byts(topic, identifyDate, identifyWindow):
 		#print len(json.loads(item.weibo_info))
 		user_info = json.loads(item.user_info)
 		#print user_info
-		weibo_info = json.loads(item.weibo_info)[0]
-		weibo_info['_source']['uname'] = user_info['name']
-		weibo_info['_source']['photo_url'] = user_info['profile_image_url']
-		#print weibo_info
-		weibos.append(weibo_info)
+		weibos_info = json.loads(item.weibo_info)[:]
+		for weibo_info in weibos_info:
+			weibo_info['_source']['uname'] = user_info['name']
+			weibo_info['_source']['photo_url'] = user_info['profile_image_url']
+			#print weibo_info
+			if weibo_info in weibos:
+				continue
+			else:
+				weibos.append(weibo_info)
 	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['timestamp'])
 	#for weibo in sorted_weibos:
 		#print weibo['_source']['timestamp']
@@ -137,11 +149,15 @@ def get_maker_weibos_byhot(topic, identifyDate, identifyWindow):
 		#print len(json.loads(item.weibo_info))
 		user_info = json.loads(item.user_info)
 		#print user_info
-		weibo_info = json.loads(item.weibo_info)[0]
-		weibo_info['_source']['uname'] = user_info['name']
-		weibo_info['_source']['photo_url'] = user_info['profile_image_url']
-		#print weibo_info
-		weibos.append(weibo_info)
+		weibos_info = json.loads(item.weibo_info)[:]
+		for weibo_info in weibos_info:
+			weibo_info['_source']['uname'] = user_info['name']
+			weibo_info['_source']['photo_url'] = user_info['profile_image_url']
+			#print weibo_info
+			if weibo_info in weibos:
+				continue
+			else:
+				weibos.append(weibo_info)
 	sorted_weibos = sorted(weibos, key = lambda x:x['_source']['retweeted'], reverse=True)
 	#for weibo in sorted_weibos:
 		#print weibo['_source']['retweeted']
