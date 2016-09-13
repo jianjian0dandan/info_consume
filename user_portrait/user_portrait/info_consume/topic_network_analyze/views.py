@@ -25,6 +25,7 @@ def GetGexf():
     date = ts2datetime(end_ts)
     windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
     results = get_gexf(topic, date, windowsize)
+    print type(results)
     return json.dumps(results)
 
 @mod.route('/get_trend_pusher/')

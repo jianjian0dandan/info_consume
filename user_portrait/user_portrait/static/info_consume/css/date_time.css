@@ -373,6 +373,16 @@ position: absolute;
 	float: left;
 }
 
+#table_photo{
+	width:220px;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	color: #868686;
+	float:left;
+	margin-left:9%;
+	margin-top:3%;
+}
+
 #table{
 	width:220px;
 	font-size: 18px;
@@ -814,6 +824,15 @@ div.pager span.disabled {
 #right_col_title_2 {
 	background-color: #E4E4E4;
 	width: 284px;
+	height: 570px;
+	position: relative;
+	margin-left: 0%;
+	margin-top: 10%;
+	}
+
+#right_col_title_2_network {
+	background-color: #E4E4E4;
+	width: 265px;
 	height: 570px;
 	position: relative;
 	margin-left: 0%;

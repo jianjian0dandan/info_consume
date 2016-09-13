@@ -371,6 +371,6 @@ function Draw_blog_scan_area_place_result(){
 // }		
 
 
-// Draw_geo_map_result();
-// Draw_blog_scan_area_place_result();
+Draw_geo_map_result();
+Draw_blog_scan_area_place_result();
 

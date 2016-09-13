@@ -24,6 +24,7 @@ def get_gexf(topic, identifyDate, identifyWindow):
    
     #gexf2es(key, value)
 	result = read_long_gexf(topic, identifyDate, identifyWindow)
+	#print result
 	#fh = open('gexf.txt','w+')
 	#fh.write(json.dumps(result))
 	#fh.close()

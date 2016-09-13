@@ -75,20 +75,15 @@ Draw_event_river:function(data){
     
     for (var key in item_data){
 
-        console.log(key);
-        console.log(item_data[key]);
-        // console.log(item[key].length);
         var evolution_json = [];
 
         for (i=0;i<item_data[key].length;i++){    
           evolution_json.push({"time":item_data[key][i][0],"value":item_data[key][i][1],});
           
         }
-        console.log(evolution_json);
+        
         data_json.push({"name":key,"evolution":evolution_json});
       }
-
-    console.log(data_json);
 
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
@@ -370,8 +365,8 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
 
-// Draw_keywords_cloud_result();
-// Draw_event_river_result();
+Draw_keywords_cloud_result();
+Draw_event_river_result();
 Draw_time_line_result();
-// Draw_blog_opinion_result();
-// Draw_blog_scan_area_meaning_result();
+Draw_blog_opinion_result();
+Draw_blog_scan_area_meaning_result();
