@@ -77,6 +77,18 @@
                         }
                     },
                     {
+                        title: "影响力",
+                        field: "bci",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value) { 
+                           var e = new Number(value);
+                           e = e.toFixed(2);
+                          return e;
+                        }
+                    },
+                    {
                         title: "权威值",
                         field: "imp",
                         sortable: true,
@@ -88,18 +100,6 @@
                           return e;
                         },
                          visible: false
-                    },
-                    {
-                        title: "影响力",
-                        field: "bci",
-                        sortable: true,
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value) { 
-                           var e = new Number(value);
-                           e = e.toFixed(2);
-                          return e;
-                        }
                     },
                     {
                         title: "粉丝数",
