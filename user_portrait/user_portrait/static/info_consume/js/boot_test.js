@@ -1,9 +1,11 @@
 //data:{ username:$("#username").val(), content:$("#content").val() }         
 //data-ajax="ajaxRequest"
               //var username = $('#username').text();
+             
               var username = 'admin@qq.com';
+              $('#chase').tooltip();
                      //定义ajax回调函数
-       function call_sync_ajax_request(url, callback){
+            function call_sync_ajax_request(url, callback){
                     $.ajax({
                       url: url,
                       type: 'GET',
@@ -13,9 +15,11 @@
                     });
                    }
               //#table-user 表格默认显示“近一周全网影响力用户排行”
-               function init_pop(){
 
-                $('[data-toggle="popover"]').each(function () {
+              function init_pop(){
+
+              $('[data-toggle="popover"]').each(function () {
+
 
                   var element = $(this);
                   var txt = element.html();
@@ -47,6 +51,7 @@
                 return data;  
                 }
                }
+
 
              $(function(){
                  var influ_scope = 'all_nolimit'; 
@@ -477,15 +482,16 @@
               })
 
             //实现“近一周各领域影响力用户排行”
+              
+              $(function () { 
               function refresh_area_table(area_url){
                   $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  init_pop();
                   $('#table-user').bootstrapTable('hideColumn', 'fans');
                   $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
                   $('#table-user').bootstrapTable('showColumn', 'imp');
                   $('#table-user').bootstrapTable('showColumn', 'act');
+                  
               }
-              $(function () { 
               var sort_scope = 'in_limit_topic';  
               $('#week-influ').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -513,11 +519,7 @@
                   var keyword = '军事类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });
               $('#tech').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -525,11 +527,7 @@
                   var keyword = '科技类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });
               $('#sports').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -537,11 +535,7 @@
                   var keyword = '文体类_体育';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });
               $('#amusement').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -549,11 +543,7 @@
                   var keyword = '文体类_娱乐';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });
               $('#livehood').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -562,10 +552,7 @@
                   var keyword ='民生类_社会保障';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });
               $('#politics').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -574,11 +561,7 @@
                   var keyword ='政治类_外交';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });
               $('#business').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -586,11 +569,7 @@
                   var keyword = '经济类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               }); 
               $('#others').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -598,12 +577,9 @@
                   var keyword = '其他类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
+                  refresh_area_table(area_url);
               });  
+
           })
 
          function addgroup(){
@@ -672,35 +648,3 @@
 	         }
            }
 
-
-
-// function title() {  
-//     return '田喜碧Hebe(节制的人生)';  
-// }  
-  
-// //模拟动态加载内容(真实情况可能会跟后台进行ajax交互)  
-// function content() {  
-//     var data = $("<form><ul><li><span aria-hidden='true' class='icon_globe'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
-//              "<li><span aria-hidden='true' class='icon_piechart'></span>&nbsp;<font>关注:</font>265</li>" +  
-//              "<li><span aria-hidden='true' class='icon_search_alt'></span>&nbsp;<font>微博:</font>645</li>" +  
-//              "<li><span aria-hidden='true' class='icon_pens_alt'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
-//              "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
-      
-//     return data;  
-// }  
-// //模拟悬浮框里面的按钮点击操作  
-// function test() {  
-//     alert('关注成功');  
-// }  
-
-
-    // $(function() {  
-    //     $(".user_view").popover({  
-    //         html : true,    
-    //         title: title(),    
-    //         delay:{show:500, hide:1000},  
-    //         content: function() {  
-    //           return content();    
-    //         }   
-    //     });  
-    // });  
