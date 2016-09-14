@@ -124,7 +124,7 @@
         if(name=='unknown'||name==''){
             name = name_list[0];
         }
-        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center">' + name + '</td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="./viewinformation">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
     };
      html += '</tbody></table>'; 
     $('#'+div_name).append(html);

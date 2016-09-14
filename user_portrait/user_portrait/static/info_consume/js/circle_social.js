@@ -36,8 +36,14 @@ if(data.length==0){
    links_single['value'] = data[s]['2'];
    links_total.push(links_single);
   }
+  require(
+     [  
+            'echarts'
+        ],
+function(ec){
 var myChart = echarts.init(document.getElementById('out-retwwie'),'shine');
-option = {
+var ecConfig = require('echarts/config');
+var option = {
     title:{
       subtext:'节点数值代表用户影响力大小，边数值代表用户交互次数'
     },
@@ -109,9 +115,13 @@ option = {
         }
     ]
 };
- myChart.setOption(option);
-}
-} 
+   myChart.on(ecConfig.EVENT.CLICK, function (param){
+  // console.log(param);
+   window.open('./viewinformation');
+ })
+myChart.setOption(option); 
+})
+}}
 
 
 function Draw_retwwie_in(data){
@@ -155,8 +165,14 @@ if(data.length==0){
   }
   // console.log(nodes_total);
   // console.log(links_total);
+    require(
+     [  
+            'echarts'
+        ],
+function(ec){
 var myChart = echarts.init(document.getElementById('in-retwwie'),'shine');
-option = {
+var ecConfig = require('echarts/config');
+var option = {
 
     tooltip : {
         trigger: 'item',
@@ -232,9 +248,13 @@ option = {
         }
     ]
 };
+myChart.on(ecConfig.EVENT.CLICK, function (param){
+  // console.log(param);
+   window.open('./viewinformation');
+ })
  myChart.setOption(option);
-}
-} 
+})
+}}
 
 
 function Draw_retwwie_weibo(data){
