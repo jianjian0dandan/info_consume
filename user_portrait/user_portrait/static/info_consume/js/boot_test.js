@@ -2,13 +2,60 @@
 //data-ajax="ajaxRequest"
               //var username = $('#username').text();
               var username = 'admin@qq.com';
+                     //定义ajax回调函数
+       function call_sync_ajax_request(url, callback){
+                    $.ajax({
+                      url: url,
+                      type: 'GET',
+                      dataType: 'json',
+                      async: true,
+                      success:callback
+                    });
+                   }
               //#table-user 表格默认显示“近一周全网影响力用户排行”
+               function init_pop(){
+
+                $('[data-toggle="popover"]').each(function () {
+
+                  var element = $(this);
+                  var txt = element.html();
+                  element.popover({
+                    trigger: 'manual',
+                    placement: 'right', //top, bottom, left or right
+                    title: txt,
+                    html: 'true',
+                    content:ContentMethod(txt),
+
+                }).on("mouseover", function () {
+                    var _this = this;
+                    $(this).popover("show");
+                    //  $(this).siblings(".popover").on("mouseleave", function () {
+                    //     $(_this).popover('hide');
+                    // });
+                }).on("mouseleave", function () {
+                   var _this = this;
+                   $(this).popover("hide");
+                })
+                })
+                 function ContentMethod(txt) {
+	             var data = $("<form><ul  style='padding-left:15px;padding-right:15px;'><li><span aria-hidden='true'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
+	             "<li><span aria-hidden='true'></span>&nbsp;<font>关注:</font>265</li>" +  
+	             "<li><span aria-hidden='true'></span>&nbsp;<font>微博:</font>645</li>" +  
+	             "<li><span aria-hidden='true'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
+	             "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
+	      
+                return data;  
+                }
+               }
+
              $(function(){
                  var influ_scope = 'all_nolimit'; 
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
-                 console.log(influ_url);
+                 console.log(influ_url);               
+               function init_table(data){
                 $('#table-user').bootstrapTable({
-                  url: influ_url,
+                  //url: influ_url,
+                  data:data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 20,//单页记录数
@@ -52,7 +99,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="a_tool" href="./viewinformation" data-toggle="tooltip" title="看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="popover" href="./viewinformation">'+value+'</a>'; 
                             return e;
                         }
                     },
@@ -128,23 +175,17 @@
                         },
                         visible: false
                     }]
+
              });
-            $('.a_tool').tooltip();
-            $('#chase').tooltip();
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
+            init_pop();
+          } 
+           call_sync_ajax_request(influ_url, init_table);
+         })
+        
+        
 
-           })
-       //定义ajax回调函数
-       function call_sync_ajax_request(url, callback){
-                    $.ajax({
-                      url: url,
-                      type: 'GET',
-                      dataType: 'json',
-                      async: true,
-                      success:callback
-                    });
-                   }
         //定义展示任务
         function get_result(data)
              { 
@@ -209,7 +250,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="a_tool" href="./viewinformation" data-toggle="tooltip" title="看看他/她是谁" data-placement="right">'+value+'</a>'; 
+                          var e = '<a class="user_view" href="./viewinformation" data-toggle="popover">'+value+'</a>'; 
                            return e;
                         }
                     },
@@ -259,8 +300,7 @@
                         }
                     }]
              });
-          
-           $(".a_tool").tooltip();
+            init_pop();
          };
       function dele_analysis(data){
              var a = confirm('确定要删除吗？');
@@ -373,9 +413,8 @@
                       }
                     }
              }); 
-         
+                 
            }
-
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
@@ -438,6 +477,14 @@
               })
 
             //实现“近一周各领域影响力用户排行”
+              function refresh_area_table(area_url){
+                  $('#table-user').bootstrapTable('refresh', {url: area_url});
+                  init_pop();
+                  $('#table-user').bootstrapTable('hideColumn', 'fans');
+                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
+                  $('#table-user').bootstrapTable('showColumn', 'imp');
+                  $('#table-user').bootstrapTable('showColumn', 'act');
+              }
               $(function () { 
               var sort_scope = 'in_limit_topic';  
               $('#week-influ').click(function () {
@@ -458,12 +505,7 @@
                   var keyword = '教育类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
-                  $('#table-user').bootstrapTable('refresh', {url: area_url});
-                  $('#table-user').bootstrapTable('hideColumn', 'fans');
-                  $('#table-user').bootstrapTable('hideColumn', 'weibo_count');
-                  $('#table-user').bootstrapTable('showColumn', 'imp');
-                  $('#table-user').bootstrapTable('showColumn', 'act');
-                  
+                  refresh_area_table(area_url);
               });
               $('#military').click(function () {
                   $('#table-user-user-contain').css("display","none");
@@ -632,4 +674,33 @@
 
 
 
-   
+// function title() {  
+//     return '田喜碧Hebe(节制的人生)';  
+// }  
+  
+// //模拟动态加载内容(真实情况可能会跟后台进行ajax交互)  
+// function content() {  
+//     var data = $("<form><ul><li><span aria-hidden='true' class='icon_globe'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
+//              "<li><span aria-hidden='true' class='icon_piechart'></span>&nbsp;<font>关注:</font>265</li>" +  
+//              "<li><span aria-hidden='true' class='icon_search_alt'></span>&nbsp;<font>微博:</font>645</li>" +  
+//              "<li><span aria-hidden='true' class='icon_pens_alt'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
+//              "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
+      
+//     return data;  
+// }  
+// //模拟悬浮框里面的按钮点击操作  
+// function test() {  
+//     alert('关注成功');  
+// }  
+
+
+    // $(function() {  
+    //     $(".user_view").popover({  
+    //         html : true,    
+    //         title: title(),    
+    //         delay:{show:500, hide:1000},  
+    //         content: function() {  
+    //           return content();    
+    //         }   
+    //     });  
+    // });  
