@@ -43,13 +43,16 @@ function get_trend_type(val) {
 
 
 function Draw_network_pic(){
-     var myChart = echarts.init(document.getElementById('main_network'))
+     var myChart = echarts.init(document.getElementById('main_network'));
      require(
         [
           'echarts',
           'echarts/chart/graph' // 使用柱状图就加载bar模块，按需加载
         ],
         function (ec) {
+          var ecConfig = require('echarts/config'); //放进require里的function{}里面
+          var zrEvent = require('zrender/tool/event');
+          var myChart = echarts.init(document.getElementById('main_network'));
           myChart.showLoading();
           $.getJSON('/topic_network_analyze/networkdata', function (json) {
           myChart.hideLoading();
