@@ -130,46 +130,65 @@
   <!--我的管家-->
   <!--我的发帖-->
     <div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
-    	<div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的发帖</h3>
-			</div>
-			<div class="panel-body">
-				<ul id="myTab" class="nav nav-tabs">
-				   <li class="active">
-				      <a href="#zhuanfa" data-toggle="tab">
-				         转发最多
-				      </a>
-				   </li>
-				   <li><a href="#tixing" data-toggle="tab">评论最多</a></li>
-				   <li><a href="#hudong" data-toggle="tab">点赞最多</a></li>
-				   
-				</ul>
-				<div id="myTabContent" class="tab-content">
-				   <div class="tab-pane fade in active" id="zhuanfa" style="margin-left: 1%;margin-right:1%;">
-						<div style="float:left;padding:5px;width: 100%;background:whitesmoke;">
-						    <p style="margin-left:10px;">1、昵称：<a target="_blank" href="/index/personal/?uid=1863675294">董锤锤</a>(中国	上海	上海)&nbsp;&nbsp;发布内容:<font color="black">博尔特。。。一个跑在最前面还不忘看镜头的人</font></p><p style="float:left;width:100%;margin-top:-5px;margin-left:10px;"><span style="float:right;padding-right: 10px;color:#858585"><span>转发数(5056)&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数(3282)</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>言论敏感度(0)</span></span><span style="float:left"><u>2016-08-15 12:35:08</u> - <a color:#e0e0e0="" target="_blank" href="http://weibo.com/1863675294/E3EJcqnwV">微博</a>-<a target="_blank" href="/index/personal_detail/?uid=1863675294">用户详情</a></span></p>
-						</div>
+		<!--微博动态-->
+        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+          <div class="panel-heading">
+            <h3 class="panel-title">最近动态</h3>
+          </div>
+          <div class="panel-body">
+              
+              <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;" >
+                  <div style="width:100%;margin-top:2px;">
+                    <span style= "color:#000;font-weight:bold;margin-left:20px;float:left;">排序方式</span>
+                    <ul id="modechoose">
+                      <label class="demo--label">
+                        <li style="float:left;margin-left:5px;">
+                          <input class="demo--radio" type="radio" name="mode_choose" value="timestamp" checked="checked" >
+                          <span class="mode demo--radioInput" style=""></span>时间
+                        </li>
+                      </label>
 
-						<div style="float:left;padding:5px;width: 100%;">
-						    <p style="margin-left:10px;">
-						      			2、昵称：
-						    <a target="_blank" href="/index/personal/?uid=1863675294">董锤锤</a>(中国	贵州	贵阳)&nbsp;&nbsp;发布内容:<font color="black">回覆@五截y:感谢科普！不是伤病的话就更好啦 //@五截y:那是有助于减少乳酸缓解肌肉疲劳的.... //@董锤锤:两位老将身上都布满了膏药[泪][泪]</font></p><p style="float:left;width:100%;margin-top:-5px;margin-left:10px;"><span style="float:right;padding-right: 10px;color:#858585"><span>转发数(2546)&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数(141)</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>言论敏感度(0)</span></span><span style="float:left"><u>2016-08-19 21:11:46</u> - <a color:#e0e0e0="" target="_blank" href="http://weibo.com/1863675294/E4jOTaYjt">微博</a>-<a target="_blank" href="/index/personal_detail/?uid=1863675294">用户详情</a></span>
-						    </p>
-						</div>
+                      <label class="demo--label">
+                        <li style="float:left;margin-left:5px;">
+                          <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                          <span class="mode demo--radioInput" style=""></span>评论数
+                        </li>
+                      </label>
 
-				   </div>
+                      <label class="demo--label">
+                        <li style="float:left;margin-left:5px;">
+                          <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                          <span class="mode demo--radioInput" style=""></span>转发数
+                        </li> 
+                      </label>
 
-				   <div class="tab-pane fade" id="tixing">
-					评论
-				   </div>
+                    </ul>
+                  </div>
+       		<!-- weiboData -->
+                   <div id="per_onload" style="height:59px;float:left;margin-left: 35%;"><center>正在努力加载中...</center></div>
+                   <div class="tang-scrollpanel-content" style="margin-top:10px;">
+                    <div id='group_influ_weibo' style='overflow-x:hidden;width:500px;float:left;'>
+                    <div id="group_influ_weibo_result" style="float:left;width:85%;"></div>
+                          <div id="pageGro" class="cb" style="display:none;float:left;width:80%;height:60px;margin-left:200px;margin-top:40px;line-height:23px;">
+                              <span class="pageUp" style="float:left;">上一页</span>
+                              <span class="pageList" style="float:left;">
+                                  <ul>
+                                      <li>1</li>
+                                      <li>2</li>
+                                      <li>3</li>
+                                      <li>4</li>
+                                      <li>5</li>
+                                  </ul>
+                              </span>
+                              <span class="pageDown" style="margin-left:20px;cursor:pointer;">下一页</span>
+                          </div>         
+                      </div>
+                </div>
+              <div id="float-wrap" class="hidden"></div>
 
-				   <div class="tab-pane fade" id="hudong">
-					点赞		
-				   </div>
-				</div>
-			</div>
-		</div>
+          </div>
+        </div>    
+       </div>
   
 	    <!--我最爱说-->
 	   		<div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
@@ -417,7 +436,268 @@
 <script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/map.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/thought.js"></script>
+<script type="text/javascript">//微博展示
+function homepageinfo() {
+  this.ajax_method = 'GET';
+}
+homepageinfo.prototype = {
+  call_sync_ajax_request:function(url,method,callback) {
+	  $.ajax({
+		url: url,
+		type: method,
+		dataType:'json',
+		async:true,
+		success:callback
+	});
+  },
+   // 微博数据
+   weiboData:function(data){
+     weiboData = data;
+     var testtext ="hello";
+     console.log(testtext);
+   	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
+       $('#per_onload').css('display','none');
+       $('#group_influ_weibo').css('display', 'block');
+   }
+}
+var Personal = new homepageinfo();
+var weiboData;
+var uid = 1640601392;
 
+$(function(){
+	$('#modechoose').click(function(){
+	var box = document.getElementsByName('mode_choose');
+  //console.log(box);
+	for(var i=0;i<box.length;i++){
+		if(box[i].checked){
+			sort_type = box[i].value;
+		}
+    }
+$('#per_onload').css('display', 'block');
+$('#group_influ_weibo').css('display', 'none')
+	var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
+	console.log('ddd',url);
+    Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+  console.log(weiboData);
+	});
+});
+
+
+var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+console.log("运行微博数据");
+function DrawWeibo(data, div_name, sub_div_name){
+    page_num = 5;
+    if (data.length < page_num) {
+        console.log('data_length', data.length);
+        $('#'+ div_name + ' #pageGro .pageUp').css('display', 'none');
+        $('#'+ div_name + ' #pageGro .pageList').css('display', 'none'); 
+        $('#'+ div_name + ' #pageGro .pageDown').css('display', 'none'); 
+        if (data.length == 0) {
+            $('#' + sub_div_name).empty();
+            $('#' + sub_div_name).append('暂无数据');
+            $('#' + sub_div_name).css('height','300px');
+        }else{
+            $('#'+ div_name + ' #pageGro').css('display', 'block');
+            page_num = data.length
+            page_group_influ_weibo( 0, page_num, data, sub_div_name);
+        }
+    }else {
+          $('#'+ div_name + ' #pageGro').css('display', 'block');
+          page_group_influ_weibo( 0, page_num, data, sub_div_name);
+          var total_pages = 0;
+          if (data.length % page_num == 0) {
+              total_pages = data.length / page_num;
+          }
+          else {
+              total_pages = Math.round(data.length / page_num) + 1;
+          }
+        }
+    var pageCount = total_pages;
+    
+    if(pageCount>5){
+        page_icon(1,5,0, div_name);
+    }else{
+        page_icon(1,pageCount,0, div_name);
+    }
+    
+    $("#"+div_name+" #pageGro").on("click","li", function(){
+        if(pageCount > 5){
+            var pageNum = parseInt($(this).html());
+            pageGroup(pageNum,pageCount);
+        }else{
+            $(this).addClass("on");
+            $(this).siblings("li").removeClass("on");
+        }
+      page = parseInt($("#"+div_name+" #pageGro li.on").html())  
+      //console.log('page', page);         
+      start_row = (page - 1)* page_num;
+      end_row = start_row + page_num;
+      if (end_row > data.length)
+          end_row = data.length;
+        // console.log('start', start_row);
+        // console.log('end', end_row);
+        // console.log('data',data);
+        page_group_influ_weibo(start_row,end_row,data, sub_div_name);
+    });
+
+    $("#"+div_name+" #pageGro .pageUp").off('click').click(function(){
+        if(pageCount > 5){
+            var pageNum = parseInt($("#"+div_name+" #pageGro li.on").html());
+            pageUp(pageNum,pageCount);
+        }else{
+            var index = $("#"+div_name+" #pageGro ul li.on").index();
+            if(index > 0){
+                $("#"+div_name+" #pageGro li").removeClass("on");
+                $("#"+div_name+" #pageGro ul li").eq(index-1).addClass("on");
+            }
+        }
+      page = parseInt($("#"+div_name+" #pageGro li.on").html())  
+      //console.log(page);
+      start_row = (page-1)* page_num;
+      end_row = start_row + page_num;
+      if (end_row > data.length){
+          end_row = data.length;
+      }
+        page_group_influ_weibo(start_row,end_row,data, sub_div_name);
+    });
+	
+	$("#" + div_name + " #pageGro .pageDown").off('click').click(function(){
+        if(pageCount > 5){
+            var pageNum = parseInt($("#"+div_name+" #pageGro li.on").html());
+            pageDown(pageNum,pageCount);
+        }else{
+            var index = $("#"+div_name+" #pageGro ul li.on").index();
+            if(index+1 < pageCount){
+                $("#"+div_name+" #pageGro li").removeClass("on");
+                $("#"+div_name+" #pageGro ul li").eq(index+1).addClass("on");
+            }
+        }
+      page = parseInt($("#"+div_name+" #pageGro li.on").html()) 
+      //console.log(page);
+      start_row = (page-1)* page_num;
+      end_row = start_row + page_num;
+      if (end_row > data.length){
+          end_row = data.length;
+      }
+        page_group_influ_weibo(start_row,end_row,data, sub_div_name);
+    });
+
+}
+
+function pageGroup(pageNum,pageCount){
+  switch(pageNum){
+    case 1:
+      page_icon(1,5,0);
+    break;
+    case 2:
+      page_icon(1,5,1);
+    break;
+    case pageCount-1:
+      page_icon(pageCount-4,pageCount,3);
+    break;
+    case pageCount:
+      page_icon(pageCount-4,pageCount,4);
+    break;
+    default:
+      page_icon(pageNum-2,pageNum+2,2);
+    break;
+  }
+}
+
+function pageUp(pageNum,pageCount){
+  switch(pageNum){
+    case 1:
+    break;
+    case 2:
+      page_icon(1,5,0);
+    break;
+    case pageCount-1:
+      page_icon(pageCount-4,pageCount,2);
+    break;
+    case pageCount:
+      page_icon(pageCount-4,pageCount,3);
+    break;
+    default:
+      page_icon(pageNum-2,pageNum+2,1);
+    break;
+  }
+}
+
+
+function pageDown(pageNum,pageCount){
+  switch(pageNum){
+    case 1:
+      page_icon(1,5,1);
+    break;
+    case 2:
+      page_icon(1,5,2);
+    break;
+    case pageCount-1:
+      page_icon(pageCount-4,pageCount,4);
+    break;
+    case pageCount:
+    break;
+    default:
+      page_icon(pageNum-2,pageNum+2,3);
+    break;
+  }
+}
+
+function page_icon(page,count,eq){
+	var ul_html = "";
+	for(var i=page; i<=count; i++){
+		ul_html += "<li>"+i+"</li>";
+	}
+	$("#pageGro ul").html(ul_html);
+	$("#pageGro ul li").eq(eq).addClass("on");
+}
+
+function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
+    weibo_num = end_row - start_row;
+    $('#'+ sub_div_name).empty();
+    //console.log(data);
+    var html = "";
+    html += '<div class="group_weibo_font" style="margin-right:5px;margin-top:15px;">';
+    for (var i = start_row; i < end_row; i += 1){
+        s=(i+1).toString();
+		var mid = data[i][0];
+		var uid = data[i][1];
+        var geo = data[i][4];
+        var text = data[i][2];
+		var retweet_count = data[i][7];
+		var comment_count = data[i][8];
+    console.log(retweet_count);
+    console.log(comment_count);
+    // var mingan_count = data[i][9];
+        //var location = data[i][2];
+        var date = data[i][6];
+        var tweet_ulr = data[i][10];
+        //date = new Date(parseInt(timestamp)*1000).format("yyyy-MM-dd hh:mm:ss");
+        if (i%2 ==0){
+            html += '<div style="float:left;padding:5px;width: 100%;background:whitesmoke;">';
+    }
+        else{
+            html += '<div style="float:left;padding:5px;width: 100%;">';
+    }
+    if(geo==null){
+        geo='未知';
+    }
+            html += '</a>('+geo+')&nbsp;&nbsp;微博:<font color=black>' + text + '</font></p>';    
+            //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';    
+            html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
+            html += '<span style="float:right;padding-right: 10px;color:#858585"><span>转发数('+ retweet_count +')&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数('+ comment_count +')</span></span>';
+            html += '<span style="float:left"><u>'+date+'</u> - <a color:#e0e0e0 target="_blank"  href="'+tweet_ulr+'">' + '微博' + '</a>-<a target="_blank" href="/index/personal_detail/?uid=' + uid + '">用户详情</a></span>';
+            html += '</p>';
+			html += '</div>';
+        
+    }
+    html += '</div>'; 
+    $('#'+sub_div_name).append(html);
+}
+
+
+</script>
 {% endblock %}
 
 
