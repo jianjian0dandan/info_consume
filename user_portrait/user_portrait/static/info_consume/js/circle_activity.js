@@ -135,7 +135,7 @@ function Draw_geo_graph(data){
      var province_data ={};
      province_data['name']=key;
      province_data['value']=data[key]['total'];
-     console.log(province_data);
+    // console.log(province_data);
      geo_data.push(province_data);
      for(var d_key in data[key]){
        if(d_key!='total'&&d_key!='未知'){
@@ -143,7 +143,7 @@ function Draw_geo_graph(data){
         city_data['value']=data[key][d_key];
         city_data['name']=d_key+'市';
         geo_data.push(city_data);
-        console.log(city_data);
+  //      console.log(city_data);
         }
      }
      }
@@ -190,7 +190,7 @@ function Draw_geo_graph(data){
     dataRange: {
         min: 0,
         max: 1000,
-        color:['#E0022B', '#E09107'],
+        color:['#E0022B', '#E09107','#5cb85c'],    //#49b5f9
         text:['高','中','低'],           // 文本，默认为数值文本
         calculable : true
     },
@@ -270,5 +270,6 @@ function Draw_active_page(data){
 
  var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
  
-
+function g_act_load(){
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
+}

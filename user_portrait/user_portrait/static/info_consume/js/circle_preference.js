@@ -65,4 +65,8 @@ function Draw_preference_page(data){
 } 
 
  var preference_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=preference';
+
+
+ function g_pre_load(){
  call_sync_ajax_request(preference_url,'GET',Draw_preference_page);
+}
