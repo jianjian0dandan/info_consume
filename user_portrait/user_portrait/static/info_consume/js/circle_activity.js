@@ -124,7 +124,7 @@
         if(name=='unknown'||name==''){
             name = name_list[0];
         }
-        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center">' + name + '</td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="./viewinformation">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
     };
      html += '</tbody></table>'; 
     $('#'+div_name).append(html);
@@ -185,12 +185,12 @@ function Draw_geo_graph(data){
     legend: {
         orient: 'vertical',
         x:'right',
-        data:['随机数据']
+        data:['活跃值']
     },
     dataRange: {
         min: 0,
-        max: 1000,
-        color:['#E0022B', '#E09107','#5cb85c'],    //#49b5f9
+        max: 500,
+        color:['#E0022B', '#E09107'],    //#49b5f9
         text:['高','中','低'],           // 文本，默认为数值文本
         calculable : true
     },

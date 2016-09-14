@@ -26,8 +26,13 @@ var word_num = Math.min(20, data.length);
             word['itemStyle'] = createRandomItemStyle();
             keyword.push(word);
         }
-
+        require(
+             [  
+                    'echarts'
+                ],
+        function(ec){
         var myChart = echarts.init(document.getElementById(div_name)); 
+        var ecConfig = require('echarts/config');
         var option = {
             tooltip: {
                 show: true,
@@ -50,9 +55,13 @@ var word_num = Math.min(20, data.length);
                 data: keyword
             }]
         };
+         myChart.on(ecConfig.EVENT.CLICK, function (param){
+          // console.log(param);
+           window.open('./date_index');
+         })
         myChart.setOption(option);  
-}
-}   
+})
+}}
 
 function Draw_preference_weibo(data){
 
