@@ -16,38 +16,38 @@ function call_sync_ajax_request(url, method, callback){
   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
 
-// $(function() {s
-//     $( '#dl-menu' ).dlmenu();
-//   });
-// $(".closeList").off("click").click(function(){
-//     $("#float-wrap").addClass("hidden");
-//     $("#more_keyWords").addClass("hidden");
-//     $("#more_hashtagWords").addClass("hidden");
-//     $("#more_senWords").addClass("hidden");
-//     $("#more_topic").addClass("hidden");
-//     return false;
-//   });
+$(function() {
+    $( '#dl-menu' ).dlmenu();
+  });
+$(".closeList").off("click").click(function(){
+    $("#float-wrap").addClass("hidden");
+    $("#more_keyWords").addClass("hidden");
+    $("#more_hashtagWords").addClass("hidden");
+    $("#more_senWords").addClass("hidden");
+    $("#more_topic").addClass("hidden");
+    return false;
+  });
 
-// $("#showmore_keyWords").off("click").click(function(){
-//     $("#float-wrap").removeClass("hidden");
-//     $("#more_keyWords").removeClass("hidden");
-//     return false;
-//   });
-// $("#showmore_topic").off("click").click(function(){
-//     $("#float-wrap").removeClass("hidden");
-//     $("#more_topic").removeClass("hidden");
-//     return false;
-//   });
-// $("#showmore_hashtagWords").off("click").click(function(){
-//         $("#float-wrap").removeClass("hidden");
-//         $("#more_hashtagWords").removeClass("hidden");
-//         return false;
-//     });
-// $("#showsen_keyWords").off("click").click(function(){
-//         $("#float-wrap").removeClass("hidden");
-//         $("#more_senWords").removeClass("hidden");
-//         return false;
-//     });
+$("#showmore_keyWords").off("click").click(function(){
+    $("#float-wrap").removeClass("hidden");
+    $("#more_keyWords").removeClass("hidden");
+    return false;
+  });
+$("#showmore_topic").off("click").click(function(){
+    $("#float-wrap").removeClass("hidden");
+    $("#more_topic").removeClass("hidden");
+    return false;
+  });
+$("#showmore_hashtagWords").off("click").click(function(){
+        $("#float-wrap").removeClass("hidden");
+        $("#more_hashtagWords").removeClass("hidden");
+        return false;
+    });
+$("#showsen_keyWords").off("click").click(function(){
+        $("#float-wrap").removeClass("hidden");
+        $("#more_senWords").removeClass("hidden");
+        return false;
+    });
 
 function show_conclusion(data){
   var html = '';
@@ -119,7 +119,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
   	for (var i=0;i<word_num;i++){
   		var word = {};
         word['name'] = key_name2[i];
-  		word['value'] = key_value2[i]*100;
+  		word['value'] = key_value2[i]*10000;
   		word['itemStyle'] = createRandomItemStyle();
   		keyword.push(word);
   	}
@@ -138,8 +138,8 @@ function Draw_keyword(data, div_name, more_div, more,title){
               },
               series: [{
                   type: 'wordCloud',
-                  size: ['150%', '200%'],
-                  textRotation : [0, 45, 90, -45],
+                  size: ['100%', '100%'],
+                  textRotation :[0, 45, 90, -45],
                   textPadding: 0,
                   autoSize: {
                     enable: true,

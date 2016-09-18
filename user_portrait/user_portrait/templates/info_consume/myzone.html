@@ -41,12 +41,12 @@
   <script type="text/javascript" src="/static/info_consume/js/time_for_test.js"></script>
   <style type="text/css">
 
-  	.fixed-table-body
-  	 {
-	    overflow-x: auto;
-	    overflow-y: auto;
-	    height: 395px;
-	 }
+    .fixed-table-body
+     {
+      overflow-x: auto;
+      overflow-y: auto;
+      height: 395px;
+   }
   </style>
   <script type="text/javascript">
     function person_call_ajax_request(url, callback){
@@ -63,7 +63,7 @@
             // },
             success:callback,
         });
-  	} 
+    } 
   </script>
 
 {% endblock %}
@@ -71,8 +71,8 @@
 
 {% block main %}
 <div class='up_box'  style="border:1px #F2F4F8 solid;width:80%;">
-	<img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left" title="1314608344" >
-	<span style="font-size:18px;margin-top:30px;margin-left:30px;float:left;">Hi，</span> 
+  <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left" title="1314608344" >
+  <span style="font-size:18px;margin-top:30px;margin-left:30px;float:left;">Hi，</span> 
       <sapn id="username" style="font-size:18px;margin-top:30px;float:left;">  </sapn>
       <span style="font-size:18px;margin-top:30px;float:left;">,&nbsp
            <script>
@@ -122,7 +122,7 @@
 <ul id="zone_tab" class="nav nav-tabs">
    <li id="zone_left_tab" class="active">
       <a href="#mysteward" data-toggle="tab">我的管家</a>
-	</li>
+  </li>
   <!--  <li><a href="#myfriends" data-toggle="tab">我的好友</a></li> -->
 </ul>
 
@@ -130,46 +130,46 @@
   <!--我的管家-->
   <!--我的发帖-->
     <div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
-		<!--微博动态-->
+    <!--微博动态-->
         <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-          <div class="panel-heading">
+          <div class="panel-heading" style="float:left;width: 100%;height:40px;">
             <h3 class="panel-title">最近动态</h3>
+          
+            <div>
+              <ul id="modechoose" style="background-color:transparent;z-index:30;float: left;margin-left: 100px;margin-top:-20px;">
+                <label class="demo--label">
+                  <li style="float:left;margin-left:5px;background-color:transparent;">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="timestamp" checked="checked" >
+                    <span class="mode demo--radioInput" style=""></span>最新
+                  </li>
+                </label>
+
+                <label class="demo--label">
+                  <li style="float:left;margin-left:5px;background-color:transparent;">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                    <span class="mode demo--radioInput" style=""></span>评论数
+                  </li>
+                </label>
+
+                <label class="demo--label">
+                  <li style="float:left;margin-left:5px;background-color:transparent;">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                    <span class="mode demo--radioInput" style=""></span>转发数
+                  </li> 
+                </label>
+              </ul>
+            </div>
           </div>
           <div class="panel-body">
               
               <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;" >
-                  <div style="width:100%;margin-top:2px;">
-                    <span style= "color:#000;font-weight:bold;margin-left:20px;float:left;">排序方式</span>
-                    <ul id="modechoose">
-                      <label class="demo--label">
-                        <li style="float:left;margin-left:5px;">
-                          <input class="demo--radio" type="radio" name="mode_choose" value="timestamp" checked="checked" >
-                          <span class="mode demo--radioInput" style=""></span>时间
-                        </li>
-                      </label>
 
-                      <label class="demo--label">
-                        <li style="float:left;margin-left:5px;">
-                          <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
-                          <span class="mode demo--radioInput" style=""></span>评论数
-                        </li>
-                      </label>
-
-                      <label class="demo--label">
-                        <li style="float:left;margin-left:5px;">
-                          <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
-                          <span class="mode demo--radioInput" style=""></span>转发数
-                        </li> 
-                      </label>
-
-                    </ul>
-                  </div>
-       		<!-- weiboData -->
-                   <div id="per_onload" style="height:59px;float:left;margin-left: 35%;"><center>正在努力加载中...</center></div>
+          <!-- weiboData -->
+                   <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;"><center>正在努力加载中...</center></div>
                    <div class="tang-scrollpanel-content" style="margin-top:10px;">
                     <div id='group_influ_weibo' style='overflow-x:hidden;width:500px;float:left;'>
                     <div id="group_influ_weibo_result" style="float:left;width:85%;"></div>
-                          <div id="pageGro" class="cb" style="display:none;float:left;width:80%;height:60px;margin-left:200px;margin-top:40px;line-height:23px;">
+                          <div id="pageGro" class="cb" style="display:none;float:left;width:80%;margin-left:-5px;margin-top:5px;line-height:23px;">
                               <span class="pageUp" style="float:left;">上一页</span>
                               <span class="pageList" style="float:left;">
                                   <ul>
@@ -183,103 +183,104 @@
                               <span class="pageDown" style="margin-left:20px;cursor:pointer;">下一页</span>
                           </div>         
                       </div>
-                </div>
-              <div id="float-wrap" class="hidden"></div>
+                  </div>
+                  <div id="float-wrap" class="hidden"></div>
 
-          </div>
+               </div>
         </div>    
        </div>
   
-	    <!--我最爱说-->
-	   		<div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
-				</div>
-				<div class="panel-body">
-				  <div id="keyword_cloud" class="panel-body" style="width:360px;height:400px;"></div>
-				</div>
-			</div>
+      <!--我最爱说-->
+        <div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
+        </div>
+        <div class="panel-body">
+          <div id="keyword_cloud" class="panel-body" style="width:360px;height:400px;"></div>
+        </div>
+      </div>
 
-	    <!--我的领域-->
-	
-	   		<div class="panel panel-success" style="width:95%;height:430px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的领域</h3>
-				</div>
-				<div class="panel-body">
-					<div class="left_chart" style="width:50%;heigth:100%;float:left;">
+      <!--我的领域-->
+  
+        <div class="panel panel-success" style="width:95%;height:430px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的领域</h3>
+        </div>
+        <div class="panel-body">
+          <div class="left_chart" style="width:50%;heigth:100%;float:left;">
 
-					  <div id="p_so_onload1"><center>正在努力为您加载，请稍后...</center></div>
-					  <div class="panel-body">
-					  		<div id="domain" style="height:350px;margin-top:3px;">
-					  			<!--雷达图区域-->
-					  		</div>
-					  </div>
-					</div>
-					<div class="right_chart" style="width:50%;float:left;">
-						<p style="color:#808080;font-size:18px;margin-top:10px;margin-left:20px;">根据你的表现，封你为：</p>
-						<img src="/static/info_consume/image/crown.png" width="60px" style="float:left;margin-top:25px;margin-left:50px;z-index:10px;">	
-						<span id="topdomain" style="float:left;font-family:'zzgf';font-size:40px;color:#f4c600;margin-top: 19px;margin-left: 5px;">
-						</span>		
-						<p style="float:left;margin-top:30px;margin-left:80px;" >想了解其他更多达人的信息吗？</p>
-						<a href="/index/boot_test" target="_blank" class="large button green" style="margin-top:20px;float:left;margin-left:5px;">点击这里</a></li>
-					</div>
-				</div>
-			</div>
+            <div id="p_so_onload1"><center>正在努力为您加载，请稍后...</center></div>
+            <div class="panel-body">
+                <div id="domain" style="height:350px;margin-top:3px;">
+                  <!--雷达图区域-->
+                </div>
+            </div>
+          </div>
+          <div class="right_chart" style="width:50%;float:left;">
+            <p style="color:#808080;font-size:18px;margin-top:10px;margin-left:20px;">根据你的表现，封你为：</p>
+            <img src="/static/info_consume/image/crown.png" width="60px" style="float:left;margin-top:25px;margin-left:50px;z-index:10px;"> 
+            <span id="topdomain" style="float:left;font-family:'zzgf';font-size:40px;color:#f4c600;margin-top: 19px;margin-left: 5px;">
+            </span>   
+            <p style="float:left;margin-top:30px;margin-left:80px;" >想了解其他更多达人的信息吗？</p>
+            <a href="/index/boot_test" target="_blank" class="large button green" style="margin-top:20px;float:left;margin-left:5px;">点击这里</a></li>
+          </div>
+        </div>
+      </div>
 
 
-	    <!--我的影响力-->
-	   		<div class="panel panel-success" style="width:95%;height:500px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
-				</div>
-				<div class="panel-body">
+      <!--我的影响力-->
+        <div class="panel panel-success" style="width:95%;height:500px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
+        </div>
+        <div class="panel-body">
 
-					<!-- <h1>昨日影响力排名：</h1>
-					<h1>No.95/1939万</h1>
-					<p>你的影响力距红人榜还差:</p><p>39.5分</p>
-					<p>快快加油哦~</p>
-					<div id="any_influ" style="width:100%;height:50%;">
-						<img src="/static/info_consume/image/icon_inf.png" width="50px" height="50px">
-						<h3>我的影响力分析</h3> 
-						<img src="/static/info_consume/image/qmark.png" width="50px" height="50px">
-						<h3>了解如何提升</h3> 
-						<hr>
-					</div> -->
-					<div id="influ_chart" class ="framepost" style="float:left;border:1px solid;">
-					    <h3 class="title">影响力走势图</h3>
-					    <div  class="entry"  >
-					      <div id="mychoice" style="font-size:16px;z-index:100;float:left;background-color:white;">
-					       <input name="choose_module" type="radio" checked="checked" value=1>近7天
-					       <input style="margin-left:20px;" name="choose_module" type="radio" value=2>近30天
-					      </div>
-					      <div id="influence_chart" style="float:left;height:230px;width:730px;margin-top:10px;margin-right:10px;"></div>
-					    </div>
-					</div>
-				</div>
-			</div>
+          <!-- <h1>昨日影响力排名：</h1>
+          <h1>No.95/1939万</h1>
+          <p>你的影响力距红人榜还差:</p><p>39.5分</p>
+          <p>快快加油哦~</p>
+          <div id="any_influ" style="width:100%;height:50%;">
+            <img src="/static/info_consume/image/icon_inf.png" width="50px" height="50px">
+            <h3>我的影响力分析</h3> 
+            <img src="/static/info_consume/image/qmark.png" width="50px" height="50px">
+            <h3>了解如何提升</h3> 
+            <hr>
+          </div> -->
+          <div id="influ_chart" class ="framepost" style="float:left;">
+            <img src="/static/info_consume/image/icon_trend.png" width="50px" height="50px" style="float:left;">
+            <span class="title" style="float:left;font-size:16px;font-weight:bolder;" >影响力走势图</span> 
+              <div  class="entry">
+                <div id="mychoice" style="font-size:16px;z-index:100;float:left;background-color:white;">
+                 <input name="choose_module" type="radio" checked="checked" value=1>近7天
+                 <input style="margin-left:20px;" name="choose_module" type="radio" value=2>近30天
+                </div>
+                <div id="influence_chart" style="float:left;height:230px;width:730px;margin-top:10px;margin-left:-20%;"></div>
+              </div>
+          </div>
+        </div>
+      </div>
 
-	    <!--我的足迹-->
-	   		<div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的足迹</h3>
-				</div>
-				<div class="panel-body">
+      <!--我的足迹-->
+        <div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的足迹</h3>
+        </div>
+        <div class="panel-body">
                    <div id="mychoice_geo" style="font-size:16px;z-index:100;float:left;background-color:white;">
                     <input name="choose_module_geo" type="radio" checked="checked" value=1>近30天
                     <input style="margin-left:20px;" name="choose_module_geo" type="radio" value=2>近7天
                     <input style="margin-left:20px;" name="choose_module_geo" type="radio" value=3>今天
                    </div>
-					<div id="act_map" style="width:100%;height:300px;">  </div>
-					<span id="des_loc" style="margin-top:30px;margin-left:50px;float:left;"></span>
-				</div>
-			</div>
+          <div id="act_map" style="width:100%;height:300px;">  </div>
+          <span id="des_loc" style="margin-top:30px;margin-left:50px;float:left;"></span>
+        </div>
+      </div>
 
-	    <!--智能情绪管家-->
-	   		<div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">智能情绪管家</h3>
-				</div>
+      <!--智能情绪管家-->
+        <div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">智能情绪管家</h3>
+        </div>
                   <h3 class="title">情绪变动曲线</h3>
                   <div  class="entry" style="float:left;">
                     <div style="width:480px;height:470px;float:left;">
@@ -296,10 +297,10 @@
                         <div id="emotion_loading" style="width:100%;display:none;"><center>正在加载，请稍候...</center></div>
                         <div id="thought_weibo_text" style="padding:0px 10px;">
                         </div>
-				    </div>
-				  </div>
-			</div>
-	</div>
+            </div>
+          </div>
+      </div>
+  </div>
 
 
 
@@ -309,115 +310,115 @@
 <!--我的好友页面--> <!--我的好友页面-->  <!--我的好友页面--> <!--我的好友页面--> <!--我的好友页面--> 
    <div class="tab-pane fade" id="myfriends" >
    <!--好友排行-->
-    		<div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-				<div class="panel-heading">
-					<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">好友排行</h3>
+        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">好友排行</h3>
 
-				</div>
-				<div class="panel-body">
-					<table  data-toggle="table" class="warning" >
-						<thead >
-							<tr>
-								<th>好友ID</th>
-								<th >好友昵称</th>
-								<th >好友数</th>
-								<th >粉丝数</th>
-								<th >微博数</th>
-								<th id="influence">影响力</th>
-							</tr>
-						</thead>
-						<tbody id="friend_rank"> 
-							<tr class="no-records-found">
-								<td colspan="6">正在很努力很努力的加载内容...</td>
-							</tr>							
-							</tbody>
-					</table>
-					<div>
-						
-						<button style="float:left;margin-left:42%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">查看更多</button>
-					</div>
-				</div>
-			</div>
-	</div>
-	<!--好友排行模态框-->
+        </div>
+        <div class="panel-body">
+          <table  data-toggle="table" class="warning" >
+            <thead >
+              <tr>
+                <th>好友ID</th>
+                <th >好友昵称</th>
+                <th >好友数</th>
+                <th >粉丝数</th>
+                <th >微博数</th>
+                <th id="influence">影响力</th>
+              </tr>
+            </thead>
+            <tbody id="friend_rank"> 
+              <tr class="no-records-found">
+                <td colspan="6">正在很努力很努力的加载内容...</td>
+              </tr>             
+              </tbody>
+          </table>
+          <div>
+            
+            <button style="float:left;margin-left:42%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">查看更多</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!--好友排行模态框-->
 
-	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" 
-							   aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-						&times;
-					</button>
-					<h4 class="modal-title" id="myModalLabel">
-							               查看好友排行的详细信息
-					</h4>
-				 </div>
-
-
-					<div class="modal-body">
-						<table  data-toggle="table" class="warning" >
-						<thead >
-							<tr>
-								<th>好友ID</th>
-								<th >好友昵称</th>
-								<th >好友数</th>
-								<th >粉丝数</th>
-								<th >微博数</th>
-								<th id="influence">影响力</th>
-							</tr>
-						</thead>
-						<tbody id="friend_rank_detail"> 
-							<tr class="no-records-found">
-								<td colspan="6">正在很努力很努力的加载内容...</td>
-							</tr>							
-							</tbody>
-					</table>			    								 
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<!-- <button type="button" class="btn btn-primary" >确定</button> -->
-					</div>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
+  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" 
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+                             查看好友排行的详细信息
+          </h4>
+         </div>
 
 
-	<!--亲密度排行模态框-->
+          <div class="modal-body">
+            <table  data-toggle="table" class="warning" >
+            <thead >
+              <tr>
+                <th>好友ID</th>
+                <th >好友昵称</th>
+                <th >好友数</th>
+                <th >粉丝数</th>
+                <th >微博数</th>
+                <th id="influence">影响力</th>
+              </tr>
+            </thead>
+            <tbody id="friend_rank_detail"> 
+              <tr class="no-records-found">
+                <td colspan="6">正在很努力很努力的加载内容...</td>
+              </tr>             
+              </tbody>
+          </table>                           
+          </div>
 
-	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" 
-							   aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							                  &times;
-					</button>
-					<h4 class="modal-title" id="myModalLabel">
-							               更多亲密好友的详细信息
-					</h4>
-				 </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <!-- <button type="button" class="btn btn-primary" >确定</button> -->
+          </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
 
-					<div class="modal-body">
-						<table  data-toggle="table" class="warning" >
-						<thead >
-							<tr>
-								<th>好友ID</th>
-								<th >好友昵称</th>
-								<th >好友数</th>
-								<th >粉丝数</th>
-								<th >微博数</th>
-								<th >提及数</th>
-							</tr>
-						</thead>
-						<tbody id="intimacy_rank_detail"> 
-							<tr class="no-records-found">
-								<td colspan="6">正在很努力很努力的加载内容...</td>
-							</tr>							
-							</tbody>
-					</table>										    								 
-					</div>
+
+  <!--亲密度排行模态框-->
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" 
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+                             更多亲密好友的详细信息
+          </h4>
+         </div>
+
+          <div class="modal-body">
+            <table  data-toggle="table" class="warning" >
+            <thead >
+              <tr>
+                <th>好友ID</th>
+                <th >好友昵称</th>
+                <th >好友数</th>
+                <th >粉丝数</th>
+                <th >微博数</th>
+                <th >提及数</th>
+              </tr>
+            </thead>
+            <tbody id="intimacy_rank_detail"> 
+              <tr class="no-records-found">
+                <td colspan="6">正在很努力很努力的加载内容...</td>
+              </tr>             
+              </tbody>
+          </table>                                         
+          </div>
 
 <!--我的好友页面--> <!--我的好友页面-->  <!--我的好友页面--> <!--我的好友页面--> <!--我的好友页面-->  
 </div>
@@ -442,20 +443,20 @@ function homepageinfo() {
 }
 homepageinfo.prototype = {
   call_sync_ajax_request:function(url,method,callback) {
-	  $.ajax({
-		url: url,
-		type: method,
-		dataType:'json',
-		async:true,
-		success:callback
-	});
+    $.ajax({
+    url: url,
+    type: method,
+    dataType:'json',
+    async:true,
+    success:callback
+  });
   },
    // 微博数据
    weiboData:function(data){
      weiboData = data;
      var testtext ="hello";
      console.log(testtext);
-   	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
+    DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
        $('#per_onload').css('display','none');
        $('#group_influ_weibo').css('display', 'block');
    }
@@ -465,21 +466,21 @@ var weiboData;
 var uid = 1640601392;
 
 $(function(){
-	$('#modechoose').click(function(){
-	var box = document.getElementsByName('mode_choose');
+  $('#modechoose').click(function(){
+  var box = document.getElementsByName('mode_choose');
   //console.log(box);
-	for(var i=0;i<box.length;i++){
-		if(box[i].checked){
-			sort_type = box[i].value;
-		}
+  for(var i=0;i<box.length;i++){
+    if(box[i].checked){
+      sort_type = box[i].value;
+    }
     }
 $('#per_onload').css('display', 'block');
 $('#group_influ_weibo').css('display', 'none')
-	var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
-	console.log('ddd',url);
+  var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
+  console.log('ddd',url);
     Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
   console.log(weiboData);
-	});
+  });
 });
 
 
@@ -561,8 +562,8 @@ function DrawWeibo(data, div_name, sub_div_name){
       }
         page_group_influ_weibo(start_row,end_row,data, sub_div_name);
     });
-	
-	$("#" + div_name + " #pageGro .pageDown").off('click').click(function(){
+  
+  $("#" + div_name + " #pageGro .pageDown").off('click').click(function(){
         if(pageCount > 5){
             var pageNum = parseInt($("#"+div_name+" #pageGro li.on").html());
             pageDown(pageNum,pageCount);
@@ -645,12 +646,12 @@ function pageDown(pageNum,pageCount){
 }
 
 function page_icon(page,count,eq){
-	var ul_html = "";
-	for(var i=page; i<=count; i++){
-		ul_html += "<li>"+i+"</li>";
-	}
-	$("#pageGro ul").html(ul_html);
-	$("#pageGro ul li").eq(eq).addClass("on");
+  var ul_html = "";
+  for(var i=page; i<=count; i++){
+    ul_html += "<li>"+i+"</li>";
+  }
+  $("#pageGro ul").html(ul_html);
+  $("#pageGro ul li").eq(eq).addClass("on");
 }
 
 function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
@@ -661,14 +662,13 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     html += '<div class="group_weibo_font" style="margin-right:5px;margin-top:15px;">';
     for (var i = start_row; i < end_row; i += 1){
         s=(i+1).toString();
-		var mid = data[i][0];
-		var uid = data[i][1];
-        var geo = data[i][4];
-        var text = data[i][2];
-		var retweet_count = data[i][7];
-		var comment_count = data[i][8];
-    console.log(retweet_count);
-    console.log(comment_count);
+    var mid = data[i][0];
+    var uid = data[i][1];
+    var geo = data[i][4];
+    var text = data[i][2];
+
+    var retweet_count = data[i][7];
+    var comment_count = data[i][8];
     // var mingan_count = data[i][9];
         //var location = data[i][2];
         var date = data[i][6];
@@ -683,13 +683,15 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     if(geo==null){
         geo='未知';
     }
-            html += '</a>('+geo+')&nbsp;&nbsp;微博:<font color=black>' + text + '</font></p>';    
+    if(text.length>50){
+      text = text.substr(0,50)+'...';
+    }
+            html += '<a target="_blank" href="/index/personal/?uid=' + uid + '"><font color=black>' + text + '</font></a>';    
             //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';    
             html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
-            html += '<span style="float:right;padding-right: 10px;color:#858585"><span>转发数('+ retweet_count +')&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数('+ comment_count +')</span></span>';
-            html += '<span style="float:left"><u>'+date+'</u> - <a color:#e0e0e0 target="_blank"  href="'+tweet_ulr+'">' + '微博' + '</a>-<a target="_blank" href="/index/personal_detail/?uid=' + uid + '">用户详情</a></span>';
+            html += '<span style="float:left;margin-left: 60%;"><u>'+date+'</u>';
             html += '</p>';
-			html += '</div>';
+      html += '</div>';
         
     }
     html += '</div>'; 
