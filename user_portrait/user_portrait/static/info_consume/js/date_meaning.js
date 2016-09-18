@@ -3,6 +3,51 @@ var start_ts=1468944000;
 var end_ts=1471622400;
 var opinion=["圣保罗", "班底", "巴西", "康熙"];
 
+var now = new Date();
+var year = now.getFullYear();
+var month_num = now.getMonth()+1;
+var month = '';
+switch (month_num)
+{
+case 1:
+  month="Jan";
+  break;
+case 2:
+  month="Feb";
+  break;
+case 3:
+  month="Mar";
+  break;
+case 4:
+  month="Apr";
+  break;
+case 5:
+  month="May";
+  break;
+case 6:
+  month="Jun";
+  break;
+case 7:
+  month="Jul";
+  break;
+case 8:
+  month="Aug";
+  break;
+case 9:
+  month="Sep";
+  break;
+case 10:
+  month="Oct";
+  break;
+case 11:
+  month="Nov";
+  break;
+case 12:
+  month="Dec";
+  break;
+}
+var date = month+' '+year
+
 
 function topic_analysis_meaning(){
  
@@ -75,20 +120,15 @@ Draw_event_river:function(data){
     
     for (var key in item_data){
 
-        console.log(key);
-        console.log(item_data[key]);
-        // console.log(item[key].length);
         var evolution_json = [];
 
         for (i=0;i<item_data[key].length;i++){    
           evolution_json.push({"time":item_data[key][i][0],"value":item_data[key][i][1],});
           
         }
-        console.log(evolution_json);
+        
         data_json.push({"name":key,"evolution":evolution_json});
       }
-
-    console.log(data_json);
 
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
@@ -128,119 +168,97 @@ Draw_event_river:function(data){
 
 },
 
-// Draw_time_line:function(data){
-//     var item = data;
-//     var html = '';
-//     if (item.length == 0){
-//         html += '<div style="color:grey;">暂无数据</div>'
-//         }else{
+Draw_time_line:function(data){
+    var item = data;
+    var html = '';
+    if (item.length == 0){
+        html += '<div style="color:grey;">暂无数据</div>'
+        }else{
 
-//         html += '<div class="row">';
-//         html += '<div class="col-md-12" style="width:58%;">';
-//         html += '<div class="VivaTimeline">';
-//         html += '<dl style="margin-left:-18%;">';
-//         html += '<dt>'+Aug2016+'</dt>';
-        
-//         for(i=0;i<3;i++){
-//             html += '<dd class="pos-left clearfix">';
-//             html += '<div class="circ"></div>';
-//             html += '<div class="time">'+Aug12+'</div>';
-//             html += '<div class="events">';
-//             html += '<div class="events-header">'+奥运网红身价涨多少傅园慧主播身价至少涨20倍+'</div>';
-//             html += '<div class="events-body">';
-//             for(i=0;i<3;i++){  //循环输入三条代表性微博
-//                 html += '<div class="row">';
-//                 html += '<div class="events-desc">'中国新闻网&nbsp;&nbsp;&nbsp;&nbsp;2016-08-12 11:03:00;                               
-//                 html += '</br>'据了解，目前傅园慧的广告身价约为800万以上，按照单条代言的价格，已经可以比肩游泳队的两名“网红”孙杨、宁泽涛，这一价格比她赛前的身价至少翻了4到5倍。而其接受直播等商业活动的价格也在60万到100万之间，这一价格是此前的近20倍。'</div>';
-//                 html += '</div>';
-                
-//             }
-//             // html += '<div class="row">';
-//             // html += ' <div class="events-desc">'北京青年报&nbsp;&nbsp;&nbsp;&nbsp;2016-08-12 10:03:00;
-//             // html += ' </br>'本届奥运会上，国家游泳队运动员傅园慧凭借赛后采访时真实率性的回答和夸张的表情动作意外走红，
-//             //                     被网友称为“行走的表情包”。她的微博4天增加了400万粉丝，平均每条微博下都有数万条留言、几十万个点赞。
-//             //                     10日，傅园慧在微博上发布了其走红以来的第一条广告，随后又在某直播平台上进行了长达一个小时的直播首秀。虽然她极力澄清自己没有商业化，这些都是服从队里的安排、早就接下的活动，但依然无法避免外界对她身价的猜测。
-//             //                                     '</div>';
-//             // html += '</div>';
-//             // html += '<div class="row">';
-//             // html += '<div class="events-desc">'中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-12 12:03:00;
-//             // html += '</br>'两天时间微博圈粉300万，奥运“网红”傅园慧有多少商业价值？今天，傅园慧微博已经发布了一条广告内容，
-//             //                网友留言表示好评，“什么！你打广告的方式竟然这么简单！果然和外面的那些妖艳贱货不一样！” 　　
-//             //                傅园慧彻底火了。这两天爆出另一股“洪荒之力”的傅园慧，两天时间微博圈粉300万，成为本届奥运会的最大亮点。
-//             //                                 '</div>';
-//             // html += '</div>';
-//             html += '</div>';
-//             html += '<div class="events-footer">'123'</div>';                    
-//             html += '</div>';
-//             html += '</dd>';
+              html += '<div class="row">';
+              html += '<div class="col-md-12" style="width:58%;">';
+              html += '<div class="VivaTimeline">';
+              html += '<dl style="margin-left:-18%;">';
+              html += '<dt>'+date+'</dt>';
+              var k=0;
+              for(var key in item){
+                  k++;
+                 
+                  if(k%2 == 1){
+                      //左侧栏
+                      
+                      html += '<dd class="pos-left clearfix">';
+                      html += '<div class="circ"></div>';
+                        // html += '<div class="time">'+item[key][i].datetime+'</div>';
+                      html += '<div class="events">';
+                      html += '<div class="events-header">'+key+'</div>';
+                      html += '<div class="events-body">';
+                      for(i=0;i<Math.min(3,item[key].length);i++){
+                        html += '<div class="row">';
+                        html += '<div class="events-desc">'+item[key][i].text+'<br>'+item[key][i].datetime+'</div>';                               
+                        html += '</div>';
+                      }
+                      html += '</div>';
+                      html += '<div class="events-footer">'; 
+                      html += '<ol>';
+                      html += '<li data-target="0" class="active"></li>';
+                      html += '<li data-target="1" class=""></li>';
+                      html += '<li data-target="2" class=""></li>';
+                      html += '</ol>'; 
+                      html += '</div>';                             
+                      html += '</div>';
+                      html += '</dd>';
+                  }
+                  if(k%2 == 0){
+                      //右侧栏
+                      html += '<dd class="pos-right clearfix">';
+                      html += '<div class="circ"></div>';
+                        // html += '<div class="time">'+item[key][i].datetime+'</div>';
+                      html += '<div class="events">';
+                      html += '<div class="events-header">'+key+'</div>';
+                      html += '<div class="events-body">';
+                      for(i=0;i<Math.min(3,item[key].length);i++){
+                        html += '<div class="row">';
+                        html += '<div class="events-desc">'+item[key][i].text+'<br>'+item[key][i].datetime+'</div>';                               
+                        html += '</div>';
+                      }
+                      html += '</div>';
+                      html += '<div class="events-footer">'; 
+                      html += '<ol>';
+                      html += '<li data-target="0" class=""></li>';
+                      html += '<li data-target="1" class=""></li>';
+                      html += '<li data-target="2" class="active"></li>';
+                      html += '</ol>'; 
+                      html += '</div>';                  
+                      html += '</div>';
+                      html += '</dd>';
+                      
+                  }
 
+              }
+              
+              
+              html += '<dt>'+'Aug2016'+'</dt>';
+              html += '<dt>'+'Jul2016'+'</dt>';
+              html += '<dt>'+'Jun2016'+'</dt>';
+              html += '<dt>'+'May2016'+'</dt>';
+              html += '</dl>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
 
-//             html += '<dt>'Aug 2016'</dt>';
-//             html += '<dd class="pos-right clearfix">';
-//             html += '<div class="circ"></div>';
-//             html += '<div class="time">'Aug 10'</div>';
-//             html += '<div class="events">';
-//             html += ' <div class="events-header">'傅园慧：快被霍顿气死，拥抱孙杨感觉很奇妙'</div>';
-//             html += '<div class="events-body">';
-//             for(i=0;i<3;i++){
-//                 html += '<div class="row">';
-//                 html += '<div class="events-desc">'中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00;
-//                 html += '</br>'关于澳大利亚选手霍顿“嘲讽”孙杨一事，傅园慧表示：“我当时看到差点气死，我觉得这是污蔑，
-//                                 怎么能那么说杨哥。不过我在这儿说也没用，因为我也不能说什么，再说回去不就跟他们一样了吗？”
-//                                                 '</div>';
-//                 html += '</div>';
-//             }
-            
-//             // html += '<div class="row">';
-//             // html += '<div class="events-desc">'中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00;
-//             // html += '</br>'“我当时还想，如果我能战胜澳大利亚队的人的话，可能还蛮开心的吧，
-//             //                 不过，跟我仰泳的那些其实没什么关系，我们不能迁怒于别人。我还是觉得很过分啊，
-//             //                 怎么乱讲啊，杨哥是很努力的人，是很优秀的运动员，根本就没有做过作弊的事情，不是所有的运动员都会吃兴奋剂的。很多人以为出成绩必须吃药，但其实不是这样子的。”
-//             //                                 '</div>';
-//             // html += '</div>';
-//             // html += '<div class="row">';
-//             // html += '<div class="events-desc">'中青在线&nbsp;&nbsp;&nbsp;&nbsp;;2016-08-10 12:03:00;
-//             // html += '</br>'有网友问被孙杨抱的感受，傅园慧说：“他就是祝贺我一下，不过直接摸到肉的感觉还是很奇妙的。”
-//             //                 对于宁泽涛，傅园慧说：“宁泽涛也很棒啊，我跟你们讲这都是中国好男人。”
-//             //                                 '</div>';
-//             // html += '</div>';
-//             html += '</div>';
-//             html += '<div class="events-footer">';
-//             html += '</div>';
-//             html += '</div>';
-//             html += '</dd>';
+        }
+        window.jQuery || document.write('<script src="jquery.min.js"><\/script>')
+        $(document).ready(function () {
+            $('.VivaTimeline').vivaTimeline({
+                carousel: true,
+                carouselTime: 3000
+            });
+        });
 
-
-
-//         }
-
-        
-//         html += '<dt>'Jan 2016'</dt>';
-//         html += '<dt>'Dec 2015'</dt>';
-//         html += '<dt>'Oct 2015'</dt>';
-//         html += '<dt>'Sep 2015'</dt>';
-//         html += '<dt>'Aug 2015'</dt>';
-//         html += '</dl>';
-//         html += '</div>';
-//         html += '</div>';
-//         html += '</div>';
-
- 
-    
-//         // window.jQuery || document.write('<script src="../../static/info_consume/js/jquery.min.js"><\/script>')
-       
-//         // $(document).ready(function () {
-//         //     $('.VivaTimeline').vivaTimeline({
-//         //             carousel: true,
-//         //             carouselTime: 3000
-//         //     });
-//         // });
- 
-//         }
-    
-     
-//         $('container').append(html);
-// },
+        $('#container').append(html);
+      
+},
 
 
 Draw_blog_opinion:function(data){
@@ -352,9 +370,9 @@ function Draw_event_river_result(){
 }
 
 function Draw_time_line_result(){
-  url = "/topic_language_analyze/subopinion/?topic="+topic;
+  url = "/topic_language_analyze/symbol_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
-  topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning. Draw_blog_opinion);
+  topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_time_line);
 }
 
 function Draw_blog_opinion_result(){
@@ -372,6 +390,6 @@ function Draw_blog_scan_area_meaning_result(){
 
 // Draw_keywords_cloud_result();
 // Draw_event_river_result();
-// //Draw_time_line_result();
+// Draw_time_line_result();
 // Draw_blog_opinion_result();
 // Draw_blog_scan_area_meaning_result();

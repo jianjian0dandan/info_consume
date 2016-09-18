@@ -542,6 +542,16 @@ position: absolute;
 	margin-left: 0%;
 	margin-top: 10%;
 	}
+	
+#right_col_title_2_network {
+	background-color: #E4E4E4;
+	width: 284px;
+	height: 570px;
+	position: relative;
+	margin-left: 0%;
+	margin-top: 10%;
+	}
+
 
 #img_rank {
 	width: 25px;

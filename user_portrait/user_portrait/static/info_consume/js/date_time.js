@@ -6,59 +6,62 @@
 var topic = 'aoyunhui';
 var start_ts = 1468426500;
 var end_ts = 1468442700;
+// var end_ts = 1468459800;
 var pointInterval = 3600;
 var sort_item = 'timestamp';
 
 
-// var topic = $('#topic_text').text();
-// //var start_ts = set_timestamp().start_timestamp_return; 
-// //var end_ts = set_timestamp().end_timestamp_return;
-// var start_ts,end_ts,pointInterval;
+var topic = $('#topic_text').text();
+//var start_ts = set_timestamp().start_timestamp_return; 
+//var end_ts = set_timestamp().end_timestamp_return;
+var start_ts,end_ts,pointInterval;
 
-// function set_timestamp(){
-// 	var start_time_new = get_timestamp().start_return;
-// 	var end_time_new = get_timestamp().end_return; 
-// 	var start_timestamp = datetime_to_timestamp(start_time_new);
-// 	var end_timestamp = datetime_to_timestamp(end_time_new);
+function set_timestamp(){
+	var start_time_new = get_timestamp().start_return;
+	var end_time_new = get_timestamp().end_return; 
+	var start_timestamp = datetime_to_timestamp(start_time_new);
+	var end_timestamp = datetime_to_timestamp(end_time_new);
 	
-// 	start_ts = start_timestamp;
-// 	end_ts = end_timestamp;
+	start_ts = start_timestamp;
+	end_ts = end_timestamp;
 
-// 	Draw_time_trend_line_result();
-// }
-
-
-// function get_timestamp(){
-// 	var start_time = $('#datetimepicker1_input').val(); 
-// 	var end_time = $('#datetimepicker2_input').val();
-// 	return {
-// 		start_return:start_time,
-// 		end_return:end_time
-// 	};
-// }
+	Draw_time_trend_line_result();
+}
 
 
-// function datetime_to_timestamp(datetime) {
-//  		var date_time_string = datetime;
-//  		var date_time_array =date_time_string.split(/[/: ]/);
-//  		var date_array_new = [date_time_array[2],date_time_array[0],date_time_array[1]];
-//  		if (date_time_array[5] == 'PM'){
-//  			date_time_array[3] = parseInt(date_time_array[3])+12;  //替换元素，小时数字加12
-//  		}
-//  		var time_array_new = [date_time_array[3],date_time_array[4],'00'];
-//  		var timestamp_date_str = date_array_new.join('/');
-//  		var timestamp_time_str = time_array_new.join(':');
-//  		var timestamp_time_array = [timestamp_date_str,timestamp_time_str]
-//  		var timestamp_str = timestamp_time_array.join(' ');
-//  		var timestamp = (new Date(timestamp_str)).getTime()/1000;
-//  		return timestamp;
-// 	}
+function get_timestamp(){
+	var start_time = $('#datetimepicker1_input').val(); 
+	var end_time = $('#datetimepicker2_input').val();
+	return {
+		start_return:start_time,
+		end_return:end_time
+	};
+}
 
 
-// function get_per_time(val) {
-// 	pointInterval = val;
-// 	set_timestamp();
-// }
+function datetime_to_timestamp(datetime) {
+ 		var date_time_string = datetime;
+ 		var date_time_array =date_time_string.split(/[/: ]/);
+ 		var date_array_new = [date_time_array[2],date_time_array[0],date_time_array[1]];
+ 		if (date_time_array[5] == 'PM'){
+ 			date_time_array[3] = parseInt(date_time_array[3])+12;  //替换元素，小时数字加12
+ 		}
+ 		var time_array_new = [date_time_array[3],date_time_array[4],'00'];
+ 		var timestamp_date_str = date_array_new.join('/');
+ 		var timestamp_time_str = time_array_new.join(':');
+ 		var timestamp_time_array = [timestamp_date_str,timestamp_time_str]
+ 		var timestamp_str = timestamp_time_array.join(' ');
+ 		var timestamp = (new Date(timestamp_str)).getTime()/1000;
+ 		return timestamp;
+	}
+
+
+function get_per_time(val) {
+	pointInterval = val;
+	set_timestamp();
+	Draw_time_trend_line_result();
+
+}
 
 
 function set_order_type(type){
@@ -77,23 +80,23 @@ function set_order_type(type){
 // }
 
 
-function add0(m){return m<10?'0'+m:m }
-function format(shijianchuo)
-{
-//shijianchuo是整数，否则要parseInt转换
-var time = new Date(shijianchuo);
-var y = time.getFullYear();
-var m = time.getMonth()+1;
-var d = time.getDate();
-var h = time.getHours();
-var mm = time.getMinutes();
-var s = time.getSeconds();
-return {
-	formate_data_time:y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s),
-	formate_data:y+'-'+add0(m)+'-'+add0(d)
-};
-// return y+'-'+add0(m)+'-'+add0(d);
-}
+// function add0(m){return m<10?'0'+m:m }
+// function format(shijianchuo)
+// {
+// //shijianchuo是整数，否则要parseInt转换
+// var time = new Date(shijianchuo);
+// var y = time.getFullYear();
+// var m = time.getMonth()+1;
+// var d = time.getDate();
+// var h = time.getHours();
+// var mm = time.getMinutes();
+// var s = time.getSeconds();
+// return {
+// 	formate_data_time:y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s),
+// 	formate_data:y+'-'+add0(m)+'-'+add0(d)
+// };
+// // return y+'-'+add0(m)+'-'+add0(d);
+// }
 
 
 function topic_analysis_time(){
@@ -325,6 +328,6 @@ function Draw_blog_scan_area_order_result(){
 }	
 
 
-// Draw_time_trend_line_result();
-// Draw_blog_scan_area_order_result();
+Draw_time_trend_line_result();
+Draw_blog_scan_area_order_result();
 
