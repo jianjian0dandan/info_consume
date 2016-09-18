@@ -15,75 +15,21 @@
 			<div id="right_col_title_1_network_blue"></div>
 			<div id="right_col_title_1_network_green"></div>
 			<img id="img_person" src="../../static/info_consume/image/person.png">
-			<span id="initiator_pusher">&nbsp;发起者&nbsp;|&nbsp;推动者</span>
+			<span id="trend_maker" onclick="get_trend_type('maker')">&nbsp;发起者&nbsp;|</span>
+			<span id="trend_pusher" onclick="get_trend_type('pusher')">&nbsp;推动者</span>
 		</div>
-		<div id="right_col_title_2">
+		<div id="right_col_title_2_network">
 			<!-- 用户头像 -->
+			<div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;">
+				
+			</div>
+
+			<!-- <div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;"></div> -->
+
 		</div>
 	</div>
 </div>
-
-		 	<script type="text/javascript">
-		 		var myChart = echarts.init(document.getElementById('main_network'))
-					myChart.showLoading();
-					$.getJSON('data/asset/data/npmdepgraph.min10.json', function (json) {
-					    myChart.hideLoading();
-					var option = {
-					        title: {
-					            text: 'NPM Dependencies'
-					        },
-					        animationDurationUpdate: 1500,
-					        animationEasingUpdate: 'quinticInOut',
-					        series : [
-					            {
-					            	
-					                type: 'graph',
-					                layout: 'none',
-					                // progressiveThreshold: 700,
-					                data: json.nodes.map(function (node) {
-					                    return {
-					                        x: node.x,
-					                        y: node.y,
-					                        id: node.id,
-					                        name: node.label,
-					                        symbolSize: node.size,
-					                        itemStyle: {
-					                            normal: {
-					                                color: node.color
-					                            }
-					                        }
-					                    };
-					                }),
-					                edges: json.edges.map(function (edge) {
-					                    return {
-					                        source: edge.sourceID,
-					                        target: edge.targetID
-					                    };
-					                }),
-					                label: {
-					                    emphasis: {
-					                        position: 'right',
-					                        show: true
-					                    }
-					                },
-					                roam: true,
-					                focusNodeAdjacency: true,
-					                lineStyle: {
-					                    normal: {
-					                        width: 0.5,
-					                        curveness: 0.3,
-					                        opacity: 0.7
-					                    }
-					                }
-					            }
-					        ]
-					    }
-					    myChart.setOption(option, true);
-					});
-		
-			</script>
-
-<!-- <div id="left_line_right"></div> -->
+<!-- 网络图见.js文件 -->
 
 <!-- 分割线 -->
 <div class="halving_line2"></div>
@@ -108,201 +54,14 @@
 		   </label>
 	</div>
 
+	<div id="networks">
+			<span class="label place_label" style="color: #868686;">发起微博</span>
+			<span class="label place_label" style="color: #868686;">推动微博</span>
+
+	</div>
 
 	<div class="halving_line3"></div>
 
-
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
-			 	(中国&nbsp;北京)
-			 	</p>
-		</div>
-				
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
-			 	</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
-		</div>
-						
-									 	
-	</div>
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
+	<!-- 微博浏览区 -->
 	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-	</div>
-
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
-	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-	</div>
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
-	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-
-	</div>
-
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
-	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-	</div>
-
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
-	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-	</div>
-
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
-	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-	</div>
-
-	<div class="blog_network">
-		<div>
-			<img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;">
-		</div>
-		<div>
-			<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>
-			<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">
- 				(中国&nbsp;北京)
- 				</p>
-		</div>
-	
-		<div class="blog_text">	
-				<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font>
- 				</p>
-				<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">
-				<span class="time_info" style="padding-right: 10px;color:#858585">
-					<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>
-					<span>转发数(2546)&nbsp;|&nbsp;</span>
-					<span>评论数(141)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				</span>
-				</p>
- 		</div>
-	</div>
-	<span class="loading_more" onclick="" >加载更多</span>
 </div>

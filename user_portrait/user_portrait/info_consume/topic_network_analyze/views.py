@@ -15,6 +15,14 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+@mod.route('/networkdata')
+def networkdata():
+    f = open('/home/ubuntu2/yuanhuiru/info_consume/user_portrait/user_portrait/info_consume/topic_network_analyze/networkdata.min10.json','r')
+    a = f.readlines()
+    results = a[0]
+    print json.loads(results),type(results)
+    return results
+
 @mod.route('/get_gexf/')
 def GetGexf():
     topic =request.args.get('topic', '')
@@ -25,7 +33,9 @@ def GetGexf():
     date = ts2datetime(end_ts)
     windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
     results = get_gexf(topic, date, windowsize)
+    print type(results)
     return json.dumps(results)
+
 
 @mod.route('/get_trend_pusher/')
 def GetPusher():

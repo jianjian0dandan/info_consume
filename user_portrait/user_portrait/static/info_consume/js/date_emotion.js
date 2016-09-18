@@ -127,7 +127,6 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 	var html = '';
 
 
-		console.log(item[0][1]);
 		//正向情绪
 		for(key in item[0]){
 			for(i=0;i<item[0][key].length;i++){
@@ -148,14 +147,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 			item_city_json_pos[k].name='未知';
 			}
 			item_city_json_pos_new.push({name:item_city_json_pos[k].name+'市',value:item_city_json_pos[k].value});
-			// console.log(item_city_json[k].name);
-			// console.log(item_city_json[k].value);
+			
 	 	}
 	 			
 		item_json_pos = item_province_json_pos.concat(item_city_json_pos_new);
 		
-		console.log(item_json_pos);
-
 
 		//中立情绪
 		for(key in item[1]){
@@ -176,13 +172,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 			item_city_json_neu[k].name='未知';
 			}
 			item_city_json_neu_new.push({name:item_city_json_neu[k].name+'市',value:item_city_json_neu[k].value});
-			// console.log(item_city_json[k].name);
-			// console.log(item_city_json[k].value);
+		
 	 	}
 	 			
 		item_json_neu = item_province_json_neu.concat(item_city_json_neu_new);
 		
-		console.log(item_json_neu);
 
 		//负向情绪
 		for(key in item[2]){
@@ -203,15 +197,13 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 			item_city_json_neg[k].name='未知';
 			}
 			item_city_json_neg_new.push({name:item_city_json_neg[k].name+'市',value:item_city_json_neg[k].value});
-			// console.log(item_city_json[k].name);
-			// console.log(item_city_json[k].value);
+			
 	 	}
 	 			
 		item_json_neg = item_province_json_neg.concat(item_city_json_neg_new);
 		
-		// console.log(item_json_neg);
 		
-		
+		//选择正向、中立、负向
 		if(case_val == 1){
 			item_legend = '正向';
 			item_item = item_json_pos;

@@ -373,6 +373,16 @@ position: absolute;
 	float: left;
 }
 
+#table_photo{
+	width:220px;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	color: #868686;
+	float:left;
+	margin-left:9%;
+	margin-top:3%;
+}
+
 #table{
 	width:220px;
 	font-size: 18px;
@@ -820,6 +830,15 @@ div.pager span.disabled {
 	margin-top: 10%;
 	}
 
+#right_col_title_2_network {
+	background-color: #E4E4E4;
+	width: 265px;
+	height: 570px;
+	position: relative;
+	margin-left: 0%;
+	margin-top: 10%;
+	}
+
 #img_rank {
 	width: 25px;
 	height: 25px;
@@ -983,13 +1002,33 @@ background-color:#FFFFFF;
 
 
 
-#initiator_pusher {
+#trend_maker {
 	font-size: 22px;
 	font-family: Microsoft YaHei;
 	color: #000000;
 	position: relative;
 	margin-left: 1%;
 	margin-top: -3.4%;
+	float: left;
+}
+
+#trend_pusher {
+	font-size: 22px;
+	font-family: Microsoft YaHei;
+	color: #000000;
+	position: relative;
+	margin-left: 1%;
+	margin-top: -3.4%;
+	float: left;
+}
+
+#networks {
+	background-color: #E4E4E4;
+	width: 95%;
+	height: 2.5%;
+	position: relative;
+	margin-left: 2.6%;
+	margin-top: 1%;
 	float: left;
 }
 
@@ -1001,6 +1040,10 @@ background-color:#FFFFFF;
 	margin-left: 20%;
 	margin-top: 5%;
 	margin-bottom: 10%;
+	display:table;
+	height:auto;
+	float:left;
+
 }
 
 #main_emotion_bigger {
