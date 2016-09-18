@@ -398,7 +398,7 @@ my_friend.prototype =
         option = {
         title : {
         text: '转发关系网络',
-        subtext: '圈圈的大小表示转发的次数哟',
+        // subtext: '圈圈的大小表示转发的次数哟',
         x:'right',
         y:'bottom'
    	  	},
@@ -416,7 +416,7 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['好友']
+            data:['核心用户','好友']
         },
         series : [
             {
@@ -429,7 +429,7 @@ my_friend.prototype =
                         name: '核心用户'
                     },
                     {
-                        name: 'uid'
+                        name: '好友'
                     },
                     {
                         name: '转发次数'
@@ -589,7 +589,7 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['好友']
+            data:['核心用户','好友']
         },
         series : [
             {
@@ -601,7 +601,7 @@ my_friend.prototype =
                         name: '核心用户'
                     },
                     {
-                        name: 'uid'
+                        name: '好友'
                     },
                     {
                         name: '提及次数'
@@ -763,7 +763,7 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['好友']
+            data:['核心用户','好友']
         },
         series : [
             {
@@ -775,7 +775,7 @@ my_friend.prototype =
                         name: '核心用户'
                     },
                     {
-                        name: 'uid'
+                        name: '好友'
                     },
                     {
                         name: '转发次数'
@@ -928,7 +928,7 @@ my_friend.prototype =
         },
         legend: {
             x: 'left',
-            data:['好友']
+            data:['核心用户','好友']
         },
         series : [
             {
@@ -940,7 +940,7 @@ my_friend.prototype =
                         name: '核心用户'
                     },
                     {
-                        name: 'uid'
+                        name: '好友'
                     },
                     {
                         name: '转发次数'

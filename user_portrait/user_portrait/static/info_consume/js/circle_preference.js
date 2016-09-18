@@ -26,8 +26,13 @@ var word_num = Math.min(20, data.length);
             word['itemStyle'] = createRandomItemStyle();
             keyword.push(word);
         }
-
+        require(
+             [  
+                    'echarts'
+                ],
+        function(ec){
         var myChart = echarts.init(document.getElementById(div_name)); 
+        var ecConfig = require('echarts/config');
         var option = {
             tooltip: {
                 show: true,
@@ -50,9 +55,13 @@ var word_num = Math.min(20, data.length);
                 data: keyword
             }]
         };
+         myChart.on(ecConfig.EVENT.CLICK, function (param){
+          // console.log(param);
+           window.open('./date_index');
+         })
         myChart.setOption(option);  
-}
-}   
+})
+}}
 
 function Draw_preference_weibo(data){
 
@@ -65,4 +74,8 @@ function Draw_preference_page(data){
 } 
 
  var preference_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=preference';
+
+
+ function g_pre_load(){
  call_sync_ajax_request(preference_url,'GET',Draw_preference_page);
+}

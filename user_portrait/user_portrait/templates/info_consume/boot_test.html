@@ -12,9 +12,13 @@
     <title>Bootstrap Test__editor GuoJia</title>
     <!-- Bootstrap -->
     <link href="../../static/info_consume/css/bootstrap.min.css" rel="stylesheet">
+     <link href="../../static/info_consume/css/bootstrap.css" rel="stylesheet">
     <link href="../../static/info_consume/css/bootstrap-table.css" rel="stylesheet" >
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" >
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css" rel="stylesheet">-->
+    <link href="../../static/info_consume/css/bootstrap-select.min.css" rel="stylesheet" >
+    <link href="../../static/info_consume/css/bootstrap-table.css" rel="stylesheet" >
+    <!--<link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" >-->
+    <link href="../../static/info_consume/css/font-awesome.min.css" rel="stylesheet" >
     <!--自己的css样式，顺序靠后优先级越高-->
     <link href="../../static/info_consume/css/boot_test.css" rel="stylesheet">
    <link href='//cdn.webfont.youziku.com/webfonts/nomal/91298/19466/57d2c0a2f629d81ac8902aeb.css' rel='stylesheet' type='text/css'/>
@@ -64,7 +68,7 @@
             <li><a id="amusement" href="#" data-toggle="tab"><i class="fa fa-music" aria-hidden="true"></i>娱乐圈名人榜</a></li>
             <li><a id="sports" href="#" data-toggle="tab"><i class="fa fa-bicycle" aria-hidden="true"></i>体育圈名人榜</a></li>
             <li><a id="business" href="#" data-toggle="tab"><i class="fa fa-briefcase" aria-hidden="true"></i>商业圈名人榜</a></li>
-            <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-heartbeat" aria-hidden="true"></i>民生圈名人榜</a></li>
+            <li><a id="livehood" href="#" data-toggle="tab"><i class="fa fa-home" aria-hidden="true"></i>民生圈名人榜</a></li>
             <li><a id="others" href="#" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true"></i>小众圈名人榜</a></li>
           </ul>
 		  </div>
@@ -73,7 +77,7 @@
             <div class="panel-heading"><b>发现圈子</b></div>
             <div class="panel-body">
               <div id="toolbar">
-                <div class="btn btn-success" onclick="addgroup()">圈子追踪</div><i class="fa fa-question-circle-o" id="chase" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="tooltip" title="勾选下表中的任意用户，系统可对您所选群体进行全面分析" data-placement="bottom"></i>
+                <div class="btn btn-success" onclick="addgroup()">圈子追踪</div><i class="fa fa-lightbulb-o" id="chase" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="tooltip" title="勾选下表中的任意用户，系统可对您所选群体进行全面分析" data-placement="bottom"></i>
               </div>
               <div id="table-user-contain"><table id="table-user" class="table table-hover"></table></div>
               <div id="table-user-user-contain"><table id="table-user-user" class="table table-hover"></table></div>
@@ -111,7 +115,8 @@
     <script src="../../static/info_consume/js/bootstrap-table.js"></script>
     <script src="../../static/info_consume/js/bootstrap-table-zh-CN.js"></script>
     <script src="../../static/info_consume/js/boot_test.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script> 
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>-->
+    <script src="../../static/info_consume/js/bootstrap-select.min.js"></script>
   </body>
     {% endblock %}
 </html>
