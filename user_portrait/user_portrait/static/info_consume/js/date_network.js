@@ -2,28 +2,28 @@ var topic = 'aoyunhui';
 var start_ts = 1467648000;
 var end_ts = 1470844800;
 
-//显示资料卡 
-var beforeId; //定义全局变量 
-function showInfoCard(id){ 
-this.hidden(beforeId); //立刻隐藏前一个选中弹出来的div 
-beforeId = id; 
+// //显示资料卡 
+// var beforeId; //定义全局变量 
+// function showInfoCard(id){ 
+// this.hidden(beforeId); //立刻隐藏前一个选中弹出来的div 
+// beforeId = id; 
 
-var objDiv = $("#"+id); 
+// var objDiv = $("#"+id); 
  
-$(objDiv).css("display","block"); 
+// $(objDiv).css("display","block"); 
  
-$(objDiv).css("left", event.clientX-280); //弹出框的位置X值 
+// $(objDiv).css("left", event.clientX-280); //弹出框的位置X值 
  
-$(objDiv).css("top", event.clientY-10); //弹出框位置Y值 
-} 
-function hideInfoCard(id){ //隐藏div 
-//延时3秒 
-setTimeout('hidden('+id+')',3000); 
-} 
+// $(objDiv).css("top", event.clientY-10); //弹出框位置Y值 
+// } 
+// function hideInfoCard(id){ //隐藏div 
+// //延时3秒 
+// setTimeout('hidden('+id+')',3000); 
+// } 
  
-function hidden(id){ 
-$("#"+id).hide(); 
-}
+// function hidden(id){ 
+// $("#"+id).hide(); 
+// }
 
 
 function get_trend_type(val) {
@@ -43,22 +43,70 @@ function get_trend_type(val) {
 
 
 function Draw_network_pic(){
-     var myChart = echarts.init(document.getElementById('main_network'));
+     // var myChart = echarts.init(document.getElementById('main_network'));
+     console.log('pppp');
+     require.config({
+      paths: {
+                echarts: '/static/info_consume/js/echarts/src',
+                zrender: '/static/info_consume/js/zrender/src'
+
+
+            }
+	    // packages: [
+
+	    //     {
+	    //         name: 'echarts',
+	    //         location: '/static/info_consume/js/echarts',
+	    //         main: 'echarts'
+	    //     },
+	    //     {
+	    //         name: 'zrender',
+	    //         location: '/static/info_consume/js/zrender/src', // zrender与echarts在同一级目录
+	    //         main: 'zrender'
+	    //     }
+	    // ]
+	});
+    //  require.config({
+    //     paths:{
+    //       echarts:'/static/info_consume/js/echarts_src',
+    //       // echarts_1:'/static/info_consume/js/echarts/src/echarts',
+    //       // graph:'/static/info_consume/js/graph',
+    //     },
+    //     packages: [
+    //     {
+    //         name: 'echarts',
+    //         location: '/static/info_consume/js/echarts_src', // zrender与echarts在同一级目录
+    //         main: 'echarts'
+    //     },
+    //     {
+    //         name: 'zrender',
+    //         location: '/static/info_consume/js/zrender_src', // zrender与echarts在同一级目录
+    //         main: 'zrender'
+    //     }
+    // ]
+    //  });
      require(
         [
           'echarts',
-          'echarts/chart/graph' // 使用柱状图就加载bar模块，按需加载
+          'echarts/chart/graph'
+          // 'echarts/echarts_src/src/visual/symbol'
         ],
+
         function (ec) {
-          var ecConfig = require('echarts/config'); //放进require里的function{}里面
-          var zrEvent = require('zrender/tool/event');
+    //       console.log('aaaa');
+          // var ecConfig = require('echarts/config'); //放进require里的function{}里面
+    //       var ecConfig = echarts.config;  
+		  // var zrEvent = require('zrender/tool/event');
+          var echarts = ec;
           var myChart = echarts.init(document.getElementById('main_network'));
-          myChart.showLoading();
+          // myChart.showLoading();
+          // console.log('bbbbb');
           $.getJSON('/topic_network_analyze/networkdata', function (json) {
-          myChart.hideLoading();
+          console.log(json);
+          // myChart.hideLoading();
           var option = {
                   title: {
-                      text: 'NPM Dependencies'
+                      text: '网络分布图'
                   },
                   animationDurationUpdate: 1500,
                   animationEasingUpdate: 'quinticInOut',
@@ -107,11 +155,11 @@ function Draw_network_pic(){
                           }
                       }
                   ]
-              }
-              myChart.setOption(option, true);
+              };
+                  myChart.setOption(option);
           });
         }
-      )
+       )
         
           
   }
@@ -133,8 +181,6 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       success:callback
     });
   },
-
-  
 
   Draw_trend_maker:function(data){
     var item = data;
@@ -182,7 +228,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     })
 
     $('#right_col_title_2_network').append(html);
-    console.log('aaa');
+   
   },
 
   Draw_trend_pusher:function(data){
@@ -317,10 +363,12 @@ function Draw_blog_scan_area_network_result(){
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_blog_scan_area_network);
 } 
 
+
 Draw_network_pic();
+
 // Draw_network_pic_result();
 // show_network();
-Draw_trend_maker_result();
+// Draw_trend_maker_result();
 // Draw_trend_pusher_result();
-Draw_blog_scan_area_network_result();
+// Draw_blog_scan_area_network_result();
 

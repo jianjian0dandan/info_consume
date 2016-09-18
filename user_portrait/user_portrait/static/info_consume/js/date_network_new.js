@@ -1,15 +1,30 @@
+// var topic = QUERY;
+// if(topic == '中国'){
+//   var start_ts = 1377964800 + 900;
+// }
+// else{
+//   var start_ts = START_TS;
+// }
+// var end_ts = END_TS;
+var topic = 'aoyunhui';
+var start_ts = 1467648000;
+var end_ts = 1470844800;
+// var network_type1 = 1;
+// var networkUpdated = 0;
+
 
 function network_request_callback(data) {
+    console.log(data);
     $("#network_progress").removeClass("active");
     $("#network_progress").removeClass("progress-striped");
     networkUpdated = 1;
 
     if (data) {
         $("#loading_network_data").text("计算完成!");
-        $("#sigma-graph").show();
+        $("#main_network").show();
 
         sigma.parsers.gexf(data, {
-            container: 'sigma-graph',
+            container: 'main_network',
             settings: {
                 drawEdges: true,
                 edgeColor: 'default',
@@ -230,35 +245,31 @@ function network_request_callback(data) {
 
 
 
-function show_network() {
-    networkShowed = 0;
-    network_type2 = 'source_graph'
-    if (!networkShowed) {
-        $("#network").height(610);
-        $("#main_network").css("display", "block");
-        $("#network").removeClass('out');
-        $("#network").addClass('in');
-        networkShowed = 0;
-        if (!networkUpdated){
-            $.ajax({
-                url: "/identify/graph/?topic=" + topic +'&start_ts=' + start_ts +'&end_ts='+end_ts+'&network_type='+network_type2,
-                dataType: "xml",
-                type: "GET",
-                async: false,
 
-                success: function (data) {
-                    networkdata = data;
-                    network_request_callback(data);
-                },
-                error: function(result) {
-                    $("#main_network").text("暂无结果!");
-                }
-            })
-        }
-   }
- else {
-          networkShowed = 0;
-          $("#network").removeClass('in');
-           $("#network").addClass('out');
- }
+function topic_analysis_network(){
+ 
 }
+topic_analysis_network.prototype = {   //获取数据，重新画表
+  call_sync_ajax_request:function(url,callback){
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      async: false,
+      success:callback
+    });
+  },
+  show_network: function (data) {
+   console.log('1234');
+   network_request_callback(data);
+   console.log('aaaaa');
+  },
+}
+topic_analysis_network = new topic_analysis_network();
+function Draw_network_pic_result(){
+  url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+  console.log(url);
+  topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.show_network);
+}
+Draw_network_pic_result();
+console.log('yuanhuiru');
