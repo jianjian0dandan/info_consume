@@ -138,7 +138,7 @@ function emotions(data){
                       url: ajax_url,
                       type: 'GET',
                       dataType: 'json',
-                      async: false,
+                      async: true,
                       success:th_draw_content
                     });
                 var html0 = '';

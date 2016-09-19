@@ -1,9 +1,8 @@
-function  Draw_sentiment_pie(data){
+function  Draw_sentiment_pie(data){   
 var senti_total = data[0]+data[1]+data[2]+data[3]+data[4]+data[5]+data[6];
 var positive = data['1'];
 var neutral = data['0'];
 var negative = senti_total-positive-neutral;
-var myChart = echarts.init(document.getElementById('senti-pie'),'shine');
 var dataStyle = {
     normal: {
         label: {show:false},
@@ -23,7 +22,14 @@ var placeHolderStyle = {
         labelLine: {show:false}
     }
 };
-option = {
+  require(
+     [  
+            'echarts'
+        ],
+function(ec){
+var myChart = echarts.init(document.getElementById('senti-pie'),'shine');
+var ecConfig = require('echarts/config');
+var option = {
     title: {
         text: '你快乐吗？',
         subtext: 'From SinaWeibo',
@@ -47,7 +53,7 @@ option = {
         x : 'left',
         y : 'top',
         itemGap:12,
-        data:['积极','消极','中性']
+        data:['我很快乐','我很难过','感觉还行']
     },
     toolbox: {
         show : true,
@@ -67,7 +73,7 @@ option = {
             data:[
                 {
                     value:negative, 
-                    name:'消极'
+                    name:'我很难过'
                 },
                 {
                     value:senti_total-negative,
@@ -84,7 +90,7 @@ option = {
             data:[
                 {
                     value:neutral, 
-                    name:'中性'
+                    name:'感觉还行'
                 },
                 {
                     value:senti_total-neutral,
@@ -101,7 +107,7 @@ option = {
             data:[
                 {
                     value:positive,
-                    name:'积极'
+                    name:'我很快乐'
                 },
                 {
                     value:senti_total-positive,
@@ -113,7 +119,17 @@ option = {
     ]
 };
 
+myChart.on(ecConfig.EVENT.CLICK, function (param){
+  // var date = new Date('2013-09-01');
+  // var starts_ts = date.getTime().toString().substr(0,10);
+  // var start_ts = parseInt(starts_ts)-28800; 
+  // console.log(start_ts);
+  
+  window.open('./viewinformation');
+
+ })
  myChart.setOption(option);
+})
 }
 
 function Draw_psy_page(data){

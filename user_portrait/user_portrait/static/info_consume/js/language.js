@@ -16,38 +16,38 @@ function call_sync_ajax_request(url, method, callback){
   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
 
-// $(function() {s
-//     $( '#dl-menu' ).dlmenu();
-//   });
-// $(".closeList").off("click").click(function(){
-//     $("#float-wrap").addClass("hidden");
-//     $("#more_keyWords").addClass("hidden");
-//     $("#more_hashtagWords").addClass("hidden");
-//     $("#more_senWords").addClass("hidden");
-//     $("#more_topic").addClass("hidden");
-//     return false;
-//   });
+$(function() {
+    $( '#dl-menu' ).dlmenu();
+  });
+$(".closeList").off("click").click(function(){
+    $("#float-wrap").addClass("hidden");
+    $("#more_keyWords").addClass("hidden");
+    $("#more_hashtagWords").addClass("hidden");
+    $("#more_senWords").addClass("hidden");
+    $("#more_topic").addClass("hidden");
+    return false;
+  });
 
-// $("#showmore_keyWords").off("click").click(function(){
-//     $("#float-wrap").removeClass("hidden");
-//     $("#more_keyWords").removeClass("hidden");
-//     return false;
-//   });
-// $("#showmore_topic").off("click").click(function(){
-//     $("#float-wrap").removeClass("hidden");
-//     $("#more_topic").removeClass("hidden");
-//     return false;
-//   });
-// $("#showmore_hashtagWords").off("click").click(function(){
-//         $("#float-wrap").removeClass("hidden");
-//         $("#more_hashtagWords").removeClass("hidden");
-//         return false;
-//     });
-// $("#showsen_keyWords").off("click").click(function(){
-//         $("#float-wrap").removeClass("hidden");
-//         $("#more_senWords").removeClass("hidden");
-//         return false;
-//     });
+$("#showmore_keyWords").off("click").click(function(){
+    $("#float-wrap").removeClass("hidden");
+    $("#more_keyWords").removeClass("hidden");
+    return false;
+  });
+$("#showmore_topic").off("click").click(function(){
+    $("#float-wrap").removeClass("hidden");
+    $("#more_topic").removeClass("hidden");
+    return false;
+  });
+$("#showmore_hashtagWords").off("click").click(function(){
+        $("#float-wrap").removeClass("hidden");
+        $("#more_hashtagWords").removeClass("hidden");
+        return false;
+    });
+$("#showsen_keyWords").off("click").click(function(){
+        $("#float-wrap").removeClass("hidden");
+        $("#more_senWords").removeClass("hidden");
+        return false;
+    });
 
 function show_conclusion(data){
   var html = '';
@@ -119,7 +119,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
   	for (var i=0;i<word_num;i++){
   		var word = {};
         word['name'] = key_name2[i];
-  		word['value'] = key_value2[i]*100;
+  		word['value'] = key_value2[i]*10000;
   		word['itemStyle'] = createRandomItemStyle();
   		keyword.push(word);
   	}
@@ -138,8 +138,8 @@ function Draw_keyword(data, div_name, more_div, more,title){
               },
               series: [{
                   type: 'wordCloud',
-                  size: ['150%', '200%'],
-                  textRotation : [0, 45, 90, -45],
+                  size: ['100%', '100%'],
+                  textRotation :[0, 45, 90, -45],
                   textPadding: 0,
                   autoSize: {
                     enable: true,
@@ -207,11 +207,7 @@ function show_results(data){
   var sen_name = 'sen_Language';
   var senwords_more = 'sen_WordList';
   var sen_more = 'sen_more';
-<<<<<<< HEAD
-  //console.log(keywords_name);
-=======
- // console.log(keywords_name);
->>>>>>> 559fd3b8bdb29fd950e0b8f2b454e19b6c30a12b
+
 
   Draw_keyword(keywordsCloud, keywords_name, keywords_more, key_more,'关键词');
   Draw_keyword(hashtag, hashtag_name, hashtag_more, hash_more,'微话题');
@@ -227,21 +223,3 @@ function show_results(data){
   }
 }
 
-
-
-// function show_results0(data){
-//   //console.log(data.results.keywords);
-//   var topic = data.results.topic;
-//   var domain = data.results.domain;
-//   Draw_topic0(topic);
-//   //show_conclusion(conclusion);
-//   show_domain0(domain);
-// }
-
-// function language_load(){
-//   var prefrence_url = '/attribute/preference/?uid=' + uid;
-//   console.log(prefrence_url);
-//   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
-//   // call_sync_ajax_request(prefrence_url, ajax_method, show_results0);
-// }nes                                                     1,8           Top
- 
