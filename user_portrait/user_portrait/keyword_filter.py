@@ -18,7 +18,7 @@ word_count = 50
 def keyword_filter(keyword_dict):
     keyword_list = [item.encode('utf-8') for item in keyword_dict]
     keyword_string = ''.join(keyword_list)
-    tr4w.analyze(text=keyword_string, lower=True, window=2)
+    tr4w.analyze(text=keyword_string,tfidf='', lower=True, window=2)
     k_dict = tr4w.get_keywords(word_count, word_min_len=2)
     word_dict = dict()
     for item in k_dict:
