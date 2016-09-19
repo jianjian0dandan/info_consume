@@ -463,7 +463,7 @@
                    if($('#search_norm option:selected').text()=='朋友圈'){
                     $('#table-user-contain').css("display","none");
                     $('#table-user-user-contain').css("display","block");
-                    var user_id = '2722498861';
+                    var user_id = keyword;//'2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
                    // console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
