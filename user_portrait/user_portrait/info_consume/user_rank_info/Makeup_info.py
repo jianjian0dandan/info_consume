@@ -71,9 +71,11 @@ def all_makeup_info(uid_list , sort_norm , time):
             iter_item = search_result[i]['_source']
             tmp['location'] = iter_item['user_location']
             tmp['uname'] = iter_item['nick_name']
+            tmp['photo_url'] = iter_item['photo_url']
         else:
             tmp['location'] = None
             tmp['uname'] = tmp['uid']
+            tmp['photo_url'] = 'unknown'
         if in_portrait[i]['found']:
             tmp['is_warehousing'] = True
         else:
