@@ -13,6 +13,7 @@ homepageinfo.prototype = {
 	});
   },
   personData:function(data){
+
   //console.log(data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
@@ -128,7 +129,7 @@ homepageinfo.prototype = {
        if(data.activeness[0] !=""){
           AP.innerHTML = data.activeness[0].toFixed(2);
        }else{
-          AP.innerHTML = '0';
+          AP.innerHTML = '0'
        }
      var actScore = document.getElementById('act_text');
      	if (data.activeness[0]<80) {
@@ -220,6 +221,7 @@ function DrawWeibo(data, div_name, sub_div_name){
             $(this).addClass("on");
             $(this).siblings("li").removeClass("on");
         }
+
       page = parseInt($("#"+div_name+" #pageGro li.on").html())  
       //console.log('page', page);         
       start_row = (page - 1)* page_num;
