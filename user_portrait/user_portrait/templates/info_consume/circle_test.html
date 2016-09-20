@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md-12"><h1>系统主导航</h1></div>
       </div>
-      <div class="row" id="circle-analysis">
+      <div class="row" id="circle-analysis" style="display:none;">
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <ul id="circle-Tab" class="nav nav-tabs">
@@ -35,10 +35,6 @@
           </ul>            
           <div id="circleTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="basic-feature">
-              <div class="row">
-                <div class="col-md-12">
-                </div>
-              </div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="panel panel-default panel-success" border="1">
@@ -153,8 +149,8 @@
                   <div class="panel panel-default panel-success" border="1">
                     <div class="panel-heading"><b>近一周群体情绪波动曲线</b></div>
                     <div class="panel-body">
-                     <div id="senti-trend" style="width:500px;height:400px;float:left;"></div>
-                     <div id="senti-weibo" style="background-color:#eeeeee;width:250px;height:300px;float:left;margin-right:0px;margin-top:50px;">
+                     <div id="senti-trend" style="width:820px;height:400px;float:left;"></div>
+                     <div id="senti-weibo" style="background-color:#eeeeee;width:700px;height:300px;float:left;margin-left:30px;padding-right:20px;">
                      <div id='group_select_time' style="color:#3F51B5;font-weight:bold;margin-top:2px;margin-left:10px;font-size:13px;"></div>
                      <div id="group_emotion_loading" style="display:block">正在加载，请稍后...</div>
                      <div id="group_weibo_text" style="margin-top:5px;margin-left:10px;"></div>
@@ -171,8 +167,14 @@
                   </div>
                 </div>
            </div>
-           <div class="row" id="circle-manage">
-          <div class="col-md-12">          
+          </div>
+        </div>
+      </div>
+       <div class="col-md-1"></div>
+      </div>  <!-- 分析结果结束-->
+      <div class="row" id="circle-manage">
+       <div class="col-md-1"></div>
+          <div class="col-md-10">          
              <div class="panel panel-default" border="1">
                <div class="panel-heading"><b>SPY任务列表</b></div>
                 <div class="panel-body" style="padding:10px;">
@@ -180,10 +182,7 @@
                 </div>
              </div> 
           </div>
-        </div>
-          </div>
-        </div>
-      </div>
+       <div class="col-md-1"></div>
       </div>
     <script src="../../static/info_consume/js/jquery-1.11.3.min.js"></script>
     <script src="../../static/info_consume/js/bootstrap.min.js"></script>
@@ -199,7 +198,7 @@
     <script src="../../static/info_consume/js/circle_preference.js"></script>
     <script src="../../static/info_consume/js/circle_social.js"></script>
     <script src="../../static/info_consume/js/circle_psy.js"></script>
-          <script type="text/javascript">
+    <script type="text/javascript">
     /**软件功能切换js**/
     var g_act_flag = false;
     var g_pre_flag = false;

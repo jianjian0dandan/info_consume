@@ -226,4 +226,5 @@
 function g_bas_load(){
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
  call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
+ console.log(influence_url);
 }
