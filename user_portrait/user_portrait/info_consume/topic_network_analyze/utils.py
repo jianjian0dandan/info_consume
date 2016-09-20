@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type
 #from user_portrait.info_consume.model import PropagateCount, PropagateWeibos,PropagateTimeWeibos
+import re
 import math
 import json
 from sqlalchemy import func
@@ -18,16 +19,47 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+def gexf_process(data):
+	results = {}
+	#print type(data)
+	data = json.loads(data)
+	#print type(data)
+	comp = re.compile('<node id=\\\"(\d*)\\\"')
+	id_list = comp.findall(data)
+	comp = re.compile('<attvalue for=\\\"name\\\" value=\\\"(.*)\\\"/>')
+	name_list = comp.findall(data)
+	comp = re.compile('<viz:size value=\\\"(\d*)\\\"/>\\n')
+	size = comp.findall(data)
+	comp = re.compile('source=\\\"(\d*)\\\"')
+	source = comp.findall(data)
+	comp = re.compile('target=\\\"(\d*)\\\"/>\\n')
+	target = comp.findall(data)
+
+	nodes = []
+	for i in range(len(id_list)):
+		iter_item = {}
+		iter_item['name'] = id_list[i]
+		iter_item['symbolSize'] = size[i]
+		iter_item['label'] = name_list[i]
+		nodes.append(iter_item)
+	links = []
+	for i in range(len(source)):
+		iter_item = {}
+		iter_item['source'] = source[i]
+		iter_item['target'] = target[i]
+		links.append(iter_item)
+	results = {}
+	results['nodes'] = nodes
+	results['links'] = links
+	return results
+
 def get_gexf(topic, identifyDate, identifyWindow):
 	#key = _utf8_unicode(topic) +'_' + str(identifyDate) + '_' + str(identifyWindow) + '_' + 'source_graph'
 	#key = str(key)
    
     #gexf2es(key, value)
 	result = read_long_gexf(topic, identifyDate, identifyWindow)
-	#print result
-	#fh = open('gexf.txt','w+')
-	#fh.write(json.dumps(result))
-	#fh.close()
+	
 	return result
 
 def get_trend_pusher(topic, identifyDate, identifyWindow):
