@@ -994,6 +994,7 @@ def get_social_inter_content(uid1, uid2, type_mark):
 def search_group_sentiment_weibo(task_name, start_ts, sentiment, submit_user):
     weibo_list = []
     task_id = submit_user + '-' + task_name
+    #print es_group_result,group_index_name,group_index_type
     #step1:get task_name uid
     try:
         group_result = es_group_result.get(index=group_index_name, doc_type=group_index_type,\
@@ -1020,6 +1021,8 @@ def search_group_sentiment_weibo(task_name, start_ts, sentiment, submit_user):
         if item['found']==True:
             uname = item['fields']['uname'][0]
             uid2uname[uid] = uname
+        else:
+            uid2uname[uid] = 'unknown'
     #step4:iter date to search weibo
     weibo_list = []
     iter_date = ts2datetime(start_ts)

@@ -2021,6 +2021,7 @@ def search_preference_attribute(uid):
     keywords_dict = dict()
     for item in keywords_item_dict:
         keywords_dict[item[0]] = item[1]
+
     filter_keywords_dict = keyword_filter(keywords_dict)
     sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
     #sort_keywords = sorted(keywords_dict, key=lambda x:x[1], reverse=True)[:50]

@@ -15,7 +15,7 @@ Influence.prototype = {
           url:url,
           type:"GET",
           dataType:'json',
-          async:false,
+          async:true,
           success:callback,
       });
       //console.log('hah');

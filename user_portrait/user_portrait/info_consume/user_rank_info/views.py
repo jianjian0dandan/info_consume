@@ -66,6 +66,7 @@ def delete_task():
     result['flag'] = delOfflineTask(search_id)
     return json.dumps(result)
 
+#@mod.route('/similar_influence/')
 
 @mod.route('/imagine/')
 def ajax_imagine():
