@@ -76,5 +76,9 @@ body {
   background-color: #169ef4;
   color:#fff;
 }
+ .In-table
+{background-color:#eeeeee;}
+ #div-button input
+{ color: #fff; border: 1px solid #9cf; box-shadow: 2px 2px 3px #ccc; border-radius: 5px;background: #9cf; }
   
   
