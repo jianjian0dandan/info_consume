@@ -13,6 +13,7 @@
 }
 
 
+
 #myTab {
 	position: relative;
 	margin-left: 31%;
@@ -335,6 +336,16 @@ position: absolute;
 	margin-top: 1.1%;
 	float: left;
 }
+
+.control-pane{
+    position: relative;
+    float: left;
+    z-index: 1000;
+    margin-left: -50px;
+    margin-top: -20px;
+}
+
+
 
 #blog_scan_title_line2_network {
 	background-color:#FF9900;

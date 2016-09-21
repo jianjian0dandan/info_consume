@@ -42,127 +42,6 @@ function get_trend_type(val) {
  }
 
 
-function Draw_network_pic(){
-     // var myChart = echarts.init(document.getElementById('main_network'));
-     console.log('pppp');
-     require.config({
-      paths: {
-                echarts: '/static/info_consume/js/echarts/src',
-                zrender: '/static/info_consume/js/zrender/src'
-
-
-            }
-	    // packages: [
-
-	    //     {
-	    //         name: 'echarts',
-	    //         location: '/static/info_consume/js/echarts',
-	    //         main: 'echarts'
-	    //     },
-	    //     {
-	    //         name: 'zrender',
-	    //         location: '/static/info_consume/js/zrender/src', // zrender与echarts在同一级目录
-	    //         main: 'zrender'
-	    //     }
-	    // ]
-	});
-    //  require.config({
-    //     paths:{
-    //       echarts:'/static/info_consume/js/echarts_src',
-    //       // echarts_1:'/static/info_consume/js/echarts/src/echarts',
-    //       // graph:'/static/info_consume/js/graph',
-    //     },
-    //     packages: [
-    //     {
-    //         name: 'echarts',
-    //         location: '/static/info_consume/js/echarts_src', // zrender与echarts在同一级目录
-    //         main: 'echarts'
-    //     },
-    //     {
-    //         name: 'zrender',
-    //         location: '/static/info_consume/js/zrender_src', // zrender与echarts在同一级目录
-    //         main: 'zrender'
-    //     }
-    // ]
-    //  });
-     require(
-        [
-          'echarts',
-          'echarts/chart/graph'
-          // 'echarts/echarts_src/src/visual/symbol'
-        ],
-
-        function (ec) {
-    //       console.log('aaaa');
-          // var ecConfig = require('echarts/config'); //放进require里的function{}里面
-    //       var ecConfig = echarts.config;  
-		  // var zrEvent = require('zrender/tool/event');
-          var echarts = ec;
-          var myChart = echarts.init(document.getElementById('main_network'));
-          // myChart.showLoading();
-          // console.log('bbbbb');
-          $.getJSON('/topic_network_analyze/networkdata', function (json) {
-          console.log(json);
-          // myChart.hideLoading();
-          var option = {
-                  title: {
-                      text: '网络分布图'
-                  },
-                  animationDurationUpdate: 1500,
-                  animationEasingUpdate: 'quinticInOut',
-                  series : [
-                      {
-                        
-                          type: 'graph',
-                          layout: 'none',
-                          // progressiveThreshold: 700,
-                          data: json.nodes.map(function (node) {
-
-                              return {
-
-                                  x: node.x,
-                                  y: node.y,
-                                  id: node.id,
-                                  name: node.label,
-                                  symbolSize: node.size,
-                                  itemStyle: {
-                                      normal: {
-                                          color: node.color
-                                      }
-                                  }
-                              };
-                          }),
-                          edges: json.edges.map(function (edge) {
-                              return {
-                                  source: edge.sourceID,
-                                  target: edge.targetID
-                              };
-                          }),
-                          label: {
-                              emphasis: {
-                                  position: 'right',
-                                  show: true
-                              }
-                          },
-                          roam: true,
-                          focusNodeAdjacency: true,
-                          lineStyle: {
-                              normal: {
-                                  width: 0.5,
-                                  curveness: 0.3,
-                                  opacity: 0.7
-                              }
-                          }
-                      }
-                  ]
-              };
-                  myChart.setOption(option);
-          });
-        }
-       )
-        
-          
-  }
 
 
 
@@ -180,6 +59,157 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       async: false,
       success:callback
     });
+  },
+
+  Draw_network_pic:function(data){
+  	console.log('123455666');
+         require(  
+    [  
+        'echarts',  
+        'echarts/chart/force'  
+    ],  
+    function (ec) {  
+        // 基于准备好的dom，初始化echarts图表  
+        // myScatter = ec.init(document.getElementById('mainScatter'));   
+  
+      var myChart = echarts.init(document.getElementById('main_network'));
+      var ecConfig = require('echarts/config'); //放进require里的function{}里面
+    var zrEvent = require('zrender/tool/event');
+      var option = {
+          title : {
+              text: '人物关系：乔布斯',
+              subtext: '数据来自人立方',
+              x:'right',
+              y:'bottom'
+          },
+          tooltip : {
+              trigger: 'item',
+              formatter: '{a} : {b}'
+          },
+          toolbox: {
+              show : true,
+              feature : {
+                  restore : {show: true},
+                  magicType: {show: true, type: ['force', 'chord']},
+                  saveAsImage : {show: true}
+              }
+          },
+          // legend: {
+          //     x: 'left',
+          //     data:['家人','朋友']
+          // },
+          series : [
+              {
+                  type:'force',
+                  name : "人物关系",
+                  ribbonType: false,
+                  // categories : [
+                  //     {
+                  //         name: '人物'
+                  //     },
+                  //     {
+                  //         name: '家人'
+                  //     },
+                  //     {
+                  //         name:'朋友'
+                  //     }
+                  // ],
+                  itemStyle: {
+                      normal: {
+                          label: {
+                              show: true,
+                              textStyle: {
+                                  color: '#333'
+                              }
+                          },
+                          nodeStyle : {
+                              brushType : 'both',
+                              borderColor : 'rgba(255,215,0,0.4)',
+                              borderWidth : 1
+                          },
+                          linkStyle: {
+                              type: 'curve'
+                          }
+                      },
+                      emphasis: {
+                          label: {
+                              show: false
+                              // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                          },
+                          nodeStyle : {
+                              //r: 30
+                          },
+                          linkStyle : {}
+                      }
+                  },
+                  useWorker: false,
+                
+                  gravity: 1.1,
+                  scaling: 1.1,
+                  roam: 'move',
+                  nodes:[
+		                {name: '123', symbolSize: 100, label: '888乔布斯\n（主要）'},
+		                {name: '11111',symbolSize: 2},
+		                {name: '保罗-乔布斯',symbolSize: 3},
+		                {name: '克拉拉-乔布斯',symbolSize: 3},
+		                {name: '劳伦-鲍威尔',symbolSize: 7},
+		                {name: '史蒂夫-沃兹尼艾克',symbolSize: 5},
+		                {name: '奥巴马',symbolSize: 8},
+		                {name: '比尔-盖茨',symbolSize: 9},
+		                {name: '乔纳森-艾夫',symbolSize: 4},
+		                {name: '蒂姆-库克',symbolSize : 4},
+		                {name: '龙-韦恩',symbolSize : 1},
+		          ],
+		          links : [
+		                {source : '丽萨-乔布斯', target : '乔布斯', weight : 1},
+		                {source : '保罗-乔布斯', target : '乔布斯', weight : 2},
+		                {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1},
+		                {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
+		                {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3},
+		                {source : '奥巴马', target : '乔布斯', weight : 1},
+		                {source : '比尔-盖茨', target : '乔布斯', weight : 6},
+		                {source : '乔纳森-艾夫', target : '乔布斯', weight : 1},
+		                {source : '蒂姆-库克', target : '乔布斯', weight : 1},
+		                {source : '龙-韦恩', target : '乔布斯', weight : 1},
+		                {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
+		                {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
+		                {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
+		                {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
+		                {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
+		                {source : '比尔-盖茨', target : '奥巴马', weight : 6},
+		                {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
+		                {source : '蒂姆-库克', target : '奥巴马', weight : 1}
+		          ]
+        
+              }
+          ]
+      };
+      var ecConfig = require('echarts/config');
+      function focus(param) {
+          var data = param.data;
+          var links = option.series[0].links;
+          var nodes = option.series[0].nodes;
+          if (
+              data.source !== undefined
+              && data.target !== undefined
+          ) { //点击的是边
+              var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+              var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+              console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
+          } else { // 点击的是点
+              console.log("选中了" + data.name + '(' + data.value + ')');
+          }
+      }
+      myChart.on(ecConfig.EVENT.CLICK, focus)
+
+      myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+          console.log(myChart.chart.force.getPosition());
+      });
+           
+       myChart.setOption(option);           
+          
+    }  
+);  
   },
 
   Draw_trend_maker:function(data){
@@ -332,12 +362,12 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 
 topic_analysis_network = new topic_analysis_network();
 
-// function Draw_network_pic_result(){
-//   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-//   console.log(url);
-//   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
+function Draw_network_pic_result(){
+  url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+  console.log(url);
+  topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
 
-// }
+}
 
 function Draw_trend_maker_result(){
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
@@ -364,9 +394,9 @@ function Draw_blog_scan_area_network_result(){
 } 
 
 
-Draw_network_pic();
+// Draw_network_pic();
 
-// Draw_network_pic_result();
+//Draw_network_pic_result();
 // show_network();
 // Draw_trend_maker_result();
 // Draw_trend_pusher_result();

@@ -82,7 +82,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
     });
   },
 	Draw_geo_map:function(data){
-
+		console.log(data);
 	 	var item = data;
 	 	var item_json = [];
 	 	var item_province_json = [];
