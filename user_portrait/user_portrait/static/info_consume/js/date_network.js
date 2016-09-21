@@ -64,10 +64,10 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   Draw_network_pic:function(data){
   	console.log('123455666');
          require(  
-    [  
-        'echarts',  
-        'echarts/chart/force'  
-    ],  
+                [  
+                    'echarts',  
+                    'echarts/chart/force'  
+                ],  
     function (ec) {  
         // 基于准备好的dom，初始化echarts图表  
         // myScatter = ec.init(document.getElementById('mainScatter'));   
@@ -396,9 +396,9 @@ function Draw_blog_scan_area_network_result(){
 
 // Draw_network_pic();
 
-//Draw_network_pic_result();
+Draw_network_pic_result();
 // show_network();
-// Draw_trend_maker_result();
-// Draw_trend_pusher_result();
-// Draw_blog_scan_area_network_result();
+Draw_trend_maker_result();
+Draw_trend_pusher_result();
+Draw_blog_scan_area_network_result();
 
