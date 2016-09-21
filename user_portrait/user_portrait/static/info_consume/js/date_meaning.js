@@ -388,8 +388,8 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
 
-// Draw_keywords_cloud_result();
-// Draw_event_river_result();
-// Draw_time_line_result();
-// Draw_blog_opinion_result();
-// Draw_blog_scan_area_meaning_result();
+Draw_keywords_cloud_result();
+Draw_event_river_result();
+Draw_time_line_result();
+Draw_blog_opinion_result();
+Draw_blog_scan_area_meaning_result();
