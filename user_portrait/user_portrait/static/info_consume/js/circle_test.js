@@ -1,6 +1,6 @@
         //当前用户名
-          s_user = 'test';
-          g_name = 'name'; 
+        s_user = 'admin@qq.com';
+        g_name = '冯绍峰'; 
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
@@ -28,10 +28,11 @@
               }
             } 
  //获取群组名称
- //     function view_analysis(data){
- //       g_name = data;
- //     }
-                
+     function view_analysis(data){
+       g_name = data;
+       $("#circle-analysis").slideDown();
+       console.log(g_name);
+     }      
          $(function(){
               var current_user = 'admin@qq.com'; //获取
               var task_url = '/info_group/show_task/?submit_user='+current_user;
@@ -130,9 +131,6 @@
                       };
                     }
              });
-                     $(".view-analysis").click(function(){
-                          $("#circle-analysis").slideDown();
-                      });
                      $("#close-circle").click(function(){
                           $("#circle-analysis").slideUp();
                       });
