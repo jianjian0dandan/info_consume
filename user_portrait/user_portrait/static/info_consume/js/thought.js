@@ -22,6 +22,7 @@ Thought.prototype = {   //获取数据，重新画表
             $('#select_time').append(html0);
             var index = $('input[name="time-type"]:checked').val();
             var url_content = '/attribute/sentiment_weibo/?uid='+uid+'&start_ts='+times_init+'&time_type='+index+'&sentiment=0';
+            //console.log('url_content'+url_content);
             person_call_ajax_request(url_content,th_draw_content);
         }   
         $('#emotion_onload').css('display','none');
@@ -32,6 +33,7 @@ function choose_time(){
     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
     person_call_ajax_request(url, Thought.Draw_emotion);
     //$('#emotion').empty();
+    console.log('choose_time='+url);
   }
 function th_draw_content(data){
     var html = '';
@@ -134,6 +136,7 @@ function emotions(data){
                 }
                 else if(index == 'day'){var start_ts = starts_ts;}
                 ajax_url = '/attribute/sentiment_weibo/?uid='+uid+'&start_ts='+start_ts+'&time_type='+index+'&sentiment='+sentiment;
+                // console.log('ajax_url='+ajax_url);
                 $.ajax({
                       url: ajax_url,
                       type: 'GET',
@@ -152,9 +155,10 @@ function emotions(data){
     )
 }
 
-function thought_load(){
-    var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
-    person_call_ajax_request(url, Thought.Draw_emotion);
-}
+// function thought_load(){
+//     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
+//     person_call_ajax_request(url, Thought.Draw_emotion);
+//     console.log('thought_load'+url);
+// }
 var Thought = new Thought();
 var index = $('input[name="time-type"]:checked').val();

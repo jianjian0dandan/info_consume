@@ -15,46 +15,39 @@ function call_sync_ajax_request(url, method, callback){
  // console.log(prefrence_url);
   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
+//zhazha
+// $(function() {
+//     $( '#dl-menu' ).dlmenu();
+//   });
+// $(".closeList").off("click").click(function(){
+//     $("#float-wrap").addClass("hidden");
+//     $("#more_keyWords").addClass("hidden");
+//     $("#more_hashtagWords").addClass("hidden");
+//     $("#more_senWords").addClass("hidden");
+//     $("#more_topic").addClass("hidden");
+//     return false;
+//   });
 
-$(function() {
-    $( '#dl-menu' ).dlmenu();
-  });
-$(".closeList").off("click").click(function(){
-    $("#float-wrap").addClass("hidden");
-    $("#more_keyWords").addClass("hidden");
-    $("#more_hashtagWords").addClass("hidden");
-    $("#more_senWords").addClass("hidden");
-    $("#more_topic").addClass("hidden");
-    return false;
-  });
-
-$("#showmore_keyWords").off("click").click(function(){
-    $("#float-wrap").removeClass("hidden");
-    $("#more_keyWords").removeClass("hidden");
-    return false;
-  });
-$("#showmore_topic").off("click").click(function(){
-    $("#float-wrap").removeClass("hidden");
-    $("#more_topic").removeClass("hidden");
-    return false;
-  });
-$("#showmore_hashtagWords").off("click").click(function(){
-        $("#float-wrap").removeClass("hidden");
-        $("#more_hashtagWords").removeClass("hidden");
-        return false;
-    });
-$("#showsen_keyWords").off("click").click(function(){
-        $("#float-wrap").removeClass("hidden");
-        $("#more_senWords").removeClass("hidden");
-        return false;
-    });
-
-function show_conclusion(data){
-  var html = '';
-  html += '<span class="fleft" style="margin-right:10px;width:32px;height:32px;background-image:url(/static/img/warning.png);margin-top:5px;display:black;"></span>';
-  html += '<h4>'+data[0]+'<span style="color:red;">'+data[1]+'</span>，'+data[2]+'<span style="color:red;">'+data[3]+'</span>。</h4>';
-  $("#preference_conclusion").append(html);
-}
+// $("#showmore_keyWords").off("click").click(function(){
+//     $("#float-wrap").removeClass("hidden");
+//     $("#more_keyWords").removeClass("hidden");
+//     return false;
+//   });
+// $("#showmore_topic").off("click").click(function(){
+//     $("#float-wrap").removeClass("hidden");
+//     $("#more_topic").removeClass("hidden");
+//     return false;
+//   });
+// $("#showmore_hashtagWords").off("click").click(function(){
+//         $("#float-wrap").removeClass("hidden");
+//         $("#more_hashtagWords").removeClass("hidden");
+//         return false;
+//     });
+// $("#showsen_keyWords").off("click").click(function(){
+//         $("#float-wrap").removeClass("hidden");
+//         $("#more_senWords").removeClass("hidden");
+//         return false;
+//     });
 
 function createRandomItemStyle() {
     return {
@@ -136,6 +129,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
                 return res;
                 }
               },
+              
               series: [{
                   type: 'wordCloud',
                   size: ['100%', '100%'],
@@ -211,10 +205,10 @@ function show_results(data){
 
   Draw_keyword(keywordsCloud, keywords_name, keywords_more, key_more,'关键词');
   Draw_keyword(hashtag, hashtag_name, hashtag_more, hash_more,'微话题');
-  //show_conclusion(conclusion);
+  // show_conclusion(conclusion);
 
   var tag_vector = data.tag_vector;
-  //console.log(tag_vector);
+  //console.log(tag_vector);  
   for(var i=0; i<tag_vector.length;i++){
     if(tag_vector[i][1] == ''){
       tag_vector[i][1] = '暂无数据'

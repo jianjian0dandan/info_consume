@@ -235,28 +235,38 @@
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
         </div>
         <div class="panel-body">
-
-          <!-- <h1>昨日影响力排名：</h1>
-          <h1>No.95/1939万</h1>
-          <p>你的影响力距红人榜还差:</p><p>39.5分</p>
-          <p>快快加油哦~</p>
-          <div id="any_influ" style="width:100%;height:50%;">
-            <img src="/static/info_consume/image/icon_inf.png" width="50px" height="50px">
-            <h3>我的影响力分析</h3> 
-            <img src="/static/info_consume/image/qmark.png" width="50px" height="50px">
-            <h3>了解如何提升</h3> 
-            <hr>
-          </div> -->
+          <!-- 影响力曲线 -->
           <div id="influ_chart" class ="framepost" style="float:left;">
-            <img src="/static/info_consume/image/icon_trend.png" width="50px" height="50px" style="float:left;">
-            <span class="title" style="float:left;font-size:16px;font-weight:bolder;" >影响力走势图</span> 
+             <img src="/static/info_consume/image/icon_trend.png" width="30px" height="30px" style="float:left;">
+             <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >影响力走势图</span> 
               <div  class="entry">
-                <div id="mychoice" style="font-size:16px;z-index:100;float:left;background-color:white;">
-                 <input name="choose_module" type="radio" checked="checked" value=1>近7天
-                 <input style="margin-left:20px;" name="choose_module" type="radio" value=2>近30天
+                <div id="mychoice" style="width:50%;font-size:16px;background-color:white;margin-top:40px;margin-left: 30px;z-index:80;position:relative;">
+                  <span style="float:left;">时间范围：</span>
+                    <label class="demo--label">
+                      <li style="float:left;margin-left:5px;background-color:transparent;z-index:150;">
+                        <input class="demo--radio" type="radio" name="choose_module" value=1 checked="checked" >
+                        <span class="mode demo--radioInput" style="font-weight:normal !important;"></span>近7天
+                      </li>
+                    </label>
+
+                    <label class="demo--label">
+                      <li style="float:left;margin-left:5px;background-color:transparent;z-index:150;">
+                        <input class="demo--radio" type="radio" name="choose_module" value=2>
+                        <span class="mode demo--radioInput" style="font-weight:normal !important;"></span>近30天
+                      </li>
+                    </label>
+
                 </div>
-                <div id="influence_chart" style="float:left;height:230px;width:730px;margin-top:10px;margin-left:-20%;"></div>
+                <div id="influence_chart" style="float:left;height:230px;width:730px;margin-top:-5%;margin-left:10%;"></div>
               </div>
+          </div>
+          <!-- 影响力排序表格 -->
+          <div style="width:100%;border:1px solid;margin-top:270px;">
+            <!-- 领域排名-全网 -->
+            <div> 
+              <table id="influ_all"></table>
+              <table id="influ_domain"></table>
+            </div>  
           </div>
         </div>
       </div>
@@ -431,13 +441,13 @@
 
   <!--End js-->
 {% block Own_js %}
-<script type="text/javascript" src="/static/info_consume/js/person_detail_show.js"></script>
+<!-- <script type="text/javascript" src="/static/info_consume/js/person_detail_show.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/preference.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/language.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/language.js"></script> -->
 <script type="text/javascript" src="/static/info_consume/js/influence.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
+<!-- <script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/map.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/thought.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/thought.js"></script> -->
 <script type="text/javascript">//微博展示
 function homepageinfo() {
   this.ajax_method = 'GET';
