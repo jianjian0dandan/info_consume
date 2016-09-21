@@ -152,8 +152,21 @@
                      <div id="senti-trend" style="width:820px;height:400px;float:left;"></div>
                      <div id="senti-weibo" style="background-color:#eeeeee;width:700px;height:300px;float:left;margin-left:30px;padding-right:20px;">
                      <div id='group_select_time' style="color:#3F51B5;font-weight:bold;margin-top:2px;margin-left:10px;font-size:13px;"></div>
-                     <div id="group_emotion_loading" style="display:block">正在加载，请稍后...</div>
-                     <div id="group_weibo_text" style="margin-top:5px;margin-left:10px;"></div>
+                     <div id="group_emotion_loading" style="display:block;margin-left:10px;">正在加载，请稍后...</div>
+                   <!--  <div id="group_weibo_text" style="margin-top:5px;margin-left:10px;">
+                     </div>-->
+                     <table id="input-table" class="In-table" style="margin-left:10px;"></table>
+                     <div style="position:absolute;top: 720px;left: 155px;">
+                      <span style="float:left;">每页显示<input type="text" id="PageNo" size="3" value="3"/>行</span>
+                      <div id="div-button" style="float:left;margin-left:5px;">
+                      <input type="button" value="首页" id="F-page">
+                      <input type="button" value="下一页" id="Nex-page">
+                      <input type="button" value="上一页" id="Pre-page">
+                      <input type="button" value="尾页" id="L-page">
+                      </div>
+                      <span style="float:left;">&nbsp;当前第<span id="s2"></span>页</span>
+                      <span style="float:left;">总共<span id="s1"></span>页</span>
+                      </div>
                     </div>
                   </div>
                 </div>
