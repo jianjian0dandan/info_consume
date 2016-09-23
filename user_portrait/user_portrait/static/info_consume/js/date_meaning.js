@@ -49,6 +49,19 @@ case 12:
 var date = month+' '+year
 
 
+
+function set_order_type(type){
+  if(type=='time'){
+    sort_item = 'timestamp';
+    Draw_blog_scan_area_order_result();
+
+  }else if(type=='hot'){
+    sort_item = 'retweeted';
+    Draw_blog_scan_area_order_result();
+  }
+}
+
+
 function topic_analysis_meaning(){
  
 }
@@ -262,6 +275,7 @@ Draw_time_line:function(data){
 
 
 Draw_blog_opinion:function(data){
+    $('#opinion').empty();
     var item = data;
     var opinion = [];
     var html = '';
@@ -285,6 +299,7 @@ Draw_blog_opinion:function(data){
 
 
 Draw_blog_scan_area_meaning:function(data){
+    $('#blog_scan_area_meaning').empty();
     var item = data;
     var html = '';
     //var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
@@ -388,8 +403,8 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
 
-// Draw_keywords_cloud_result();
-// Draw_event_river_result();
-// Draw_time_line_result();
-// Draw_blog_opinion_result();
-// Draw_blog_scan_area_meaning_result();
+Draw_keywords_cloud_result();
+Draw_event_river_result();
+Draw_time_line_result();
+Draw_blog_opinion_result();
+Draw_blog_scan_area_meaning_result();

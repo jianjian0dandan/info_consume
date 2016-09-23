@@ -63,8 +63,17 @@ var province = '陕西';
 //应该直接排序，然后再取前十名，不应该求最大值，然后将其删除再取最大值。
 
 
- 
 
+function set_order_type(type){
+	if(type=='time'){
+		sort_item = 'timestamp';
+		Draw_blog_scan_area_order_result();
+
+	}else if(type=='hot'){
+		sort_item = 'retweeted';
+		Draw_blog_scan_area_order_result();
+	}
+}
 
 
 function topic_analysis_place(){
@@ -82,7 +91,6 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
     });
   },
 	Draw_geo_map:function(data){
-
 	 	var item = data;
 	 	var item_json = [];
 	 	var item_province_json = [];
@@ -262,10 +270,10 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 
 
 	Draw_blog_scan_area_place: function(data){
-
+		$('#blog_scan_area_place').empty();
   	//$('#blog_scan_area_time').empty();
      var item = data;
-	var html = '';
+	 var html = '';
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
