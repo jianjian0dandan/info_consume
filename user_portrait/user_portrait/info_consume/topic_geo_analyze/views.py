@@ -62,6 +62,7 @@ def weibo_content():
     start_ts = request.args.get('start_ts', '')
     start_ts = long(start_ts)
     province = request.args.get('province','')
-    weibo_content = get_weibo_content(topic,start_ts,end_ts,province)
+    sort_item = request.args.get('sort_item','timestamp')
+    weibo_content = get_weibo_content(topic,start_ts,end_ts,province,sort_item)
     return json.dumps(weibo_content)
 
