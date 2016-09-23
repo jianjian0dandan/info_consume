@@ -39,8 +39,10 @@ def sen_weibo_content():
     start_ts = request.args.get('start_ts', '')
     start_ts = long(start_ts)
     sort_item = request.args.get('sort_item','timestamp')
+    sen = request.args.get('sen',0)
+    sen = int(sen)
     #weibo_count = all_weibo_count(topic,start_ts,end_ts)
-    results = get_weibo_content(topic,start_ts,end_ts,sort_item)
+    results = get_weibo_content(topic,start_ts,end_ts,sort_item,sen)
     print results
     return json.dumps(results)
 

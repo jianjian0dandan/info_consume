@@ -145,11 +145,12 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
     #print results
     return results
 
-def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp'):
+def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp',sen=0):
     #按时间、转发量、情绪类型  对微博排序
     items = db.session.query(SentimentWeibos).filter(SentimentWeibos.end>start_ts, \
                                                     SentimentWeibos.end<=end_ts, \
-                                                    SentimentWeibos.query==topic).all()
+                                                    SentimentWeibos.query==topic,\
+                                                    SentimentWeibos.sentiment==sen).all()
     weibo_dict = {}
     for item in items:          
         weibos = _json_loads(item.weibos)
