@@ -5,16 +5,19 @@
 
 var topic = 'aoyunhui';
 var start_ts = 1468426500;
-var end_ts = 1468442700;
-// var end_ts = 1468459800;
+// var end_ts = 1468442700;
+var end_ts = 1468459800;
 var pointInterval = 3600;
 var sort_item = 'timestamp';
 
-
-var topic = $('#topic_text').text();
+// var topic = $('#topic_text').text();
 //var start_ts = set_timestamp().start_timestamp_return; 
 //var end_ts = set_timestamp().end_timestamp_return;
 var start_ts,end_ts,pointInterval;
+
+var no_page = 0;
+var blog_num_max_global = 0;
+
 
 function set_timestamp(){
 	var start_time_new = get_timestamp().start_return;
@@ -58,9 +61,9 @@ function datetime_to_timestamp(datetime) {
 
 function get_per_time(val) {
 	pointInterval = val;
-	set_timestamp();
+	console.log(pointInterval);
+	// set_timestamp();
 	Draw_time_trend_line_result();
-
 }
 
 
@@ -98,6 +101,54 @@ function set_order_type(type){
 // // return y+'-'+add0(m)+'-'+add0(d);
 // }
 
+//上一页
+function up(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     var pageno=no_page;
+     if(pageno==0){
+         alert("当前已经是第一页!");
+         return false;
+     }
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_order_result();
+     no_page-=1;
+}
+//下一页
+function down(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+     var pageno=no_page;
+     if(pageno==9){
+         alert("当前已经是最后一页!");
+         return false;
+     }
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_order_result();
+     no_page+=1;
+}
+
+function first(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     var pageno=0;
+
+     no_page=0;
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_order_result();
+
+}
+//下一页
+function last(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+     var pageno=Math.ceil(blog_num_max_global/10);
+     
+     /*这里在将当前页数赋值到页面做显示标志*/
+     // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
+     Draw_blog_scan_area_order_result();
+}
+
 
 function topic_analysis_time(){
  
@@ -118,21 +169,24 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 
   Draw_time_trend_line: function(data){
  	
+ 	var item = data;
  	var x_item = [];
  	var y_item_origin = [];
 	var y_item_forwarding = [];
 	var y_item_comment = [];
- 	for (var key in data){
+	
+ 	for (var key in item){
  		//console.log(key);
 		//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
 		key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		// key_datetime = format(parseInt(key).formate_data);
 		//console.log(key_datetime);
 		x_item.push(key_datetime);	
-		y_item_origin.push(data[key][1]);
-		y_item_forwarding.push(data[key][2]);
-		y_item_comment.push(data[key][3]);
+		y_item_origin.push(item[key]['1']);
+		y_item_forwarding.push(item[key]['2']);
+		y_item_comment.push(item[key]['3']);
 	}
+
 
  	var myChart = echarts.init(document.getElementById('main_time'));
 	//Chart.showLoading({text: '正在努力的读取数据中...'  });
@@ -228,81 +282,79 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
   },
 
   Draw_blog_scan_area: function(data){
-
-  	//$('#blog_scan_area_time').empty();
+  	// $('#blog_time').empty();
+  	// $('#blog_time').remove();
+  	$('#blog_scan_area_time').empty();
+  	// document.getElementById("blog_time").parentNode.removeChild(document.getElementById("blog_time"));
     var item = data;
 	var html = '';
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
 		
-		if (item.length == 0){
-		html += '<div style="color:grey;">暂无数据</div>'
-		}else{
-			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-		
-			for (i=0;i < Math.min(10,item.length);i++){
-	
-				if (item[i][1].photo_url=='unknown'){
-					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
-				}
-				if (item[i][1].uname=='unknown'){
-					item[i][1].uname='未知用户'
-					//console.log(item[i][1].uname);
-				}
-				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-				// var item_timestamp_datetime = format(parseInt(item[i][1].timestamp).formate_data_time);
-				html += '<div class="blog_time">';
-				//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
-				html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
-				html +=	'<div>';
-				//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
-				html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
-				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
-				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
-				html += '</div>';
-				html += '<div class="blog_text">'
-				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
-				html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
-				html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
-				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
-				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-				html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
-				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
-				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
-				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-				html += '</p>';
-				html += '</div>';							 	
-				html += '</div>';
-			// }
-			}
+	var blog_num_max_local = Math.min(100,item.length);
+	blog_num_max_global = blog_num_max_local;
+	if (!item){
+	html += '<div style="color:grey;width: 100px;height: 200px;">暂无数据</div>'
+	}else{
+		var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
+		var item_i = no_page*10;
+		var max_i = item_i+Math.min(10,blog_num_max_local-item_i);
+		for (i=item_i; i<max_i; i++){
 
-			html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-		    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span id="S_First" class="disabled" >首页</span>'
-		    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
-		    html += '<span id="S_navi"><!--页号导航--></span>'
-		    html += '<span id="S_Next"  class="disabled" >下一页</span>'
-		    html += '<span id="S_Last"  class="disabled" >末页</span>'
-		    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-		    html += '<span id="P_GO" >GO</span>'
-			html += '</div>'
-		
+			if (item[i][1].photo_url=='unknown'){
+				item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
+			}
+			if (item[i][1].uname=='unknown'){
+				item[i][1].uname='未知用户'
+				//console.log(item[i][1].uname);
+			}
+			var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+			// var item_timestamp_datetime = format(parseInt(item[i][1].timestamp).formate_data_time);
+			
+			html += '<div class="blog_time" id="blog_time">';
+			//html += '<div><img class="img-circle" src="../../static/info_consume/image/cctv_news.jpg" style="width: 40px;height: 40px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
+			html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
+			html +=	'<div>';
+			//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
+			html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
+			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
+			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
+			html += '</div>';
+			html += '<div class="blog_text">'
+			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
+			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
+			html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
+			//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
+			//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
+			html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
+			//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
+			html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+			//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
+			html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+			//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+			html += '</p>';
+			html += '</div>';							 	
+			html += '</div>';
+		// }
 		}
-		// html += '<ul class="pagination">'
-		// html += '<li><a href="#">&laquo;</a></li>';
-		// html += '<li class="active"><a href="#">1</a></li>';
-		// html += '<li><a href="#">2</a></li>';
-		// html += '<li><a href="#">3</a></li>';
-		// html += '<li><a href="#">4</a></li>';
-		// html += '<li><a href="#">5</a></li>';
-		// html += '<li><a href="#">&raquo;</a></li>';
-		// html += '</ul>';
-		$('#blog_scan_area_time').append(html);
+
+		
+		html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+	    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	    html += '<span id="S_First" class="disabled" onclick="first()">首页</span>'
+	    html += '<span id="S_Prev"  class="disabled" onclick="up()">上一页</span>'
+	    html += '<span id="S_navi"><!--页号导航--></span>'
+	    html += '<span id="S_Next"  class="disabled" onclick="up()">下一页</span>'
+	    html += '<span id="S_Last"  class="disabled" onclick="last()">末页</span>'
+	    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+	    html += '<span id="P_GO" >GO</span>'
+		html += '</div>'
+	}
+	
+	$('#blog_scan_area_time').append(html);
 		
 		
 	

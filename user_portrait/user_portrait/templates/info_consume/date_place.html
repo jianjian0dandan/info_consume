@@ -53,15 +53,15 @@
 		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 	</div>
 
-	<div id="blog_scan_area_place">
+	<div id="blog_scan_area_place_top">
 		<div id="blog_scan_title_line2_place"></div>
 		<div id="blog_scan_title_line3_place"></div>
 		<p id="blog_scan_title2_place">排序方式：</p>
 		<div class="btn-group" data-toggle="buttons" id="btn_radio_place">
-   			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+   			<label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type('time')">
      			<input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
    			</label>
-   			<label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+   			<label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type('hot')">
       			<input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
    			</label>
 		</div>
@@ -105,6 +105,10 @@
 		</div>
 
 		<div class="halving_line3"></div>
+</div>
+
+	<div id="blog_scan_area_place">
+		
 		<!-- 见date_place.js文件 -->
 
 	</div>

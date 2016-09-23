@@ -42,8 +42,16 @@ function get_trend_type(val) {
  }
 
 
+function set_order_type(type){
+  if(type=='time'){
+    sort_item = 'timestamp';
+    Draw_blog_scan_area_order_result();
 
-
+  }else if(type=='hot'){
+    sort_item = 'retweeted';
+    Draw_blog_scan_area_order_result();
+  }
+}
 
 
 function topic_analysis_network(){
@@ -62,7 +70,12 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   },
 
   Draw_network_pic:function(data){
-  	console.log('123455666');
+    var item = data;
+    var nodes_new = [];
+    for(i=0;i<item['nodes'].length;i++){
+      nodes_new.push({name:item['nodes'][i]['name'],symbolSize:item['nodes'][i]['symbolSize']});
+    }
+
          require(  
                 [  
                     'echarts',  
@@ -74,11 +87,11 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   
       var myChart = echarts.init(document.getElementById('main_network'));
       var ecConfig = require('echarts/config'); //放进require里的function{}里面
-    var zrEvent = require('zrender/tool/event');
+      var zrEvent = require('zrender/tool/event');
       var option = {
           title : {
-              text: '人物关系：乔布斯',
-              subtext: '数据来自人立方',
+              // text: '人物关系：乔布斯',
+              // subtext: '数据来自人立方',
               x:'right',
               y:'bottom'
           },
@@ -147,39 +160,9 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
                   gravity: 1.1,
                   scaling: 1.1,
                   roam: 'move',
-                  nodes:[
-		                {name: '123', symbolSize: 100, label: '888乔布斯\n（主要）'},
-		                {name: '11111',symbolSize: 2},
-		                {name: '保罗-乔布斯',symbolSize: 3},
-		                {name: '克拉拉-乔布斯',symbolSize: 3},
-		                {name: '劳伦-鲍威尔',symbolSize: 7},
-		                {name: '史蒂夫-沃兹尼艾克',symbolSize: 5},
-		                {name: '奥巴马',symbolSize: 8},
-		                {name: '比尔-盖茨',symbolSize: 9},
-		                {name: '乔纳森-艾夫',symbolSize: 4},
-		                {name: '蒂姆-库克',symbolSize : 4},
-		                {name: '龙-韦恩',symbolSize : 1},
-		          ],
-		          links : [
-		                {source : '丽萨-乔布斯', target : '乔布斯', weight : 1},
-		                {source : '保罗-乔布斯', target : '乔布斯', weight : 2},
-		                {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1},
-		                {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
-		                {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3},
-		                {source : '奥巴马', target : '乔布斯', weight : 1},
-		                {source : '比尔-盖茨', target : '乔布斯', weight : 6},
-		                {source : '乔纳森-艾夫', target : '乔布斯', weight : 1},
-		                {source : '蒂姆-库克', target : '乔布斯', weight : 1},
-		                {source : '龙-韦恩', target : '乔布斯', weight : 1},
-		                {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-		                {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-		                {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-		                {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-		                {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-		                {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-		                {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-		                {source : '蒂姆-库克', target : '奥巴马', weight : 1}
-		          ]
+                  // nodes:item['nodes'],
+                  nodes:nodes_new,
+		              links:item['links']
         
               }
           ]
@@ -202,9 +185,9 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       }
       myChart.on(ecConfig.EVENT.CLICK, focus)
 
-      myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
-          console.log(myChart.chart.force.getPosition());
-      });
+      // myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+      //     console.log(myChart.chart.force.getPosition());
+      // });
            
        myChart.setOption(option);           
           
@@ -217,10 +200,8 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     var html = '';
     // console.log(item.length);
     html += '<table id="table_photo">';
-    for(i=0;i<Math.min(65,item.length);i=i+5){
-  
-  
-      
+    for(i=0;i<Math.min(30,item.length);i=i+5){
+      console.log('mmm')
       html += '<tr>';
       for(j=0;j<5;j++){
         var k=i+j;
@@ -230,7 +211,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         var item_timestamp_datetime = new Date(parseInt(item[k].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         // html += '<td><img title=用户昵称：' +item[k].name+'<br/>粉丝数：'+item[k].fans+'<br/>发布时间：'+item[k].+'style="width:40px;height:40px" class="photo_user" src='+item[k].photo+'/><td>';
         
-        html += '<td><img style="width:40px;height:40px" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
+        html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
         // html += '<td><img id="photo_user" style="width:40px;height:40px" onmouseover="showInfoCard('${id}')" class="photo_user" src='+item[k].photo+'/><td>';
         // html += '<td><img style="width:40px;height:40px" '+item[k].name+' class="photo_user" src='+item[k].photo+'/><td>';
         // html += '<div id="divInfo" style="visibility:hidden;">';
@@ -293,6 +274,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   },
 
   Draw_blog_scan_area_network:function(data){
+    $('#blog_scan_area_network').empty();
     var item = data;
     var html = '';
     
@@ -399,6 +381,6 @@ function Draw_blog_scan_area_network_result(){
 Draw_network_pic_result();
 // show_network();
 Draw_trend_maker_result();
-Draw_trend_pusher_result();
+// Draw_trend_pusher_result();
 Draw_blog_scan_area_network_result();
 

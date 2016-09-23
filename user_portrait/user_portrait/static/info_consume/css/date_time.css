@@ -156,6 +156,7 @@ position: absolute;
 	margin-left: 0%;
 	margin-top: 5.2%;
 	float: left;
+	z-index: 99999;
 }
 
 #per_time {
@@ -247,14 +248,28 @@ position: absolute;
 	margin-top: 1%;
 }
 
+#blog_scan_area_time_top{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: -12.5%;
+    margin-top: 5%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
+}
+
 #blog_scan_area_time {
 
 	background-color: #E4E4E4;
     width: 60%;
     height: 1000px;
     position: relative;
-    margin-left: -12.5%;
-    margin-top: 5%;
+    margin-left: 20.1%;
+    margin-top: 0%;
     margin-bottom: 10%;
     display: table;
     /* overflow: hidden; */
@@ -522,7 +537,17 @@ position: absolute;
 	height: 1px;
 	position: relative;
 	margin-left: 2%;
-	margin-top: 0%;
+	margin-top: 1%;
+	float: left;
+}
+
+.halving_line4 {
+	background-color: #FFFFFF;
+	width: 96%;
+	height: 1px;
+	position: relative;
+	margin-left: 2%;
+	margin-top: 1%;
 	float: left;
 }
 
@@ -532,7 +557,7 @@ position: absolute;
 	height: 4.5%;
 	position: relative;
 	margin-left: 2.6%;
-	margin-top: 1%;
+	margin-top: 0.8%;
 	float: left;
 }
 
@@ -725,13 +750,28 @@ div.pager span.disabled {
 	float: left;
 }*/
 
+
+#blog_scan_area_place_top{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: -12.5%;
+    margin-top: 5%;
+    display: table;
+    overflow: hidden;
+    height: auto;
+    float: left;
+}
+
+
 #blog_scan_area_place {
 	background-color: #E4E4E4;
     width: 60%;
     height: 1050px;
     position: relative;
-    margin-left: -12.5%;
-    margin-top: 5%;
+    margin-left: 20.1%;
+    margin-top: 0%;
     margin-bottom: 10%;
     display: table;
     height: auto;
@@ -1033,23 +1073,48 @@ background-color:#FFFFFF;
 	float: left;
 }
 
+#users {
+	background-color: #E4E4E4;
+	width: 95%;
+	height: 2.5%;
+	position: relative;
+	margin-left: 5%;
+	margin-top: 3%;
+	float: left;
+}
+
+
 #networks {
 	background-color: #E4E4E4;
 	width: 95%;
 	height: 2.5%;
 	position: relative;
 	margin-left: 2.6%;
-	margin-top: 1%;
+	margin-top: 0.8%;
 	float: left;
 }
+
+#blog_scan_area_network_top{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: -12.5%;
+    margin-top: 5%;
+    display: table;
+    overflow: hidden;
+    height: auto;
+    float: left;
+}
+
 
 #blog_scan_area_network {
 	background-color: #E4E4E4;
 	width:60%;
 	height:1000px;
 	position: relative;
-	margin-left: 20%;
-	margin-top: 5%;
+	margin-left: 20.1%;
+	margin-top: 0%;
 	margin-bottom: 10%;
 	display:table;
 	height:auto;
@@ -1086,6 +1151,20 @@ background-color:#FFFFFF;
 }
 
 
+#blog_scan_area_emotion_top{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: -12.5%;
+    margin-top: 5%;
+    display: table;
+    overflow: hidden;
+    height: auto;
+    float: left;
+}
+
+
 #emotions {
 	background-color: #E4E4E4;
 	width: 95%;
@@ -1096,13 +1175,16 @@ background-color:#FFFFFF;
 	float: left;
 }
 
+
+
+
 #blog_scan_area_emotion {
 	background-color: #E4E4E4;
 	width:60%;
 	height:1020px;
 	position: relative;
-	margin-left: -12.5%;
-	margin-top: 5%;
+	margin-left: 20.1%;
+	margin-top: 0%;
 	margin-bottom: 10%;
 	display:table;
 	height:auto;
@@ -1182,13 +1264,26 @@ background-color:#FFFFFF;
 }
 
 
+#blog_scan_area_meaning_top{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: -12.5%;
+    margin-top: 5%;
+    display: table;
+    overflow: hidden;
+    height: auto;
+    float: left;
+}
+
 #blog_scan_area_meaning {
 	background-color: #E4E4E4;
 	width: 60%;
 	height: 1050px;
 	position: relative;
-	margin-left: 20%;
-	margin-top: 1%;
+	margin-left: 20.1%;
+	margin-top: 0%;
 	margin-bottom: 10%;
 	display:table;
 	height: auto;

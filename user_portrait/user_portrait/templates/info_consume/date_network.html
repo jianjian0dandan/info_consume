@@ -9,228 +9,10 @@
 <!-- 引入微博用户转发网 -->
 <div id="main_network_bigger">
 	<div id="main_network" >
-		<!-- <div class="control-pane">
-	        <a id="filter_controller" status="closed" href="javascript:void(0);" class="btn btn-danger" style="width: 80px;background-color: #00CC66;border-color: #00CC66;height: 40px;"><h5 style="margin-top: 5px;">过滤器<span class="glyphicon glyphicon-chevron-down"></span></h5></a>
-	        <div id="filter_controller_div" style="display: none;">
-	            <div>
-	                指标类别
-	                <select id="zhibiao-category">
-	                    <option value="degree" selected>度</option>
-	                    <option value="pagerank">PR值</option>
-	                </select>
-	            </div>
-	            <div id="min_degree_container">
-	              最小度&nbsp;&nbsp;<span id="min-degree-val">0</span><br>
-	              <input id="min-degree" type="range" min="0" value="0"> <span id="max-degree-value">0</span>
-	            </div>
-	            <div id="min_pagerank_container" class="hidden">
-	              最小PR值&nbsp;&nbsp;<span id="min-pagerank-val">0</span>e-8<br>
-	              <input id="min-pagerank" type="range" min="0" value="0"> <span id="max-pagerank-value">0</span>e-8
-	            </div>
-	            <div>
-	              节点类别
-	              <select id="node-category">
-	                <option value="" selected>所有类别</option>
-	              </select>
-	            </div>
-	            <span class="line"></span>
-	            <div>
-	              <button id="reset-btn">重置过滤器</button>
-	            </div>
-	        </div>
-    	</div>
-
-    	<div id="network" class="collapse out" style="position: relative;">
-            <div class="sigma-expand" id="sigma-graph"></div>
-            <div id="control-pane-rightdown">
-                <h4 class="underline">节点信息</h4>
-                <div>
-                    用户昵称: <span id="nickname"></span>&nbsp;&nbsp;
-                </div>
-                <div>
-                用户所在地: <span id="location"></span>
-                </div>
-                <div>
-                用户PR值: <span id="pagerank"></span>
-                </div>
-            </div>
-        </div> -->
+	
 	</div>
 
 
-	<!-- <script type="text/javascript">
-
-	require(  
-    [  
-        'echarts',  
-        'echarts/chart/force'  
-    ],  
-    function (ec) {  
-        // 基于准备好的dom，初始化echarts图表  
-        // myScatter = ec.init(document.getElementById('mainScatter'));   
-  
-      var myChart = echarts.init(document.getElementById('main_network'));
-      var ecConfig = require('echarts/config'); //放进require里的function{}里面
-	  var zrEvent = require('zrender/tool/event');
-      var option = {
-          title : {
-              text: '人物关系：乔布斯',
-              subtext: '数据来自人立方',
-              x:'right',
-              y:'bottom'
-          },
-          tooltip : {
-              trigger: 'item',
-              formatter: '{a} : {b}'
-          },
-          toolbox: {
-              show : true,
-              feature : {
-                  restore : {show: true},
-                  magicType: {show: true, type: ['force', 'chord']},
-                  saveAsImage : {show: true}
-              }
-          },
-          legend: {
-              x: 'left',
-              data:['家人','朋友']
-          },
-          series : [
-              {
-                  type:'force',
-                  name : "人物关系",
-                  ribbonType: false,
-                  categories : [
-                      {
-                          name: '人物'
-                      },
-                      {
-                          name: '家人'
-                      },
-                      {
-                          name:'朋友'
-                      }
-                  ],
-                  itemStyle: {
-                      normal: {
-                          label: {
-                              show: true,
-                              textStyle: {
-                                  color: '#333'
-                              }
-                          },
-                          nodeStyle : {
-                              brushType : 'both',
-                              borderColor : 'rgba(255,215,0,0.4)',
-                              borderWidth : 1
-                          },
-                          linkStyle: {
-                              type: 'curve'
-                          }
-                      },
-                      emphasis: {
-                          label: {
-                              show: false
-                              // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
-                          },
-                          nodeStyle : {
-                              //r: 30
-                          },
-                          linkStyle : {}
-                      }
-                  },
-                  useWorker: false,
-                  
-                  gravity: 1.1,
-                  scaling: 1.1,
-                  roam: 'move',
-                  nodes:[
-                    {name: '0', symbolSize: 10,label: '乔布斯\n（主要）'},
-                    {name: '丽萨-乔布斯',symbolSize: 2,label: '乔布斯\n（主要）'},
-                    {name: '保罗-乔布斯',symbolSize: 3,label: '乔布斯\n（主要）'},
-                    {name: '克拉拉-乔布斯',symbolSize: 3,label: '乔布斯\n（主要）'},
-                    {name: '劳伦-鲍威尔',symbolSize: 7,label: '乔布斯\n（主要）'},
-                    {name: '史蒂夫-沃兹尼艾克',symbolSize: 5,label: '乔布斯\n（主要）'},
-                    {name: '奥巴马',symbolSize: 8,label: '乔布斯\n（主要）'},
-                    {name: '比尔-盖茨',symbolSize: 9,label: '乔布斯\n（主要）'},
-                    {name: '乔纳森-艾夫',symbolSize: 4,label: '乔布斯\n（主要）'},
-                    {name: '蒂姆-库克',symbolSize : 4,label: '乔布斯\n（主要）'},
-                    {name: '龙-韦恩',symbolSize : 1,label: '乔布斯\n（主要）'},
-              ],
-              links : [
-                    {source : '丽萨-乔布斯', target : '0', weight : 1000},
-                    {source : '保罗-乔布斯', target : '0', weight : 2},
-                    {source : '克拉拉-乔布斯', target : '0', weight : 1},
-                    {source : '劳伦-鲍威尔', target : '0', weight : 2},
-                    {source : '史蒂夫-沃兹尼艾克', target : '0', weight : 3},
-                    {source : '奥巴马', target : '0', weight : 1},
-                    {source : '比尔-盖茨', target : '0', weight : 6},
-                    {source : '乔纳森-艾夫', target : '0', weight : 1},
-                    {source : '蒂姆-库克', target : '0', weight : 1},
-                    {source : '龙-韦恩', target : '0', weight : 1},
-                    {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-                    {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-                    {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-                    {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-                    {source : '蒂姆-库克', target : '奥巴马', weight : 1}
-              ]
-              }
-          ]
-      };
-      var ecConfig = require('echarts/config');
-      function focus(param) {
-          var data = param.data;
-          var links = option.series[0].links;
-          var nodes = option.series[0].nodes;
-          if (
-              data.source !== undefined
-              && data.target !== undefined
-          ) { //点击的是边
-              var sourceNode = nodes.filter(function (n) {
-                console.log(data.source);
-                return n.name == data.source})[0];
-              var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
-              console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
-          } else { // 点击的是点
-              console.log("选中了" + data.name + '(' + data.value + ')');
-          }
-      }
-      myChart.on(ecConfig.EVENT.CLICK, focus)
-
-      myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
-          console.log(myChart.chart.force.getPosition());
-      });
-           
-       myChart.setOption(option);           
-          
-    }  
-);  
-
-
-
-
-var item = [{'nodes':[
-              {name: '乔布斯', symbolSize: 10},
-              {name: '丽萨-乔布斯',symbolSize: 2},
-              {name: '保罗-乔布斯',symbolSize: 3},
-              {name: '克拉拉-乔布斯',symbolSize: 3},
-              {name: '劳伦-鲍威尔',symbolSize: 7},
-              
-        ]},
-        {'links':[
-              {source : '丽萨-乔布斯', target : '乔布斯'},
-              {source : '保罗-乔布斯', target : '乔布斯'},
-              {source : '克拉拉-乔布斯', target : '乔布斯'},
-              {source : '劳伦-鲍威尔', target : '乔布斯'}
-             
-        ]}]
-
-console.log(item);
-console.log(item[0]['nodes']);
-	</script> -->
 
 	<div id="left_line_right_network"></div>
 	<div id="right_col_network">
@@ -238,11 +20,25 @@ console.log(item[0]['nodes']);
 			<div id="right_col_title_1_network_blue"></div>
 			<div id="right_col_title_1_network_green"></div>
 			<img id="img_person" src="../../static/info_consume/image/person.png">
-			<span id="trend_maker" onclick="get_trend_type('maker')">&nbsp;发起者&nbsp;|</span>
-			<span id="trend_pusher" onclick="get_trend_type('pusher')">&nbsp;推动者</span>
+			<span id="trend_maker" onclick="get_trend_type('maker')">重要微博用户</span>
+			<!-- <span id="trend_pusher" onclick="get_trend_type('pusher')">&nbsp;推动者</span> -->
+      
+		     <!--  <div class="btn-group" data-toggle="buttons">
+		       <label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="get_trend_type('maker')">
+		         <input type="radio" name="options" id="trend_maker" onClick="changecolor(this)">&nbsp;发起者&nbsp;|
+		       </label>
+		       <label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="get_trend_type('pusher')">
+		          <input type="radio" name="options" id="trend_pusher" onClick="changecolor(this)"> &nbsp;推动者
+		       </label>
+		  	  </div> -->
 		</div>
 		<div id="right_col_title_2_network">
 			<!-- 用户头像 -->
+			<div id="users">
+			      <span class="label place_label" style="color: #868686;">发起者</span>
+			      <span class="label place_label" style="color: #868686;">推动者</span>
+			      <div class="halving_line4"></div>
+  			</div>
 			<div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;">
 				
 			</div>
@@ -275,27 +71,31 @@ console.log(item[0]['nodes']);
 	<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 </div>
 
+<div id="blog_scan_area_network_top">
+  <div id="blog_scan_title_line2_network"></div>
+  <div id="blog_scan_title_line3_network"></div>
+  <p id="blog_scan_title2_network">排序方式：</p>
+  <div class="btn-group" data-toggle="buttons" id="btn_radio_network">
+       <label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+         <input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
+       </label>
+       <label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+          <input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
+       </label>
+  </div>
+
+  <div id="networks">
+      <span class="label place_label" style="color: #868686;">发起微博</span>
+      <span class="label place_label" style="color: #868686;">推动微博</span>
+
+  </div>
+
+  <div class="halving_line3"></div>
+
+</div>
+
 <div id="blog_scan_area_network">
-	<div id="blog_scan_title_line2_network"></div>
-	<div id="blog_scan_title_line3_network"></div>
-	<p id="blog_scan_title2_network">排序方式：</p>
-	<div class="btn-group" data-toggle="buttons" id="btn_radio_network">
-		   <label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
-		     <input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
-		   </label>
-		   <label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
-		      <input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
-		   </label>
-	</div>
-
-	<div id="networks">
-			<span class="label place_label" style="color: #868686;">发起微博</span>
-			<span class="label place_label" style="color: #868686;">推动微博</span>
-
-	</div>
-
-	<div class="halving_line3"></div>
-
+	
 	<!-- 微博浏览区 -->
 	
 </div>
