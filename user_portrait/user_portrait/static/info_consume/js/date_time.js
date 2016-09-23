@@ -372,7 +372,7 @@ function Draw_time_trend_line_result(){
 }		
 
 function Draw_blog_scan_area_order_result(){
-    url_order = "/topic_time_analyze/time_order_weibos/?topic=" + topic + '&start_ts=' + start_ts + '&end_ts=' + end_ts + '&sort_item=' + sort_item;
+    url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
  	//console.log('下面是微博排序url');
  	console.log(url_order);
 

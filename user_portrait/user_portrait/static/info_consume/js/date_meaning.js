@@ -2,6 +2,7 @@ var topic='aoyunhui';
 var start_ts=1468944000;
 var end_ts=1471622400;
 var opinion=["圣保罗", "班底", "巴西", "康熙"];
+var sort_item = 'timestamp';
 
 var now = new Date();
 var year = now.getFullYear();
@@ -53,13 +54,15 @@ var date = month+' '+year
 function set_order_type(type){
   if(type=='time'){
     sort_item = 'timestamp';
-    Draw_blog_scan_area_order_result();
+    Draw_blog_scan_area_meaning_result();
 
   }else if(type=='hot'){
     sort_item = 'retweeted';
-    Draw_blog_scan_area_order_result();
+    Draw_blog_scan_area_meaning_result();
+    alert('执行了语义维度的微博类型排序');
   }
 }
+
 
 
 function topic_analysis_meaning(){
@@ -397,7 +400,7 @@ function Draw_blog_opinion_result(){
 }
 
 function Draw_blog_scan_area_meaning_result(){
-  url = "/topic_language_analyze/weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&opinion='+opinion;
+  url = "/topic_language_analyze/weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&opinion='+opinion+'&sort_item='+sort_item;
   console.log(url);
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_blog_scan_area_meaning);
 }   
