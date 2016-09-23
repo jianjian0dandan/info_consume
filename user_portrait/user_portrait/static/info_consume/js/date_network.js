@@ -42,129 +42,16 @@ function get_trend_type(val) {
  }
 
 
-function Draw_network_pic(){
-     // var myChart = echarts.init(document.getElementById('main_network'));
-     console.log('pppp');
-     require.config({
-      paths: {
-                echarts: '/static/info_consume/js/echarts/src',
-                zrender: '/static/info_consume/js/zrender/src'
+function set_order_type(type){
+  if(type=='time'){
+    sort_item = 'timestamp';
+    Draw_blog_scan_area_order_result();
 
-
-            }
-	    // packages: [
-
-	    //     {
-	    //         name: 'echarts',
-	    //         location: '/static/info_consume/js/echarts',
-	    //         main: 'echarts'
-	    //     },
-	    //     {
-	    //         name: 'zrender',
-	    //         location: '/static/info_consume/js/zrender/src', // zrender与echarts在同一级目录
-	    //         main: 'zrender'
-	    //     }
-	    // ]
-	});
-    //  require.config({
-    //     paths:{
-    //       echarts:'/static/info_consume/js/echarts_src',
-    //       // echarts_1:'/static/info_consume/js/echarts/src/echarts',
-    //       // graph:'/static/info_consume/js/graph',
-    //     },
-    //     packages: [
-    //     {
-    //         name: 'echarts',
-    //         location: '/static/info_consume/js/echarts_src', // zrender与echarts在同一级目录
-    //         main: 'echarts'
-    //     },
-    //     {
-    //         name: 'zrender',
-    //         location: '/static/info_consume/js/zrender_src', // zrender与echarts在同一级目录
-    //         main: 'zrender'
-    //     }
-    // ]
-    //  });
-     require(
-        [
-          'echarts',
-          'echarts/chart/graph'
-          // 'echarts/echarts_src/src/visual/symbol'
-        ],
-
-        function (ec) {
-    //       console.log('aaaa');
-          // var ecConfig = require('echarts/config'); //放进require里的function{}里面
-    //       var ecConfig = echarts.config;  
-		  // var zrEvent = require('zrender/tool/event');
-          var echarts = ec;
-          var myChart = echarts.init(document.getElementById('main_network'));
-          // myChart.showLoading();
-          // console.log('bbbbb');
-          $.getJSON('/topic_network_analyze/networkdata', function (json) {
-          console.log(json);
-          // myChart.hideLoading();
-          var option = {
-                  title: {
-                      text: '网络分布图'
-                  },
-                  animationDurationUpdate: 1500,
-                  animationEasingUpdate: 'quinticInOut',
-                  series : [
-                      {
-                        
-                          type: 'graph',
-                          layout: 'none',
-                          // progressiveThreshold: 700,
-                          data: json.nodes.map(function (node) {
-
-                              return {
-
-                                  x: node.x,
-                                  y: node.y,
-                                  id: node.id,
-                                  name: node.label,
-                                  symbolSize: node.size,
-                                  itemStyle: {
-                                      normal: {
-                                          color: node.color
-                                      }
-                                  }
-                              };
-                          }),
-                          edges: json.edges.map(function (edge) {
-                              return {
-                                  source: edge.sourceID,
-                                  target: edge.targetID
-                              };
-                          }),
-                          label: {
-                              emphasis: {
-                                  position: 'right',
-                                  show: true
-                              }
-                          },
-                          roam: true,
-                          focusNodeAdjacency: true,
-                          lineStyle: {
-                              normal: {
-                                  width: 0.5,
-                                  curveness: 0.3,
-                                  opacity: 0.7
-                              }
-                          }
-                      }
-                  ]
-              };
-                  myChart.setOption(option);
-          });
-        }
-       )
-        
-          
+  }else if(type=='hot'){
+    sort_item = 'retweeted';
+    Draw_blog_scan_area_order_result();
   }
-
-
+}
 
 
 function topic_analysis_network(){
@@ -182,15 +69,139 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     });
   },
 
+  Draw_network_pic:function(data){
+    var item = data;
+    var nodes_new = [];
+    for(i=0;i<item['nodes'].length;i++){
+      nodes_new.push({name:item['nodes'][i]['name'],symbolSize:item['nodes'][i]['symbolSize']});
+    }
+
+         require(  
+                [  
+                    'echarts',  
+                    'echarts/chart/force'  
+                ],  
+    function (ec) {  
+        // 基于准备好的dom，初始化echarts图表  
+        // myScatter = ec.init(document.getElementById('mainScatter'));   
+  
+      var myChart = echarts.init(document.getElementById('main_network'));
+      var ecConfig = require('echarts/config'); //放进require里的function{}里面
+      var zrEvent = require('zrender/tool/event');
+      var option = {
+          title : {
+              // text: '人物关系：乔布斯',
+              // subtext: '数据来自人立方',
+              x:'right',
+              y:'bottom'
+          },
+          tooltip : {
+              trigger: 'item',
+              formatter: '{a} : {b}'
+          },
+          toolbox: {
+              show : true,
+              feature : {
+                  restore : {show: true},
+                  magicType: {show: true, type: ['force', 'chord']},
+                  saveAsImage : {show: true}
+              }
+          },
+          // legend: {
+          //     x: 'left',
+          //     data:['家人','朋友']
+          // },
+          series : [
+              {
+                  type:'force',
+                  name : "人物关系",
+                  ribbonType: false,
+                  // categories : [
+                  //     {
+                  //         name: '人物'
+                  //     },
+                  //     {
+                  //         name: '家人'
+                  //     },
+                  //     {
+                  //         name:'朋友'
+                  //     }
+                  // ],
+                  itemStyle: {
+                      normal: {
+                          label: {
+                              show: true,
+                              textStyle: {
+                                  color: '#333'
+                              }
+                          },
+                          nodeStyle : {
+                              brushType : 'both',
+                              borderColor : 'rgba(255,215,0,0.4)',
+                              borderWidth : 1
+                          },
+                          linkStyle: {
+                              type: 'curve'
+                          }
+                      },
+                      emphasis: {
+                          label: {
+                              show: false
+                              // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+                          },
+                          nodeStyle : {
+                              //r: 30
+                          },
+                          linkStyle : {}
+                      }
+                  },
+                  useWorker: false,
+                
+                  gravity: 1.1,
+                  scaling: 1.1,
+                  roam: 'move',
+                  // nodes:item['nodes'],
+                  nodes:nodes_new,
+		              links:item['links']
+        
+              }
+          ]
+      };
+      var ecConfig = require('echarts/config');
+      function focus(param) {
+          var data = param.data;
+          var links = option.series[0].links;
+          var nodes = option.series[0].nodes;
+          if (
+              data.source !== undefined
+              && data.target !== undefined
+          ) { //点击的是边
+              var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
+              var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+              console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
+          } else { // 点击的是点
+              console.log("选中了" + data.name + '(' + data.value + ')');
+          }
+      }
+      myChart.on(ecConfig.EVENT.CLICK, focus)
+
+      // myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
+      //     console.log(myChart.chart.force.getPosition());
+      // });
+           
+       myChart.setOption(option);           
+          
+    }  
+);  
+  },
+
   Draw_trend_maker:function(data){
     var item = data;
     var html = '';
     // console.log(item.length);
     html += '<table id="table_photo">';
-    for(i=0;i<Math.min(65,item.length);i=i+5){
-  
-  
-      
+    for(i=0;i<Math.min(30,item.length);i=i+5){
+      console.log('mmm')
       html += '<tr>';
       for(j=0;j<5;j++){
         var k=i+j;
@@ -200,7 +211,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         var item_timestamp_datetime = new Date(parseInt(item[k].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         // html += '<td><img title=用户昵称：' +item[k].name+'<br/>粉丝数：'+item[k].fans+'<br/>发布时间：'+item[k].+'style="width:40px;height:40px" class="photo_user" src='+item[k].photo+'/><td>';
         
-        html += '<td><img style="width:40px;height:40px" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
+        html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
         // html += '<td><img id="photo_user" style="width:40px;height:40px" onmouseover="showInfoCard('${id}')" class="photo_user" src='+item[k].photo+'/><td>';
         // html += '<td><img style="width:40px;height:40px" '+item[k].name+' class="photo_user" src='+item[k].photo+'/><td>';
         // html += '<div id="divInfo" style="visibility:hidden;">';
@@ -263,6 +274,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   },
 
   Draw_blog_scan_area_network:function(data){
+    $('#blog_scan_area_network').empty();
     var item = data;
     var html = '';
     
@@ -332,12 +344,12 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 
 topic_analysis_network = new topic_analysis_network();
 
-// function Draw_network_pic_result(){
-//   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-//   console.log(url);
-//   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
+function Draw_network_pic_result(){
+  url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+  console.log(url);
+  topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
 
-// }
+}
 
 function Draw_trend_maker_result(){
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
@@ -364,11 +376,11 @@ function Draw_blog_scan_area_network_result(){
 } 
 
 
-Draw_network_pic();
+// Draw_network_pic();
 
-// Draw_network_pic_result();
+Draw_network_pic_result();
 // show_network();
-// Draw_trend_maker_result();
+Draw_trend_maker_result();
 // Draw_trend_pusher_result();
-// Draw_blog_scan_area_network_result();
+Draw_blog_scan_area_network_result();
 

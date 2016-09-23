@@ -79,6 +79,7 @@ def read_long_gexf(topic, identifyDate, identifyWindow):
 		return []
 	if len(res) > 0:
 		#print '!!!!'
+		#print type(json.loads(res[0]['_source']['gexf']))
 		return res[0]['_source']['gexf']
 	else:
 		return []

@@ -6,6 +6,7 @@ var end_ts = 1468949400;
 var pointInterval=3600;
 var case_val = 1;
 var province = '陕西';
+var sort_item = 'timestamp';
 
 
 function get_emotion_type(val) {
@@ -15,6 +16,37 @@ function get_emotion_type(val) {
  	Draw_emotion_map_result();
  	//可以设置默认值（正向），随着页面加载。
  }
+
+
+function set_order_type(type){
+	if(type=='time'){
+		sort_item = 'timestamp';
+		Draw_blog_scan_area_order_result();
+
+	}else if(type=='hot'){
+		sort_item = 'retweeted';
+		Draw_blog_scan_area_order_result();
+	}
+}
+
+function get_per_time(val) {
+	pointInterval = val;
+	console.log(pointInterval);
+	// set_timestamp();
+	Draw_emotion_trend_line_result();
+}
+
+
+function set_order_type(type){
+	if(type=='time'){
+		sort_item = 'timestamp';
+		Draw_blog_scan_area_order_result();
+
+	}else if(type=='hot'){
+		sort_item = 'retweeted';
+		Draw_blog_scan_area_order_result();
+	}
+}
 
 
 function topic_analysis_emotion(){
@@ -360,7 +392,8 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
   },
 
   Draw_blog_scan_area_emotion:function(data){
-  	 var item = data;
+  	$('#blog_scan_area_emotion').empty();
+  	var item = data;
 	var html = '';
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
@@ -459,7 +492,7 @@ function Draw_emotion_map_result(){
 }
 
 function Draw_blog_scan_area_emotion_result(){
-    url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+'&province='+province;
+    url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval+ '&sort_item=' + sort_item;
  	console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
