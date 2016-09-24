@@ -9,6 +9,7 @@ from User_sort_interface import user_sort_interface
 from Offline_task import search_user_task , getResult , delOfflineTask
 from temporal_rank import get_temporal_rank
 from user_portrait.global_utils import R_ADMIN
+from user_portrait.parameter import RUN_TYPE
 from imagine import imagine
 from utils import submit_task, search_task, get_group_list,\
        delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
