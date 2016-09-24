@@ -41,12 +41,16 @@ def daohang_public():
 @mod.route('/others')
 def others():
 	return render_template('/info_consume/others.html')
+
 @mod.route('/boot_test')
 def boot_test():
-	return render_template('/info_consume/boot_test.html')
+	username='admin@qq.com'
+	return render_template('/info_consume/boot_test.html',username=username)
+
 @mod.route('/circle_test')
 def circle_test():
-	return render_template('/info_consume/circle_test.html')
+	username = 'admin@qq.com'
+	return render_template('/info_consume/circle_test.html',username=username)
 
 
 @mod.route('/myzone')

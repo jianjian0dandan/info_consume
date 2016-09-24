@@ -43,7 +43,7 @@ def sen_weibo_content():
     sen = int(sen)
     #weibo_count = all_weibo_count(topic,start_ts,end_ts)
     results = get_weibo_content(topic,start_ts,end_ts,sort_item,sen)
-    print results
+    # print results
     return json.dumps(results)
 
 @mod.route('/sen_province_count/')

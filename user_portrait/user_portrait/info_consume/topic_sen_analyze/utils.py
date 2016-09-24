@@ -154,24 +154,29 @@ def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp',sen=0):
     weibo_dict = {}
     for item in items:          
         weibos = _json_loads(item.weibos)
+        ori_text = set()
         for weibo in weibos:
-            weibo_content = {}
-            weibo_content['text'] = weibo['text'] 
-            weibo_content['uid'] = weibo['uid']
-            weibo_content['timestamp'] = weibo['timestamp']
-            weibo_content['sentiment'] = weibo['sentiment'] 
-            weibo_content['comment'] = weibo['comment']
-            weibo_content['retweeted'] = weibo['retweeted']
-            weibo_content['keywords'] = weibo['keywords_dict']
-            weibo_content['mid'] = weibo['mid']
-            try:
-                user = es_user_profile.get(index=profile_index_name,doc_type=profile_index_type,id=weibo_content['uid'])['_source']
-                weibo_content['uname'] = user['nick_name']
-                weibo_content['photo_url'] = user['photo_url']
-            except:
-                weibo_content['uname'] = 'unknown'
-                weibo_content['photo_url'] = 'unknown'
-            weibo_dict[weibo_content['mid']] = weibo_content
+            if weibo['text'] not in ori_text:
+                ori_text.add(weibo['text'])
+                
+                weibo_content = {}
+                weibo_content['text'] = weibo['text'] 
+                weibo_content['uid'] = weibo['uid']
+                weibo_content['timestamp'] = weibo['timestamp']
+                weibo_content['sentiment'] = weibo['sentiment'] 
+                weibo_content['comment'] = weibo['comment']
+                weibo_content['retweeted'] = weibo['retweeted']
+                weibo_content['keywords'] = weibo['keywords_dict']
+                weibo_content['mid'] = weibo['mid']
+                try:
+                    user = es_user_profile.get(index=profile_index_name,doc_type=profile_index_type,id=weibo_content['uid'])['_source']
+                    weibo_content['uname'] = user['nick_name']
+                    weibo_content['photo_url'] = user['photo_url']
+                except:
+                    weibo_content['uname'] = 'unknown'
+                    weibo_content['photo_url'] = 'unknown'
+                weibo_dict[weibo_content['mid']] = weibo_content
+
     results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
     print results
     return results

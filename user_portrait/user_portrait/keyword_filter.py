@@ -18,6 +18,8 @@ word_count = 50
 def keyword_filter(keyword_dict):
     keyword_list = [item.encode('utf-8') for item in keyword_dict]
     keyword_string = ''.join(keyword_list)
+    tfidf = tr4w.tfidf_feature(keyword_string)
+    print tfidf
     tr4w.analyze(text=keyword_string,tfidf='', lower=True, window=2)
     k_dict = tr4w.get_keywords(word_count, word_min_len=2)
     word_dict = dict()
@@ -25,7 +27,6 @@ def keyword_filter(keyword_dict):
         if item.word.encode('utf-8').isdigit() or item.word.encode('utf-8') in black_word:
             continue
         word_dict[item.word] = item.weight * 100
-    
     return word_dict
     
     
