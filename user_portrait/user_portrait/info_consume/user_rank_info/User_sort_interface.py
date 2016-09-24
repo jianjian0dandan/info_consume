@@ -41,7 +41,6 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
         if sort_scope == 'all_limit_keyword':
             #offline job
             #add job to es index
-            print '**************'
             during = ( datetime2ts(et) - datetime2ts(st) ) / DAY + 1
             time = 7
             if during > 3:
@@ -89,7 +88,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
         else:
             #find the scope
             user_list = in_sort_filter(time , sort_norm,sort_scope , arg,[], False, number)
-            print user_list
+            #print user_list
     result = make_up_user_info(user_list,isall , time , sort_norm)
     print "user_list:", len(user_list)
     return result
