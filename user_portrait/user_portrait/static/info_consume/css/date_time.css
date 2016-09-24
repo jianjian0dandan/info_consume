@@ -277,6 +277,22 @@ position: absolute;
     float: left;
 }
 
+#blog_scan_area_time_page{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: 20.1%;
+    margin-top: -10%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
+}
+
+
+
 #blog_scan_title_line2_time {
 	background-color:#FF9900;
 	width: 6px;
@@ -360,6 +376,20 @@ position: absolute;
     margin-top: -20px;
 }
 
+
+#blog_scan_area_place_page{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: 20.1%;
+    margin-top: -10%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
+}
 
 
 #blog_scan_title_line2_network {
@@ -459,6 +489,50 @@ position: absolute;
 	margin-left: 0%;
 	margin-top: 1.1%;
 	float: left;
+}
+
+
+#blog_scan_area_emotion_page{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: 20.1%;
+    margin-top: -10%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
+}
+
+#blog_scan_area_network_page{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: 20.1%;
+    margin-top: -10%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
+}
+
+
+#blog_scan_area_meaning_page{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: 20.1%;
+    margin-top: -10%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
 }
 
 #blog_scan_title_line2_meaning {
@@ -1075,12 +1149,13 @@ background-color:#FFFFFF;
 
 #users {
 	background-color: #E4E4E4;
-	width: 95%;
-	height: 2.5%;
-	position: relative;
-	margin-left: 5%;
-	margin-top: 3%;
-	float: left;
+    width: 80%;
+    height: 2.5%;
+    position: relative;
+    margin-left: 5%;
+    margin-top: 5%;
+    float: left;
+    z-index: 9999;
 }
 
 

@@ -1,6 +1,11 @@
 var topic = 'aoyunhui';
 var start_ts = 1467648000;
 var end_ts = 1470844800;
+var sort_item_network = 'timestamp';
+var blog_type_network = 'maker';
+
+var no_page_network = 0;
+var blog_num_max_global_network = 0;
 
 // //显示资料卡 
 // var beforeId; //定义全局变量 
@@ -26,7 +31,7 @@ var end_ts = 1470844800;
 // }
 
 
-function get_trend_type(val) {
+function set_trend_type(val) {
   case_val = val;
   $('#right_col_title_2_network').empty();
 
@@ -42,15 +47,72 @@ function get_trend_type(val) {
  }
 
 
-function set_order_type(type){
+function set_order_type_network(type){
   if(type=='time'){
-    sort_item = 'timestamp';
-    Draw_blog_scan_area_order_result();
+    sort_item_network = 'timestamp';
+    Draw_blog_scan_area_network_result();
 
   }else if(type=='hot'){
-    sort_item = 'retweeted';
-    Draw_blog_scan_area_order_result();
+    sort_item_network = 'retweeted';
+    Draw_blog_scan_area_network_result();
   }
+}
+
+
+function set_blog_type_network(type){
+  
+    blog_type_network = type;
+    Draw_blog_scan_area_network_result();
+
+  
+}
+
+
+//上一页
+function up_network(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     if(no_page_network==0){
+         alert("当前已经是第一页!");
+         return false;
+     }else{
+    no_page_network--;
+    
+    Draw_blog_scan_area_network_result();
+    
+     }
+}
+//下一页
+function down_network(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+     
+     if(no_page_network==Math.min(9,Math.ceil(blog_num_max_global_network/10)-1)){
+         alert("当前已经是最后一页!");
+         
+         return false;
+     }else{
+    no_page_network++;
+    
+    Draw_blog_scan_area_network_result();
+    
+     }
+}
+
+function first_network(){
+   
+     no_page_network=0;
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_network_result();
+}
+//下一页
+function last_network(){
+     
+     no_page_network=(Math.ceil(blog_num_max_global_network/10)-1);
+    
+     /*这里在将当前页数赋值到页面做显示标志*/
+     // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
+     Draw_blog_scan_area_network_result();
 }
 
 
@@ -260,7 +322,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           item[k].photo='../../static/info_consume/image/photo_unknown.png';
         }
         
-        html += '<td><img style="width:40px;height:40px" class="photo_user" title=粉丝数：'+item[k].fans+' src='+item[k].photo+'/><td>';
+        html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=粉丝数：'+item[k].fans+' src='+item[k].photo+'/><td>';
         
 
       }
@@ -277,13 +339,20 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     $('#blog_scan_area_network').empty();
     var item = data;
     var html = '';
+    var blog_num_max_local_network = Math.min(100,item.length);
     
+    blog_num_max_global_network = blog_num_max_local_network;
+
     if (item.length == 0){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
       var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-    
-      for (i=0;i < Math.min(10,item.length);i++){
+      var item_i_network = no_page_network*10;
+      
+      var max_i_network = item_i_network+Math.min(10,blog_num_max_local_network-item_i_network);
+      
+      for (i=item_i_network; i<max_i_network; i++){
+
   
         if (item[i]._source.photo_url=='no'){
           item[i]._source.photo_url='../../static/info_consume/image/photo_unknown.png'
@@ -320,18 +389,18 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       // }
       }
 
-      html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-        html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-        html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-        html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-        html += '<span id="S_First" class="disabled" >首页</span>'
-        html += '<span id="S_Prev"  class="disabled" >上一页</span>'
-        html += '<span id="S_navi"><!--页号导航--></span>'
-        html += '<span id="S_Next"  class="disabled" >下一页</span>'
-        html += '<span id="S_Last"  class="disabled" >末页</span>'
-        html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-        html += '<span id="P_GO" >GO</span>'
-      html += '</div>'
+      // html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+      //   html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+      //   html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+      //   html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+      //   html += '<span id="S_First" class="disabled" >首页</span>'
+      //   html += '<span id="S_Prev"  class="disabled" >上一页</span>'
+      //   html += '<span id="S_navi"><!--页号导航--></span>'
+      //   html += '<span id="S_Next"  class="disabled" >下一页</span>'
+      //   html += '<span id="S_Last"  class="disabled" >末页</span>'
+      //   html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+      //   html += '<span id="P_GO" >GO</span>'
+      // html += '</div>'
     
     }
     
@@ -352,34 +421,53 @@ function Draw_network_pic_result(){
 }
 
 function Draw_trend_maker_result(){
+  start_ts = 1467648000;
+  end_ts = 1470844800;
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_maker);
 }
 
 function Draw_trend_pusher_result(){
+  start_ts = 1467648000;
+  end_ts = 1470844800;
   url = "/topic_network_analyze/get_trend_pusher/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_pusher);
 }
  
 function Draw_blog_scan_area_network_result(){
-  url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+  start_ts = 1467648000;
+  end_ts = 1470844800;
+  if(sort_item_network=='timestamp' && blog_type_network == 'maker'){
+
+    url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts; 
+
+  }else if(sort_item_network=='timestamp' && blog_type_network == 'pusher'){
+
+    url = "/topic_network_analyze/pusher_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+
+  }else if(sort_item_network=='retweeted' && blog_type_network == 'maker'){
+
+    url = "/topic_network_analyze/maker_weibos_byhot/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+
+  }else if(sort_item_network=='retweeted' && blog_type_network == 'pusher'){
+
+    url = "/topic_network_analyze/pusher_weibos_byhot/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
+
+  }
+  
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_blog_scan_area_network);
 }   
 
-function Draw_blog_scan_area_network_result(){
-  url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-  console.log(url);
-  topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_blog_scan_area_network);
-} 
 
 
-// Draw_network_pic();
+
 
 Draw_network_pic_result();
-// show_network();
+
+
 Draw_trend_maker_result();
 // Draw_trend_pusher_result();
 Draw_blog_scan_area_network_result();
