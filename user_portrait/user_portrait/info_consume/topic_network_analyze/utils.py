@@ -30,6 +30,8 @@ def gexf_process(data):
 	name_list = comp.findall(data)
 	comp = re.compile('<viz:size value=\\\"(\d*)\\\"/>\\n')
 	size = comp.findall(data)
+	comp = re.compile('label=\\\"(\d*)\\\">')
+	uid = comp.findall(data)
 	comp = re.compile('source=\\\"(\d*)\\\"')
 	source = comp.findall(data)
 	comp = re.compile('target=\\\"(\d*)\\\"/>\\n')
@@ -41,12 +43,19 @@ def gexf_process(data):
 		iter_item['name'] = id_list[i]
 		iter_item['symbolSize'] = size[i]
 		iter_item['label'] = name_list[i]
+		iter_item['uid'] = uid[i]
 		nodes.append(iter_item)
 	links = []
 	for i in range(len(source)):
 		iter_item = {}
-		iter_item['source'] = source[i]
-		iter_item['target'] = target[i]
+		source_id = source[i]
+		target_id = target[i]
+		for node in nodes:
+			if node['name'] == source_id:
+				iter_item['source'] = node['label']
+			if node['name'] == target_id:
+				iter_item['target'] = node['label']
+		 
 		links.append(iter_item)
 	results = {}
 	results['nodes'] = nodes
