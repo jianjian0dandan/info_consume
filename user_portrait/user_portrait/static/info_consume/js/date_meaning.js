@@ -203,12 +203,12 @@ Draw_event_river:function(data){
         
         data_json.push({"name":key,"evolution":evolution_json});
       }
-
+    console.log(data_json);
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
         tooltip : {
             trigger: 'item',
-            enterable: true
+            // enterable: true
         },
         // legend: {
         //     data:['新闻观点', '微博观点']
@@ -372,7 +372,7 @@ Draw_blog_scan_area_meaning:function(data){
     if (item.length == 0){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
-      var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
+      var num_page = Math.ceil(blog_num_max_local_meaning/10);  //num_page表示微博数据共有多少页
       var item_i_meaning = no_page_meaning*10;
       
       var max_i_meaning = item_i_meaning+Math.min(10,blog_num_max_local_meaning-item_i_meaning);
@@ -413,6 +413,9 @@ Draw_blog_scan_area_meaning:function(data){
         html += '</div>';
       // }
       }
+       html += '<div id="PageTurn" class="pager" style="margin-left:46.5%;height: 40px;margin-bottom: -20px;z-index: 99;">'
+       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
+       html += '</div>'
 
       // html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
       //   html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
