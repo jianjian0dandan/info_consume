@@ -488,15 +488,17 @@ def search_group_results(task_name, module, submit_user):
         #all_geo_list = list(set(main_start_geo_dict.keys()) | set(main_end_geo_dict.keys()))
         #result['geo_lat_lng'] = get_lat_lng(all_geo_list)
     elif module == 'preference':
-        #result['keywords'] = json.loads(source['keywords'])
+        result['keywords'] = json.loads(source['keywords'])
+        '''
         keyword_list = json.loads(source['keywords'])
         keyword_dict = dict()
         for item in keyword_list:
             keyword_dict[item[0]] = item[1]
+
         filter_keyword_dict = keyword_filter(keyword_dict)
         sort_keyword = sorted(filter_keyword_dict.items(), key=lambda x:x[1], reverse=True)
         result['keywords'] = sort_keyword
-
+        '''
         result['hashtag'] = json.loads(source['hashtag'])
         result['sentiment_word'] = json.loads(source['sentiment_word'])
         try:
