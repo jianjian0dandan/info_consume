@@ -9,6 +9,7 @@ from User_sort_interface import user_sort_interface
 from Offline_task import search_user_task , getResult , delOfflineTask
 from temporal_rank import get_temporal_rank
 from user_portrait.global_utils import R_ADMIN
+from user_portrait.parameter import RUN_TYPE
 from imagine import imagine
 from utils import submit_task, search_task, get_group_list,\
        delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
@@ -19,12 +20,14 @@ mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
 
 @mod.route('/user_sort/', methods=['GET', 'POST'])
 def user_sort():
-    end_time = datetime.datetime.now()
-    #end_time_nyr = end_time.strftime('%Y-%m-%d')
-    end_time_nyr = '2013-09-07'
-    #start_time = end_time + datetime.timedelta(days=-7)
-    #start_time_nyr = start_time.strftime('%Y-%m-%d') 
-    start_time_nyr = '2013-09-07'
+    if RUN_TYPE == 1:
+        end_time = datetime.datetime.now()
+        end_time_nyr = end_time.strftime('%Y-%m-%d')
+        start_time = end_time + datetime.timedelta(days=-7)
+        start_time_nyr = start_time.strftime('%Y-%m-%d') 
+    else:
+        end_time_nyr = '2013-09-07'
+        start_time_nyr = '2013-09-07'
     username = request.args.get('username', '') 
     search_time = request.args.get('time', '7')
     sort_norm = request.args.get('sort_norm', 'bci')

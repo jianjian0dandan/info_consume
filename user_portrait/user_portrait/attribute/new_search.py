@@ -199,6 +199,7 @@ def get_evaluate_max_min_now(history_dict, evaluate_index):
         if len(item_list)==2 and item_list[0]==evaluate_index:
             evaluate_ts = int(item_list[1])
             date_evaluate_dict[evaluate_ts] = history_dict[item]
+    print date_evaluate_dict
     sort_date_evaluate_list = sorted(date_evaluate_dict.items(), key=lambda x:x[0])
     sort_value_evaluate_list = sorted(date_evaluate_dict.items(), key=lambda x:x[1], reverse=True)
     #get now evaluate value and rank
@@ -256,6 +257,7 @@ def new_get_user_evaluate(uid):
     try:
         influence_history = ES_COPY_USER_PORTRAIT.get(index=COPY_USER_PORTRAIT_INFLUENCE, doc_type=COPY_USER_PORTRAIT_INFLUENCE_TYPE, \
                 id = uid)['_source']
+
     except:
         influence_history = []
     #get max value/min value/week ave value
@@ -269,6 +271,7 @@ def new_get_user_evaluate(uid):
         results['influence'] = influence_max_min_now_list
     else:
         results['influence'] = ['', '', '', '', all_count]
+
     #get importance from es importance history
     try:
         importance_history = ES_COPY_USER_PORTRAIT.get(index=COPY_USER_PORTRAIT_IMPORTANCE, doc_type=COPY_USER_PORTRAIT_IMPORTANCE_TYPE, \
