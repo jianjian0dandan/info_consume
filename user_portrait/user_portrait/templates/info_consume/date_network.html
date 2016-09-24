@@ -32,13 +32,14 @@
 		       </label>
 		  	  </div> -->
 		</div>
+		<div id="users">
+	      <span class="label place_label" style="color: #868686;" onmouseover="set_trend_type('maker')">发起者</span>
+	      <span class="label place_label" style="color: #868686;" onmouseover="set_trend_type('pusher')">推动者</span>
+	      <div class="halving_line4"></div>
+		</div>
 		<div id="right_col_title_2_network">
 			<!-- 用户头像 -->
-			<div id="users">
-			      <span class="label place_label" style="color: #868686;">发起者</span>
-			      <span class="label place_label" style="color: #868686;">推动者</span>
-			      <div class="halving_line4"></div>
-  			</div>
+			
 			<div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;">
 				
 			</div>
@@ -76,17 +77,17 @@
   <div id="blog_scan_title_line3_network"></div>
   <p id="blog_scan_title2_network">排序方式：</p>
   <div class="btn-group" data-toggle="buttons" id="btn_radio_network">
-       <label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+       <label class="btn btn-primary" id="label7" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type_network('time')">
          <input type="radio" name="options" id="option7" onClick="changecolor(this)"> 按时间
        </label>
-       <label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;">
+       <label class="btn btn-primary" id="label8" style="background-color:#EEEEEE;border-color: #EEEEEE;color:#868686;font-size: 16px;font-family: Microsoft YaHei;" onclick="set_order_type_network('hot')">
           <input type="radio" name="options" id="option8" onClick="changecolor(this)"> 按热度
        </label>
   </div>
 
   <div id="networks">
-      <span class="label place_label" style="color: #868686;">发起微博</span>
-      <span class="label place_label" style="color: #868686;">推动微博</span>
+      <span class="label place_label" style="color: #868686;" onmouseover="set_blog_type_network('maker')">发起微博</span>
+      <span class="label place_label" style="color: #868686;" onmouseover="set_blog_type_network('pusher')">推动微博</span>
 
   </div>
 
@@ -98,4 +99,11 @@
 	
 	<!-- 微博浏览区 -->
 	
+</div>
+
+<div  id="blog_scan_area_network_page">
+	<ul class="pager">
+		<li class="previous" onclick="up_network()"><a style="font-size: 16px;" >&larr; 上一页</a></li>
+		<li class="next"  onclick="down_network()"><a style="font-size: 16px;">下一页 &rarr;</a></li>
+	</ul>
 </div>
