@@ -20,25 +20,6 @@ weiborecommend.prototype=
 	{
 		var hashtag=eval(data);
 		// console.log(hashtag[0][0]);
-		// console.log(hashtag[1][0]);
-		// console.log(hashtag[2][0]);
-		// console.log(hashtag[3][0]);
-		// console.log(hashtag[4][0]);
-		// console.log(hashtag[5][0]);
-		// console.log(hashtag[6][0]);
-		// console.log(hashtag[7][0]);
-		// console.log(hashtag[8][0]);
-		// console.log(hashtag[9][0]);
-		// console.log(hashtag[10][0]);
-		// console.log(hashtag[11][0]);
-		// console.log(hashtag[12][0]);
-		// console.log(hashtag[13][0]);
-		// console.log(hashtag[14][0]);
-		// console.log(hashtag[15][0]);
-		// console.log(hashtag[16][0]);
-		// console.log(hashtag[17][0]);
-		// console.log(hashtag[18][0]);
-		// console.log(hashtag[19][0]);
 
 		//限制打印20个hashtag
 		$('#hashone').append(hashtag[0][0]);				
