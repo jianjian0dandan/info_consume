@@ -15,7 +15,7 @@ var sort_item = 'timestamp';
 //var end_ts = set_timestamp().end_timestamp_return;
 var start_ts,end_ts,pointInterval;
 
-var no_page = 0;
+var no_page_time = 0;
 var blog_num_max_global_time = 0;
 
 
@@ -59,10 +59,10 @@ function datetime_to_timestamp(datetime) {
 	}
 
 
-function get_per_time(val) {
+function get_per_time_time(val) {
 	pointInterval = val;
 	console.log(pointInterval);
-	// set_timestamp();
+	//set_timestamp();
 	Draw_time_trend_line_result();
 }
 
@@ -105,30 +105,28 @@ function set_order_type_time(type){
 function up_time(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里减去1 再放进链接里  
-     if(no_page==0){
+     if(no_page_time==0){
          alert("当前已经是第一页!");
          return false;
      }else{
- 		no_page--;
- 		console.log(no_page);
- 		console.log('执行了上一页操作');
+ 		no_page_time--;
+ 		
  		Draw_blog_scan_area_order_result();
  		
      }
 }
-//下一页
+//首页
 function down_time(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里加上1 再放进链接里  
      
-     if(no_page==Math.min(9,Math.ceil(blog_num_max_global_time/10)-1)){
+     if(no_page_time==Math.min(9,Math.ceil(blog_num_max_global_time/10)-1)){
          alert("当前已经是最后一页!");
-         console.log(no_page);
+        
          return false;
      }else{
- 		no_page++;
- 		console.log(no_page);
- 		console.log('执行了下一页操作');
+ 		no_page_time++;
+ 		
  		Draw_blog_scan_area_order_result();
  		
      }
@@ -136,15 +134,15 @@ function down_time(){
 
 function first(){
    
-     no_page=0;
+     no_page_time=0;
      /*这里在将当前页数赋值到页面做显示标志*/
      Draw_blog_scan_area_order_result();
 
 }
-//下一页
+//尾页
 function last(){
      
-     no_page=(Math.ceil(blog_num_max_global_time/10)-1);
+     no_page_time=(Math.ceil(blog_num_max_global_time/10)-1);
     
      /*这里在将当前页数赋值到页面做显示标志*/
      // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
@@ -295,21 +293,18 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		//console.log(data.length);
 		
 	var blog_num_max_local_time = Math.min(100,item.length);
-	console.log('item.length:'+item.length);
-
-	console.log('blog_num_max_global_time:'+blog_num_max_global_time);
+	
 	blog_num_max_global_time = blog_num_max_local_time;
-	console.log('blog_num_max_global_time:'+blog_num_max_global_time);
+
 	if (!item){
 	html += '<div style="color:grey;width: 100px;height: 200px;">暂无数据</div>'
 	}else{
 		var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-		var item_i = no_page*10;
-		console.log('no_page:'+no_page);
-		console.log('item_i:'+item_i);
-		var max_i = item_i+Math.min(10,blog_num_max_local_time-item_i);
-		console.log('max_i:'+max_i);
-		for (i=item_i; i<max_i; i++){
+		var item_i_time = no_page_time*10;
+		
+		var max_i_time = item_i_time+Math.min(10,blog_num_max_local_time-item_i_time);
+		
+		for (i=item_i_time; i<max_i_time; i++){
 
 			if (item[i][1].photo_url=='unknown'){
 				item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'

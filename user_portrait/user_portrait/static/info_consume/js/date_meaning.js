@@ -3,6 +3,9 @@ var start_ts=1468944000;
 var end_ts=1471622400;
 var opinion=["圣保罗", "班底", "巴西", "康熙"];
 var sort_item = 'timestamp';
+var no_page_meaning = 0;
+var blog_num_max_global_meaning = 0;
+
 
 var now = new Date();
 var year = now.getFullYear();
@@ -70,6 +73,54 @@ function set_order_type_meaning(type){
 //     Draw_blog_scan_area_meaning_result();
 
 // }
+
+
+//上一页
+function up_meaning(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     if(no_page_meaning==0){
+         alert("当前已经是第一页!");
+         return false;
+     }else{
+    no_page_meaning--;
+
+    Draw_blog_scan_area_meaning_result();
+    
+     }
+}
+//下一页
+function down_meaning(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+     
+     if(no_page_meaning==Math.min(9,Math.ceil(blog_num_max_global_meaning/10)-1)){
+         alert("当前已经是最后一页!");
+         
+         return false;
+     }else{
+    no_page_meaning++;
+    Draw_blog_scan_area_meaning_result();
+    
+     }
+}
+
+function first_meaning(){
+   
+     no_page_meaning=0;
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_meaning_result();
+}
+//下一页
+function last_meaning(){
+     
+     no_page_meaning=(Math.ceil(blog_num_max_global_meaning/10)-1);
+    
+     /*这里在将当前页数赋值到页面做显示标志*/
+     // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
+     Draw_blog_scan_area_meaning_result();
+}
+
 
 
 function topic_analysis_meaning(){
@@ -315,13 +366,18 @@ Draw_blog_scan_area_meaning:function(data){
     //var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
     //key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
     //console.log(data.length);
+    var blog_num_max_local_meaning = Math.min(100,item.length);
     
+    blog_num_max_global_meaning = blog_num_max_local_meaning;
     if (item.length == 0){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
       var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-    
-      for (i=0;i < Math.min(10,item.length);i++){
+      var item_i_meaning = no_page_meaning*10;
+      
+      var max_i_meaning = item_i_meaning+Math.min(10,blog_num_max_local_meaning-item_i_meaning);
+      
+      for (i=item_i_meaning; i<max_i_meaning; i++){
   
         if (item[i][1].photo_url=='unknown'){
           item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
@@ -358,18 +414,18 @@ Draw_blog_scan_area_meaning:function(data){
       // }
       }
 
-      html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-        html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-        html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-        html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-        html += '<span id="S_First" class="disabled" >首页</span>'
-        html += '<span id="S_Prev"  class="disabled" >上一页</span>'
-        html += '<span id="S_navi"><!--页号导航--></span>'
-        html += '<span id="S_Next"  class="disabled" >下一页</span>'
-        html += '<span id="S_Last"  class="disabled" >末页</span>'
-        html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-        html += '<span id="P_GO" >GO</span>'
-      html += '</div>'
+      // html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+      //   html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+      //   html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+      //   html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+      //   html += '<span id="S_First" class="disabled" >首页</span>'
+      //   html += '<span id="S_Prev"  class="disabled" >上一页</span>'
+      //   html += '<span id="S_navi"><!--页号导航--></span>'
+      //   html += '<span id="S_Next"  class="disabled" >下一页</span>'
+      //   html += '<span id="S_Last"  class="disabled" >末页</span>'
+      //   html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+      //   html += '<span id="P_GO" >GO</span>'
+      // html += '</div>'
     
     }
     

@@ -9,18 +9,18 @@
 		<div><p id="per_time">单位时间：</p></div>
 
 		<div class="btn-group" data-toggle="buttons">
-   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686">
+   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_per_time_emotion('900')">
      			<input type="radio" name="options" onClick="changecolor(this)"> 15min
    			</label>
-   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686">
+   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_per_time_emotion('1800')">
       			<input type="radio" name="options" onClick="changecolor(this)"> 30min
    			</label>
-   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686">
+   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_per_time_emotion('3600')">
       			<input type="radio" name="options" onClick="changecolor(id)"> 1 hour
    			</label>
-   			<label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686">
+   			<!-- <label class="btn btn-primary" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686">
       			<input type="radio" name="options" onClick="changecolor(id)"> 1 day
-   			</label>
+   			</label> -->
 		</div>	
 
 
@@ -122,4 +122,11 @@
 		
 		<!-- 见date_emotion.js文件 -->
 		<!-- <span class="loading_more" onclick="" >加载更多</span> -->
+</div>
+
+<div  id="blog_scan_area_emotion_page">
+	<ul class="pager">
+		<li class="previous" onclick="up_emotion()"><a style="font-size: 16px;" >&larr; 上一页</a></li>
+		<li class="next"  onclick="down_emotion()"><a style="font-size: 16px;">下一页 &rarr;</a></li>
+	</ul>
 </div>

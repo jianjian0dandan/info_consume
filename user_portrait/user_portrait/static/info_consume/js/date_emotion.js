@@ -6,11 +6,11 @@ var end_ts = 1468949400;
 var pointInterval=3600;
 var case_val = 1;
 var province = '陕西';
-var sort_item = 'timestamp';
+var sort_item_emotion = 'timestamp';
 var sen = 0;
 
-var no_page = 0;
-var blog_num_max_global = 0;
+var no_page_emotion = 0;
+var blog_num_max_global_emotion = 0;
 
 function get_emotion_type(val) {
  	case_val = val;
@@ -23,19 +23,19 @@ function get_emotion_type(val) {
 
 function set_order_type_emotion(type){
 	if(type=='time'){
-		sort_item = 'timestamp';
+		sort_item_emotion = 'timestamp';
 		Draw_blog_scan_area_emotion_result();
 
 	}else if(type=='hot'){
-		sort_item = 'retweeted';
+		sort_item_emotion = 'retweeted';
 		Draw_blog_scan_area_emotion_result();
 	}
 }
 
-function get_per_time(val) {
+function get_per_time_emotion(val) {
 	pointInterval = val;
 	console.log(pointInterval);
-	// set_timestamp();
+	
 	Draw_emotion_trend_line_result();
 }
 
@@ -56,49 +56,54 @@ function set_emotion_type(type){
 
 
 //上一页
-function up(){
+function up_emotion(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里减去1 再放进链接里  
-     if(no_page==0){
+     if(no_page_emotion==0){
          alert("当前已经是第一页!");
          return false;
      }else{
- 		Draw_blog_scan_area_order_result();
- 		no_page-=1;
+ 		no_page_emotion--;
+ 		console.log(no_page_emotion);
+ 		console.log('执行了上一页操作');
+ 		Draw_blog_scan_area_emotion_result();
+ 		
      }
 }
 //下一页
-function down(){
+function down_emotion(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里加上1 再放进链接里  
-
-     if(no_page==Math.min(9,Math.ceil(blog_num_max_global/10)-1)){
+     
+     if(no_page_emotion==Math.min(9,Math.ceil(blog_num_max_global_emotion/10)-1)){
          alert("当前已经是最后一页!");
+         console.log(no_page_emotion);
          return false;
      }else{
- 		Draw_blog_scan_area_order_result();
- 		no_page+=1;
+ 		no_page_emotion++;
+ 		console.log(no_page_emotion);
+ 		console.log('执行了下一页操作');
+ 		Draw_blog_scan_area_emotion_result();
+ 		
      }
 }
 
-function first(){
-     //首先 你页面上要有一个标志  标志当前是第几页
-     //然后在这里减去1 再放进链接里  
-     no_page=0;
+function first_emotion(){
+   
+     no_page_emotion=0;
      /*这里在将当前页数赋值到页面做显示标志*/
-     Draw_blog_scan_area_order_result();
-
+     Draw_blog_scan_area_emotion_result();
 }
 //下一页
-function last(){
-     //首先 你页面上要有一个标志  标志当前是第几页
-     //然后在这里加上1 再放进链接里  
-     no_page=(Math.ceil(blog_num_max_global/10)-1);
+function last_emotion(){
+     
+     no_page_emotion=(Math.ceil(blog_num_max_global_emotion/10)-1);
     
      /*这里在将当前页数赋值到页面做显示标志*/
      // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
-     Draw_blog_scan_area_order_result();
+     Draw_blog_scan_area_emotion_result();
 }
+
 
 
 
@@ -451,15 +456,19 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
-		var blog_num_max_local = Math.min(100,item.length);
-		blog_num_max_global = blog_num_max_local;
+		var blog_num_max_local_emotion = Math.min(100,item.length);
+		
+		blog_num_max_global_emotion = blog_num_max_local_emotion;
+
 		if (item.length == 0){
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
 			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-			var item_i = no_page*10;
-			var max_i = item_i+Math.min(10,blog_num_max_local-item_i);
-			for (i=item_i; i<max_i; i++){
+			var item_i_emotion = no_page_emotion*10;
+			
+			var max_i_emotion = item_i_emotion+Math.min(10,blog_num_max_local_emotion-item_i_emotion);
+			
+			for (i=item_i_emotion; i<max_i_emotion; i++){
 
 				if (item[i][1].photo_url=='unknown'){
 					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
@@ -495,10 +504,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				html += '</div>';
 			// }
 			}
-			html += '<ul class="pager">';
-			html += '<li class="previous" ><a href="#" style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
-			html += '<li class="next"><a href="#" style="font-size: 16px;" onclick="last()">下一页 &rarr;</a></li>';
-			html += '</ul>'
+			
 			// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
 		 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
 		 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
@@ -513,15 +519,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 			// html += '</div>'
 		
 		}
-		// html += '<ul class="pagination">'
-		// html += '<li><a href="#">&laquo;</a></li>';
-		// html += '<li class="active"><a href="#">1</a></li>';
-		// html += '<li><a href="#">2</a></li>';
-		// html += '<li><a href="#">3</a></li>';
-		// html += '<li><a href="#">4</a></li>';
-		// html += '<li><a href="#">5</a></li>';
-		// html += '<li><a href="#">&raquo;</a></li>';
-		// html += '</ul>';
+		
 		
 		$('#blog_scan_area_emotion').append(html);
 		
@@ -531,6 +529,8 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 var topic_analysis_emotion = new topic_analysis_emotion();
 
 function Draw_emotion_trend_line_result(){
+	start_ts = 1468166400;
+ 	end_ts = 1468949400;
 	url = "/topic_sen_analyze/sen_time_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_trend_line);
@@ -550,7 +550,9 @@ function Draw_emotion_map_result(){
 }
 
 function Draw_blog_scan_area_emotion_result(){
-    url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item+'&sen='+sen;
+	start_ts = 1468166400;
+ 	end_ts = 1468949400;
+    url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item_emotion+'&sen='+sen;
  	console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
