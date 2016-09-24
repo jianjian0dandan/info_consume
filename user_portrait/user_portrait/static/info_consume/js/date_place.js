@@ -5,8 +5,9 @@ var start_ts = 1468474200;
 //var end_ts = 1468170900;
 var end_ts = 1468495800;
 var province = '陕西';
-//var sort_item = 'timestamp';
-
+var sort_item = 'timestamp';
+var no_page_place = 0;
+var blog_num_max_global_place = 0;
 
 
 // var topic = $('#topic_text').text();
@@ -64,14 +65,173 @@ var province = '陕西';
 
 
 
-function set_order_type(type){
+function set_order_type_place(type){
 	if(type=='time'){
 		sort_item = 'timestamp';
-		Draw_blog_scan_area_order_result();
+		Draw_blog_scan_area_place_result();
 
 	}else if(type=='hot'){
 		sort_item = 'retweeted';
-		Draw_blog_scan_area_order_result();
+		Draw_blog_scan_area_place_result();
+	}
+}
+
+
+//上一页
+function up_place(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     if(no_page_place==0){
+         alert("当前已经是第一页!");
+         return false;
+     }else{
+ 		no_page_place--;
+ 		console.log(no_page_place);
+ 		console.log('执行了上一页操作');
+ 		Draw_blog_scan_area_place_result();
+ 		
+     }
+}
+//下一页
+function down_place(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+     
+     if(no_page_place==Math.min(9,Math.ceil(blog_num_max_global_place/10)-1)){
+         alert("当前已经是最后一页!");
+         console.log(no_page_place);
+         return false;
+     }else{
+ 		no_page_place++;
+ 		console.log(no_page_place);
+ 		console.log('执行了下一页操作');
+ 		Draw_blog_scan_area_place_result();
+ 		
+     }
+}
+
+function first_place(){
+   
+     no_page_place=0;
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_place_result();
+}
+//下一页
+function last_place(){
+     
+     no_page_place=(Math.ceil(blog_num_max_global_place/10)-1);
+    
+     /*这里在将当前页数赋值到页面做显示标志*/
+     // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
+     Draw_blog_scan_area_place_result();
+}
+
+
+
+
+function set_place_type(type){
+	if(type=='北京'){
+		province = '北京';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='天津'){
+		province = '天津';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='上海'){
+		province = '上海';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='重庆'){
+		province = '重庆';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='黑龙江'){
+		province = '黑龙江';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='吉林'){
+		province = '吉林';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='辽宁'){
+		province = '辽宁';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='四川'){
+		province = '四川';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='河北'){
+		province = '河北';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='新疆'){
+		province = '新疆';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='甘肃'){
+		province = '甘肃';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='青海'){
+		province = '青海';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='陕西'){
+		province = '陕西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='宁夏'){
+		province = '宁夏';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='河南'){
+		province = '河南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='山东'){
+		province = '山东';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='山西'){
+		province = '山西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='安徽'){
+		province = '安徽';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='湖北'){
+		province = '湖北';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='湖南'){
+		province = '湖南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='江苏'){
+		province = '江苏';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='内蒙古'){
+		province = '内蒙古';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='贵州'){
+		province = '贵州';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='云南'){
+		province = '云南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='广西'){
+		province = '广西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='西藏'){
+		province = '西藏';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='浙江'){
+		province = '浙江';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='江西'){
+		province = '江西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='广东'){
+		province = '广东';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='福建'){
+		province = '福建';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='海南'){
+		province = '海南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='香港'){
+		province = '香港';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='澳门'){
+		province = '澳门';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='台湾'){
+		province = '台湾';
+		Draw_blog_scan_area_place_result();
 	}
 }
 
@@ -277,14 +437,20 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
+		var blog_num_max_local_place = Math.min(100,item.length);
+		
+		blog_num_max_global_place = blog_num_max_local_place;
 		
 		if (item.length == 0){
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
 			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-		
-			for (i=0;i < Math.min(10,item.length);i++){
-	
+			var item_i_place = no_page_place*10;
+			
+			var max_i_place = item_i_place+Math.min(10,blog_num_max_local_place-item_i_place);
+			
+			for (i=item_i_place; i<max_i_place; i++){
+
 				if (item[i][1].photo_url=='unknown'){
 					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
 				}
@@ -320,29 +486,21 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			// }
 			}
 
-			html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-		    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span id="S_First" class="disabled" >首页</span>'
-		    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
-		    html += '<span id="S_navi"><!--页号导航--></span>'
-		    html += '<span id="S_Next"  class="disabled" >下一页</span>'
-		    html += '<span id="S_Last"  class="disabled" >末页</span>'
-		    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-		    html += '<span id="P_GO" >GO</span>'
-			html += '</div>'
+			// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+		 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		 //    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		 //    html += '<span id="S_First" class="disabled" >首页</span>'
+		 //    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
+		 //    html += '<span id="S_navi"><!--页号导航--></span>'
+		 //    html += '<span id="S_Next"  class="disabled" >下一页</span>'
+		 //    html += '<span id="S_Last"  class="disabled" >末页</span>'
+		 //    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+		 //    html += '<span id="P_GO" >GO</span>'
+			// html += '</div>'
 		
 		}
-		// html += '<ul class="pagination">'
-		// html += '<li><a href="#">&laquo;</a></li>';
-		// html += '<li class="active"><a href="#">1</a></li>';
-		// html += '<li><a href="#">2</a></li>';
-		// html += '<li><a href="#">3</a></li>';
-		// html += '<li><a href="#">4</a></li>';
-		// html += '<li><a href="#">5</a></li>';
-		// html += '<li><a href="#">&raquo;</a></li>';
-		// html += '</ul>';
+		
 		
 		$('#blog_scan_area_place').append(html);
 		
@@ -366,7 +524,9 @@ function Draw_geo_map_result(){
 }	
 
 function Draw_blog_scan_area_place_result(){
-    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
+	start_ts = 1468474200;
+	end_ts = 1468495800;
+    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province+'&sort_item='+sort_item;
  	console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
 }		
