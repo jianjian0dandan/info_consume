@@ -7,7 +7,10 @@ var pointInterval=3600;
 var case_val = 1;
 var province = '陕西';
 var sort_item = 'timestamp';
-var sen=0;
+var sen = 0;
+
+var no_page = 0;
+var blog_num_max_global = 0;
 
 function get_emotion_type(val) {
  	case_val = val;
@@ -18,14 +21,14 @@ function get_emotion_type(val) {
  }
 
 
-function set_order_type(type){
+function set_order_type_emotion(type){
 	if(type=='time'){
 		sort_item = 'timestamp';
-		Draw_blog_scan_area_order_result();
+		Draw_blog_scan_area_emotion_result();
 
 	}else if(type=='hot'){
 		sort_item = 'retweeted';
-		Draw_blog_scan_area_order_result();
+		Draw_blog_scan_area_emotion_result();
 	}
 }
 
@@ -37,30 +40,66 @@ function get_per_time(val) {
 }
 
 
-function set_order_type(type){
-	if(type=='time'){
-		sort_item = 'timestamp';
-		Draw_blog_scan_area_emotion_result();
-
-	}else if(type=='hot'){
-		sort_item = 'retweeted';
-		Draw_blog_scan_area_emotion_result();
-	}
-}
-
 function set_emotion_type(type){
 	if(type=='0'){
-		sen='0';
+		sen=0;
 		Draw_blog_scan_area_emotion_result();
+
 	}else if(type=='1'){
-		sen='1';
+		sen=1;
 		Draw_blog_scan_area_emotion_result();
-		alert('哈哈哈');
 	}else if(type=='2'){
-		sen='2';
+		sen=2;
 		Draw_blog_scan_area_emotion_result();
 	}
 }
+
+
+//上一页
+function up(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     if(no_page==0){
+         alert("当前已经是第一页!");
+         return false;
+     }else{
+ 		Draw_blog_scan_area_order_result();
+ 		no_page-=1;
+     }
+}
+//下一页
+function down(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+
+     if(no_page==Math.min(9,Math.ceil(blog_num_max_global/10)-1)){
+         alert("当前已经是最后一页!");
+         return false;
+     }else{
+ 		Draw_blog_scan_area_order_result();
+ 		no_page+=1;
+     }
+}
+
+function first(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里减去1 再放进链接里  
+     no_page=0;
+     /*这里在将当前页数赋值到页面做显示标志*/
+     Draw_blog_scan_area_order_result();
+
+}
+//下一页
+function last(){
+     //首先 你页面上要有一个标志  标志当前是第几页
+     //然后在这里加上1 再放进链接里  
+     no_page=(Math.ceil(blog_num_max_global/10)-1);
+    
+     /*这里在将当前页数赋值到页面做显示标志*/
+     // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
+     Draw_blog_scan_area_order_result();
+}
+
 
 
 function topic_analysis_emotion(){
@@ -412,14 +451,16 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
-		
+		var blog_num_max_local = Math.min(100,item.length);
+		blog_num_max_global = blog_num_max_local;
 		if (item.length == 0){
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
 			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
-		
-			for (i=0;i < Math.min(10,item.length);i++){
-	
+			var item_i = no_page*10;
+			var max_i = item_i+Math.min(10,blog_num_max_local-item_i);
+			for (i=item_i; i<max_i; i++){
+
 				if (item[i][1].photo_url=='unknown'){
 					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
 				}
@@ -454,19 +495,22 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				html += '</div>';
 			// }
 			}
-
-			html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-		    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		    html += '<span id="S_First" class="disabled" >首页</span>'
-		    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
-		    html += '<span id="S_navi"><!--页号导航--></span>'
-		    html += '<span id="S_Next"  class="disabled" >下一页</span>'
-		    html += '<span id="S_Last"  class="disabled" >末页</span>'
-		    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-		    html += '<span id="P_GO" >GO</span>'
-			html += '</div>'
+			html += '<ul class="pager">';
+			html += '<li class="previous" ><a href="#" style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
+			html += '<li class="next"><a href="#" style="font-size: 16px;" onclick="last()">下一页 &rarr;</a></li>';
+			html += '</ul>'
+			// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+		 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		 //    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+		 //    html += '<span id="S_First" class="disabled" onmouseover="first()">首页</span>'
+		 //    html += '<span id="S_Prev"  class="disabled" onmouseover="up()">上一页</span>'
+		 //    html += '<span id="S_navi"><!--页号导航--></span>'
+		 //    html += '<span id="S_Next"  class="disabled" onmouseover="down()">下一页</span>'
+		 //    html += '<span id="S_Last"  class="disabled" onmouseover="last()">末页</span>'
+		 //    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+		 //    html += '<span id="P_GO" >GO</span>'
+			// html += '</div>'
 		
 		}
 		// html += '<ul class="pagination">'
@@ -496,6 +540,9 @@ function Draw_emotion_map_result(){
 
 	var start_ts=1468944000;
 	var end_ts=1471622400;
+
+	console.log(start_ts);
+	console.log(end_ts);
 
     url = "/topic_sen_analyze/sen_province_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
  	console.log(url);

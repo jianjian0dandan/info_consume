@@ -5,7 +5,7 @@ var start_ts = 1468474200;
 //var end_ts = 1468170900;
 var end_ts = 1468495800;
 var province = '陕西';
-//var sort_item = 'timestamp';
+var sort_item = 'timestamp';
 
 
 
@@ -64,14 +64,121 @@ var province = '陕西';
 
 
 
-function set_order_type(type){
+function set_order_type_place(type){
 	if(type=='time'){
 		sort_item = 'timestamp';
-		Draw_blog_scan_area_order_result();
+		Draw_blog_scan_area_place_result();
 
 	}else if(type=='hot'){
 		sort_item = 'retweeted';
-		Draw_blog_scan_area_order_result();
+		Draw_blog_scan_area_place_result();
+	}
+}
+
+
+function set_place_type(type){
+	if(type=='北京'){
+		province = '北京';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='天津'){
+		province = '天津';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='上海'){
+		province = '上海';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='重庆'){
+		province = '重庆';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='黑龙江'){
+		province = '黑龙江';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='吉林'){
+		province = '吉林';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='辽宁'){
+		province = '辽宁';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='四川'){
+		province = '四川';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='河北'){
+		province = '河北';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='新疆'){
+		province = '新疆';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='甘肃'){
+		province = '甘肃';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='青海'){
+		province = '青海';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='陕西'){
+		province = '陕西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='宁夏'){
+		province = '宁夏';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='河南'){
+		province = '河南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='山东'){
+		province = '山东';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='山西'){
+		province = '山西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='安徽'){
+		province = '安徽';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='湖北'){
+		province = '湖北';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='湖南'){
+		province = '湖南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='江苏'){
+		province = '江苏';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='内蒙古'){
+		province = '内蒙古';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='贵州'){
+		province = '贵州';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='云南'){
+		province = '云南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='广西'){
+		province = '广西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='西藏'){
+		province = '西藏';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='浙江'){
+		province = '浙江';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='江西'){
+		province = '江西';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='广东'){
+		province = '广东';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='福建'){
+		province = '福建';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='海南'){
+		province = '海南';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='香港'){
+		province = '香港';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='澳门'){
+		province = '澳门';
+		Draw_blog_scan_area_place_result();
+	}else if(type=='台湾'){
+		province = '台湾';
+		Draw_blog_scan_area_place_result();
 	}
 }
 
@@ -366,7 +473,7 @@ function Draw_geo_map_result(){
 }	
 
 function Draw_blog_scan_area_place_result(){
-    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
+    url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province+'&sort_item='+sort_item;
  	console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
 }		

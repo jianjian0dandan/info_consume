@@ -51,7 +51,7 @@ var date = month+' '+year
 
 
 
-function set_order_type(type){
+function set_order_type_meaning(type){
   if(type=='time'){
     sort_item = 'timestamp';
     Draw_blog_scan_area_meaning_result();
@@ -59,10 +59,17 @@ function set_order_type(type){
   }else if(type=='hot'){
     sort_item = 'retweeted';
     Draw_blog_scan_area_meaning_result();
-    alert('执行了语义维度的微博类型排序');
+
   }
 }
 
+
+// function set_opinion_type(type){
+ 
+//     opinion=type;
+//     Draw_blog_scan_area_meaning_result();
+
+// }
 
 
 function topic_analysis_meaning(){
@@ -290,7 +297,7 @@ Draw_blog_opinion:function(data){
       for (i=0;i < item.length;i++){
         // console.log('qqqqqq');
         // var opinion = item[i].join("+");
-        html += '<span class="label place_label" style="color: #868686;">'+item[i].join("+")+'</span>';
+        html += '<span class="label place_label" style="color: #868686;" onmouseover="set_opinion_type(item[i].join("+"))">'+item[i].join("+")+'</span>';
         // console.log(item[i].join("+"));
       }
 
@@ -300,8 +307,8 @@ Draw_blog_opinion:function(data){
     $('#opinions').append(html);
 },
 
-
 Draw_blog_scan_area_meaning:function(data){
+    
     $('#blog_scan_area_meaning').empty();
     var item = data;
     var html = '';
@@ -400,6 +407,8 @@ function Draw_blog_opinion_result(){
 }
 
 function Draw_blog_scan_area_meaning_result(){
+  start_ts=1468944000;
+  end_ts=1471622400;
   url = "/topic_language_analyze/weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&opinion='+opinion+'&sort_item='+sort_item;
   console.log(url);
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_blog_scan_area_meaning);

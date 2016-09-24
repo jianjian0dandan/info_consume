@@ -67,7 +67,7 @@ function get_per_time(val) {
 }
 
 
-function set_order_type(type){
+function set_order_type_time(type){
 	if(type=='time'){
 		sort_item = 'timestamp';
 		Draw_blog_scan_area_order_result();
@@ -105,34 +105,32 @@ function set_order_type(type){
 function up(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里减去1 再放进链接里  
-     var pageno=no_page;
-     if(pageno==0){
+     if(no_page==0){
          alert("当前已经是第一页!");
          return false;
+     }else{
+ 		no_page=no_page-1;
+ 		Draw_blog_scan_area_order_result();
+ 		console.log('执行了上一页操作');
      }
-     /*这里在将当前页数赋值到页面做显示标志*/
-     Draw_blog_scan_area_order_result();
-     no_page-=1;
 }
 //下一页
 function down(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里加上1 再放进链接里  
-     var pageno=no_page;
-     if(pageno==9){
+
+     if(no_page==Math.min(9,Math.ceil(blog_num_max_global/10)-1)){
          alert("当前已经是最后一页!");
          return false;
+     }else{
+ 		no_page=no_page+1;
+ 		Draw_blog_scan_area_order_result();
+ 		console.log('执行了下一页操作');
      }
-     /*这里在将当前页数赋值到页面做显示标志*/
-     Draw_blog_scan_area_order_result();
-     no_page+=1;
 }
 
 function first(){
-     //首先 你页面上要有一个标志  标志当前是第几页
-     //然后在这里减去1 再放进链接里  
-     var pageno=0;
-
+   
      no_page=0;
      /*这里在将当前页数赋值到页面做显示标志*/
      Draw_blog_scan_area_order_result();
@@ -140,10 +138,9 @@ function first(){
 }
 //下一页
 function last(){
-     //首先 你页面上要有一个标志  标志当前是第几页
-     //然后在这里加上1 再放进链接里  
-     var pageno=Math.ceil(blog_num_max_global/10);
      
+     no_page=(Math.ceil(blog_num_max_global/10)-1);
+    
      /*这里在将当前页数赋值到页面做显示标志*/
      // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
      Draw_blog_scan_area_order_result();
@@ -339,19 +336,23 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		// }
 		}
 
+		html += '<ul class="pager">';
+		html += '<li class="previous" ><a style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
+		html += '<li class="next"><a style="font-size: 16px;" onclick="down()">下一页 &rarr;</a></li>';
+		html += '</ul>'
 		
-		html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-	    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-	    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-	    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-	    html += '<span id="S_First" class="disabled" onclick="first()">首页</span>'
-	    html += '<span id="S_Prev"  class="disabled" onclick="up()">上一页</span>'
-	    html += '<span id="S_navi"><!--页号导航--></span>'
-	    html += '<span id="S_Next"  class="disabled" onclick="up()">下一页</span>'
-	    html += '<span id="S_Last"  class="disabled" onclick="last()">末页</span>'
-	    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-	    html += '<span id="P_GO" >GO</span>'
-		html += '</div>'
+		// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+	 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	 //    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	 //    html += '<span id="S_First" class="disabled" onmouseover="first()">首页</span>'
+	 //    html += '<span id="S_Prev"  class="disabled" onmouseover="up()">上一页</span>'
+	 //    html += '<span id="S_navi"><!--页号导航--></span>'
+	 //    html += '<span id="S_Next"  class="disabled" onmouseover="down()">下一页</span>'
+	 //    html += '<span id="S_Last"  class="disabled" onmouseover="last()">末页</span>'
+	 //    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+	 //    html += '<span id="P_GO" >GO</span>'
+		// html += '</div>'
 	}
 	
 	$('#blog_scan_area_time').append(html);
@@ -366,16 +367,18 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
+	start_ts = 1468426500;
+	end_ts = 1468459800;
     url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
  	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
 }		
 
 function Draw_blog_scan_area_order_result(){
+	start_ts = 1468426500;
+	end_ts = 1468459800;
     url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
- 	//console.log('下面是微博排序url');
  	console.log(url_order);
-
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
 }	
 
