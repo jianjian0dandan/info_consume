@@ -277,6 +277,22 @@ position: absolute;
     float: left;
 }
 
+#blog_scan_area_time_page{
+	background-color: #E4E4E4;
+    width: 60%;
+    height: 60px;
+    position: relative;
+    margin-left: 20.1%;
+    margin-top: -10%;
+    /* margin-bottom: 10%; */
+    display: table;
+    overflow: hidden;
+    /* height: auto; */
+    float: left;
+}
+
+
+
 #blog_scan_title_line2_time {
 	background-color:#FF9900;
 	width: 6px;

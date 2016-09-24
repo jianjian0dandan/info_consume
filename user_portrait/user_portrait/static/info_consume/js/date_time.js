@@ -16,7 +16,7 @@ var sort_item = 'timestamp';
 var start_ts,end_ts,pointInterval;
 
 var no_page = 0;
-var blog_num_max_global = 0;
+var blog_num_max_global_time = 0;
 
 
 function set_timestamp(){
@@ -102,30 +102,35 @@ function set_order_type_time(type){
 // }
 
 //上一页
-function up(){
+function up_time(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里减去1 再放进链接里  
      if(no_page==0){
          alert("当前已经是第一页!");
          return false;
      }else{
- 		no_page=no_page-1;
- 		Draw_blog_scan_area_order_result();
+ 		no_page--;
+ 		console.log(no_page);
  		console.log('执行了上一页操作');
+ 		Draw_blog_scan_area_order_result();
+ 		
      }
 }
 //下一页
-function down(){
+function down_time(){
      //首先 你页面上要有一个标志  标志当前是第几页
      //然后在这里加上1 再放进链接里  
-
-     if(no_page==Math.min(9,Math.ceil(blog_num_max_global/10)-1)){
+     
+     if(no_page==Math.min(9,Math.ceil(blog_num_max_global_time/10)-1)){
          alert("当前已经是最后一页!");
+         console.log(no_page);
          return false;
      }else{
- 		no_page=no_page+1;
- 		Draw_blog_scan_area_order_result();
+ 		no_page++;
+ 		console.log(no_page);
  		console.log('执行了下一页操作');
+ 		Draw_blog_scan_area_order_result();
+ 		
      }
 }
 
@@ -139,7 +144,7 @@ function first(){
 //下一页
 function last(){
      
-     no_page=(Math.ceil(blog_num_max_global/10)-1);
+     no_page=(Math.ceil(blog_num_max_global_time/10)-1);
     
      /*这里在将当前页数赋值到页面做显示标志*/
      // window.location.href="a.htm?b=123&b=qwe&c="+pageno;
@@ -289,14 +294,21 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
 		
-	var blog_num_max_local = Math.min(100,item.length);
-	blog_num_max_global = blog_num_max_local;
+	var blog_num_max_local_time = Math.min(100,item.length);
+	console.log('item.length:'+item.length);
+
+	console.log('blog_num_max_global_time:'+blog_num_max_global_time);
+	blog_num_max_global_time = blog_num_max_local_time;
+	console.log('blog_num_max_global_time:'+blog_num_max_global_time);
 	if (!item){
 	html += '<div style="color:grey;width: 100px;height: 200px;">暂无数据</div>'
 	}else{
 		var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
 		var item_i = no_page*10;
-		var max_i = item_i+Math.min(10,blog_num_max_local-item_i);
+		console.log('no_page:'+no_page);
+		console.log('item_i:'+item_i);
+		var max_i = item_i+Math.min(10,blog_num_max_local_time-item_i);
+		console.log('max_i:'+max_i);
 		for (i=item_i; i<max_i; i++){
 
 			if (item[i][1].photo_url=='unknown'){
@@ -336,10 +348,10 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		// }
 		}
 
-		html += '<ul class="pager">';
-		html += '<li class="previous" ><a style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
-		html += '<li class="next"><a style="font-size: 16px;" onclick="down()">下一页 &rarr;</a></li>';
-		html += '</ul>'
+		// html += '<ul class="pager">';
+		// html += '<li class="previous" ><a style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
+		// html += '<li class="next"><a style="font-size: 16px;" onclick="down()">下一页 &rarr;</a></li>';
+		// html += '</ul>'
 		
 		// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
 	 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
