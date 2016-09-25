@@ -49,10 +49,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
 	html += '</table>';
   html += '</center>';
 	$('#index_bottom').append(html);
-  var win_width=window.screen.availWidth;
-  var table_width=table.width; 
-  var table_left=(win_width-table_width)/2; 
-  // $('#table').style("left",table_left);
+  
   },
 
 }

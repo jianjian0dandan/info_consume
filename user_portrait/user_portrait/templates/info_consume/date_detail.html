@@ -94,7 +94,13 @@
 
 
 	 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
-		    <p class="topic_text">#里约奥运#</p>
+	 		<script type="text/javascript">
+	 			var topic_name_on_detail = "{{topic_name}}";
+ 	 			var html = '';
+	 			html += '<p class="topic_text">#'+topic_name_on_detail+'#</p>';
+	 			$('#myTabContent').append(html);
+	 		</script>
+		    
 		    <p class="topic_time">日期:</p>
 		    <p class="topic_time_from">从</p>
 	<!-- 时间段选择 -->

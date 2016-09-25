@@ -22,6 +22,15 @@
 			$("#input").val("topic_name");
 		}
 	</script>
+
+	<script type="text/javascript">
+        function checkText(){
+            var textValue = document.getElementById("input").value;
+            if(textValue == ""){
+                alert("输入框不能为空！");
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -35,7 +44,7 @@
       <div class="row">
          <div class="col-lg-4">
             <div class="input-group">
-               <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿">
+               <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿" onblur="checkText();">
                <span class="input-group-btn">
                   <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!
@@ -47,6 +56,8 @@
    </form>
 
 </div>
+
+
 
 <!-- 模态框1（Modal_date_choose） -->
 <div class="modal fade" id="myModal_date_choose" tabindex="-1" role="dialog" 
