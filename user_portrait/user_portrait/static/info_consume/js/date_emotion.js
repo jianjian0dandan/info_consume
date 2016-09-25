@@ -463,7 +463,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		if (item.length == 0){
 		html += '<div style="color:grey;">暂无数据</div>'
 		}else{
-			var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
+			var num_page = Math.ceil(blog_num_max_local_emotion/10);  //num_page表示微博数据共有多少页
 			var item_i_emotion = no_page_emotion*10;
 			
 			var max_i_emotion = item_i_emotion+Math.min(10,blog_num_max_local_emotion-item_i_emotion);
@@ -504,7 +504,9 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				html += '</div>';
 			// }
 			}
-			
+			html += '<div id="PageTurn" class="pager" style="margin-left:46.5%;height: 40px;margin-bottom: -20px;z-index: 99;">'
+	        html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
+	        html += '</div>'
 			// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
 		 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
 		 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
