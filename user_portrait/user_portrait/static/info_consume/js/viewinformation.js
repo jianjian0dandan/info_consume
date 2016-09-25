@@ -26,74 +26,91 @@ viewinformation.prototype=
 	identity:function(data)
 	{
 		var i;
+		console.log(data);
 		//将此人涉及领域从数据库取出，
 		var identity = new Array();
 		var num = new Array();
 		var show_identity = new Array();
+		// var lenght;
+		// lenght=data.lenght;
+		//console.log(data);
+		// if(data.length!=undefined)
 		
-		for (i=0;i<data.in_domain.length;i++) 
-		{
-			identity[i]=data.in_domain[i][0];
-			num[i]=data.in_domain[i][1];
-			show_identity.push({text:identity[i],max:maxvalue});
-		}
-		//获取数量数组中的最大值；
-		var maxvalue=Math.max.apply(null, num);
-		//console.log(maxvalue);
-		//console.log(num);
-//console.log(show_domain);
-		var myChart1 = echarts.init(document.getElementById('identity'));
-						option = {					    
-					    tooltip : {
-					        trigger: 'axis'
-					    },
-					     toolbox: {
-					        show : true,
-					        feature : {
-					            mark : {show: true},
-					            dataView : {show: true, readOnly: false},
-					            restore : {show: true},
-					            saveAsImage : {show: true}
-					        }
-					    },					   
-					    calculable : true,
-					    polar : [
-					        {
-					            indicator : show_identity,
-					           
-					            radius : 130
-					        }
-					    ],
-					    series : [
-					        {
-					            // name: '完全实况球员数据',
-					            type: 'radar',
-					            itemStyle: {
-					                normal: {
-					                    areaStyle: {
-					                        type: 'default'
-					                    }
-					                }
-					            },
-					            data : [
-					               
-					                {
-					                	name:'他/她的身份',
-					                    value : num,
-					                    
-					                }
-					            ]
-					        }
-					    ]
-					};
-						myChart1.setOption(option);
 
-						//Echarts自适应网页窗口大小
-						window.onresize = myChart1.resize;
+				for (i=0;i<data.in_domain.length;i++) 
+			{
+				identity[i]=data.in_domain[i][0];
+				num[i]=data.in_domain[i][1];
+				show_identity.push({text:identity[i],max:maxvalue});
+			}
+			//获取数量数组中的最大值；
+			var maxvalue=Math.max.apply(null, num);
+			//console.log(maxvalue);
+			//console.log(num);
+	//console.log(show_domain);
+			var myChart1 = echarts.init(document.getElementById('identity'));
+							option = {					    
+						    tooltip : {
+						        trigger: 'axis'
+						    },
+						     toolbox: {
+						        show : true,
+						        feature : {
+						            mark : {show: true},
+						            dataView : {show: true, readOnly: false},
+						            restore : {show: true},
+						            saveAsImage : {show: true}
+						        }
+						    },					   
+						    calculable : true,
+						    polar : [
+						        {
+						            indicator : show_identity,
+						           
+						            radius : 130
+						        }
+						    ],
+						    series : [
+						        {
+						            // name: '完全实况球员数据',
+						            type: 'radar',
+						            itemStyle: {
+						                normal: {
+						                    areaStyle: {
+						                        type: 'default'
+						                    }
+						                }
+						            },
+						            data : [
+						               
+						                {
+						                	name:'他/她的身份',
+						                    value : num,
+						                    
+						                }
+						            ]
+						        }
+						    ]
+						};
+							myChart1.setOption(option);
 
-		//限制打印20个hashtag
-		//$('#hashone').append(hashtag[0][0]);				
-		$('#p_so_onload').css('display','none').siblings().css('display','block');		
+							//Echarts自适应网页窗口大小
+							window.onresize = myChart1.resize;
+
+			//限制打印20个hashtag
+			//$('#hashone').append(hashtag[0][0]);				
+			$('#p_so_onload').css('display','none').siblings().css('display','block');	
+		// }else
+		// {
+		// 	$('#p_so_onload').css('display','none').siblings().css('display','block');	
+  //       	$('#identity').empty();
+
+		// 	var html='';
+		// 	html=html+'<p style="margin-left:30%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
+  //       	 $('#identity').append(html);
+		// }
+		
+			
 	},
 
 	domain:function(data)
@@ -104,8 +121,12 @@ viewinformation.prototype=
 		var domain = new Array();
 		var num = new Array();
 		var show_domain = new Array();
+		// var lenght;
+		// lenght=data.lenght;
+		// if(data.length!=undefined)
 		
-		for (i=0;i<data.in_topic.length;i++) 
+		// {
+			for (i=0;i<data.in_topic.length;i++) 
 		{
 			domain[i]=data.in_topic[i][0];
 			num[i]=data.in_topic[i][1];
@@ -165,6 +186,15 @@ viewinformation.prototype=
 
 		//显示正在加载中的文字
 		$('#p_so_onload1').css('display','none').siblings().css('display','block');		
+		// }else	
+		// {
+		// 	$('#p_so_onload1').css('display','none').siblings().css('display','block');	
+  //       	$('#domain').empty();
+
+		// 	var html='';
+		// 	html=html+'<p style="margin-left:30%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
+  //       	 $('#domain').append(html);
+		// }	
 		} ,
 
 		social:function(data)
@@ -180,6 +210,7 @@ viewinformation.prototype=
 
 
 function Draw_out(data,div){
+		console.log(data.length);
 		console.log(data);
         $('#'+div).empty();
 		if(data.length==0){
@@ -210,8 +241,8 @@ function Draw_out(data,div){
 			// $('#'+div).append(html);
 }
 
-// var uid;
-
+// var uid=2853982940;
+// console.log(uid);
 
 var viewinformation=new viewinformation();
 
