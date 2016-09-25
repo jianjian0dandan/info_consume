@@ -402,16 +402,16 @@
 		/*弹出对话框*/
 			function tishikuang()
 			{
-				var t=document.getElementById("guanjianci").value;
-				if (t!=null&&t!="")
+				var topic_name=document.getElementById("guanjianci").value;
+				if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("/index/viewinformation");
+						window.location.href="/index/date_index/?topic_name="+topic_name;
 					}
 				}else
 				 {
@@ -424,16 +424,17 @@
 		/*弹出对话框*/
 			function tishikuang2()
 			{
-				var t=document.getElementById("keyword").value;
-				if (t!=null&&t!="")
+				var topic_name=document.getElementById("keyword").value;
+				if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("https://www.baidu.com/");
+						// alert(window.location.href);
+						window.location.href="/index/date_index/?topic_name="+topic_name;
 					}
 				}else
 				 {
@@ -445,17 +446,19 @@
 		<script type="text/javascript">
 			function entersearch1()
 			{
-				var t=document.getElementById("keyword").value;
+				var topic_name=document.getElementById("keyword").value;
 
-					if (t!=null&&t!="")
+					if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("https://www.baidu.com/");
+						console.log('ddd');
+						window.open("/index/date_index/?topic_name="+topic_name);
+						console.log('eee');
 					}
 				}else
 				 {
@@ -468,16 +471,16 @@
 		<script type="text/javascript">
 			function entersearch2()
 			{
-				var t=document.getElementById("guanjianci").value;
-					if (t!=null&&t!="")
+				var topic_name=document.getElementById("guanjianci").value;
+					if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("https://www.baidu.com/");
+						window.location.href="/index/date_index/?topic_name="+topic_name;
 					}
 				}else
 				 {
