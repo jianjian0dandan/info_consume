@@ -6,15 +6,12 @@ mod = Blueprint('index', __name__, url_prefix='/index')
 @mod.route('/')
 @mod.route('/date_index')
 def date_index():
-    return render_template('/info_consume/date_index.html')
+    keyword = request.args.get('topic_name','')
+    return render_template('/info_consume/date_index.html',topic_name=keyword)
 
 @mod.route('/index')
 def content():
     return render_template('/info_consume/index.html')
-
-@mod.route('/next')
-def next():
-	return render_template('/info_consume/person.html')
 
 @mod.route('/my_friend')
 def my_friend():
@@ -32,10 +29,6 @@ def viewinformation():
 @mod.route('/daohang_public')
 def daohang_public():
 	return render_template('/info_consume/daohang_public.html')
-
-@mod.route('/others')
-def others():
-	return render_template('/info_consume/others.html')
 
 @mod.route('/boot_test')
 def boot_test():
