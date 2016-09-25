@@ -2009,7 +2009,6 @@ def get_online_pattern(now_ts, uid):
 #output: keywords, hashtag, domain, topic
 def search_preference_attribute(uid):
     results = {}
-    print 'really?'
     try:
         print es_user_portrait,portrait_index_name
         portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid)['_source']
@@ -2018,13 +2017,13 @@ def search_preference_attribute(uid):
         return None
     #keywords
     keywords_item_dict = json.loads(portrait_result['keywords'])
-    keywords_dict = dict()
-    for item in keywords_item_dict:
-        keywords_dict[item[0]] = item[1]
+    # keywords_dict = dict()
+    # for item in keywords_item_dict:
+    #     keywords_dict[item[0]] = item[1]
 
-    filter_keywords_dict = keyword_filter(keywords_dict)
-    sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
-    #sort_keywords = sorted(keywords_dict, key=lambda x:x[1], reverse=True)[:50]
+    # filter_keywords_dict = keyword_filter(keywords_dict)
+    # sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
+    sort_keywords = sorted(keywords_item_dict, key=lambda x:x[1], reverse=True)[:50]
     results['keywords'] = sort_keywords
     #hashtag
     if portrait_result['hashtag_dict']:
