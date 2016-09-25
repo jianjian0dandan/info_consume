@@ -14,9 +14,7 @@ my_friend.prototype =
 		success:callback
 	   });
     },
-
     personData:function(data){
-  
 	  personalData = data ;	
 	  //console.log(personalData);	  
 	  var img = document.getElementById('portraitImg');
@@ -42,7 +40,7 @@ my_friend.prototype =
 //好友排行
    my_friend_rank:function(data)
    {
-      // console.log(data); 
+       //console.log(data); 
       // console.log(data.length);
       // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
@@ -78,7 +76,7 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -149,7 +147,8 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+data[i]['uname']+'</td>';
+                  // html+='<td>'+data[i]['uname']+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -228,7 +227,8 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
+                  // html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -296,7 +296,8 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+data[i]['uname']+'</td>';
+                  // html+='<td>'+data[i]['uname']+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -383,7 +384,7 @@ my_friend.prototype =
         node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-        	node_value.push({category:1,name:'uid'+' : '+user_id[i],value:transmit_num[i],label:name[i]});
+        	node_value.push({category:1,name:user_id[i],value:transmit_num[i],label:name[i]});
         }
         //console.log(node_value);
 
@@ -391,7 +392,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-        	line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i],name:'转发次数'+' : '+transmit_num[i]});
+        	line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i],name:'转发次数'+' : '+transmit_num[i]});
         }
        // {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
         var myChart = echarts.init(document.getElementById('transmit'));
@@ -483,20 +484,33 @@ my_friend.prototype =
         function(ec){
             var ecConfig = require('echarts/config');
             function focus(param) {
+              //param是echarts里面存储的数据，可以console出来看一下
+                console.log(param);
                 var data = param.data;
                 var links = option.series[0].links;
                 var nodes = option.series[0].nodes;
+
                 if (
                     data.source != null
                     && data.target != null
                 ) { //点击的是边
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+                    //console.log(data.sourceNode);
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                      //点击的是点
+                      var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }
+                             
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -552,13 +566,12 @@ my_friend.prototype =
           }   
        }
    // console.log(mention_num);
-
     //定义node的值
      var node_value=new Array();
      node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
      for(var i=0;i<data.length;i++)
         {
-          node_value.push({category:1,name:name[i],value:mention_num[i],label:name[i]});
+          node_value.push({category:1,name:user_id[i],value:mention_num[i],label:name[i]});
         }
     //console.log(node_value);
 
@@ -566,7 +579,7 @@ my_friend.prototype =
      var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:name[i],target:'核心用户'+' : '+user_name,weight:mention_num[i],name:'提及次数'+' : '+mention_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:mention_num[i],name:'提及次数'+' : '+mention_num[i]});
         }
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
@@ -664,10 +677,17 @@ my_friend.prototype =
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                    var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }     
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -732,7 +752,7 @@ my_friend.prototype =
         node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:comment_num[i],label:name[i]});
+          node_value.push({category:1,name:user_id[i],value:comment_num[i],label:name[i]});
         }
         //console.log(node_value);
 
@@ -740,7 +760,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i],name:'评论次数'+' : '+comment_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i],name:'评论次数'+' : '+comment_num[i]});
         }
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
@@ -838,10 +858,17 @@ my_friend.prototype =
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                     var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }       
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -856,7 +883,7 @@ my_friend.prototype =
 
 	interaction_relationship:function(data)
 	{
-		    console.log(data);
+		    //console.log(data);
         var user_name=$("#username").html();
         //获取分节点名称
          var name=new Array();
@@ -870,7 +897,7 @@ my_friend.prototype =
               name[i]=data[i]['uname'];
             }
          }
-         console.log(name);
+         //console.log(name);
 
        var interaction_num=new Array();
        for(var i=0;i<data.length;i++)
@@ -896,7 +923,8 @@ my_friend.prototype =
         node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:interaction_num[i],label:name[i]});
+          //'uid'+' : '+
+          node_value.push({category:1,name:user_id[i],value:interaction_num[i],label:name[i]});
         }
         //console.log(node_value);
 
@@ -904,7 +932,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:interaction_num[i],name:'交互次数'+' : '+interaction_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:interaction_num[i],name:'交互次数'+' : '+interaction_num[i]});
         }
 
         var myChart = echarts.init(document.getElementById('interaction'));
@@ -1004,10 +1032,17 @@ my_friend.prototype =
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                    var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }        
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -1031,25 +1066,25 @@ my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_friend
 var url ="/info_person_social/follower/?uid="+uid_rank;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.friend_rank_detail);
 //亲密度排行
-var uid_close=1831090244;
-var url ="/info_person_social/mention/?uid="+uid_close;
+var uid_close=2298571767;
+var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank);
 //亲密度排行详细信息
-var url ="/info_person_social/mention/?uid="+uid_close;
+var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank_detail);
-//转发关系网络
+//被转发关系网络
 var uid_transmit=2029036025;
 var url ='/info_person_social/follower/?uid='+uid_transmit;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.transmit_relationship);
-//@的用户关系网络
-var uid_mention=1831090244;
-var url ='/info_person_social/mention/?uid='+uid_mention;
+//转发关系网络
+var uid_mention=1831090244;  
+var url ='/info_person_social/attention/?uid='+uid_mention;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.mention_relationship);
 //评论关系网络图
 var uid_comment=2298571767;
-var url ='/info_person_social/be_comment/?uid='+uid_comment;
+var url ='/info_person_social/comment/?uid='+uid_comment;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.comment_relationship);
-//交互关系网络图
-var uid_interaction=2298571767;
-var url ='/info_person_social/bidirect_interaction/?uid='+uid_interaction;
+//被评论关系网络图
+var uid_interaction=2298571767;  
+var url ='/info_person_social/be_comment/?uid='+uid_interaction;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.interaction_relationship);
