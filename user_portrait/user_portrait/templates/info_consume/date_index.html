@@ -16,7 +16,12 @@
 	<script type="text/javascript" src="../../static/info_consume/js/moment-with-locales.min.js"></script>
 	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/bootstrap-datetimepicker.min.js"></script>
-
+	<script type="text/javascript">
+		var topic_name = "{{topic_name}}";
+		if(topic_name){
+			$("#input").val("topic_name");
+		}
+	</script>
 </head>
 
 <body>
@@ -30,7 +35,7 @@
       <div class="row">
          <div class="col-lg-4">
             <div class="input-group">
-               <input type="text" class="form-control" placeholder="热门话题那些事儿">
+               <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿">
                <span class="input-group-btn">
                   <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!
@@ -185,21 +190,21 @@
 <script type="text/javascript">
 	function goto_date_detail() {
 		// window.open("file:///C:/Users/YuanHR/Desktop/D-A-T-E system/templates/date_detail.html")
-		window.location.href="http://219.224.134.225:9031/topic_time_analyze/time";
+		window.location.href="/topic_time_analyze/time";
 	}
 </script>
 
 <div id="index_bottom">
-	<img id="eye" src="../../static/info_consume/image/eye.png">
-	<p id="text">大家都在看</p>
-	<table id="table">
+	<img id="eye" src="../../static/info_consume/image/eye.png" >
+	<p id="text" >大家都在看</p>
+	<!-- <table id="table">
 		<tr class="height">
 			<td>
 				<img class="topic_tag" id="topic_tag" src="../../static/info_consume/image/topic_tag.png">
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#里约奥运#</a>
+					<a href="/topic_time_analyze/time">#里约奥运#</a>
 				</p>
 			</td>
 			<td>
@@ -207,7 +212,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#中国乒乓球梦之队#</a>
+					<a href="/topic_time_analyze/time">#中国乒乓球梦之队#</a>
 				</p>
 			</td>
 			<td>
@@ -215,7 +220,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#张继科你醒醒啊#</a>
+					<a href="/topic_time_analyze/time">#张继科你醒醒啊#</a>
 				</p>
 			</td>
 		</tr>
@@ -225,7 +230,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#中国冠军范#</a>
+					<a href="/topic_time_analyze/time">#中国冠军范#</a>
 				</p>
 			</td>
 			<td>
@@ -233,7 +238,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#大张伟表白薛之谦#</a>
+					<a href="/topic_time_analyze/time">#大张伟表白薛之谦#</a>
 				</p>
 			</td>
 			<td>
@@ -241,7 +246,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#树读王俊凯#</a>
+					<a href="/topic_time_analyze/time">#树读王俊凯#</a>
 				</p>
 			</td>
 		</tr>
@@ -251,7 +256,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#北京积分落户十问#</a>
+					<a href="/topic_time_analyze/time">#北京积分落户十问#</a>
 				</p>
 			</td>
 			<td>
@@ -259,7 +264,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#爱酱不哭#</a>
+					<a href="/topic_time_analyze/time">#爱酱不哭#</a>
 				</p>
 			</td>
 			<td>
@@ -267,7 +272,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#盗墓笔记吐槽#</a>
+					<a href="/topic_time_analyze/time">#盗墓笔记吐槽#</a>
 				</p>
 			</td>
 		</tr>
@@ -277,7 +282,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9031/topic_time_analyze/time">#中国冠军范#</a>
+					<a href="/topic_time_analyze/time">#中国冠军范#</a>
 				</p>
 			</td>
 			<td>
@@ -285,7 +290,7 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9034/topic_time_analyze/time">#大张伟表白薛之谦#</a>
+					<a href="/topic_time_analyze/time">#大张伟表白薛之谦#</a>
 				</p>
 			</td>
 			<td>
@@ -293,12 +298,15 @@
 			</td>
 			<td>
 				<p id="topic" class="topic_font">
-					<a href="http://219.224.134.225:9034/topic_time_analyze/time">#树读王俊凯#</a>
+					<a href="/topic_time_analyze/time">#树读王俊凯#</a>
 				</p>
 			</td>
 		</tr>
-	</table>
+	</table> -->
 </div>
 
 </body>
+
+	<script type="text/javascript" src="../../static/info_consume/js/date_index.js"></script>
+
 </html>

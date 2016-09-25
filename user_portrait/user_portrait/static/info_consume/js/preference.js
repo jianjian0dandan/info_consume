@@ -54,6 +54,7 @@ preference.prototype=
       topdomain = domain[1];
     }
 
+    $('#domainSort').append(topdomain);
     
     document.getElementById('topdomain').innerHTML = topdomain + "达人";
     //获取数量数组中的最大值；

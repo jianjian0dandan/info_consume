@@ -5,17 +5,16 @@ function call_sync_ajax_request(url, method, callback){
       url: url,
       type: method,
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   }
 
   var uid = 1640601392; //获取
   var prefrence_url = '/attribute/preference/?uid=' + uid;
- // console.log(prefrence_url);
+  console.log(prefrence_url);
   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
-//zhazha
 // $(function() {
 //     $( '#dl-menu' ).dlmenu();
 //   });

@@ -33,26 +33,28 @@
 }*/
 
 #eye {
-	width:40px;
-	height:30px;
-	position: relative;
-	margin-left: 44%;
-	margin-top: 3.5%;
+	width: 40px;
+    height: 30px;
+    position: relative;
+    margin-left: 43%;
+    margin-top: 3.5%;
 }
 
 #text {
-	color:#00CC66;
-	font-size:28px;
-	font-family:Microsoft YaHei;
-	position:absolute;
-	left:650px;
-	top:340px;
+	color: #00CC66;
+    font-size: 28px;
+    font-family: Microsoft YaHei;
+    position: absolute;
+    left: 630px;
+    top: 340px;
 }
 
 #table {
-	position: absolute;
-	left: 425px;
-	top: 410px;
+	margin-bottom: 150px;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
 }
 
 .height {
