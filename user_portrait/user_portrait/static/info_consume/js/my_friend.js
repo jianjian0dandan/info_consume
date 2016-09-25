@@ -42,7 +42,7 @@ my_friend.prototype =
 //好友排行
    my_friend_rank:function(data)
    {
-      // console.log(data); 
+       console.log(data); 
       // console.log(data.length);
       // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
@@ -78,7 +78,7 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")

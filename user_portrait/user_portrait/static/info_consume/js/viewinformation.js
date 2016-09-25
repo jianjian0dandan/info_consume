@@ -200,7 +200,7 @@ function Draw_out(data,div){
 				    data[i][1] = data[i][0];
                 }
 			   // html = html + '<a target="_blank" href="/index/personal/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:5px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
-			    html = html + '<a target="_blank" href="/index/viewinformation" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:20px;margin-top:10px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
+			    html = html + '<a target="_blank" href="/index/viewinformation/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:20px;margin-top:10px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
 			}
 			// $('#more'+div).css('display','none');
 			$('#'+div).append(html);
@@ -210,7 +210,7 @@ function Draw_out(data,div){
 			// $('#'+div).append(html);
 }
 
-
+// var uid;
 
 
 var viewinformation=new viewinformation();
@@ -218,21 +218,21 @@ var viewinformation=new viewinformation();
 function show_identity()
 {
 
-	url = '/attribute/new_user_social/?uid=2853982940';
+	url = '/attribute/new_user_social/?uid='+uid;
 	viewinformation.call_sync_ajax_request(url,viewinformation.identity);
 }
 
 function show_domain()
 {
 
-	url = '/attribute/new_user_social/?uid=2853982940';
+	url = '/attribute/new_user_social/?uid='+uid;
 	viewinformation.call_sync_ajax_request(url,viewinformation.domain);
 }
 
 function show_social()
 {
 
-	url = '/attribute/new_user_social/?uid=2853982940';
+	url = '/attribute/new_user_social/?uid='+uid;
 	viewinformation.call_sync_ajax_request(url,viewinformation.social);
 }
 
