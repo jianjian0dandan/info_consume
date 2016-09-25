@@ -16,11 +16,6 @@ def content():
 def next():
 	return render_template('/info_consume/person.html')
 
-@mod.route('/person')
-def person():
-	return render_template('/info_consume/person.html')
-
-
 @mod.route('/my_friend')
 def my_friend():
 	return render_template('/info_consume/my_friend.html')
