@@ -83,10 +83,12 @@ def search_follower(uid, top_count):
             if out_user_item['found'] == True:
                 source = out_user_item['_source']
                 uname = source['nick_name']
+                photo_url = source['photo_url']
                 if uname == '':
                     uname = u'未知'
                 #location = source['user_location']
                 friendsnum = source['friendsnum']
+                photo_url = 'unknown'
             else:
                 uname = u'未知'
                 location = ''
@@ -109,13 +111,80 @@ def search_follower(uid, top_count):
                 influence = ''
             #retweet_count = int(retweet_dict[uid])
             count = retweet_dict[uid]
-            out_portrait_list.append({'uid':uid,'count':count,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
+            out_portrait_list.append({'uid':uid,'photo_url':photo_url,'count':count,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
             iter_count += 1
         return out_portrait_list
     else:
         return None
     #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
 
+
+def search_attention(uid, top_count):
+
+    results = {}
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = retweet_index_name_pre + str(db_number)
+    center_uid = uid
+    print es_retweet,index_name,retweet_index_type,uid
+    try:
+        retweet_result = es_retweet.get(index=index_name, doc_type=retweet_index_type, id=uid)['_source']
+    except:
+        return None
+    if retweet_result:
+        retweet_dict = json.loads(retweet_result['uid_retweet'])
+        uid_list = retweet_dict.keys()
+        portrait_result = []
+        try:
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
+        except:
+            user_result = []
+        try:
+            bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
+        except:
+            bci_history_result = []
+        print bci_history_result
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                photo_url = source['photo_url']
+                if uname == '':
+                    uname = u'未知'
+                #location = source['user_location']
+                friendsnum = source['friendsnum']
+            else:
+                uname = u'未知'
+                location = ''
+                friendsnum = ''
+                photo_url = 'unknown'
+
+            #add index from bci_history
+            try:
+                bci_history_item = bci_history_result[iter_count]
+            except:
+                bci_history_item = {'found': False}
+            if bci_history_item['found']==True:
+                fansnum = bci_history_item['fields'][fields[0]][0]
+                user_weibo_count = bci_history_item['fields'][fields[1]][0]
+                user_friendsnum = bci_history_item['fields'][fields[2]][0]
+                influence = bci_history_item['fields'][fields[3]][0]
+            else:
+                fansnum = ''
+                user_weibo_count = ''
+                user_friendsnum = ''
+                influence = ''
+            #retweet_count = int(retweet_dict[uid])
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'photo_url':photo_url,'count':count,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
+    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
 
 
 #search:now_ts , uid return 7day at uid list  {uid1:count1, uid2:count2}

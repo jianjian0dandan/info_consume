@@ -4,7 +4,7 @@ import os
 import time
 import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
-from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention
+from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention,search_attention
 
 '''
 from search import delete_action, search_identify_uid, get_activeness_trend
@@ -115,3 +115,18 @@ def ajax_interaction():
         results = {}
     return json.dumps(results)
 
+#use to get user retweet from es:retweet_1 or be_retweet_2
+#write in version:15-12-08
+#input: uid, top_count
+#output: in_portrait_list, in_portrait_result, out_portrait_list
+@mod.route('/attention/')
+def ajax_attention():
+    uid = request.args.get('uid', '')
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    uid = str(uid)
+    top_count = int(top_count)
+    print uid
+    results = search_attention(uid, top_count)
+    if not results:
+        results = {}
+    return json.dumps(results)
