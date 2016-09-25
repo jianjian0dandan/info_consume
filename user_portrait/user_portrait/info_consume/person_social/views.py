@@ -83,6 +83,8 @@ def ajax_mention():
 
     return json.dumps(results)
 
+
+
 #use to get user be_comment from es: be_comment_1 or be_comment_2
 #write in version: 15-12-08
 #input: uid, top_count

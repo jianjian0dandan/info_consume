@@ -47,12 +47,13 @@ WEEK = 7
 emotion_mark_dict = {'126': 'positive', '127':'negative', '128':'anxiety', '129':'angry'}
 link_ratio_threshold = [0, 0.5, 1]
 
+if RUN_TYPE == 0:
+    fields = ['bci_week_sum', 'bci_month_ave', 'bci_month_sum','bci_week_ave']
+else:
+    fields = ['user_fansnum', 'weibo_month_sum', 'user_friendsnum','bci_week_ave']
 
 def search_follower(uid, top_count):
-    if RUN_TYPE == 0:
-        fields = ['bci_week_sum', 'bci_month_ave', 'bci_month_sum','bci_week_ave']
-    else:
-        fields = ['user_fansnum', 'weibo_month_sum', 'user_friendsnum','bci_week_ave']
+
     results = {}
     now_ts = time.time()
     db_number = get_db_num(now_ts)
@@ -131,7 +132,6 @@ def search_mention(now_ts, uid, top_count):
         ts = ts - DAY
         try:
             result_string = r_cluster.hget('at_' + str(ts), str(uid))
-            print r_cluster,ts
         except:
             result_string = ''
         if not result_string:
@@ -143,7 +143,7 @@ def search_mention(now_ts, uid, top_count):
             except:
                 stat_results[at_uname] = result_dict[at_uname]
     sort_stat_results = sorted(stat_results.items(), key=lambda x:x[1], reverse=True)
-    print sort_stat_results
+    # print sort_stat_results
 
     out_portrait_list = []
     out_list = stat_results.keys()
@@ -160,6 +160,7 @@ def search_mention(now_ts, uid, top_count):
         out_profile_result = []
     out_in_profile_list = []
     bci_search_id_list = []
+
     for out_item in out_profile_result:
         source = out_item['_source']
         uname = source['nick_name']
@@ -213,7 +214,7 @@ def search_mention(now_ts, uid, top_count):
         #new_out_portrait_list.append(new_out_portrait_item)
         new_out_portrait_list.append(append_dict)
         iter_count += 1
-        print append_dict
+        #print append_dict
     return new_out_portrait_list  #  uid，名字，提及次数,粉丝数，注册地，关注数，微博数
 
 
@@ -252,6 +253,7 @@ def search_be_comment(uid, top_count):
 #input: uid, top_count
 #output: retweet_interaction, comment_interaction
 def search_bidirect_interaction(uid, top_count):
+
     now_ts = time.time()
     now_date_ts = datetime2ts(ts2datetime(now_ts))
     db_number = get_db_num(now_date_ts)
@@ -281,6 +283,7 @@ def search_bidirect_interaction(uid, top_count):
         be_retweet_uid_dict = json.loads(be_retweet_result['uid_be_retweet'])
     else:
         be_retweet_uid_dict = {}
+
     #bidirect interaction in comment and be_comment
     try:
         comment_result = es_comment.get(index=comment_index_name, doc_type=comment_index_type, id=uid)['_source']
@@ -292,14 +295,13 @@ def search_bidirect_interaction(uid, top_count):
         comment_uid_dict = {}
     comment_uid_list = comment_uid_dict.keys()
     try:
-        be_comment_result = es_comment.get(index=be_comment_index_name, doc_type=be_comment_index_type, id=uid)['_source']
+        be_comment_result = es_comment.get(index=be_coment_index_name, doc_type=be_comment_index_type, id=uid)['_source']
     except:
         be_comment_result = {}
     if be_comment_result:
         be_comment_uid_dict = json.loads(be_comment_result['uid_be_comment'])
     else:
         be_comment_uid_dict = {}
-
 
     #get bidirect_interaction dict
     #all_interaction_dict = union_dict(retweet_inter_dict, comment_inter_dict)
@@ -312,23 +314,63 @@ def search_bidirect_interaction(uid, top_count):
         if interaction_user != center_uid:
             all_interaction_dict[interaction_user] = retweet_comment_result[interaction_user] + be_retweet_comment_result[interaction_user]
 
-    # sort_all_interaction_dict = sorted(all_interaction_dict.items(), key=lambda x:x[1], reverse=True)
-    # #get in_portrait_list, in_portrait_results and out_portrait_list
-    # all_interaction_uid_list = [item[0] for item in sort_all_interaction_dict]
-    
-    return_list = []
-    for uid,count in all_interaction_dict.iteritems():
-        try:
-            uname = es_user_portrait.get(index=profile_index_name,doc_type=profile_index_type,id=uid)['_source']['nick_name']
-        except:
+    sort_all_interaction_dict = sorted(all_interaction_dict.items(), key=lambda x:x[1], reverse=True)
+    #get in_portrait_list, in_portrait_results and out_portrait_list
+    all_interaction_uid_list = [item[0] for item in sort_all_interaction_dict]
+    print all_interaction_uid_list
+
+    if RUN_TYPE == 0:
+        all_interaction_dict = {'2029036025':3,'1282005885':2,'2549228714':2,'1809833450':1}
+        all_interaction_uid_list = ['2029036025', '1282005885', '2549228714', '1809833450']
+
+    out_portrait_list = all_interaction_uid_list
+    #use to get user information from user profile
+    out_portrait_result = {}
+    try:
+        out_user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':out_portrait_list})['docs']
+    except:
+        out_user_result = []
+    #add index from bci_history
+    try:
+        bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids': out_portrait_list}, fields=fields)['docs']
+    except:
+        bci_history_result = []
+    iter_count = 0
+    out_portrait_list = []
+    for out_user_item in out_user_result:
+        uid = out_user_item['_id']
+        if out_user_item['found'] == True:
+            source = out_user_item['_source']
+            uname = source['nick_name']
+            if uname == '':
+                uname =  u'未知'
+            location = source['user_location']
+            friendsnum = source['friendsnum']
+        else:
             uname = u'未知'
-        return_list.append({'uid':uid,'uname':uname,'count':count})
+            location = ''
+            friendsnum = ''
+        #add index from bci_history
+        try:
+            bci_history_item = bci_history_result[iter_count]
+        except:
+            bci_history_item = {'found': False}
+        print bci_history_item
+        if bci_history_item['found'] == True:
+            fansnum = bci_history_item['fields'][fields[0]][0]
+            user_weibo_count = bci_history_item['fields'][fields[1]][0]
+            user_friendsnum = bci_history_item['fields'][fields[2]][0]
+            influence = bci_history_item['fields'][fields[3]][0]
+        else:
+            fansnum = ''
+            user_weibo_count = ''
+            user_friendsnum = ''
 
-    return return_list
+        interaction_count = int(all_interaction_dict[uid])
+        out_portrait_list.append({'uid':uid, 'uname':uname, 'count':interaction_count, 'fansnum':fansnum,'friendsnum': user_friendsnum,'weibo_count': user_weibo_count})
+        iter_count += 1
 
-    
-
-
+    return out_portrait_list
 
 
 def search_identify_uid(uid):
