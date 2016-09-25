@@ -4,7 +4,8 @@ import os
 import time
 import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
-from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention,search_attention
+from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention,\
+                    search_attention,search_comment
 
 '''
 from search import delete_action, search_identify_uid, get_activeness_trend
@@ -99,6 +100,24 @@ def ajax_be_comment():
     if not results:
         results = {}
     return json.dumps(results)
+
+
+#use to get user comment from es: comment_1 or comment_2
+#write in version: 15-12-08
+#input: uid, top_count
+#output: in_portrait_list, in_portrait_result, out_portrait_list
+@mod.route('/comment/')
+def ajax_comment():
+    uid = request.args.get('uid', '')
+    uid = str(uid)
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    results = search_comment(uid, top_count)
+    if not results:
+        results = {}
+    return json.dumps(results)
+
+
 
 #use to get user interaction from es:retweet_1+be_retweet_1, comment_1+be_comment_1
 #write in version: 15-12-08

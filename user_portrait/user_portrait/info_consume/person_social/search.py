@@ -294,6 +294,25 @@ def search_mention(now_ts, uid, top_count):
 #output: in_portrait_list, in_portrait_result, out_portrait_list
 def search_be_comment(uid, top_count):
     results = {}
+    #evaluate_max_dict = get_evaluate_max()
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = be_comment_index_name_pre + str(db_number)
+    return search_user_info(es_comment,index_name,be_comment_index_type,uid,'uid_be_comment')
+
+
+def search_comment(uid, top_count):
+    results = {}
+    #evaluate_max_dict = get_evaluate_max()
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = comment_index_name_pre + str(db_number)
+    center_uid = uid
+    return search_user_info(es_comment,index_name,comment_index_type,uid,'uid_comment')
+
+'''
+def search_be_comment(uid, top_count):
+    results = {}
     now_ts = time.time()
     
     #evaluate_max_dict = get_evaluate_max()
@@ -314,7 +333,7 @@ def search_be_comment(uid, top_count):
             uname = u'未知'
         return_list.append({'uid':uid,'uname':uname,'count':count})
     return return_list
-
+'''
  
 
 #use to get user bidirect interaction from es:retweet/be_retweet/comment/be_comment
@@ -386,7 +405,7 @@ def search_bidirect_interaction(uid, top_count):
     sort_all_interaction_dict = sorted(all_interaction_dict.items(), key=lambda x:x[1], reverse=True)
     #get in_portrait_list, in_portrait_results and out_portrait_list
     all_interaction_uid_list = [item[0] for item in sort_all_interaction_dict]
-    print all_interaction_uid_list
+    #print all_interaction_uid_list
 
     if RUN_TYPE == 0:
         all_interaction_dict = {'2029036025':3,'1282005885':2,'2549228714':2,'1809833450':1}
@@ -411,6 +430,7 @@ def search_bidirect_interaction(uid, top_count):
         if out_user_item['found'] == True:
             source = out_user_item['_source']
             uname = source['nick_name']
+            photo_url = source['photo_url']
             if uname == '':
                 uname =  u'未知'
             location = source['user_location']
@@ -419,6 +439,7 @@ def search_bidirect_interaction(uid, top_count):
             uname = u'未知'
             location = ''
             friendsnum = ''
+            photo_url = 'unknown'
         #add index from bci_history
         try:
             bci_history_item = bci_history_result[iter_count]
@@ -436,7 +457,7 @@ def search_bidirect_interaction(uid, top_count):
             user_friendsnum = ''
 
         interaction_count = int(all_interaction_dict[uid])
-        out_portrait_list.append({'uid':uid, 'uname':uname, 'count':interaction_count, 'fansnum':fansnum,'friendsnum': user_friendsnum,'weibo_count': user_weibo_count})
+        out_portrait_list.append({'uid':uid,'photo_url':photo_url,'uname':uname, 'count':interaction_count, 'fansnum':fansnum,'friendsnum': user_friendsnum,'weibo_count': user_weibo_count})
         iter_count += 1
 
     return out_portrait_list
@@ -460,11 +481,6 @@ def get_db_num(timestamp):
     if RUN_TYPE == 0:
         db_number = 1
     return db_number
-
-
-
-
-
 
 
 # use to merge dict
@@ -520,6 +536,65 @@ def search_portrait(condition_num, query, sort, size):
                 user_result.append([user_dict['uid'], uname, user_dict['location'], user_dict['activeness'], user_dict['importance'], user_dict['influence'], score, user_dict['sensitive']])
 
     return user_result
+
+
+def search_user_info(es,index_name,doc_type,uid,result_name):
+    try:
+        retweet_result = es.get(index=index_name, doc_type=doc_type, id=uid)['_source']
+    except:
+        return None
+    if retweet_result:
+        retweet_dict = json.loads(retweet_result[result_name])
+        uid_list = retweet_dict.keys()
+        portrait_result = []
+        try:
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
+        except:
+            user_result = []
+        try:
+            bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
+        except:
+            bci_history_result = []
+        #print bci_history_result
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                photo_url = source['photo_url']
+                if uname == '':
+                    uname = u'未知'
+                #location = source['user_location']
+                friendsnum = source['friendsnum']
+            else:
+                uname = u'未知'
+                location = ''
+                friendsnum = ''
+                photo_url = 'unknown'
+            #add index from bci_history
+            try:
+                bci_history_item = bci_history_result[iter_count]
+            except:
+                bci_history_item = {'found': False}
+            if bci_history_item['found']==True:
+                fansnum = bci_history_item['fields'][fields[0]][0]
+                user_weibo_count = bci_history_item['fields'][fields[1]][0]
+                user_friendsnum = bci_history_item['fields'][fields[2]][0]
+                influence = bci_history_item['fields'][fields[3]][0]
+            else:
+                fansnum = ''
+                user_weibo_count = ''
+                user_friendsnum = ''
+                influence = ''
+            #retweet_count = int(retweet_dict[uid])
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'photo_url':photo_url,'count':count,'uname':uname,'influence':influence,'fansnum':fansnum, 'friendsnum':user_friendsnum,'weibo_count':user_weibo_count})#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
 
 
 if __name__=='__main__':
