@@ -29,18 +29,30 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
   		ends_time.push(item[key][2]);
   	}
   	console.log(topics);
-
-  	html += '<table id="table">';
-  	for(i=0;i<4;i++){
+    console.log(topics.length);
+    var num_row = 0;
+    html += '<center>';
+  	html += '<table id="table" align="center" style = "margin-bottom:150px;margin-right: auto;margin-left: auto;">';
+  	for(i=0;i<Math.min(4,Math.ceil(topics.length/3));i++){
   		html += '<tr class="height">';
-  		for(j=0;j<3;j++){
-  			html += '<td><img class="topic_tag" id="topic_tag" src="../../static/info_consume/image/topic_tag.png"></td>';
-  			html += '<td><p id="topic" class="topic_font"><a href="/topic_time_analyze/time">#'+topics[i]+'#</a></p></td>';
+  		for(j=num_row;j<(num_row+3);j++){
+        if(topics[j]){
+          html += '<td><img class="topic_tag" id="topic_tag" src="../../static/info_consume/image/topic_tag.png"></td>';
+          html += '<td><p id="topic" class="topic_font"><a href="/topic_time_analyze/time">#'+topics[j]+'#</a></p></td>';
+        }
   		}
+      if(num_row<Math.min(4,Math.ceil(topics.length/3))){
+        num_row = num_row+3;
+      }
   		html += '</tr>';
   	}
 	html += '</table>';
+  html += '</center>';
 	$('#index_bottom').append(html);
+  var win_width=window.screen.availWidth;
+  var table_width=table.width; 
+  var table_left=(win_width-table_width)/2; 
+  // $('#table').style("left",table_left);
   },
 
 }
