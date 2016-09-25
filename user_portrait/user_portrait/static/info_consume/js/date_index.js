@@ -24,7 +24,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
   	console.log(item);
   	var html = '';
   	for(key in item){
-  		topics.push(item[key]);
+  		topics.push(item[key][0]);
   		starts_time.push(item[key][1]);
   		ends_time.push(item[key][2]);
   	}

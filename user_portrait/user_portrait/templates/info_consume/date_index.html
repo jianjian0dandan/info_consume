@@ -18,6 +18,9 @@
 	<script type="text/javascript" src="../../static/info_consume/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">
 		var topic_name = "{{topic_name}}";
+		if(topic_name){
+			$("#input").val("topic_name");
+		}
 	</script>
 </head>
 
@@ -32,7 +35,7 @@
       <div class="row">
          <div class="col-lg-4">
             <div class="input-group">
-               <input type="text" class="form-control" placeholder="热门话题那些事儿">
+               <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿">
                <span class="input-group-btn">
                   <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!

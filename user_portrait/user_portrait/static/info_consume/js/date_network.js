@@ -1,14 +1,11 @@
 var topic = 'aoyunhui';
 var start_ts = 1467648000;
 var end_ts = 1470844800;
-var nodes_uid = '';
-
 var sort_item_network = 'timestamp';
 var blog_type_network = 'maker';
 
 var no_page_network = 0;
 var blog_num_max_global_network = 0;
-
 
 // //显示资料卡 
 // var beforeId; //定义全局变量 
@@ -136,13 +133,16 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 
   Draw_network_pic:function(data){
     var item = data;
+
     var nodes_new = [];
+    var nodes_label = [];
     for(i=0;i<item['nodes'].length;i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
+      nodes_label.push({name:item['nodes'][i]['label']});
     }
     console.log(item);
     console.log(nodes_new);
-  
+    console.log(nodes_label);
          require(  
                 [  
                     'echarts',  
@@ -164,7 +164,21 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           },
           tooltip : {
               trigger: 'item',
-              formatter: '{b}'
+              formatter: 
+              function (nodes_label,ticket,callback) {
+                  console.log(nodes_label)
+                  var res = '用户昵称: ' + nodes_label[0].name;
+                  console.log(res);
+                  for (var i = 0, l = nodes_label.length; i < l; i++) {
+                    for(key in nodes_label)
+                      res += key + ' : ' + nodes_label[i][key];
+                  }
+                  // setTimeout(function (){
+                  //     // 仅为了模拟异步回调
+                  //     callback(ticket, res);
+                  // }, 0)
+                  // return 'loading';
+              }
           },
           toolbox: {
               show : true,
@@ -248,15 +262,6 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
               console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
           } else { // 点击的是点
               console.log("选中了" + data.name + '(' + data.value + ')');
-              for(i=0;i<item['nodes'].length;i++){
-                if(item['nodes'][i]['label'] == data.name){
-                  nodes_uid = item['nodes'][i]['uid']
-                  window.open('/index/viewinformation/?uid='+nodes_uid);
-                }
-                
-              }
-              
-
           }
       }
       myChart.on(ecConfig.EVENT.CLICK, focus)
