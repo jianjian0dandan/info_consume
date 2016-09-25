@@ -15,39 +15,30 @@ viewinformation.prototype=
 		      dataType: 'json',
 		      async: true,
 		      success:callback,
-		     //  beforeSend: function () 
-		     //  {  
-		     //  	ShowMessage("正在努力地为您加载数据，请稍后哟~"); 
-		  	  // },
-		     //  // CloseWindow();
+		    
     	});
 	},
 
 	identity:function(data)
 	{
 		var i;
-		console.log(data);
+		//console.log(data);
 		//将此人涉及领域从数据库取出，
 		var identity = new Array();
 		var num = new Array();
 		var show_identity = new Array();
-		// var lenght;
-		// lenght=data.lenght;
-		//console.log(data);
-		// if(data.length!=undefined)
+		// console.log(identity)
 		
-
-				for (i=0;i<data.in_domain.length;i++) 
+		for (i=0;i<data.in_domain.length;i++) 
 			{
 				identity[i]=data.in_domain[i][0];
 				num[i]=data.in_domain[i][1];
 				show_identity.push({text:identity[i],max:maxvalue});
 			}
-			//获取数量数组中的最大值；
-			var maxvalue=Math.max.apply(null, num);
-			//console.log(maxvalue);
-			//console.log(num);
-	//console.log(show_domain);
+		var maxvalue=Math.max.apply(null, num);
+		if(identity.length!=0)
+		{
+		
 			var myChart1 = echarts.init(document.getElementById('identity'));
 							option = {					    
 						    tooltip : {
@@ -100,15 +91,15 @@ viewinformation.prototype=
 			//限制打印20个hashtag
 			//$('#hashone').append(hashtag[0][0]);				
 			$('#p_so_onload').css('display','none').siblings().css('display','block');	
-		// }else
-		// {
-		// 	$('#p_so_onload').css('display','none').siblings().css('display','block');	
-  //       	$('#identity').empty();
+		}else
+		{
+			$('#p_so_onload').css('display','none').siblings().css('display','block');	
+        	$('#identity').empty();
 
-		// 	var html='';
-		// 	html=html+'<p style="margin-left:30%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
-  //       	 $('#identity').append(html);
-		// }
+			var html='';
+			html=html+'<p style="margin-left:30%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
+        	 $('#identity').append(html);
+		}
 		
 			
 	},
@@ -132,12 +123,10 @@ viewinformation.prototype=
 			num[i]=data.in_topic[i][1];
 			show_domain.push({text:domain[i],max:maxvalue});
 		}
-		//获取数量数组中的最大值；
 		var maxvalue=Math.max.apply(null, num);
-		//console.log(maxvalue);
-		//console.log(num);
-//console.log(show_domain);
-		var myChart = echarts.init(document.getElementById('domain'));
+		if(domain.length!=0)
+		{
+			var myChart = echarts.init(document.getElementById('domain'));
 						option = {					    
 					    tooltip : {
 					        trigger: 'axis'
@@ -185,16 +174,18 @@ viewinformation.prototype=
  						window.onresize = myChart.resize;
 
 		//显示正在加载中的文字
-		$('#p_so_onload1').css('display','none').siblings().css('display','block');		
-		// }else	
-		// {
-		// 	$('#p_so_onload1').css('display','none').siblings().css('display','block');	
-  //       	$('#domain').empty();
+		$('#p_so_onload1').css('display','none').siblings().css('display','block');	
+		}else
+		{
+			$('#p_so_onload1').css('display','none').siblings().css('display','block');	
+        	$('#domain').empty();
 
-		// 	var html='';
-		// 	html=html+'<p style="margin-left:30%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
-  //       	 $('#domain').append(html);
-		// }	
+			var html='';
+			html=html+'<p style="margin-left:30%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
+        	 $('#domain').append(html);
+
+		}
+	
 		} ,
 
 		social:function(data)
@@ -210,8 +201,8 @@ viewinformation.prototype=
 
 
 function Draw_out(data,div){
-		console.log(data.length);
-		console.log(data);
+		// console.log(data.length);
+		// console.log(data);
         $('#'+div).empty();
 		if(data.length==0){
 			var html='';

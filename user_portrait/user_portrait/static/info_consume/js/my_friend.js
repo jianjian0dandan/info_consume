@@ -14,9 +14,7 @@ my_friend.prototype =
 		success:callback
 	   });
     },
-
     personData:function(data){
-  
 	  personalData = data ;	
 	  //console.log(personalData);	  
 	  var img = document.getElementById('portraitImg');
@@ -42,7 +40,7 @@ my_friend.prototype =
 //好友排行
    my_friend_rank:function(data)
    {
-       console.log(data); 
+       //console.log(data); 
       // console.log(data.length);
       // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
@@ -149,7 +147,8 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+data[i]['uname']+'</td>';
+                  // html+='<td>'+data[i]['uname']+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -192,11 +191,12 @@ my_friend.prototype =
 
       //亲密度排行
       intimacy_rank:function(data)
+
       {
         
         data.sort(function(a,b){
             return b.count-a.count});
-        //console.log(data);
+        console.log(data);
 
          //根据后台数据画表
       $('#intimacy_rank').empty();
@@ -228,7 +228,8 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
+                  // html+='<td>'+'<a href="/index/viewinformation">'+data[i]['uname']+'</a>'+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -296,7 +297,8 @@ my_friend.prototype =
                 {
                   html+='<td >--</td>';
                 }else{
-                  html+='<td>'+data[i]['uname']+'</td>';
+                  // html+='<td>'+data[i]['uname']+'</td>';
+                  html+='<td>'+'<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'+data[i]['uname']+'</a>'+'</td>';
                 }
                  
                  if(data[i]['friendsnum']=="")
@@ -337,7 +339,7 @@ my_friend.prototype =
       },
       transmit_relationship:function(data)
       {
-        //console.log(data);
+        console.log(data);
         //获取主用户的名称
         var user_name;
         user_name=$("#username").html();
@@ -486,15 +488,22 @@ my_friend.prototype =
                 var data = param.data;
                 var links = option.series[0].links;
                 var nodes = option.series[0].nodes;
+
                 if (
                     data.source != null
                     && data.target != null
                 ) { //点击的是边
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
+                    console.log(data.sourceNode);
                     } else {
+                       // // for(var i=0;i<data.length;i++)
+                       // // {
+                       // //  console.log(user_id[i]);
+                       // // }
+                       // console.log(data.uid)
                     //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
+                    var node_url='/index/viewinformation/?uid='+data.uid;
                     //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
                     window.open(node_url);          
                 }
@@ -856,7 +865,7 @@ my_friend.prototype =
 
 	interaction_relationship:function(data)
 	{
-		    console.log(data);
+		    //console.log(data);
         var user_name=$("#username").html();
         //获取分节点名称
          var name=new Array();
@@ -870,7 +879,7 @@ my_friend.prototype =
               name[i]=data[i]['uname'];
             }
          }
-         console.log(name);
+         //console.log(name);
 
        var interaction_num=new Array();
        for(var i=0;i<data.length;i++)
@@ -1031,18 +1040,18 @@ my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_friend
 var url ="/info_person_social/follower/?uid="+uid_rank;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.friend_rank_detail);
 //亲密度排行
-var uid_close=1831090244;
-var url ="/info_person_social/mention/?uid="+uid_close;
+var uid_close=2298571767;
+var url ="/info_person_social/be_comment/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank);
 //亲密度排行详细信息
-var url ="/info_person_social/mention/?uid="+uid_close;
+var url ="/info_person_social/be_comment/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank_detail);
 //转发关系网络
 var uid_transmit=2029036025;
 var url ='/info_person_social/follower/?uid='+uid_transmit;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.transmit_relationship);
 //@的用户关系网络
-var uid_mention=1831090244;
+var uid_mention=1831090244;  //attention
 var url ='/info_person_social/mention/?uid='+uid_mention;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.mention_relationship);
 //评论关系网络图
@@ -1050,6 +1059,6 @@ var uid_comment=2298571767;
 var url ='/info_person_social/be_comment/?uid='+uid_comment;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.comment_relationship);
 //交互关系网络图
-var uid_interaction=2298571767;
+var uid_interaction=2298571767;  //be_comment
 var url ='/info_person_social/bidirect_interaction/?uid='+uid_interaction;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.interaction_relationship);
