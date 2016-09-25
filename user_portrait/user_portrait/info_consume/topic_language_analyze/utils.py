@@ -44,7 +44,7 @@ def get_topics():
         topics = topics['hits']['hits']
         for topic in topics:
             print topic
-            results[topic['_source']['index_name']]=topic['_source']['name']
+            results[topic['_source']['index_name']]=[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']]
     return json.dumps(results)
 
 

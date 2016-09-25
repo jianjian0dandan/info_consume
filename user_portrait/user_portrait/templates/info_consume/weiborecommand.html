@@ -402,16 +402,16 @@
 		/*弹出对话框*/
 			function tishikuang()
 			{
-				var t=document.getElementById("guanjianci").value;
-				if (t!=null&&t!="")
+				var topic_name=document.getElementById("guanjianci").value;
+				if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("/index/viewinformation");
+						window.location.href="/index/date_index/?topic_name="+topic_name;
 					}
 				}else
 				 {
@@ -424,16 +424,17 @@
 		/*弹出对话框*/
 			function tishikuang2()
 			{
-				var t=document.getElementById("keyword").value;
-				if (t!=null&&t!="")
+				var topic_name=document.getElementById("keyword").value;
+				if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("https://www.baidu.com/");
+						// alert(window.location.href);
+						window.location.href="/index/date_index/?topic_name="+topic_name;
 					}
 				}else
 				 {
@@ -445,17 +446,19 @@
 		<script type="text/javascript">
 			function entersearch1()
 			{
-				var t=document.getElementById("keyword").value;
+				var topic_name=document.getElementById("keyword").value;
 
-					if (t!=null&&t!="")
+					if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("https://www.baidu.com/");
+						console.log('ddd');
+						window.open("/index/date_index/?topic_name="+topic_name);
+						console.log('eee');
 					}
 				}else
 				 {
@@ -468,16 +471,16 @@
 		<script type="text/javascript">
 			function entersearch2()
 			{
-				var t=document.getElementById("guanjianci").value;
-					if (t!=null&&t!="")
+				var topic_name=document.getElementById("guanjianci").value;
+					if (topic_name!=null&&topic_name!="")
 				{
-					if (!isNaN(t)) 
+					if (!isNaN(topic_name)) 
 						{
 							alert('关键词不能为数字');
 						}
 					else
 					{
-						window.open("https://www.baidu.com/");
+						window.location.href="/index/date_index/?topic_name="+topic_name;
 					}
 				}else
 				 {
@@ -518,10 +521,13 @@
   			<li><a href="" style="margin-top: 0px;font-size: 20px;width: 100px;">商业推荐</a></li>
   		</ul>
 	</div>
+	<div style="margin-top:5%">
+  			<div><span style="color: #666666;margin-left: -56%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">微博那些事儿</span></div>
+  			<hr style="width:70%;margin-left: 15%;height:1px;border:none;border-top:2.5px solid #b7b2b2;"/>
+  		</div>
 
 
-
-<div id="container" style="margin-left:17%;margin-top:7%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border: 1px solid transparent;border-radius: 5px">
+<div id="container" style="margin-left:17%;margin-top:2%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border: 1px solid transparent;border-radius: 5px">
 
 		<div id="title">
 		<!--定义切换的标签-->	
