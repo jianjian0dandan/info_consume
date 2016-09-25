@@ -40,7 +40,7 @@ show_geo.prototype = {
     						
     				// 基于准备好的dom，初始化echarts图表
     				//var myChart = ec.init(document.getElementById('main')); 
-    				var myChart = echarts.init(document.getElementById('act_map'));
+    				var myChart = echarts.init(document.getElementById('act_map'),'shine');
    var option = {
         title: {
             text: '',
@@ -57,8 +57,9 @@ show_geo.prototype = {
         },
         visualMap: {
             min: 0,
-            max: 500,
-            left: 'left',
+            max: 2500,
+            x: 'left',
+            y: 'center',
             top: 'bottom',
             text: ['高','低'],           // 文本，默认为数值文本
             calculable: true
@@ -68,34 +69,38 @@ show_geo.prototype = {
             orient: 'vertical',
             left: 'right',
             top: 'center',
-            feature: {
-                dataView: {readOnly: false},
-                restore: {},
-                saveAsImage: {}
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
             }
         },
+        roamController: {  
+            show: true,  
+            x: 'right',  
+            mapTypeControl: {  
+                'china': true  
+            }  
+        },  
         series: [
             {
                 name: 'weibo',
                 type: 'map',
                 mapType: 'china',
-                label: {
-                    normal: {
-                        show: true
-                    },
-                    emphasis: {
-                        show: true
-                    }
-                },
+                roam:false,
+                itemStyle:{  
+                  normal:{label:{show:true}},  
+                  emphasis:{label:{show:true}}  
+                },  
                 data:loc_json
             }
         ]
     };
     myChart.setOption(option); 
 }
-    )
-
-    	loc_json.sort(function(a,b){
+);
+    loc_json.sort(function(a,b){
             return b.value-a.value});
 		// console.log(item_json);
   },
@@ -133,3 +138,4 @@ function click_action_geo(){
       }
     });
 }
+
