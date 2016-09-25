@@ -140,10 +140,10 @@
         <img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
         <h1 id="board_title">我的形象画板</h1>
         <img id="body_board" src=" ">
-        <p id="draw_p1">Painter</p><!--interesting word1-->
-        <p id="draw_p2">Japan comic</p><!--interesting word2-->
-        <p id="draw_p3">Lady Gaga</p><!--friends name-->
-        <p id="draw_p4">China,Guangzhou</p><!--location-->
+        <p id="draw_p1">媒体</p><!--interesting word1-->
+        <p id="draw_p2">文体类</p><!--interesting word2-->
+        <p id="draw_p3">微天下</p><!--friends name-->
+        <p id="draw_p4">中国北京</p><!--location-->
 
         <img id="influ_img" src="../../static/info_consume/image/icon_inf.png " width="30px" height="30px" >
         <h1 id="influ_title">我的个人影响力</h1>
@@ -166,14 +166,22 @@
         <h1 id="act_text" style="margin-top: 20px;margin-left: 20px;font-size: 20px !important;"> 最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>  
       </div>  
     </div>
+    <div class="r_box">
+      
+      <div class="panel panel-success boxshadow weather" style="width: 200px !important;margin-left:40px;">
+        <div class="panel-heading">
+          贴心天气
+        </div>
+        <div style="margin:2px 15px;">
+          <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="150" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+         </iframe> 
+        </div>
+      </div>
+
+
     
 
-    <div class="r_box">
-      <div class="weather boxshadow">
-     <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="300" height="200" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
-      </iframe> 
 
-      </div>
       <!--Personal acconunt infomation-->
       <div class="panel panel-success boxshadow" id="account">
           <div class="panel-heading">
@@ -220,18 +228,20 @@
         <div class="panel-heading">
           <ul id="myTab" class="nav nav-tabs panel-title">
              <li class="active">
-                <a href="#others_me" data-toggle="tab">最近@我</a>
+                <a href="#tweeted_out" data-toggle="tab">谁关注我</a>
              </li>
-             <li><a href="#me_others" data-toggle="tab">我@谁</a></li>
+             <li><a href="#retweet_out" data-toggle="tab">我关注谁</a></li>
           </ul>
         </div>
           
         <div id="myTabContent" class="tab-content">
-           <div class="tab-pane fade in active" id="others_me">
-              <p>插入好友访问</p>
+           <div class="tab-pane fade in active" id="tweeted_out">
+             <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
+             <span id="tweeted_out" style="margin-left:0px;float:left;width:110px;"></span>
            </div>
            <div class="tab-pane fade" id="me_others">
-              <p>插入我的访问</p>
+             <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
+             <span id="retweet_out" style=" margin-left:0px;float:left;width:110px;"></span>
            </div>
         </div>
 
@@ -340,6 +350,7 @@ $(document).ready(function(){
   <!--End js-->
 {% block Own_js %}
 <script type="text/javascript" src="/static/info_consume/js/homepage.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/index_show_friend.js"></script>
 
 {% endblock %}
 

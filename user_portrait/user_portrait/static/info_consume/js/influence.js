@@ -1,8 +1,7 @@
 function Influence(){
   this.ajax_method = 'GET';
 }
-  //console.log('yoyo');
- // console.log('yoyo');
+
 
 function getDate_in(tm){
   var tt = new Date(parseInt(tm)*1000).format("MM-dd");
@@ -18,13 +17,8 @@ Influence.prototype = {
           async:true,
           success:callback,
       });
-      //console.log('hah');
   },
   
-  Draw_influence:function(data){
-  //console.log(data);
-    //  console.log('hah');
-  },
   
   Draw_influence:function(data){
  // console.log(data);
@@ -33,13 +27,13 @@ Influence.prototype = {
     item_x.push(getDate_in(data.timeline[t]));
   }
   //var item_y = data.influence;
-	var item_y = data.evaluate_index;
+  var item_y = data.evaluate_index;
   // var conclusion = data.description;
   if(data.evaluate_index){
-	var dataFixed = [];
-	for(i=0;i<item_y.length;i++){
-		dataFixed.push(parseFloat(item_y[i].toFixed(2)));
-	}
+  var dataFixed = [];
+  for(i=0;i<item_y.length;i++){
+    dataFixed.push(parseFloat(item_y[i].toFixed(2)));
+  }
     var myChart = echarts.init(document.getElementById('influence_chart')); 
     var option = {
       formatter: '{a}:{b}:{c}',
@@ -110,19 +104,127 @@ Influence.prototype = {
         break;
       }
       i++;
-    };console.log(rank);
+    };
 
     var allInflu_data = [];
     for(var j=0;j<10;j++){
       allInflu_data[j] = data[j];  
-    };console.log(allInflu_data[0].uname);
+    };
 
-    var html_table;
-    for(var j=0;j<10;j++)
-      html_table += "<table><tr><td><img src="+allInflu_data[j].photo_url+"width=40px height=40px style='border-radius:20px;'></td><td>"+allInflu_data[j].uname+"</td><td>"+allInflu_data[j].bci+"</td></tr></table>"
+    var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
+
+    html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    for(var j=0;j<10;j++){
+      var bci_data;
+      bci_data = allInflu_data[j].bci;
+      bci_data = bci_data.toFixed(2);
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+allInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+allInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
+    }
     $('#influ_all').append(html_table);
+  },
+
+  influence_Table_domain:function(data){
+    var i = 0;
+    var rank = '未知';
+    while(i<200){
+      if(data[i].uid == uid){
+        rank = i;
+        break;
+      }
+      i++;
+    };
+
+    // if(domainInflu_data[rank].photo_url == 'unknown'){
+    //   domainInflu_data[rank].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
+    // };
+
+    var domainInflu_data = [];
+    for(var j=0;j<10;j++){
+      domainInflu_data[j] = data[j];  
+      if(domainInflu_data[j].photo_url == 'unknown'){
+        domainInflu_data[j].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
+      };
+    };
+
+    var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
+
+    // html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    for(var j=0;j<10;j++){
+      var bci_data;
+      bci_data = domainInflu_data[j].bci;
+      bci_data = bci_data.toFixed(2);
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+domainInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
+    }
+    $('#influ_domain').append(html_table);
+  },
+
+  influ_skill:function(data){
+    // console.log(data[1]);
+    var re_re_speed = data[1].re_re_speed; 
+    var comment_speed = data[1].comment_speed;
+    var retweet_speed = data[1].retweet_speed;
+    var retweet_retweet = data[1].retweet_retweet;
+    var influence = data[1].influence;
+    var be_retweet = data[1].be_retweet; 
+    var be_comment = data[1].be_comment;
+    var retweet_comment = data[1].retweet_comment;
+    var re_co_speed = data[1].re_co_speed;
+
+    var stage=0;
+    var influ_des;
+    var badPart =':';
+
+    if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
+      stage=1;
+      $('#locatSun').css("margin-top","-340px");
+      // console.log('111');
+    }else{
+      if(be_retweet==0) badPart+='原创微博被转发数 ';
+      if (be_comment==0) badPart+='原创微博被评论数 ';
+      if (retweet_speed==0) badPart+='转发次数 ';
+      if (comment_speed==0) badPart+='评论次数 ';
+    };
+
+    if (retweet_retweet==1 && re_re_speed == 1) {
+      stage=2;
+      $('#locatSun').css("margin-top","-285px");
+    }else{
+      if(retweet_retweet==0) badPart+='转发微博被转发数 ';
+      if (re_re_speed==0) badPart+='转发速度 ';
+    };
+    
+    if (retweet_comment==1 && re_co_speed==1){
+      stage=3;
+      $('#locatSun').css("margin-top","-235px");
+    }else {
+      if(retweet_comment==0) badPart+='转发微博评论数 ';
+      if (re_co_speed==0) badPart+='评论速度 ';
+    };
+    $('#badPart').append(badPart);
+
+    //原来递增式的判断模型
+    // if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
+    //   stage=1;
+    //   if (retweet_retweet==1 && re_re_speed == 1) {
+    //     stage=2;
+    //     if (retweet_comment==1 && re_co_speed==1){stage=3;}
+    //     else {
+    //       if(retweet_comment==0) badPart+='转发微博评论数 ';
+    //       if (re_co_speed==0) badPart+='评论速度 ';
+    //     }
+    //   }else{
+    //     if(retweet_retweet==0) badPart+='转发微博被转发数 ';
+    //     if (re_re_speed==0) badPart+='转发速度 ';
+    //   }
+    // }else{
+    //   stage=0;
+    //   if(be_retweet==0) badPart+='原创微博被转发数 ';
+    //   if (be_comment==0) badPart+='原创微博被评论数 ';
+    //   if (retweet_speed==0) badPart+='转发次数 ';
+    //   if (comment_speed==0) badPart+='评论次数 ';
+    // }
   }
-  
+
 }
 function click_action(){
     $('#mychoice').on('click','input[name="choose_module"]', function(){             
@@ -143,16 +245,50 @@ function influence_load(){
     click_action();
     var influence_url = '/attribute/influence_trend/?uid='+uid + '&time_segment=7';
     Influence.call_ajax_request(influence_url, Influence.ajax_method, Influence.Draw_influence);
+
+
+}
+//获取当前时间，格式YYYY-MM-DD
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
 }
 
 var uid = 1640601392;
+var username = 'admin@qq.com';
 //var username = admin@qq.com;
 var Influence = new Influence();
+var currentdate;
 var influence_date = choose_time_for_mode();
 var pre_influence_date = new Date(influence_date - 24*60*60*1000);
 var date_str = pre_influence_date.format('yyyy-MM-dd');
+getNowFormatDate();
 influence_load();
 //var influ_all_table_url= '/influence_sort/user_sort/?username='+username+'&sort_scope=all_nolimit&all=True';
 var influ_all_table_url= '/influence_sort/user_sort/?username=admin@qq.com&sort_scope=all_nolimit&all=True';
   Influence.call_ajax_request(influ_all_table_url, Influence.ajax_method, Influence.influence_Table_all);
+
+var keyword = '教育类';
+var sort_scope = 'in_limit_topic';
+var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
+  Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
+
+// var influSkill_url = '/influence_application/specified_user_active/?date='+currentdate+'&uid='+uid;
+//   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
+var influSkill_url = '/influence_application/specified_user_active/?date=2013-09-01&uid=1640601392';
+  Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
+
+
+
 
