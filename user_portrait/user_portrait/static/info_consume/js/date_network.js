@@ -133,11 +133,16 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 
   Draw_network_pic:function(data){
     var item = data;
-    var nodes_new = [];
-    for(i=0;i<item['nodes'].length;i++){
-      nodes_new.push({name:item['nodes'][i]['name'],symbolSize:item['nodes'][i]['symbolSize']});
-    }
 
+    var nodes_new = [];
+    var nodes_label = [];
+    for(i=0;i<item['nodes'].length;i++){
+      nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
+      nodes_label.push({name:item['nodes'][i]['label']});
+    }
+    console.log(item);
+    console.log(nodes_new);
+    console.log(nodes_label);
          require(  
                 [  
                     'echarts',  
@@ -146,7 +151,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     function (ec) {  
         // 基于准备好的dom，初始化echarts图表  
         // myScatter = ec.init(document.getElementById('mainScatter'));   
-  
+    
       var myChart = echarts.init(document.getElementById('main_network'));
       var ecConfig = require('echarts/config'); //放进require里的function{}里面
       var zrEvent = require('zrender/tool/event');
@@ -159,7 +164,21 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           },
           tooltip : {
               trigger: 'item',
-              formatter: '{a} : {b}'
+              formatter: 
+              function (nodes_label,ticket,callback) {
+                  console.log(nodes_label)
+                  var res = '用户昵称: ' + nodes_label[0].name;
+                  console.log(res);
+                  for (var i = 0, l = nodes_label.length; i < l; i++) {
+                    for(key in nodes_label)
+                      res += key + ' : ' + nodes_label[i][key];
+                  }
+                  // setTimeout(function (){
+                  //     // 仅为了模拟异步回调
+                  //     callback(ticket, res);
+                  // }, 0)
+                  // return 'loading';
+              }
           },
           toolbox: {
               show : true,
@@ -222,10 +241,10 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
                   gravity: 1.1,
                   scaling: 1.1,
                   roam: 'move',
-                  // nodes:item['nodes'],
+                  //nodes:item['nodes'],
                   nodes:nodes_new,
 		              links:item['links']
-        
+                  
               }
           ]
       };
@@ -346,7 +365,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     if (item.length == 0){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
-      var num_page = parseInt(item.length/10)+1;  //num_page表示微博数据共有多少页
+      var num_page = Math.ceil(blog_num_max_local_network/10);  //num_page表示微博数据共有多少页
       var item_i_network = no_page_network*10;
       
       var max_i_network = item_i_network+Math.min(10,blog_num_max_local_network-item_i_network);
@@ -388,7 +407,9 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         html += '</div>';
       // }
       }
-
+       html += '<div id="PageTurn" class="pager" style="margin-left:46.5%;height: 40px;margin-bottom: -20px;z-index: 99;">'
+       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
+       html += '</div>'
       // html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
       //   html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
       //   html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'

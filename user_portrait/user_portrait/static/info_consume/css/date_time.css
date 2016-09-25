@@ -280,7 +280,7 @@ position: absolute;
 #blog_scan_area_time_page{
 	background-color: #E4E4E4;
     width: 60%;
-    height: 60px;
+    height: 30px;
     position: relative;
     margin-left: 20.1%;
     margin-top: -10%;
@@ -380,7 +380,7 @@ position: absolute;
 #blog_scan_area_place_page{
 	background-color: #E4E4E4;
     width: 60%;
-    height: 60px;
+    height: 30px;
     position: relative;
     margin-left: 20.1%;
     margin-top: -10%;
@@ -495,7 +495,7 @@ position: absolute;
 #blog_scan_area_emotion_page{
 	background-color: #E4E4E4;
     width: 60%;
-    height: 60px;
+    height: 30px;
     position: relative;
     margin-left: 20.1%;
     margin-top: -10%;
@@ -509,7 +509,7 @@ position: absolute;
 #blog_scan_area_network_page{
 	background-color: #E4E4E4;
     width: 60%;
-    height: 60px;
+    height: 30px;
     position: relative;
     margin-left: 20.1%;
     margin-top: -10%;
@@ -524,7 +524,7 @@ position: absolute;
 #blog_scan_area_meaning_page{
 	background-color: #E4E4E4;
     width: 60%;
-    height: 60px;
+    height: 30px;
     position: relative;
     margin-left: 20.1%;
     margin-top: -10%;
