@@ -191,7 +191,6 @@ my_friend.prototype =
 
       //亲密度排行
       intimacy_rank:function(data)
-
       {
         
         data.sort(function(a,b){
@@ -339,7 +338,7 @@ my_friend.prototype =
       },
       transmit_relationship:function(data)
       {
-        console.log(data);
+        //console.log(data);
         //获取主用户的名称
         var user_name;
         user_name=$("#username").html();
@@ -385,7 +384,7 @@ my_friend.prototype =
         node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-        	node_value.push({category:1,name:'uid'+' : '+user_id[i],value:transmit_num[i],label:name[i]});
+        	node_value.push({category:1,name:user_id[i],value:transmit_num[i],label:name[i]});
         }
         //console.log(node_value);
 
@@ -393,7 +392,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-        	line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i],name:'转发次数'+' : '+transmit_num[i]});
+        	line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i],name:'转发次数'+' : '+transmit_num[i]});
         }
        // {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
         var myChart = echarts.init(document.getElementById('transmit'));
@@ -485,6 +484,8 @@ my_friend.prototype =
         function(ec){
             var ecConfig = require('echarts/config');
             function focus(param) {
+              //param是echarts里面存储的数据，可以console出来看一下
+                console.log(param);
                 var data = param.data;
                 var links = option.series[0].links;
                 var nodes = option.series[0].nodes;
@@ -497,15 +498,19 @@ my_friend.prototype =
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     //console.log(data.sourceNode);
                     } else {
-                       // // for(var i=0;i<data.length;i++)
-                       // // {
-                       // //  console.log(user_id[i]);
-                       // // }
-                       // console.log(data.uid)
-                    //编辑点击节点事件的部分
-                    // var node_url='/index/viewinformation/?uid='+data.uid;
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    // window.open(node_url);          
+                      //点击的是点
+                      var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }
+                             
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -519,7 +524,7 @@ my_friend.prototype =
 
 	mention_relationship:function(data)
 	{
-		console.log(data);
+		//console.log(data);
     var user_name=$("#username").html();
     //获取节点名称
     var name=new Array();
@@ -566,7 +571,7 @@ my_friend.prototype =
      node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
      for(var i=0;i<data.length;i++)
         {
-          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:mention_num[i],label:name[i]});
+          node_value.push({category:1,name:user_id[i],value:mention_num[i],label:name[i]});
         }
     //console.log(node_value);
 
@@ -574,7 +579,7 @@ my_friend.prototype =
      var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:mention_num[i],name:'提及次数'+' : '+mention_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:mention_num[i],name:'提及次数'+' : '+mention_num[i]});
         }
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
@@ -672,10 +677,17 @@ my_friend.prototype =
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                    var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }     
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -740,7 +752,7 @@ my_friend.prototype =
         node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:comment_num[i],label:name[i]});
+          node_value.push({category:1,name:user_id[i],value:comment_num[i],label:name[i]});
         }
         //console.log(node_value);
 
@@ -748,7 +760,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i],name:'评论次数'+' : '+comment_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i],name:'评论次数'+' : '+comment_num[i]});
         }
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
@@ -846,10 +858,17 @@ my_friend.prototype =
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                     var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }       
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -904,7 +923,8 @@ my_friend.prototype =
         node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
         for(var i=0;i<data.length;i++)
         {
-          node_value.push({category:1,name:'uid'+' : '+user_id[i],value:interaction_num[i],label:name[i]});
+          //'uid'+' : '+
+          node_value.push({category:1,name:user_id[i],value:interaction_num[i],label:name[i]});
         }
         //console.log(node_value);
 
@@ -912,7 +932,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:'uid'+' : '+user_id[i],target:'核心用户'+' : '+user_name,weight:interaction_num[i],name:'交互次数'+' : '+interaction_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:interaction_num[i],name:'交互次数'+' : '+interaction_num[i]});
         }
 
         var myChart = echarts.init(document.getElementById('interaction'));
@@ -1012,10 +1032,17 @@ my_friend.prototype =
                     var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
                     var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
                     } else {
-                    //编辑点击节点事件的部分
-                    var node_url='/index/viewinformation';
-                    //要实现动态传参可参考attention.js文件，获取节点的uid数据传给url即可
-                    window.open(node_url);          
+                    var uid=param.name;
+                      //如果uid是数字
+                      if(!isNaN(uid))
+                      {
+                        console.log(param.name);
+                        var node_url='/index/viewinformation/?uid='+uid;
+                        window.open(node_url);   
+                      }else
+                      {
+                        alert("您点击的是自己哟~~~");
+                      }        
                 }
             }
                 myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -1045,11 +1072,11 @@ my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_
 //亲密度排行详细信息
 var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank_detail);
-//转发关系网络
+//被转发关系网络
 var uid_transmit=2029036025;
 var url ='/info_person_social/follower/?uid='+uid_transmit;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.transmit_relationship);
-//被转发关系网络
+//转发关系网络
 var uid_mention=1831090244;  
 var url ='/info_person_social/attention/?uid='+uid_mention;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.mention_relationship);
