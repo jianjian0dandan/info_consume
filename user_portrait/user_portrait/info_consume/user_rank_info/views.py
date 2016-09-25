@@ -29,7 +29,7 @@ def user_sort():
         end_time_nyr = '2013-09-07'
         start_time_nyr = '2013-09-07'
     username = request.args.get('username', '') 
-    search_time = request.args.get('time', '7')
+    search_time = request.args.get('time', '1')
     sort_norm = request.args.get('sort_norm', 'bci')
     sort_scope = request.args.get('sort_scope', '')
     arg = request.args.get('arg', '')
