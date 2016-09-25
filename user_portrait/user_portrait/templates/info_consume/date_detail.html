@@ -44,7 +44,9 @@
  	<script src="../../static/info_consume/js/jqcloud-1.0.4.js" type="text/javascript" charset="utf-8"></script>
  	<script type="text/javascript" src='../../static/info_consume/js/dataTool.js'></script>
  	<script type="text/javascript" src="../../static/info_consume/js/jquery.eeyellow.Timeline.js"></script>
-
+ 	<script type="text/javascript">
+ 		var topic_name_on_detail = "{{topic_name}}";
+ 	</script>
  	
 
 
@@ -95,9 +97,10 @@
 
 	 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	 		<script type="text/javascript">
-	 			var topic_name_on_detail = "{{topic_name}}";
+	 			
  	 			var html = '';
 	 			html += '<p class="topic_text">#'+topic_name_on_detail+'#</p>';
+
 	 			$('#myTabContent').append(html);
 	 		</script>
 		    

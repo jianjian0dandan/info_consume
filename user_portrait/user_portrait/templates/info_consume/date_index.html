@@ -45,6 +45,7 @@
          <div class="col-lg-4">
             <div class="input-group">
                <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿" onblur="checkText();">
+              
                <span class="input-group-btn">
                   <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!
@@ -162,6 +163,7 @@
 </div><!-- /.modal -->
 </div>
 
+
 <!-- 模态框3 -->
 <div class="modal fade" id="myModal_progress" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
@@ -201,9 +203,13 @@
 <script type="text/javascript">
 	function goto_date_detail() {
 		// window.open("file:///C:/Users/YuanHR/Desktop/D-A-T-E system/templates/date_detail.html")
-		window.location.href="/topic_time_analyze/time";
+		window.open('/topic_time_analyze/time/?topic_name='+topic_name); 
+		// window.location.href='/topic_time_analyze/time/?topic_name='+topic_name;
+		// window.location.href='/topic_time_analyze/time/?topic_name='+topic_name+'&start_ts='+start_ts+'&end_ts='+end_ts;
 	}
 </script>
+
+
 
 <div id="index_bottom">
 	<img id="eye" src="../../static/info_consume/image/eye.png" >
