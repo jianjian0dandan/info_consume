@@ -43,7 +43,7 @@ function Draw_weibo_table(data){
                       {                                                          //循环打印数组值
                           oTBody.insertRow(i);
 
-                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'>"+dataArray[i]['text']+"</span></div>";
+                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'><a href='./viewinformation'>"+dataArray[i]['text']+"</a></span></div>";
                              oTBody.rows[i].insertCell(0);
                              oTBody.rows[i].cells[0].innerHTML = html_c;                    
                       }
@@ -81,7 +81,7 @@ function Draw_weibo_table(data){
                       {                                                          //循环打印数组值
                           oTBody.insertRow(i);
 
-                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'>"+dataArray[i]['text']+"</span></div>";
+                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'><a href='./viewinformation'>"+dataArray[i]['text']+"</a></span></div>";
                              oTBody.rows[i].insertCell(0);
                              oTBody.rows[i].cells[0].innerHTML = html_c;                    
                       }
@@ -124,7 +124,7 @@ function Draw_weibo_table(data){
                       {
                              oTBody.insertRow(i);
                               oTBody.rows[i].insertCell(0);
-                            html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'>"+dataArray[i+a]['text']+"</span></div>";
+                            html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'><a href='./viewinformation'>"+dataArray[i+a]['text']+"</a></span></div>";
                             oTBody.rows[i].cells[0].innerHTML = html_c;
                           
                                                                              //数组从第i+a开始取值
@@ -159,7 +159,7 @@ function Draw_weibo_table(data){
                       {
                           oTBody.insertRow(i);
                           oTBody.rows[i].insertCell(0);
-                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'>"+dataArray[i+a]['text']+"</span></div>";
+                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'><a href='./viewinformation'>"+dataArray[i+a]['text']+"</a></span></div>";
                             oTBody.rows[i].cells[0].innerHTML = html_c;
                       }
                   }
@@ -199,7 +199,7 @@ function Draw_weibo_table(data){
                       {
                           oTBody.insertRow(i);
                             oTBody.rows[i].insertCell(0);
-                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'>"+dataArray[i+a]['text']+"</span></div>";
+                          html_c = "<div style='width:100%;'><span><img src='/static/img/pencil-icon.png' style='height:12px;width:12px;margin:0px;margin-right:8px;float:left;'><a href='./viewinformation'>"+dataArray[i+a]['text']+"</a></span></div>";
                             oTBody.rows[i].cells[0].innerHTML = html_c;
                       }
               }
