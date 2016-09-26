@@ -110,7 +110,7 @@
 		    	<div class="container">
 	    			<div class='col-md-3' id="date1">
 	       				<div class="form-group">
-	        	    		<div class='input-group date' id='datetimepicker9' style="width: 202px;margin-top: -0.5%;margin-left: 0%;">
+	        	    		<div class='input-group date' id='datetimepicker9' style="width: 202px;margin-top: -0.5%;margin-left: 0%;z-index: 999999;">
 	                			<input type='text' class="form-control" id='datetimepicker9_input'/>
 	                			<span class="input-group-addon">
 	                				<span class="glyphicon glyphicon-calendar"></span>
@@ -121,7 +121,7 @@
 	    			   <p class="topic_time_to">到</p>
 	    			<div class='col-md-3' id="date2" style="float: left;width: 5%;">
 	        			<div class="form-group" style="float: left;width: 8%;">
-	            			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;">
+	            			<div class='input-group date' id='datetimepicker10' style="width: 202px;position: relative;margin-top: -60%;margin-left: -1330%;float: left;z-index: 999999;">
 	                			<input type='text' class="form-control" id='datetimepicker10_input'/>
 	                			<span class="input-group-addon">
 	                				<span class="glyphicon glyphicon-calendar"></span>
@@ -140,35 +140,61 @@
 
 				</div>
 				<script type="text/javascript">
+					// $(function(){
+					// 	$('#commit').click(function(){
+							var date_time_from = "{{date_from}}";
+							var date_time_to = "{{date_to}}";
+							console.log(date_time_from);
+							console.log(date_time_to);
+							if(date_time_from && date_time_to){
+								$("#datetimepicker9_input").val(date_time_from);
+								$("#datetimepicker10_input").val(date_time_to);
+							}
+					// 	});
+					// });
+						
 				    $(function () {
 				        $('#datetimepicker9').datetimepicker();
 				        $('#datetimepicker10').datetimepicker();
+
+				  //       $("#datetimepicker9").datetimepicker({
+						//         minDate:date_time_from
+						//         maxDate: date_time_to
+						// });
+						// $("#datetimepicker10").datetimepicker({
+						//         minDate:date_time_from
+						//         maxDate: date_time_to
+						// });
+
+
+						//首次选择日期的时候设置限制
+						// $("#datetimepicker9").on("dp.generate",function (e) {
+				  //           $('#datetimepicker10').data("DateTimePicker").minDate(date_time_from);
+				    
+				  //       });
+				  //       $("#datetimepicker10").on("dp.generate",function (e) {
+				            
+				  //           $('#datetimepicker9').data("DateTimePicker").maxDate(date_time_to);
+
+				  //       });
+
+				        //改变日期的时候设置限制
 				        $("#datetimepicker9").on("dp.change",function (e) {
 				            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
+				            // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
+				            // $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
 				        });
 				        $("#datetimepicker10").on("dp.change",function (e) {
+				            
 				            $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
+				            $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
 				        });
 				    });
 				</script>
 	<!-- 分割线 -->
 			<div class="halving_line"></div>
 
-			<script type="text/javascript">
-						// $(function(){
-						// 	$('#commit').click(function(){
-								var date_time_from = "{{date_from}}";
-								var date_time_to = "{{date_to}}";
-								console.log(date_time_from);
-								console.log(date_time_to);
-								if(date_time_from && date_time_to){
-									$("#datetimepicker9_input").val(date_time_from);
-									$("#datetimepicker10_input").val(date_time_to);
-								}
-						// 	});
-						// });
-							
-					</script>
+
 
 
 <!-- 时间 -->
