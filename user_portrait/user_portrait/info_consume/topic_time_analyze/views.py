@@ -14,16 +14,22 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
+# @mod.route('/date_detail/')
+# def date_detail():
+#     topic_name_on_detail = request.args.get('topic_name','')
+#     return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail)
+
 @mod.route('/date_time')
 def date_time():
     return render_template('/info_consume/date_time.html')
-@mod.route('/copy_date_time')
-def copy_date_time():
-    return render_template('/info_consume/(copy)date_detail.html')
 
-@mod.route('/time')
+@mod.route('/time/')
 def time():
-    return render_template('/info_consume/date_detail.html')
+    topic_name_on_detail = request.args.get('topic_name','')
+    date_from = request.args.get('date_from','')
+    date_to = request.args.get('date_to','')
+    return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail,date_from=date_from,date_to=date_to)
+    # return render_template('/info_consume/date_detail.html')
 
 @mod.route('/mtype_count/')
 def MtypeCount():      #每类微博的数量

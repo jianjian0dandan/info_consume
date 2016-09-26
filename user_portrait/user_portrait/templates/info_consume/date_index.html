@@ -16,12 +16,29 @@
 	<script type="text/javascript" src="../../static/info_consume/js/moment-with-locales.min.js"></script>
 	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/bootstrap-datetimepicker.min.js"></script>
+	
+
 	<script type="text/javascript">
-		var topic_name = "{{topic_name}}";
-		if(topic_name){
-			$("#input").val("topic_name");
+        function checkText(){
+            var textValue = document.getElementById("input").value;
+            if(textValue == ""){
+                alert("输入框不能为空！");
+            }
+        }
+    </script>
+    <script type="text/javascript">
+	function goto_date_detail() {
+		console.log('123');
+			var topic_name = $('#input').val();
+			var date_from = $('#input_date_from').val();
+			var date_to = $('#input_date_to').val();
+			// window.open("file:///C:/Users/YuanHR/Desktop/D-A-T-E system/templates/date_detail.html")
+			window.open('/topic_time_analyze/time/?topic_name='+topic_name+'&date_from='+date_from+'&date_to='+date_to); 
+			// window.location.href='/topic_time_analyze/time/?topic_name='+topic_name;
+			// window.location.href='/topic_time_analyze/time/?topic_name='+topic_name+'&start_ts='+start_ts+'&end_ts='+end_ts;
 		}
 	</script>
+
 </head>
 
 <body>
@@ -35,7 +52,17 @@
       <div class="row">
          <div class="col-lg-4">
             <div class="input-group">
-               <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿">
+               <input id="input" type="text" class="form-control" placeholder="热门话题那些事儿" onblur="checkText();">
+              <script type="text/javascript">
+				
+					var topic_name = "{{topic_name}}";
+					
+					if(topic_name){
+						$("#input").val(topic_name);
+					}
+			
+				
+			</script>
                <span class="input-group-btn">
                   <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!
@@ -47,6 +74,8 @@
    </form>
 
 </div>
+
+
 
 <!-- 模态框1（Modal_date_choose） -->
 <div class="modal fade" id="myModal_date_choose" tabindex="-1" role="dialog" 
@@ -70,7 +99,7 @@
 		    			<div class='col-md-3' id="date1">
 		       				<div class="form-group">
 		        	    		<div class='input-group date' id='datetimepicker_index_from' style="width: 202px;margin-left: 17%;margin-top: -15%;float: left;">
-		                			<input type='text' class="form-control" />
+		                			<input id="input_date_from" type='text' class="form-control" />
 		                			<span class="input-group-addon">
 		                				<span class="glyphicon glyphicon-calendar"></span>
 		                			</span>
@@ -81,7 +110,7 @@
 		    			<div class='col-md-3' id="date2">
 		        			<div class="form-group">
 		            			<div class='input-group date' id='datetimepicker_index_to' style="width: 202px;margin-top: -15%;margin-left: -1%;float: left;">
-		                			<input type='text' class="form-control" />
+		                			<input id="input_date_to" type='text' class="form-control" />
 		                			<span class="input-group-addon">
 		                				<span class="glyphicon glyphicon-calendar"></span>
 		                			</span>
@@ -137,13 +166,13 @@
             </h4>
          </div>
          <div class="modal-body">
-            对于当前搜索的关键词后台需要5分钟时间进行计算分析，是否要继续提交？
+            对于当前搜索的关键词后台需要几分钟时间进行计算分析，是否要继续提交？
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
                data-dismiss="modal">否，换个词试试
             </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_progress">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_progress" onclick="goto_date_detail()">
                是，我愿意等待
             </button>
          </div>
@@ -151,7 +180,8 @@
 </div><!-- /.modal -->
 </div>
 
-<!-- 模态框3 -->
+
+<!-- 
 <div class="modal fade" id="myModal_progress" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -166,7 +196,7 @@
             </h4>
          </div>
          <div class="modal-body">
-            <!-- 进度条 -->
+            
             <div class="progress" id="myModal_progress">
 				<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
 					<span class="sr-only">40% 完成</span>
@@ -181,18 +211,15 @@
                完成
             </button>
          </div>
-      </div><!-- /.modal-content -->
-</div><!-- /.modal -->
+      </div>
 </div>
+</div> -->
 
 
 </div>
-<script type="text/javascript">
-	function goto_date_detail() {
-		// window.open("file:///C:/Users/YuanHR/Desktop/D-A-T-E system/templates/date_detail.html")
-		window.location.href="/topic_time_analyze/time";
-	}
-</script>
+
+
+
 
 <div id="index_bottom">
 	<img id="eye" src="../../static/info_consume/image/eye.png" >

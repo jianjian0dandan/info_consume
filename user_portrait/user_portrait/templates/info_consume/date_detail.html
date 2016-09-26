@@ -44,8 +44,8 @@
  	<script src="../../static/info_consume/js/jqcloud-1.0.4.js" type="text/javascript" charset="utf-8"></script>
  	<script type="text/javascript" src='../../static/info_consume/js/dataTool.js'></script>
  	<script type="text/javascript" src="../../static/info_consume/js/jquery.eeyellow.Timeline.js"></script>
-
  	
+
 
 
 
@@ -94,7 +94,16 @@
 
 
 	 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
-		    <p class="topic_text">#里约奥运#</p>
+	 		
+	 		<script type="text/javascript">
+	 			var topic_name_on_detail = "{{topic_name}}";
+	 			console.log(topic_name_on_detail);
+ 	 			var html = '';
+	 			html += '<p class="topic_text">#'+topic_name_on_detail+'#</p>';
+
+	 			$('#myTabContent').append(html);
+	 		</script>
+		    
 		    <p class="topic_time">日期:</p>
 		    <p class="topic_time_from">从</p>
 	<!-- 时间段选择 -->
@@ -125,7 +134,7 @@
 	   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
 					</div> -->
 					<div class="btn_commit" class="bs-example">
-	   					<button type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
+	   					<button id="commit" type="button" class="btn btn-primary" style="background-color: #00CC66;border-color: #00CC66;font-family: Microsoft YaHei;">确定</button>
 					</div>
 
 
@@ -145,6 +154,21 @@
 	<!-- 分割线 -->
 			<div class="halving_line"></div>
 
+			<script type="text/javascript">
+						// $(function(){
+						// 	$('#commit').click(function(){
+								var date_time_from = "{{date_from}}";
+								var date_time_to = "{{date_to}}";
+								console.log(date_time_from);
+								console.log(date_time_to);
+								if(date_time_from && date_time_to){
+									$("#datetimepicker9_input").val(date_time_from);
+									$("#datetimepicker10_input").val(date_time_to);
+								}
+						// 	});
+						// });
+							
+					</script>
 
 
 <!-- 时间 -->
