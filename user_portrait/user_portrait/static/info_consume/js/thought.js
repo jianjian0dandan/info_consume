@@ -21,7 +21,7 @@ Thought.prototype = {   //获取数据，重新画表
             $('#select_time').empty();  
             html0 += "<div style='float:left;'>当前选择时间段：</div><div style='color:brown;'>"+items['time_list'][items['time_list'].length-1]+"</div><div style='float:left;'>当前选择情绪：</div><div style='color:brown;'>中性</div>";
             $('#select_time').append(html0);
-            var index = $('input[name="time-type"]:checked').val();
+            //var index = $('input[name="time-type"]:checked').val();
             var url_content = '/attribute/sentiment_weibo/?uid='+uid+'&start_ts='+times_init+'&time_type='+index+'&sentiment=0';
             //console.log('url_content'+url_content);
             person_call_ajax_request(url_content,th_draw_content);
@@ -39,8 +39,7 @@ $(function(){
   });
 });
 
-var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type=week';
-  person_call_ajax_request(url, Thought.Draw_emotion);
+
 // function choose_time(){            
 //     var index = $('input[name="time-type"]:checked').val();
 //     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
@@ -168,11 +167,14 @@ function emotions(data){
     )
 }
 
-// function thought_load(){
+function thought_load(){
+    var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type=week';
+      person_call_ajax_request(url, Thought.Draw_emotion);
 //     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
 //     person_call_ajax_request(url, Thought.Draw_emotion);
-//     console.log('thought_load'+url);
-// }
+     console.log('chushijiazai'+url);
+ }
 var uid = 1640601392;
 var Thought = new Thought();
-// var index = $('input[name="time-type"]:checked').val();
+//var index = $('input[name="time-type"]:checked').val();
+thought_load();
