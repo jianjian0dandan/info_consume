@@ -133,16 +133,15 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 
   Draw_network_pic:function(data){
     var item = data;
-
     var nodes_new = [];
     var nodes_label = [];
     for(i=0;i<item['nodes'].length;i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
-      nodes_label.push({name:item['nodes'][i]['label']});
+      
     }
     console.log(item);
     console.log(nodes_new);
-    console.log(nodes_label);
+  
          require(  
                 [  
                     'echarts',  
@@ -164,21 +163,8 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           },
           tooltip : {
               trigger: 'item',
-              formatter: 
-              function (nodes_label,ticket,callback) {
-                  console.log(nodes_label)
-                  var res = '用户昵称: ' + nodes_label[0].name;
-                  console.log(res);
-                  for (var i = 0, l = nodes_label.length; i < l; i++) {
-                    for(key in nodes_label)
-                      res += key + ' : ' + nodes_label[i][key];
-                  }
-                  // setTimeout(function (){
-                  //     // 仅为了模拟异步回调
-                  //     callback(ticket, res);
-                  // }, 0)
-                  // return 'loading';
-              }
+              formatter: '{b}', 
+              
           },
           toolbox: {
               show : true,
@@ -262,6 +248,15 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
               console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
           } else { // 点击的是点
               console.log("选中了" + data.name + '(' + data.value + ')');
+              
+              for(i=0;i<item['nodes'].length;i++){
+                if(item['nodes'][i]['label'] == data.name){
+                  nodes_uid = item['nodes'][i]['uid'];
+                  window.open('/index/viewinformation/?uid='+nodes_uid);
+                }
+                
+              }
+              console.log(nodes_uid);
           }
       }
       myChart.on(ecConfig.EVENT.CLICK, focus)
