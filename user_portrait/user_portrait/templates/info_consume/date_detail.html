@@ -58,7 +58,7 @@
 	<div>
 		<a href="/index/date_index" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 90%;float: left;">首页</a>
 		<span style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 0.5%;float: left;">/</span>
-		<a href="https://123.sogou.com/" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 0.5%;float: left;">关于</a>
+		<a href="http://home.baidu.com/contact.html" style="color: #FFFFFF;font-family: Microsoft YaHei;margin-top: 1%;margin-left: 0.5%;float: left;">关于</a>
 	</div>
 
 	<div id="myTabContent" class="tab-content">	
@@ -156,7 +156,11 @@
 				    $(function () {
 				        $('#datetimepicker9').datetimepicker();
 				        $('#datetimepicker10').datetimepicker();
-
+				        // $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
+				        // $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
+				        // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
+				        // // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
+				        // $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
 				  //       $("#datetimepicker9").datetimepicker({
 						//         minDate:date_time_from
 						//         maxDate: date_time_to
@@ -182,7 +186,7 @@
 				        $("#datetimepicker9").on("dp.change",function (e) {
 				            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
 				            // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				            // $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
+				            $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
 				        });
 				        $("#datetimepicker10").on("dp.change",function (e) {
 				            

@@ -246,8 +246,8 @@ Draw_time_line:function(data){
     var item = data;
     var html = '';
     if (item.length == 0){
-        html += '<div style="color:grey;">暂无数据</div>'
-        }else{
+        html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
+    }else{
 
               html += '<div class="row">';
               html += '<div class="col-md-12" style="width:58%;">';

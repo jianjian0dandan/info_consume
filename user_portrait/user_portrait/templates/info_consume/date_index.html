@@ -41,7 +41,18 @@
 
 </head>
 
-<body>
+<body onKeyDown = "_b()">
+<script>
+function _a()
+{
+alert("按钮被点击");
+}
+function _b()
+{
+if(event.keyCode ==13)
+_a();
+}
+</script>
 
 <div id="index_top">
 	<img id="date" src="../../static/info_consume/image/date.png">
@@ -64,7 +75,7 @@
 				
 			</script>
                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
+                  <button class="btn btn-default" type="button" onclick="_b();" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!
                   </button>
                </span>
