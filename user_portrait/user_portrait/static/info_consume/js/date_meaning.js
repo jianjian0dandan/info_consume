@@ -187,13 +187,13 @@ var option = {
 Draw_event_river:function(data){
 
     var item_data = data;
-    var data_json = [];
+    var name_item = [];
+    var series_json = [];
     var html = '';
-    
     // // console.log('111');
     
     for (var key in item_data){
-
+        var data_json = [];
         var evolution_json = [];
 
         for (i=0;i<item_data[key].length;i++){    
@@ -202,17 +202,21 @@ Draw_event_river:function(data){
         }
         
         data_json.push({"name":key,"evolution":evolution_json});
+        series_json.push({"name":key,"type":"eventRiver","weight":123,"data":data_json})
+        name_item.push(key);
       }
-    console.log(data_json);
+      
+    console.log(name_item);
+    console.log(series_json);
     var myChart = echarts.init(document.getElementById('main_meaning_2'));
     var option = {
-        tooltip : {
-            trigger: 'item',
-            // enterable: true
-        },
-        // legend: {
-        //     data:['新闻观点', '微博观点']
+        // tooltip : {
+        //     trigger: 'item',
+        //     // enterable: true
         // },
+        legend: {
+            data:name_item
+        },
         toolbox: {
             show : true,
             feature : {
@@ -227,16 +231,17 @@ Draw_event_river:function(data){
                 boundaryGap: [0.05,0.1]
             }
         ],
-        series : [
-            {
-                "name": "子事件名称", 
-                "type": "eventRiver", 
-                "weight": 123, 
-                // [{name:,weight:}]
-                "data":data_json
+        series : series_json
+        // [
+        //     {
+        //         "name": "子事件名称", 
+        //         "type": "eventRiver", 
+        //         "weight": 123, 
+        //         // [{name:,weight:}]
+        //         "data":data_json
                 
-            }
-        ]
+        //     }
+        // ]
 };
     myChart.setOption(option);     
 

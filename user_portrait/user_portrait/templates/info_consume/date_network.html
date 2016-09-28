@@ -19,7 +19,7 @@
 		<div id="right_col_title_1_network">
 			<div id="right_col_title_1_network_blue"></div>
 			<div id="right_col_title_1_network_green"></div>
-			<img id="img_person" src="../../static/info_consume/image/person.png">
+			<img id="img_person" src="../../static/info_consume/image/person.png" onMouseOver="javascript: show(this,'mydiv1');" onMouseOut="hide(this,'mydiv1')">
 			<span id="trend_maker" onclick="get_trend_type('maker')">重要微博用户</span>
 			<!-- <span id="trend_pusher" onclick="get_trend_type('pusher')">&nbsp;推动者</span> -->
       
@@ -40,12 +40,12 @@
 		<div id="right_col_title_2_network">
 			<!-- 用户头像 -->
 			
-			<div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;">
+			<!-- <div id="user_id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;">
 				
-			</div>
-
-			<!-- <div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;"></div> -->
-
+			</div> -->
+<div id="mydiv1" style="position:absolute;display:none;border:1px solid silver;background:silver;z-index:99999">提示1效果<br>啦啦啦啦啦<br>噜噜噜噜</div>
+			<!-- <div id="user_id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;"></div>
+ -->
 		</div>
 	</div>
 </div>
