@@ -104,9 +104,9 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="popover" href="#">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="popover" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
-
+       
                         }
                     },
                     {
@@ -256,7 +256,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" href="./viewinformation" data-toggle="popover">'+value+'</a>'; 
+                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover">'+value+'</a>'; 
                            return e;
                         }
                     },
@@ -448,7 +448,7 @@
 
               $('#keyword_hashtag').focus(function () { 
                 if($('#search_norm option:selected').text()=='朋友圈'){
-                  $('#keyword_hashtag').attr("placeholder","输入TA的用户ID，看看TA的朋友圈都有谁？");
+                  $('#keyword_hashtag').attr("placeholder","输入TA的昵称或ID，看看TA的朋友圈都有谁？");
                  }else{
                   $('#keyword_hashtag').attr("placeholder","输入感兴趣的关键词（多个词用空格隔开），看看您的兴趣圈都有谁？");
                  }
@@ -584,27 +584,6 @@
           })
 
 
-         function display_grouplist(){
-           var group_list_url='/info_group/show_task/?submit_user='+username ;
-           $.ajax({
-                  type:'GET',
-                  url: group_list_url,
-	              dataType: 'json',
-	              async: true,
-                  success: draw_group_list
-              }); 
-          function draw_group_list(data){
-          var length = data.length;
-             $('#group_list').empty();
-            for(var i=0;i<length;i++){
-             var htm = '<li style="cursor:pointer;margin-top:10px;margin-left:5px;">'+data[i]['task_name']+'('+data[i]['group_count']+')</li>';
-             $('#group_list').append(htm);
-             }
-           }
-          }
-
-
-
          function addgroup(){
             var arg = $('#table-user-contain').css("display");
             var artt = $('#table-user-user-contain').css("display");
@@ -625,6 +604,90 @@
          }
         }
 
+         
+         function modify_group(obj){
+          	var task = $(obj).attr("value");
+          	console.log(task);
+		        function re_call(data){
+            // var length=len(data);
+             var group_uid_list = new Array();
+             for(var key in data){
+              group_uid_list.push(key);
+             }
+	          for(var i=0;i<selected_list.length;i++){
+	          group_uid_list.push(selected_list[i].uid);
+	         }  
+              //console.log(selected_list);
+             // console.log(group_uid_list.length);
+	            var group_ajax_url = '/influence_sort/submit_task/';
+	            var submit_name =  username;//获取$('#useremail').text();
+	            var group_analysis_count = 10;//获取
+	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+	            console.log(job);
+	             function callback(data){
+                 console.log(data);
+                  if (data == '1'){
+                      alert('追踪目标已发现！请前往圈子spy中查看分析进度！');
+                      $('#addModal').modal('hide');
+                        location.reload();
+                  }
+                  if(data == '0'){
+                      alert('任务提交失败，请重试！');
+                      $('#addModal').modal('hide');
+                      document.getElementById('cicle_name').value ="";
+                  }
+                  if(data == 'more than limit'){
+                      alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
+                      $('#addModal').modal('hide');
+                      document.getElementById('cicle_name').value ="";
+                  }
+              }
+
+              $.ajax({
+                  type:'POST',
+                  url: group_ajax_url,
+                  contentType:"application/json",
+                  data: JSON.stringify(job),
+                  dataType: "json",
+                  success: callback
+              }); 
+          	}
+          	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
+          	call_sync_ajax_request(re_url, re_call);
+		 
+           var url = '/info_group/delete_group_task/?';
+            url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
+            call_sync_ajax_request(url,del);
+             function del(data){
+      		    //console.log(data);
+      		     if(data==true){
+      		     }else{
+                 console.log('已有群组删除失败');
+               }
+      		    }
+          
+        }
+
+         function display_grouplist(){
+           var group_list_url='/info_group/show_task/?submit_user='+username ;
+           $.ajax({
+                  type:'GET',
+                  url: group_list_url,
+	              dataType: 'json',
+	              async: true,
+                  success: draw_group_list
+              }); 
+            function draw_group_list(data){
+            var length = data.length;
+             $('#group_list').empty();
+            for(var i=0;i<length;i++){
+             var htm = '<li style="cursor:pointer;margin-top:10px;margin-left:5px;" onclick="modify_group(this)" value="'+data[i]['task_name']+'">'+data[i]['task_name']+'<span class="badge" style="margin-left:5px;">'+data[i]['group_count']+'</span></li>';
+             $('#group_list').append(htm);
+             }
+           }
+          }
+
+
 
           function new_group_build(){
             var group_name = $('#cicle_name').val();
@@ -633,7 +696,8 @@
 
               }else{
               console.log(group_name);
-              var list_length = selected_list.length;
+
+                var list_length = selected_list.length;
 	            var group_uid_list = new Array();
 	            for(var i=0;i<list_length;i++){
 	            group_uid_list[i]=selected_list[i].uid;
