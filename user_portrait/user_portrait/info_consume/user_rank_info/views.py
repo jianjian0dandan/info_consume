@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import os
 import time
-import json
+import json,re
 import datetime
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
 from user_portrait.time_utils import ts2datetime
@@ -13,7 +13,7 @@ from user_portrait.parameter import RUN_TYPE
 from imagine import imagine
 from utils import submit_task, search_task, get_group_list,\
        delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
-       get_group_user_track, search_group_results, get_influence_content
+       get_group_user_track, search_group_results, get_influence_content,get_uid
 
                   
 mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
@@ -72,8 +72,16 @@ def delete_task():
 #@mod.route('/similar_influence/')
 
 @mod.route('/imagine/')
-def ajax_imagine():
-    uid = request.args.get('uid', '') # uid
+def ajax_imagine():   
+    term = request.args.get('uid','')
+    try:
+        uid = re.match(r'[\d]{10}\Z', term).group()
+    except:
+        try:
+            uid = get_uid(term)
+        except:
+            uid = ''
+    #uid = request.args.get('uid', '') # uid
     query_keywords = request.args.get('keywords','') # 查询字段
     submit_user = request.args.get('submit_user', '')
     query_weight = request.args.get('weight','') # 权重
@@ -118,7 +126,7 @@ def ajax_imagine():
 def ajax_submit_task():
     input_data = dict()
     input_data = request.get_json()
-    print input_data, input_data['submit_user']
+    #print input_data, input_data['submit_user']
     try:
         submit_user = input_data['submit_user']
     except:
@@ -126,5 +134,5 @@ def ajax_submit_task():
     now_ts = int(time.time())
     input_data['submit_date'] = now_ts
     status = submit_task(input_data)
-    print 'aaa',status
+    #print 'aaa',status
     return json.dumps(status)
