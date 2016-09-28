@@ -75,7 +75,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
             return {"flag":True , "search_id" : search_id }
         elif sort_scope == 'in_limit_hashtag':
             during = ( datetime2ts(et) - datetime2ts(st) ) / DAY + 1
-            time = 1
+            time = 7
             if during > 3:
                 time = 7
             elif during > 16:
@@ -88,7 +88,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
         else:
             #find the scope
             user_list = in_sort_filter(time , sort_norm,sort_scope , arg,[], False, number)
-            #print user_list
+            print user_list
     result = make_up_user_info(user_list,isall , time , sort_norm)
     print "user_list:", len(user_list)
     return result
