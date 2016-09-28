@@ -33,8 +33,23 @@
        $("#circle-analysis").slideDown();
        console.log(g_name);
      }      
-     function open_detail(){
+
+
+     function open_detail(data){
       $('#detail_Modal').modal('show');
+      function del_number(obj){
+        var del_id= $(obj).prev().prev().html(); 
+        console.log(del_id);
+      }
+      function con_call(data){
+        for(var key in data){
+      var html ='<tr><td>'+key+'</td><td>'+data[key]+'</td><td><span style="cursor:pointer;" onclick="del_number(this)">'+'删除</span></td></tr>';
+      $('#consitute').append(html);
+       }
+      }
+      var con_url='/info_group/group_member/?task_name='+data+'&submit_user='+s_user;
+      console.log(con_call);
+      call_sync_ajax_request(con_url,'GET', con_call);
      }
 
          $(function(){
@@ -125,7 +140,7 @@
                       valign: "middle",//垂直
                       formatter:function(value,row,index){   
                       var d = '<span style="cursor:pointer;" onclick="dele_analysis(\''+ row.task_name +'\')">删除</span> ';  
-                      d+= '<span style="cursor:pointer;" onclick="open_detail()">编辑</span> ';
+                      d+= '<span style="cursor:pointer;" onclick="open_detail(\''+ row.task_name +'\')">编辑</span> ';
                         return d;  
                     } 
                   }],
@@ -142,6 +157,6 @@
                  
             });
 
-
+        
 
                 

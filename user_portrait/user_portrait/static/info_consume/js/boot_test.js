@@ -448,7 +448,7 @@
 
               $('#keyword_hashtag').focus(function () { 
                 if($('#search_norm option:selected').text()=='朋友圈'){
-                  $('#keyword_hashtag').attr("placeholder","输入TA的用户ID，看看TA的朋友圈都有谁？");
+                  $('#keyword_hashtag').attr("placeholder","输入TA的昵称或ID，看看TA的朋友圈都有谁？");
                  }else{
                   $('#keyword_hashtag').attr("placeholder","输入感兴趣的关键词（多个词用空格隔开），看看您的兴趣圈都有谁？");
                  }
