@@ -1,5 +1,5 @@
 {% extends "info_consume/daohang_public.html" %}
-
+{% block part_name %}主页{% endblock %}
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
@@ -30,11 +30,11 @@
               <li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a></li>
               <li class="menu1"><a href="#" class="menu1"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>我的管家<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
                 <ul class="cl-effect-2">
-                  <li><a href="#">我最爱说</a></li>
-                  <li><a href="#">我的领域</a></li> 
-                  <li><a href="#">我的影响力</a></li>
-                  <li><a href="#">我的足迹</a></li>
-                  <li><a href="#">情绪管家</a></li>
+                  <li><a href="/index/myzone">我最爱说</a></li>
+                  <li><a href="/index/myzone">我的领域</a></li> 
+                  <li><a href="/index/myzone">我的影响力</a></li>
+                  <li><a href="/index/myzone">我的足迹</a></li>
+                  <li><a href="/index/myzone">情绪管家</a></li>
                 </ul>
                 <!-- script-for-menu -->
                 <script>
@@ -46,9 +46,9 @@
                 </script>
               <li><a href="#" class="menu"><span class="glyphicon glyphicon-film glyphicon-king" aria-hidden="true"></span>我的好友<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
                 <ul class="cl-effect-1">
-                  <li><a href="#">亲密度排行</a></li>                                             
-                  <li><a href="#">最近访问</a></li>
-                  <li><a href="#">人际圈</a></li>   
+                  <li><a href="/index/my_friend">亲密度排行</a></li>                                             
+                  <li><a href="/index/my_friend">最近访问</a></li>
+                  <li><a href="/index/my_friend">人际圈</a></li>   
                 </ul>
                 <!-- script-for-menu -->
                 <script>
@@ -58,8 +58,8 @@
                   });
                   });
                 </script>
-              <li><a href="movies.html" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>用户分析</a></li>
-              <li><a href="news.html" class="news-icon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>微博那些事</a></li>
+              <li><a href="/index/boot_test" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>圈子发现</a></li>
+              <li><a href="/index/weiborecommand" class="news-icon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>微博那些事</a></li>
               </ul>
               <!-- script-for-menu -->
                 <script>
@@ -149,7 +149,7 @@
         <h1 id="influ_title">我的个人影响力</h1>
           <div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left bk-vcenter text-center">
-              <small style=" font: 16px/1.5 'Microsoft Yahei';color:#ffffff;">我的影响力得分：<span id="influencePower"></span>分</small>
+              <small style=" font: 16px/1.5 'Microsoft Yahei';color:#ffffff;">影响力得分：<span id="influencePower"></span>分</small>
               <div class="progress bk-margin-off-bottom" style="height: 15px;">
                 <div class="progress thin progress-striped active">
                   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;" id="percentBar">
@@ -252,7 +252,7 @@
 
 
   <div class="down_box"><!--微博动态-->
-    <div class="panel panel-success" style="width:100%;height:150%;margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+    <div class="panel panel-success" style="width:105%;height:150%;margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
       <div class="panel-heading">
         <h3 class="panel-title">最近动态</h3>
       </div>
