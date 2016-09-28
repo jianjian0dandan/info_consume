@@ -56,8 +56,8 @@ var word_num = Math.min(20, data.length);
             }]
         };
          myChart.on(ecConfig.EVENT.CLICK, function (param){
-          // console.log(param);
-           window.open('./date_index');
+           //console.log(param.name);
+           window.open('/index/date_index/?topic_name='+param.name);
          })
         myChart.setOption(option);  
 })

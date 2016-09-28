@@ -58,6 +58,7 @@
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
                  console.log(influ_url);               
                function init_table(data){
+                console.log(data)
                 $('#table-user').bootstrapTable({
                   //url: influ_url,
                   data:data,
@@ -100,12 +101,13 @@
                         field: "uname",
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value) { 
+                        formatter: function (value,row) { 
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="popover" href="./viewinformation">'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="popover" href="/index/viewinformation/?uid=\''+row.uid+'\'>'+value+'</a>'; 
                             return e;
+
                         }
                     },
                     {
