@@ -42,14 +42,18 @@
         console.log(del_id);
       }
       function con_call(data){
-        for(var key in data){
+      $('#consitute').empty();
+      for(var key in data){
+      if(data[key]=='unknown'){
+         data[key]='未知';
+       }
       var html ='<tr><td>'+key+'</td><td>'+data[key]+'</td><td><span style="cursor:pointer;" onclick="del_number(this)">'+'删除</span></td></tr>';
       $('#consitute').append(html);
        }
       }
       var con_url='/info_group/group_member/?task_name='+data+'&submit_user='+s_user;
-      console.log(con_call);
-      call_sync_ajax_request(con_url,'GET', con_call);
+      console.log(con_url);
+      call_sync_ajax_request(con_url,'GET',con_call);
      }
 
          $(function(){

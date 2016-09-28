@@ -607,29 +607,28 @@
          
          function modify_group(obj){
           	var task = $(obj).attr("value");
-          	console.log(task);
+          	//console.log(task);
 		        function re_call(data){
-            // var length=len(data);
+            console.log(data);
              var group_uid_list = new Array();
              for(var key in data){
               group_uid_list.push(key);
+              console.log(group_uid_list); //打印不出来，url无数据
              }
 	          for(var i=0;i<selected_list.length;i++){
-	          group_uid_list.push(selected_list[i].uid);
+	           group_uid_list.push(selected_list[i].uid);
 	         }  
-              //console.log(selected_list);
-             // console.log(group_uid_list.length);
+              console.log(group_uid_list);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
 	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	            console.log(job);
+	           // console.log(job);
 	             function callback(data){
-                 console.log(data);
                   if (data == '1'){
-                      alert('追踪目标已发现！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
-                        location.reload();
+                      // location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
@@ -703,14 +702,14 @@
 	            group_uid_list[i]=selected_list[i].uid;
 	            }          
 	            var group_ajax_url = '/influence_sort/submit_task/';
-	            var admin = 'admin@qq.com'//获取$('#useremail').text();
+	            var admin = username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
-	            var job = {"submit_user":'admin@qq.com',"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	            console.log(job);
+	            var job = {"submit_user":username,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+	          //  console.log(job);
 	             function callback(data){
                  console.log(data);
                   if (data == '1'){
-                      alert('追踪目标已发现！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
                         location.reload();
                   }
@@ -738,8 +737,5 @@
           }
 
 
-          //选择用户提交群组分析
-            function groupanalyze_confirm(){
-             
-           }
+    
 
