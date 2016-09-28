@@ -105,7 +105,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="popover" href="/index/viewinformation/?uid=\''+row.uid+'\'>'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="popover" href="#">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
 
                         }
