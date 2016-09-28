@@ -117,7 +117,7 @@ var option = {
 };
    myChart.on(ecConfig.EVENT.CLICK, function (param){
   // console.log(param);
-   window.open('./viewinformation');
+   window.open('/index/viewinformation/?uid='+);
  })
 myChart.setOption(option); 
 })
