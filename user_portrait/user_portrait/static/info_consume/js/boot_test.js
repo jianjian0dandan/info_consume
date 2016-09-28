@@ -58,7 +58,6 @@
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
                  console.log(influ_url);               
                function init_table(data){
-                console.log(data)
                 $('#table-user').bootstrapTable({
                   //url: influ_url,
                   data:data,
@@ -584,6 +583,28 @@
 
           })
 
+
+         function display_grouplist(){
+           var group_list_url='/info_group/show_task/?submit_user='+username ;
+           $.ajax({
+                  type:'GET',
+                  url: group_list_url,
+	              dataType: 'json',
+	              async: true,
+                  success: draw_group_list
+              }); 
+          function draw_group_list(data){
+          var length = data.length;
+             $('#group_list').empty();
+            for(var i=0;i<length;i++){
+             var htm = '<li style="cursor:pointer;margin-top:10px;margin-left:5px;">'+data[i]['task_name']+'('+data[i]['group_count']+')</li>';
+             $('#group_list').append(htm);
+             }
+           }
+          }
+
+
+
          function addgroup(){
             var arg = $('#table-user-contain').css("display");
             var artt = $('#table-user-user-contain').css("display");
@@ -595,16 +616,18 @@
               console.log('表格display冲突！');
              }
             selected_list = $table.bootstrapTable('getSelections');
+           // console.log(selected_list);
             if( selected_list.length == 0){
               alert('您还没有选择用户哦！');
             }else{
               $('#addModal').modal('show');
+              display_grouplist();
          }
         }
 
-          //选择用户提交群组分析
-            function groupanalyze_confirm(){
-                var group_name = $('#cicle_name').val();
+
+          function new_group_build(){
+            var group_name = $('#cicle_name').val();
               if(group_name==''){
               	alert('Ops！起个名儿呗');
 
@@ -648,5 +671,11 @@
                   success: callback
               }); 
 	         }
+          }
+
+
+          //选择用户提交群组分析
+            function groupanalyze_confirm(){
+             
            }
 
