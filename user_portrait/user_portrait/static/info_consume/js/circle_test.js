@@ -45,6 +45,7 @@
 		      num["name"]=data[key];
 		      num_data.push(num);
               }
+          console.log(num_data);
          $('#consitute').bootstrapTable({
                   data: num_data,
                   search: true,//是否搜索
@@ -137,11 +138,12 @@
 	         var k =0;
            	for(var j=0;j<num_data.length;j++){
            		for(var i=0;i<del_list.length;i++){
-              if(num_data[j]['ID']!=del_list[i]){
-                new_num_id[k] =num_data[j];
-                k+=1;
+               if(num_data[j]['ID']==del_list[i]){
+              	break;
+                }
+                new_num_id[k] =num_data[j]['ID'];
+                k=k+1;
               }
-             }
             }
             console.log(new_num_id.length);
 	      	    var group_ajax_url = '/influence_sort/submit_task/';
@@ -153,7 +155,7 @@
                   if (data == '1'){
                      // alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                      $('#detail_Modal').modal('hide');
-                     location.reload();
+                     window.location.reload();
                   }
                   if(data == '0'){
                      // alert('任务提交失败，请重试！');

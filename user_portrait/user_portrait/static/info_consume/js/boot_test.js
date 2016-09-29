@@ -184,7 +184,7 @@
              });
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
-            init_pop();
+           // init_pop();
           } 
            call_sync_ajax_request(influ_url, init_table);
          })
@@ -612,12 +612,12 @@
              var group_uid_list = new Array();
              for(var key in data){
               group_uid_list.push(key);
-              console.log(group_uid_list); //打印不出来，url无数据
+              console.log(group_uid_list.length); //打印不出来，url无数据
              }
 	          for(var i=0;i<selected_list.length;i++){
 	           group_uid_list.push(selected_list[i].uid);
-	         }  
-              console.log(group_uid_list);
+	           }  
+              console.log(group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
@@ -627,7 +627,7 @@
                   if (data == '1'){
                       alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
-                      location.reload();
+                      window.location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
@@ -706,11 +706,11 @@
 	            var job = {"submit_user":username,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
 	          //  console.log(job);
 	             function callback(data){
-                 console.log(data);
+                // console.log(data);
                   if (data == '1'){
                       alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
-                        location.reload();
+                        window.location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
