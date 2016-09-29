@@ -33,6 +33,7 @@ viewinformation.prototype=
       //console.log(data);
       Draw_out(data,'retweet_out');
       $('#p_so_onload1').css('display','none').siblings().css('display','block'); 
+      console('attem');
   }
 }
 

@@ -24,9 +24,11 @@ personZone.prototype = {
   var img = document.getElementById('portraitImg');
   if(personalData.photo_url == "unknown"){
       img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
+      userImg_src = "http://tp2.sinaimg.cn/1878376757/50/0/1";
   }else{
       //console.log('here is pic');
       img.src = personalData.photo_url;
+      userImg_src = personalData.photo_url;
   }
 
   var nickName = document.getElementById('username');
@@ -55,6 +57,7 @@ function openurl(){
   window.open(ourl);
  }
 
+var userImg_src;
 
 var url = "/attribute/new_user_profile/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
