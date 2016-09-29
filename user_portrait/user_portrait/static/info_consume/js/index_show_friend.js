@@ -23,21 +23,24 @@ viewinformation.prototype=
       });
   },
 
-  social:function(data)
-    {
+  social_be:function(data){
       //console.log(data);
-      Draw_out(data.top_retweet_comment,'retweet_out');
-          Draw_out(data.top_be_retweet_comment,'tweeted_out');
-      Draw_out(data.top_interaction,'two_way_out');
-      Draw_out(data.top_mention,'related_out');
+      Draw_out(data,'tweeted_out');
       $('#p_so_onload1').css('display','none').siblings().css('display','block'); 
-    }
+    },
+    
+  social_me:function(data){
+      //console.log(data);
+      Draw_out(data,'retweet_out');
+      $('#p_so_onload1').css('display','none').siblings().css('display','block'); 
+  }
 }
 
 
 function Draw_out(data,div){
     console.log(data);
         $('#'+div).empty();
+    console.log(data.length);
     if(data.length==0){
       var html='';
       html=html+'<p style="margin-left:4%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
@@ -46,37 +49,40 @@ function Draw_out(data,div){
       // $('#more'+div).css('display','none');
     }else
     {
+      console.log('else here');
       var html = '';
       for(var i=0;i<data.length;i++){
-          if(data[i][2]=='unknown'){
-            data[i][2] = "http://tp2.sinaimg.cn/1878376757/50/0/1";
+        if(data[i].photo_url=='unknown'){
+          data[i].photo_url = "http://tp2.sinaimg.cn/1878376757/50/0/1";
         }
-        if(data[i][1]=='unknown'){
-            data[i][1] = "未知";
-            data[i][1] = data[i][0];
-                }
+        if(data[i].uname=='unknown'){
+            data[i].uname = "未知";
+        }
+        var uname_show = data[i].uname;
+        if (data[i].uname.length>4) {
+          uname_show = data[i].uname.substr(0,4)+'..';
+        }
+
          // html = html + '<a target="_blank" href="/index/personal/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:5px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
-          html = html + '<a target="_blank" href="/index/viewinformation" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:20px;margin-top:10px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
+          html = html + "<a target='_blank' href='/index/viewinformation' class='img-photo' title='"+data[i].uname+": "+data[i].count+"' style='margin-left:20px;margin-top:10px;display:block;float:left;'><img id='portraitImg' style='height:50px;width:50px;' src='"+ data[i].photo_url + "'alt='"+uname_show+"'' width='30' height='30'><span style='height:10px;width:30px;font-size:12px;'>"+uname_show+"</span></a>";
+          if(i == 10)
+            break;
       }
+      html += "<div style='width:50px;height:50px;font-size:12px;'><a target='_blank' herf='/index/my_friend'>查看更多</a></div>"
+      console.log(html);
       // $('#more'+div).css('display','none');
       $('#'+div).append(html);
     }
-      // var more_user = 'user'+div;
-      // DrawMoreUser(data,more_user);
-      // $('#'+div).append(html);
 }
 
 
-
-
 var viewinformation=new viewinformation();
-var uid = 1640601392;
-function show_social()
-{
-
-  url = '/attribute/new_user_social/?uid='+uid;
-  viewinformation.call_sync_ajax_request(url,viewinformation.social);
-  console.log('socialdata='+url);
+var uid = 2029036025;
+function show_social(){
+  var url_be = '/info_person_social/follower/?uid='+uid;
+  viewinformation.call_sync_ajax_request(url_be,viewinformation.social_be);
+  var url_me = '/info_person_social/attention/?uid='+uid;
+  viewinformation.call_sync_ajax_request(url_me,viewinformation.social_me);
 }
 
 

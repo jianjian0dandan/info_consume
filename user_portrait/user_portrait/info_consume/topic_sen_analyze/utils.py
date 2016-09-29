@@ -55,10 +55,10 @@ def get_sen_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势�
             if items:
                 count[end_ts] = {}
                 for item in items:
-                    if item[0] in down:
-                        sen = '2'
-                    else:
-                        sen = str(item[0])
+                    # if item[0] in down:
+                    #     sen = '2'
+                    # else:
+                    sen = str(item[0])
                     try:
                         count[end_ts][sen] += str(item[1])
                     except:
@@ -87,10 +87,10 @@ def get_sen_province_count(topic,start_ts,end_ts,unit=MinInterval): #省市的�
             #print geo
             for province,city_dict in geo.iteritems():
                 sen = item.sentiment  #每种情绪下，各省的各市的微博数，按省的总数排序
-                if sen in down:
-                    sen0 = '2'
-                else:
-                    sen0 = str(sen)
+                # if sen in down:
+                #     sen0 = '2'
+                # else:
+                sen0 = str(sen)
                 for k,v in city_dict.iteritems():
                     if k == 'total':
                         continue

@@ -83,25 +83,25 @@
 							 	<table style="margin-left:120px;">
 									<tr style="height:25px;">
 										<td style="font-size:12px;color:#000">
-											是否认证：否
+											是否认证：<span id="verified"></span>
 										</td>
 											
 									</tr>
 									<tr style="height:25px;">
 										<td style="font-size:12px;color:#000">
-											注册地：暂无数据
+											注册地：<span id="userLocation"></span>
 										</td>
 											
 									</tr>
 									<tr style="height:25px;">
 										<td style="font-size:12px;color:#000">
-											认证类型：无
+											认证类型：<span id="verfType"></span>
 										</td>
 											
 									</tr>
 									<tr style="height:25px;">
 										<td style="font-size:12px;color:#000">
-											个人描述：暂无数据
+											个人描述：<span id="userdes" style="word-break:break-all;display: block;float: left;width: 150px;"></span>
 										</td>											
 									</tr>	
 								</table>
@@ -116,7 +116,7 @@
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
-								    	<p>25481</p>
+								    	<span id="weibosumview">25481</span>
 								    </td>		
 								</tr>
 								<tr>
@@ -135,7 +135,7 @@
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
-								    	<p>25481</p>
+								    	<span id="fansumview">25481</span>
 								    </td>		
 								</tr>
 								<tr>
@@ -174,7 +174,7 @@
 							<table style="margin-top:15px;margin-left:10%;float:left;>
 								<tr style="height:20px;">
 								    <td>
-								    	<p>25481</p>
+								    	<span id="attentionsumview">25481</span>
 								    </td>		
 								</tr>
 								<tr>
@@ -231,7 +231,7 @@
 	<div>
 	
 
-	    <div class="panel panel-success" style="width:67%;height:80%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-top:10px;">
+	    <div class="panel panel-success" style="width:67%;height:80%;margin-left:18%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-top:10px;z-index:30px;">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的社交</h3>
 			</div>
@@ -293,67 +293,83 @@
 			</div>
 		</div>
 
-				
-	    <div class="panel panel-success" style="width:67%;height:80%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-			<div class="panel-heading">
-				<h3 class="panel-title">最近动态</h3>
-			</div>
-			<div class="panel-body">
-					<ul id="myTab" class="nav nav-tabs">
-						<li class="active"><a href="#time" data-toggle="tab" style="width:100px; text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;"> 时间</a></li>
-						 <li><a href="#zhuanfashu" data-toggle="tab" style="width:100px; text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">转发数</a></li>
-						 <li><a href="#pinglun" data-toggle="tab" style="width:100px; text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">评论数</a></li>
-						 <li><a href="#dianzan" data-toggle="tab" style="width:100px; text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">点赞数</a></li>		  
-					</ul>
+		    <div class="panel panel-success" style="width:67%;height:150%;margin-left:18%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+		      <div class="panel-heading">
+		        <h3 class="panel-title">最近动态</h3>
+		      </div>
+		      <div class="panel-body">
+		          
+		          <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:5px;" >
+		              <div style="width:100%;margin-top:10px;">
+		                <span style= "color:#000;font-weight:bold;margin-left:20px;float:left;">排序方式</span>
+		                <ul id="modechoose">
+		                  <label class="demo--label">
+		                    <li style="float:left;margin-left:5px;">
+		                      <input class="demo--radio" type="radio" name="mode_choose" value="timestamp" checked="checked" >
+		                      <span class="mode demo--radioInput" style=""></span>时间
+		                    </li>
+		                  </label>
 
-						<div id="myTabContent" class="tab-content">
-						   <div class="tab-pane fade in active" id="time">
+		                  <label class="demo--label">
+		                    <li style="float:left;margin-left:5px;">
+		                      <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+		                      <span class="mode demo--radioInput" style=""></span>评论数
+		                    </li>
+		                  </label>
 
-						      <div style="float:left;padding:5px;width: 100%;background:whitesmoke;">
-						      		<p style="margin-left:10px;">1、昵称：<a target="_blank" href="/index/personal/?uid=1863675294">董锤锤</a>(中国	上海	上海)&nbsp;&nbsp;发布内容:<font color="black">博尔特。。。一个跑在最前面还不忘看镜头的人</font></p><p style="float:left;width:100%;margin-top:-5px;margin-left:10px;"><span style="float:right;padding-right: 10px;color:#858585"><span>转发数(5056)&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数(3282)</span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><span style="float:left"><u>2016-08-15 12:35:08</u> - <a color:#e0e0e0="" target="_blank" href="http://weibo.com/1863675294/E3EJcqnwV">微博</a>-<a target="_blank" href="/index/personal_detail/?uid=1863675294">用户详情</a></span></p>
-						      </div>
+		                  <label class="demo--label">
+		                    <li style="float:left;margin-left:5px;">
+		                      <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+		                      <span class="mode demo--radioInput" style=""></span>转发数
+		                    </li> 
+		                  </label>
 
-						      <div style="float:left;padding:5px;width: 100%;">
-						      		<p style="margin-left:10px;">
-						      			2、昵称：
-						      			<a target="_blank" href="/index/personal/?uid=1863675294">董锤锤</a>(中国	贵州	贵阳)&nbsp;&nbsp;发布内容:<font color="black">回覆@五截y:感谢科普！不是伤病的话就更好啦 //@五截y:那是有助于减少乳酸缓解肌肉疲劳的.... //@董锤锤:两位老将身上都布满了膏药[泪][泪]</font></p><p style="float:left;width:100%;margin-top:-5px;margin-left:10px;"><span style="float:right;padding-right: 10px;color:#858585"><span>转发数(2546)&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数(141)</span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><span style="float:left"><u>2016-08-19 21:11:46</u> - <a color:#e0e0e0="" target="_blank" href="http://weibo.com/1863675294/E4jOTaYjt">微博</a>-<a target="_blank" href="/index/personal_detail/?uid=1863675294">用户详情</a></span>
-						      		</p>
-						      </div>
+		<!--                   <li  style="float:left;">
+		                    <input type="radio" name="mode_choose" value="comment_count" >
+		                    <span class="mode" style="">评论数</span>
+		                  </li>
+		                  <li style="float:left;">
+		                    <input type="radio" name="mode_choose" value="retweet_count">
+		                    <span class="mode" style="">转发数</span>
+		                  </li> -->
+		                </ul>
+		              </div>
+		            <!--
+		              <span style= "color:#1C41CE;width:100%;margin-left:20px;font-size:16px;float:left;margin-bottom:10px;">相关微博</span>
+		            --><!-- weiboData -->
+		               <div id="per_onload" style="width:100%;height:59px;float:left"><center>正在努力加载中...</center></div>
+		               <div class="tang-scrollpanel-content" style="margin-top:10px;">
+		                <div id='group_influ_weibo' style='overflow-x:hidden;width:890px;float:left;'>
+		                <div id="group_influ_weibo_result" style="float:left;width:100%;"></div>
+		                      <div id="pageGro" class="cb" style="display:none;float:left;width:600px;height:60px;margin-left:200px;margin-top:40px;line-height:23px;">
+		                          <span class="pageUp" style="float:left;">上一页</span>
+		                          <span class="pageList" style="float:left;">
+		                              <ul>
+		                                  <li>1</li>
+		                                  <li>2</li>
+		                                  <li>3</li>
+		                                  <li>4</li>
+		                                  <li>5</li>
+		                              </ul>
+		                          </span>
+		                          <span class="pageDown" style="margin-left:20px;cursor:pointer;">下一页</span>
+		                      </div>         
+		                  </div>
+		            </div>
+		          <div id="float-wrap" class="hidden"></div>
 
-
-						   </div>
-
-						   <div class="tab-pane fade" id="zhuanfashu">
-						      <p>转发</p>
-						   </div>
-
-						   <div class="tab-pane fade" id="pinglun">
-						      <p>评论</p>
-						   </div>
-
-						   <div class="tab-pane fade" id="dianzan">
-						      <p>点赞</p>
-						   </div>
-						  
-						</div>
-
-			</div>
-        </div>
-
-
+		      </div>
+		    </div>    
+		  </div>				
 	</div>
-
-
 
 
 		<footer>
 		  <p class="ft-copyright" >网民画像系统 Design by Rcsc 京ICP 1234567</p>
 		</footer>
-	{% block Own_js %}
-
-
-
-	{% endblock %}
+{% block Own_js %}
+  <script type="text/javascript" src="/static/info_consume/js/viewinfo_weibo.js"></script>
+{% endblock %}
 
 </body>
 </html>

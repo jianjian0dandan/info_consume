@@ -19,7 +19,7 @@
         }
 
       function dele_analysis(data){
-              var a = confirm('确定要删除吗？');
+              var a = confirm('确定要删除整个群组吗？');
                 if (a == true){
                   var url = '/info_group/delete_group_task/?';
                 url = url + 'task_name=' + data +'&submit_user=' + 'admin@qq.com';//$('#useremail').text();
@@ -33,6 +33,25 @@
        $("#circle-analysis").slideDown();
        console.log(g_name);
      }      
+
+
+     function open_detail(data){
+      $('#detail_Modal').modal('show');
+      function del_number(obj){
+        var del_id= $(obj).prev().prev().html(); 
+        console.log(del_id);
+      }
+      function con_call(data){
+        for(var key in data){
+      var html ='<tr><td>'+key+'</td><td>'+data[key]+'</td><td><span style="cursor:pointer;" onclick="del_number(this)">'+'删除</span></td></tr>';
+      $('#consitute').append(html);
+       }
+      }
+      var con_url='/info_group/group_member/?task_name='+data+'&submit_user='+s_user;
+      console.log(con_call);
+      call_sync_ajax_request(con_url,'GET', con_call);
+     }
+
          $(function(){
               var current_user = 'admin@qq.com'; //获取
               var task_url = '/info_group/show_task/?submit_user='+current_user;
@@ -121,6 +140,7 @@
                       valign: "middle",//垂直
                       formatter:function(value,row,index){   
                       var d = '<span style="cursor:pointer;" onclick="dele_analysis(\''+ row.task_name +'\')">删除</span> ';  
+                      d+= '<span style="cursor:pointer;" onclick="open_detail(\''+ row.task_name +'\')">编辑</span> ';
                         return d;  
                     } 
                   }],
@@ -137,6 +157,6 @@
                  
             });
 
-
+        
 
                 

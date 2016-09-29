@@ -1033,6 +1033,16 @@ def edit_state(task_name, submit_user, new_state):
             id=task_id, body={'doc':{'state': new_state}})
     return results
 
+#jln 2016/09/28
+#get uid by uname
+def get_uid(uname):
+    try:
+        portrait_exist_result = es_user_portrait.search(index=portrait_index_name, doc_type=portrait_index_type, \
+            body={"query":{"bool":{"must":{"term":{"uname":uname}}}}})['hits']['hits'][0]['_id']
+    except:
+        return None
+    return portrait_exist_result
+
 
 if __name__=='__main__':
     #test group task

@@ -684,11 +684,14 @@ def get_evaluate_max():
 
 # get grouop user list
 def get_group_list(task_name, submit_user):
+    
     results = []
     task_id = submit_user + '-' + task_name
-    print tesk_id
+    if RUN_TYPE == 0:
+        group_index_name = 'test_group_result'
     try:
-        es_results = es_group_result.get(index='test_group_result', doc_type=group_index_type, id=task_id)['_source']
+
+        es_results = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
         #jln  现在的9200里没有
         #es_results = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
     except:
@@ -827,6 +830,13 @@ def get_group_user_track(uid):
 
     return results
 
+#jln 2016/09/28
+def search_group_member(task_name,submit_user):
+    task_id = submit_user + '-' + task_name
+    results = es_group_result.get(index=group_index_name,doc_type=group_index_type,\
+        id=task_id,fields=['uid_list'])['fields']['uid_list']
+    print results
+    return results
 
 
 # show group members weibo for activity ---week

@@ -42,8 +42,10 @@ FILTER_ITER_COUNT = 100
 #use to get user profile information
 def new_get_user_profile(uid):
     try:
+    	#print 'trying',es_user_profile,profile_index_name
         results = es_user_profile.get(index=profile_index_name, doc_type=profile_index_type,\
                 id=uid)['_source']
+        #print es_user_profile,profile_index_name
     except:
         results = {}
     #get new fansnum and statusnum
@@ -248,7 +250,9 @@ def new_get_user_evaluate(uid):
                 'match_all': {}
                 }
             }
+    print '0927'
     all_count_results = es_user_portrait.count(index=portrait_index_name, doc_type=portrait_index_type, body=query_body)
+    print es_user_portrait,portrait_index_name
     if all_count_results['_shards']['successful'] != 0:
         all_count = all_count_results['count']
     else:
@@ -312,7 +316,6 @@ def new_get_user_evaluate(uid):
         results['sensitive'] = sensitive_max_min_now_list
     else:
         results['sensitive'] = ['', '', '', '', all_count]
-    
     return results
 
 #use to get user location

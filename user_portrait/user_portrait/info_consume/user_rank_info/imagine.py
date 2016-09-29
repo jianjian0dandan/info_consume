@@ -32,9 +32,10 @@ def get_evaluate_max():
 
 def imagine(submit_user, uid, query_fields_dict,index_name=portrait_index_name, doctype=portrait_index_type):
     default_setting_dict = query_fields_dict
-
-    personal_info = es.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid, _source=True)['_source']
-
+    try :
+        personal_info = es.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid, _source=True)['_source']
+    except:
+        return None
     user_tag = submit_user + "-tag"
     user_tag_string = personal_info.get(user_tag, "")
     if user_tag_string:
@@ -148,10 +149,20 @@ def imagine(submit_user, uid, query_fields_dict,index_name=portrait_index_name, 
         if count == query_number:
             break
 
-    return result_list
+    #return result_list
+    temp_list = []
+    for field in field_list:
+        if field in evaluate_index_list:
+            value = personal_info[field]
+            normal_value = math.log(value / float(evaluate_max_dict[field]) * 9 + 1, 10) * 100
+        else:
+            normal_value = personal_info[field]
+        temp_list.append(normal_value)
 
-
-
+    results = []
+    results.append(temp_list)
+    results.extend(result_list)
+    return results
 
 if __name__ == '__main__':
     print imagine(2010832710, {'topic':1, 'keywords':2,'field':'default','size':11}, index_name='test_user_portrait', doctype='user')

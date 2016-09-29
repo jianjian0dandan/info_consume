@@ -93,11 +93,17 @@
                                 <h4 class="modal-title" id="myModalLabel">提交追踪任务</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="javascript:void(0)">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="cicle_name" placeholder="想起个什么名儿呢？">
-                                    </div>
-                                </form>
+                              <form role="form" action="javascript:void(0)">
+                                <div class="form-group">
+                                  <button type="button" style="margin-bottom:5px;" class="btn btn-primary"  data-toggle="modal" data-target="#new_Modal">新建</button>
+                                  <div style="overflow-x: auto; overflow-y: auto; height: 100px; width:100%;">
+                                  <!--  <table border="0" align="center" style="height: 200px; width:30%;">
+                                      <tbody id="group_list"></tbody>
+                                    </table>-->
+                                    <ul id="group_list" style="padding:0px;margin:0px;color: #666666;font-family: 'Microsoft Yahei', 'Simsun' !important;font-size:14px;"></ul>
+                                  </div>                                 
+                                </div>
+                              </form>
                             </div>
                             <div class="modal-footer">
                                 <button id="cancel_model" type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
@@ -106,6 +112,32 @@
                         </div>
                     </div>
                 </div>
+
+                                  <!--新建群组-->
+                                  <div class="modal fade" id="new_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                          </button>
+                                          <h4 class="modal-title" id="myModalLabel">
+                                            新建追踪任务
+                                          </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" class="form-control" id="cicle_name" placeholder="想起个什么名儿呢？">
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button id="new_grou" type="button" class="btn btn-primary" onclick="new_group_build()">
+                                            提交
+                                          </button>
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                                          </button>
+                                        </div>
+                                      </div><!-- /.modal-content -->
+                                    </div><!-- /.modal -->
+                                
             </div>
           </div>  
         </div>

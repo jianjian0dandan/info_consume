@@ -64,7 +64,7 @@ my_friend.prototype =
             }  
             for(var i=0;i<lengh_final;i++)
               {  
-                var html ='<tr style="background-color:#ECFFCE;">';
+                var html ='<tr style="background-color:whitesmoke;">';
                 if(data[i]['uid']=="")
                 {
                   html+='<td >--</td>';
@@ -215,7 +215,7 @@ my_friend.prototype =
             }  
             for(var i=0;i<lengh_final;i++)
               {  
-                var html ='<tr style="background-color:#ECFFCE;">';
+                var html ='<tr style="background-color:whitesmoke;">';
                 if(data[i]['uid']=="")
                 {
                   html+='<td >--</td>';
