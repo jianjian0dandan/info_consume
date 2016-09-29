@@ -94,7 +94,7 @@ def submit_task(input_data):
     }
     exist_compute_result = es_group_result.search(index=group_index_name, doc_type=group_index_type, body=query_body)['hits']['hits']
     exist_compute_count = len(exist_compute_result)
-    print es_group_result
+    print es_group_result,group_index_namem,group_index_type
     if exist_compute_count >= task_max_count:
         return 'more than limit'
     #identify the task name is valid
@@ -726,6 +726,7 @@ def get_group_list(task_name, submit_user):
 def get_group_member_name(task_name, submit_user):
     results = {}
     task_id = submit_user + '-' + task_name
+    print es_group_result,group_index_name,group_index_type
     try:
         group_result = es_group_result.get(index=group_index_name, doc_type=group_index_type,\
                 id=task_id)['_source']
@@ -743,7 +744,7 @@ def get_group_member_name(task_name, submit_user):
             source = item['_source']
             uname = source['uname']
         else:
-            uname = 'unkown'
+            uname = 'unknown'
         results[uid] = uname
 
     return results

@@ -88,7 +88,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
         else:
             #find the scope
             user_list = in_sort_filter(time , sort_norm,sort_scope , arg,[], False, number)
-            print user_list
+            #print user_list
     result = make_up_user_info(user_list,isall , time , sort_norm)
     print "user_list:", len(user_list)
     return result

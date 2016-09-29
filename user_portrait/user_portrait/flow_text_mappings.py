@@ -57,7 +57,7 @@ def get_topic_mappings(index_name):
                             'type': 'string',
                             'index': 'not_analyzed'
                             },
-                        'index_name':{
+                        'en_name':{
                             'type': 'string',
                             'index': 'not_analyzed'
                             },
@@ -70,6 +70,9 @@ def get_topic_mappings(index_name):
                             },
                         'end_ts':{
                             'type':'long',
+                            },
+                        'comput_status':{
+                            'type':'long'
                             }
                         }
                     }
@@ -243,4 +246,5 @@ if __name__=='__main__':
     #get_mappings(index_name)
     #get_graph_mappings(index_name)
     #es.indices.put_mapping(index="monitored_text", doc_type="text", body={'properties':{"category":{"type":"string"}}}, ignore=400)
-    subopinion('subopinion')
+    #subopinion('subopinion')
+    get_topic_mappings('什么')

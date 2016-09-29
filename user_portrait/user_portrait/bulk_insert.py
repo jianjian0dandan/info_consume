@@ -128,12 +128,12 @@ def txt2es(filename,name ):
 
 if __name__ == '__main__':
 	#write()
-	txt2es('/home/ubuntu2/chenyz/anguancenter/socialconsume/cron/result2.txt','aoyunhui')
+	#txt2es('/home/ubuntu2/chenyz/anguancenter/socialconsume/cron/result2.txt','aoyunhui')
 	#print es.delete(index='aoyunhui',doc_type='text',id='3995843252444302')
-	#es.index(index='topics',doc_type='text',id='1467648000_1470900837_aoyunhui_jln',body={'name':'奥运会','index_name':'aoyunhui','end_ts':'1470900837',\
-	#											'start_ts':'1467648000','submit_user':'jln'})
-	#es.index(index='topics',doc_type='text',id='1467648000_1470900837_laohu_jln',body={'name':'老虎','index_name':'laohu','end_ts':'1470900837',\
-	#											'start_ts':'1467648000','submit_user':'jln'})
+	es.index(index='topi-cs',doc_type='text',id='14676d48000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
+												'start_ts':'1467648000','submit_user':'jln','comput_status':0})
+	#es.index(index='topics',doc_type='text',id='1467648000_1470900837_laohu_jln',body={'name':'老虎','en_name':'laohu','end_ts':'1470900837',\
+												#'start_ts':'1467648000','submit_user':'jln','comput_status':0})
 	#es.delete(index='topics',doc_type='text',id='AVZ4jhC-hhg-Qh1aWtw3')
 	#es.delete(index='topics',doc_type='text',id='AVZ4jhDGhhg-Qh1aWtw4')
 	#print es.get(index='topics',doc_type='text',id='AVZ4jhC-hhg-Qh1aWtw3',_source=False,fields=['name'])

@@ -120,6 +120,9 @@ R_ADMIN = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=15)
 r_sensitive_words_key = 'sensitive_words'
 # type: hash ----{admin, username, password}
 
+#jln
+#R_TOPIC_ANALYZE   搞个redis计算话题任务 
+
 #use to write portrait user list to redis as queue for update_day and update_week
 update_day_redis = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=5)
 UPDATE_DAY_REDIS_KEY = 'update_day'
