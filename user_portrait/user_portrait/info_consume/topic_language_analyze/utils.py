@@ -11,7 +11,8 @@ import math,time
 import json
 import re
 from xpinyin import Pinyin
-#from user_portrait.global_utils import R_TOPIC_ANALYZE as r
+from user_portrait.global_utils import R_ADMIN as r
+from user_portrait.global_utils import topic_queue_name
 # from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
 #                             topics_river_index_name,topics_river_index_type,\
 #                             subopinion_index_name,subopinion_index_type
@@ -68,7 +69,9 @@ def submit(topic,start_ts,end_ts,submit_user):
             }
         }
     }
+    print weibo_es
     find_topic = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)['hits']['hits']
+    print find_topic
     if len(find_topic)>0:
         en_name = find_topic[0]['_source']['en_name']
     else:
@@ -89,6 +92,7 @@ def submit(topic,start_ts,end_ts,submit_user):
     except:
         weibo_es.index(index=topic_index_name,doc_type=topic_index_type,id=submit_id,body=query_body)
         result = 'success'
+    r.lpush(topic_queue_name,json.dumps(query_body))
     #该push到redis里，然后改status  计算完了再改回来
     return result
 

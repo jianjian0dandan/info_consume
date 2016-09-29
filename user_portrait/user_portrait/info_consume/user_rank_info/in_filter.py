@@ -138,7 +138,10 @@ def es_search( pre , scope , arg , index_name , type_name  , time , ischange = F
             "sort": sort,
             "size" : number
         }      
-    print es,index_name,type_name,number
+    # print 'its me '
+    # print es,index_name,type_name,number
+    # print query
+
     result = es.search(index = index_name , doc_type = type_name , body = query)['hits']['hits']
     uid_list = []
     for item in result :
