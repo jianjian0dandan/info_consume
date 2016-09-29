@@ -423,14 +423,14 @@
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
-           console.log(user_tasks_url)
+           console.log(user_tasks_url);
            call_sync_ajax_request(user_tasks_url, draw_topic_tasks);
          })
         //定义提交离线话题搜索任务
              function submit_offline(data){
               console.log(data);
               if(data.flag == true){
-                alert('恭喜！您成功发现了一个兴趣圈！但这需要一点时间才能查看结果哦~');
+                alert('恭喜！您成功创建了一个兴趣圈！但这需要一点时间才能查看结果哦~');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
@@ -447,9 +447,9 @@
 
               $('#keyword_hashtag').focus(function () { 
                 if($('#search_norm option:selected').text()=='朋友圈'){
-                  $('#keyword_hashtag').attr("placeholder","输入TA的昵称或ID，看看TA的朋友圈都有谁？");
+                  $('#keyword_hashtag').attr("placeholder","输入TA的昵称或ID，看看和TA相似的朋友都有谁？");
                  }else{
-                  $('#keyword_hashtag').attr("placeholder","输入感兴趣的关键词（多个词用空格隔开），看看您的兴趣圈都有谁？");
+                  $('#keyword_hashtag').attr("placeholder","输入您感兴趣的圈子名，看看您的兴趣圈都有谁？");
                  }
              })
             //搜索按钮的click事件
@@ -612,12 +612,12 @@
              var group_uid_list = new Array();
              for(var key in data){
               group_uid_list.push(key);
-              console.log(group_uid_list.length); //打印不出来，url无数据
              }
+              console.log('增加前人数：'+group_uid_list.length); //打印不出来，url无数据
 	          for(var i=0;i<selected_list.length;i++){
 	           group_uid_list.push(selected_list[i].uid);
 	           }  
-              console.log(group_uid_list.length);
+              console.log('增加后人数：'+group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
@@ -625,7 +625,7 @@
 	           // console.log(job);
 	             function callback(data){
                   if (data == '1'){
-                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                       window.location.reload();
                   }
@@ -708,7 +708,7 @@
 	             function callback(data){
                 // console.log(data);
                   if (data == '1'){
-                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                         window.location.reload();
                   }
