@@ -42,7 +42,6 @@
 </head>
 
 <body>
-
 <div id="index_top">
 	<img id="date" src="../../static/info_consume/image/date.png">
 
@@ -64,7 +63,7 @@
 				
 			</script>
                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal_date_choose">
+                  <button class="btn btn-default" type="button" onblur="checkText();" data-toggle="modal" data-target="#myModal_date_choose">
                      Go!
                   </button>
                </span>
@@ -125,6 +124,21 @@
 					</div>
 					
 					<script type="text/javascript">
+					    var current_datetime = new Date();
+					    console.log(current_datetime);
+					    $(document).ready(function(){
+			                //时间控件初始化
+			                $('#datetimepicker').datetimepicker({
+			                      // lang:"ch",           //语言选择中文
+			                      // format:"Y-m-d",      //格式化日期
+			                      // timepicker:false,    //关闭时间选项
+			                     
+			                      // minDate: 0,          //最小日期
+			                      maxDate:current_datetime, //最大日期不能超过当前时间
+			                      // todayButton:false    //关闭选择今天按钮
+			                });
+			            });
+
 					    $(function () {
 					        $('#datetimepicker_index_from').datetimepicker();
 					        $('#datetimepicker_index_to').datetimepicker();
@@ -330,6 +344,32 @@
 	</table> -->
 </div>
 
+<!-- <script> 
+function show(obj,id) { 
+var objDiv = $("#"+id+""); 
+$(objDiv).css("display","block"); 
+$(objDiv).css("left", event.clientX); 
+$(objDiv).css("top", event.clientY + 10); 
+} 
+function hide(obj,id) { 
+var objDiv = $("#"+id+""); 
+$(objDiv).css("display", "none"); 
+} 
+</script> 
+
+
+<div id="mydiv1" style="position:absolute;display:none;border:1px solid silver;background:silver;"> 
+提示1效果 
+</div> 
+<div id="mydiv2" style="position:absolute;display:none;border:1px solid silver;background:silver;"> 
+提示2效果 
+</div> 
+
+<a id="t1" onMouseOver="javascript:show(this,'mydiv1');" onMouseOut="hide(this,'mydiv1')">鼠标放上去1</a> 
+<br><br><br><br><br> 
+<a id="t2" onMouseOver="javascript:show(this,'mydiv2');" onMouseOut="hide(this,'mydiv2')">鼠标放上去2</a> 
+
+ -->
 </body>
 
 	<script type="text/javascript" src="../../static/info_consume/js/date_index.js"></script>

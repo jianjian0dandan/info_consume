@@ -57,8 +57,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
 var topic_analysis_index = new topic_analysis_index();
  
 function Draw_topic_name_result(){
-	
-    url = "/topic_language_analyze/topics/";
+  url = "/topic_language_analyze/topics/";
  	console.log(url);
  	topic_analysis_index.call_sync_ajax_request(url,topic_analysis_index.Draw_topic_name);
 }	
