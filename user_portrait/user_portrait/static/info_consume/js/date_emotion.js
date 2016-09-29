@@ -139,8 +139,21 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
   		var x_item = [];
 	 	var y_item_pos = [];
 		var y_item_neu = [];
-		var y_item_neg = [];
+		var y_item_angry = [];
+		var y_item_anxiety = [];
+		var y_item_sad = [];
+		var y_item_hate = [];
+		var y_item_otherneg = [];
+		console.log(data);
+
 	 	for (var key in data){
+	 		console.log(data[key][0]);
+	 		console.log(data[key][1]);
+	 		console.log(data[key][2]);
+	 		console.log(data[key][3]);
+	 		console.log(data[key][4]);
+	 		console.log(data[key][5]);
+	 		console.log(data[key][6]);
 	 		//console.log(key);
 			//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
 			key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
@@ -148,7 +161,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 			x_item.push(key_datetime);	
 			y_item_pos.push(data[key][1]);
 			y_item_neu.push(data[key][0]);
-			y_item_neg.push(data[key][2]);
+			y_item_angry.push(data[key][2]);
+			y_item_anxiety.push(data[key][3]);
+			y_item_sad.push(data[key][4]);
+			y_item_hate.push(data[key][5]);
+			y_item_otherneg.push(data[key][6]);
 		}
 		
   		var myChart = echarts.init(document.getElementById('main_emotion_1'));
@@ -157,7 +174,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	        	trigger: 'axis'
 	   		},
 	    	legend: {
-	        	data:['正向','中立','负向']
+	        	data:['积极','中立','生气','焦虑','悲伤','厌恶','消极其他']
 	    	},
 	    	toolbox: {
 		        show : true,
@@ -187,7 +204,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	    	],
 	    	series : [
 	        {
-	            name:'正向',
+	            name:'积极',
 	            type:'line',
 	            data:y_item_pos,
 	            
@@ -198,16 +215,39 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	            data:y_item_neu,
 	            
 	        },
-	      	{
-	            name:'负向',
+	        {
+	            name:'生气',
 	            type:'line',
-	            data:y_item_neg,
+	            data:y_item_angry,
+	            
+	        },
+	        {
+	            name:'焦虑',
+	            type:'line',
+	            data:y_item_anxiety,
+	            
+	        },
+	      	{
+	            name:'悲伤',
+	            type:'line',
+	            data:y_item_sad,
+	        
+	        },
+	        {
+	            name:'厌恶',
+	            type:'line',
+	            data:y_item_hate,
+	        
+	        },
+	      	{
+	            name:'消极其他',
+	            type:'line',
+	            data:y_item_otherneg,
 	        
 	        }
 	    ]
 	};
 		myChart.setOption(option) ;     
-
 
   },
 
@@ -247,14 +287,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 	var item_json_sad = [];
 	 	var item_json_hate = [];
 	 	var html = '';
-	 	console.log(item);
-	 	console.log(item[0]);
-	 	console.log(item[1]);
-	 	console.log(item[2]);
-	 	console.log(item[3]);
-	 	console.log(item[4]);
-	 	console.log(item[5]);
-	 	console.log(item[6]);
+	 	
 
 
 		//正向情绪
@@ -433,7 +466,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		
 
 
-		//选择正向、中立、负向
+		//选择各种情绪
 		if(case_val == 1){
 			item_legend = '正向';
 			item_item = item_json_pos;
