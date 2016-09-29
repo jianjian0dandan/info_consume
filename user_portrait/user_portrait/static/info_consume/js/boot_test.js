@@ -14,43 +14,42 @@
                       success:callback
                     });
                    }
-              //#table-user 表格默认显示“近一周全网影响力用户排行”
+              // popover
+              // function init_pop(){
 
-              function init_pop(){
-
-              $('[data-toggle="popover"]').each(function () {
+              // $('[data-toggle="popover"]').each(function () {
 
 
-                  var element = $(this);
-                  var txt = element.html();
-                  element.popover({
-                    trigger: 'manual',
-                    placement: 'right', //top, bottom, left or right
-                    title: txt,
-                    html: 'true',
-                    content:ContentMethod(txt),
+              //     var element = $(this);
+              //     var txt = element.html();
+              //     element.popover({
+              //       trigger: 'manual',
+              //       placement: 'right', //top, bottom, left or right
+              //       title: txt,
+              //       html: 'true',
+              //       content:ContentMethod(txt),
 
-                }).on("mouseover", function () {
-                    var _this = this;
-                    $(this).popover("show");
-                    //  $(this).siblings(".popover").on("mouseleave", function () {
-                    //     $(_this).popover('hide');
-                    // });
-                }).on("mouseleave", function () {
-                   var _this = this;
-                   $(this).popover("hide");
-                })
-                })
-                 function ContentMethod(txt) {
-	             var data = $("<form><ul  style='padding-left:15px;padding-right:15px;'><li><span aria-hidden='true'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
-	             "<li><span aria-hidden='true'></span>&nbsp;<font>关注:</font>265</li>" +  
-	             "<li><span aria-hidden='true'></span>&nbsp;<font>微博:</font>645</li>" +  
-	             "<li><span aria-hidden='true'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
-	             "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
+              //   }).on("mouseover", function () {
+              //       var _this = this;
+              //       $(this).popover("show");
+              //       //  $(this).siblings(".popover").on("mouseleave", function () {
+              //       //     $(_this).popover('hide');
+              //       // });
+              //   }).on("mouseleave", function () {
+              //      var _this = this;
+              //      $(this).popover("hide");
+              //   })
+              //   })
+              //    function ContentMethod(txt) {
+	             // var data = $("<form><ul  style='padding-left:15px;padding-right:15px;'><li><span aria-hidden='true'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
+	             // "<li><span aria-hidden='true'></span>&nbsp;<font>关注:</font>265</li>" +  
+	             // "<li><span aria-hidden='true'></span>&nbsp;<font>微博:</font>645</li>" +  
+	             // "<li><span aria-hidden='true'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
+	             // "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
 	      
-                return data;  
-                }
-               }
+              //   return data;  
+              //   }
+              //  }
 
 
              $(function(){
@@ -185,7 +184,7 @@
              });
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
-            init_pop();
+           // init_pop();
           } 
            call_sync_ajax_request(influ_url, init_table);
          })
@@ -607,29 +606,28 @@
          
          function modify_group(obj){
           	var task = $(obj).attr("value");
-          	console.log(task);
+          	//console.log(task);
 		        function re_call(data){
-            // var length=len(data);
+            console.log(data);
              var group_uid_list = new Array();
              for(var key in data){
               group_uid_list.push(key);
+              console.log(group_uid_list.length); //打印不出来，url无数据
              }
 	          for(var i=0;i<selected_list.length;i++){
-	          group_uid_list.push(selected_list[i].uid);
-	         }  
-              //console.log(selected_list);
-             // console.log(group_uid_list.length);
+	           group_uid_list.push(selected_list[i].uid);
+	           }  
+              console.log(group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
 	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	            console.log(job);
+	           // console.log(job);
 	             function callback(data){
-                 console.log(data);
                   if (data == '1'){
-                      alert('追踪目标已发现！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
-                        location.reload();
+                      window.location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
@@ -655,7 +653,7 @@
           	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
           	call_sync_ajax_request(re_url, re_call);
 		 
-           var url = '/info_group/delete_group_task/?';
+            var url = '/info_group/delete_group_task/?';
             url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
             call_sync_ajax_request(url,del);
              function del(data){
@@ -703,16 +701,16 @@
 	            group_uid_list[i]=selected_list[i].uid;
 	            }          
 	            var group_ajax_url = '/influence_sort/submit_task/';
-	            var admin = 'admin@qq.com'//获取$('#useremail').text();
+	            var admin = username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
-	            var job = {"submit_user":'admin@qq.com',"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	            console.log(job);
+	            var job = {"submit_user":username,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+	          //  console.log(job);
 	             function callback(data){
-                 console.log(data);
+                // console.log(data);
                   if (data == '1'){
-                      alert('追踪目标已发现！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
-                        location.reload();
+                        window.location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
@@ -738,8 +736,5 @@
           }
 
 
-          //选择用户提交群组分析
-            function groupanalyze_confirm(){
-             
-           }
+    
 
