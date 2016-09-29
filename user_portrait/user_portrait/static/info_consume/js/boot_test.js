@@ -14,43 +14,42 @@
                       success:callback
                     });
                    }
-              //#table-user 表格默认显示“近一周全网影响力用户排行”
+              // popover
+              // function init_pop(){
 
-              function init_pop(){
-
-              $('[data-toggle="popover"]').each(function () {
+              // $('[data-toggle="popover"]').each(function () {
 
 
-                  var element = $(this);
-                  var txt = element.html();
-                  element.popover({
-                    trigger: 'manual',
-                    placement: 'right', //top, bottom, left or right
-                    title: txt,
-                    html: 'true',
-                    content:ContentMethod(txt),
+              //     var element = $(this);
+              //     var txt = element.html();
+              //     element.popover({
+              //       trigger: 'manual',
+              //       placement: 'right', //top, bottom, left or right
+              //       title: txt,
+              //       html: 'true',
+              //       content:ContentMethod(txt),
 
-                }).on("mouseover", function () {
-                    var _this = this;
-                    $(this).popover("show");
-                    //  $(this).siblings(".popover").on("mouseleave", function () {
-                    //     $(_this).popover('hide');
-                    // });
-                }).on("mouseleave", function () {
-                   var _this = this;
-                   $(this).popover("hide");
-                })
-                })
-                 function ContentMethod(txt) {
-	             var data = $("<form><ul  style='padding-left:15px;padding-right:15px;'><li><span aria-hidden='true'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
-	             "<li><span aria-hidden='true'></span>&nbsp;<font>关注:</font>265</li>" +  
-	             "<li><span aria-hidden='true'></span>&nbsp;<font>微博:</font>645</li>" +  
-	             "<li><span aria-hidden='true'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
-	             "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
+              //   }).on("mouseover", function () {
+              //       var _this = this;
+              //       $(this).popover("show");
+              //       //  $(this).siblings(".popover").on("mouseleave", function () {
+              //       //     $(_this).popover('hide');
+              //       // });
+              //   }).on("mouseleave", function () {
+              //      var _this = this;
+              //      $(this).popover("hide");
+              //   })
+              //   })
+              //    function ContentMethod(txt) {
+	             // var data = $("<form><ul  style='padding-left:15px;padding-right:15px;'><li><span aria-hidden='true'></span>&nbsp;<font>粉丝数:</font>7389223</li>" +  
+	             // "<li><span aria-hidden='true'></span>&nbsp;<font>关注:</font>265</li>" +  
+	             // "<li><span aria-hidden='true'></span>&nbsp;<font>微博:</font>645</li>" +  
+	             // "<li><span aria-hidden='true'></span>&nbsp;<font>所在地:</font>台湾</li>" +  
+	             // "<input id='btn' type='button' value='关注' onclick='test()'/></form>");  
 	      
-                return data;  
-                }
-               }
+              //   return data;  
+              //   }
+              //  }
 
 
              $(function(){
@@ -628,7 +627,7 @@
                   if (data == '1'){
                       alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                       $('#addModal').modal('hide');
-                      // location.reload();
+                      location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
@@ -654,7 +653,7 @@
           	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
           	call_sync_ajax_request(re_url, re_call);
 		 
-           var url = '/info_group/delete_group_task/?';
+            var url = '/info_group/delete_group_task/?';
             url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
             call_sync_ajax_request(url,del);
              function del(data){
