@@ -721,7 +721,7 @@ def get_group_list(task_name, submit_user):
 #input: task_name
 #output: uid_uname dict
 def get_group_member_name(task_name, submit_user):
-    results = {}
+    results = []
     task_id = submit_user + '-' + task_name
     try:
         group_result = es_group_result.get(index=group_index_name, doc_type=group_index_type,\
@@ -740,8 +740,13 @@ def get_group_member_name(task_name, submit_user):
             source = item['_source']
             uname = source['uname']
         else:
-            uname = 'unkown'
-        results[uid] = uname
+            uname = 'unknown'
+        #results[uid] = uname
+        dic = {}
+        dic['ID'] = uid
+        dic['name'] = uname
+        results.append(dic)
+
 
     return results
 

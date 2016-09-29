@@ -35,154 +35,7 @@
        console.log(g_name);
      }  
 
-    function open_detail(task){
-      $('#detail_Modal').modal('show');
-	      function con_call(data){
-		      var num_data = [];
-		   for(var key in data){
-		      var num = {};
-		      num["ID"]=key;
-		      num["name"]=data[key];
-		      num_data.push(num);
-      }
-     console.log('url内成员个数：'+num_data.length);
-    // $('#consitute').bootstrapTable('refresh', {data: num_data});
-         $('#consitute').bootstrapTable({
-                  data: num_data,
-                  search: true,//是否搜索
-                  pagination: true,//是否分页
-                  pageSize: 10,//单页记录数
-                  pageList: [5, 10, 20, 50],//分页步进值
-                  sidePagination: "client",//服务端分页
-                  searchAlign: "left",
-                  searchOnEnterKey: false,//回车搜索
-                  showRefresh: true,//刷新按钮
-                  showColumns: true,//列选择按钮
-                  buttonsAlign: "left",//按钮对齐方式
-                  locale: "zh-CN",//中文支持
-                  detailView: false,
-                  sortName:'submit_date',
-                  sortOrder:"desc",
-                  columns: [
-                    {
-                        title: "全选",
-                        field: "select",
-                        checkbox: true,
-                        align: "center",//水平
-                        valign: "middle"//垂直
-                    },
-                    {
-                        title: "序号",//标题
-                        field: "order",//键名
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value, row, index) { 
-                          return index+1;
-                        }
-                    },
-                    {
-                        field: "ID",
-                        title: "ID",
-                        sortable: true,
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value,row) {
-                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
-                            return e;
-       
-                        }
-                    },
-                    {
-                        field: "name",
-                        title: "昵称",
-                        sortable: true,
-                        align: "center",//水平
-                        valign: "middle",//垂直
-                        formatter: function (value,row) { 
-                          if(value=="unknown"||value==""||value=="unkown"){
-                            value = "未知";
-                          }
-                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
-                            return e;
-       
-                        }
-                    }],
-                    rowStyle:function rowStyle(row, index) {
-                      return {
-                        classes: 'text-nowrap another-class',
-                        css: {"padding-top": "1px","padding-bottom": "1px"}
-                      };
-                    }
-             });
-      
-      //删除成员
-        $('#num_btn').click(function(){
-        	var url = '/info_group/delete_group_task/?';
-            url = url + 'task_name=' + task +'&submit_user=' + s_user;//$('#useremail').text();
-            call_sync_ajax_request(url,'GET',del);
-             function del(data){
-      		    //console.log(data);
-      		     if(data==true){
-      		     }else{
-                 console.log('已有群组删除失败');
-               }
-      		}
-
-           var num_selected = $('#consitute').bootstrapTable('getSelections');
-           var del_list = [];
-           for(var i=0;i<num_selected.length;i++){
-	         del_list.push(num_selected[i].ID);
-	       } 
-	        console.log('删除的成员个数：'+del_list.length);
-	        console.log('删除前的成员个数：'+num_data.length);
-	         var new_num_id = [];
-	         var k =0;
-           	for(var j=0;j<num_data.length;j++){
-           		for(var i=0;i<del_list.length;i++){
-               if(num_data[j]['ID']!=del_list[i]){
-                new_num_id[k] =num_data[j]['ID'];
-              	k = k+1;
-                }
-                
-              }
-            }
-              console.log('删除后的成员个数：'+new_num_id.length);
-	      	    var group_ajax_url = '/influence_sort/submit_task/';
-	            var submit_name =  s_user;//获取$('#useremail').text();
-	            var group_analysis_count = 10;//获取
-	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":new_num_id, "task_max_count":group_analysis_count};
-	            console.log(job);
-	             function callback(data){
-                console.log('提交返回值：'+data);
-                  if (data == '1'){
-                     alert('删除成功！');
-                     // alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
-                     $('#detail_Modal').modal('hide');
-                     window.location.reload();
-                  }
-                  if(data == '0'){
-                     // alert('任务提交失败，请重试！');
-                  }
-                  if(data == 'more than limit'){
-                     // alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
-                  }
-              }
-
-              $.ajax({
-                  type:'POST',
-                  url: group_ajax_url,
-                  contentType:"application/json",
-                  data: JSON.stringify(job),
-                  dataType: "json",
-                  success: callback
-              }); 
-        });//删除成员结束
-      }//con_call 结束
-      var con_url='/info_group/group_member/?task_name='+task+'&submit_user='+s_user;
-      console.log('成员url：'+con_url);
-      call_sync_ajax_request(con_url,'GET',con_call);
-     }//open_detail结束
-
+  
          $(function(){
               var current_user = 'admin@qq.com'; //获取
               var task_url = '/info_group/show_task/?submit_user='+current_user;
@@ -285,9 +138,172 @@
                      $("#close-circle").click(function(){
                           $("#circle-analysis").slideUp();
                       });
-                 
+              
+               var init_data = [{'ID':"2390428592",'name':'微博用户'}]
+               $('#consitute').bootstrapTable({
+                  data: init_data,
+                  search: true,//是否搜索
+                  pagination: true,//是否分页
+                  pageSize: 10,//单页记录数
+                  pageList: [5, 10, 20, 50],//分页步进值
+                  sidePagination: "client",//服务端分页
+                  searchAlign: "left",
+                  searchOnEnterKey: false,//回车搜索
+                  showRefresh: true,//刷新按钮
+                  showColumns: true,//列选择按钮
+                  buttonsAlign: "left",//按钮对齐方式
+                  locale: "zh-CN",//中文支持
+                  detailView: false,
+                  sortName:'submit_date',
+                  sortOrder:"desc",
+                  columns: [
+                    {
+                        title: "全选",
+                        field: "select",
+                        checkbox: true,
+                        align: "center",//水平
+                        valign: "middle"//垂直
+                    },
+                    {
+                        title: "序号",//标题
+                        field: "order",//键名
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value, row, index) { 
+                          return index+1;
+                        }
+                    },
+                    {
+                        field: "ID",
+                        title: "ID",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value,row) {
+                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                            return e;
+       
+                        }
+                    },
+                    {
+                        field: "name",
+                        title: "昵称",
+                        sortable: true,
+                        align: "center",//水平
+                        valign: "middle",//垂直
+                        formatter: function (value,row) { 
+                          if(value=="unknown"||value==""||value=="unkown"){
+                            value = "未知";
+                          }
+                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                            return e;
+       
+                        }
+                    }],
+                    rowStyle:function rowStyle(row, index) {
+                      return {
+                        classes: 'text-nowrap another-class',
+                        css: {"padding-top": "1px","padding-bottom": "1px"}
+                      };
+                    }
+             });
             });
 
-        
+           
+      
 
+    function open_detail(task){
+     
+    var con_url='/info_group/group_member/?task_name='+task+'&submit_user='+s_user;
+    $('#consitute').bootstrapTable('refresh',{url:con_url});
+         $.ajax({
+                      url: con_url,
+                      type: 'GET',
+                      dataType: 'json',
+                      async: true,
+                      success:build
+                    });
+     function build(data){
+         console.log('数据返回：'+data);
+        }
+    $('#num_btn').click(function(){
+      
+           //删除该任务
+          var url = '/info_group/delete_group_task/?';
+            url = url + 'task_name=' + task +'&submit_user=' + s_user;//$('#useremail').text();
+            call_sync_ajax_request(url,'GET',del);
+             function del(data){
+               if(data==true){
+               }else{
+                 console.log('已有群组删除失败');
+               }
+            }
+           //删除该任务——结束
+
+      function build(data){
+         console.log('数据返回：'+data);
+           var num_selected = $('#consitute').bootstrapTable('getSelections');
+           var del_list = [];
+           for(var i=0;i<num_selected.length;i++){
+             del_list.push(num_selected[i].ID);
+            } 
+          console.log('删除的成员个数：'+del_list.length);
+       //获得要删除的ID列表
+          var num_data = [];
+       for(var i=0;i<data.length;i++){
+          num_data.push(data[i]["ID"]);
+        }
+       
+      //获得删除前的ID列表
+       console.log('删除前的成员个数：'+num_data.length);
+           var new_num_id = [];
+           var k =0;
+            for(var j=0;j<num_data.length;j++){
+              for(var i=0;i<del_list.length;i++){
+               if(num_data[j]['ID']!=del_list[i]){
+                new_num_id[k] =num_data[j]['ID'];
+                k = k+1;
+                }
                 
+              }
+            }
+      console.log('删除后的成员个数：'+ new_num_id.length);
+        //获得删除后的ID列表
+              var group_ajax_url = '/influence_sort/submit_task/';
+              var submit_name =  s_user;//获取$('#useremail').text();
+              var group_analysis_count = 10;//获取
+              var job = {"submit_user":submit_name,"task_name":task, "uid_list":new_num_id, "task_max_count":group_analysis_count};
+              console.log(job);
+              function callback(data){
+                console.log('提交返回值：'+data);
+                  if (data == '1'){
+                     alert('删除成功！');
+                     // alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
+                     $('#detail_Modal').modal('hide');
+                     window.location.reload();
+                  }
+                  if(data == '0'){
+                     // alert('任务提交失败，请重试！');
+                  }
+                  if(data == 'more than limit'){
+                     // alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
+                  }
+              }
+
+              $.ajax({
+                  type:'POST',
+                  url: group_ajax_url,
+                  contentType:"application/json",
+                  data: JSON.stringify(job),
+                  dataType: "json",
+                  success: callback
+              }); 
+        }//build 结束
+        //call_sync_ajax_request(con_url,'GET',bulid);
+       })//click function 结束
+       $('#detail_Modal').modal('show');
+     }//open_detail结束          
+
+     
+
+         
