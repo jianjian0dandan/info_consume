@@ -1,5 +1,5 @@
 {% extends "info_consume/daohang_public.html" %}
-{% block part_name %}圈子发现/圈子spy{% endblock %}
+{% block part_name %}圈子推荐/圈子追踪{% endblock %}
 {% block main %}
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -188,7 +188,7 @@
        <div class="col-md-1"></div>
           <div class="col-md-10">          
              <div class="panel panel-default" border="1">
-               <div class="panel-heading"><b>SPY任务列表</b></div>
+               <div class="panel-heading"><b>追踪任务列表</b></div>
                 <div class="panel-body" style="padding:10px;">
                   <table id="cicle-task" class="table table-hover table-condensed" data-height="500"></table>
                 </div>
@@ -205,8 +205,9 @@
                                             圈子组成
                                           </h4>
                                         </div>
-                                        <div class="modal-body" style="overflow-x: auto; overflow-y: auto;">
-                                            <table id="consitute" class="table table-hover" data-pagination="true" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-page-size="5" style="width:100%;"><thead><th>ID</th><th>昵称</th><th>操作</th></thead></table>
+                                      <div class="modal-body" style="overflow-x: auto; overflow-y: auto;height:500px;">
+                                           <div id="num_btn" class="btn btn-danger"  style="float:right;" data-toggle="tooltip" title="删除成员后，查看结果需要重新等待计算哦~请慎思！" data-placement="bottom">删除</div>
+                                            <table id="consitute" class="table table-hover" style="width:100%;"></table>
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">关闭

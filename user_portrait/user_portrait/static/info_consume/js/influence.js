@@ -125,7 +125,7 @@ Influence.prototype = {
 
   influence_Table_domain:function(data){
     var i = 0;
-    var rank = '未知';
+    var rank = '>200';
     while(i<200){
       if(data[i].uid == uid){
         rank = i;
@@ -133,10 +133,10 @@ Influence.prototype = {
       }
       i++;
     };
-
+    console.log('rank of domain is'+rank);
     // if(domainInflu_data[rank].photo_url == 'unknown'){
     //   domainInflu_data[rank].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
-    // };
+    // };'rank of domain is'+
 
     var domainInflu_data = [];
     for(var j=0;j<10;j++){
@@ -146,9 +146,15 @@ Influence.prototype = {
       };
     };
 
-    var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
+    var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>";
 
-    // html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    // if (rank='>200') {
+    //   html_table += "<tr style='background-color:#76eec6;'><td>"+rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    // }else{
+    //   html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    // };
+    console.log(userImg_src);
+
     for(var j=0;j<10;j++){
       var bci_data;
       bci_data = domainInflu_data[j].bci;
@@ -156,6 +162,7 @@ Influence.prototype = {
       html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+domainInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_domain').append(html_table);
+
   },
 
   influ_skill:function(data){
@@ -269,6 +276,8 @@ var uid = 1640601392;
 var username = 'admin@qq.com';
 //var username = admin@qq.com;
 var Influence = new Influence();
+var userImg_src = "{{ userImg_src }}"
+
 var currentdate;
 var influence_date = choose_time_for_mode();
 var pre_influence_date = new Date(influence_date - 24*60*60*1000);

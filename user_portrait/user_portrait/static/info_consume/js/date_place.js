@@ -4,7 +4,7 @@ var topic = 'aoyunhui';
 var start_ts = 1468474200;
 //var end_ts = 1468170900;
 var end_ts = 1468495800;
-var province = '陕西';
+var province = '北京';
 var sort_item = 'timestamp';
 var no_page_place = 0;
 var blog_num_max_global_place = 0;
@@ -442,7 +442,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		blog_num_max_global_place = blog_num_max_local_place;
 		
 		if (item.length == 0){
-		html += '<div style="color:grey;">暂无数据</div>'
+		html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
 		}else{
 			var num_page = Math.ceil(blog_num_max_local_place/10);  //num_page表示微博数据共有多少页
 			var item_i_place = no_page_place*10;

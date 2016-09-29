@@ -1,6 +1,6 @@
 {% extends "info_consume/daohang_public.html" %}
 
-{% block part_name %}圈子发现/圈子搜索{% endblock %}
+{% block part_name %}圈子推荐/圈子探索{% endblock %}
 
 {% block main %}
 
@@ -76,7 +76,7 @@
 		  </div>
         <div class="col-md-9">
           <div id="sort-panel" class="panel panel-default">
-            <div class="panel-heading"><b>发现圈子</b></div>
+            <div class="panel-heading"><b>圈子查看</b></div>
             <div class="panel-body">
               <div id="toolbar">
                 <div class="btn btn-success" onclick="addgroup()">圈子追踪</div><i class="fa fa-lightbulb-o" id="chase" aria-hidden="true" style="cursor:pointer;margin-left:5px;" data-toggle="tooltip" title="勾选下表中的任意用户，系统可对您所选群体进行全面分析" data-placement="bottom"></i>
@@ -107,7 +107,6 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="cancel_model" type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary" id="addRecord" onclick="groupanalyze_confirm()">提交</button>
                             </div>
                         </div>
                     </div>
