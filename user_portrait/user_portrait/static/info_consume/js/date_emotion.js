@@ -51,6 +51,19 @@ function set_emotion_type(type){
 	}else if(type=='2'){
 		sen=2;
 		Draw_blog_scan_area_emotion_result();
+	}else if(type=='3'){
+		sen=3;
+		Draw_blog_scan_area_emotion_result();
+
+	}else if(type=='4'){
+		sen=4;
+		Draw_blog_scan_area_emotion_result();
+	}else if(type=='5'){
+		sen=5;
+		Draw_blog_scan_area_emotion_result();
+	}else if(type=='6'){
+		sen=6;
+		Draw_blog_scan_area_emotion_result();
 	}
 }
 
@@ -126,8 +139,21 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
   		var x_item = [];
 	 	var y_item_pos = [];
 		var y_item_neu = [];
-		var y_item_neg = [];
+		var y_item_angry = [];
+		var y_item_anxiety = [];
+		var y_item_sad = [];
+		var y_item_hate = [];
+		var y_item_otherneg = [];
+		console.log(data);
+
 	 	for (var key in data){
+	 		console.log(data[key][0]);
+	 		console.log(data[key][1]);
+	 		console.log(data[key][2]);
+	 		console.log(data[key][3]);
+	 		console.log(data[key][4]);
+	 		console.log(data[key][5]);
+	 		console.log(data[key][6]);
 	 		//console.log(key);
 			//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
 			key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
@@ -135,7 +161,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 			x_item.push(key_datetime);	
 			y_item_pos.push(data[key][1]);
 			y_item_neu.push(data[key][0]);
-			y_item_neg.push(data[key][2]);
+			y_item_angry.push(data[key][2]);
+			y_item_anxiety.push(data[key][3]);
+			y_item_sad.push(data[key][4]);
+			y_item_hate.push(data[key][5]);
+			y_item_otherneg.push(data[key][6]);
 		}
 		
   		var myChart = echarts.init(document.getElementById('main_emotion_1'));
@@ -144,7 +174,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	        	trigger: 'axis'
 	   		},
 	    	legend: {
-	        	data:['正向','中立','负向']
+	        	data:['积极','中立','生气','焦虑','悲伤','厌恶','消极其他']
 	    	},
 	    	toolbox: {
 		        show : true,
@@ -174,7 +204,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	    	],
 	    	series : [
 	        {
-	            name:'正向',
+	            name:'积极',
 	            type:'line',
 	            data:y_item_pos,
 	            
@@ -185,16 +215,39 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	            data:y_item_neu,
 	            
 	        },
-	      	{
-	            name:'负向',
+	        {
+	            name:'生气',
 	            type:'line',
-	            data:y_item_neg,
+	            data:y_item_angry,
+	            
+	        },
+	        {
+	            name:'焦虑',
+	            type:'line',
+	            data:y_item_anxiety,
+	            
+	        },
+	      	{
+	            name:'悲伤',
+	            type:'line',
+	            data:y_item_sad,
+	        
+	        },
+	        {
+	            name:'厌恶',
+	            type:'line',
+	            data:y_item_hate,
+	        
+	        },
+	      	{
+	            name:'消极其他',
+	            type:'line',
+	            data:y_item_otherneg,
 	        
 	        }
 	    ]
 	};
 		myChart.setOption(option) ;     
-
 
   },
 
@@ -204,17 +257,37 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	 	var item_json = [];
 	 	var item_province_json_pos = [];
 	 	var item_province_json_neu = [];
-	 	var item_province_json_neg = [];
+	 	var item_province_json_otherneg = [];
+	 	var item_province_json_angry = [];
+	 	var item_province_json_anxiety = [];
+	 	var item_province_json_sad = [];
+	 	var item_province_json_hate = [];
+
 	 	var item_city_json_pos = [];
 	 	var item_city_json_neu = [];
-	 	var item_city_json_neg = [];
+	 	var item_city_json_otherneg = [];
+	 	var item_city_json_angry = [];
+	 	var item_city_json_anxiety = [];
+	 	var item_city_json_sad = [];
+	 	var item_city_json_hate = [];
+
 	 	var item_city_json_pos_new=[];
 	 	var item_city_json_neu_new=[];
-	 	var item_city_json_neg_new=[];
+	 	var item_city_json_otherneg_new = [];
+	 	var item_city_json_angry_new = [];
+	 	var item_city_json_anxiety_new = [];
+	 	var item_city_json_sad_new = [];
+	 	var item_city_json_hate_new = [];
+
 	 	var item_json_pos = [];
 	 	var item_json_neu = [];
-	 	var item_json_neg = [];
+	 	var item_json_otherneg = [];
+	 	var item_json_angry = [];
+	 	var item_json_anxiety = [];
+	 	var item_json_sad = [];
+	 	var item_json_hate = [];
 	 	var html = '';
+	 	
 
 
 		//正向情绪
@@ -268,46 +341,166 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		item_json_neu = item_province_json_neu.concat(item_city_json_neu_new);
 		
 
-		//负向情绪
+		//焦虑情绪
 		for(key in item[2]){
 			for(i=0;i<item[2][key].length;i++){
-				item_province_json_neg.push({name:item[2][key][i][0],value:item[2][key][i][1].total});
+				item_province_json_anxiety.push({name:item[2][key][i][0],value:item[2][key][i][1].total});
 
 				for(key_val in item[2][key][i][1]){
 			 			if(key_val=='total'){
 			 				continue;
 			 			}
-			 			item_city_json_neg.push({name:key_val,value:item[2][key][i][1][key_val]});
+			 			item_city_json_anxiety.push({name:key_val,value:item[2][key][i][1][key_val]});
 			 			
 		 		}
 			}
 		}
-		for(k=0;k<item_city_json_neg.length;k++){
-			if(item_city_json_neg[k].name=='unknown'){
-			item_city_json_neg[k].name='未知';
+		for(k=0;k<item_city_json_anxiety.length;k++){
+			if(item_city_json_anxiety[k].name=='unknown'){
+			item_city_json_anxiety[k].name='未知';
 			}
-			item_city_json_neg_new.push({name:item_city_json_neg[k].name+'市',value:item_city_json_neg[k].value});
+			item_city_json_anxiety_new.push({name:item_city_json_anxiety[k].name+'市',value:item_city_json_anxiety[k].value});
 			
 	 	}
 	 			
-		item_json_neg = item_province_json_neg.concat(item_city_json_neg_new);
+		item_json_anxiety = item_province_json_anxiety.concat(item_city_json_anxiety_new);
 		
+
+		//生气情绪
+		for(key in item[3]){
+			for(i=0;i<item[3][key].length;i++){
+				item_province_json_angry.push({name:item[3][key][i][0],value:item[3][key][i][1].total});
+
+				for(key_val in item[3][key][i][1]){
+			 			if(key_val=='total'){
+			 				continue;
+			 			}
+			 			item_city_json_angry.push({name:key_val,value:item[3][key][i][1][key_val]});
+			 			
+		 		}
+			}
+		}
+		for(k=0;k<item_city_json_angry.length;k++){
+			if(item_city_json_angry[k].name=='unknown'){
+			item_city_json_angry[k].name='未知';
+			}
+			item_city_json_angry_new.push({name:item_city_json_angry[k].name+'市',value:item_city_json_angry[k].value});
 		
-		//选择正向、中立、负向
+	 	}
+	 			
+		item_json_angry = item_province_json_angry.concat(item_city_json_angry_new);
+		
+
+		//厌恶情绪
+		for(key in item[4]){
+			for(i=0;i<item[4][key].length;i++){
+				item_province_json_hate.push({name:item[4][key][i][0],value:item[4][key][i][1].total});
+
+				for(key_val in item[4][key][i][1]){
+			 			if(key_val=='total'){
+			 				continue;
+			 			}
+			 			item_city_json_hate.push({name:key_val,value:item[4][key][i][1][key_val]});
+			 			
+		 		}
+			}
+		}
+		for(k=0;k<item_city_json_hate.length;k++){
+			if(item_city_json_hate[k].name=='unknown'){
+			item_city_json_hate[k].name='未知';
+			}
+			item_city_json_hate_new.push({name:item_city_json_hate[k].name+'市',value:item_city_json_hate[k].value});
+			
+	 	}
+	 			
+		item_json_hate = item_province_json_hate.concat(item_city_json_hate_new);
+		
+		//悲伤情绪
+		for(key in item[5]){
+			for(i=0;i<item[5][key].length;i++){
+				item_province_json_sad.push({name:item[5][key][i][0],value:item[5][key][i][1].total});
+
+				for(key_val in item[5][key][i][1]){
+			 			if(key_val=='total'){
+			 				continue;
+			 			}
+			 			item_city_json_sad.push({name:key_val,value:item[5][key][i][1][key_val]});
+			 			
+		 		}
+			}
+		}
+		for(k=0;k<item_city_json_sad.length;k++){
+			if(item_city_json_sad[k].name=='unknown'){
+			item_city_json_sad[k].name='未知';
+			}
+			item_city_json_sad_new.push({name:item_city_json_sad[k].name+'市',value:item_city_json_sad[k].value});
+			
+	 	}
+	 			
+		item_json_sad = item_province_json_sad.concat(item_city_json_sad_new);
+		
+
+		//消极其他情绪
+		for(key in item[6]){
+			for(i=0;i<item[6][key].length;i++){
+				item_province_json_otherneg.push({name:item[6][key][i][0],value:item[6][key][i][1].total});
+
+				for(key_val in item[6][key][i][1]){
+			 			if(key_val=='total'){
+			 				continue;
+			 			}
+			 			item_city_json_otherneg.push({name:key_val,value:item[6][key][i][1][key_val]});
+			 			
+		 		}
+			}
+		}
+		for(k=0;k<item_city_json_otherneg.length;k++){
+			if(item_city_json_otherneg[k].name=='unknown'){
+			item_city_json_otherneg[k].name='未知';
+			}
+			item_city_json_otherneg_new.push({name:item_city_json_otherneg[k].name+'市',value:item_city_json_otherneg[k].value});
+			
+	 	}
+	 			
+		item_json_otherneg = item_province_json_otherneg.concat(item_city_json_otherneg_new);
+		
+
+
+		//选择各种情绪
 		if(case_val == 1){
 			item_legend = '正向';
 			item_item = item_json_pos;
 			item_item_rank = item_province_json_pos;
 
-		}else if (case_val == 2){
+		}else if (case_val == 0){
 			item_legend = '中立';
 			item_item = item_json_neu;
 			item_item_rank = item_province_json_neu;
 
-		}else if(case_val == 3){
-			item_legend = '负向';
-			item_item = item_json_neg;
-			item_item_rank = item_province_json_neg;
+		}else if(case_val == 2){
+			item_legend = '生气';
+			item_item = item_json_angry;
+			item_item_rank = item_province_json_angry;
+
+		}else if (case_val == 3){
+			item_legend = '焦虑';
+			item_item = item_json_anxiety;
+			item_item_rank = item_province_json_anxiety;
+
+		}else if(case_val == 4){
+			item_legend = '悲伤';
+			item_item = item_json_sad;
+			item_item_rank = item_province_json_sad;
+
+		}else if (case_val == 5){
+			item_legend = '厌恶';
+			item_item = item_json_hate;
+			item_item_rank = item_province_json_hate;
+
+		}else if(case_val == 6){
+			item_legend = '消极其他';
+			item_item = item_json_otherneg;
+			item_item_rank = item_province_json_otherneg;
 
 		}
 
@@ -461,7 +654,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		blog_num_max_global_emotion = blog_num_max_local_emotion;
 
 		if (item.length == 0){
-		html += '<div style="color:grey;">暂无数据</div>'
+			html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
 		}else{
 			var num_page = Math.ceil(blog_num_max_local_emotion/10);  //num_page表示微博数据共有多少页
 			var item_i_emotion = no_page_emotion*10;
