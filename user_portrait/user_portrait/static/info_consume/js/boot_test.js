@@ -430,7 +430,7 @@
              function submit_offline(data){
               console.log(data);
               if(data.flag == true){
-                alert('恭喜！您成功发现了一个兴趣圈！但这需要一点时间才能查看结果哦~');
+                alert('恭喜！您成功创建了一个兴趣圈！但这需要一点时间才能查看结果哦~');
                 var task_url = '/influence_sort/search_task/?username='+username;
                 console.log(task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
@@ -447,9 +447,9 @@
 
               $('#keyword_hashtag').focus(function () { 
                 if($('#search_norm option:selected').text()=='朋友圈'){
-                  $('#keyword_hashtag').attr("placeholder","输入TA的昵称或ID，看看TA的朋友圈都有谁？");
+                  $('#keyword_hashtag').attr("placeholder","输入TA的昵称或ID，看看和TA相似的朋友都有谁？");
                  }else{
-                  $('#keyword_hashtag').attr("placeholder","输入感兴趣的关键词（多个词用空格隔开），看看您的兴趣圈都有谁？");
+                  $('#keyword_hashtag').attr("placeholder","输入您感兴趣的圈子名，看看您的兴趣圈都有谁？");
                  }
              })
             //搜索按钮的click事件
@@ -625,7 +625,7 @@
 	           // console.log(job);
 	             function callback(data){
                   if (data == '1'){
-                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                       window.location.reload();
                   }
@@ -708,7 +708,7 @@
 	             function callback(data){
                 // console.log(data);
                   if (data == '1'){
-                      alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
+                      alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                         window.location.reload();
                   }

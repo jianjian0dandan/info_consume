@@ -46,6 +46,7 @@
 		      num_data.push(num);
       }
      console.log('url内成员个数：'+num_data.length);
+    // $('#consitute').bootstrapTable('refresh', {data: num_data});
          $('#consitute').bootstrapTable({
                   data: num_data,
                   search: true,//是否搜索
@@ -154,9 +155,10 @@
 	             function callback(data){
                 console.log('提交返回值：'+data);
                   if (data == '1'){
+                     alert('删除成功！');
                      // alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                      $('#detail_Modal').modal('hide');
-                     //window.location.reload();
+                     window.location.reload();
                   }
                   if(data == '0'){
                      // alert('任务提交失败，请重试！');
