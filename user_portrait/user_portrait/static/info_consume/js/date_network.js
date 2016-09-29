@@ -299,9 +299,9 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         var item_timestamp_datetime = new Date(parseInt(item[k].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         // html += '<td><img title=用户昵称：' +item[k].name+'<br/>粉丝数：'+item[k].fans+'<br/>发布时间：'+item[k].+'style="width:40px;height:40px" class="photo_user" src='+item[k].photo+'/><td>';
         
-        // html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
+        html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
         // html += '<td><img id="photo_user" style="width:40px;height:40px" onmouseover="showInfoCard(this,'user_id')" onmouseout="hideInfoCard(this,'user_id')" class="photo_user" src='+item[k].photo+'/><td>';
-        html += '<div id="mydiv1" style="position:absolute;display:none;border:1px solid silver;background:silver;z-index:99999">提示1效果<br>啦啦啦啦啦<br>噜噜噜噜</div>';
+        // html += '<div id="mydiv1" style="position:absolute;display:none;border:1px solid silver;background:silver;z-index:99999">提示1效果<br>啦啦啦啦啦<br>噜噜噜噜</div>';
         // html += '<td><img id="photo_user" style="width:40px;height:40px" onMouseOver="show(this,'mydiv1');" onMouseOut="hide(this,'mydiv1')" class="photo_user" src='+item[k].photo+'/><td>';
 
         // html += '<td><img style="width:40px;height:40px" '+item[k].name+' class="photo_user" src='+item[k].photo+'/><td>';
