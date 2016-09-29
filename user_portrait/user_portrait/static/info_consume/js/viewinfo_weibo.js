@@ -66,11 +66,19 @@ viewinfo_weibo.prototype = {
        personalData.fansnum = "暂无数据";
    }
        Fansum.innerHTML = personalData.fansnum;
+
    var Attentionsum = document.getElementById('attentionsumview');
    if( personalData.friendsnum==""){
        personalData.friendsnum = "暂无数据";
    }
        Attentionsum.innerHTML = personalData.friendsnum;
+
+  var Focusum = document.getElementById('focusum');
+  if( personalData.favoritesnum==""){
+      personalData.favoritesnum = "暂无数据";
+  }
+      Focusum.innerHTML = personalData.favoritesnum;
+
    var Weibosum = document.getElementById('weibosumview');
    if( personalData.statusnum==""){
        personalData.statusnum = "暂无数据";
@@ -85,7 +93,7 @@ viewinfo_weibo.prototype = {
    if( personalData.description==""){
        personalData.description = "暂无数据";
        }else if (personalData.description.length>50){
-       Descrip.innerHTML = personalData.description.substr(0,4)+'...';
+       Descrip.innerHTML = personalData.description.substr(0,9)+'...';
            Descrip.title = personalData.description;
       }else{
        Descrip.innerHTML = personalData.description;}
@@ -109,8 +117,7 @@ viewinfo_weibo.prototype = {
 var Personal = new viewinfo_weibo();
 var personalData; // global data
 var weiboData;
-var uid = 1640601392;
-
+console.log("weibo"+uid);
 function openurl(){
   var ourl = $('#openurl').text();
   window.open(ourl);
@@ -345,8 +352,10 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     $('#'+sub_div_name).append(html);
 }
 
-var url = "/attribute/new_user_profile/?uid=" + uid;
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
+var url_pro = "/attribute/new_user_profile/?uid=" + uid;
+Personal.call_sync_ajax_request(url_pro, Personal.ajax_method, Personal.personData);
 
-var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
-Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+var url_weibo = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
+Personal.call_sync_ajax_request(url_weibo, Personal.ajax_method, Personal.weiboData);
+
+
