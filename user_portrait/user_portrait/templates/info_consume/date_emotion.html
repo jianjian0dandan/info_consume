@@ -39,20 +39,36 @@
 			<p id="time_trend_title">情绪热力图</p>
 			<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 		</div>
-		<div><p id="emotion_type">情绪类型：</p></div>
-
-		<div class="btn-group" data-toggle="buttons">
+		<div>
+			<p id="emotion_type">情绪类型：</p>
+			<div class="btn-group" data-toggle="buttons">
    			<label class="btn btn-primary active" id="label2" value="1" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('1')">
-      			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 正向
+      			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 积极
    			</label>
-   			<label class="btn btn-primary" id="label3" value="2" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('2')">
+   			<label class="btn btn-primary" id="label3" value="0" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('0')">
       			<input type="radio" name="options" id="option3" onClick="changecolor(id)"> 中立
    			</label>
-   			<label class="btn btn-primary" id="label4" value="3" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('3')">
-      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 负向
+   			<label class="btn btn-primary" id="label4" value="3" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('2')">
+      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 生气
+   			</label>
+   			<label class="btn btn-primary" id="label2" value="3" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('3')">
+      			<input type="radio" name="options" id="option2" onClick="changecolor(this)"> 焦虑
+   			</label>
+   			<label class="btn btn-primary" id="label3" value="4" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('4')">
+      			<input type="radio" name="options" id="option3" onClick="changecolor(id)"> 悲伤
+   			</label>
+   			<label class="btn btn-primary" id="label4" value="5" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('5')">
+      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 厌恶
+   			</label>
+   			<label class="btn btn-primary" id="label4" value="6" style="background-color:#FFFFFF;border-color: #E4E4E4;color:#868686" onclick="get_emotion_type('6')">
+      			<input type="radio" name="options" id="option4" onClick="changecolor(id)"> 消极其他
    			</label>
    			
 		</div>	
+
+		</div>
+
+		
 
 		
 <!-- 引入情绪热力图 -->

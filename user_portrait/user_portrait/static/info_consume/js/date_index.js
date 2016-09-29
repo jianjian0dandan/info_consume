@@ -62,4 +62,4 @@ function Draw_topic_name_result(){
  	topic_analysis_index.call_sync_ajax_request(url,topic_analysis_index.Draw_topic_name);
 }	
 
-Draw_topic_name_result();
+// Draw_topic_name_result();
