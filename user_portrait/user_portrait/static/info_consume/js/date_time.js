@@ -297,7 +297,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 	blog_num_max_global_time = blog_num_max_local_time;
 
 	if (!item){
-	html += '<div style="color:grey;width: 100px;height: 200px;">暂无数据</div>'
+		html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
 	}else{
 		var num_page = Math.ceil(blog_num_max_local_time/10);  //num_page表示微博数据共有多少页
 		var item_i_time = no_page_time*10;
