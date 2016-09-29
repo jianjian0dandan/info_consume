@@ -44,8 +44,8 @@
 		      num["ID"]=key;
 		      num["name"]=data[key];
 		      num_data.push(num);
-              }
-          console.log(num_data);
+      }
+     console.log('url内成员个数：'+num_data.length);
          $('#consitute').bootstrapTable({
                   data: num_data,
                   search: true,//是否搜索
@@ -132,30 +132,31 @@
            for(var i=0;i<num_selected.length;i++){
 	         del_list.push(num_selected[i].ID);
 	       } 
-	        console.log(del_list.length);
-	        console.log(num_data.length);
+	        console.log('删除的成员个数：'+del_list.length);
+	        console.log('删除前的成员个数：'+num_data.length);
 	         var new_num_id = [];
 	         var k =0;
            	for(var j=0;j<num_data.length;j++){
            		for(var i=0;i<del_list.length;i++){
-               if(num_data[j]['ID']==del_list[i]){
-              	break;
-                }
+               if(num_data[j]['ID']!=del_list[i]){
                 new_num_id[k] =num_data[j]['ID'];
-                k=k+1;
+              	k = k+1;
+                }
+                
               }
             }
-            console.log(new_num_id.length);
+              console.log('删除后的成员个数：'+new_num_id.length);
 	      	    var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  s_user;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
 	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":new_num_id, "task_max_count":group_analysis_count};
 	            console.log(job);
 	             function callback(data){
+                console.log('提交返回值：'+data);
                   if (data == '1'){
                      // alert('追踪任务已提交！请前往圈子spy中查看分析进度！');
                      $('#detail_Modal').modal('hide');
-                     window.location.reload();
+                     //window.location.reload();
                   }
                   if(data == '0'){
                      // alert('任务提交失败，请重试！');
@@ -176,7 +177,7 @@
         });//删除成员结束
       }//con_call 结束
       var con_url='/info_group/group_member/?task_name='+task+'&submit_user='+s_user;
-      console.log(con_url);
+      console.log('成员url：'+con_url);
       call_sync_ajax_request(con_url,'GET',con_call);
      }//open_detail结束
 

@@ -423,7 +423,7 @@
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
-           console.log(user_tasks_url)
+           console.log(user_tasks_url);
            call_sync_ajax_request(user_tasks_url, draw_topic_tasks);
          })
         //定义提交离线话题搜索任务
@@ -612,12 +612,12 @@
              var group_uid_list = new Array();
              for(var key in data){
               group_uid_list.push(key);
-              console.log(group_uid_list.length); //打印不出来，url无数据
              }
+              console.log('增加前人数：'+group_uid_list.length); //打印不出来，url无数据
 	          for(var i=0;i<selected_list.length;i++){
 	           group_uid_list.push(selected_list[i].uid);
 	           }  
-              console.log(group_uid_list.length);
+              console.log('增加后人数：'+group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
