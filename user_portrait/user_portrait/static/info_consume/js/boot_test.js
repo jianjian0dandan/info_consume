@@ -103,7 +103,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="popover" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -184,7 +184,7 @@
              });
             $('#table-user-user-contain').css("display","none");
             $('#table-user-contain').css("display","block");
-           // init_pop();
+            $('.user_view').tooltip();
           } 
            call_sync_ajax_request(influ_url, init_table);
          })
@@ -251,11 +251,11 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value) { 
+                        formatter: function (value,row) { 
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover">'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover">'+value+'</a>'; 
                            return e;
                         }
                     },
@@ -305,7 +305,7 @@
                         }
                     }]
              });
-            init_pop();
+            $('.user_view').tooltip();
          };
       function dele_analysis(data){
              var a = confirm('确定要删除吗？');
@@ -584,8 +584,8 @@
 
 
          function addgroup(){
-            var arg = $('#table-user-contain').css("display");
-            var artt = $('#table-user-user-contain').css("display");
+             var arg = $('#table-user-contain').css("display");
+             var artt = $('#table-user-user-contain').css("display");
              if(arg == "block" && artt == "none"){
               var $table = $('#table-user');
              }else if(arg == "none" && artt == "block"){
@@ -624,20 +624,16 @@
 	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
 	           // console.log(job);
 	             function callback(data){
-                  if (data == '1'){
+                  if (data == 1){
                       alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                       window.location.reload();
                   }
-                  if(data == '0'){
-                      alert('任务提交失败，请重试！');
-                      $('#addModal').modal('hide');
-                      document.getElementById('cicle_name').value ="";
+                  if(data == 0){
+                      alert('任务提交失败，请重试！'); 
                   }
                   if(data == 'more than limit'){
                       alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
-                      $('#addModal').modal('hide');
-                      document.getElementById('cicle_name').value ="";
                   }
               }
 
@@ -688,14 +684,13 @@
 
 
           function new_group_build(){
-            var group_name = $('#cicle_name').val();
+              var group_name = $('#cicle_name').val();
               if(group_name==''){
-              	alert('Ops！起个名儿呗');
-
+               alert('Ops！起个名儿呗');
               }else{
               console.log(group_name);
 
-                var list_length = selected_list.length;
+              var list_length = selected_list.length;
 	            var group_uid_list = new Array();
 	            for(var i=0;i<list_length;i++){
 	            group_uid_list[i]=selected_list[i].uid;
@@ -703,24 +698,19 @@
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var admin = username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
-	            var job = {"submit_user":username,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	          //  console.log(job);
+	            var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+	            console.log(job);
 	             function callback(data){
-                // console.log(data);
+                  console.log(data);
                   if (data == '1'){
                       alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
-                      $('#addModal').modal('hide');
-                        window.location.reload();
+                      //window.location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
-                      $('#addModal').modal('hide');
-                      document.getElementById('cicle_name').value ="";
                   }
                   if(data == 'more than limit'){
                       alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
-                      $('#addModal').modal('hide');
-                      document.getElementById('cicle_name').value ="";
                   }
               }
 

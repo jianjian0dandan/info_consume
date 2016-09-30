@@ -139,7 +139,7 @@
                           $("#circle-analysis").slideUp();
                       });
               
-               var init_data = [{'ID':"2390428592",'name':'微博用户'}]
+               var init_data = [{}]
                $('#consitute').bootstrapTable({
                   data: init_data,
                   search: true,//是否搜索
@@ -180,7 +180,7 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value,row) {
-                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -195,7 +195,7 @@
                           if(value=="unknown"||value==""||value=="unkown"){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.ID+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -207,68 +207,74 @@
                       };
                     }
              });
+                   $('.user_view').tooltip();
             });
 
            
       
 
     function open_detail(task){
-     
-    var con_url='/info_group/group_member/?task_name='+task+'&submit_user='+s_user;
-    $('#consitute').bootstrapTable('refresh',{url:con_url});
-         $.ajax({
-                      url: con_url,
-                      type: 'GET',
-                      dataType: 'json',
-                      async: true,
-                      success:build
-                    });
-     function build(data){
-         console.log('数据返回：'+data);
-        }
-    $('#num_btn').click(function(){
-      
-           //删除该任务
-          var url = '/info_group/delete_group_task/?';
-            url = url + 'task_name=' + task +'&submit_user=' + s_user;//$('#useremail').text();
-            call_sync_ajax_request(url,'GET',del);
-             function del(data){
-               if(data==true){
-               }else{
-                 console.log('已有群组删除失败');
-               }
-            }
-           //删除该任务——结束
-
-      function build(data){
-         console.log('数据返回：'+data);
-           var num_selected = $('#consitute').bootstrapTable('getSelections');
+     //展示当前组的成员
+      var con_url='/info_group/group_member/?task_name='+task+'&submit_user='+s_user;
+      $('#consitute').bootstrapTable('refresh',{url:con_url});
+      //
+      $('#num_btn').click(function(){
+         //获取当前组的所有成员
+         var total_data=$('#consitute').bootstrapTable('getData');
+         //获取完整ID：num_data
+         var num_data = [];
+         for(var i=0;i<total_data.length;i++){
+             num_data[i]=total_data[i]['ID'];
+         }
+        console.log('删除前的用户ID:'+num_data.length);
+         //获取被表格选择数据
+         var num_selected = $('#consitute').bootstrapTable('getSelections');
+         if(num_selected.length==0){
+         	alert('您还没有选择要删除的用户哦！');
+         }else{
+          //获取选择删除的成员ID列表：del_list
            var del_list = [];
            for(var i=0;i<num_selected.length;i++){
              del_list.push(num_selected[i].ID);
-            } 
-          console.log('删除的成员个数：'+del_list.length);
-       //获得要删除的ID列表
-          var num_data = [];
-       for(var i=0;i<data.length;i++){
-          num_data.push(data[i]["ID"]);
-        }
-       
-      //获得删除前的ID列表
-       console.log('删除前的成员个数：'+num_data.length);
+           } 
+          console.log('删除的成员ID：'+del_list.length);
+
+       //获得删除后的ID列表：new_num_id
            var new_num_id = [];
-           var k =0;
-            for(var j=0;j<num_data.length;j++){
-              for(var i=0;i<del_list.length;i++){
-               if(num_data[j]['ID']!=del_list[i]){
-                new_num_id[k] =num_data[j]['ID'];
-                k = k+1;
+           var k = [];
+            for(var i=0;i<del_list.length;i++){
+              for(var j=0;j<num_data.length;j++){
+               if(del_list[i]==num_data[j]){
+                  k[i]=j;
+                  break;
                 }
-                
               }
             }
-      console.log('删除后的成员个数：'+ new_num_id.length);
-        //获得删除后的ID列表
+            var h=0;
+            for(var i=0;i<num_data.length;i++){
+               for(var j=0;j<k.length;j++){
+                  if(i==k[j]){
+                  	break;
+                  }
+               }
+               if(j==k.length){
+               	new_num_id[h]=num_data[i];
+               	h = h +1;
+               }else{
+               continue;
+               }
+            }
+            	
+         console.log(k);
+         console.log('删除后的成员ID：'+ new_num_id.length);
+           //删除该任务
+          var del_url = '/info_group/delete_group_task/?';
+           del_url = del_url + 'task_name=' + task +'&submit_user=' + s_user;//$('#useremail').text();
+          console.log(del_url);
+          call_sync_ajax_request(del_url,'GET',del);
+          function del(data){
+             if(data==true){
+               //重新提交任务
               var group_ajax_url = '/influence_sort/submit_task/';
               var submit_name =  s_user;//获取$('#useremail').text();
               var group_analysis_count = 10;//获取
@@ -297,8 +303,14 @@
                   data: JSON.stringify(job),
                   dataType: "json",
                   success: callback
-              }); 
-        }//build 结束
+              });
+
+               }else{
+                 console.log('已有群组删除失败');
+                 alert('删除失败！请重试');
+               }
+            }//del结束
+         }//删除ID不为空结束
         //call_sync_ajax_request(con_url,'GET',bulid);
        })//click function 结束
        $('#detail_Modal').modal('show');
