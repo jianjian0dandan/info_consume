@@ -615,16 +615,29 @@
              }
               console.log('增加前人数：'+group_uid_list.length); //打印不出来，url无数据
 	           var k =group_uid_list.length;
+	           var dupli_uid_list = group_uid_list;
+	           var h = [];
+	           var e = 0;
 	          for(var i=0;i<selected_list.length;i++){
-	           group_uid_list[k]=selected_list[i].uid;
-	           k = k+1;
+	          	for(var j=0;j<dupli_uid_list.length;j++){
+	          	  if(selected_list[i].uid==dupli_uid_list[j]){
+	          	    h[e] = i;
+	          	    e =e+1;
+	          		}
+	            }
 	           }  
-                console.log('增加后人数：'+group_uid_list.length);
+	           console.log(h.length);
+              if(h.length==0){
+              	for(var i=0;i<selected_list.length;i++){
+                  group_uid_list[k]=selected_list[i].uid;
+	              k = k+1;
+              	}
+              	console.log('增加后人数：'+group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
 	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	           // console.log(job);
+	            console.log(job);
 	             function callback(data){
                   if (data == 1){
                       alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
@@ -633,9 +646,13 @@
                   }
                   if(data == 0){
                       alert('任务提交失败，请重试！'); 
+                       $('#addModal').modal('hide');
+                      window.location.reload();
                   }
                   if(data == 'more than limit'){
                       alert('抱歉！您目前提交任务超出规定数量，请稍后重试！');
+                       $('#addModal').modal('hide');
+                      window.location.reload();
                   }
               }
 
@@ -647,10 +664,8 @@
                   dataType: "json",
                   success: callback
               }); 
-          	}
-          	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
-          	call_sync_ajax_request(re_url, re_call);
-		 
+
+             //删除原来组  
             var url = '/info_group/delete_group_task/?';
             url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
             call_sync_ajax_request(url,del);
@@ -660,8 +675,23 @@
       		     }else{
                  console.log('已有群组删除失败');
                }
-      		    }
-          
+      		 }
+      		 //删除原来组结束
+              }else{
+              	  var s ='您选择的用户(';
+              	  for(var i=0;i<h.length;i++){
+              	  	s+=('微博ID：'+selected_list[h[i]].uid+'，微博昵称：'+selected_list[i].uname+'；');
+              	  }
+              	  s+=')已存在该组！\n请重新选择！';
+	              alert(s);
+	               $('#addModal').modal('hide');
+                   window.location.reload();
+
+	             }
+          	}//re_call结束
+          	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
+          	call_sync_ajax_request(re_url, re_call);
+
         }
 
          function display_grouplist(){
