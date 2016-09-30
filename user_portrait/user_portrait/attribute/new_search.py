@@ -85,6 +85,7 @@ def new_get_user_profile(uid):
 #use to get tag information/sensitive_words&keywords&hashtag/domain&topic&character
 def new_get_user_portrait(uid, admin_user):
     results = {}
+    print 'jln ',es_user_portrait,portrait_index_name
     try:
         user_portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type,\
                 id=uid)['_source']
@@ -96,6 +97,7 @@ def new_get_user_portrait(uid, admin_user):
         results['tendency'] = {}
         results['group_tag'] = []
     else:
+        print 'step1'
         #step1: get attention_information
         #sensitive words
         try:

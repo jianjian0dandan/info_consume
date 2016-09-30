@@ -84,7 +84,6 @@ R_TOPIC_SENTIMENT = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=13)
 r_topic_sentiment_pre = 'sentiment_topic_'
 
 
-
 #use to save sentiment keywords task information to redis queue
 R_SENTIMENT_KEYWORDS = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=10)
 r_sentiment_keywords_name = 'sentiment_keywords_task'
@@ -116,12 +115,12 @@ R_RECOMMENTATION_OUT = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=15)
 # type: hash----{recommend_delete_list, 20130901, list}
 # type: hash----{decide_delete_list, 20130901, list}
 
+#jln   add topic computing in db15
 R_ADMIN = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=15)
 r_sensitive_words_key = 'sensitive_words'
+topic_queue_name = 'topics_task'
 # type: hash ----{admin, username, password}
 
-#jln
-#R_TOPIC_ANALYZE   搞个redis计算话题任务 
 
 #use to write portrait user list to redis as queue for update_day and update_week
 update_day_redis = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=5)

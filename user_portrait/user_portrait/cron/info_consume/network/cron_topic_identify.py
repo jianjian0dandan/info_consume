@@ -44,7 +44,7 @@ ds_gexf_type = 2
 '''
 #topic_xapian_id = '54ccbfab5a220134d9fc1b37' 
 
-def main(topic, start_ts, end_ts):
+def compute_network(topic, start_ts, end_ts):
     '''
     topics = _topic_not_calc() # topics=[{id:x,module:x,status:x,topic:x,start:x,end:x,db_date:x}]
     '''
@@ -171,4 +171,4 @@ if __name__ == '__main__':
     db.session.add(save_t_s)
     db.session.commit()
     '''
-    main(topic, start, end)
+    compute_network(topic, start, end)

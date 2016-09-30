@@ -2010,7 +2010,7 @@ def get_online_pattern(now_ts, uid):
 def search_preference_attribute(uid):
     results = {}
     try:
-        print es_user_portrait,portrait_index_name
+        #print '???',es_user_portrait,portrait_index_name
         portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid)['_source']
         
     except:
@@ -2067,7 +2067,7 @@ def search_preference_attribute(uid):
     except:
         top_topic = ''
     tag_vector_list = [[u'hashtag',top_hashtag], [u'领域',domain], [u'话题', top_topic]]
-
+    print 'yes_pr'
     return {'results': results, 'description':description, 'tag_vector': tag_vector_list}
 
 

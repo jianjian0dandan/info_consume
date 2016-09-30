@@ -181,8 +181,11 @@ Influence.prototype = {
     var influ_des;
     var badPart =':';
 
+    $('#locatSun').css("display","none");
+
     if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
       stage=1;
+      $('#locatSun').css("display","block");
       $('#locatSun').css("margin-top","-340px");
       // console.log('111');
     }else{
@@ -194,6 +197,7 @@ Influence.prototype = {
 
     if (retweet_retweet==1 && re_re_speed == 1) {
       stage=2;
+      $('#locatSun').css("display","block");
       $('#locatSun').css("margin-top","-285px");
     }else{
       if(retweet_retweet==0) badPart+='转发微博被转发数 ';
@@ -202,6 +206,7 @@ Influence.prototype = {
     
     if (retweet_comment==1 && re_co_speed==1){
       stage=3;
+      $('#locatSun').css("display","block");
       $('#locatSun').css("margin-top","-235px");
     }else {
       if(retweet_comment==0) badPart+='转发微博评论数 ';
@@ -295,7 +300,7 @@ var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+
 
 // var influSkill_url = '/influence_application/specified_user_active/?date='+currentdate+'&uid='+uid;
 //   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
-var influSkill_url = '/influence_application/specified_user_active/?date=2013-09-01&uid=1640601392';
+var influSkill_url = '/influence_application/specified_user_active/?date=2016-05-22&uid=5692022984';
   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
 
 
