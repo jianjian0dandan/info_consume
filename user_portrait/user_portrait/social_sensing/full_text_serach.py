@@ -42,7 +42,6 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
         except:
             tmp_duplicate_dict[v] = [k, v]
 
-        
 
     if message_type == 1:
         weibo_detail = json.loads(task_detail['origin_weibo_detail'])
@@ -60,7 +59,7 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
             tmp.append(item['comment'])
             weibo_detail_list.append(tmp)
     mid_list = weibo_detail.keys()
-
+    print len(mid_list)
     results = []
     query_body = {
         "query":{
@@ -79,7 +78,9 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
     datetime = ts2datetime(ts)
     datetime_1 = ts2datetime(ts-DAY)
     index_name = flow_text_index_name_pre + datetime
+    print es_text
     exist_es = es_text.indices.exists(index_name)
+    print exist_es
     if exist_es:
         index_list.append(index_name)
     index_name_1 = flow_text_index_name_pre + datetime_1

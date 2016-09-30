@@ -3,6 +3,7 @@ import sys
 import time
 import json
 import math
+from INDEX_TABLE import *
 from user_portrait.global_config import UPLOAD_FOLDER
 from user_portrait.global_utils import R_GROUP as r
 from user_portrait.global_utils import es_user_portrait as es
@@ -18,6 +19,8 @@ from user_portrait.keyword_filter import keyword_filter
 
 index_name = group_index_name
 index_type = group_index_type
+
+DAY = 24*3600
 
 '''
 #submit new task and identify the task name unique
@@ -1044,6 +1047,25 @@ def get_uid(uname):
         return None
     return portrait_exist_result
 
+'''/influence_sort/user_sort/?
+username=admin@qq.com&sort_scope=in_limit_topic&arg=教育类&all=False'''
+
+def get_sort(uid):
+    try:
+        u_bci = es.get(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE, id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
+    except:
+        return None
+    query_body={
+        'query':{
+            'filtered':{
+                'filter':{
+                    'range':{'bci_week_ave':{'gte':u_bci}}
+                }
+            }
+        }
+    }
+    result = es.search(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE,body=query_body)
+    return str(result['hits']['total'])
 
 if __name__=='__main__':
     #test group task

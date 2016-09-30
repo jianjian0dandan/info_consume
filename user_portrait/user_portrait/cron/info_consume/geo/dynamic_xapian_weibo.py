@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from global_config import XAPIAN_WEIBO_TOPIC_DATA_PATH
-from xapian_case.xapian_backend import XapianSearch
+#from global_config import XAPIAN_WEIBO_TOPIC_DATA_PATH
+#from xapian_case.xapian_backend import XapianSearch
 
 def getXapianWeiboByDate(datestr):
     # datestr: 20130908    

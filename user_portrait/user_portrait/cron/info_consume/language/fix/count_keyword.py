@@ -31,7 +31,7 @@ SixHour = Hour * 6
 Day = Hour * 24
 
 
-def count_fre(topic,start_ts,over_ts,w_limit,weibo_limit,during=Fifteenminutes):   #高频词
+def count_fre(topic,start_ts,over_ts,news_limit,weibo_limit,during=Fifteenminutes):   #高频词
     # query_body = {
     #     'query':{
     #         'filtered':{
@@ -80,10 +80,10 @@ def count_fre(topic,start_ts,over_ts,w_limit,weibo_limit,during=Fifteenminutes):
     weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
 
 
-'''
-    news_list = news_content(topic,start_ts,over_ts)   #读新闻微博
+
+    news_list = news_content(topic,start_ts,over_ts,news_limit)   #读新闻微博
     news_classify = json.loads(news_comments_list(taskid,weibo_list=news_list))  #聚类后存到es里
-'''
+
     #print news_classify,type(news_classify)
     # news_topics = news_classify['features']
     # fish_topics = news_classify['cluster_dump_dict']
@@ -111,7 +111,7 @@ def count_fre(topic,start_ts,over_ts,w_limit,weibo_limit,during=Fifteenminutes):
     # print results
 
 
-def news_content(topic,start_ts,end_ts):
+def news_content(topic,start_ts,end_ts,news_limit = NEWS_LIMIT):
     query_body ={'query':{
                     'bool':{
                         'must':[
@@ -120,7 +120,7 @@ def news_content(topic,start_ts,end_ts):
                         }]
                     }
                 },
-                'size':NEWS_LIMIT  
+                'size':news_limit  
                 }
     news_results = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']#['_source']
     # print topic,weibo_index_type,start_ts,end_ts,query_body
@@ -502,4 +502,4 @@ if __name__ == '__main__':
     # start_ts = 1469680510
     # end_ts = 1469680515
     print 'topic: ', topic, 'from %s to %s' % (start_ts, end_ts)    
-    count_fre(topic, start_ts=start_ts, over_ts=end_ts,w_limit=MAX_FREQUENT_WORDS,weibo_limit=2000)#w_limit=MAX_FREQUENT_WORDS,weibo_limit=MAX_LANGUAGE_WEIBO
+    count_fre(topic, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=2000)#w_limit=MAX_FREQUENT_WORDS,weibo_limit=MAX_LANGUAGE_WEIBO

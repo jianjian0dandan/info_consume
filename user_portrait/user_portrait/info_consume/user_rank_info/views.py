@@ -13,7 +13,7 @@ from user_portrait.parameter import RUN_TYPE
 from imagine import imagine
 from utils import submit_task, search_task, get_group_list,\
        delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
-       get_group_user_track, search_group_results, get_influence_content,get_uid
+       get_group_user_track, search_group_results, get_influence_content,get_uid,get_sort
 
                   
 mod = Blueprint('influence_sort', __name__, url_prefix='/influence_sort')
@@ -49,6 +49,13 @@ def user_sort():
         arg = None
     results = user_sort_interface(username,int(search_time),sort_scope,sort_norm,arg,st,et,_all,task_number, number)
     return json.dumps(results)
+
+
+@mod.route('/user_topic_sort/')
+def user_topic_sort():
+    uid = request.args.get('uid')
+    results = get_sort(uid)
+    return results
 
 @mod.route('/search_task/', methods=['GET', 'POST'])
 def search_task():
