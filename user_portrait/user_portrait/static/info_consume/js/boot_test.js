@@ -103,7 +103,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -607,17 +607,19 @@
          function modify_group(obj){
           	var task = $(obj).attr("value");
           	//console.log(task);
-		        function re_call(data){
+		  function re_call(data){
             console.log(data);
              var group_uid_list = new Array();
-             for(var key in data){
-              group_uid_list.push(key);
+             for(var i=0;i<data.length;i++){
+              group_uid_list[i]=data[i]['ID'];
              }
               console.log('增加前人数：'+group_uid_list.length); //打印不出来，url无数据
+	           var k =group_uid_list.length;
 	          for(var i=0;i<selected_list.length;i++){
-	           group_uid_list.push(selected_list[i].uid);
+	           group_uid_list[k]=selected_list[i].uid;
+	           k = k+1;
 	           }  
-              console.log('增加后人数：'+group_uid_list.length);
+                console.log('增加后人数：'+group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
@@ -704,7 +706,8 @@
                   console.log(data);
                   if (data == '1'){
                       alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
-                      //window.location.reload();
+                       $('#addModal').modal('hide');
+                      window.location.reload();
                   }
                   if(data == '0'){
                       alert('任务提交失败，请重试！');
