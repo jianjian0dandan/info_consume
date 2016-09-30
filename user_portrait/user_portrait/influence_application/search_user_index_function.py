@@ -160,9 +160,13 @@ based on uid_list, obtain detail active info
 """
 
 def search_influence_detail(uid_list, index_name, doctype):
+    print es,index_name,doctype,uid_list
     result = es.mget(index=index_name, doc_type=doctype, body={"ids": uid_list}, _source=True)["docs"]
+    if result:
+        return result[0]['_source']
+    else:
+        return None
 
-    return result[0]['_source']
 
 """
 search single field max value

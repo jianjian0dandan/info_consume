@@ -3,6 +3,7 @@ import sys
 import time
 import json
 import math
+from INDEX_TABLE import *
 from user_portrait.global_config import UPLOAD_FOLDER
 from user_portrait.global_utils import R_GROUP as r
 from user_portrait.global_utils import es_user_portrait as es
@@ -18,6 +19,8 @@ from user_portrait.keyword_filter import keyword_filter
 
 index_name = group_index_name
 index_type = group_index_type
+
+DAY = 24*3600
 
 '''
 #submit new task and identify the task name unique
@@ -90,6 +93,7 @@ def submit_task(input_data):
             }
         }
     }
+    print es_group_result,group_index_name,group_index_type
     exist_compute_result = es_group_result.search(index=group_index_name, doc_type=group_index_type, body=query_body)['hits']['hits']
     exist_compute_count = len(exist_compute_result)
     if exist_compute_count >= task_max_count:
@@ -1033,6 +1037,35 @@ def edit_state(task_name, submit_user, new_state):
             id=task_id, body={'doc':{'state': new_state}})
     return results
 
+#jln 2016/09/28
+#get uid by uname
+def get_uid(uname):
+    try:
+        portrait_exist_result = es_user_portrait.search(index=portrait_index_name, doc_type=portrait_index_type, \
+            body={"query":{"bool":{"must":{"term":{"uname":uname}}}}})['hits']['hits'][0]['_id']
+    except:
+        return None
+    return portrait_exist_result
+
+'''/influence_sort/user_sort/?
+username=admin@qq.com&sort_scope=in_limit_topic&arg=教育类&all=False'''
+
+def get_sort(uid):
+    try:
+        u_bci = es.get(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE, id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
+    except:
+        return None
+    query_body={
+        'query':{
+            'filtered':{
+                'filter':{
+                    'range':{'bci_week_ave':{'gte':u_bci}}
+                }
+            }
+        }
+    }
+    result = es.search(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE,body=query_body)
+    return str(result['hits']['total'])
 
 if __name__=='__main__':
     #test group task

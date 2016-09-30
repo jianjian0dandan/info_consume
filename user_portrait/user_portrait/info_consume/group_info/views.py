@@ -10,7 +10,7 @@ from utils import submit_task, search_task, get_group_list,\
        delete_group_results, get_social_inter_content, search_group_sentiment_weibo,\
        get_group_user_track, search_group_results, get_influence_content
 from utils import get_group_member_name, get_activity_weibo,\
-        group_user_weibo, edit_state, show_vary_detail
+        group_user_weibo, edit_state, show_vary_detail,search_group_member
 
 from user_portrait.global_config import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 from user_portrait.search_user_profile import es_get_source
@@ -56,7 +56,7 @@ def ajax_submit_task():
         return 'no submit_user information'
     now_ts = int(time.time())
     input_data['submit_date'] = now_ts
-    print '###################'
+    #print '###################'
     status = submit_task(input_data)
     return json.dumps(status)
 
@@ -85,6 +85,16 @@ def ajax_show_group_result_basic():
     module = request.args.get('module', 'basic')
     results = search_group_results(task_name, module, submit_user)
     return json.dumps(results)
+
+#jln 2016/09/28
+@mod.route('/show_group_member/')
+def show_group_member():
+    results = {}
+    task_name = request.args.get('task_name', '')
+    submit_user = request.args.get('submit_user', 'admin')
+    results = search_group_member(task_name,submit_user)
+    return results
+
 
 # show the group weibo result
 # version: write in 16-03-26

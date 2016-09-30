@@ -1,16 +1,16 @@
 
 function homepageinfo() {
-	this.ajax_method = 'GET';
+  this.ajax_method = 'GET';
 }
 homepageinfo.prototype = {
   call_sync_ajax_request:function(url,method,callback) {
-	  $.ajax({
-		url: url,
-		type: method,
-		dataType:'json',
-		async:true,
-		success:callback
-	});
+    $.ajax({  
+    url: url,
+    type: method,
+    dataType:'json',
+    async:true,
+    success:callback
+  });
   },
   personData:function(data){
 
@@ -99,8 +99,8 @@ homepageinfo.prototype = {
     var userImg = document.getElementById('body_board')
       //console.log(userImg);
       if (personalData.sex == ""){
-  	    personalData.sex = '暂无数据';
-  	    //console.log(none);	
+        personalData.sex = '暂无数据';
+        //console.log(none);  
       } else if (personalData.sex == 1) {
         userImg.src = "/static/info_consume/image/bodymodel_man.png";
       //  console.log(1);
@@ -132,7 +132,7 @@ homepageinfo.prototype = {
           AP.innerHTML = '0'
        }
      var actScore = document.getElementById('act_text');
-     	if (data.activeness[0]<80) {
+      if (data.activeness[0]<80) {
         actScore.innerHTML = '最近活跃度有所下降哦，宝宝不开心了￣へ￣';
       }else if (data.activeness[0]>=80){
         actScore.innerHTML = '最近很活跃，么么哒(づ￣ 3￣)づ';
@@ -142,7 +142,7 @@ homepageinfo.prototype = {
     // 微博数据
     weiboData:function(data){
       weiboData = data;
-    	DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
+      DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
         $('#per_onload').css('display','none');
         $('#group_influ_weibo').css('display', 'block');
     }
@@ -159,21 +159,21 @@ function openurl(){
  }
 
 $(function(){
-	$('#modechoose').click(function(){
-	var box = document.getElementsByName('mode_choose');
+  $('#modechoose').click(function(){
+  var box = document.getElementsByName('mode_choose');
   //console.log(box);
-	for(var i=0;i<box.length;i++){
-		if(box[i].checked){
-			sort_type = box[i].value;
-		}
+  for(var i=0;i<box.length;i++){
+    if(box[i].checked){
+      sort_type = box[i].value;
+    }
     }
 $('#per_onload').css('display', 'block');
 $('#group_influ_weibo').css('display', 'none')
-	var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
-	//console.log('ddd',url);
+  var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
+  //console.log('ddd',url);
     Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
   //console.log(weiboData);
-	});
+  });
 });
 
 function DrawWeibo(data, div_name, sub_div_name){
@@ -252,8 +252,8 @@ function DrawWeibo(data, div_name, sub_div_name){
       }
         page_group_influ_weibo(start_row,end_row,data, sub_div_name);
     });
-	
-	$("#" + div_name + " #pageGro .pageDown").off('click').click(function(){
+  
+  $("#" + div_name + " #pageGro .pageDown").off('click').click(function(){
         if(pageCount > 5){
             var pageNum = parseInt($("#"+div_name+" #pageGro li.on").html());
             pageDown(pageNum,pageCount);
@@ -336,12 +336,12 @@ function pageDown(pageNum,pageCount){
 }
 
 function page_icon(page,count,eq){
-	var ul_html = "";
-	for(var i=page; i<=count; i++){
-		ul_html += "<li>"+i+"</li>";
-	}
-	$("#pageGro ul").html(ul_html);
-	$("#pageGro ul li").eq(eq).addClass("on");
+  var ul_html = "";
+  for(var i=page; i<=count; i++){
+    ul_html += "<li>"+i+"</li>";
+  }
+  $("#pageGro ul").html(ul_html);
+  $("#pageGro ul li").eq(eq).addClass("on");
 }
 
 function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
@@ -352,12 +352,12 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     html += '<div class="group_weibo_font" style="margin-right:5px;margin-top:15px;">';
     for (var i = start_row; i < end_row; i += 1){
         s=(i+1).toString();
-		var mid = data[i][0];
-		var uid = data[i][1];
+    var mid = data[i][0];
+    var uid = data[i][1];
         var geo = data[i][4];
         var text = data[i][2];
-		var retweet_count = data[i][7];
-		var comment_count = data[i][8];
+    var retweet_count = data[i][7];
+    var comment_count = data[i][8];
     //console.log(retweet_count);
    // console.log(comment_count);
     // var mingan_count = data[i][9];
@@ -380,7 +380,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
             html += '<span style="float:right;padding-right: 10px;color:#858585"><span>转发数('+ retweet_count +')&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数('+ comment_count +')</span></span>';
             html += '<span style="float:left"><u>'+date+'</u> - <a color:#e0e0e0 target="_blank"  href="'+tweet_ulr+'">' + '微博' + '</a>-<a target="_blank" href="/index/personal_detail/?uid=' + uid + '">用户详情</a></span>';
             html += '</p>';
-			html += '</div>';
+      html += '</div>';
         
     }
     html += '</div>'; 

@@ -7,9 +7,12 @@ from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_ty
 from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
 
 from user_portrait.info_consume.model import CityTopicCount,CityWeibos
-import math
+import math,time
 import json
 import re
+from xpinyin import Pinyin
+from user_portrait.global_utils import R_ADMIN as r
+from user_portrait.global_utils import topic_queue_name
 # from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
 #                             topics_river_index_name,topics_river_index_type,\
 #                             subopinion_index_name,subopinion_index_type
@@ -26,6 +29,7 @@ Hour = 3600
 SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
+p = Pinyin()
 
 def _json_loads(weibos):
     try:
@@ -44,8 +48,53 @@ def get_topics():
         topics = topics['hits']['hits']
         for topic in topics:
             print topic
-            results[topic['_source']['index_name']]=[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']]
+            results[topic['_source']['en_name']]=[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']]
     return json.dumps(results)
+
+
+    es.index(index='topics',doc_type='text',id='1467648000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
+                                                'start_ts':'1467648000','submit_user':'jln','comput_status':0})
+
+
+def submit(topic,start_ts,end_ts,submit_user):
+    # print str(topic.decode('utf-8'))
+    query_body={
+        'query':{
+            'filtered':{
+                'filter':{
+                    'term':{
+                        'name':topic 
+                    }
+                }
+            }
+        }
+    }
+    print weibo_es
+    find_topic = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)['hits']['hits']
+    print find_topic
+    if len(find_topic)>0:
+        en_name = find_topic[0]['_source']['en_name']
+    else:
+        en_name = p.get_pinyin(topic)+'-'+str(int(time.time()))
+
+    submit_id = start_ts+'_'+end_ts+'_'+en_name+'_'+submit_user
+    query_body={
+        'name':topic,
+        'en_name':en_name,
+        'start_ts':start_ts,
+        'end_ts':end_ts,
+        'submit_user':submit_user,
+        'comput_status':0
+    }
+    try:
+        print weibo_es.get(index=topic_index_name, doc_type=topic_index_type, id=submit_id)['_source']
+        result = 'already_have'
+    except:
+        weibo_es.index(index=topic_index_name,doc_type=topic_index_type,id=submit_id,body=query_body)
+        result = 'success'
+    r.lpush(topic_queue_name,json.dumps(query_body))
+    #该push到redis里，然后改status  计算完了再改回来
+    return result
 
 
 def get_during_keywords(topic,start_ts,end_ts):  #关键词云,unit=MinInterval

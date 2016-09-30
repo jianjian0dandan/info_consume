@@ -2010,7 +2010,7 @@ def get_online_pattern(now_ts, uid):
 def search_preference_attribute(uid):
     results = {}
     try:
-        print es_user_portrait,portrait_index_name
+        #print '???',es_user_portrait,portrait_index_name
         portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid)['_source']
         
     except:
@@ -2067,7 +2067,7 @@ def search_preference_attribute(uid):
     except:
         top_topic = ''
     tag_vector_list = [[u'hashtag',top_hashtag], [u'领域',domain], [u'话题', top_topic]]
-
+    print 'yes_pr'
     return {'results': results, 'description':description, 'tag_vector': tag_vector_list}
 
 
@@ -2079,13 +2079,14 @@ def search_sentiment_trend(uid, time_type, now_ts):
     results = {'1':{}, '2':{}, '0':{}, 'time_list':[]}
     trend_results = {'1':[], '2':[], '0':[]}
     sentiment_list = ['1', '2', '0']
-    
     now_date = ts2datetime(now_ts)
     now_date_ts = datetime2ts(now_date)
     if time_type=='day':
         flow_text_index_name = flow_text_index_name_pre + now_date
         try:
+            print 'trying',es_flow_text,flow_text_index_name
             flow_text_count = es_flow_text.search(index=flow_text_index_name, doc_type=flow_text_index_type, body={'query':{'term':{'uid': uid}}, 'sort': 'timestamp', 'size':MAX_VALUE})['hits']['hits']
+            print es_flow_text,flow_text_index_name
         except:
             flow_text_count = []
         for flow_text_item in flow_text_count:
@@ -2120,6 +2121,7 @@ def search_sentiment_trend(uid, time_type, now_ts):
         return {'trend_result':trend_results, 'description':description, 'time_list':new_time_list}
     elif time_type=='week':
         #run_type
+        print '222'
         if RUN_TYPE == 0:
             now_date_ts += DAY
         for i in range(7,0,-1):
@@ -2127,7 +2129,9 @@ def search_sentiment_trend(uid, time_type, now_ts):
             iter_date = ts2datetime(iter_date_ts)
             flow_text_index_name = flow_text_index_name_pre + iter_date
             try:
+                print 'try2',es_flow_text,flow_text_index_name
                 flow_text_count = es_flow_text.search(index=flow_text_index_name, doc_type=flow_text_index_type, body={'query':{'term':{'uid':uid}}, 'sort':'timestamp', 'size': MAX_VALUE})['hits']['hits']
+                print es_flow_text,flow_text_index_name
             except:
                 flow_text_count = []
             for flow_text_item in flow_text_count:

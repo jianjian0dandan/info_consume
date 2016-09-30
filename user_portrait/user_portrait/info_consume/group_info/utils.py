@@ -94,7 +94,7 @@ def submit_task(input_data):
     }
     exist_compute_result = es_group_result.search(index=group_index_name, doc_type=group_index_type, body=query_body)['hits']['hits']
     exist_compute_count = len(exist_compute_result)
-    print es_group_result
+    #print es_group_result,group_index_namem,group_index_type
     if exist_compute_count >= task_max_count:
         return 'more than limit'
     #identify the task name is valid
@@ -146,6 +146,7 @@ def search_task(task_name, submit_date, state, status, submit_user):
     if submit_user:
         query.append({'term':{'submit_user': submit_user}})
         condition_num += 1
+    print es_group_result,group_index_name,group_index_type
     if condition_num > 0:
         query.append({'term':{'task_type': 'analysis'}})
         try:
@@ -684,11 +685,14 @@ def get_evaluate_max():
 
 # get grouop user list
 def get_group_list(task_name, submit_user):
+    
     results = []
     task_id = submit_user + '-' + task_name
-    print tesk_id
+    if RUN_TYPE == 0:
+        group_index_name = 'test_group_result'
     try:
-        es_results = es_group_result.get(index='test_group_result', doc_type=group_index_type, id=task_id)['_source']
+
+        es_results = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
         #jln  现在的9200里没有
         #es_results = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
     except:
@@ -723,17 +727,20 @@ def get_group_list(task_name, submit_user):
 def get_group_member_name(task_name, submit_user):
     results = []
     task_id = submit_user + '-' + task_name
+    #print es_group_result,group_index_name,group_index_type
     try:
         group_result = es_group_result.get(index=group_index_name, doc_type=group_index_type,\
                 id=task_id)['_source']
     except:
         return results
     uid_list = group_result['uid_list']
+    print len(uid_list)
     try:
         user_portrait_result = es_user_portrait.mget(index=portrait_index_name, doc_type=portrait_index_type ,\
                 body={'ids':uid_list})['docs']
     except:
         return results
+    print len(user_portrait_result)
     for item in user_portrait_result:
         uid = item['_id']
         if item['found'] == True:
@@ -832,6 +839,13 @@ def get_group_user_track(uid):
 
     return results
 
+#jln 2016/09/28
+def search_group_member(task_name,submit_user):
+    task_id = submit_user + '-' + task_name
+    results = es_group_result.get(index=group_index_name,doc_type=group_index_type,\
+        id=task_id,fields=['uid_list'])['fields']['uid_list']
+    print results
+    return results
 
 
 # show group members weibo for activity ---week

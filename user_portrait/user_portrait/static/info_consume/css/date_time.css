@@ -174,7 +174,7 @@ position: absolute;
 	font-family: Microsoft YaHei;
 	color: #868686;
 	position: relative;
-	margin-left: 15%;
+	margin-left: -3%;
 	margin-top: 5.4%;
 	float: left;
 }
@@ -1220,7 +1220,7 @@ background-color:#FFFFFF;
 	width:600px;
 	height:600px;
 	position: relative;
-	margin-left: -33%;
+	margin-left: -16%;
 	margin-top: 0%;
 	float:left;
 }

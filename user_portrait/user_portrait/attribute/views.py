@@ -68,6 +68,7 @@ def ajax_new_user_portrait():
 @mod.route('/new_user_evaluate/')
 def ajax_new_user_evaluate():
     uid = request.args.get('uid', '')
+    #print 'evl',uid
     results = new_get_user_evaluate(uid)
     if not results:
         results = {}
@@ -443,7 +444,9 @@ def ajax_sentiment_trend():
         now_ts = time.time()
     else:
         now_ts = test_time - DAY
+    #print '1'
     results = search_sentiment_trend(uid, time_type, now_ts)
+    #print '3'
     if not results:
         results = {}
     return json.dumps(results)

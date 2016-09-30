@@ -121,7 +121,7 @@ def in_makeup_info(uid_list , sort_norm , time):
     field_dict = {"uid":"uid","uname":"uname","location":"location","photo_url":"photo_url","topic":"topic_string","domain":"domain","fans":"fansnum", "act":"activeness", "imp":"importance", "bci":"influence"}#
     if uid_list:
         search_results = es_user_portrait.mget(index=USER_INDEX_NAME, doc_type=USER_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=["uid","uname","location","photo_url","topic_string","domain","fansnum", "influence", "importance", "activeness"])["docs"]#, "sensitive"
-        print USER_INDEX_NAME,USER_INDEX_TYPE
+        print '11111',USER_INDEX_NAME,USER_INDEX_TYPE
         bci_results = es.mget(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=[field_bci,"user_fansnum", "weibo_month_sum"])["docs"]
         imp_results = es.mget(index=IMP_INDEX_NAME, doc_type=IMP_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=[field_imp])["docs"]
         act_results = es.mget(index=ACT_INDEX_NAME, doc_type=ACT_INDEX_TYPE, body={"ids":uid_list}, _source=False, fields=[field_act])["docs"]
