@@ -71,13 +71,14 @@ def compute_network(topic, start_ts, end_ts):
         #改动的地方从es表中读取话题的拼音也就是表名
 
     if True:
-        topicname = topic
+        print end_ts,type(end_ts)
+        #topicname = topic
         date = ts2datetime(end_ts)
         windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
-
-        print 'start topic_name_transfer'   #把汉字的时间名换成拼音 奥运会>aoyunhui
-        topic_pinyin_name = weibo_TopicNameTransfer(topicname, start_ts, end_ts)
-        print topic_pinyin_name
+        topic_pinyin_name = topic
+        # print 'start topic_name_transfer'   #把汉字的时间名换成拼音 奥运会>aoyunhui
+        # topic_pinyin_name = weibo_TopicNameTransfer(topicname, start_ts, end_ts)
+        # print topic_pinyin_name
         print 'start compute first_nodes'
         #start_date = ts2datetime(start_ts) # used to compute the first user
         get_first_node(topic_pinyin_name, start_ts, end_ts, windowsize, date)

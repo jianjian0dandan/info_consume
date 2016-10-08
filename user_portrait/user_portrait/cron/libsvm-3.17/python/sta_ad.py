@@ -13,6 +13,8 @@ CHT_DICT_PATH = '/usr/local/scws/etc/dict_cht.utf8.xdb'
 IGNORE_PUNCTUATION = 1
 
 ABSOLUTE_DICT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), './dict'))
+ABSOLUTE_SVM_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), './svm'))
+ABSOLUTE_SVM_TEST_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), './svm_test'))
 CUSTOM_DICT_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'userdic.txt')
 EXTRA_STOPWORD_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'stopword.txt')
 EXTRA_EMOTIONWORD_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'emotionlist.txt')
@@ -45,7 +47,9 @@ def cut_filter(text):
 
 def test(weibo,weibo_dict,flag):
     word_dict = dict()
-    reader = csv.reader(file('../../libsvm-3.17/python/svm/new_feature.csv', 'rb'))
+    #jln
+    #reader = csv.reader(file('../../libsvm-3.17/python/svm/new_feature.csv', 'rb'))
+    reader = csv.reader(file(ABSOLUTE_SVM_PATH+'/new_feature.csv', 'rb'))
     for w,c in reader:
         word_dict[str(w)] = c 
         #print 'test'
@@ -74,7 +78,7 @@ def test(weibo,weibo_dict,flag):
         f_items.append(f_row)
     #print 'test'
     #print 'len:', len(f_items)
-    with open('../../libsvm-3.17/python/svm_test/test%s.txt' % flag, 'wb') as f:
+    with open(ABSOLUTE_SVM_TEST_PATH+'/test%s.txt' % flag, 'wb') as f:
         writer = csv.writer(f)
         for i in range(0,len(f_items)):
             #print 'i_test'
@@ -85,10 +89,10 @@ def test(weibo,weibo_dict,flag):
     return items
     
 def choose_ad(flag):
-    y, x = svm_read_problem('../../libsvm-3.17/python/svm/new_train.txt')
+    y, x = svm_read_problem(ABSOLUTE_SVM_PATH+'/new_train.txt')
     m = svm_train(y, x, '-c 4')
 
-    y, x = svm_read_problem('../../libsvm-3.17/python/svm_test/test%s.txt' % flag)
+    y, x = svm_read_problem(ABSOLUTE_SVM_TEST_PATH+'/test%s.txt' % flag)
     p_label, p_acc, p_val  = svm_predict(y, x, m)
 
     return p_label

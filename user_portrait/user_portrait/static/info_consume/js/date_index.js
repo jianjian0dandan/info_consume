@@ -2,6 +2,15 @@ var topics = [];
 var starts_time = [];
 var ends_time = [];
 
+var topic_name='';
+var date_from='';
+var date_to='';
+
+function go_to_datail(){
+
+    window.open('/topic_time_analyze/time/?topic_name='+topic_name+'&date_from='+date_from+'&date_to='+date_to);
+}
+
 
 function topic_analysis_index(){
  
@@ -23,10 +32,13 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
   	var item = data;
   	console.log(item);
   	var html = '';
+
+   
   	for(key in item){
   		topics.push(item[key][0]);
   		starts_time.push(item[key][1]);
   		ends_time.push(item[key][2]);
+
   	}
   	console.log(topics);
     console.log(topics.length);
@@ -37,8 +49,16 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
   		html += '<tr class="height">';
   		for(j=num_row;j<(num_row+3);j++){
         if(topics[j]){
+
+          topic_name=topics[j];
+          date_from = new Date(parseInt(starts_time[j]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+          date_to = new Date(parseInt(ends_time[j]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+          // date_from = starts_time[j];
+          // date_to = ends_time[j];
           html += '<td><img class="topic_tag" id="topic_tag" src="../../static/info_consume/image/topic_tag.png"></td>';
-          html += '<td><p id="topic" class="topic_font"><a href="/topic_time_analyze/time">#'+topics[j]+'#</a></p></td>';
+          // html += '<td><p id="topic" class="topic_font"><a href="/topic_time_analyze/time/" onclick="go_to_datail('+topic_name+','+date_from+','+date_to+')">#'+topics[j]+'#</a></p></td>';
+          html += '<td><p id="topic" class="topic_font" onclick="go_to_datail()"><a style="color: #00CC66;">#'+topics[j]+'#<a></p></td>';
+          
         }
   		}
       if(num_row<Math.min(4,Math.ceil(topics.length/3))){
