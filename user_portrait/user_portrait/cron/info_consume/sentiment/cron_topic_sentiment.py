@@ -62,7 +62,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 sentiment = k
                 count = v
                 item = SentimentCount(query, during, ts, sentiment, count)
-                print item
+                #print item
                 item_exist = db.session.query(SentimentCount).filter(SentimentCount.query==query, \
                                                                          SentimentCount.range==during, \
                                                                          SentimentCount.end==ts, \
@@ -126,7 +126,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 db.session.delete(item_exist)
             db.session.add(item)
         print db.session.commit()
-        print '???????'
+        #print '???????'
 
 
 def sentimentTopic(topic,start_ts, over_ts, sort_field=SORT_FIELD, save_fields=RESP_ITER_KEYS, \
@@ -188,7 +188,7 @@ def compute_sentiment_count(topic,begin_ts,end_ts,during):
     weibo_sentiment_count = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)\
                                 ['aggregations']['all_interests']['buckets']
     #print 'wwwwwwwwwwwwwwwwwwwwww'
-    print weibo_sentiment_count
+    #print weibo_sentiment_count
     iter_sentiment_dict = {}
     for sentiment_item in weibo_sentiment_count:
         sentiment = sentiment_item['key']
@@ -207,7 +207,7 @@ def compute_sentiment_count(topic,begin_ts,end_ts,during):
     #    trend_results[sentiment] = [[item[0], item[1][sentiment]] for item in sort_sentiment_dict]
     #results = trend_results
 
-    print results
+    #print results
     save_rt_results('count', topic, results, during)
     return results
 
