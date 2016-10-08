@@ -4,7 +4,7 @@ function homepageinfo() {
 }
 homepageinfo.prototype = {
   call_sync_ajax_request:function(url,method,callback) {
-    $.ajax({
+    $.ajax({  
     url: url,
     type: method,
     dataType:'json',

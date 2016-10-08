@@ -10,6 +10,8 @@ var pointInterval = 3600;
 var sort_item = 'timestamp';
 
 
+
+
 // var topic = $('#topic_text').text();
 // //var start_ts = set_timestamp().start_timestamp_return; 
 // //var end_ts = set_timestamp().end_timestamp_return;
