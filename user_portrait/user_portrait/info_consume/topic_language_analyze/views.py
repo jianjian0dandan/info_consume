@@ -27,7 +27,6 @@ def submit_task():
     end_ts = request.args.get('end_ts','')
     submit_user = request.args.get('submit_user','')
     topic = request.args.get('topic','')
-    print 'what!!!'
     status = submit(topic,start_ts,end_ts,submit_user)
     return status
 

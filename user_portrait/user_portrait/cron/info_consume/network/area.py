@@ -363,6 +363,7 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
     set_repost_name = set()
     for status in get_statuses_results:
         if str(status['_source']['mid']) in data_wid:
+            print status['_source']
             '''
             当微博信息非垃圾时，进行new_attribute_dict的添加----即[a b]->添加a节点的微博信息
             '''

@@ -156,7 +156,9 @@ def weibo_TopicNameTransfer(topicname, start_ts, end_ts):
         }
       }
     weibo_pinyin_name = weibo_es.search(index='topics', doc_type=weibo_index_type, body=query_body)['hits']['hits']
-    return weibo_pinyin_name[0]['_source']['index_name']
+    print weibo_pinyin_name
+    print weibo_pinyin_name[0]['_source']['en_name']
+    return weibo_pinyin_name[0]['_source']['en_name']
 
 #通过topic, start_ts, end_ts获取news_topic中对应的object_id，然后找到对应的collection
 def get_dynamic_mongo(topic, start_ts, end_ts):
@@ -179,7 +181,8 @@ def get_dynamic_mongo(topic, start_ts, end_ts):
 
 
     
-    
+if __name__ == '__main__':
+  weibo_TopicNameTransfer('奥运会','1469635280','1469635280')
     
     
     
