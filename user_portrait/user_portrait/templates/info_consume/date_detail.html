@@ -18,6 +18,7 @@
 	<!-- <link rel="stylesheet" type="text/css" href="../css/htmleaf-demo.css"> -->
     <link rel="stylesheet" type="text/css" href="../../static/info_consume/css/jquery.eeyellow.Timeline.css" />
 
+
 <!--js文件 --> 
 
 
@@ -44,12 +45,7 @@
  	<script src="../../static/info_consume/js/jqcloud-1.0.4.js" type="text/javascript" charset="utf-8"></script>
  	<script type="text/javascript" src='../../static/info_consume/js/dataTool.js'></script>
  	<script type="text/javascript" src="../../static/info_consume/js/jquery.eeyellow.Timeline.js"></script>
- 	
 
-
-
-
- 	
 </head>
 
 <body>
@@ -144,8 +140,7 @@
 					// 	$('#commit').click(function(){
 							var date_time_from = "{{date_from}}";
 							var date_time_to = "{{date_to}}";
-							console.log(date_time_from);
-							console.log(date_time_to);
+							
 							if(date_time_from && date_time_to){
 								$("#datetimepicker9_input").val(date_time_from);
 								$("#datetimepicker10_input").val(date_time_to);
@@ -185,13 +180,13 @@
 				        //改变日期的时候设置限制
 				        $("#datetimepicker9").on("dp.change",function (e) {
 				            $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				            // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				            $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
+				          
+				            // $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
 				        });
 				        $("#datetimepicker10").on("dp.change",function (e) {
 				            
 				            $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
-				            $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
+				            // $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
 				        });
 				    });
 				</script>
@@ -243,5 +238,6 @@
  	<script type="text/javascript" src="../../static/info_consume/js/date_network.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_meaning.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_emotion.js"></script>
+	
 
 </html>
