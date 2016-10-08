@@ -112,7 +112,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
         db.session.commit()
 
     if calc == 'geo_count': # 地理位置 #{'sentiment':[shijian,{['province':('provice':cishu),()],'city':[(city:cishu)}]}
-        print results
+        #print results
         for sentiment, v in results.items():
             ts = v[0]
             geo_count = v[1]
@@ -125,7 +125,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
             if item_exist:
                 db.session.delete(item_exist)
             db.session.add(item)
-        print db.session.commit()
+        db.session.commit()
         #print '???????'
 
 
@@ -147,7 +147,7 @@ def sentimentTopic(topic,start_ts, over_ts, sort_field=SORT_FIELD, save_fields=R
             end_ts = begin_ts + during
             #test(topic,begin_ts,end_ts)
 
-            print begin_ts, end_ts, 'topic %s starts calculate' % topic.encode('utf-8')
+            #print begin_ts, end_ts, 'topic %s starts calculate' % topic.encode('utf-8')
             emotions_count = compute_sentiment_count(topic,begin_ts,end_ts,during)            
             emotions_kcount = compute_sentiment_keywords(topic,begin_ts,end_ts,k_limit,w_limit,during)
             emotions_weibo = compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during)
