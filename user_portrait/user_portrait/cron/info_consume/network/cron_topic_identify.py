@@ -143,11 +143,11 @@ if __name__ == '__main__':
     status = -1
     #topic = u'奥运会'
     topic = 'aoyunhui'
-    #start = datetime2ts('2016-7-5')
-    #end = datetime2ts('2016-7-11')
+    start = datetime2ts('2016-7-10')
+    end = datetime2ts('2016-7-14')
     #end = 1470900837   #es表里的时间戳
-    start = int(1468339100)
-    end = int(1468684700)
+    #start = int(1468339100)
+    #end = int(1468684700)
     #目前这个start和end没怎么用上 加上时间范围es搜索不到 待解决
     #print start,'    ',end
     

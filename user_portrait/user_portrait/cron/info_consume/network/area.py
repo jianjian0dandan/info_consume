@@ -52,6 +52,8 @@ def pagerank_rank(top_n, date, window_size, topicname):
     data = []
 
     #tmp_file, N, ds_tmp_file, ds_N = prepare_data_for_pr(topic_id, date, window_size, topicname, real_topic_id)
+    print '888888888888888888888888888888'
+    print date, window_size, topicname
     tmp_file, N= prepare_data_for_pr( date, window_size, topicname)
     top_n = N
     #ds_top_n = ds_N
@@ -369,8 +371,17 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
             '''
             nad_uid = status['_source']['uid']
             nad_id = status['_source']['mid']
-            r_uid = status['_source']['root_uid']
-            r_mid = status['_source']['root_mid']
+            #r_uid = status['_source']['root_uid']
+            #r_mid = status['_source']['root_mid']
+            
+            try:
+                r_uid = status['_source']['root_uid']
+                r_mid = status['_source']['root_mid']
+            except:
+                r_uid = 0
+                r_mid = 0
+            
+            
             #print 'hahahahahahahahaha'
             if attribute_add == True:
                 text_add = status['_source']['text']
