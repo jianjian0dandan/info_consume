@@ -22,24 +22,25 @@ viewinfo_weibo.prototype = {
   // }else{
   //     uid_div.innerHTML = "无此数据";
   // }
-  // var img = document.getElementById('portraitImg');
-  // if(personalData.photo_url == "unknown"){
-  //     img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
-  // }else{
-  //     img.src = personalData.photo_url;
-  // }
+  var img = document.getElementById('portraitImg');
+  if(personalData.photo_url == "unknown"){
+      img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
+  }else{
+      img.src = personalData.photo_url;
+  }
 
-  // var nickName = document.getElementById('username');
-  // if(personalData.nick_name){
-  //     if (personalData.nick_name == 'unknown') {
-  //         nickName.innerHTML = '未知';
-  //     }
-  //     else{
-  //         nickName.innerHTML = personalData.nick_name;
-  //     }
-  // }else{
-  //     nickName.innerHTML = "无此数据";
-  // }
+  var nickName = document.getElementById('username');
+  if(personalData.nick_name){
+      if (personalData.nick_name == 'unknown') {
+          nickName.innerHTML = '未知';
+      }
+      else{
+          nickName.innerHTML = personalData.nick_name;
+          console.log(personalData.nick_name);
+      }
+  }else{
+      nickName.innerHTML = "无此数据";
+  }
    
    // var nickName_greet = document.getElementById('username_greet');
    //   nickName_greet.innerHTML = personalData.nick_name;

@@ -220,7 +220,6 @@ viewinformation.prototype=
 		}
 }
 
-
 function Draw_out(data,div){
 		var count=0;
 			for(var key in data)
@@ -251,6 +250,9 @@ function Draw_out(data,div){
 				}
 			   // html = html + '<a target="_blank" href="/index/personal/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:5px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
 			    html = html + '<a target="_blank" href="/index/viewinformation/?uid='+data[i]['uid']+'" class="img-photo" title="'+data[i]['uname']+'    频数：'+data[i]['count']+'" style="margin-left:20px;margin-top:10px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i]['photo_url'] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
+				if (i==35) {
+					break;
+				};
 			}
 			// $('#more'+div).css('display','none');
 			

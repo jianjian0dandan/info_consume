@@ -17,36 +17,22 @@ Thought.prototype = {   //获取数据，重新画表
             //console .log(times_init);    
             var html0 = '';
             //console.log(items.time_list,items.time_list[items.time_list.length-1], time_init);
-            //情绪微博展示
             $('#select_time').empty();  
-            html0 += "<div style='float:left;'>当前选择时间段：</div><div style='color:brown;'>"+items['time_list'][items['time_list'].length-1]+"</div><div style='float:left;'>当前选择情绪：</div><div style='color:brown;'>中性</div>";
+            html0 += "<div>当前选择时间段：</div><div style='color:brown;'>"+items['time_list'][items['time_list'].length-1]+"</div><br><div>当前选择情绪：</div><div style='color:brown;'>中性</div>";
             $('#select_time').append(html0);
             var index = $('input[name="time-type"]:checked').val();
             var url_content = '/attribute/sentiment_weibo/?uid='+uid+'&start_ts='+times_init+'&time_type='+index+'&sentiment=0';
-            //console.log('url_content'+url_content);
             person_call_ajax_request(url_content,th_draw_content);
         }   
         $('#emotion_onload').css('display','none');
     }
 }
-
-$(function(){
-  $('#chos_mod_time').click(function(){
+function choose_time(){            
     var index = $('input[name="time-type"]:checked').val();
     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
     person_call_ajax_request(url, Thought.Draw_emotion);
-    console.log(url);
-  });
-});
-
-
-// function choose_time(){            
-//     var index = $('input[name="time-type"]:checked').val();
-//     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
-//     person_call_ajax_request(url, Thought.Draw_emotion);
-//     //$('#emotion').empty();
-//     console.log('choose_time='+url);
-//   }
+    //$('#emotion').empty();
+  }
 function th_draw_content(data){
     var html = '';
     $('#thought_weibo_text').empty();
@@ -148,17 +134,16 @@ function emotions(data){
                 }
                 else if(index == 'day'){var start_ts = starts_ts;}
                 ajax_url = '/attribute/sentiment_weibo/?uid='+uid+'&start_ts='+start_ts+'&time_type='+index+'&sentiment='+sentiment;
-                // console.log('ajax_url='+ajax_url);
                 $.ajax({
                       url: ajax_url,
                       type: 'GET',
                       dataType: 'json',
-                      async: true,
+                      async: false,
                       success:th_draw_content
                     });
                 var html0 = '';
                 $('#select_time').empty();  
-                html0 += "<div style='float:left;'>当前选择时间段：</div><div style='color:brown;'>"+time_name[param.dataIndex]+"</div><br><div style='float:left;'>当前选择情绪：</div><div style='color:brown;'>"+names[sentiment]+'</div>';
+                html0 += "<div>当前选择时间段：</div><div style='color:brown;'>"+time_name[param.dataIndex]+"</div><br><div>当前选择情绪：</div><div style='color:brown;'>"+names[sentiment]+'</div>';
                 $('#select_time').append(html0);
                 }
             myChart1.on(ecConfig.EVENT.CLICK, focus);
@@ -168,14 +153,14 @@ function emotions(data){
 }
 
 function thought_load(){
-    var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type=week';
-      person_call_ajax_request(url, Thought.Draw_emotion);
-//     var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
-//     person_call_ajax_request(url, Thought.Draw_emotion);
-     console.log('chushijiazai'+url);
- }
-var uid = 1640601392;
+    var url = '/attribute/sentiment_trend/?uid='+uid+'&time_type='+index;
+    person_call_ajax_request(url, Thought.Draw_emotion);
+}
 var Thought = new Thought();
+var index = $('input[name="time-type"]:checked').val();
 
-//var index = $('input[name="time-type"]:checked').val();
-thought_load();
+console.log('运行thought');
+$('#thought_load_admin').ready((function(){
+    thought_load();
+}));
+
