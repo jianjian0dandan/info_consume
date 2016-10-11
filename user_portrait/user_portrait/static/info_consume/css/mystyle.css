@@ -95,6 +95,17 @@ body a {
   background: #00CC99; 
 }
 
+ul.nav.nav-sidebar li.active a {
+  background-color: #76EEC6 !important;
+  color: #000;
+}
+ul.nav.nav-sidebar li a{
+    color: #BBBBBB;
+    font-size: 13px;
+    font-weight: 600;
+    padding: .8em 0 .8em 3em;
+}
+
 .up_box { 
   position:relative;
   margin-top: 80px;

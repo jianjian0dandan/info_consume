@@ -131,7 +131,7 @@ function Draw_keyword(data, div_name, more_div, more,title){
               
               series: [{
                   type: 'wordCloud',
-                  size: ['100%', '100%'],
+                  size: ['150%', '150%'],
                   textRotation :[0, 45, 90, -45],
                   textPadding: 0,
                   autoSize: {

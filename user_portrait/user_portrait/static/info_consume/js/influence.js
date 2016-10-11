@@ -114,6 +114,11 @@ Influence.prototype = {
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
 
     html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    //全局变量赋值
+    userImg_src = data[rank].photo_url;
+    uName = data[rank].uname;
+    userBci = data[rank].bci.toFixed(2);
+
     for(var j=0;j<10;j++){
       var bci_data;
       bci_data = allInflu_data[j].bci;
@@ -134,7 +139,7 @@ Influence.prototype = {
       i++;
     };
     console.log('rank of domain is'+rank);
-    // if(domainInflu_data[rank].photo_url == 'unknown'){
+    // if(domainInflu_data[rank].photo_url == 'unknown'){s
     //   domainInflu_data[rank].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
     // };'rank of domain is'+
 
@@ -148,13 +153,9 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>";
 
-    // if (rank='>200') {
-    //   html_table += "<tr style='background-color:#76eec6;'><td>"+rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
-    // }else{
-    //   html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
-    // };
-    console.log(userImg_src);
-
+    console.log('dr'+domain_rank);
+    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td>"+uName+"</td><td>"+userBci+"</td></tr>";
+  
     for(var j=0;j<10;j++){
       var bci_data;
       bci_data = domainInflu_data[j].bci;
@@ -163,6 +164,14 @@ Influence.prototype = {
     }
     $('#influ_domain').append(html_table);
 
+  },
+
+  domain_rank_data:function(data){
+    if (data == ''){
+      domain_rank = '未知';
+    };
+    domain_rank = data;
+    console.log('domainrank='+domain_rank);
   },
 
   influ_skill:function(data){
@@ -281,8 +290,10 @@ var uid = 1640601392;
 var username = 'admin@qq.com';
 //var username = admin@qq.com;
 var Influence = new Influence();
-var userImg_src = "{{ userImg_src }}"
-
+var domain_rank = 0;
+var userImg_src;
+var uName;
+var userBci;
 var currentdate;
 var influence_date = choose_time_for_mode();
 var pre_influence_date = new Date(influence_date - 24*60*60*1000);
@@ -297,10 +308,13 @@ var keyword = '教育类';
 var sort_scope = 'in_limit_topic';
 var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
   Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
+var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid;
+  Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
+
 
 // var influSkill_url = '/influence_application/specified_user_active/?date='+currentdate+'&uid='+uid;
 //   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
-var influSkill_url = '/influence_application/specified_user_active/?date=2016-05-22&uid=5692022984';
+var influSkill_url = '/influence_application/specified_user_active/?date=2016-05-21&uid=1065618283';
   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
 
 
