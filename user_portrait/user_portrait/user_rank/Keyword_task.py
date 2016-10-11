@@ -9,10 +9,12 @@ from parameter import DAY, LOW_INFLUENCE_THRESHOULD
 from in_filter import in_sort_filter
 from all_filter import all_sort_filter
 from Makeup_info import make_up_user_info, get_all_filed
+sys.path.append('../')
 from global_utils import es_user_portrait, es_user_profile
 from global_utils import es_flow_text
-from global_utils import R_CLUSTER_FLOW3 as redis_task
+from global_utils import R_0 as redis_task
 from influence_appendix import weiboinfo2url
+from parameter import RUN_TYPE
 
 USER_INDEX_NAME = 'user_portrait_1222'
 USER_INDEX_TYPE = 'user'
@@ -36,12 +38,16 @@ def key_words_search(task_id, search_type , pre , during , start_time , keyword_
     date = ts2datetime(start_time)
     index_name = pre + date
     while during:
+        print es_flow_text
+        print es_flow_text.indices.exists(index=index_name)
         if es_flow_text.indices.exists(index=index_name):
+            #print index_name
             index_list.append(index_name)
             start_time = start_time + DAY
             date = ts2datetime(start_time)
             index_name = pre + date
             during -= 1
+            print during
 
     print index_list
     uid_set = set()
@@ -59,6 +65,7 @@ def key_words_search(task_id, search_type , pre , during , start_time , keyword_
     }
                     
     results = es_flow_text.search(index = index_list , doc_type = 'text' , body = query_body, _source=False, fields=["uid", "user_fansnum","text", "message_type", "sentiment","timestamp", "geo", "retweeted", "comment"])["hits"]["hits"]
+    print results
     id_index = 0
     index_list = []
     un_uid_list = []
@@ -107,7 +114,10 @@ def key_words_search(task_id, search_type , pre , during , start_time , keyword_
                 nick_name = un_uid_list[i]
             item = results[index]
             weibo_url = weiboinfo2url(item['fields']['uid'][0], results[index]['_id'])
-            text_results.append([item['fields']['uid'][0], item['fields']['user_fansnum'][0], item['fields']['text'][0], item['fields']['message_type'][0], item['fields']['sentiment'][0], ts2date(item['fields']['timestamp'][0]), results[index]['fields']['geo'][0], results[index]['fields']['retweeted'][0], results[index]['fields']['comment'][0], nick_name, weibo_url])
+            if RUN_TYPE == 0:
+                text_results.append([item['fields']['uid'][0], item['fields']['user_fansnum'][0], item['fields']['text'][0], item['fields']['message_type'][0], item['fields']['sentiment'][0], ts2date(item['fields']['timestamp'][0]), 0, 0, 0, nick_name, weibo_url])
+            else:
+                text_results.append([item['fields']['uid'][0], item['fields']['user_fansnum'][0], item['fields']['text'][0], item['fields']['message_type'][0], item['fields']['sentiment'][0], ts2date(item['fields']['timestamp'][0]), results[index]['fields']['geo'][0], results[index]['fields']['retweeted'][0], results[index]['fields']['comment'][0], nick_name, weibo_url])
             if i == number:
                 break
         uid_list = all_sort_filter(un_uid_list[:number] , sort_norm , time ,True, number)
@@ -141,6 +151,7 @@ def scan_offline_task():
     
     query = {"query":{"bool":{"must":[{"term":{"status":0}}]}},"size":1000}
     results = es_user_portrait.search(index = USER_RANK_KEYWORD_TASK_INDEX , doc_type = USER_RANK_KEYWORD_TASK_TYPE,body=query)['hits']['hits']
+    print USER_RANK_KEYWORD_TASK_INDEX,USER_RANK_KEYWORD_TASK_TYPE
     if results :
         for item in results:
             task_id = item['_id']
@@ -156,6 +167,7 @@ def scan_offline_task():
             sort_scope = iter_item['sort_scope']
             time = iter_item['time']
             isall = iter_item['isall']
+            print redis_task
             redis_task.lpush("task_user_rank", json.dumps([task_id, search_type , pre , during , start_time , keyword , search_key , sort_norm , sort_scope  ,time , isall, number]))
             iter_item['status'] = -1 
             task_id = item['_id']
@@ -172,13 +184,15 @@ if __name__ == "__main__":
     scan_offline_task()
     while 1:
         data = redis_task.rpop("task_user_rank")
-        print data
+        #data = json.dumps(["admin@qq.com-1473684742", "keyword", "flow_text_", 1, 1378483200, ["\u5965\u8fd0"], "admin@qq.com-1476175754", "bci", "all_limit_keyword", 7, True, 200])
+        #print data
         #"""
         if data:
-            try:
-                cron_task(json.loads(data))
-            except Exception, e:
-                print e, '&error&', ts2date(time.time())
+            # try:
+            #     cron_task(json.loads(data))
+            # except Exception, e:
+            #     print e, '&error&', ts2date(time.time())
+            cron_task(json.loads(data))
         else:
             break
         #"""
