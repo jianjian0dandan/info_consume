@@ -1,5 +1,6 @@
 {% extends "info_consume/daohang_public.html" %}
-{% block part_name %}主页{% endblock %}
+{% block title %}首页{% endblock %}
+{% block part_name %}首页{% endblock %}
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
@@ -30,11 +31,11 @@
               <li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a></li>
               <li class="menu1"><a href="#" class="menu1"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>我的管家<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
                 <ul class="cl-effect-2">
-                  <li><a href="/index/myzone">我最爱说</a></li>
+                  <li><a href="/index/myzone/#keyword_cloud">我最爱说</a></li>
                   <li><a href="/index/myzone">我的领域</a></li> 
                   <li><a href="/index/myzone">我的影响力</a></li>
                   <li><a href="/index/myzone">我的足迹</a></li>
-                  <li><a href="/index/myzone">情绪管家</a></li>
+                  <li><a href="/index/myzone/#chos_mod_time">情绪管家</a></li>
                 </ul>
                 <!-- script-for-menu -->
                 <script>
@@ -140,10 +141,10 @@
         <img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
         <h1 id="board_title">我的形象画板</h1>
         <img id="body_board" src=" ">
-        <p id="draw_p1">媒体</p><!--interesting word1-->
-        <p id="draw_p2">文体类</p><!--interesting word2-->
-        <p id="draw_p3">微天下</p><!--friends name-->
-        <p id="draw_p4">中国北京</p><!--location-->
+        <p id="draw_p1"></p><!--interesting word1-->
+        <p id="draw_p2"></p><!--interesting word2-->
+        <p id="draw_p3"></p><!--friends name-->
+        <p id="draw_p4"></p><!--location-->
 
         <img id="influ_img" src="../../static/info_consume/image/icon_inf.png " width="30px" height="30px" >
         <h1 id="influ_title">我的个人影响力</h1>
@@ -239,7 +240,8 @@
              <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
              <span id="tweeted_out" style="margin-left:0px;float:left;width:110px;"></span>
            </div>
-           <div class="tab-pane fade" id="me_others">
+
+           <div class="tab-pane fade" id="retweet_out">
              <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
              <span id="retweet_out" style=" margin-left:0px;float:left;width:110px;"></span>
            </div>
