@@ -183,6 +183,7 @@ if __name__ == "__main__":
 
     scan_offline_task()
     while 1:
+        #logging.info('%s' % time.time())
         data = redis_task.rpop("task_user_rank")
         #data = json.dumps(["admin@qq.com-1473684742", "keyword", "flow_text_", 1, 1378483200, ["\u5965\u8fd0"], "admin@qq.com-1476175754", "bci", "all_limit_keyword", 7, True, 200])
         #print data
