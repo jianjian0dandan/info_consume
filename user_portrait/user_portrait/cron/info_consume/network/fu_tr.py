@@ -392,7 +392,10 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
             result = 0
         results.append(float(result))
     #print 'pusher_line:', results
-    max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
+    try:
+        max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
+    except:
+        '''do something'''
     #save max_k_timestamp
     # save_mak_k(max_k_timestamp)
     end = max_k_timestamp
@@ -403,7 +406,7 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
                     'must':
                     # {'term':{'name': topic}},
                         {'range': {
-                            'timestamp': {'gte': end, 'lt': end+3600}
+                            'timestamp': {'gte': end, 'lt': end+3600} #3600
                         }
                         }
                 }
@@ -470,7 +473,10 @@ def get_max_k_timestamp(results, p_ts_list):
             incre = float(smooth_results[j] - smooth_results[j-1])
             all_average += incre
             incre_dict[j-1] = incre
-    average_incre = all_average / len(incre_dict)    
+    try:
+        average_incre = all_average / len(incre_dict)    
+    except:
+        average_incre = all_average
     remove_list = []
     #print 'incre_dict:', incre_dict
     # 筛掉增量小于平均增量的
@@ -484,6 +490,7 @@ def get_max_k_timestamp(results, p_ts_list):
             timestamp = p_ts_list[index+1]
             k_value = sort_k[1]
             after_remove_k_list.append((index+1, timestamp, k_value))
+    
     max_k_timestamp = after_remove_k_list[0][1]
     #print 'after_remove_k_list:', after_remove_k_list
     print 'max_k_timestamp:', max_k_timestamp

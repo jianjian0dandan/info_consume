@@ -143,8 +143,8 @@ if __name__ == '__main__':
     status = -1
     #topic = u'奥运会'
     topic = 'aoyunhui'
-    start = datetime2ts('2016-7-10')
-    end = datetime2ts('2016-7-14')
+    start = datetime2ts('2016-7-14')
+    end = datetime2ts('2016-7-15')
     #end = 1470900837   #es表里的时间戳
     #start = int(1468339100)
     #end = int(1468684700)
