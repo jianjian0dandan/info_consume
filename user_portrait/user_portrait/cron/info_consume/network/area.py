@@ -52,7 +52,7 @@ def pagerank_rank(top_n, date, window_size, topicname):
     data = []
 
     #tmp_file, N, ds_tmp_file, ds_N = prepare_data_for_pr(topic_id, date, window_size, topicname, real_topic_id)
-    print '888888888888888888888888888888'
+    #print '888888888888888888888888888888'
     print date, window_size, topicname
     tmp_file, N= prepare_data_for_pr( date, window_size, topicname)
     top_n = N
@@ -94,17 +94,15 @@ def prepare_data_for_pr(date, window_size, topicname):
 
     #g, gg, new_attribute_dict, ds_dg, ds_udg, ds_new_attribute_dict= make_network(topic, date, window_size, attribute_add=False)
     key = str(topicname) + '_' + str(date) + '_' + str(window_size)
+    print str(GRAPH_PATH)+str(key)+'_g_graph.gexf'
     g = nx.read_gexf(str(GRAPH_PATH)+str(key)+'_g_graph.gexf')
     #ds_dg = nx.read_gexf(str(GRAPH_PATH)+str(key)+'_ds_dg_graph.gexf')
-
     if not g:
         return None
-
     N = len(g)
     print 'topic source network size %s' % N
     #ds_N = len(ds_dg)
     #print 'topic direct superior network size %s' % ds_N
-
     if not N :
         return None
     '''
@@ -360,12 +358,13 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
     new_attribute_dict = {} # 星形源头转发网络需要添加的节点对应的text、reposts_count、comment_count、 attitude_count
     map_dict = {} # map_dict = {retweeted_mid:[retweeted_uid, user, timestamp],...} 保存_id timestamp与其对应的retweeted_mid之间的对应关系
     ds_map_dict = {} # ds_dict = {retweeted_mid:[retweeted_uid, user, timestamp]} 直接上级转发网络中直接上级就是源头上级时，对应关系
-    get_statuses_results = [r for r in get_statuses_results if r['_source']['retweeted'] != 0]
+    get_statuses_results = [r for r in get_statuses_results if r['_source']['uid'] != 0]
     #print get_statuses_results
+    print len(get_statuses_results)
     set_repost_name = set()
     for status in get_statuses_results:
         if str(status['_source']['mid']) in data_wid:
-            print status['_source']
+            #print status['_source']
             '''
             当微博信息非垃圾时，进行new_attribute_dict的添加----即[a b]->添加a节点的微博信息
             '''
@@ -400,10 +399,10 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
             try:
                 
                 #源头转发网络构建
-                
                 if status['_source']['root_uid'] and status['_source']['root_uid'] != 0:
                     repost_uid = status['_source']['uid']
                     source_uid = status['_source']['root_uid']
+                    # print '405',repost_uid,source_uid
                     if is_in_trash_list(repost_uid) or is_in_trash_list(source_uid):
                         continue
                     g.add_edge(repost_uid, source_uid) # 将所有topic相关的uid作为node，并将它们按照信息传递方向形成有向图
@@ -412,6 +411,7 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
                     map_dict[r_mid] = [r_uid, nad_uid, status['timestamp']]
             except (TypeError, KeyError):
                 continue
+    print g
     return g , gg, new_attribute_dict
     
     

@@ -377,25 +377,32 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
     if begin_ts>end_ts:
         begin_ts = ts_list[0]
     interval = (end_ts - begin_ts) / p_during
+    print end_ts - begin_ts
+    print p_during
+    print interval
     for i in range(interval, 0, -1):
         begin_ts = end_ts - p_during * i
         over_ts = begin_ts + p_during
+        print '383',begin_ts,over_ts
         p_ts_list.append(over_ts)
         items = db.session.query(PropagateCount).filter(PropagateCount.topic==topic ,\
                                                         PropagateCount.end<=over_ts ,\
                                                         PropagateCount.end>begin_ts ,\
                                                         PropagateCount.range==unit).all()
 
+       
         if items:
             result = Merge_propagate(items)
         else:
             result = 0
         results.append(float(result))
     #print 'pusher_line:', results
-    try:
-        max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
-    except:
-        '''do something'''
+    #try:
+    print results
+    print p_ts_list
+    max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
+    #except:
+
     #save max_k_timestamp
     # save_mak_k(max_k_timestamp)
     end = max_k_timestamp
