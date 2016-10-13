@@ -23,7 +23,9 @@ from global_config import db, REDIS_HOST, REDIS_PORT,\
 #改动 这里不要啦
 #from global_config import xapian_search_user as user_search
 
-during = fu_tr_during
+#jln
+#during = fu_tr_during
+during = fu_tr_during /2
 unit = fu_tr_unit
 '''
 Minute = 60
@@ -373,7 +375,7 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
     end_ts = ts_list[new_peaks[0]]
     begin_ts = ts_list[new_bottom[0]]
     print 'pusher_start_ts:', ts2date(begin_ts)
-    print 'pusher_end_ts:', ts2date(end_ts)
+    print 'pusher_end_ts:', ts2date(end_ts)   #有两个时间  起点和终点  波峰和波谷  现在搞反了  不知道为什么
     if begin_ts>end_ts:
         begin_ts = ts_list[0]
     interval = (end_ts - begin_ts) / p_during
@@ -383,7 +385,7 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
     for i in range(interval, 0, -1):
         begin_ts = end_ts - p_during * i
         over_ts = begin_ts + p_during
-        print '383',begin_ts,over_ts
+        #print '383',begin_ts,over_ts
         p_ts_list.append(over_ts)
         items = db.session.query(PropagateCount).filter(PropagateCount.topic==topic ,\
                                                         PropagateCount.end<=over_ts ,\
@@ -562,7 +564,8 @@ if __name__=='__main__':
     date = END
     start_ts = datetime2ts(START)
     end_ts = datetime2ts(END)
-    windowsize = (end_ts - start_ts) / Day
+    #windowsize = (end_ts - start_ts) / Day
+    windowsize = (end_ts - start_ts) / Day /2
     topic_xapian_id = weibo_topic2xapian(topic, start_ts, end_ts)
     get_interval_count(topic, date, windowsize, topic_xapian_id)
     
