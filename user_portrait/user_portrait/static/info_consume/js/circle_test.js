@@ -1,6 +1,6 @@
         //当前用户名
-        s_user = 'admin@qq.com';
-        g_name = '冯绍峰'; 
+         var s_user = 'admin@qq.com';
+         var  g_name = '';
          $('#num_btn').tooltip();
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
@@ -32,7 +32,42 @@
      function view_analysis(data){
        g_name = data;
        $("#circle-analysis").slideDown();
-       console.log(g_name);
+       console.log("g_name:"+g_name);
+      //切换不同tab
+    var g_act_flag = false;
+    var g_pre_flag = false;
+    var g_soc_flag = false;
+    var g_tho_flag = false;
+    g_bas_load(g_name,s_user);
+    $(".feature_tab").click(function(){
+        var x = $(this).attr("title");
+        g_bas_load(g_name,s_user);
+        if(x=='基本特征'){
+           //$("#g_bas").css({"display":"block"}).siblings().css({"display":"none"});
+           //$("#qxtz").css({"background-color":"#3351B7"})
+        }else if(x=='活跃特征'){
+           if(g_act_flag==false){
+           g_act_load(g_name,s_user);
+           g_act_flag = true;
+           }
+        }else if(x=='兴趣特征'){
+           if(g_pre_flag==false){
+           g_pre_load(g_name,s_user);
+           g_pre_flag = true;
+           }
+        }else if(x=='社交特征'){
+           if(g_soc_flag==false){
+           g_soc_load(g_name,s_user);
+           g_soc_flag = true;
+           }
+        }else if(x=='情绪特征'){
+           if(g_tho_flag==false){
+           g_tho_load(g_name,s_user);
+           g_tho_flag = true;
+           }
+        }
+    });
+
      }  
 
   
@@ -94,11 +129,11 @@
                         valign: "middle",//垂直
                         formatter:function(value){ 
                         if(value == -1){
-                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%;font-valign:middle;font-size:12px;">50%</div></div>';
+                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:0%;font-valign:middle;font-size:12px;">0%</div></div>';
                         }else if(value == 1){
                           var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:100%;font-valign:middle;font-size:12px;">100%</div></div>';
                         }else if(value == 0){
-                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:0%;font-valign:middle;font-size:12px;">0%</div></div>';
+                          var e = '<div class="progress" style="margin-top:10px;margin-bottom:10px;height:15px;"><div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%;font-valign:middle;font-size:12px;">50%</div></div>';
                           }
                           return e;
                       }
@@ -109,9 +144,9 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row){  
-                        if(value == 1){
+                        if(value == 0 || value == -1){
                           var e = '<span">正在计算</span>';
-                        }else if(value == 0){
+                        }else if(value == 1){
                          var e = '<span style="cursor:pointer;" onclick="view_analysis(\''+ row.task_name +'\')">点击查看</span> ';
                         }
                           return e;
