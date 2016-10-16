@@ -469,7 +469,8 @@ function Draw_psy_page(data){
        Draw_group_trend(data);
 } 
 
+ function g_tho_load(g_name,s_user){
  var psy_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=think';
- function g_tho_load(){
  call_sync_ajax_request(psy_url,'GET',Draw_psy_page);
+ console.log("psy_url:"+psy_url);
  }

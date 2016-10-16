@@ -1,4 +1,5 @@
       //近一个月群体活跃度走势;id=activi-line
+      
       function Draw_activity_line(data){
     //活跃非活跃用户
     var main_active = data.main_max;
@@ -124,7 +125,9 @@
         if(name=='unknown'||name==''){
             name = name_list[0];
         }
-        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="./viewinformation">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="/index/viewinformation/?uid="'+name_list[0]+'target="_blank">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        // '/index/viewinformation/?uid='
+        
     };
      html += '</tbody></table>'; 
     $('#'+div_name).append(html);
@@ -268,8 +271,9 @@ function Draw_active_page(data){
 
 }
 
- var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
  
-function g_act_load(){
+function g_act_load(g_name,s_user){
+ var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
+ console.log('g_act_load url:'+activity_url);
 }

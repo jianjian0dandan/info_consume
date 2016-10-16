@@ -159,8 +159,8 @@
                       <span style="float:left;">每页显示<input type="text" id="PageNo" size="3" value="3"/>行</span>
                       <div id="div-button" style="float:left;margin-left:5px;">
                       <input type="button" value="首页" id="F-page">
-                      <input type="button" value="下一页" id="Nex-page">
                       <input type="button" value="上一页" id="Pre-page">
+                      <input type="button" value="下一页" id="Nex-page">
                       <input type="button" value="尾页" id="L-page">
                       </div>
                       <span style="float:left;">&nbsp;当前第<span id="s2"></span>页</span>
@@ -222,7 +222,7 @@
     <script src="../../static/info_consume/js/bootstrap.min.js"></script>
     <script src="../../static/info_consume/js/bootstrap-table.js"></script>
     <script src="../../static/info_consume/js/bootstrap-table-zh-CN.js"></script>
-    <script src="../../static/info_consume/js/circle_test.js"></script>
+    
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>-->
     <script src="../../static/info_consume/js/echarts-all-guo.js"></script>
     <script src="../../static/info_consume/js/map.js"></script>
@@ -232,41 +232,11 @@
     <script src="../../static/info_consume/js/circle_preference.js"></script>
     <script src="../../static/info_consume/js/circle_social.js"></script>
     <script src="../../static/info_consume/js/circle_psy.js"></script>
+    <!-- <script src="../../static/info_consume/js/require.js" defer async="true" ></script> -->
+    <script src="../../static/info_consume/js/circle_test.js"></script>
     <script type="text/javascript">
     /**软件功能切换js**/
-    var g_act_flag = false;
-    var g_pre_flag = false;
-    var g_soc_flag = false;
-    var g_tho_flag = false;
-    g_bas_load();
-    $(".feature_tab").click(function(){
-        var x = $(this).attr("title");
-        g_bas_load();
-        if(x=='基本特征'){
-           //$("#g_bas").css({"display":"block"}).siblings().css({"display":"none"});
-           //$("#qxtz").css({"background-color":"#3351B7"})
-        }else if(x=='活跃特征'){
-           if(g_act_flag==false){
-           g_act_load();
-           g_act_flag = true;
-           }
-        }else if(x=='兴趣特征'){
-           if(g_pre_flag==false){
-           g_pre_load();
-           g_pre_flag = true;
-           }
-        }else if(x=='社交特征'){
-           if(g_soc_flag==false){
-           g_soc_load();
-           g_soc_flag = true;
-           }
-        }else if(x=='情绪特征'){
-           if(g_tho_flag==false){
-           g_tho_load();
-           g_tho_flag = true;
-           }
-        }
-    });
+   
 
 </script>
   </body>

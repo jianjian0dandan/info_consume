@@ -103,7 +103,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'" target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -195,7 +195,7 @@
         function get_result(data)
              { 
               var data = data['result'];
-              $('#topic-task').bootstrapTable('refresh', {data: data});
+              $('#table-user').bootstrapTable('refresh', {data: data});
              }
         //定义删除任务
         function delete_result(data)
@@ -255,7 +255,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover">'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover" target="_blank">'+value+'</a>'; 
                            return e;
                         }
                     },
@@ -603,9 +603,12 @@
          }
         }
 
-         
-         function modify_group(obj){
-          	var task = $(obj).attr("value");
+         //将成员添加到已有的群组里面
+  function modify_group(obj){
+     var task = $(obj).attr("value");
+     var r=confirm("您确定要将所选用户添加到“"+task+'”群组内吗？');
+    if(r==true){
+          	
           	//console.log(task);
 		  function re_call(data){
             console.log(data);
@@ -640,12 +643,12 @@
 	            console.log(job);
 	             function callback(data){
                   if (data == 1){
-                      alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
+                      alert('用户已添加到群组！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                       window.location.reload();
                   }
                   if(data == 0){
-                      alert('任务提交失败，请重试！'); 
+                      alert('用户添加失败，请重试！'); 
                        $('#addModal').modal('hide');
                       window.location.reload();
                   }
@@ -655,8 +658,15 @@
                       window.location.reload();
                   }
               }
+              //删除原来组  
+            var url = '/info_group/delete_group_task/?';
+            url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
+            call_sync_ajax_request(url,del);
+             function del(data){
+              //console.log(data);
+               if(data==true){
 
-              $.ajax({
+                $.ajax({
                   type:'POST',
                   url: group_ajax_url,
                   contentType:"application/json",
@@ -664,43 +674,38 @@
                   dataType: "json",
                   success: callback
               }); 
-
-             //删除原来组  
-            var url = '/info_group/delete_group_task/?';
-            url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
-            call_sync_ajax_request(url,del);
-             function del(data){
-      		    //console.log(data);
-      		     if(data==true){
-      		     }else{
+               }else{
                  console.log('已有群组删除失败');
                }
-      		 }
-      		 //删除原来组结束
-              }else{
+              }
+           //删除原来组结束
+              
+           }else{        //选择的用户不重复
               	  var s ='您选择的用户(';
               	  for(var i=0;i<h.length;i++){
               	  	s+=('微博ID：'+selected_list[h[i]].uid+'，微博昵称：'+selected_list[i].uname+'；');
               	  }
               	  s+=')已存在该组！\n请重新选择！';
-	              alert(s);
-	               $('#addModal').modal('hide');
-                   window.location.reload();
+	                 alert(s);
+	               
 
 	             }
           	}//re_call结束
           	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
           	call_sync_ajax_request(re_url, re_call);
+         }else{
+             //
+         }
 
         }
 
-         function display_grouplist(){
+    function display_grouplist(){
            var group_list_url='/info_group/show_task/?submit_user='+username ;
            $.ajax({
                   type:'GET',
                   url: group_list_url,
-	              dataType: 'json',
-	              async: true,
+	                dataType: 'json',
+	                async: true,
                   success: draw_group_list
               }); 
             function draw_group_list(data){
