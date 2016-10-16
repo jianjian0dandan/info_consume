@@ -62,7 +62,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 sentiment = k
                 count = v
                 item = SentimentCount(query, during, ts, sentiment, count)
-                print item
+                #print item
                 item_exist = db.session.query(SentimentCount).filter(SentimentCount.query==query, \
                                                                          SentimentCount.range==during, \
                                                                          SentimentCount.end==ts, \
@@ -108,11 +108,9 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 if item_exist:
                     db.session.delete(item_exist)
                 db.session.add(item)
-        
         db.session.commit()
-
     if calc == 'geo_count': # 地理位置 #{'sentiment':[shijian,{['province':('provice':cishu),()],'city':[(city:cishu)}]}
-        print results
+        #print results
         for sentiment, v in results.items():
             ts = v[0]
             geo_count = v[1]
@@ -121,12 +119,11 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                                                                        SentimentGeo.range==during, \
                                                                        SentimentGeo.end==ts, \
                                                                        SentimentGeo.sentiment==sentiment).first()
-
             if item_exist:
                 db.session.delete(item_exist)
             db.session.add(item)
-        print db.session.commit()
-        print '???????'
+        db.session.commit()
+        #print '???????'
 
 
 def sentimentTopic(topic,start_ts, over_ts, sort_field=SORT_FIELD, save_fields=RESP_ITER_KEYS, \
@@ -147,9 +144,9 @@ def sentimentTopic(topic,start_ts, over_ts, sort_field=SORT_FIELD, save_fields=R
             end_ts = begin_ts + during
             #test(topic,begin_ts,end_ts)
 
-            print begin_ts, end_ts, 'topic %s starts calculate' % topic.encode('utf-8')
+            print begin_ts, end_ts#, 'topic %s starts calculate' % topic.encode('utf-8')
             emotions_count = compute_sentiment_count(topic,begin_ts,end_ts,during)            
-            emotions_kcount = compute_sentiment_keywords(topic,begin_ts,end_ts,k_limit,w_limit,during)
+            # emotions_kcount = compute_sentiment_keywords(topic,begin_ts,end_ts,k_limit,w_limit,during)
             emotions_weibo = compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during)
             # save_rt_results('count', topic, emotions_count, during)  #  '1':[end_ts,4],
             # save_rt_results('kcount', topic, emotions_kcount, during, k_limit, w_limit)
@@ -188,7 +185,7 @@ def compute_sentiment_count(topic,begin_ts,end_ts,during):
     weibo_sentiment_count = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)\
                                 ['aggregations']['all_interests']['buckets']
     #print 'wwwwwwwwwwwwwwwwwwwwww'
-    print weibo_sentiment_count
+    #print weibo_sentiment_count
     iter_sentiment_dict = {}
     for sentiment_item in weibo_sentiment_count:
         sentiment = sentiment_item['key']
@@ -207,7 +204,7 @@ def compute_sentiment_count(topic,begin_ts,end_ts,during):
     #    trend_results[sentiment] = [[item[0], item[1][sentiment]] for item in sort_sentiment_dict]
     #results = trend_results
 
-    print results
+    #print results
     save_rt_results('count', topic, results, during)
     return results
 
@@ -295,6 +292,8 @@ def compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during):
                 all_sen_weibo[sentiment].append(sentiment_weibo[i]['_source'])
 
             for weibo in sentiment_weibo:  #对于每条微博
+                if not sentiment_weibo[i]['_source']['geo']:
+                    continue
                 geo = sentiment_weibo[i]['_source']['geo'].encode('utf8')
                 province,city = split_city(geo)
                 if province != 'unknown':
@@ -311,10 +310,11 @@ def compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during):
 
         else:
         	continue
-
 #原有的存微博的
     results[end_ts] = all_sen_weibo
+    #print len(results)
     save_rt_results('weibos', topic, results, during, k_limit, w_limit)  
+    #print len(geo_count)
     save_rt_results('geo_count',topic,geo_count,during)
     #print geo_count
     return results   #{'时间戳'：{'情绪1'：[{微博字段},{微博字段}],'情绪2'：[]}}
@@ -342,8 +342,8 @@ if __name__ == '__main__':
     #end_date = sys.argv[3] # '2015-03-02'
 
     topic = 'aoyunhui'
-    start_date = '2016-07-20'
-    end_date = '2016-08-20'
+    start_date = '2016-07-14'
+    end_date = '2016-07-15'
 
     #topic = topic.decode('utf-8')
     start_ts = datetime2ts(start_date)
@@ -351,6 +351,8 @@ if __name__ == '__main__':
     #jln
     #topic_id = getTopicByNameStEt(topic,start_ts,end_ts)['_id']
 
+    start_ts = 1468425600
+    end_ts =  1468437300
     duration = Fifteenminutes
     #xapian_search_weibo = getXapianWeiboByTopic(topic_id)
     #es_search_weibo = getWeiboByNameStEt(topic,start_ts,end_ts)

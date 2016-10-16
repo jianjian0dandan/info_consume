@@ -716,8 +716,10 @@ def new_get_user_weibo(uid, sort_type):
         uname = ''
     #step2:get user weibo
     for i in range(7, 0, -1):
-        iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
-        iter_date = '2013-09-01'
+        if RUN_TYPE == 1:
+            iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
+        else:
+            iter_date = '2013-09-01'
         index_name = flow_text_index_name_pre + iter_date
         try:
             weibo_result = es_flow_text.search(index=index_name, doc_type=flow_text_index_type,\
@@ -729,6 +731,7 @@ def new_get_user_weibo(uid, sort_type):
             weibo_list.extend(weibo_result)
     
     #sort_weibo_list = sorted(weibo_list, key=lambda x:x['_source'][sort_type], reverse=True)[:100]
+    mid_set = set()
     for weibo_item in weibo_list:
         source = weibo_item['_source']
         mid = source['mid']
@@ -758,7 +761,9 @@ def new_get_user_weibo(uid, sort_type):
             comment_count = 0
             sensitive_score = 0
         city = ip2city(ip)
-        results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
+        if mid not in mid_set:
+            results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
+            mid_set.add(mid)
     if sort_type == 'timestamp':
         sort_results = sorted(results, key=lambda x:x[5], reverse=True)
     elif sort_type == 'retweet_count':

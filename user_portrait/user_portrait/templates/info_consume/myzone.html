@@ -349,45 +349,51 @@
       </div>
 
       <!--智能情绪管家-->
-     <div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
-        <div class="panel-heading">
+     <div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);" id="thought_load_admin">
+        <div class="panel-heading" onload="thought_load()">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">智能情绪管家</h3>
         </div>
         <div class="panel-body">
           <img src="/static/info_consume/image/icon_mood.png" width="30px" height="30px" style="float:left;">
           <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >情绪变动曲线</span> 
-           <div  class="entry" style="float:left;">
-             <div style="width:480px;height:470px;float:left;">
-                 <div id="chos_mod_time" style="width:50%;font-size:16px;background-color:white;margin-top:10px;margin-left: 30px;position:relative;">
-                  <span style="float:left;">选择时间：</span>
-                    <label class="demo--label">
-                      <li style="float:left;margin-left:5px;background-color:transparent;">
-                        <input class="demo--radio" type="radio" name="time-type" value='day' checked="checked">
-                        <span class="mode demo--radioInput" style="font-weight:normal !important;"></span>当日
-                      </li>
-                    </label>
 
-                    <label class="demo--label">
-                      <li style="float:left;margin-left:5px;background-color:transparent;">
-                        <input class="demo--radio" type="radio" name="time-type" value='week'>
-                        <span class="mode demo--radioInput" style="font-weight:normal !important;"></span>近7天
-                      </li>
-                    </label>
-                    <span style="float: left;font-size: 14px;width: 140px;margin-left: 240px;margin-top: -30px;font-weight: bolder;">点击下图查看对应微博</span>
-                 </div>
+          <div id="framecontent" style="width:850px;">
+              <div class ="framepost" style="height:500px">
+                  <div  class="entry" style="float:left;width: 1100px;">
+                    <div style="width:480px;height:470px;float:left;">
+                        <div style="width:50%;font-size:16px;background-color:white;margin-top:10px;margin-left: 30px;position:relative;">
 
-                 <div id="emotion_onload" style="width:100%"><center>正在加载，请稍候...</center></div>
-                 <div style="width:510px;height:420px;margin;0px;" id="emotion"></div>
-             </div>
-             <div id='select_time' style="width:400px;font-weight:bold;margin-left:20px;font-size:14px;float:left;"></div>
+                        <label class="demo--label">
+                          <li style="float:left;margin-left:5px;background-color:transparent;">
+                           <input class="demo--radio" type="radio" name="time-type" value='day' onclick="choose_time()" style="width:15px;height:15px;" checked >
+                           <span class="mode demo--radioInput" style="font-weight:normal !important;"></span>当日
+                             </li>
+                           </label>
 
+                           <label class="demo--label">
+                             <li style="float:left;margin-left:5px;background-color:transparent;">
 
-             <div style="width:400px;height:400px;background-color:whitesmoke;margin-left:20px;overflow-y:auto;float:left" id="content">
-                 <div id="emotion_loading" style="width:100%;display:none;"><center>正在加载，请稍候...</center></div>
-                 <div id="thought_weibo_text" style="padding:0px 10px;">
-                 </div>
-            </div>
+                           <input class="demo--radio"  type="radio" name="time-type" value='week' onclick="choose_time()" style="width:15px;height:15px;margin-left:8px;">
+                           <span class="mode demo--radioInput" style="font-weight:normal !important;"></span>近7天
+                             </li>
+                          </label>
+                        </div>
+                        <span style="float: left;font-size: 12px;width: 140px;margin-left: 240px;margin-top: -30px;">点击下图查看对应微博</span>
+                        <div id="emotion_onload" style="width:100%"><center>正在加载，请稍候...</center></div>
+                        <div style="width:510px;height:420px;margin-left: 50px;" id="emotion"></div>
+                    </div>
+                    <div id='select_time' style="font-weight:bold;margin:0px;margin-left:20px;font-size:12px;float:left;"></div>
+
+                    <div style="width:500px;height:400px;background-color:whitesmoke;margin-left:20px;overflow-y:auto;float:left" id="content">
+                        <div id="emotion_loading" style="width:100%;display:none;"><center>正在加载，请稍候...</center></div>
+                        <div id="thought_weibo_text" style="padding:0px 10px;">
+                        </div>
+                    </div>
+                  </div>
+              </div>
           </div>
+
+
         </div>
      </div>
 

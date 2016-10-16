@@ -7,29 +7,6 @@ var blog_type_network = 'maker';
 var no_page_network = 0;
 var blog_num_max_global_network = 0;
 
-// //显示资料卡 
-// var beforeId; //定义全局变量 
-// function showInfoCard(obj,id){ 
-// console.log('执行了showinfocard()函数');
-// this.hidden(beforeId); //立刻隐藏前一个选中弹出来的div 
-// beforeId = id; 
-
-// var objDiv = $("#"+id); 
- 
-// $(objDiv).css("display","block"); 
- 
-// $(objDiv).css("left", event.clientX-280); //弹出框的位置X值 
- 
-// $(objDiv).css("top", event.clientY-10); //弹出框位置Y值 
-// } 
-// function hideInfoCard(obj,id){ //隐藏div 
-// //延时3秒 
-// setTimeout('hidden('+id+')',3000); 
-// } 
- 
-// function hidden(id){ 
-// $("#"+id).hide(); 
-// }
 
 
 function show(obj,id) { 
@@ -127,6 +104,11 @@ function last_network(){
      Draw_blog_scan_area_network_result();
 }
 
+function go_to_info(uid){
+  window.open('/index/viewinformation/?uid='+uid);
+}
+
+
 
 function topic_analysis_network(){
  
@@ -151,9 +133,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }
-    console.log(item);
-    console.log(nodes_new);
-  
+   
          require(  
                 [  
                     'echarts',  
@@ -273,10 +253,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       }
       myChart.on(ecConfig.EVENT.CLICK, focus)
 
-      // myChart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function () {
-      //     console.log(myChart.chart.force.getPosition());
-      // });
-           
+    
        myChart.setOption(option);           
           
     }  
@@ -286,32 +263,22 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   Draw_trend_maker:function(data){
     var item = data;
     var html = '';
-    // console.log(item.length);
+
     html += '<table id="table_photo">';
-    for(i=0;i<Math.min(30,item.length);i=i+5){
-      console.log('mmm')
+    for(i=0;i<Math.min(7,item.length);i=i+1){
+  
       html += '<tr>';
-      for(j=0;j<5;j++){
-        var k=i+j;
-        if (item[k].photo=='no'){
-          item[k].photo='../../static/info_consume/image/photo_unknown.png';
+    
+        if (item[i].photo=='no'){
+          item[i].photo='../../static/info_consume/image/photo_unknown.png';
         }
-        var item_timestamp_datetime = new Date(parseInt(item[k].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+        var item_timestamp_datetime = new Date(parseInt(item[i].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         // html += '<td><img title=用户昵称：' +item[k].name+'<br/>粉丝数：'+item[k].fans+'<br/>发布时间：'+item[k].+'style="width:40px;height:40px" class="photo_user" src='+item[k].photo+'/><td>';
+        html += '<td><img onclick="go_to_info('+item[i].uid+')" style="width:40px;height:40px;margin-top: -35px;" class="photo_user" src='+item[i].photo+'/><td>';
+        html += '<td><p style="font-size: 12px;">用户昵称：'+item[i].name+'<br>用户ID：'+item[i].uid+'<br>粉丝数：'+item[i].fans+'<br>发布时间：'+item_timestamp_datetime+'<p><td>';
         
-        html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=发布时间：'+item_timestamp_datetime+' src='+item[k].photo+'/><td>';
-        // html += '<td><img id="photo_user" style="width:40px;height:40px" onmouseover="showInfoCard(this,'user_id')" onmouseout="hideInfoCard(this,'user_id')" class="photo_user" src='+item[k].photo+'/><td>';
-        // html += '<div id="mydiv1" style="position:absolute;display:none;border:1px solid silver;background:silver;z-index:99999">提示1效果<br>啦啦啦啦啦<br>噜噜噜噜</div>';
-        // html += '<td><img id="photo_user" style="width:40px;height:40px" onMouseOver="show(this,'mydiv1');" onMouseOut="hide(this,'mydiv1')" class="photo_user" src='+item[k].photo+'/><td>';
 
-        // html += '<td><img style="width:40px;height:40px" '+item[k].name+' class="photo_user" src='+item[k].photo+'/><td>';
-        // html += '<div id="divInfo" style="visibility:hidden;">';
-        // html += '<p>用户昵称：'+item[k].name+'</p><br/>';
-        // html += '<p>粉丝数：'+item[k].fans+'</p><br/>';
-        // html += '<p>发布时间：'+item[k].timestamp+'</p><br/>';
-        // html += '</div>';
-
-      }
+      
       
       html += '</tr>'; 
       // html += ''
@@ -337,24 +304,21 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     var item = data;
     var html = '';
 
-    // console.log(item.length);
+   
     html += '<table id="table_photo">';
-    for(i=0;i<Math.min(65,item.length);i=i+5){
+    for(i=0;i<Math.min(7,item.length);i=i+1){
   
     
       
       html += '<tr>';
-      for(j=0;j<5;j++){
-        var k=i+j;
-
-        if (item[k].photo=='no'){
-          item[k].photo='../../static/info_consume/image/photo_unknown.png';
+      
+        if (item[i].photo=='no'){
+          item[i].photo='../../static/info_consume/image/photo_unknown.png';
         }
+        var item_timestamp_datetime = new Date(parseInt(item[i].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+        html += '<td><img onclick="go_to_info('+item[i].uid+')" style="width:40px;height:40px;margin-top: -35px;" class="photo_user" src='+item[i].photo+'/><td>';
+        html += '<td><p style="font-size: 12px;">用户昵称：'+item[i].name+'<br>用户ID：'+item[i].uid+'<br>粉丝数：'+item[i].fans+'<br>发布时间：'+item_timestamp_datetime+'<p><td>';
         
-        html += '<td><img style="width:40px;height:40px;margin-top: 10px;" class="photo_user" title=粉丝数：'+item[k].fans+' src='+item[k].photo+'/><td>';
-        
-
-      }
       
       html += '</tr>'; 
       // html += '<div id="id" style="display:none; width:250px; height:150px; background-color:#D1EEEE;position:absolute;"></div>'
@@ -388,7 +352,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         }
         if (item[i]._source.uname=='未知'){
           item[i]._source.uname='未知用户'
-          //console.log(item[i][1].uname);
+        
         }
         var item_timestamp_datetime = new Date(parseInt(item[i]._source.timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         html += '<div class="blog_time">';

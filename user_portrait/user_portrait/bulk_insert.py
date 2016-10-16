@@ -130,10 +130,24 @@ if __name__ == '__main__':
 	#write()
 	#txt2es('/home/ubuntu2/chenyz/anguancenter/socialconsume/cron/result2.txt','aoyunhui')
 	#print es.delete(index='aoyunhui',doc_type='text',id='3995843252444302')
-	es.index(index='topi-cs',doc_type='text',id='14676d48000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
-												'start_ts':'1467648000','submit_user':'jln','comput_status':0})
+	# es.index(index='topi-cs',doc_type='text',id='14676d48000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
+	# 											'start_ts':'1467648000','submit_user':'jln','comput_status':0})
 	#es.index(index='topics',doc_type='text',id='1467648000_1470900837_laohu_jln',body={'name':'老虎','en_name':'laohu','end_ts':'1470900837',\
 												#'start_ts':'1467648000','submit_user':'jln','comput_status':0})
-	#es.delete(index='topics',doc_type='text',id='AVZ4jhC-hhg-Qh1aWtw3')
+	query_body = {
+	    'query':{
+	        'filtered':{
+	            'filter':{
+	                'term':{
+	                    'comput_status':0
+	                }
+	            }
+	        }
+	    }
+	}
+	es.delete(index='topics',doc_type='测试',body=query_body)
 	#es.delete(index='topics',doc_type='text',id='AVZ4jhDGhhg-Qh1aWtw4')
 	#print es.get(index='topics',doc_type='text',id='AVZ4jhC-hhg-Qh1aWtw3',_source=False,fields=['name'])
+	# es.update(index='topics',doc_type='text',id='14676d48000_1470900837_aoyunhui_jln',body={'doc':{'comput_status':1}})
+	# es.update(index='topics',doc_type='text',id='1467648000_1470900837_laohu_jln',body={'doc':{'comput_status':1}})
+	

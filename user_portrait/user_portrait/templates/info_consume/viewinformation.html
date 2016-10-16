@@ -40,7 +40,7 @@
 	 <div class="topnav">	 
   	 <img src="../../static/info_consume/image/title.png">		
   		<ul id="menu" style="margin-left:40%">
-        <li><a href="/index_home" style="margin-top: 15px;font-size: 20px;width: 100px;">&nbsp&nbsp&nbsp首页</a></li>
+        <li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">&nbsp&nbsp&nbsp首页</a></li>
 
   			<li><a href="/index/myzone" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
 
@@ -62,7 +62,7 @@
 
   			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">商业推荐</a></li>
   		</ul>
-  </div>
+  	</div>
 
   		<div style="margin-top:5%">
   			<div><span style="margin-left: 17%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">好友个人空间</span></div>
@@ -83,7 +83,8 @@
 							<div class="panel-body">
 
 							 	<div style="float:left;">
-							 		<img src="/static/info_consume/image/head2.png" style="margin-top:15px;width:80px;height:80px;margin-left:0px;float:left;">
+							 		<img id="portraitImg" src="/static/info_consume/image/head2.png" style="width:80px;height:80px;margin-left:0px;float:left;">
+							 		<p id="username" style="font-weight: bold;width:85px;text-align: center;"></p>
 							 	</div>
 
 							 	<table style="margin-left:120px;">
@@ -111,15 +112,13 @@
 										</td>											
 									</tr>	
 								</table>
-																	
-							<div>	
 						</div>
 					</div>
 
 						<!--第一行三个图标-->
-						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 300px;margin-top: -170px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
+						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left:15px;margin-top: 10px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
 							<img src="/static/info_consume/image/weibo.png" style="width:60px;height:60px;float:left;margin-left: 35px;margin-top: 10px;">
-							<table style="margin-top:15px;margin-left:10%;float:left;>
+							<table style="margin-top:15px;margin-left:10%;float:left;">
 								<tr style="height:20px;">
 								    <td>
 								    	<span id="weibosumview">25481</span>
@@ -130,15 +129,12 @@
 								    	<p>微博</p>
 								    </td>		
 								</tr>
-								
-
 							</table>
-
 						</div>
 
-						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 530px;margin-top: -170px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
+						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 530px;margin-top: -200px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
 							<img src="/static/info_consume/image/friend.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
-							<table style="margin-top:15px;margin-left:10%;float:left;>
+							<table style="margin-top:15px;margin-left:10%;float:left;">
 								<tr style="height:20px;">
 								    <td>
 								    	<span id="fansumview">25481</span>
@@ -149,17 +145,14 @@
 								    	<p>粉丝</p>
 								    </td>		
 								</tr>
-								
-
 							</table>
-
 						</div>
 
 						
 						<!--第二行三个图标-->
-						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 300px;margin-top: -70px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border-radius: 4px;">
+						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 300px;margin-top: -100px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border-radius: 4px;">
 							<img src="/static/info_consume/image/shoucang.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
-							<table style="margin-top:15px;margin-left:10%;float:left;>
+							<table style="margin-top:15px;margin-left:10%;float:left;">
 								<tr style="height:20px;">
 								    <td>
 								    	<span id="focusum"></span>
@@ -170,14 +163,12 @@
 								    	<p>收藏</p>
 								    </td>		
 								</tr>
-								
-
 							</table>
 						</div>
 
-						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 530px;margin-top: -80px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
+						<div style="background:#ffffff;width:200px;height:80px;float:left; margin-left: 530px;margin-top: -100px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;">
 							<img src="/static/info_consume/image/guanzhu.png" style="width:65px;height:65px;float:left;margin-left: 35px;margin-top: 10px;">
-							<table style="margin-top:15px;margin-left:10%;float:left;>
+							<table style="margin-top:15px;margin-left:10%;float:left;">
 								<tr style="height:20px;">
 								    <td>
 								    	<span id="attentionsumview">25481</span>
@@ -188,21 +179,15 @@
 								    	<p>关注</p>
 								    </td>		
 								</tr>
-								
-
 							</table>
-
+				
 						</div>
-
 				</div>
-
-			</div>
-	</div>
-</div>
-
+		    </div>
+		</div>
 <!--页面上半部分到此-->
 
-	<div class="panel panel-success" style="width: 33%;height: 450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left: -28%; margin-top: 20px;">
+	<div class="panel panel-success" style="width: 33%;height: 450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left:16%; margin-top: 20px;">
 	
 		<div class="panel-heading">
 			<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的身份</h3>

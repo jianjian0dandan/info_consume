@@ -81,19 +81,19 @@ def search_user_task(user_name):
 def getResult(search_id):
     item = es.get(index=USER_RANK_KEYWORD_TASK_INDEX , doc_type=USER_RANK_KEYWORD_TASK_TYPE , id=search_id)
     try:
-        result_obj = {}
-        result_obj['keyword'] = json.loads(item['_source']['keyword'])
-        result_obj['sort_scope'] = item['_source']['sort_scope']
-        result_obj['sort_norm'] = item['_source']['sort_norm']
-        result_obj['start_time'] = ts2datetime(item['_source']['start_time'])
-        result_obj['end_time'] =ts2datetime(item['_source']['end_time'])
-        result_obj['result'] = json.loads(item['_source']['result'])
-        with open("social_sensors.txt", "wb") as f:
-            for item in result_obj['result']:
-                f.write(str(item)+"\n")
-        result_obj['text_results'] = json.loads(item['_source']['text_results'])
-        result_obj['number'] = item['_source']['number']
-        return result_obj
+        # result_obj = {}
+        # result_obj['keyword'] = json.loads(item['_source']['keyword'])
+        # result_obj['sort_scope'] = item['_source']['sort_scope']
+        # result_obj['sort_norm'] = item['_source']['sort_norm']
+        # result_obj['start_time'] = ts2datetime(item['_source']['start_time'])
+        # result_obj['end_time'] =ts2datetime(item['_source']['end_time'])
+        # result_obj['result'] = json.loads(item['_source']['result'])
+        # # with open("social_sensors.txt", "wb") as f:
+        # #     for item in result_obj['result']:
+        # #         f.write(str(item)+"\n")
+        # result_obj['text_results'] = json.loads(item['_source']['text_results'])
+        # result_obj['number'] = item['_source']['number']
+        return json.loads(item['_source']['result'])
     except :
         return []    
 

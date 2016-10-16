@@ -201,7 +201,7 @@ Draw_event_river:function(data){
           
         }
         
-        data_json.push({"name":key,"evolution":evolution_json});
+        data_json.push({"name":'',"evolution":evolution_json});
         series_json.push({"name":key,"type":"eventRiver","weight":123,"data":data_json})
         name_item.push(key);
       }
@@ -317,10 +317,10 @@ Draw_time_line:function(data){
               }
               
               
-              html += '<dt>'+'Aug2016'+'</dt>';
-              html += '<dt>'+'Jul2016'+'</dt>';
-              html += '<dt>'+'Jun2016'+'</dt>';
-              html += '<dt>'+'May2016'+'</dt>';
+              // html += '<dt>'+'Aug2016'+'</dt>';
+              // html += '<dt>'+'Jul2016'+'</dt>';
+              // html += '<dt>'+'Jun2016'+'</dt>';
+              // html += '<dt>'+'May2016'+'</dt>';
               html += '</dl>';
               html += '</div>';
               html += '</div>';
