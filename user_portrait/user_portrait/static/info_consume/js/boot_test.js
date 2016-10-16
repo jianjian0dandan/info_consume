@@ -103,7 +103,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'" target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -255,7 +255,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover">'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover" target="_blank">'+value+'</a>'; 
                            return e;
                         }
                     },

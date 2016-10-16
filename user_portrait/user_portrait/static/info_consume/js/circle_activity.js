@@ -125,7 +125,9 @@
         if(name=='unknown'||name==''){
             name = name_list[0];
         }
-        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="./viewinformation">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="/index/viewinformation/?uid="'+name_list[0]+'target="_blank">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        // '/index/viewinformation/?uid='
+        
     };
      html += '</tbody></table>'; 
     $('#'+div_name).append(html);
