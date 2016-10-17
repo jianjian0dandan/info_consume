@@ -18,12 +18,13 @@
     <script src="../../static/info_consume/js/esl.js"></script>
   </head>
   <body>
+    <div style="top:0px;" id="myContainer"></div>
     <div class="myContainer">
       <div class="row" id="circle-analysis" style="display:none;">
         <div class="col-md-1"></div>
         <div class="col-md-10">
           <ul id="circle-Tab" class="nav nav-tabs">
-            <li class="active feature_tab" title="基本特征"><a href="#basic-feature" data-toggle="tab">基本特征</a></li>
+            <li class="active feature_tab" title="基本特征"><a id="basic_tab" href="#basic-feature" data-toggle="tab">基本特征</a></li>
             <li class="feature_tab" title="活跃特征"><a href="#active-feature" data-toggle="tab">活跃特征</a></li>
             <li class="feature_tab" title="兴趣特征"><a href="#interest-feature" data-toggle="tab">兴趣特征</a></li>
             <li class="feature_tab" title="社交特征"><a href="#social-feature" data-toggle="tab">社交特征</a></li>
@@ -206,7 +207,8 @@
                                           </h4>
                                         </div>
                                       <div class="modal-body" style="overflow-x: auto; overflow-y: auto;height:500px;">
-                                           <div id="num_btn" class="btn btn-danger"  style="float:right;" data-toggle="tooltip" title="删除成员后，查看结果需要重新等待计算哦~请慎思！" data-placement="bottom">删除</div>
+                                      <div id="num_btn" class="btn btn-danger"  style="float:right;">删除</div>
+                                           <!-- <div id="num_btn" class="btn btn-danger"  style="float:right;" data-toggle="tooltip" title="删除成员后，查看结果需要重新等待计算哦~请慎思！" data-placement="bottom">删除</div> -->
                                             <table id="consitute" class="table table-hover" style="width:100%;"></table>
                                         </div>
                                         <div class="modal-footer">

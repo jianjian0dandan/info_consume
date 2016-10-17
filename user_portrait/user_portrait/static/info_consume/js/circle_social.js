@@ -16,6 +16,7 @@ if(data.length==0){
      nodes_from['name'] = data[s]['4'];
   };
    nodes_from['draggable'] = true;
+   nodes_from['label'] = '';
    nodes_total.push(nodes_from);
 
   var nodes_to = {};
@@ -27,6 +28,7 @@ if(data.length==0){
   };
    nodes_to['draggable'] = true;
    nodes_to['value'] = data[s]['3']/10;
+   nodes_to['label'] = '';
    nodes_total.push(nodes_to);
  
    var links_single = {};
@@ -110,6 +112,7 @@ var option = {
             gravity: 1.5,
             scaling: 1.1,
             roam: 'move',
+            symbolSize:5,
             nodes: nodes_total,
             links: links_total,
         }
@@ -143,6 +146,7 @@ if(data.length==0){
   };
    nodes_from['value'] = 10;
    nodes_from['draggable'] = true;
+   nodes_from['label'] = '';
    nodes_total.push(nodes_from);
 
   var nodes_to = {};
@@ -154,6 +158,7 @@ if(data.length==0){
   };
    nodes_to['value'] = 10;
    nodes_to['draggable'] = true;
+   nodes_to['label'] = '';
    nodes_total.push(nodes_to);
 
    var links_single = {};
@@ -242,6 +247,7 @@ var option = {
             coolDown: 0.9,
             linkSymbol: 'arrow',
             roam: 'move',
+            symbolSize:5,
             nodes: nodes_total,
             links: links_total,
             symbolSize: 15

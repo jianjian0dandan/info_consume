@@ -125,8 +125,9 @@
         if(name=='unknown'||name==''){
             name = name_list[0];
         }
-        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="/index/viewinformation/?uid="'+name_list[0]+'target="_blank">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
-        // '/index/viewinformation/?uid='
+        html += '<tr><td style="text-align:center">' + m + '</td><td style="text-align:center"><a href="/index/viewinformation/?uid='+name_list[0]+'" target="_blank">' + name + '</a></td><td style="text-align:center">'+data[i][1] + '</td></tr>';
+        // /index/viewinformation/?uid=
+        //console.log(name_list[0])
         
     };
      html += '</tbody></table>'; 
@@ -193,13 +194,13 @@ function Draw_geo_graph(data){
     dataRange: {
         min: 0,
         max: 500,
-        color:['#E0022B', '#E09107'],    //#49b5f9
+        color:['orange', 'yellow'],    //'#E0022B', '#E09107'
         text:['高','中','低'],           // 文本，默认为数值文本
         calculable : true
     },
     series : [
         {
-            name: '随机数据',
+            name: '活跃值',
             type: 'map',
             mapType: 'china',
             selectedMode : 'single',
