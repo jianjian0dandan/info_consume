@@ -1,6 +1,5 @@
      //近一个月圈子影响力走势;id=influen-line
-
-
+   
     function Draw_influence_line(data){
       var data = data['influence_trend'];
       var myChart = echarts.init(document.getElementById('influen-line'),'shine');
@@ -220,11 +219,12 @@
         Draw_identi_distri(data);
     }
 
+ 
+function g_bas_load(g_name,s_user){
  var influence_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=influence';
  var basic_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=basic';
 
-function g_bas_load(){
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
  call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
- console.log(influence_url);
+ console.log('influence_url:'+influence_url);
 }
