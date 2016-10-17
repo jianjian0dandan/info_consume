@@ -17,6 +17,7 @@ if(data.length==0){
   };
    nodes_from['draggable'] = true;
    nodes_from['label'] = '';
+   nodes_from['uid'] = data[s]['0'];
    nodes_total.push(nodes_from);
 
   var nodes_to = {};
@@ -29,6 +30,7 @@ if(data.length==0){
    nodes_to['draggable'] = true;
    nodes_to['value'] = data[s]['3']/10;
    nodes_to['label'] = '';
+   nodes_to['uid'] = data[s]['1'];
    nodes_total.push(nodes_to);
  
    var links_single = {};
@@ -119,8 +121,8 @@ var option = {
     ]
 };
    myChart.on(ecConfig.EVENT.CLICK, function (param){
-   console.log(param);
-  // window.open('/index/viewinformation/?uid='+param.name);
+   //console.log(param.data.uid);
+   window.open('/index/viewinformation/?uid='+param.data.uid);
  })
 myChart.setOption(option); 
 })
@@ -144,9 +146,10 @@ if(data.length==0){
  }else{
      nodes_from['name'] = data[s]['4'];
   };
-   nodes_from['value'] = 10;
+   nodes_from['value'] = '';
    nodes_from['draggable'] = true;
    nodes_from['label'] = '';
+   nodes_from['uid'] = data[s]['1'];
    nodes_total.push(nodes_from);
 
   var nodes_to = {};
@@ -156,9 +159,10 @@ if(data.length==0){
  }else{
      nodes_to['name'] = data[s]['3'];
   };
-   nodes_to['value'] = 10;
+   nodes_to['value'] = data[s]['0'];
    nodes_to['draggable'] = true;
    nodes_to['label'] = '';
+   nodes_to['uid'] = data[s]['0'];
    nodes_total.push(nodes_to);
 
    var links_single = {};
@@ -178,7 +182,9 @@ function(ec){
 var myChart = echarts.init(document.getElementById('in-retwwie'),'shine');
 var ecConfig = require('echarts/config');
 var option = {
-
+    title:{
+      subtext:'节点数值代表用户影响力大小，边数值代表用户交互次数'
+    },
     tooltip : {
         trigger: 'item',
         formatter: '{b} : {c}'
@@ -250,13 +256,12 @@ var option = {
             symbolSize:5,
             nodes: nodes_total,
             links: links_total,
-            symbolSize: 15
         }
     ]
 };
 myChart.on(ecConfig.EVENT.CLICK, function (param){
-  // console.log(param);
-   window.open('./viewinformation');
+   //console.log(param.data.uid);
+   window.open('/index/viewinformation/?uid='+param.data.uid);
  })
  myChart.setOption(option);
 })
