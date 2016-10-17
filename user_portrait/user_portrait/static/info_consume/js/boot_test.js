@@ -313,7 +313,15 @@
      function view_analysis(data){
        var results_url = '/influence_sort/get_result/?search_id='+data;
        console.log("results_url:"+results_url);
+       $('.ver-inline-menu').children('li').removeClass('active');
+       $('#table-user-user-contain').css("display","none");
+       $('#table-user-contain').css("display","block");
+       $('#table-user').bootstrapTable('showColumn', 'fans');
+       $('#table-user').bootstrapTable('showColumn', 'weibo_count');
+       $('#table-user').bootstrapTable('hideColumn', 'imp');
+       $('#table-user').bootstrapTable('hideColumn', 'act');
        $('#table-user').bootstrapTable('refresh', {url: results_url});
+       
        // document.getElementById('').scrollIntoView()
        window.location.hash='#sort-result';
      };
@@ -464,6 +472,7 @@
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
                    // console.log(user_url);
                     call_sync_ajax_request(user_url, similar_user);
+                    window.location.hash='#sort-result';
                     document.getElementById('keyword_hashtag').value ="";
                     //similar_user(user_url);
                      }else{ 
