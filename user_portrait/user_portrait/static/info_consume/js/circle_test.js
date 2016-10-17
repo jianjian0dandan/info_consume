@@ -1,7 +1,7 @@
         //当前用户名
          var s_user = 'admin@qq.com';
          var  g_name = '';
-         $('#num_btn').tooltip();
+         // $('#num_btn').tooltip();
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
@@ -32,6 +32,8 @@
      function view_analysis(data){
        g_name = data;
        $("#circle-analysis").slideDown();
+       $('#basic_tab').tab('show')
+       document.getElementById('myContainer').scrollIntoView()
        console.log("g_name:"+g_name);
       //切换不同tab
     var g_act_flag = false;
@@ -306,8 +308,11 @@
           var del_url = '/info_group/delete_group_task/?';
            del_url = del_url + 'task_name=' + task +'&submit_user=' + s_user;//$('#useremail').text();
           console.log(del_url);
+          var r = confirm("您确定要删除成员吗？删除后的群组分析需要重新等待计算哦~");
+          if(r==true){
           call_sync_ajax_request(del_url,'GET',del);
           function del(data){
+            console.log("删除返回值"+data);
              if(data==true){
                //重新提交任务
               var group_ajax_url = '/influence_sort/submit_task/';
@@ -344,6 +349,7 @@
                  console.log('已有群组删除失败');
                  alert('删除失败！请重试');
                }
+             }//确定删除成员
             }//del结束
          }//删除ID不为空结束
         //call_sync_ajax_request(con_url,'GET',bulid);

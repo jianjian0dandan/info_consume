@@ -103,7 +103,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'" target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+' "target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -191,12 +191,7 @@
         
         
 
-        //定义展示任务
-        function get_result(data)
-             { 
-              var data = data['result'];
-              $('#table-user').bootstrapTable('refresh', {data: data});
-             }
+
         //定义删除任务
         function delete_result(data)
              { 
@@ -317,8 +312,10 @@
              }; 
      function view_analysis(data){
        var results_url = '/influence_sort/get_result/?search_id='+data;
-       console.log(results_url);
-       call_sync_ajax_request(results_url, get_result);
+       console.log("results_url:"+results_url);
+       $('#table-user').bootstrapTable('refresh', {url: results_url});
+       // document.getElementById('').scrollIntoView()
+       window.location.hash='#sort-result';
      };
       function draw_topic_tasks(data){
        
