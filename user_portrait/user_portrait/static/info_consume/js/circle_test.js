@@ -34,6 +34,8 @@
        $("#circle-analysis").slideDown();
        $('#basic_tab').tab('show')
        document.getElementById('myContainer').scrollIntoView()
+       var html=""+data;
+        $('#current').append(html);
        console.log("g_name:"+g_name);
       //切换不同tab
     var g_act_flag = false;
@@ -142,7 +144,7 @@
                     },
                     {
                         field: "status",
-                        title: "圈子细查",
+                        title: "圈子分析",
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row){  
