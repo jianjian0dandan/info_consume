@@ -37,13 +37,18 @@ def login():
 
     if vertify_result:
         session['username'] = username
-        return redirect(url_for('portrait.personal'))
+        #return redirect(url_for('portrait.personal'))
+        #jln for 863
+        return redirect(url_for('info_consume.index'))
 
 
 @mod.route('/logout') # log out
 def logout():
     session.pop('username', None)
-    return redirect(url_for('.index'))
+    #return redirect(url_for('.index'))
+    #jln for 863
+    return redirect(url_for('security.login'))
+
 
 @mod.route('/revise_password') # revise password
 def revise_password():
