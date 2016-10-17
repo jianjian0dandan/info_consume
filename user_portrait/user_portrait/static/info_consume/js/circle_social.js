@@ -159,7 +159,7 @@ if(data.length==0){
  }else{
      nodes_to['name'] = data[s]['3'];
   };
-   nodes_to['value'] = data[s]['0'];
+   nodes_to['value'] = '';
    nodes_to['draggable'] = true;
    nodes_to['label'] = '';
    nodes_to['uid'] = data[s]['0'];

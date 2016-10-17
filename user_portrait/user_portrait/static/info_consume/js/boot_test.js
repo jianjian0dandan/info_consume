@@ -187,29 +187,11 @@
             $('.user_view').tooltip();
           } 
            call_sync_ajax_request(influ_url, init_table);
-         })
-        
-        
 
-
-        //定义删除任务
-        function delete_result(data)
-             { 
-              console.log(data);
-              if(data.flag == true){
-                alert('删除成功！');
-                var task_url = '/influence_sort/search_task/?username='+username;
-                console.log(task_url);
-                $('#topic-task').bootstrapTable('refresh',{url:task_url})
-              }else{
-                alert('删除失败！');
-              }
-             }
-        //定义刷新相似用户列表
-      function similar_user(data){
+            var user_data=[];
             $('#table-user-user').bootstrapTable({
                  // url: data,
-                  data:data,
+                  data: user_data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 20,//单页记录数
@@ -300,8 +282,34 @@
                         }
                     }]
              });
-            $('.user_view').tooltip();
-         };
+         })
+        
+        
+
+
+        //定义删除任务
+        function delete_result(data)
+             { 
+              console.log(data);
+              if(data.flag == true){
+                alert('删除成功！');
+                var task_url = '/influence_sort/search_task/?username='+username;
+                console.log(task_url);
+                $('#topic-task').bootstrapTable('refresh',{url:task_url})
+              }else{
+                alert('删除失败！');
+              }
+             }
+        //定义刷新相似用户列表
+      // function similar_user(data){
+      // 	    var si_user_data=[];
+      // 	    for(var i=1;i<data.length;i++){
+      //         si_user_data[i-1]=data[i];
+      // 	    }
+      // 	    console.log(si_user_data);
+      //       $('#table-user-user').bootstrapTable('refresh',{data:si_user_data})
+      //       $('.user_view').tooltip();
+      //    };
       function dele_analysis(data){
              var a = confirm('确定要删除吗？');
                 if (a == true){
@@ -470,8 +478,9 @@
                     $('#table-user-user-contain').css("display","block");
                     var user_id = keyword;//'2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
-                   // console.log(user_url);
-                    call_sync_ajax_request(user_url, similar_user);
+                    console.log(user_url);
+                    $('#table-user-user').bootstrapTable('refresh',{url:user_url});
+                    //call_sync_ajax_request(user_url, similar_user);
                     window.location.hash='#sort-result';
                     document.getElementById('keyword_hashtag').value ="";
                     //similar_user(user_url);
