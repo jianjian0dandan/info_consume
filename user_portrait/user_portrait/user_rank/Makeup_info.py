@@ -87,11 +87,11 @@ def all_makeup_info(uid_list , sort_norm , time):
             try:
                 tmp['fans'] = bci_result[i]['fields']["user_fansnum"][0]
             except:
-                tmp['fans'] = ''
+                tmp['fans'] = 0
             try:
                 tmp["weibo_count"] = bci_result[i]['fields']["weibo_month_sum"][0]
             except:
-                tmp["weibo_count"] = ''
+                tmp["weibo_count"] = 0
         else:
             tmp['bci'] = None
             tmp['fans'] = None
@@ -150,7 +150,7 @@ def in_makeup_info(uid_list , sort_norm , time):
                 user_fansnum = bci_results[i]['fields']['user_fansnum'][0]
                 item['fans'] = user_fansnum
             except:
-                item['fans'] = ''
+                item['fans'] = 0
             try:
                 bci_value = bci_results[i]['fields'][field_bci][0]
                 item['bci'] = bci_value
