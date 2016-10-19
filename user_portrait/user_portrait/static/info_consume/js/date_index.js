@@ -78,6 +78,75 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
       console.log(data);
 
   },
+
+  Draw_hot_topic:function(data){
+    
+    var html='';
+    html += '<center>';
+    html += '<table class="table table-bordered" style="width:60%;margin-top:4%">';
+    html += '<caption style="color: #00CC66;font-size: 28px;font-family: Microsoft YaHei;text-align:center;">热门话题推荐</caption>';
+    html += '<thead><tr><th>话题名称</th><th>开始时间</th><th>终止时间</th><th>计算状态</th><th>操作</th></tr></thead>';
+    html += '<tbody>';
+    for(key in data['recommend']){
+
+      html += '<tr>';
+      html += '<td>'+data['recommend'][key][0][0]+'</td>';
+      var start_time = new Date(parseInt(data['recommend'][key][0][1]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+      var end_time = new Date(parseInt(data['recommend'][key][0][2]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+      var compute_status='';
+      if(data['recommend'][key][0][3]== -1){
+        compute_status = '尚未计算'
+      }else if(data['recommend'][key][0][3]== 0){
+        compute_status = '正在计算'
+      }else if(data['recommend'][key][0][3]== 1){
+        compute_status = '计算完成'
+      }
+      html += '<td>'+start_time+'</td>';
+      html += '<td>'+end_time+'</td>';
+      html += '<td>'+compute_status+'</td>';
+      html += '<td><a href="" onclick="go_to_datail()">'+'查看详情'+'</a></td>';
+      html += '<tr>';
+    }
+    html += '</tbody></table></center>';
+    html += '<button type="button" class="btn btn-success" style="margin-left: 70%;" onclick="">创建我的话题任务</button>';
+    $('#index_bottom').append(html);
+
+  },
+
+  Draw_similar_topic:function(data){
+    $('#index_bottom').empty();
+    var html='';
+    html += '<center>';
+    html += '<table class="table table-bordered" style="width:60%;margin-top:4%">';
+    html += '<caption style="color: #00CC66;font-size: 28px;font-family: Microsoft YaHei;text-align:center;">相似话题推荐</caption>';
+    html += '<thead><tr><th>话题名称</th><th>开始时间</th><th>终止时间</th><th>计算状态</th><th>操作</th></tr></thead>';
+    html += '<tbody>';
+    for(key in data[key]){
+      for(i=0;i<data[key].length;i++){
+          html += '<tr>';
+          html += '<td>'+data[key][i][0]+'</td>';
+          var start_time = new Date(parseInt(data[key][i][1]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+          var end_time = new Date(parseInt(data[key][i][2]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+          var compute_status='';
+          if(data[key][i][3]== -1){
+            compute_status = '尚未计算'
+          }else if(data[key][i][3]== 0){
+            compute_status = '正在计算'
+          }else if(data[key][i][3]== 1){
+            compute_status = '计算完成'
+          }
+          html += '<td>'+start_time+'</td>';
+          html += '<td>'+end_time+'</td>';
+          html += '<td>'+compute_status+'</td>';
+          html += '<td><a href="" onclick="go_to_datail()">'+'查看详情'+'</a></td>';
+          html += '<tr>';
+      }
+    
+    }
+    html += '</tbody></table></center>';
+
+    $('#index_bottom').append(html);
+  },
   
   Draw_topic_name: function(data){
   	var item = data;
@@ -106,7 +175,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
           date_to = new Date(parseInt(ends_time[j]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
           // date_from = starts_time[j];
           // date_to = ends_time[j];
-          
+
           html += '<td><img class="topic_tag" id="topic_tag" src="../../static/info_consume/image/topic_tag.png"></td>';
           // html += '<td><p id="topic" class="topic_font"><a href="/topic_time_analyze/time/" onclick="go_to_datail('+topic_name+','+date_from+','+date_to+')">#'+topics[j]+'#</a></p></td>';
           html += '<td><p id="topic" class="topic_font" onclick="go_to_datail()"><a style="color: #00CC66;">#'+topics[j]+'#<a></p></td>';
@@ -127,7 +196,23 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
 }
 
 var topic_analysis_index = new topic_analysis_index();
+
+
+function Draw_hot_topic_result(){
+  var user = '奥运';
+  url = "/topic_language_analyze/topics/?user"+user;
+  console.log(url);
+  topic_analysis_index.call_sync_ajax_request(url,topic_analysis_index.Draw_hot_topic);
+} 
+
+function Draw_similar_topic_result(){
+  var keyword = '奥运';
+  url = "/topic_language_analyze/key_topics/?keywords"+keyword;
+  console.log(url);
+  topic_analysis_index.call_sync_ajax_request(url,topic_analysis_index.Draw_similar_topic);
+} 
  
+
 function Draw_topic_name_result(){
   url = "/topic_language_analyze/topics/";
  	console.log(url);
@@ -145,6 +230,6 @@ function Submit_task_result(){
   topic_analysis_index.call_sync_ajax_request(url,topic_analysis_index.Submit_task);
   console.log('888');
 } 
-
-Draw_topic_name_result();
-Submit_task_result();
+Draw_hot_topic_result();
+// Draw_topic_name_result();
+// Submit_task_result();
