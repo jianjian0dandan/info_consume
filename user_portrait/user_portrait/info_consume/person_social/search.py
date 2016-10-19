@@ -71,6 +71,7 @@ def search_follower(uid, top_count):
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
         except:
             user_result = []
+
         try:
             bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
         except:

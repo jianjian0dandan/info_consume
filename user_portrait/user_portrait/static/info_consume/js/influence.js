@@ -147,7 +147,10 @@ Influence.prototype = {
     for(var j=0;j<10;j++){
       domainInflu_data[j] = data[j];  
       if(domainInflu_data[j].photo_url == 'unknown'){
-        domainInflu_data[j].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
+        domainInflu_data[j].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1';   
+      };
+      if(domainInflu_data[j].uname == 'unknown'){
+        domainInflu_data[j].uname = '未知';   
       };
     };
 

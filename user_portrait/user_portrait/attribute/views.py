@@ -26,7 +26,7 @@ from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.time_utils import ts2datetime, datetime2ts
 from personal_influence import get_user_influence, influenced_detail, influenced_people, influenced_user_detail, statistics_influence_people, tag_vector, comment_on_influence, detail_weibo_influence, influence_summary
 from description import conclusion_on_influence
-
+from info_new_search import info_new_get_user_social
 
 # use to test 13-09-08
 test_time = datetime2ts(RUN_TEST_TIME)
@@ -92,6 +92,18 @@ def ajax_new_user_location():
 def ajax_new_user_social():
     uid =request.args.get('uid', '')
     results = new_get_user_social(uid)
+    if not results:
+        results = {}
+    return json.dumps(results)
+
+# url for new user_portrait overview
+# social
+# jln simple
+# write in version: 16-03-15
+@mod.route('/info_new_user_social/')
+def info_ajax_new_user_social():
+    uid =request.args.get('uid', '')
+    results = info_new_get_user_social(uid)
     if not results:
         results = {}
     return json.dumps(results)
