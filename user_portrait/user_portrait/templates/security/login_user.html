@@ -64,7 +64,7 @@
 	    {% endblock %}		
 	</head>
 
-	<body  style="background:url(/static/img/homecar.jpg) no-repeat;background-size:100% 100%;padding-top:30px;">
+	<body  style="background:url(/static/img/sun.jpg) no-repeat;background-size:100% 120%;padding-top:30px;">
       <div style="height:60px;margin-top: 40px;color:white;font-size:32px;line-height: 50px;"><center><b style="color:orange;">网民画像系统</b></center></div>
         <div style="margin:40px auto 0 auto;width:400px;padding:20px;border-radius: 10px;height:270px;background-color: rgba(21, 21, 21, 0.56);">
 			{% from "security/_macros.html" import render_field_with_errors, render_field %}
@@ -89,40 +89,40 @@
 
 
   <script>
-  $('#email').attr('placeholder','请输入您的账号');
-  $('#email').prev().empty();
-  $('#email').prev().append('<div style="float: left;line-height:25px;width:60px;font-size:14px;color:#fff;">用户名</div>');
-  $("#email").parent().css({paddingLeft:'55px'});
-  $("#password").parent().css({paddingLeft:'55px'});
-  $('#password').prev().empty();
-  $('#password').prev().append('<div style="float: left;line-height:25px;width:60px;font-size:14px;color:#fff;">密码</div>');
-  $('#password').attr('placeholder','请输入您的密码');
-  $('#remember').prev().empty();
-  $('#remember').prev().append('<div style="display:inline-block;color:#fff;">记住密码</div>');
-  $("#remember").css('float','left');
-  $("#remember").parent().css({
-  	paddingLeft:'55px',
-  	fontSize:'12px',
-  })
-  $("#remember").parent().append('<a href="#" style="float:right;margin-right:55px;color:#fff;">免费注册</a>');
-  $('#submit').attr('value','登       录').css({
-  	background: '#fcb616',
-    color:'#fff',
-    fontSize: '14px',
-    textShadow: '1px 1px 1px #ad3c25',
-    width: '288px',
-    height: '32px',
-    lineHight: '25px',
-    border: '1px solid #dba658',
-    borderRadius: '5px',
-    fontWeight:'bold',
-    cursor: 'pointer'
-  })
-  $('#submit').hover(function(){
-  	this.style.backgroundColor="#ffc031";
-  },function(){
-  	this.style.backgroundColor="#fcb616";
-  });
-  $('#submit').css('fontWeight','bold');
-  $('#submit').parent().css('textAlign','center')
+	  $('#email').attr('placeholder','请输入您的账号');
+	  $('#email').prev().empty();
+	  $('#email').prev().append('<div style="float: left;line-height:25px;width:60px;font-size:14px;color:#fff;">用户名</div>');
+	  $("#email").parent().css({paddingLeft:'55px'});
+	  $("#password").parent().css({paddingLeft:'55px'});
+	  $('#password').prev().empty();
+	  $('#password').prev().append('<div style="float: left;line-height:25px;width:60px;font-size:14px;color:#fff;">密码</div>');
+	  $('#password').attr('placeholder','请输入您的密码');
+	  $('#remember').prev().empty();
+	  $('#remember').prev().append('<div style="display:inline-block;color:#fff;">记住密码</div>');
+	  $("#remember").css('float','left');
+	  $("#remember").parent().css({
+	  	paddingLeft:'55px',
+	  	fontSize:'12px',
+	  })
+	  $("#remember").parent().append('<a href="#" style="float:right;margin-right:55px;color:#fff;">免费注册</a>');
+	  $('#submit').attr('value','登       录').css({
+	  	background: '#fcb616',
+	    color:'#fff',
+	    fontSize: '14px',
+	    textShadow: '1px 1px 1px #ad3c25',
+	    width: '288px',
+	    height: '32px',
+	    lineHight: '25px',
+	    border: '1px solid #dba658',
+	    borderRadius: '5px',
+	    fontWeight:'bold',
+	    cursor: 'pointer'
+	  })
+	  $('#submit').hover(function(){
+	  	this.style.backgroundColor="#ffc031";
+	  },function(){
+	  	this.style.backgroundColor="#fcb616";
+	  });
+	  $('#submit').css('fontWeight','bold');
+	  $('#submit').parent().css('textAlign','center')
   </script>
