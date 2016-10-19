@@ -64,24 +64,23 @@
 		   <li class="active"><a href="#time" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/time.png">
 		   		时间</a></li>
-		   <li><a href="#place" data-toggle="tab" id="menu_font">
-		   <!-- <li><a href="#place" data-toggle="tab" id="menu_font"  onclick="go_to_place();"> -->
+		   <li onclick="place_load()"><a href="#place" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/place.png">
 		   		地域</a></li>
-		   <li><a href="#network" data-toggle="tab" id="menu_font">
+		   <li onclick="network_load()"><a href="#network" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/network.png">
 		   		网络</a></li>
-		   <li><a href="#emotion" data-toggle="tab" id="menu_font">
+		   <li onclick="emotion_load()"><a href="#emotion" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
 		   		情绪</a></li>
-		   <li><a href="#meaning" data-toggle="tab" id="menu_font">
+		   <li onclick="meaning_load()"><a href="#meaning" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/meaning.png">
 		   		语义</a></li>
 		</ul>
 		<script type="text/javascript">
 
 		function go_to_place(){
-			console.log('1234567');
+			
 			// document.getElementById('meaning').style.display="block"; 
 			window.location.href="/topic_geo_analyze/place";
 		}
@@ -232,6 +231,7 @@
 </div>
 
 </body>
+
 
  	<script type="text/javascript" src="../../static/info_consume/js/date_time.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_place.js"></script>

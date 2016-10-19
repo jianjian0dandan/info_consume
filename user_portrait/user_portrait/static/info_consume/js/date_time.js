@@ -187,7 +187,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		y_item_comment.push(item[key]['3']);
 	}
 
-
+	
  	var myChart = echarts.init(document.getElementById('main_time'));
 	//Chart.showLoading({text: '正在努力的读取数据中...'  });
 	var option = {
@@ -213,7 +213,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		    type : 'category',
 		    boundaryGap : false,
 		    data : x_item
-		    //data: ['周一','周二','周三','周四','周五','周六','周日','周五','周六','周日']
+		  
 		        }
 		],
 		yAxis : [
@@ -229,51 +229,19 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		    name:'原创',
 		    type:'line',
 		    data:y_item_origin,
-		    //data:[56,25,19,39,58,62,8,17,53,65],
-		    // markPoint : {
-		    //     data : [
-		    //         {type : 'max', name: '最大值'},
-		    //         {type : 'min', name: '最小值'}
-		    //     ]
-		    // },
-		    // markLine : {
-		    //     data : [
-		    //         {type : 'average', name: '平均值'}
-		    //     ]
-		    // }
+		   
 		    },
 		    {
 		    name:'评论',
 		    type:'line',
 		    data:y_item_comment,
-		    //data:[21,0,3,20,30,36,4,8,31,11],
-		    // markPoint : {
-		    //     data : [
-		    //         {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
-		    //     ]
-		    // },
-		    // markLine : {
-		    //     data : [
-		    //         {type : 'average', name : '平均值'}
-		    //     ]
-		    // }
+		 
 		    },
 		    {
 		    name:'转发',
 		    type:'line',
 		    data:y_item_forwarding,
-		    //data:[17,2,4,19,34,34,5,11,30,14],
-		    // markPoint : {
-		    // data : [
-		    //     {type : 'max', name: '最大值'},
-		    //     {type : 'min', name: '最小值'}
-		    // ]
-		    // },
-		    // markLine : {
-		    //     data : [
-		    //         {type : 'average', name: '平均值'}
-		    //     ]
-		    // }
+		    
 		    }
 		]
     };
@@ -321,17 +289,17 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 			html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
 			html +=	'<div>';
 			//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
-			html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
+			html += '<a target="_blank" href="/index/viewinformation/?uid='+item[i][1].uid+'" class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
 			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
 			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
 			html += '</div>';
 			html += '<div class="blog_text">'
 			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
-			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
+			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 6%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
 			html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
 			//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 			//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-			html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
+			html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 			//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
 			html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
 			//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';

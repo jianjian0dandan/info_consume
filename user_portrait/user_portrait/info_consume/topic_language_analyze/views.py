@@ -29,7 +29,8 @@ def submit_task():
     topic = request.args.get('topic','')
     print 'what!!!'
     status = submit(topic,start_ts,end_ts,submit_user)
-    return status
+    print status
+    return json.dumps(status)
 
 
 @mod.route('/during_keywords/')
