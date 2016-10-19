@@ -466,7 +466,7 @@ def filter_in_uid(input_dict):
     all_count = len(input_uid)
     iter_count = 0
     in_portrait_result = []
-
+    print  all_count
     while iter_count < all_count:
         iter_user_list = input_uid[iter_count: iter_count+FILTER_ITER_COUNT]
         try:
@@ -478,7 +478,8 @@ def filter_in_uid(input_dict):
             iter_in_portrait = [[item['_id'], item['fields']['uname'][0], item['fields']['photo_url'][0],input_dict[item['_id']]] for item in portrait_result if item['found']==True]
         in_portrait_result.extend(iter_in_portrait)
         iter_count += FILTER_ITER_COUNT
-    
+        #print iter_count,all_count
+    print all_count
     return in_portrait_result
 
 #filter in user_portrait by uname
@@ -624,7 +625,7 @@ def new_get_user_social(uid):
     except:
         pass
     #filter who in in user_portrait by uid
-    print len(union_retweet_comment_result)
+    print '627',len(union_retweet_comment_result)
     in_retweet_comment_result = filter_in_uid(union_retweet_comment_result) # [[id, uname, photo_url, count],...]
     top_user_retweet_comment = sorted(in_retweet_comment_result, key=lambda x:x[3], reverse=True)[:20]
     results['top_retweet_comment'] = top_user_retweet_comment
@@ -730,6 +731,24 @@ def new_get_user_weibo(uid, sort_type):
     else:
         uname = ''
     #step2:get user weibo
+    index_list = []
+    for i in range(7, 0, -1):
+        if RUN_TYPE == 1:
+            iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
+        else:
+            iter_date = '2013-09-01'
+        index_list.append(flow_text_index_name_pre + iter_date)
+    print '726'
+    try:
+        weibo_result = es_flow_text.search(index=index_list, doc_type=flow_text_index_type,\
+                body={'query':{'filtered':{'filter':{'term': {'uid': uid}}}}, 'size':MAX_VALUE,'sort':{sort_type:{'order':'desc'}}})['hits']['hits']
+        #print weibo_result
+    except:
+        weibo_result = []
+    print '732',len(weibo_result)
+    if weibo_result:
+        weibo_list.extend(weibo_result)
+    '''
     for i in range(7, 0, -1):
         if RUN_TYPE == 1:
             iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
@@ -746,7 +765,7 @@ def new_get_user_weibo(uid, sort_type):
         print '732',len(weibo_result)
         if weibo_result:
             weibo_list.extend(weibo_result)
-    
+    '''
     #sort_weibo_list = sorted(weibo_list, key=lambda x:x['_source'][sort_type], reverse=True)[:100]
     mid_set = set()
     for weibo_item in weibo_list:
