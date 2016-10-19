@@ -130,3 +130,5 @@ function show_domain()
 
 
 show_domain();
+
+console.log("加载偏好");
