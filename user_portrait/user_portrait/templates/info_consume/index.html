@@ -158,7 +158,7 @@
         <p id="draw_p3"></p><!--friends name-->
         <p id="draw_p4"></p><!--location-->
 
-        <!-- <img id="influ_img" src="../../static/info_consume/image/icon_inf.png " width="30px" height="30px" > -->
+        <img id="influ_img" src="../../static/info_consume/image/icon_inf.png " width="30px" height="30px" >
         <h1 id="influ_title">我的个人影响力</h1>
           <div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left bk-vcenter text-center">
@@ -174,7 +174,7 @@
           </div>
 
 
-        <!-- <img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" > -->
+        <img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" > 
         <h1 id="act_title">我的活跃度:<span id="activePower"></span>分</h1>       
         <h1 id="act_text" style="margin-top: 20px;margin-left: 20px;font-size: 20px !important;"> 最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>  
       </div>  
@@ -185,10 +185,10 @@
         <div class="panel-heading">
           贴心天气
         </div>
-<!--         <div style="margin:2px 15px;">
+         <div style="margin:2px 15px;">
           <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="150" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
          </iframe> 
-        </div> -->
+        </div> 
       </div>
 
 
@@ -526,29 +526,9 @@ homepageinfo.prototype = {
     },
 
     domain:function(data){
-      // var i;
-      // //将此人涉及领域从数据库取出，
-      // var domain = new Array();
-      // var num = new Array();
-      
-      // for (i=0;i<data.in_topic.length;i++) 
-      // {
-      //   domain[i]=data.in_topic[i][0];
-      //   num[i]=data.in_topic[i][1];
-      // }
-
-      // var topdomain = domain[0];
-      // var othernum;
-      // for (var j = 0; j < data.in_topic.length; j++) {
-      //   if (domain[j] == "其他类") {
-      //     othernum = j;
-      //     break;
-      //   }
-      // }
-      // if(othernum == 0){
-      //   topdomain = domain[1];
-      // }  
-      document.getElementById('draw_p2').innerHTML = data;
+      var str = data;
+      //console.log(str.split("&")[0]);
+      document.getElementById('draw_p2').innerHTML = str.split("&")[0];
       //console.log(topdomain);
     },
 
