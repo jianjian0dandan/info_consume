@@ -46,6 +46,7 @@ homepageinfo.prototype = {
      nickName_greet.innerHTML = personalData.nick_name;
         
    var Verfi = document.getElementById('verified');
+   var drawVerfi = document.getElementById('draw_p1');
    if( personalData.verified_type==""){
        personalData.verified_type = "暂无数据";
    }
@@ -55,13 +56,18 @@ homepageinfo.prototype = {
        Verfi.innerHTML = "否";
        if(verf == -1){
          Verf_type.innerHTML = personalData.verified_type_ch;
+         drawVerfi.innerHTML = personalData.verified_type_ch;
        }else{
          Verf_type.innerHTML = "无";
+         drawVerfi.innerHTML = "未知";
        }
    }else{
        Verfi.innerHTML = "是";
      Verf_type.innerHTML = personalData.verified_type_ch;
+     drawVerfi.innerHTML = personalData.verified_type_ch;
    }
+
+
        var Fansum = document.getElementById('fansum');
    if( personalData.fansnum==""){
        personalData.fansnum = "暂无数据";
@@ -139,6 +145,56 @@ homepageinfo.prototype = {
       }
     },
 
+    //地域
+    geoData:function(data)
+    {
+      var drawGeo = document.getElementById('draw_p4');
+        if(data.all_top[0][0] !=""){
+            drawGeo.innerHTML = data.all_top[0][0];
+            console.log(data.all_top[0][0]);
+        }else{
+            drawGeo.innerHTML = '未知';
+        }
+    },
+
+    domain:function(data){
+      var i;
+      //将此人涉及领域从数据库取出，
+      var domain = new Array();
+      var num = new Array();
+      
+      for (i=0;i<data.in_topic.length;i++) 
+      {
+        domain[i]=data.in_topic[i][0];
+        num[i]=data.in_topic[i][1];
+      }
+
+      var topdomain = domain[0];
+      var othernum;
+      for (var j = 0; j < data.in_topic.length; j++) {
+        if (domain[j] == "其他类") {
+          othernum = j;
+          break;
+        }
+      }
+      if(othernum == 0){
+        topdomain = domain[1];
+      }  
+      document.getElementById('draw_p2').innerHTML = topdomain;
+      console.log(topdomain);
+    },
+
+    //亲密度排行
+    intimacy_rank:function(data)
+    {
+      var drawFriend = document.getElementById('draw_p3');
+        if(data[0].uname !=""){
+            drawFriend.innerHTML = data[0].uname;
+            console.log(data[0].uname);
+        }else{
+            drawFriend.innerHTML = '未知';
+        }
+    },
     // 微博数据
     weiboData:function(data){
       weiboData = data;
@@ -391,12 +447,24 @@ var uid = 1640601392;
 var Personal = new homepageinfo();
 var personalData; // global data
 
+//
+//好友亲密度排行
+var url ="/info_person_social/bidirect_interaction/?uid="+uid;
+Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);
+//地点
+var geo_url = '/attribute/location/?uid='+uid+'&time_type=month';
+Personal.call_sync_ajax_request(geo_url, Personal.ajax_method, Personal.geoData);
+//领域
+var url = '/attribute/new_user_social/?uid='+uid;
+Personal.call_sync_ajax_request(url,Personal.ajax_method,Personal.domain);
 
+//个人画像信息排行
 var url = "/attribute/new_user_profile/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
 var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
 
 //最新update

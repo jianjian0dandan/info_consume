@@ -43,17 +43,31 @@ def _json_loads(weibos):
 
 def get_topics():
     results = {}
-    topics = weibo_es.search(index=topic_index_name,doc_type=topic_index_type)
+    query_body={
+        'query':{
+            'filtered':{
+                'filter':{
+                    'term':{
+                        'comput_status':1 
+                    }
+                }
+            }
+        }
+    }
+    topics = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
     if topics:
         topics = topics['hits']['hits']
         for topic in topics:
-            print topic
-            results[topic['_source']['en_name']]=[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']]
+            try:
+                results[topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']])
+            except:
+                results[topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']]]
+            print results
     return json.dumps(results)
 
 
-    es.index(index='topics',doc_type='text',id='1467648000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
-                                                'start_ts':'1467648000','submit_user':'jln','comput_status':0})
+    # es.index(index='topics',doc_type='text',id='1467648000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
+    #                                             'start_ts':'1467648000','submit_user':'jln','comput_status':0})
 
 
 def submit(topic,start_ts,end_ts,submit_user):
@@ -84,7 +98,8 @@ def submit(topic,start_ts,end_ts,submit_user):
         'start_ts':start_ts,
         'end_ts':end_ts,
         'submit_user':submit_user,
-        'comput_status':0
+        'comput_status':0,
+        'submit_ts':int(time.time())
     }
     try:
         print weibo_es.get(index=topic_index_name, doc_type=topic_index_type, id=submit_id)['_source']

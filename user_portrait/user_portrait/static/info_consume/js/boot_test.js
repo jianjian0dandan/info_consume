@@ -103,7 +103,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+'">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+' "target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                             return e;
        
                         }
@@ -187,34 +187,11 @@
             $('.user_view').tooltip();
           } 
            call_sync_ajax_request(influ_url, init_table);
-         })
-        
-        
 
-        //定义展示任务
-        function get_result(data)
-             { 
-              var data = data['result'];
-              $('#topic-task').bootstrapTable('refresh', {data: data});
-             }
-        //定义删除任务
-        function delete_result(data)
-             { 
-              console.log(data);
-              if(data.flag == true){
-                alert('删除成功！');
-                var task_url = '/influence_sort/search_task/?username='+username;
-                console.log(task_url);
-                $('#topic-task').bootstrapTable('refresh',{url:task_url})
-              }else{
-                alert('删除失败！');
-              }
-             }
-        //定义刷新相似用户列表
-      function similar_user(data){
+            var user_data=[];
             $('#table-user-user').bootstrapTable({
                  // url: data,
-                  data:data,
+                  data: user_data,
                   search: true,//是否搜索
                   pagination: true,//是否分页
                   pageSize: 20,//单页记录数
@@ -255,7 +232,7 @@
                           if(value=="unknown"||value==""){
                             value = "未知";
                           }
-                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover">'+value+'</a>'; 
+                          var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover" target="_blank">'+value+'</a>'; 
                            return e;
                         }
                     },
@@ -305,8 +282,34 @@
                         }
                     }]
              });
-            $('.user_view').tooltip();
-         };
+         })
+        
+        
+
+
+        //定义删除任务
+        function delete_result(data)
+             { 
+              console.log(data);
+              if(data.flag == true){
+                alert('删除成功！');
+                var task_url = '/influence_sort/search_task/?username='+username;
+                console.log(task_url);
+                $('#topic-task').bootstrapTable('refresh',{url:task_url})
+              }else{
+                alert('删除失败！');
+              }
+             }
+        //定义刷新相似用户列表
+      // function similar_user(data){
+      // 	    var si_user_data=[];
+      // 	    for(var i=1;i<data.length;i++){
+      //         si_user_data[i-1]=data[i];
+      // 	    }
+      // 	    console.log(si_user_data);
+      //       $('#table-user-user').bootstrapTable('refresh',{data:si_user_data})
+      //       $('.user_view').tooltip();
+      //    };
       function dele_analysis(data){
              var a = confirm('确定要删除吗？');
                 if (a == true){
@@ -317,8 +320,18 @@
              }; 
      function view_analysis(data){
        var results_url = '/influence_sort/get_result/?search_id='+data;
-       console.log(results_url);
-       call_sync_ajax_request(results_url, get_result);
+       console.log("results_url:"+results_url);
+       $('.ver-inline-menu').children('li').removeClass('active');
+       $('#table-user-user-contain').css("display","none");
+       $('#table-user-contain').css("display","block");
+       $('#table-user').bootstrapTable('showColumn', 'fans');
+       $('#table-user').bootstrapTable('showColumn', 'weibo_count');
+       $('#table-user').bootstrapTable('hideColumn', 'imp');
+       $('#table-user').bootstrapTable('hideColumn', 'act');
+       $('#table-user').bootstrapTable('refresh', {url: results_url});
+       
+       // document.getElementById('').scrollIntoView()
+       window.location.hash='#sort-result';
      };
       function draw_topic_tasks(data){
        
@@ -465,8 +478,10 @@
                     $('#table-user-user-contain').css("display","block");
                     var user_id = keyword;//'2722498861';
                     var user_url = '/influence_sort/imagine/?uid='+user_id+'&keywords=topic_string&weight=1';
-                   // console.log(user_url);
-                    call_sync_ajax_request(user_url, similar_user);
+                    console.log(user_url);
+                    $('#table-user-user').bootstrapTable('refresh',{url:user_url});
+                    //call_sync_ajax_request(user_url, similar_user);
+                    window.location.hash='#sort-result';
                     document.getElementById('keyword_hashtag').value ="";
                     //similar_user(user_url);
                      }else{ 
@@ -603,9 +618,12 @@
          }
         }
 
-         
-         function modify_group(obj){
-          	var task = $(obj).attr("value");
+         //将成员添加到已有的群组里面
+  function modify_group(obj){
+     var task = $(obj).attr("value");
+     var r=confirm("您确定要将所选用户添加到“"+task+'”群组内吗？');
+    if(r==true){
+          	
           	//console.log(task);
 		  function re_call(data){
             console.log(data);
@@ -640,12 +658,12 @@
 	            console.log(job);
 	             function callback(data){
                   if (data == 1){
-                      alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
+                      alert('用户已添加到群组！请前往圈子追踪中查看分析进度！');
                       $('#addModal').modal('hide');
                       window.location.reload();
                   }
                   if(data == 0){
-                      alert('任务提交失败，请重试！'); 
+                      alert('用户添加失败，请重试！'); 
                        $('#addModal').modal('hide');
                       window.location.reload();
                   }
@@ -655,8 +673,15 @@
                       window.location.reload();
                   }
               }
+              //删除原来组  
+            var url = '/info_group/delete_group_task/?';
+            url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
+            call_sync_ajax_request(url,del);
+             function del(data){
+              //console.log(data);
+               if(data==true){
 
-              $.ajax({
+                $.ajax({
                   type:'POST',
                   url: group_ajax_url,
                   contentType:"application/json",
@@ -664,43 +689,38 @@
                   dataType: "json",
                   success: callback
               }); 
-
-             //删除原来组  
-            var url = '/info_group/delete_group_task/?';
-            url = url + 'task_name=' + task +'&submit_user=' + username;//$('#useremail').text();
-            call_sync_ajax_request(url,del);
-             function del(data){
-      		    //console.log(data);
-      		     if(data==true){
-      		     }else{
+               }else{
                  console.log('已有群组删除失败');
                }
-      		 }
-      		 //删除原来组结束
-              }else{
+              }
+           //删除原来组结束
+              
+           }else{        //选择的用户不重复
               	  var s ='您选择的用户(';
               	  for(var i=0;i<h.length;i++){
               	  	s+=('微博ID：'+selected_list[h[i]].uid+'，微博昵称：'+selected_list[i].uname+'；');
               	  }
               	  s+=')已存在该组！\n请重新选择！';
-	              alert(s);
-	               $('#addModal').modal('hide');
-                   window.location.reload();
+	                 alert(s);
+	               
 
 	             }
           	}//re_call结束
           	 var re_url='/info_group/group_member/?task_name='+task+'&submit_user='+username;
           	call_sync_ajax_request(re_url, re_call);
+         }else{
+             //
+         }
 
         }
 
-         function display_grouplist(){
+    function display_grouplist(){
            var group_list_url='/info_group/show_task/?submit_user='+username ;
            $.ajax({
                   type:'GET',
                   url: group_list_url,
-	              dataType: 'json',
-	              async: true,
+	                dataType: 'json',
+	                async: true,
                   success: draw_group_list
               }); 
             function draw_group_list(data){

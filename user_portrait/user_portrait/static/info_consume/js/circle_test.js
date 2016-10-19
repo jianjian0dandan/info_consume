@@ -1,7 +1,7 @@
         //当前用户名
-        s_user = 'admin@qq.com';
-        g_name = '冯绍峰'; 
-         $('#num_btn').tooltip();
+         var s_user = 'admin@qq.com';
+         var  g_name = '';
+         // $('#num_btn').tooltip();
          function call_sync_ajax_request(url, method, callback){
               $.ajax({
                 url: url,
@@ -32,7 +32,46 @@
      function view_analysis(data){
        g_name = data;
        $("#circle-analysis").slideDown();
-       console.log(g_name);
+       $('#basic_tab').tab('show')
+       document.getElementById('myContainer').scrollIntoView()
+       var html=""+data;
+        $('#current').append(html);
+       console.log("g_name:"+g_name);
+      //切换不同tab
+    var g_act_flag = false;
+    var g_pre_flag = false;
+    var g_soc_flag = false;
+    var g_tho_flag = false;
+    g_bas_load(g_name,s_user);
+    $(".feature_tab").click(function(){
+        var x = $(this).attr("title");
+        g_bas_load(g_name,s_user);
+        if(x=='基本特征'){
+           //$("#g_bas").css({"display":"block"}).siblings().css({"display":"none"});
+           //$("#qxtz").css({"background-color":"#3351B7"})
+        }else if(x=='活跃特征'){
+           if(g_act_flag==false){
+           g_act_load(g_name,s_user);
+           g_act_flag = true;
+           }
+        }else if(x=='兴趣特征'){
+           if(g_pre_flag==false){
+           g_pre_load(g_name,s_user);
+           g_pre_flag = true;
+           }
+        }else if(x=='社交特征'){
+           if(g_soc_flag==false){
+           g_soc_load(g_name,s_user);
+           g_soc_flag = true;
+           }
+        }else if(x=='情绪特征'){
+           if(g_tho_flag==false){
+           g_tho_load(g_name,s_user);
+           g_tho_flag = true;
+           }
+        }
+    });
+
      }  
 
   
@@ -105,13 +144,13 @@
                     },
                     {
                         field: "status",
-                        title: "圈子细查",
+                        title: "圈子分析",
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row){  
-                        if(value == 1){
+                        if(value == 0 || value == -1){
                           var e = '<span">正在计算</span>';
-                        }else if(value == 0){
+                        }else if(value == 1){
                          var e = '<span style="cursor:pointer;" onclick="view_analysis(\''+ row.task_name +'\')">点击查看</span> ';
                         }
                           return e;
@@ -271,8 +310,11 @@
           var del_url = '/info_group/delete_group_task/?';
            del_url = del_url + 'task_name=' + task +'&submit_user=' + s_user;//$('#useremail').text();
           console.log(del_url);
+          var r = confirm("您确定要删除成员吗？删除后的群组分析需要重新等待计算哦~");
+          if(r==true){
           call_sync_ajax_request(del_url,'GET',del);
           function del(data){
+            console.log("删除返回值"+data);
              if(data==true){
                //重新提交任务
               var group_ajax_url = '/influence_sort/submit_task/';
@@ -309,6 +351,7 @@
                  console.log('已有群组删除失败');
                  alert('删除失败！请重试');
                }
+             }//确定删除成员
             }//del结束
          }//删除ID不为空结束
         //call_sync_ajax_request(con_url,'GET',bulid);

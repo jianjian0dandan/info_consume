@@ -180,7 +180,7 @@ def propagateCronTopic(topic, start_ts, over_ts, sort_field=SORT_FIELD, \
 
 			begin_ts = over_ts - during * i
 			end_ts = begin_ts + during
-			print begin_ts,end_ts
+			#print begin_ts,end_ts
 			#print begin_ts, end_ts, 'topic %s starts calculate' % topic.encode('utf-8')
 			mtype_count = compute_mtype_count(topic, begin_ts, end_ts)
 			mtype_kcount = compute_mtype_keywords(topic, begin_ts, end_ts ,k_limit)
