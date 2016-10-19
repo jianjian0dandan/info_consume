@@ -41,27 +41,49 @@ def _json_loads(weibos):
             return None
 
 
-def get_topics():
-    results = {}
+def get_topics(user):
+    results = {'recommend':{},'own':{}}
     query_body={
         'query':{
             'filtered':{
                 'filter':{
-                    'term':{
-                        'comput_status':1 
+                    'bool':{
+                        'must':[{'term':{'comput_status':1}}],
+                        'must_not':[{'term':{'submit_user':user}}]
                     }
                 }
             }
-        }
+        },
+        'sort':{'submit_ts':{'order':'desc'}},
+        'size':5
+        
     }
     topics = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
     if topics:
         topics = topics['hits']['hits']
         for topic in topics:
             try:
-                results[topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']])
+                results['recommend'][topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
             except:
-                results[topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts']]]
+                results['recommend'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
+    query_own = {
+        'query':{
+            'filtered':{
+                'filter':{
+                    'term':{'submit_user':user}
+                }
+            }
+        }
+    }
+    own_topics =  weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_own)
+    if own_topics:
+        topics = own_topics['hits']['hits']
+        for topic in topics:
+            try:
+                results['own'][topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
+            except:
+                results['own'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
+
             print results
     return json.dumps(results)
 
@@ -69,6 +91,27 @@ def get_topics():
     # es.index(index='topics',doc_type='text',id='1467648000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
     #                                             'start_ts':'1467648000','submit_user':'jln','comput_status':0})
 
+def get_key_topics(keyword):
+    result = {}
+    query_body = {
+        'query': {
+            'bool': {
+                'must': [
+                        {'term':{'comput_status':1}},
+                        {'wildcard':{'name':'*'+keyword+'*'}}
+                        ]
+                }
+            }
+    }
+    results = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
+    if results:
+        topics = results['hits']['hits']
+        for topic in topics:
+            try:
+                result[topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
+            except:
+                result[topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
+    return json.dumps(result)
 
 def submit(topic,start_ts,end_ts,submit_user):
     # print str(topic.decode('utf-8'))
@@ -295,13 +338,13 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
                 must_list.append({'range':{'timestamp':{'gte':begin_ts,'lt':end_ts}}})
                 temp = []
                 for word in keywords:
-                    sentence =  {"wildcard":{"keywords_string":"*"+word+"*"}}
+                    sentence =  {'wildcard':{'keywords_string':'*'+word+'*'}}
                     temp.append(sentence)
                 must_list.append({'bool':{'should':temp}})
 
-                query_body = {"query":{
-                                "bool":{
-                                    "must":must_list
+                query_body = {'query':{
+                                'bool':{
+                                    'must':must_list
                                 }
                             }
                         }
@@ -316,6 +359,6 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
 if __name__ == '__main__':
 	#all_weibo_count('aoyunhui',1468166400,1468170900)
     #get_symbol_weibo('aoyunhui',1468944000,1471622400,Day)
-    opinion=["姐姐", "综艺节目", "网络"]
+    opinion=['姐姐', '综艺节目', '网络']
     #get_weibo_content('aoyunhui',1468944000,1471622400,opinion)
     get_during_keywords('aoyunhui',1468944000,1469707652)
