@@ -3,7 +3,7 @@
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
 from utils import get_during_keywords,get_topics_river,get_weibo_content,get_subopinion,get_symbol_weibo,get_topics
-from utils import submit
+from utils import submit,get_key_topics
 import json
 
 mod = Blueprint('topic_language_analyze',__name__,url_prefix='/topic_language_analyze')
@@ -18,7 +18,14 @@ MinInterval = Fifteenminutes
 
 @mod.route('/topics/')
 def topics():
-    topics = get_topics()
+    user = request.args.get('user','')
+    topics = get_topics(user)
+    return topics
+
+@mod.route('/key_topics/')
+def key_topics():
+    keyword = request.args.get('keyword','')
+    topics = get_key_topics(keyword)
     return topics
 
 @mod.route('/submit_task/')
@@ -27,7 +34,6 @@ def submit_task():
     end_ts = request.args.get('end_ts','')
     submit_user = request.args.get('submit_user','')
     topic = request.args.get('topic','')
-    print 'what!!!'
     status = submit(topic,start_ts,end_ts,submit_user)
     print status
     return json.dumps(status)

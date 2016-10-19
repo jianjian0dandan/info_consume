@@ -68,7 +68,7 @@ def delete_uid_file(filename):
 
 
 #submit new task and identify the task name unique in es-group_result and save it to redis list
-def submit_task(input_data):
+def submit_tasks(input_data):
     status = 0 # mark it can not submit
     task_name = input_data['task_name']
     submit_user = input_data['submit_user']
@@ -399,11 +399,12 @@ def search_group_results(task_name, module, submit_user):
     result = {}
     if RUN_TYPE == 0:
         #jln
-        task_id = 'mytest030302'
-        group_index_type = 'text'
+        #task_id = 'mytest030302'
+        task_id = submit_user + '-' + task_name
+        #group_index_type = 'text'
     else:
         task_id = submit_user + '-' + task_name
-    print es_group_result,group_index_name,group_index_type,task_id
+    #print es_group_result,group_index_name,group_index_type,task_id
     #step1:identify the task_name exist
     try:
         source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \

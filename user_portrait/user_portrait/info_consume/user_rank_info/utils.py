@@ -70,6 +70,8 @@ def delete_uid_file(filename):
 
 #submit new task and identify the task name unique in es-group_result and save it to redis list
 def submit_task(input_data):
+    print 'aaaaaaaaaaaaaaa'
+    print input_data
     status = 0 # mark it can not submit
     task_name = input_data['task_name']
     submit_user = input_data['submit_user']
@@ -103,7 +105,6 @@ def submit_task(input_data):
         result = es_group_result.get(index=group_index_name, doc_type=group_index_type, id=task_id)['_source']
     except:
         status = 1
-    
     if status != 0 and 'uid_file' not in input_data:
         input_data['status'] = 0 # mark the task not compute
         count = len(input_data['uid_list'])
@@ -121,7 +122,7 @@ def submit_task(input_data):
         #print es_group_result,group_index_name,group_index_type
         r.lpush(group_analysis_queue_name, json.dumps(input_data))
         #print status
-        
+    print status
     return status
 
 #search task by some condition -whether add download

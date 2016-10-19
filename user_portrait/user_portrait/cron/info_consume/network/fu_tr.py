@@ -23,7 +23,9 @@ from global_config import db, REDIS_HOST, REDIS_PORT,\
 #改动 这里不要啦
 #from global_config import xapian_search_user as user_search
 
-during = fu_tr_during
+#jln
+#during = fu_tr_during
+during = fu_tr_during /2
 unit = fu_tr_unit
 '''
 Minute = 60
@@ -373,26 +375,36 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
     end_ts = ts_list[new_peaks[0]]
     begin_ts = ts_list[new_bottom[0]]
     print 'pusher_start_ts:', ts2date(begin_ts)
-    print 'pusher_end_ts:', ts2date(end_ts)
+    print 'pusher_end_ts:', ts2date(end_ts)   #有两个时间  起点和终点  波峰和波谷  现在搞反了  不知道为什么
     if begin_ts>end_ts:
         begin_ts = ts_list[0]
     interval = (end_ts - begin_ts) / p_during
+    print end_ts - begin_ts
+    print p_during
+    print interval
     for i in range(interval, 0, -1):
         begin_ts = end_ts - p_during * i
         over_ts = begin_ts + p_during
+        #print '383',begin_ts,over_ts
         p_ts_list.append(over_ts)
         items = db.session.query(PropagateCount).filter(PropagateCount.topic==topic ,\
                                                         PropagateCount.end<=over_ts ,\
                                                         PropagateCount.end>begin_ts ,\
                                                         PropagateCount.range==unit).all()
 
+       
         if items:
             result = Merge_propagate(items)
         else:
             result = 0
         results.append(float(result))
     #print 'pusher_line:', results
+    #try:
+    print results
+    print p_ts_list
     max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
+    #except:
+
     #save max_k_timestamp
     # save_mak_k(max_k_timestamp)
     end = max_k_timestamp
@@ -403,7 +415,7 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
                     'must':
                     # {'term':{'name': topic}},
                         {'range': {
-                            'timestamp': {'gte': end, 'lt': end+3600}
+                            'timestamp': {'gte': end, 'lt': end+3600} #3600
                         }
                         }
                 }
@@ -470,7 +482,10 @@ def get_max_k_timestamp(results, p_ts_list):
             incre = float(smooth_results[j] - smooth_results[j-1])
             all_average += incre
             incre_dict[j-1] = incre
-    average_incre = all_average / len(incre_dict)    
+    try:
+        average_incre = all_average / len(incre_dict)    
+    except:
+        average_incre = all_average
     remove_list = []
     #print 'incre_dict:', incre_dict
     # 筛掉增量小于平均增量的
@@ -484,6 +499,7 @@ def get_max_k_timestamp(results, p_ts_list):
             timestamp = p_ts_list[index+1]
             k_value = sort_k[1]
             after_remove_k_list.append((index+1, timestamp, k_value))
+    
     max_k_timestamp = after_remove_k_list[0][1]
     #print 'after_remove_k_list:', after_remove_k_list
     print 'max_k_timestamp:', max_k_timestamp
@@ -548,7 +564,8 @@ if __name__=='__main__':
     date = END
     start_ts = datetime2ts(START)
     end_ts = datetime2ts(END)
-    windowsize = (end_ts - start_ts) / Day
+    #windowsize = (end_ts - start_ts) / Day
+    windowsize = (end_ts - start_ts) / Day /2
     topic_xapian_id = weibo_topic2xapian(topic, start_ts, end_ts)
     get_interval_count(topic, date, windowsize, topic_xapian_id)
     

@@ -466,6 +466,7 @@ def filter_in_uid(input_dict):
     all_count = len(input_uid)
     iter_count = 0
     in_portrait_result = []
+
     while iter_count < all_count:
         iter_user_list = input_uid[iter_count: iter_count+FILTER_ITER_COUNT]
         try:
@@ -608,6 +609,7 @@ def new_get_user_social(uid):
         retweet_result = json.loads(retweet_result)
     except:
         retweet_result = {}
+    
     try:
         comment_result = es_comment.get(index=comment_index_name, doc_type=comment_index_type,\
                 id=uid)['_source']['uid_comment']
@@ -615,15 +617,18 @@ def new_get_user_social(uid):
     except:
         comment_result = {}
     #union retweet and comment dict
+    
     union_retweet_comment_result = union_dict(retweet_result, comment_result)
     try:
         union_retweet_comment_result.pop(uid)
     except:
         pass
     #filter who in in user_portrait by uid
+    print len(union_retweet_comment_result)
     in_retweet_comment_result = filter_in_uid(union_retweet_comment_result) # [[id, uname, photo_url, count],...]
     top_user_retweet_comment = sorted(in_retweet_comment_result, key=lambda x:x[3], reverse=True)[:20]
     results['top_retweet_comment'] = top_user_retweet_comment
+    
     #step2:be_retweet/be_comment
     be_retweet_index_name = be_retweet_index_name_pre + str(db_number)
     be_comment_index_name = be_comment_index_name_pre + str(db_number)
@@ -633,6 +638,7 @@ def new_get_user_social(uid):
         be_retweet_result = json.loads(be_retweet_result)
     except:
         be_retweet_result = {}
+    
     try:
         be_comment_result = es_comment.get(index=be_comment_index_name, doc_type=be_comment_index_type,\
                 id=uid)['_source']['uid_be_comment']
@@ -641,33 +647,40 @@ def new_get_user_social(uid):
         be_comment_result = {}
     #union be_retweet and be_comment dict
     union_be_retweet_comment_result = union_dict(be_retweet_result, be_comment_result)
+    
     try:
         union_be_retweet_comment_result.pop(uid)
     except:
         pass
+
     #filter who in user_portrait by uid
     in_be_retweet_comment_result = filter_in_uid(union_be_retweet_comment_result) # [[id, uname, photo_url, count],...]
     top_user_be_retweet_comment = sorted(in_be_retweet_comment_result, key=lambda x:x[3], reverse=True)[:20]
     results['top_be_retweet_comment'] = top_user_be_retweet_comment
+    
     #step3:interaction
     interaction_result = get_user_interaction(in_retweet_comment_result, in_be_retweet_comment_result)
     top_user_interaction = sorted(interaction_result, key=lambda x:x[3], reverse=True)[:20]
     results['top_interaction'] = top_user_interaction
     #step4:at
+    
     mention_result = search_mention(uid)
     #filter who in user_portrait
     in_mention_result = filter_in_uname(mention_result) # [[id, uname, photo_url, count],...]
     top_user_mention = sorted(in_mention_result, key=lambda x:x[3], reverse=True)[:20]
     results['top_mention'] = top_user_mention
     #step5:user domain and topic who in user_portrait
+    
     in_retweet_comment_uid_set = set([item[0] for item in in_retweet_comment_result])
     in_be_retweet_comment_uid_set = set([item[0] for item in in_be_retweet_comment_result])
     in_mention_result = set([item[0] for item in in_mention_result])
     all_in_uid_set = in_retweet_comment_uid_set | in_be_retweet_comment_uid_set | in_mention_result - set([uid])
     #compute domain
+    
     domain_statis_dict = get_social_domain(all_in_uid_set)
     sort_domain_statis_dict = sorted(domain_statis_dict.items(), key=lambda x:x[1], reverse=True)[:20]
     results['in_domain'] = sort_domain_statis_dict
+
     #compute topic
     topic_statis_dict = get_social_topic(all_in_uid_set)
     sort_topic_statis_dict = sorted(topic_statis_dict.items(), key=lambda x:x[1], reverse=True)[:20]
@@ -705,30 +718,37 @@ def new_get_user_weibo(uid, sort_type):
         now_date = RUN_TEST_TIME
         sort_type = 'timestamp'
     #step1:get user name
+    print '708'
     try:
         user_profile_result = es_user_profile.get(index=profile_index_name, doc_type=profile_index_type,\
                 id=uid, _source=False, fields=['nick_name'])
     except:
         user_profile_result = {}
+    print '714',len(user_profile_result)
     if user_profile_result:
         uname = user_profile_result['fields']['nick_name'][0]
     else:
         uname = ''
     #step2:get user weibo
     for i in range(7, 0, -1):
-        iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
-        iter_date = '2013-09-01'
+        if RUN_TYPE == 1:
+            iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
+        else:
+            iter_date = '2013-09-01'
         index_name = flow_text_index_name_pre + iter_date
+        print '726'
         try:
             weibo_result = es_flow_text.search(index=index_name, doc_type=flow_text_index_type,\
                     body={'query':{'filtered':{'filter':{'term': {'uid': uid}}}}, 'size':MAX_VALUE})['hits']['hits']
             #print weibo_result
         except:
             weibo_result = []
+        print '732',len(weibo_result)
         if weibo_result:
             weibo_list.extend(weibo_result)
     
     #sort_weibo_list = sorted(weibo_list, key=lambda x:x['_source'][sort_type], reverse=True)[:100]
+    mid_set = set()
     for weibo_item in weibo_list:
         source = weibo_item['_source']
         mid = source['mid']
@@ -758,7 +778,9 @@ def new_get_user_weibo(uid, sort_type):
             comment_count = 0
             sensitive_score = 0
         city = ip2city(ip)
-        results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
+        if mid not in mid_set:
+            results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
+            mid_set.add(mid)
     if sort_type == 'timestamp':
         sort_results = sorted(results, key=lambda x:x[5], reverse=True)
     elif sort_type == 'retweet_count':
@@ -767,6 +789,7 @@ def new_get_user_weibo(uid, sort_type):
         sort_results = sorted(results, key=lambda x:x[8], reverse=True)
     elif sort_type == 'sensitive':
         sort_results = sorted(results, key=lambda x:x[9], reverse=True)
+    print '778'
     return sort_results
 
 

@@ -169,9 +169,9 @@ def create_app():
     mongo.init_app(app)
     '''
 
-    @app.route('/')
-    def index():
-        return render_template('/info_consume/index.html')
+    # @app.route('/')
+    # def index():
+    #     return render_template('/info_consume/index.html')
 
     return app
    
