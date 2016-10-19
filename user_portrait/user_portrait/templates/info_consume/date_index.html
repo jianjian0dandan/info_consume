@@ -77,7 +77,7 @@
 				
 			</script>
                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" onblur="checkText();" data-toggle="modal" data-target="#choose_and_make" onclick="Draw_similar_topic_result()">
+                  <button class="btn btn-default" type="button" onclick="Draw_similar_topic_result()" >
                      Go!
                   </button>
                </span>
@@ -87,41 +87,6 @@
    </form>
 
 </div>
-
-
-<!-- 模态框：从与输入关键词相似的话题中进行选择 -->
-
-<div class="modal fade" id="choose_and_make" tabindex="-1" role="dialog" 
-   aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" 
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-               温馨提示
-            </h4>
-         </div>
-         <div class="modal-body">
-            请从以下选择您具体要分析的话题，如果没有可以选择新建话题任务。
-            <div id="topic_similar">
-            	<!-- 相似话题 -->
-            </div>
-         </div>
-         <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-default" 
-               data-dismiss="modal">否，换个词试试
-            </button> -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_task">
-               新建话题
-            </button>
-         </div>
-      </div><!-- /.modal-content -->
-</div><!-- /.modal -->
-</div>
-
 
 
 <!-- 模态框：新建任务 -->
@@ -142,14 +107,14 @@
          <div class="modal-body">
             请填写新建话题任务的相关信息。
             <div id="topic_similar">
-            	<p><span><b>话题名称：</b><input type="" name="" placeholder="请输入你感兴趣的话题名称" style="margin-left: 0.5%;margin-top: 2%;"> </span></p>
+            	<p><span><b>话题名称：</b><input id="create_topic" type="" name="" placeholder="请输入你感兴趣的话题名称" style="margin-left: 0.5%;margin-top: 2%;"> </span></p>
             	<p style="margin-top: 3%;"><span><b>时间范围：</b>
             		<div class="container">
 						<!-- <p class="topic_time_from_create" style="margin-top: 5%;">From</p> -->
 						<div class='col-md-3' id="date_create_from">
 							<div class="form-group">
 					    		<div class='input-group date' id='datetimepicker_create_from' style="width: 202px;margin-left: 17%;margin-top: -15%;float: left;">
-					    			<input id="input_date_from_create" type='text' class="form-control" />
+					    			<input id="input_date_from_create" type='text' class="form-control"/>
 					    			<span class="input-group-addon">
 					    				<span class="glyphicon glyphicon-calendar"></span>
 					    			</span>
@@ -208,7 +173,7 @@
             <button type="button" class="btn btn-default" 
                data-dismiss="modal">换个词试试
             </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jindutiao_task">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jindutiao_task" onclick="submit_topic()">
                提交任务
             </button>
          </div>
@@ -228,7 +193,7 @@
 
 </body>
 	
-	
+	<script type="text/javascript">console.log('{{g.user.email}}')</script>
 	<script type="text/javascript" src="../../static/info_consume/js/date_index.js"></script>
 
 </html>
