@@ -8,13 +8,13 @@ homepageinfo.prototype = {
     url: url,
     type: method,
     dataType:'json',
-    async:true,
+    async:false,
     success:callback
   });
   },
   personData:function(data){
 
-  //console.log(data);
+  console.log("personData"+data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
   if(personalData.uid){
@@ -158,30 +158,30 @@ homepageinfo.prototype = {
     },
 
     domain:function(data){
-      var i;
-      //将此人涉及领域从数据库取出，
-      var domain = new Array();
-      var num = new Array();
+      // var i;
+      // //将此人涉及领域从数据库取出，
+      // var domain = new Array();
+      // var num = new Array();
       
-      for (i=0;i<data.in_topic.length;i++) 
-      {
-        domain[i]=data.in_topic[i][0];
-        num[i]=data.in_topic[i][1];
-      }
+      // for (i=0;i<data.in_topic.length;i++) 
+      // {
+      //   domain[i]=data.in_topic[i][0];
+      //   num[i]=data.in_topic[i][1];
+      // }
 
-      var topdomain = domain[0];
-      var othernum;
-      for (var j = 0; j < data.in_topic.length; j++) {
-        if (domain[j] == "其他类") {
-          othernum = j;
-          break;
-        }
-      }
-      if(othernum == 0){
-        topdomain = domain[1];
-      }  
-      document.getElementById('draw_p2').innerHTML = topdomain;
-      console.log(topdomain);
+      // var topdomain = domain[0];
+      // var othernum;
+      // for (var j = 0; j < data.in_topic.length; j++) {
+      //   if (domain[j] == "其他类") {
+      //     othernum = j;
+      //     break;
+      //   }
+      // }
+      // if(othernum == 0){
+      //   topdomain = domain[1];
+      // }  
+      document.getElementById('draw_p2').innerHTML = data;
+      //console.log(topdomain);
     },
 
     //亲密度排行
@@ -455,7 +455,7 @@ Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_ran
 var geo_url = '/attribute/location/?uid='+uid+'&time_type=month';
 Personal.call_sync_ajax_request(geo_url, Personal.ajax_method, Personal.geoData);
 //领域
-var url = '/attribute/new_user_social/?uid='+uid;
+var url = '/attribute/info_new_user_social/?uid='+uid;
 Personal.call_sync_ajax_request(url,Personal.ajax_method,Personal.domain);
 
 //个人画像信息排行

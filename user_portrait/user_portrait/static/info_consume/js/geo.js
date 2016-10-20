@@ -139,3 +139,4 @@ function click_action_geo(){
     });
 }
 
+console.log("加载地图");

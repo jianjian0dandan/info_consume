@@ -216,3 +216,4 @@ function show_results(data){
   }
 }
 
+console.log("加载词云图");
