@@ -173,7 +173,7 @@
             <button type="button" class="btn btn-default" 
                data-dismiss="modal">换个词试试
             </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jindutiao_task" onclick="submit_topic()">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jindutiao_task" onclick="Submit_task_result()">
                提交任务
             </button>
          </div>
@@ -193,7 +193,7 @@
 
 </body>
 	
-	<script type="text/javascript">console.log('{{g.user.email}}')</script>
+	<script type="text/javascript">var user_glo='{{g.user.email}}'</script>
 	<script type="text/javascript" src="../../static/info_consume/js/date_index.js"></script>
 
 </html>
