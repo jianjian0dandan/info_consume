@@ -154,6 +154,12 @@ def submit(topic,start_ts,end_ts,submit_user):
     #该push到redis里，然后改status  计算完了再改回来
     return result
 
+def delete(en_name,start_ts,end_ts,submit_user):
+    task_id = start_ts+'_'+end_ts+'_'+en_name+'_'+submit_user
+    try:
+        return weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+    except:
+        return -1
 
 def get_during_keywords(topic,start_ts,end_ts):  #关键词云,unit=MinInterval
     keywords = []

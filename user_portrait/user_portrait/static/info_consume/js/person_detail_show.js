@@ -66,4 +66,5 @@ Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData)
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
 
-//最新update
+console.log("加载微博数据");
+console.log("个人信息");

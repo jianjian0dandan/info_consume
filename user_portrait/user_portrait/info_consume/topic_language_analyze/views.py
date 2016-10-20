@@ -3,7 +3,7 @@
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
 from utils import get_during_keywords,get_topics_river,get_weibo_content,get_subopinion,get_symbol_weibo,get_topics
-from utils import submit,get_key_topics
+from utils import submit,get_key_topics,delete
 import json
 
 mod = Blueprint('topic_language_analyze',__name__,url_prefix='/topic_language_analyze')
@@ -35,9 +35,20 @@ def submit_task():
     submit_user = request.args.get('submit_user','')
     topic = request.args.get('topic','')
     status = submit(topic,start_ts,end_ts,submit_user)
+
     print status
+
     return json.dumps(status)
 
+
+@mod.route('/delete_task/')
+def delete_task():
+    start_ts = request.args.get('start_ts','')
+    end_ts = request.args.get('end_ts','')
+    submit_user = request.args.get('submit_user','')
+    en_name = request.args.get('en_name','')
+    status = delete(en_name,start_ts,end_ts,submit_user)
+    return json.dumps(status)
 
 @mod.route('/during_keywords/')
 def during_keywords():
