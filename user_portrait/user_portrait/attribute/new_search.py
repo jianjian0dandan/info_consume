@@ -689,6 +689,8 @@ def new_get_user_social(uid):
     return results
 
 
+
+
 #use to get sensitive words
 def new_get_sensitive_words(uid):
     try:
