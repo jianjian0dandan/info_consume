@@ -320,6 +320,6 @@ var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid;
 var influSkill_url = '/influence_application/specified_user_active/?date=2016-05-21&uid=1065618283';
   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
 
-
+console.log("加载影响力模块");
 
 

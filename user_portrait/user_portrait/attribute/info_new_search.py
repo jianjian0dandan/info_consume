@@ -594,19 +594,79 @@ def get_social_topic(uid_set):
 
 
 
+
 #use to get user social
 def info_new_get_user_social(uid):
+    results = {}
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    #step1:retweet/comment
+    retweet_index_name = retweet_index_name_pre + str(db_number)
+    comment_index_name = comment_index_name_pre + str(db_number)
+    print es_retweet,retweet_index_name,uid
+    try:
+        retweet_result = es_retweet.get(index=retweet_index_name, doc_type=retweet_index_type,\
+                id=uid)['_source']['uid_retweet']
+        retweet_result = json.loads(retweet_result)
+    except:
+        retweet_result = {}
     
     try:
-        user_portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type,\
-                id=uid)['_source']
-        result = user_portrait_result['topic_string']
+        comment_result = es_comment.get(index=comment_index_name, doc_type=comment_index_type,\
+                id=uid)['_source']['uid_comment']
+        comment_result = json.loads(comment_result)
     except:
-        result = {}
+        comment_result = {}
+    #union retweet and comment dict
+    
+    union_retweet_comment_result = union_dict(retweet_result, comment_result)
+    try:
+        union_retweet_comment_result.pop(uid)
+    except:
+        pass
+    #filter who in in user_portrait by uid
+    in_retweet_comment_result = set([i for i in union_retweet_comment_result.keys()]) # [[id, uname, photo_url, count],...]
+    
+    
+    #step2:be_retweet/be_comment
+    be_retweet_index_name = be_retweet_index_name_pre + str(db_number)
+    be_comment_index_name = be_comment_index_name_pre + str(db_number)
+    try:
+        be_retweet_result = es_retweet.get(index=be_retweet_index_name, doc_type=be_retweet_index_type,\
+                id=uid)['_source']['uid_be_retweet']
+        be_retweet_result = json.loads(be_retweet_result)
+    except:
+        be_retweet_result = {}
+    try:
+        be_comment_result = es_comment.get(index=be_comment_index_name, doc_type=be_comment_index_type,\
+                id=uid)['_source']['uid_be_comment']
+        be_comment_result = json.loads(be_comment_result)
+    except:
+        be_comment_result = {}
+    #union be_retweet and be_comment dict
+    union_be_retweet_comment_result = union_dict(be_retweet_result, be_comment_result)
+    try:
+        union_be_retweet_comment_result.pop(uid)
+    except:
+        pass
+
+    #filter who in user_portrait by uid
+    in_be_retweet_comment_result = set([i for i in union_be_retweet_comment_result.keys()]) # [[id, uname, photo_url, count],...]
     
 
-    return result
+    mention_result = search_mention(uid)
+    #filter who in user_portrait
+    in_mention_result = set([i for i in mention_result.keys()]) # [[id, uname, photo_url, count],...]
+    
 
+    all_in_uid_set = in_retweet_comment_result | in_be_retweet_comment_result | in_mention_result - set([uid])
+
+    print '760'
+    #compute topic
+    topic_statis_dict = get_social_topic(all_in_uid_set)
+    sort_topic_statis_dict = sorted(topic_statis_dict.items(), key=lambda x:x[1], reverse=True)[:20]
+    results['in_topic'] = sort_topic_statis_dict
+    return results
 
 #use to get sensitive words
 def new_get_sensitive_words(uid):
