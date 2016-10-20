@@ -185,32 +185,30 @@
 
 				    var date_time_from = "{{date_from}}";
 					var date_time_to = "{{date_to}}";
-					// var start_time = new Date(parseInt(date_time_from) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-     //      			var end_time = new Date(parseInt(date_time_to) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-      				// function add0(m){return m<10?'0'+m:m }
+					
 						function format(shijianchuo)
 						{
-						//shijianchuo是整数，否则要parseInt转换
-						shijianchuo_int=parseInt(shijianchuo);
-						var time = new Date(shijianchuo_int);
-						var y = time.getFullYear();
-						var m = time.getMonth()+1;
-						var d = time.getDate();
-						var h = time.getHours();
-						var mm = time.getMinutes();
-						var s = time.getSeconds();
-						var apm = 'AM';
-						if(h>12){
-							h=h-12;
-							apm='PM';
+							//shijianchuo不是整数，要parseInt转换
+						
+							var time = new Date(parseInt(shijianchuo) * 1000);
+							
+							var y = time.getFullYear();
+							var m = time.getMonth()+1;
+							var d = time.getDate();
+							var h = time.getHours();
+							var mm = time.getMinutes();
+							var s = time.getSeconds();
+							var apm = 'AM';
+							if(h>12){
+								h=h-12;
+								apm='PM';
+							}
+							return m+'/'+d+'/'+y+' '+h+':'+mm+' '+apm;
 						}
-						return m+'/'+d+'/'+y+' '+h+':'+mm+' '+apm;
-						}
-
+					
 					var start_time = format('1467648000');
       				var end_time = format(date_time_to);
-      				console.log(date_time_from);
-      				console.log(start_time);
+      				
 
 					if(date_time_from && date_time_to){
 						$("#datetimepicker9_input").val(start_time);

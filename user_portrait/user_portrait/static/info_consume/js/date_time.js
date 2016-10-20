@@ -1,12 +1,8 @@
+
+
 // var topic = 'aoyunhui';
 // var start_ts = 1468426500;
 // var end_ts = 1468459800;
-// var pointInterval = 3600;
-
-var topic = 'aoyunhui';
-var start_ts = 1468426500;
-// var end_ts = 1468442700;
-var end_ts = 1468459800;
 var pointInterval = 3600;
 var sort_item = 'timestamp';
 
@@ -77,29 +73,6 @@ function set_order_type_time(type){
 		Draw_blog_scan_area_order_result();
 	}
 }
-
-// function loading_more(){
-// 	loading_more.innerHTML = '<div class="loading"></div>';
-// }
-
-
-// function add0(m){return m<10?'0'+m:m }
-// function format(shijianchuo)
-// {
-// //shijianchuo是整数，否则要parseInt转换
-// var time = new Date(shijianchuo);
-// var y = time.getFullYear();
-// var m = time.getMonth()+1;
-// var d = time.getDate();
-// var h = time.getHours();
-// var mm = time.getMinutes();
-// var s = time.getSeconds();
-// return {
-// 	formate_data_time:y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s),
-// 	formate_data:y+'-'+add0(m)+'-'+add0(d)
-// };
-// // return y+'-'+add0(m)+'-'+add0(d);
-// }
 
 //上一页
 function up_time(){
@@ -254,6 +227,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
   	// $('#blog_time').remove();
   	$('#blog_scan_area_time').empty();
   	// document.getElementById("blog_time").parentNode.removeChild(document.getElementById("blog_time"));
+    
     var item = data;
 	var html = '';
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
@@ -345,16 +319,23 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
-	start_ts = 1468426500;
-	end_ts = 1468459800;
+	topic = topic_name_on_detail;
+	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
+	console.log(topic);
+	console.log(start_ts);
+	console.log(end_ts);
+	console.log(pointInterval);
     url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
  	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
 }		
 
 function Draw_blog_scan_area_order_result(){
-	start_ts = 1468426500;
-	end_ts = 1468459800;
+	topic = topic_name_on_detail;
+	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
     url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
  	console.log(url_order);
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
