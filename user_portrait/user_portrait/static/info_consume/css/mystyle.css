@@ -136,16 +136,6 @@ ul.nav.nav-sidebar li a{
   position: relative;
   top: 10px;
 }
-.wel_count #weibo{
-  background: url(../image/icon_weibo.png) no-repeat scroll 0% 0% transparent;
-}
-.wel_count #fans {
-  background: url(../image/icon_fans.png) no-repeat scroll 0% 0% transparent;
-}
-
-.wel_count #focus{
-  background: url(../image/icon_focus.png) no-repeat scroll 0% 0% transparent;
-}
 
 .wel_count ul li a {
   margin-left:20px; 
