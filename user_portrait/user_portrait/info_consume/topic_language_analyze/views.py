@@ -35,6 +35,9 @@ def submit_task():
     submit_user = request.args.get('submit_user','')
     topic = request.args.get('topic','')
     status = submit(topic,start_ts,end_ts,submit_user)
+
+    print status
+
     return json.dumps(status)
 
 

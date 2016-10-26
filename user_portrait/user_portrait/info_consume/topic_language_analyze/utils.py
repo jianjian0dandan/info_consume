@@ -55,7 +55,7 @@ def get_topics(user):
             }
         },
         'sort':{'submit_ts':{'order':'desc'}},
-        'size':5
+        'size':1000
         
     }
     topics = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
@@ -73,7 +73,8 @@ def get_topics(user):
                     'term':{'submit_user':user}
                 }
             }
-        }
+        },
+        "size": 1000
     }
     own_topics =  weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_own)
     if own_topics:
@@ -84,7 +85,7 @@ def get_topics(user):
             except:
                 results['own'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
 
-            print results
+            #print results
     return json.dumps(results)
 
 
@@ -157,7 +158,8 @@ def submit(topic,start_ts,end_ts,submit_user):
 def delete(en_name,start_ts,end_ts,submit_user):
     task_id = start_ts+'_'+end_ts+'_'+en_name+'_'+submit_user
     try:
-        return weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+        result = weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+        return result
     except:
         return -1
 
