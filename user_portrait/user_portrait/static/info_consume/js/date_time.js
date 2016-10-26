@@ -319,10 +319,12 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
-	topic = topic_name_on_detail;
-	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-
+	// topic = topic_name_on_detail;
+	// start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	// end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+	var topic = 'aoyunhui';
+	var start_ts = 1468426500;
+	var end_ts = 1468459800;
 	console.log(topic);
 	console.log(start_ts);
 	console.log(end_ts);
@@ -333,9 +335,12 @@ function Draw_time_trend_line_result(){
 }		
 
 function Draw_blog_scan_area_order_result(){
-	topic = topic_name_on_detail;
-	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+	// topic = topic_name_on_detail;
+	// start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	// end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+	var topic = 'aoyunhui';
+	var start_ts = 1468426500;
+	var end_ts = 1468459800;
     url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
  	console.log(url_order);
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);

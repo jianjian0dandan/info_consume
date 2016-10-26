@@ -82,7 +82,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
     // var create_topic_name=$("#create_topic").val();
     // var create_date_from=$("#input_date_from_create").val();
     // var create_date_to=$("#input_date_to_create").val();
-    var data=''; 
+    // var data=''; 
     $('#index_bottom').empty();
     var html='';
     
@@ -126,7 +126,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
     }
 
     
-    html += '<button type="button" class="btn btn-success" style="margin-left: 70%;margin-top: -4.1%;" data-toggle="modal" data-target="#create_task">创建我的话题任务</button>';
+    html += '<button type="button" class="btn btn-success" style="margin-left: 70%;margin-top: 0%;" data-toggle="modal" data-target="#create_task">创建我的话题任务</button>';
     $('#index_bottom').append(html);
   },
 
