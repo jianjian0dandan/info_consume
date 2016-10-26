@@ -63,7 +63,7 @@ def pagerank_rank(top_n, date, window_size, topicname):
 
     input_tmp_path = tmp_file.name
     #ds_input_tmp_path = ds_tmp_file.name
-    print input_tmp_path
+    #print input_tmp_path
 
     iter_count = PAGERANK_ITER_MAX
     print 'pagerank_source_network'
@@ -384,8 +384,14 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
             #print 'hahahahahahahahaha'
             if attribute_add == True:
                 text_add = status['_source']['text']
-                reposts_count_add = status['_source']['retweeted']
-                comment_count_add = status['_source']['comment']
+                try:
+                    reposts_count_add = status['_source']['retweeted']
+                except:
+                    reposts_count_add = 0
+                try:
+                    comment_count_add = status['_source']['comment']
+                except:
+                    comment_count_add = 0
                 #attitude_count_add = status['_source']['attitude_count']
                 timestamp_add = status['_source']['timestamp']
                 try:
