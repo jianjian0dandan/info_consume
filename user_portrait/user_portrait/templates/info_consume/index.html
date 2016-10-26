@@ -185,10 +185,10 @@
         <div class="panel-heading">
           贴心天气
         </div>
-         <div style="margin:2px 15px;">
+          <div style="margin:2px 15px;">
           <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="150" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
          </iframe> 
-        </div> 
+        </div>  
       </div>
 
 
@@ -292,19 +292,11 @@
 
                   <label class="demo--label">
                     <li style="float:left;margin-left:5px;">
-                      <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                      <input class="demo--radio" type="radio" name="mode_choose" value="retweet_count">
                       <span class="mode demo--radioInput" style=""></span>转发数
                     </li> 
                   </label>
 
-<!--                   <li  style="float:left;">
-                    <input type="radio" name="mode_choose" value="comment_count" >
-                    <span class="mode" style="">评论数</span>
-                  </li>
-                  <li style="float:left;">
-                    <input type="radio" name="mode_choose" value="retweet_count">
-                    <span class="mode" style="">转发数</span>
-                  </li> -->
                 </ul>
               </div>
             <!--
@@ -526,10 +518,33 @@ homepageinfo.prototype = {
     },
 
     domain:function(data){
-      var str = data;
-      //console.log(str.split("&")[0]);
-      document.getElementById('draw_p2').innerHTML = str.split("&")[0];
-      //console.log(topdomain);
+      // var str = data;
+      // console.log(str.split("&")[0]);
+      // document.getElementById('draw_p2').innerHTML = str.split("&")[0];
+      var i;
+      //将此人涉及领域从数据库取出，
+      var domain = new Array();
+      var num = new Array();
+      
+      for (i=0;i<data.in_topic.length;i++) 
+      {
+        domain[i]=data.in_topic[i][0];
+        num[i]=data.in_topic[i][1];
+      }
+
+      var topdomain = domain[0];
+      var othernum;
+      for (var j = 0; j < data.in_topic.length; j++) {
+        if (domain[j] == "其他类") {
+          othernum = j;
+          break;
+        }
+      }
+      if(othernum == 0){
+        topdomain = domain[1];
+      }  
+      document.getElementById('draw_p2').innerHTML = topdomain;
+      console.log("topdomain="+topdomain);
     },
 
     //亲密度排行
@@ -565,10 +580,21 @@ function openurl(){
 $(function(){
   $('#modechoose').click(function(){
   var box = document.getElementsByName('mode_choose');
-  //console.log(box);
+  var com_flag = false;
+  var tim_flag = false;
+  var ret_flag = false;
+
   for(var i=0;i<box.length;i++){
-    if(box[i].checked){
+    if(box[i].value == "comment_count" && com_flag == true){
+
+      com_flag = true;
+    }
+
+
+    if(box[i].checked && timestamp == true ){
       sort_type = box[i].value;
+      console.log("length"+i+"="+box.length );
+      console.log("box"+i+"="+box[i].value );
     }
     }
 $('#per_onload').css('display', 'block');
