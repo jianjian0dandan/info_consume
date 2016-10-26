@@ -13,7 +13,7 @@ viewinformation.prototype=
           url: url,
           type: 'GET',
           dataType: 'json',
-          async: false,
+          async: true,
           success:callback,
          //  beforeSend: function () 
          //  {  
