@@ -156,6 +156,10 @@ def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp',sen=0):
         weibos = _json_loads(item.weibos)
         ori_text = set()
         for weibo in weibos:
+            try:
+                a = weibo['text']
+            except:
+                continue
             if weibo['text'] not in ori_text:
                 ori_text.add(weibo['text'])
                 
@@ -178,7 +182,7 @@ def get_weibo_content(topic,start_ts,end_ts,sort_item='timestamp',sen=0):
                 weibo_dict[weibo_content['mid']] = weibo_content
 
     results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
-    print results
+    #print results
     return results
 
 

@@ -3,7 +3,7 @@
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
 from utils import get_during_keywords,get_topics_river,get_weibo_content,get_subopinion,get_symbol_weibo,get_topics
-from utils import submit,get_key_topics,delete
+from utils import submit,get_key_topics,delete,get_sen_ratio
 import json
 
 mod = Blueprint('topic_language_analyze',__name__,url_prefix='/topic_language_analyze')
@@ -111,3 +111,14 @@ def weibo_content():
     sort_item = request.args.get('sort_item','timestamp')
     weibo_content = get_weibo_content(topic,start_ts,end_ts,opinion,sort_item)
     return json.dumps(weibo_content)
+
+
+@mod.route('/sen_ratio/')
+def sen_ratio():
+    topic = request.args.get('topic','')
+    end_ts = request.args.get('end_ts', '')
+    end_ts = long(end_ts)
+    start_ts = request.args.get('start_ts', '')
+    start_ts = long(start_ts)
+    time_count = get_sen_ratio(topic,start_ts,end_ts)
+    return json.dumps(time_count)

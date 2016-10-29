@@ -6,13 +6,14 @@ from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_ty
 
 from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
 
+from user_portrait.parameter import RUN_TYPE,RUN_TEST_TIME
 from user_portrait.info_consume.model import CityTopicCount,CityWeibos
 import math,time
 import json
 import re
 from xpinyin import Pinyin
 from user_portrait.global_utils import R_ADMIN as r
-from user_portrait.global_utils import topic_queue_name
+from user_portrait.global_utils import topic_queue_name,es_flow_text,flow_text_index_name_pre,flow_text_index_type
 # from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
 #                             topics_river_index_name,topics_river_index_type,\
 #                             subopinion_index_name,subopinion_index_type
@@ -362,6 +363,36 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
 
             key_weibo_time_count[clusterid] = sorted(time_dict.items(),key=lambda x:x[0])
     return key_weibo_time_count
+
+
+def get_sen_ratio(topic,start_ts,end_ts):
+    query_body = {
+        'query':{
+            'bool':{
+                'must':[
+                    {'wildcard':{'text':'*'+topic+'*'}},
+                    {'range':{'timestamp':{'lte':end_ts,'gte':start_ts}}}
+                ]
+            }
+        },
+        'aggs':{
+            'all_interests':{
+                'terms':{
+                    'field': 'sentiment',
+                }
+            }
+        }
+    } 
+    if RUN_TYPE == 0 :
+        date = '2013-09-07'
+    else:
+        date = ts2datetime(time.time())
+    print query_body
+    result = es_flow_text.search(index = flow_text_index_name_pre+date,doc_type=flow_text_index_type,body=query_body)\
+            ['aggregations']['all_interests']['buckets']
+
+    return result
+
 
 
 if __name__ == '__main__':

@@ -40,6 +40,7 @@ from info_consume.person_social.views import mod as personSocialModule
 
 
 def create_app():
+    #app = Flask(__name__)
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///flask-admin.db'
 

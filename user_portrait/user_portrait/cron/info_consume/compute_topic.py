@@ -27,6 +27,7 @@ from sentiment.cron_topic_sentiment import sentimentTopic
 from language.fix.count_keyword import count_fre
 
 def compute_topic_task():
+	print time.time()
 	while  True:
 		#print r.rpop(topic_queue_name)
 		task = r.rpop(topic_queue_name)
@@ -56,12 +57,13 @@ def compute_topic_task():
 				#language
 				count_fre(en_name, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=MAX_LANGUAGE_WEIBO)
 				print 'finish language analyze'
-				#network
-				compute_network(en_name, start_ts, end_ts)
-				print 'finish network analyze'
 				#time
 				propagateCronTopic(en_name, start_ts, end_ts)
 				print 'finish time analyze'
+				#network
+				compute_network(en_name, start_ts, end_ts)
+				print 'finish network analyze'
+
 				#sentiment
 				sentimentTopic(en_name, start_ts=start_ts, over_ts=end_ts)
 				print 'finish sentiment analyze'

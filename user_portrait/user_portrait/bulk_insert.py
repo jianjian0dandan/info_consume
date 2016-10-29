@@ -60,7 +60,7 @@ def save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf):
 				#}
 			}
 	bulk_action.extend([action,])
-	print bulk_action
+	#print bulk_action
 	auto_id = [str(i)for i in str(identifyDate)+str(identifyWindow) if i.isdigit()]
 	auto_id = ''.join(auto_id)
 	#es.bulk(bulk_action, index=index_name, doc_type='text', timeout=600)
