@@ -67,13 +67,13 @@
 		   <li onclick="place_load()"><a href="#place" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/place.png">
 		   		地域</a></li>
-		   <li onclick="network_load()"><a href="#network" data-toggle="tab" id="menu_font">
+		   <li><a href="#network" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/network.png">
 		   		网络</a></li>
 		   <li onclick="emotion_load()"><a href="#emotion" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
 		   		情绪</a></li>
-		   <li onclick="meaning_load()"><a href="#meaning" data-toggle="tab" id="menu_font">
+		   <li><a href="#meaning" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/meaning.png">
 		   		语义</a></li>
 		</ul>
@@ -91,12 +91,13 @@
 	 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	 		
 	 		<script type="text/javascript">
-	 			var topic_name_on_detail = "{{topic_name}}";
+	 			var topic_name_on_detail = "{{en_name}}";
+	 			var topic_name_on_detail_ch = "{{topic_name}}";
 	 			console.log(topic_name_on_detail);
  	 			var html = '';
-	 			html += '<p class="topic_text">#'+topic_name_on_detail+'#</p>';
-
+	 			html += '<p class="topic_text">#'+topic_name_on_detail_ch+'#</p>';
 	 			$('#myTabContent').append(html);
+	 			
 	 		</script>
 		    
 		    <p class="topic_time">日期:</p>
@@ -206,7 +207,7 @@
 							return m+'/'+d+'/'+y+' '+h+':'+mm+' '+apm;
 						}
 					
-					var start_time = format('1467648000');
+					var start_time = format(date_time_from);
       				var end_time = format(date_time_to);
       				
 
