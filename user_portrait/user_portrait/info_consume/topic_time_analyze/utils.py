@@ -23,7 +23,7 @@ def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
                                                      PropagateTimeWeibos.end >= start_ts
                                             ).all()
     weibo_dict = {}
-    print items
+    #print items
     for item in items:  
         #print item
         mtype = item.mtype
@@ -65,7 +65,7 @@ def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
 def get_weibo_by_hot(topic,start_ts,end_ts):
     items = db.session.query(PropagateWeibos).filter(PropagateWeibos.topic==topic).all()
     weibo_dict = {}
-    print items
+    #print items
     for item in items:  
         #print item
         mtype = item.mtype
