@@ -123,6 +123,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 															PropagateCount.range==during, \
 															PropagateCount.end==ts, \
 															PropagateCount.mtype==mtype).first()
+				print '126'
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)
@@ -132,6 +133,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 		for time, mtype_dict in results.iteritems():
 			ts = time
 			for k, v in mtype_dict.iteritems():
+				print '135'
 				mtype = k
 				kcount = v
 				item = PropagateKeywords(topic, ts, during, mtype, klimit,json.dumps(kcount))
@@ -141,7 +143,7 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
                                                                 PropagateKeywords.end==ts, \
                                                                 PropagateKeywords.mtype==mtype, \
                                                                 PropagateKeywords.limit==klimit).first()
-
+				print '146'
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)

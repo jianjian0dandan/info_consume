@@ -22,7 +22,9 @@ else:
     ALLOWED_EXTENSIONS = set(['jl'])
     UPLOAD_FOLDER = '/tmp/upload/'
     RESULT_FOLDER = os.path.join(PRESENT_AB_PATH, './download/comment/')
-    LOG_FOLDER = os.path.join(PRESENT_AB_PATH, './log/comment/')
+    #jln
+    #LOG_FOLDER = os.path.join(PRESENT_AB_PATH, './log/comment/')
+    LOG_FOLDER = '/home/ubuntu2/jiangln/info_consume/user_portrait/log'
     UPLOAD_WEIBO_FOLDER = '/tmp/upload_weibo/'
     RESULT_WEIBO_FOLDER = os.path.join(PRESENT_AB_PATH, './download/weibo/')
     LOG_WEIBO_FOLDER = os.path.join(PRESENT_AB_PATH, './log/weibo/')

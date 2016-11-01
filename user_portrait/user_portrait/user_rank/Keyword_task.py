@@ -115,7 +115,7 @@ def key_words_search(task_id, search_type , pre , during , start_time , keyword_
             item = results[index]
             weibo_url = weiboinfo2url(item['fields']['uid'][0], results[index]['_id'])
             if RUN_TYPE == 0:
-                text_results.append([item['fields']['uid'][0], item['fields']['user_fansnum'][0], item['fields']['text'][0], item['fields']['message_type'][0], item['fields']['sentiment'][0], ts2date(item['fields']['timestamp'][0]), 0, 0, 0, nick_name, weibo_url])
+                text_results.append([item['fields']['uid'][0], 0, item['fields']['text'][0], item['fields']['message_type'][0], item['fields']['sentiment'][0], ts2date(item['fields']['timestamp'][0]), 0, 0, 0, nick_name, weibo_url])
             else:
                 text_results.append([item['fields']['uid'][0], item['fields']['user_fansnum'][0], item['fields']['text'][0], item['fields']['message_type'][0], item['fields']['sentiment'][0], ts2date(item['fields']['timestamp'][0]), results[index]['fields']['geo'][0], results[index]['fields']['retweeted'][0], results[index]['fields']['comment'][0], nick_name, weibo_url])
             if i == number:
@@ -141,7 +141,7 @@ def key_words_search(task_id, search_type , pre , during , start_time , keyword_
     item['result'] = json.dumps(results)
     item['text_results'] = json.dumps(sorted_text_results)
     item['number'] = len(results)
-    es_user_portrait.index(index = USER_RANK_KEYWORD_TASK_INDEX , doc_type=USER_RANK_KEYWORD_TASK_TYPE , id=task_id,  body=item)
+    print es_user_portrait.index(index = USER_RANK_KEYWORD_TASK_INDEX , doc_type=USER_RANK_KEYWORD_TASK_TYPE , id=task_id,  body=item)
 
     return "1"
 
@@ -186,7 +186,7 @@ if __name__ == "__main__":
         #logging.info('%s' % time.time())
         data = redis_task.rpop("task_user_rank")
         #data = json.dumps(["admin@qq.com-1473684742", "keyword", "flow_text_", 1, 1378483200, ["\u5965\u8fd0"], "admin@qq.com-1476175754", "bci", "all_limit_keyword", 7, True, 200])
-        #print data
+        print data
         #"""
         if data:
             # try:

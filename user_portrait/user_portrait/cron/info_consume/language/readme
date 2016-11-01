@@ -1,0 +1,35 @@
+main function: 
+/fix/count_keyword.py
+
+steps:
+1.read data from database,use 'subopinion_content' to get useful fields
+	input: raw data in database
+	output: data list
+	fields of list:
+	{'news_id':'weibo','content':text_weibo,'id':mid_weibo,'datetime':timestamp,'comment':comment,'retweeted':retweeted,'uid':uid}
+2.compute data list and save the results to database,use 'weibo_comments_list'
+	input:taskid,data list,some params
+	results fields:
+	for each text:
+		'name': topic name
+		'start_ts'
+		'end_ts'
+		'ratio':ratio of each clusters
+		'cluster':name of its cluster
+		'features': key words of all clusters
+		'keys':keys
+		'cluster_dump_dict':json.dumps(cluster_dump_dict[key])
+
+
+对每个类：
+id:当前类的id
+'name': 话题名
+'start_ts'：起始时间
+'end_ts'：终止时间
+'ratio':所有的类的比例
+'cluster':当前类的id
+'features':所有类的关键词
+'keys':当前类的关键词，用'_'链接
+'cluster_dump_dict':当前类包含的微博，每个微博，字典形式，每个键是微博的mid，对应的值是列表，里面有从这条mid来的所有微博，按权重由大到小排序
+
+

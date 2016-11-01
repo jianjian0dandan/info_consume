@@ -104,7 +104,10 @@ def geo_list(r, topic):   #对每条微博得到转微博、mid、话题、时�
             }
             item = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']
             if item != []:
-                origin_location = str(split_city(item[0]['_source']['geo'].encode('utf8')))
+                try:
+                    origin_location = str(split_city(item[0]['_source']['geo'].encode('utf8')))
+                except: 
+                    return None
                 if repost_location[2:4] != 'unknown' and origin_location[2:4] != 'un':
                     location_dict['original'] = 0
                     location_dict['mid'] = r['mid']
