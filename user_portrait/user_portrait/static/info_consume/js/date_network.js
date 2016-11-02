@@ -120,7 +120,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
@@ -128,9 +128,18 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   Draw_network_pic:function(data){
     $('#main_network').empty();
     var item = data;
+    console.log(item);
     var nodes_new = [];
     var nodes_label = [];
-    for(i=0;i<item['nodes'].length;i++){
+    // console.log(item['nodes'].length);
+    // console.log(item['links'].length);
+    item_links=[];
+    for (k=0;k<(item['links'].length-4000);k++){
+      item_links.push(item['links'][k]);
+    }
+    console.log(item_links.length);
+
+    for(i=0;i<(item['nodes'].length-4000);i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }
@@ -222,7 +231,8 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
                   roam: 'move',
                   //nodes:item['nodes'],
                   nodes:nodes_new,
-		              links:item['links']
+		              // links:item['links']
+                  links:item_links
                   
               }
           ]
@@ -411,8 +421,12 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 topic_analysis_network = new topic_analysis_network();
 
 function Draw_network_pic_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
@@ -420,24 +434,37 @@ function Draw_network_pic_result(){
 }
 
 function Draw_trend_maker_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_maker);
 }
 
 function Draw_trend_pusher_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
   url = "/topic_network_analyze/get_trend_pusher/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_pusher);
 }
  
 function Draw_blog_scan_area_network_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+  
   if(sort_item_network=='timestamp' && blog_type_network == 'maker'){
 
     url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts; 

@@ -100,7 +100,10 @@ def cityTopic(topic,start_ts,over_ts,during=Fifteenminutes, n_limit=TOP_WEIBOS_L
                 first_item = mtype_weibo[0]['_source']
                 #数每个地方的不同类型的数量
                 for weibo in mtype_weibo:  #对于每条微博
-                    geo = weibo['_source']['geo'].encode('utf8')
+                    try:
+                        geo = weibo['_source']['geo'].encode('utf8')
+                    except:
+                        continue
                     #print geo,type(geo)
                     province,city = split_city(geo)
                     #print province,city
@@ -141,11 +144,11 @@ def cityTopic(topic,start_ts,over_ts,during=Fifteenminutes, n_limit=TOP_WEIBOS_L
 
 
 if __name__ == '__main__':
-    START_TS = datetime2ts('2016-07-20')
-    END_TS = datetime2ts('2016-08-20')
+    #START_TS = datetime2ts('2016-07-20')
+    #END_TS = datetime2ts('2016-08-20')
 
-    #START_TS = '1467648000'
-    #END_TS = '1470900837' 
+    START_TS = '1469763900'
+    END_TS = '1470293340' 
 
 
     # topic = u'奥运会'
@@ -156,7 +159,7 @@ if __name__ == '__main__':
     #xapian_search_weibo = getXapianWeiboByTopic(topic_id)   #用英文名去es查对应的表
     #print 'topic: ', topic.encode('utf8')
     #cityCronTopic(topic, xapian_search_weibo, start_ts=START_TS, over_ts=END_TS, during=Fifteenminutes)
-    topic='aoyunhui'
+    topic='laohu'
     cityTopic(topic, start_ts=START_TS, over_ts=END_TS, during=Fifteenminutes)
     """
     item_exist = db.session.query(CityWeibos).filter(CityWeibos.topic==topic).all()

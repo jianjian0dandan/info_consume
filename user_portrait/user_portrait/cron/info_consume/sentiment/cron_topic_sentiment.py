@@ -64,9 +64,8 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 item = SentimentCount(query, during, ts, sentiment, count)
                 #print item
                 item_exist = db.session.query(SentimentCount).filter(SentimentCount.query==query, \
-                                                                         SentimentCount.range==during, \
                                                                          SentimentCount.end==ts, \
-                                                                         SentimentCount.sentiment==sentiment).first()
+                                                                         SentimentCount.sentiment==sentiment).first() #SentimentCount.range==during, \
                 if item_exist:
                     db.session.delete(item_exist)
                 db.session.add(item)
@@ -83,10 +82,9 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 item = SentimentKeywords(query, during, klimit, ts, sentiment, json.dumps(kcount))
                 #print item
                 item_exist = db.session.query(SentimentKeywords).filter(SentimentKeywords.query==query, \
-                                                                            SentimentKeywords.range==during, \
                                                                             SentimentKeywords.end==ts, \
-                                                                            SentimentKeywords.limit==klimit, \
                                                                             SentimentKeywords.sentiment==sentiment).first()
+                                                                            #SentimentKeywords.range==during, \SentimentKeywords.limit==klimit, \
                 if item_exist:
                     db.session.delete(item_exist)
                 db.session.add(item)
@@ -100,11 +98,10 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 sentiment = k
                 weibos = v
                 item = SentimentWeibos(query, during, wlimit, ts, sentiment, json.dumps(weibos))
+                #print query,ts,sentiment
                 item_exist = db.session.query(SentimentWeibos).filter(SentimentWeibos.query==query, 
-                                                                                   SentimentWeibos.range==during, 
                                                                                    SentimentWeibos.end==ts, 
-                                                                                   SentimentWeibos.limit==wlimit, 
-                                                                                   SentimentWeibos.sentiment==sentiment).first()
+                                                                                   SentimentWeibos.sentiment==sentiment).first() #SentimentWeibos.range==during,SentimentWeibos.limit==wlimit,  
                 if item_exist:
                     db.session.delete(item_exist)
                 db.session.add(item)
@@ -116,9 +113,9 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
             geo_count = v[1]
             item = SentimentGeo(query, during, ts, sentiment, json.dumps(geo_count))
             item_exist = db.session.query(SentimentGeo).filter(SentimentGeo.topic==query, \
-                                                                       SentimentGeo.range==during, \
                                                                        SentimentGeo.end==ts, \
-                                                                       SentimentGeo.sentiment==sentiment).first()
+                                                                       SentimentGeo.sentiment==sentiment).first()#SentimentGeo.range==during, \
+                                                                       
             if item_exist:
                 db.session.delete(item_exist)
             db.session.add(item)
@@ -341,9 +338,9 @@ if __name__ == '__main__':
     #start_date = sys.argv[2] # '2015-02-23'
     #end_date = sys.argv[3] # '2015-03-02'
 
-    topic = 'aoyunhui'
-    start_date = '2016-07-14'
-    end_date = '2016-07-15'
+    topic = 'laohu'
+    start_date = '2016-07-25'
+    end_date = '2016-07-30'
 
     #topic = topic.decode('utf-8')
     start_ts = datetime2ts(start_date)
@@ -351,8 +348,8 @@ if __name__ == '__main__':
     #jln
     #topic_id = getTopicByNameStEt(topic,start_ts,end_ts)['_id']
 
-    start_ts = 1468425600
-    end_ts =  1468437300
+    #start_ts = 1468425600
+    #end_ts =  1468437300
     duration = Fifteenminutes
     #xapian_search_weibo = getXapianWeiboByTopic(topic_id)
     #es_search_weibo = getWeiboByNameStEt(topic,start_ts,end_ts)

@@ -133,7 +133,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
@@ -234,13 +234,14 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
 		
-	var blog_num_max_local_time = Math.min(100,item.length);
 	
-	blog_num_max_global_time = blog_num_max_local_time;
-
 	if (!item){
 		html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
 	}else{
+		var blog_num_max_local_time = Math.min(100,item.length);
+	
+	    blog_num_max_global_time = blog_num_max_local_time;
+
 		var num_page = Math.ceil(blog_num_max_local_time/10);  //num_page表示微博数据共有多少页
 		var item_i_time = no_page_time*10;
 		
@@ -288,23 +289,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 	       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 	       html += '</div>'
 
-		// html += '<ul class="pager">';
-		// html += '<li class="previous" ><a style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
-		// html += '<li class="next"><a style="font-size: 16px;" onclick="down()">下一页 &rarr;</a></li>';
-		// html += '</ul>'
-		
-		// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-	 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-	 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-	 //    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-	 //    html += '<span id="S_First" class="disabled" onmouseover="first()">首页</span>'
-	 //    html += '<span id="S_Prev"  class="disabled" onmouseover="up()">上一页</span>'
-	 //    html += '<span id="S_navi"><!--页号导航--></span>'
-	 //    html += '<span id="S_Next"  class="disabled" onmouseover="down()">下一页</span>'
-	 //    html += '<span id="S_Last"  class="disabled" onmouseover="last()">末页</span>'
-	 //    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-	 //    html += '<span id="P_GO" >GO</span>'
-		// html += '</div>'
+	
 	}
 	
 	$('#blog_scan_area_time').append(html);
@@ -319,13 +304,13 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
-	// topic = topic_name_on_detail;
-	// start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-	// end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-	var topic = 'aoyunhui';
-	var start_ts = 1468426500;
-	var end_ts = 1468459800;
-	console.log(topic);
+	topic = topic_name_on_detail;
+	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+	// var topic = 'aoyunhui';
+	// var start_ts = 1468426500;
+	// var end_ts = 1468459800;
+	// console.log(topic);
 	console.log(start_ts);
 	console.log(end_ts);
 	console.log(pointInterval);
@@ -335,12 +320,12 @@ function Draw_time_trend_line_result(){
 }		
 
 function Draw_blog_scan_area_order_result(){
-	// topic = topic_name_on_detail;
-	// start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-	// end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-	var topic = 'aoyunhui';
-	var start_ts = 1468426500;
-	var end_ts = 1468459800;
+	topic = topic_name_on_detail;
+	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+	// var topic = 'aoyunhui';
+	// var start_ts = 1468426500;
+	// var end_ts = 1468459800;
     url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
  	console.log(url_order);
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);

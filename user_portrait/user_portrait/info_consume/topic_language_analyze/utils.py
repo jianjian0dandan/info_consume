@@ -158,8 +158,10 @@ def submit(topic,start_ts,end_ts,submit_user):
 
 def delete(en_name,start_ts,end_ts,submit_user):
     task_id = start_ts+'_'+end_ts+'_'+en_name+'_'+submit_user
+    #print weibo_es,task_id
     try:
         result = weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+        print result
         return result
     except:
         return -1
@@ -284,7 +286,7 @@ def get_subopinion(topic):
 def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微博内容
     weibo_dict = {}
     #a = json.dumps(opinion)
-    opinion = '圣保罗_班底_巴西_康熙'
+    #opinion = '圣保罗_班底_巴西_康熙'
     query_body = {
         'query':{
             'bool':{

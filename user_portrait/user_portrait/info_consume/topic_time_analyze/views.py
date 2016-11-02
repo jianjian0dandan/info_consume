@@ -2,7 +2,7 @@
 
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
-from utils import  get_weibo_by_time, get_weibo_by_hot,get_time_count
+from utils import  get_weibo_by_time,get_time_count
 import json
 
 mod = Blueprint('topic_time_analyze',__name__,url_prefix='/topic_time_analyze')
@@ -26,9 +26,10 @@ def date_time():
 @mod.route('/time/')
 def time():
     topic_name_on_detail = request.args.get('topic_name','')
+    topic_name_on_detail_ch = request.args.get('en_name','')
     date_from = request.args.get('date_from','')
     date_to = request.args.get('date_to','')
-    return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail,date_from=date_from,date_to=date_to)
+    return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail,en_name=topic_name_on_detail_ch,date_from=date_from,date_to=date_to)
     # return render_template('/info_consume/date_detail.html')
 
 @mod.route('/mtype_count/')
@@ -60,7 +61,7 @@ def TimeOrderWeibos():
 
 @mod.route('/hot_order_weibos/')
 def HotOrderWeibos():
-    topic =results.args.get('topic', '')
+    topic =request.args.get('topic', '')
     during = request.args.get('pointInterval', Fifteenminutes)   #默认查询时间粒度为900秒
     end_ts = request.args.get('end_ts', '')     #''代表默认值为空
     end_ts = long(end_ts)
@@ -68,7 +69,7 @@ def HotOrderWeibos():
     start_ts = long(start_ts)
     ts_arr = []
     weibos = get_weibo_by_hot(topic,start_ts,end_ts)
-
+    return json.dumps(weibos)
 # @mod.route('/hot_order_weibos/')
 # def HotOrderWeibos():
 #     topic =results.args.get('topic', '')
