@@ -22,6 +22,7 @@ from cron_topic_propagate import propagateCronTopic
 from cron_topic_sentiment import sentimentTopic
 '''
 from geo.city_repost_search import repost_search
+from geo.cron_topic_city import cityTopic
 from network.cron_topic_identify import compute_network
 from propagate.cron_topic_propagate import propagateCronTopic
 from sentiment.cron_topic_sentiment import sentimentTopic
@@ -55,6 +56,8 @@ def compute_topic_task():
 				#geo
 				
 				repost_search(en_name, start_ts, end_ts)
+				print 'finish geo_1 analyze'
+				cityTopic(en_name, start_ts, end_ts)
 				print 'finish geo analyze'
 				#language
 				count_fre(en_name, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=MAX_LANGUAGE_WEIBO)
