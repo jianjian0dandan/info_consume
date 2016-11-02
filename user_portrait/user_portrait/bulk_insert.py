@@ -73,10 +73,12 @@ def read_long_gexf(topic, identifyDate, identifyWindow):
 		"query":{"term":{"name":name}}
 	}
 	index_name = topic+'_gexffile'
+	print query_body,es,index_name
 	try:
 		res = es.search(index=index_name, body=query_body)['hits']['hits']	
 	except:
 		return []
+	print res
 	if len(res) > 0:
 		#print '!!!!'
 		#print type(json.loads(res[0]['_source']['gexf']))
