@@ -36,10 +36,10 @@ function go_to_datail(topic_name,en_name,date_from,date_to,compute_status){
 
 function commit_delete(en_name,start_ts,end_ts,submit_user){
   // console('确定要删除吗！！！！');
-  var a = confirm('确定要删除吗？');
-  console.log(en_name);
-  if(a==true){
-    console('确定要删除！！！！');
+  // var a = confirm('确定要删除吗？');
+  // console.log(en_name);
+  if(confirm("确定要删除吗？")){
+    console.log('确定要删除！！！！');
     Delete_task_result(en_name,start_ts,end_ts,submit_user);
   }
 }
