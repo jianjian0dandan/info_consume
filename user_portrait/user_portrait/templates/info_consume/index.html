@@ -586,24 +586,34 @@ $(function(){
   var ret_flag = false;
 
   for(var i=0;i<box.length;i++){
-    if(box[i].value == "comment_count" && com_flag == true){
+    if(box[i].value == "comment_count" && com_flag == false){
+      $('#per_onload').css('display', 'block');
+      $('#group_influ_weibo').css('display', 'none')
+      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=comment_count";
+      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
+      com_flag = true;
+    };
+
+    if(box[i].value == "retweet_count" && ret_flag == false){
+      $('#per_onload').css('display', 'block');
+      $('#group_influ_weibo').css('display', 'none')
+      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=retweet_count";
+      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
+      com_flag = true;
+    };
+
+    if(box[i].value == "timestamp" && tim_flag == false){
+      $('#per_onload').css('display', 'block');
+      $('#group_influ_weibo').css('display', 'none')
+      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
+      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
 
       com_flag = true;
     }
-
-
-    if(box[i].checked && timestamp == true ){
-      sort_type = box[i].value;
-      console.log("length"+i+"="+box.length );
-      console.log("box"+i+"="+box[i].value );
-    }
-    }
-$('#per_onload').css('display', 'block');
-$('#group_influ_weibo').css('display', 'none')
-  var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
-  //console.log('ddd',url);
-    Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-  //console.log(weiboData);
+    
+  }
   });
 });
 

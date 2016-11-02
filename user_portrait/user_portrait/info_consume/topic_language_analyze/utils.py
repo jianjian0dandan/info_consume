@@ -158,8 +158,10 @@ def submit(topic,start_ts,end_ts,submit_user):
 
 def delete(en_name,start_ts,end_ts,submit_user):
     task_id = start_ts+'_'+end_ts+'_'+en_name+'_'+submit_user
+    #print weibo_es,task_id
     try:
         result = weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+        print result
         return result
     except:
         return -1

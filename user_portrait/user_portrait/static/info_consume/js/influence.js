@@ -157,13 +157,13 @@ Influence.prototype = {
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>";
 
     console.log('dr'+domain_rank);
-    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td>"+uName+"</td><td>"+userBci+"</td></tr>";
+    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+userBci+"</td></tr>";
   
     for(var j=0;j<10;j++){
       var bci_data;
       bci_data = domainInflu_data[j].bci;
       bci_data = bci_data.toFixed(2);
-      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+domainInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + domainInflu_data[j].uid + "'>"+domainInflu_data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_domain').append(html_table);
 
