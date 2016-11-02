@@ -41,6 +41,7 @@ function commit_delete(en_name,start_ts,end_ts,submit_user){
   if(confirm("确定要删除吗？")){
     console.log('确定要删除！！！！');
     Delete_task_result(en_name,start_ts,end_ts,submit_user);
+    
   }
 }
 
@@ -64,9 +65,9 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
       // console.log('99999');
       
       console.log(data);
-      if(data='success'){
+      if(data=='success'){
         alert('任务提交成功！');
-      }else if(data='already_have'){
+      }else if(data=='already_have'){
         alert('当前任务已经存在！');
       }
       window.location.reload();
@@ -76,12 +77,12 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
   Delete_task:function(data){
       // var item = data;
       // console.log('99999');
-      
+      // data='true';
       console.log(data);
-      if(data='true'){
-        alert('删除成功！');
-      }else if(data='-1'){
+      if(data=='-1'){
         alert('删除失败！');
+      }else if(data=='true'){
+        alert('删除成功！');
       }
       window.location.reload();
       // Draw_all_topic_result();
