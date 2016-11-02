@@ -183,7 +183,7 @@
 
                 <label class="demo--label">
                   <li style="float:left;margin-left:5px;background-color:transparent;">
-                    <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="retweet_count">
                     <span class="mode demo--radioInput" style=""></span>转发数
                   </li> 
                 </label>
@@ -669,7 +669,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     if(text.length>50){
       text = text.substr(0,50)+'...';
     }
-            html += '<a target="_blank" href="/index/personal/?uid=' + uid + '"><font color=black>' + text + '</font></a>';    
+            html += '<a target="_blank" href="'+tweet_ulr+'"'+ uid + '"><font color=black>' + text + '</font></a>';    
             //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';    
             html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
             html += '<span style="float:left;margin-left: 60%;"><u>'+date+'</u>';
