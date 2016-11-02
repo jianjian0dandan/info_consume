@@ -479,11 +479,11 @@ function Draw_blog_scan_area_network_result(){
 }   
 
 
-// function network_load(){
+function network_load(){
   Draw_network_pic_result();
   Draw_trend_maker_result();
   Draw_blog_scan_area_network_result();
-// }
+}
 
 
 

@@ -69,7 +69,7 @@ function set_order_type_meaning(type){
 
 
 function set_opinion_type(type){
- 
+    console.log(type);
     opinion=type;
     Draw_blog_scan_area_meaning_result();
 
@@ -237,13 +237,16 @@ Draw_event_river:function(data){
 
 Draw_time_line:function(data){
     $('#container_time_line').empty();
-   
+   console.log('timeline');
+   console.log(data);
+
     var item = data;
     var html = '';
     if (item.length == 0){
+    
         html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
     }else{
-
+              console.log('11111');
               html += '<div class="row">';
               html += '<div class="col-md-12" style="width:58%;">';
               html += '<div class="VivaTimeline">';
@@ -321,9 +324,9 @@ Draw_time_line:function(data){
                 carouselTime: 3000
             });
         });
-        // console.log('34343434');
+        console.log('34343434');
         $('#container_time_line').append(html);
-        // console.log('56565656');
+        console.log('56565656');
 },
 
 
@@ -332,15 +335,16 @@ Draw_blog_opinion:function(data){
     var item = data;
     // var opinion = [];
     var html = '';
-    console.log(item);
+    // console.log(item);
     if (item.length == 0){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
-      opinion=item[0]
+      opinion=item[0];
+      console.log(opinion);
       for (i=0;i < item.length;i++){
         // console.log('qqqqqq');
         // var opinion = item[i].join("+");
-        html += '<span class="label place_label" style="color: #868686;" onmouseover="set_opinion_type(item[i].join("+"))">'+item[i].join(",")+'</span>';
+        html += '<span class="label place_label" style="color: #868686;" onmouseover="set_opinion_type(\''+ item[i] +'\')">'+item[i].join(",")+'</span>';
         // console.log(item[i].join("+"));
       }
 
@@ -488,7 +492,7 @@ function Draw_blog_scan_area_meaning_result(){
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_blog_scan_area_meaning);
 }   
 
-
+ // Draw_time_line_result();
 // function meaning_load(){
   Draw_keywords_cloud_result();
   Draw_event_river_result();

@@ -310,7 +310,7 @@ function Draw_time_trend_line_result(){
 	// var topic = 'aoyunhui';
 	// var start_ts = 1468426500;
 	// var end_ts = 1468459800;
-	console.log(topic);
+	// console.log(topic);
 	console.log(start_ts);
 	console.log(end_ts);
 	console.log(pointInterval);
