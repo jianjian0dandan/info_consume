@@ -120,7 +120,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
