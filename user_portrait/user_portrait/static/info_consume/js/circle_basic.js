@@ -111,15 +111,26 @@ if(data.length==0){
  $('#identi-distri').append(html);
 }else{
    data = data["domain"]
-   domain_data = []
+   domain_data = [{value:0, name:'草根'},{value:0, name:'活跃人士'},{value:0, name:'媒体人士'},{value:0, name:'商业人士'},{value:0,name:'政府机构及人士'},{value:0, name:'其他'}]
    legend_data = []
   for(var i=0;i<data.length;i++){
-  	   signal_data = {}
-  	   signal_data["name"] = data[i][0]
-  	   signal_data["value"] = data[i][1]
-  	   domain_data.push(signal_data)
-  	   legend_data.push(data[i][0])
+  	   for(var j=0;j<domain_data.length;j++){
+       	   if(data[i][0] == domain_data[j]["name"]){
+               domain_data[j]["value"] += data[i][1]
+       	   }
+       }
   }
+    var len = domain_data.length
+  for(var j=0;j<len;j++){
+       	   if(domain_data[j]["value"] == 0){
+               domain_data.splice(j,1)
+               len = len - 1
+               j = j -1
+       	   }
+       }
+    for(var j=0;j<domain_data.length;j++){
+       	   legend_data.push(domain_data[j]["name"])
+       }
       
  var myChart = echarts.init(document.getElementById('identi-distri'),'shine');
       var option = {
@@ -132,7 +143,7 @@ if(data.length==0){
         x : '5px',
         y : '35px',
         data:legend_data
-        // ['草根','活跃人士','媒体','媒体人士','境内机构']
+        // ['草根','活跃人士','媒体人士','商业人士','政府机构及人士','其他']
     },
     toolbox: {
         show : true,
@@ -190,7 +201,7 @@ if(data.length==0){
 	data = data["topic"]
    domain_data = [{value:0, name:'教育类'},{value:0, name:'民生类'},{value:0, name:'其他类'},{value:0, name:'政治类'},{value:0,name:'经济类'},{value:0, name:'文体类'},{value:0, name:'军事类'},{value:0, name:'科技类'}]
    legend_data = []
-   console.log(domain_data)
+   //console.log(domain_data)
   for(var i=0;i<data.length;i++){
        category = data[i][0].split('_')[0]
        for(var j=0;j<domain_data.length;j++){
@@ -199,7 +210,7 @@ if(data.length==0){
        	   }
        }
   }
-  console.log(domain_data)
+  //console.log(domain_data)
   var len = domain_data.length
   for(var j=0;j<len;j++){
        	   if(domain_data[j]["value"] == 0){
@@ -212,7 +223,7 @@ if(data.length==0){
        	   legend_data.push(domain_data[j]["name"])
        }
    
-  console.log(domain_data)
+  //console.log(domain_data)
       var myChart = echarts.init(document.getElementById('area-distri'),'infographic');
       var option = {
     tooltip : {
