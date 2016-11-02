@@ -104,6 +104,13 @@ def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
                 weibo_content['retweeted'] = weibo['retweeted']
             except:
                 weibo_content['retweeted'] = 0
+            try:
+                user = es_user_profile.get(index=profile_index_name,doc_type=profile_index_type,id=weibo_content['uid'])['_source']
+                weibo_content['uname'] = user['nick_name']
+                weibo_content['photo_url'] = user['photo_url']
+            except:
+                weibo_content['uname'] = 'unknown'
+                weibo_content['photo_url'] = 'unknown'
             #weibo_content['keywords'] = weibo['keywords_dict']
             weibo_content['mid'] = weibo['mid']
             #print weibo_content
