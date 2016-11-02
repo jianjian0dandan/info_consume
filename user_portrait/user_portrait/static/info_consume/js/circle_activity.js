@@ -1,6 +1,11 @@
       //近一个月群体活跃度走势;id=activi-line
       
       function Draw_activity_line(data){
+    if(data.length==0){
+     $('#activi-line').empty();
+     var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
+     $('#activi-line').append(html);
+    }else{
     //活跃非活跃用户
     var main_active = data.main_max;
     var main_unactive = data.main_min;
@@ -106,8 +111,14 @@
 };
   mychart.setOption(option);
 }
+}
  
  function Draw_active_table(data, div_name){
+if(data.length==0){
+     $(div_name).empty();
+     var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+     $(div_name).append(html);
+    }else{
    if(data.length<5){
         var show_count = data.length;
     } else{
@@ -133,7 +144,13 @@
      html += '</tbody></table>'; 
     $('#'+div_name).append(html);
  }
+}
 function Draw_geo_graph(data){
+    if(data.length==0){
+     $('#geo-distri').empty();
+     var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
+     $('#geo-distri').append(html);
+    }else{
      var geo_data=[];
     for (var key in data){
      var province_data ={};
@@ -264,7 +281,7 @@ myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
       myChart.setOption(option);
 })
  }
-
+}
  
 function Draw_active_page(data){
        Draw_activity_line(data.activeness_trend);
