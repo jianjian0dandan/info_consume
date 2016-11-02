@@ -26,9 +26,10 @@ def date_time():
 @mod.route('/time/')
 def time():
     topic_name_on_detail = request.args.get('topic_name','')
+    topic_name_on_detail_ch = request.args.get('en_name','')
     date_from = request.args.get('date_from','')
     date_to = request.args.get('date_to','')
-    return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail,date_from=date_from,date_to=date_to)
+    return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail,en_name=topic_name_on_detail_ch,date_from=date_from,date_to=date_to)
     # return render_template('/info_consume/date_detail.html')
 
 @mod.route('/mtype_count/')
