@@ -104,6 +104,7 @@
 }
 
  function Draw_identi_distri(data){
+ 	console.log(data)
 if(data.length==0){
  $('#identi-distri').empty();
  var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
@@ -167,6 +168,7 @@ if(data.length==0){
 }
 
  function Draw_area_distri(data){
+ 	console.log(data)
     if(data.length==0){
  $('#area-distri').empty();
  var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
@@ -216,11 +218,11 @@ if(data.length==0){
                 {value:data['topic'][1][1], name:'体育类'},
                 {value:data['topic'][2][1], name:'娱乐类'},
                 {value:data['topic'][3][1], name:'科技类'},
-                {value:data['topic'][4][1], name:'经济类'},
-                {value:data['topic'][5][1], name:'教育类'},
-                {value:data['topic'][6][1], name:'政治类'},
-                {value:data['topic'][7][1], name:'民生类'},
-                {value:data['topic'][0][1], name:'其他类'}
+                // {value:data['topic'][4][1], name:'经济类'},
+                // {value:data['topic'][5][1], name:'教育类'},
+                // {value:data['topic'][6][1], name:'政治类'},
+                // {value:data['topic'][7][1], name:'民生类'},
+                // {value:data['topic'][0][1], name:'其他类'}
             ]
         }
     ]
@@ -242,5 +244,6 @@ function g_bas_load(g_name,s_user){
 
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
  call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
+ console.log('basic_url:'+basic_url);
  console.log('influence_url:'+influence_url);
 }
