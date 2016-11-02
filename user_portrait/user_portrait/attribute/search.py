@@ -2081,6 +2081,7 @@ def search_sentiment_trend(uid, time_type, now_ts):
     sentiment_list = ['1', '2', '0']
     now_date = ts2datetime(now_ts)
     now_date_ts = datetime2ts(now_date)
+
     if time_type=='day':
         flow_text_index_name = flow_text_index_name_pre + now_date
         try:
@@ -2100,7 +2101,10 @@ def search_sentiment_trend(uid, time_type, now_ts):
                 results[str(sentiment)][time_segment] += 1
             except:
                 results[str(sentiment)][time_segment] = 1
-        max_end_time = int(time.time())
+        if RUN_TYPE==1:
+            max_end_time = int(time.time())
+        else:
+            max_end_time = now_date_ts+DAY
         time_list = [item for item in range(now_date_ts, max_end_time, HALF_HOUR)]
         results['time_list'] = time_list
         for time_segment in time_list:
