@@ -134,7 +134,7 @@ topic_analysis_meaning.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: true,
+      async: false,
       success:callback
     });
   },
@@ -493,12 +493,11 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
  // Draw_time_line_result();
-
+// function meaning_load(){
   Draw_keywords_cloud_result();
   Draw_event_river_result();
   Draw_time_line_result();
   Draw_blog_opinion_result();
   Draw_blog_scan_area_meaning_result();
-function meaning_load(){
-}
+// }
 
