@@ -1,0 +1,405 @@
+{% extends 'info_consume/daohang_public.html' %}
+
+{% block part_name %}个性化推荐{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/info_consume/css/buttonstyle.css">
+    <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
+    <style type="text/css">
+        .border-table {
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .border-table td {
+            border: solid #FFE4B5 1px;
+        }
+
+        .calculate_state td {
+            text-align: left !important;
+        }
+
+        .group_block {
+            background-color: #77ACF4;
+            width: 50px;
+            height: 30px;
+            padding: 5px 8px;
+            color: white;
+            border-radius: 0.25em;
+            margin: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .fixed-table-body {
+            overflow-x: auto;
+            overflow-y: auto;
+            height: 400px;
+        }
+
+        .table {
+            margin-bottom: 2px !important;
+            /*      border:2px #d6e9c6 solid;*/
+            float: left;
+            width: 40%;
+            background: whitesmoke;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .table .thead {
+            margin: auto;
+        }
+
+        .table > tbody > tr > td {
+            padding: 4px !important;
+            vertical-align: middle !important;
+            border-top: 0px !important;
+            align: center;
+        }
+
+        .influ_table_title {
+            width: 200px;
+            height: 35px;
+            float: left;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bolder;
+            color: black;
+
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block head_js %}
+    <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+    <script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
+    <script src="/static/info_consume/js/echarts.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/time_for_test.js"></script>
+    <style type="text/css">
+
+        .fixed-table-body {
+            overflow-x: auto;
+            overflow-y: auto;
+            height: 395px;
+        }
+    </style>
+    <script type="text/javascript">
+        function person_call_ajax_request(url, callback) {
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: 'json',
+                // async:true,
+                // beforeSend:function(){
+                //     $('.soft_con_icon').showLoading();
+                // },
+                // complete:function(){
+                //     $('.soft_con_icon').hideLoading();
+                // },
+                success: callback,
+            });
+        }
+    </script>
+{% endblock %}
+
+{% block main %}
+    <!--感兴趣的广告-->
+    <div class="panel panel-success"
+         style="width:60%;height:500px;margin-left:20%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel-heading">
+            <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">感兴趣的广告</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;">
+                <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;"><center>正在努力加载中...</center></div>
+                <div class="tang-scrollpanel-content" style="margin-top:10px;">
+                    <div id='ads_recommendation' style="overflow-x: hidden; width: 90%; float:left; margin-left:5%; display: block;">
+                        <div id="ads_recommendation_result" style="float:left;width:100%;"></div>
+                        <div id="pageGro" class="cb" style="display:none;float:left;width:100%;margin-left:-5px;margin-top:5px;line-height:23px;">
+                            <span class="pageUp" style="float:left;">上一页</span>
+                            <span class="pageList" style="float:left;">
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                                <li>5</li>
+                            </ul>
+                        </span>
+                            <span class="pageDown" style="margin-left:20px;cursor:pointer;">下一页</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="float-wrap" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block Own_js %}
+    <script type="text/javascript" src="/static/info_consume/js/person_detail_show.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/language.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/preference.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/influence.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/map.js"></script>
+    <script type="text/javascript" src="/static/info_consume/js/thought.js"></script>
+    <script type="text/javascript">//微博展示
+
+    function homepageinfo() {
+        this.ajax_method = 'GET';
+    }
+
+    homepageinfo.prototype = {
+        call_sync_ajax_request: function (url, method, callback) {
+            $.ajax({
+                url: url,
+                type: method,
+                dataType: 'json',
+                async: true,
+                success: callback
+            });
+        },
+        // 微博数据
+        adsWeiBoData: function (data) {
+            adsWeiBoData = data;
+            // var testtext ="hello";
+            // console.log(testtext);
+            DrawWeibo(data, 'ads_recommendation', 'ads_recommendation_result');
+            $('#per_onload').css('display', 'none');
+            $('#ads_recommendation').css('display', 'block');
+        }
+    }
+
+    var Personal = new homepageinfo();
+    var adsWeiBoData;
+    var uid = 1640601392;
+
+
+    var url = "/attribute/new_user_weibo/?uid=" + uid + "&sort_type=timestamp";
+    Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.adsWeiBoData);
+    console.log("运行微博数据");
+    function DrawWeibo(data, div_name, sub_div_name) {
+        page_num = 6;
+        if (data.length < page_num) {
+            console.log('data_length', data.length);
+            $('#' + div_name + ' #pageGro .pageUp').css('display', 'none');
+            $('#' + div_name + ' #pageGro .pageList').css('display', 'none');
+            $('#' + div_name + ' #pageGro .pageDown').css('display', 'none');
+            if (data.length == 0) {
+                $('#' + sub_div_name).empty();
+                $('#' + sub_div_name).append('暂无数据');
+                $('#' + sub_div_name).css('height', '300px');
+            } else {
+                $('#' + div_name + ' #pageGro').css('display', 'block');
+                page_num = data.length
+                page_ads_weibo(0, page_num, data, sub_div_name);
+            }
+        } else {
+            $('#' + div_name + ' #pageGro').css('display', 'block');
+            page_ads_weibo(0, page_num, data, sub_div_name);
+            var total_pages = 0;
+            if (data.length % page_num == 0) {
+                total_pages = data.length / page_num;
+            }
+            else {
+                total_pages = Math.round(data.length / page_num) + 1;
+            }
+        }
+        var pageCount = total_pages;
+
+        if (pageCount > 5) {
+            page_icon(1, 5, 0, div_name);
+        } else {
+            page_icon(1, pageCount, 0, div_name);
+        }
+
+        $("#" + div_name + " #pageGro").on("click", "li", function () {
+            if (pageCount > 5) {
+                var pageNum = parseInt($(this).html());
+                pageGroup(pageNum, pageCount);
+            } else {
+                $(this).addClass("on");
+                $(this).siblings("li").removeClass("on");
+            }
+            page = parseInt($("#" + div_name + " #pageGro li.on").html())
+            //console.log('page', page);
+            start_row = (page - 1) * page_num;
+            end_row = start_row + page_num;
+            if (end_row > data.length)
+                end_row = data.length;
+            // console.log('start', start_row);
+            // console.log('end', end_row);
+            // console.log('data',data);
+            page_ads_weibo(start_row, end_row, data, sub_div_name);
+        });
+
+        $("#" + div_name + " #pageGro .pageUp").off('click').click(function () {
+            if (pageCount > 5) {
+                var pageNum = parseInt($("#" + div_name + " #pageGro li.on").html());
+                pageUp(pageNum, pageCount);
+            } else {
+                var index = $("#" + div_name + " #pageGro ul li.on").index();
+                if (index > 0) {
+                    $("#" + div_name + " #pageGro li").removeClass("on");
+                    $("#" + div_name + " #pageGro ul li").eq(index - 1).addClass("on");
+                }
+            }
+            page = parseInt($("#" + div_name + " #pageGro li.on").html())
+            //console.log(page);
+            start_row = (page - 1) * page_num;
+            end_row = start_row + page_num;
+            if (end_row > data.length) {
+                end_row = data.length;
+            }
+            page_ads_weibo(start_row, end_row, data, sub_div_name);
+        });
+
+        $("#" + div_name + " #pageGro .pageDown").off('click').click(function () {
+            if (pageCount > 5) {
+                var pageNum = parseInt($("#" + div_name + " #pageGro li.on").html());
+                pageDown(pageNum, pageCount);
+            } else {
+                var index = $("#" + div_name + " #pageGro ul li.on").index();
+                if (index + 1 < pageCount) {
+                    $("#" + div_name + " #pageGro li").removeClass("on");
+                    $("#" + div_name + " #pageGro ul li").eq(index + 1).addClass("on");
+                }
+            }
+            page = parseInt($("#" + div_name + " #pageGro li.on").html())
+            //console.log(page);
+            start_row = (page - 1) * page_num;
+            end_row = start_row + page_num;
+            if (end_row > data.length) {
+                end_row = data.length;
+            }
+            page_ads_weibo(start_row, end_row, data, sub_div_name);
+        });
+
+    }
+
+    function pageGroup(pageNum, pageCount) {
+        switch (pageNum) {
+            case 1:
+                page_icon(1, 5, 0);
+                break;
+            case 2:
+                page_icon(1, 5, 1);
+                break;
+            case pageCount - 1:
+                page_icon(pageCount - 4, pageCount, 3);
+                break;
+            case pageCount:
+                page_icon(pageCount - 4, pageCount, 4);
+                break;
+            default:
+                page_icon(pageNum - 2, pageNum + 2, 2);
+                break;
+        }
+    }
+
+    function pageUp(pageNum, pageCount) {
+        switch (pageNum) {
+            case 1:
+                break;
+            case 2:
+                page_icon(1, 5, 0);
+                break;
+            case pageCount - 1:
+                page_icon(pageCount - 4, pageCount, 2);
+                break;
+            case pageCount:
+                page_icon(pageCount - 4, pageCount, 3);
+                break;
+            default:
+                page_icon(pageNum - 2, pageNum + 2, 1);
+                break;
+        }
+    }
+
+
+    function pageDown(pageNum, pageCount) {
+        switch (pageNum) {
+            case 1:
+                page_icon(1, 5, 1);
+                break;
+            case 2:
+                page_icon(1, 5, 2);
+                break;
+            case pageCount - 1:
+                page_icon(pageCount - 4, pageCount, 4);
+                break;
+            case pageCount:
+                break;
+            default:
+                page_icon(pageNum - 2, pageNum + 2, 3);
+                break;
+        }
+    }
+
+    function page_icon(page, count, eq) {
+        var ul_html = "";
+        for (var i = page; i <= count; i++) {
+            ul_html += "<li>" + i + "</li>";
+        }
+        $("#pageGro ul").html(ul_html);
+        $("#pageGro ul li").eq(eq).addClass("on");
+    }
+
+    function page_ads_weibo(start_row, end_row, data, sub_div_name) {
+        weibo_num = end_row - start_row;
+        $('#' + sub_div_name).empty();
+        //console.log(data);
+        var html = "";
+        html += '<div class="group_weibo_font" style="margin-right:5px;margin-top:15px;">';
+        for (var i = start_row; i < end_row; i += 1) {
+            s = (i + 1).toString();
+            var mid = data[i][0];
+            var uid = data[i][1];
+            var geo = data[i][4];
+            var text = data[i][2];
+
+            var retweet_count = data[i][7];
+            var comment_count = data[i][8];
+            // var mingan_count = data[i][9];
+            //var location = data[i][2];
+            var date = data[i][6];
+            var tweet_ulr = data[i][10];
+            //date = new Date(parseInt(timestamp)*1000).format("yyyy-MM-dd hh:mm:ss");
+            if (i % 2 == 0) {
+                html += '<div style="float:left;padding:5px;width: 100%;background:whitesmoke;">';
+            }
+            else {
+                html += '<div style="float:left;padding:5px;width: 100%;">';
+            }
+            if (geo == null) {
+                geo = '未知';
+            }
+            if (text.length > 50) {
+                text = text.substr(0, 50) + '...';
+            }
+            html += '<a target="_blank" href="/index/personal/?uid=' + uid + '"><font color=black>' + text + '</font></a>';
+            //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';
+            html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
+            html += '<span style="float:left;margin-left: 60%;"><u>' + date + '</u>';
+            html += '</p>';
+            html += '</div>';
+
+        }
+        html += '</div>';
+        $('#' + sub_div_name).append(html);
+    }
+    </script>
+{% endblock %}
+

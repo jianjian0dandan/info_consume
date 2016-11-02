@@ -1,88 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-{% block head_meta %}
-  <meta charset="utf-8">
-  <title>{% block title %}微世界{% endblock %}</title>   
-  <style type="text/css">
-  body { font-family:"Microsoft Yahei";
-  	background-color:#F2F4F8; }	
-  @font-face{
-    font-family: 'zzgf';
-    src:url('/static/info_consume/fonts/zaozigongfang.otf');
-  }
-  </style>
-{% endblock %}
-  <!-- end head 标签 -->
+    {% block head_meta %}
+        <meta charset="utf-8">
+        <title>{% block title %}微世界{% endblock %}</title>
+        <style type="text/css">
+            body {
+                font-family: "Microsoft Yahei";
+                background-color: #F2F4F8;
+            }
 
-  <!-- 布局CSS -->
-{% block css%}
-  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
-<!-- end css -->
- {% endblock %}
+            @font-face {
+                font-family: 'zzgf';
+                src: url('/static/info_consume/fonts/zaozigongfang.otf');
+            }
+        </style>
+    {% endblock %}
+    <!-- end head 标签 -->
 
-<!-- 引入js -->
- {% block head_js%}
+    <!-- 布局CSS -->
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
+        <!-- end css -->
+    {% endblock %}
 
- 
+    <!-- 引入js -->
+    {% block head_js %}
 
- {% endblock %}
- <!-- end js -->
-</head> 
+
+
+    {% endblock %}
+    <!-- end js -->
+</head>
 
 <body>
-  <!--top nav-->
-  {% block header %}	
-  <div class="topnav">	 
-  	 <a href="#home"><img src="../../static/info_consume/image/title.png"></a>		
-  		<ul id="menu" style="margin-left:40%">
-        <li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">&nbsp&nbsp&nbsp首页</a></li>
+<!--top nav-->
+{% block header %}
+    <div class="topnav">
+        <a href="#home"><img src="../../static/info_consume/image/title.png"></a>
+        <ul id="menu" style="margin-left:40%">
+            <li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">&nbsp&nbsp&nbsp首页</a></li>
 
-  			<li><a href="/index/myzone" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
+            <li><a href="/index/myzone" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
 
-  				<ul style="margin-left:0px;">
-  					<li><a href="/index/myzone" >我的管家</a></li>
-  					<li><a href="/index/my_friend" >我的好友</a></li>
-  				</ul>
-  			</li> 				  
-  			
+                <ul style="margin-left:0px;">
+                    <li><a href="/index/myzone">我的管家</a></li>
+                    <li><a href="/index/my_friend">我的好友</a></li>
+                </ul>
+            </li>
 
-  			<li><a href="/index/weiborecommand" style="margin-top: 15px;font-size: 20px;">微博那些事</a></li>
 
-        <li><a href="/index/boot_test" style="margin-top: 15px;font-size: 20px;width: 100px;">圈子推荐</a>
-          <ul style="margin-left:0px;">
-            <li><a href="/index/boot_test">圈子探索</a></li>
-            <li><a href="/index/circle_test">圈子追踪</a></li>           
-          </ul>
-        </li>
+            <li><a href="/index/weiborecommand" style="margin-top: 15px;font-size: 20px;">微博那些事</a></li>
 
-  			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">商业推荐</a></li>
-        <li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 100px;">登出</a></li>
-  		</ul>
-  </div>
-  
-  {% endblock %}
-  <!--end 导航-->
-  {% block sub_title %}
-  <div style="margin-top:5%">
-        <div><span  style="color:#666666;margin-left: 17%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">{% block part_name %}好友个人空间{% endblock %}</span></div>
+            <li><a href="/index/boot_test" style="margin-top: 15px;font-size: 20px;width: 100px;">圈子推荐</a>
+                <ul style="margin-left:0px;">
+                    <li><a href="/index/boot_test">圈子探索</a></li>
+                    <li><a href="/index/circle_test">圈子追踪</a></li>
+                </ul>
+            </li>
+
+            <li><a href="/index/personalizedRec" style="margin-top: 15px;font-size: 20px;width: 120px;">个性化推荐</a></li>
+            <li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 100px;">登出</a></li>
+        </ul>
+    </div>
+
+{% endblock %}
+<!--end 导航-->
+{% block sub_title %}
+    <div style="margin-top:5%">
+        <div><span
+                style="color:#666666;margin-left: 17%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">{% block part_name %}
+            好友个人空间{% endblock %}</span></div>
         <hr style="width:80%;margin-left: 10%;height:1px;border:none;    margin-top: 20px;border-top:2.5px solid #b7b2b2;"/>
-      </div>
-  {% endblock%}
-  
+    </div>
+{% endblock %}
+
 <!--各页面核心内容-->
-  {% block main %}
+{% block main %}
 
-  {% endblock %}
-
-  
-    <!-- DIY js -->
-	{% block Own_js %}
+{% endblock %}
 
 
+<!-- DIY js -->
+{% block Own_js %}
 
-	{% endblock %}
-	<!-- end DIY -->
 
 
-  </body>
+{% endblock %}
+<!-- end DIY -->
+
+
+</body>

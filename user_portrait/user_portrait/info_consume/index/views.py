@@ -68,3 +68,6 @@ def test_api():
         print  url_for('topic_language_analyze.topics')
     return '1'
     
+@mod.route('/personalizedRec/')
+def personalizedRec():
+    return render_template('/info_consume/personalizedRec.html')

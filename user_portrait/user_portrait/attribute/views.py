@@ -777,3 +777,15 @@ def ajax_summary_influence():
     result = influence_summary(uid, date)
 
     return json.dumps(result)
+
+
+# 给用户推荐相应的判定为广告的微博
+@mod.route("/adsRec/")
+def ajax_adsRec():
+    uid = request.args.get('uid', '')
+    sort_type = request.args.get('sort_type', 'timestamp')
+    results = new_get_user_weibo(uid, sort_type)
+    if not results:
+        results = []
+    return json.dumps(results)
+
