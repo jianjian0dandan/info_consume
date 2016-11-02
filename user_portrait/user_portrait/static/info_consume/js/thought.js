@@ -164,3 +164,4 @@ $('#thought_load_admin').ready((function(){
     thought_load();
 }));
 
+/attribute/sentiment_trend/?uid='+uid+'&time_type=day
