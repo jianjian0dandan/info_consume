@@ -128,6 +128,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   Draw_network_pic:function(data){
     $('#main_network').empty();
     var item = data;
+    console.log(item);
     var nodes_new = [];
     var nodes_label = [];
     for(i=0;i<item['nodes'].length;i++){
@@ -411,8 +412,12 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 topic_analysis_network = new topic_analysis_network();
 
 function Draw_network_pic_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
@@ -420,24 +425,37 @@ function Draw_network_pic_result(){
 }
 
 function Draw_trend_maker_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_maker);
 }
 
 function Draw_trend_pusher_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
   url = "/topic_network_analyze/get_trend_pusher/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_pusher);
 }
  
 function Draw_blog_scan_area_network_result(){
-  start_ts = 1467648000;
-  end_ts = 1470844800;
+  // start_ts = 1467648000;
+  // end_ts = 1470844800;
+  topic = topic_name_on_detail;
+  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+  
   if(sort_item_network=='timestamp' && blog_type_network == 'maker'){
 
     url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts; 
@@ -461,11 +479,11 @@ function Draw_blog_scan_area_network_result(){
 }   
 
 
-function network_load(){
+// function network_load(){
   Draw_network_pic_result();
   Draw_trend_maker_result();
   Draw_blog_scan_area_network_result();
-}
+// }
 
 
 
