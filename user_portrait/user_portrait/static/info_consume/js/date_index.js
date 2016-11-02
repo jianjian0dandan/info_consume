@@ -55,7 +55,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
@@ -84,7 +84,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
       }else if(data=='true'){
         alert('删除成功！');
       }
-      window.location.reload();
+      // window.location.reload();
       // Draw_all_topic_result();
   },
 

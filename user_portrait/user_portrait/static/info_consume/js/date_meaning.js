@@ -134,7 +134,7 @@ topic_analysis_meaning.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
@@ -340,7 +340,7 @@ Draw_blog_opinion:function(data){
     html += '<div style="color:grey;">暂无数据</div>'
     }else{
       opinion=item[0];
-      console.log(opinion);
+      // console.log();
       for (i=0;i < item.length;i++){
         // console.log('qqqqqq');
         // var opinion = item[i].join("+");
@@ -493,11 +493,11 @@ function Draw_blog_scan_area_meaning_result(){
 }   
 
  // Draw_time_line_result();
-// function meaning_load(){
+function meaning_load(){
   Draw_keywords_cloud_result();
   Draw_event_river_result();
   Draw_time_line_result();
   Draw_blog_opinion_result();
   Draw_blog_scan_area_meaning_result();
-// }
+}
 
