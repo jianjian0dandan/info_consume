@@ -1,6 +1,6 @@
-var topic='aoyunhui';
-var start_ts=1468944000;
-var end_ts=1471622400;
+// var topic='aoyunhui';
+// var start_ts=1468944000;
+// var end_ts=1471622400;
 // var opinion=["圣保罗", "班底", "巴西", "康熙"];
 var opinion=[];
 var sort_item = 'timestamp';
@@ -340,7 +340,7 @@ Draw_blog_opinion:function(data){
       for (i=0;i < item.length;i++){
         // console.log('qqqqqq');
         // var opinion = item[i].join("+");
-        html += '<span class="label place_label" style="color: #868686;" onmouseover="set_opinion_type(item[i].join("+"))">'+item[i].join("+")+','+'</span>';
+        html += '<span class="label place_label" style="color: #868686;" onmouseover="set_opinion_type(item[i].join("+"))">'+item[i].join(",")+'</span>';
         // console.log(item[i].join("+"));
       }
 
@@ -494,6 +494,6 @@ function Draw_blog_scan_area_meaning_result(){
   Draw_event_river_result();
   Draw_time_line_result();
   Draw_blog_opinion_result();
-  // Draw_blog_scan_area_meaning_result();
+  Draw_blog_scan_area_meaning_result();
 // }
 

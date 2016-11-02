@@ -35,9 +35,10 @@ function go_to_datail(topic_name,en_name,date_from,date_to,compute_status){
 }
 
 function commit_delete(en_name,start_ts,end_ts,submit_user){
+  // console('确定要删除吗！！！！');
   var a = confirm('确定要删除吗？');
-  console('确定要删除吗！！！！');
-  if(a == 'true'){
+  console.log(en_name);
+  if(a==true){
     console('确定要删除！！！！');
     Delete_task_result(en_name,start_ts,end_ts,submit_user);
   }
@@ -130,8 +131,9 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
             var en_name=key;
             var date_from = data[key][i][1];
             var date_to=data[key][i][2];
-            html += '<td><a href="" onclick="go_to_datail(\''+ topic_name +'\',\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ compute_status +'\')">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ data[key][i][0] +'\',\''+ start_time +'\',\''+ end_time +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
+            html += '<td><a href="" onclick="go_to_datail(\''+ topic_name +'\',\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ compute_status +'\')">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ en_name +'\',\''+ start_time +'\',\''+ end_time +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
             html += '<tr>';
+
         }
       
       }
@@ -182,7 +184,7 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
         var en_name=key;
         var date_from = data['own'][key][i][1];
         var date_to=data['own'][key][i][2];
-        html += '<td><a href="" onclick="go_to_datail(\''+ topic_name +'\',\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ compute_status +'\')" target="_blank">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ key +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
+        html += '<td><a href="" onclick="go_to_datail(\''+ topic_name +'\',\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ compute_status +'\')" target="_blank">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
         html += '<tr>';
       }
       
@@ -210,9 +212,9 @@ topic_analysis_index.prototype = {   //获取数据，重新画表
           var date_from=data['recommend'][key][i][1];
           var date_to=data['recommend'][key][i][2];
           // html += '<td><a href="/topic_time_analyze/time/?topic_name='+topic_name+'&date_from='+date_from+'&date_to='+date_to+'" target="_blank">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ key +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
-          html += '<td><a href="" onclick="go_to_datail(\''+ topic_name +'\',\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ compute_status +'\')" target="_blank">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ key +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
+          html += '<td><a href="" onclick="go_to_datail(\''+ topic_name +'\',\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ compute_status +'\')" target="_blank">'+'查看'+'</a> <a href="" onclick="commit_delete(\''+ en_name +'\',\''+ date_from +'\',\''+ date_to +'\',\''+ user_glo +'\')">'+'删除'+'</a> <a href="" onclick="window.location.reload()">'+'刷新'+'</a></td>';
           html += '<tr>';
-          console.log(key);
+          // console.log(key);
 
        }
       
