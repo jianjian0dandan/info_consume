@@ -749,10 +749,10 @@ function Draw_blog_scan_area_emotion_result(){
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
 
-function emotion_load(){
+// function emotion_load(){
 	Draw_emotion_trend_line_result();
 	Draw_emotion_map_result();
 	Draw_blog_scan_area_emotion_result();
-}
+// }
 
 

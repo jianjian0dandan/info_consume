@@ -526,23 +526,18 @@ function Draw_blog_scan_area_place_result(){
 	topic = topic_name_on_detail;
 	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
 	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
     url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province+'&sort_item='+sort_item;
  	console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
 }		
 
 
-// function Draw_geo_map_result(){
-//     url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
-//  	console.log(url);
-//  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
-// }		
 
-
-function place_load(){
+// function place_load(){
 	Draw_geo_map_result();
 	Draw_blog_scan_area_place_result();
-}
+// }
 
 
 
