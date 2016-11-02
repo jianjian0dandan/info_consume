@@ -1,6 +1,11 @@
      //近一个月圈子影响力走势;id=influen-line
    
     function Draw_influence_line(data){
+    if(data.length==0){
+ $('#influen-line').empty();
+ var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
+ $('#influen-line').append(html);
+}else{
       var data = data['influence_trend'];
       var myChart = echarts.init(document.getElementById('influen-line'),'shine');
       var mind = []
@@ -96,9 +101,14 @@
     };
        myChart.setOption(option);
 }
+}
 
  function Draw_identi_distri(data){
-   
+if(data.length==0){
+ $('#identi-distri').empty();
+ var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+ $('#identi-distri').append(html);
+}else{
  var myChart = echarts.init(document.getElementById('identi-distri'),'shine');
       var option = {
     tooltip : {
@@ -154,9 +164,14 @@
        myChart.setOption(option);
 
  }
-
+}
 
  function Draw_area_distri(data){
+    if(data.length==0){
+ $('#area-distri').empty();
+ var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+ $('#area-distri').append(html);
+}else{
       var myChart = echarts.init(document.getElementById('area-distri'),'infographic');
       var option = {
     tooltip : {
@@ -212,6 +227,7 @@
 };
        myChart.setOption(option);
  }
+}
 
 
   function Draw_basic_page(data){
