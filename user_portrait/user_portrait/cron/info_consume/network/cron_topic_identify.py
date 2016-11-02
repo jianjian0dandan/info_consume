@@ -79,7 +79,7 @@ def compute_network(topic, start_ts, end_ts):
         # print 'start topic_name_transfer'   #把汉字的时间名换成拼音 奥运会>aoyunhui
         # topic_pinyin_name = weibo_TopicNameTransfer(topicname, start_ts, end_ts)
         # print topic_pinyin_name
-        '''
+        
         print 'start compute first_nodes'
         #start_date = ts2datetime(start_ts) # used to compute the first user
         get_first_node(topic_pinyin_name, start_ts, end_ts, windowsize, date)
@@ -131,7 +131,7 @@ def compute_network(topic, start_ts, end_ts):
         #print gexf
         #print '*************************'*10
         save_gexf_results(topic_pinyin_name, date, windowsize, gexf, gexf_type)
-        '''
+        
         print 'start fu_tr'
         get_interval_count(topic_pinyin_name, date, windowsize)
         print 'update_topic_end'
@@ -144,12 +144,12 @@ if __name__ == '__main__':
     #module_t_s = 'identify'
     status = -1
     #topic = u'奥运会'
-    topic = 'aoyunhui'
+    topic = 'laohu'
     start = datetime2ts('2016-7-16')
     end = datetime2ts('2016-7-18')
     #end = 1470900837   #es表里的时间戳
-    #start = int(1468339100)
-    #end = int(1468684700)
+    start = int(1469342940)
+    end = int(1470293340)
     #目前这个start和end没怎么用上 加上时间范围es搜索不到 待解决
     #print start,'    ',end
     

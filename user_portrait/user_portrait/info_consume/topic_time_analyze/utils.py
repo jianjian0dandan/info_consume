@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type
 from user_portrait.info_consume.model import PropagateCount, PropagateWeibos,PropagateTimeWeibos
+from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type
 import math
 import json
 from sqlalchemy import func
@@ -16,82 +17,105 @@ SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
 
-
+'''
 def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
+
     items = db.session.query(PropagateTimeWeibos).filter(PropagateTimeWeibos.topic==topic,\
                                                     PropagateTimeWeibos.end <= end_ts,\
                                                      PropagateTimeWeibos.end >= start_ts
-                                            ).all()
+                                            ).limit(200).all()
+
     weibo_dict = {}
     #print items
-    for item in items:  
-        #print item
-        mtype = item.mtype
-        weibos = _json_loads(item.weibos)
-        #print mtype
-        weibo_dict = {}
-        for weibo in weibos:
-            weibo_content = {}
-            if type(weibo)==dict:
-                weibo_content['text'] = weibo['text'] 
-                weibo_content['uid'] = weibo['uid']
-                weibo_content['timestamp'] = weibo['timestamp']
-                weibo_content['sentiment'] = weibo['sentiment'] 
-                weibo_content['comment'] = weibo['comment']
-                weibo_content['retweeted'] = weibo['retweeted']
-                weibo_content['keywords'] = weibo['keywords_dict']
-                weibo_content['mid'] = weibo['mid']
-                #print weibo_content
-                weibo_dict[weibo_content['mid']] = weibo_content
-                try:
-                    user = es_user_profile.get(index=profile_index_name,doc_type=profile_index_type,id=weibo_content['uid'])['_source']
-                    weibo_content['uname'] = user['nick_name']
-                    weibo_content['photo_url'] = user['photo_url']
-                except:
-                    weibo_content['uname'] = 'unknown'
-                    weibo_content['photo_url'] = 'unknown'
-                weibo_dict[weibo_content['mid']] = weibo_content
-            else:
-                pass
-            
-        results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
-        #for result in results:
-            #print result
-        return results
+    if items:
+        for item in items:  
+            #print item
+            #mtype = item.mtype
+            weibos = _json_loads(item.weibos)
+            #print mtype
+            weibo_dict = {}
+            for weibo in weibos:
+                weibo_content = {}
+                if type(weibo)==dict:
+                    weibo_content['text'] = weibo['text'] 
+                    weibo_content['uid'] = weibo['uid']
+                    weibo_content['timestamp'] = weibo['timestamp']
+                    weibo_content['sentiment'] = weibo['sentiment'] 
+                    weibo_content['comment'] = weibo['comment']
+                    weibo_content['retweeted'] = weibo['retweeted']
+                    weibo_content['keywords'] = weibo['keywords_dict']
+                    weibo_content['mid'] = weibo['mid']
+                    #print weibo_content
+                    weibo_dict[weibo_content['mid']] = weibo_content
+                    try:
+                        user = es_user_profile.get(index=profile_index_name,doc_type=profile_index_type,id=weibo_content['uid'])['_source']
+                        weibo_content['uname'] = user['nick_name']
+                        weibo_content['photo_url'] = user['photo_url']
+                    except:
+                        weibo_content['uname'] = 'unknown'
+                        weibo_content['photo_url'] = 'unknown'
+                    weibo_dict[weibo_content['mid']] = weibo_content
+                else:
+                    pass
+                
+            results = sorted(weibo_dict.items(),key=lambda x:x[1][sort_item],reverse=True)
+            #for result in results:
+                #print result
+    else:
+         results = []
+    return results
+        
+'''
         
 
-        
-
-def get_weibo_by_hot(topic,start_ts,end_ts):
-    items = db.session.query(PropagateWeibos).filter(PropagateWeibos.topic==topic).all()
+def get_weibo_by_time(topic,start_ts,end_ts,sort_item='timestamp'):
+    print topic,start_ts,end_ts,weibo_es
+    query_body = {
+        'query':{
+            'bool':{
+                'must':[
+                    {'range':{'timestamp':{'lte':int(end_ts),'gte':int(start_ts)}}}
+                ]
+            }
+        },
+        'size':200,
+        'sort':{sort_item:{'order':'desc'}}
+    }
+    items = weibo_es.search(index=topic,body=query_body)['hits']['hits']
+    #items = db.session.query(PropagateWeibos).filter(PropagateWeibos.topic==topic).all()
     weibo_dict = {}
-    #print items
-    for item in items:  
-        #print item
-        mtype = item.mtype
-        weibos = _json_loads(item.weibos)
-        #print mtype
-        weibo_dict = {}
-        for weibo in weibos:
+    if items:
+        for item in items:  
+            #print item,type(item)
+            #mtype = item.mtype
+            #weibos = _json_loads(item.weibos)
+            weibo = item['_source']
+            #print mtype
             weibo_content = {}
-            if type(weibo)==dict:
-                weibo_content['text'] = weibo['text'] 
-                weibo_content['uid'] = weibo['uid']
-                weibo_content['timestamp'] = weibo['timestamp']
-                weibo_content['sentiment'] = weibo['sentiment'] 
+            weibo_content['text'] = weibo['text'] 
+            weibo_content['uid'] = weibo['uid']
+            weibo_content['timestamp'] = weibo['timestamp']
+            #weibo_content['sentiment'] = weibo['sentiment'] 
+            try:
                 weibo_content['comment'] = weibo['comment']
+            except:
+                weibo_content['comment'] = 0
+            try:
                 weibo_content['retweeted'] = weibo['retweeted']
-                weibo_content['keywords'] = weibo['keywords_dict']
-                weibo_content['mid'] = weibo['mid']
-                #print weibo_content
-                weibo_dict[weibo_content['mid']] = weibo_content
-            else:
-                pass
-            
+            except:
+                weibo_content['retweeted'] = 0
+            #weibo_content['keywords'] = weibo['keywords_dict']
+            weibo_content['mid'] = weibo['mid']
+            #print weibo_content
+            weibo_dict[weibo_content['mid']] = weibo_content
         results = sorted(weibo_dict.items(),key=lambda x:x[1]['retweeted'],reverse=False)
+
+    else:
+        results = []   
+        #results = sorted(weibo_dict.items(),key=lambda x:x[1]['retweeted'],reverse=False)
         #for result in results:
             #print result
-        return results
+    return results
 
 def _json_loads(weibos):
     try:
