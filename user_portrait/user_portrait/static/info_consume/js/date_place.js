@@ -534,10 +534,10 @@ function Draw_blog_scan_area_place_result(){
 
 
 
-// function place_load(){
+function place_load(){
 	Draw_geo_map_result();
 	Draw_blog_scan_area_place_result();
-// }
+}
 
 
 

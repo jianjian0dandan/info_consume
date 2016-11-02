@@ -23,10 +23,10 @@
 
 
 	<script type="text/javascript" src="../../static/info_consume/js/jquery.js"></script>
-	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="../../static/info_consume/js/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/moment.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/moment-with-locales.min.js"></script>
-	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="../../static/info_consume/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/bootstrap-datetimepicker.min.js"></script>
 
  	<!-- <script type="text/javascript" src="../../static/info_consume/js/echarts/doc/asset/js/esl.js"></script> -->
@@ -64,16 +64,16 @@
 		   <li class="active"><a href="#time" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/time.png">
 		   		时间</a></li>
-		   <li><a href="#place" data-toggle="tab" id="menu_font">
+		   <li onclick="place_load()"><a href="#place" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/place.png">
 		   		地域</a></li>
-		   <li><a href="#network" data-toggle="tab" id="menu_font">
+		   <li onclick="network_load()"><a href="#network" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/network.png">
 		   		网络</a></li>
-		   <li><a href="#emotion" data-toggle="tab" id="menu_font">
+		   <li onclick="emotion_load()"><a href="#emotion" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
 		   		情绪</a></li>
-		   <li><a href="#meaning" data-toggle="tab" id="menu_font">
+		   <li onclick="meaning_load()"><a href="#meaning" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/meaning.png">
 		   		语义</a></li>
 		</ul>
@@ -136,40 +136,12 @@
 
 				</div>
 				<script type="text/javascript">
-					// $(function(){
-					// 	$('#commit').click(function(){
-							
-					// 	});
-					// });
+					
 						
 				    $(function () {
 				        $('#datetimepicker9').datetimepicker();
 				        $('#datetimepicker10').datetimepicker();
-				        // $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
-				        // $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
-				        // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				        // // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				        // $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
-				  //       $("#datetimepicker9").datetimepicker({
-						//         minDate:date_time_from
-						//         maxDate: date_time_to
-						// });
-						// $("#datetimepicker10").datetimepicker({
-						//         minDate:date_time_from
-						//         maxDate: date_time_to
-						// });
-
-
-						//首次选择日期的时候设置限制
-						// $("#datetimepicker9").on("dp.generate",function (e) {
-				  //           $('#datetimepicker10').data("DateTimePicker").minDate(date_time_from);
-				    
-				  //       });
-				  //       $("#datetimepicker10").on("dp.generate",function (e) {
-				            
-				  //           $('#datetimepicker9').data("DateTimePicker").maxDate(date_time_to);
-
-				  //       });
+				  
 
 				        //改变日期的时候设置限制
 				        $("#datetimepicker9").on("dp.change",function (e) {
@@ -215,6 +187,17 @@
 						$("#datetimepicker9_input").val(start_time);
 						$("#datetimepicker10_input").val(end_time);
 					}
+
+					$(function(){
+						$('#commit').click(function(){
+							Draw_time_trend_line_result();
+							Draw_blog_scan_area_order_result();
+							place_load();
+							network_load();
+							emotion_load();
+							meaning_load();
+						});
+					});
 				</script>
 	<!-- 分割线 -->
 			<div class="halving_line"></div>
@@ -265,6 +248,12 @@
  	<script type="text/javascript" src="../../static/info_consume/js/date_network.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_meaning.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_emotion.js"></script>
-	
+
+ 	<!-- <script type="text/javascript">
+ 		function time_commit(){
+
+ 		}
+ 	</script>
+	 -->
 
 </html>

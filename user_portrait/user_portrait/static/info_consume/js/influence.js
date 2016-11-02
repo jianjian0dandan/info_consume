@@ -113,7 +113,7 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
 
-    html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + data[i].uid + "'>"+data[rank].uname+"</a></td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
     //全局变量赋值
     userImg_src = data[rank].photo_url;
     uName = data[rank].uname;
@@ -123,7 +123,7 @@ Influence.prototype = {
       var bci_data;
       bci_data = allInflu_data[j].bci;
       bci_data = bci_data.toFixed(2);
-      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+allInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+allInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+allInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + allInflu_data[j].uid + "'>"+allInflu_data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_all').append(html_table);
   },
