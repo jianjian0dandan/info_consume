@@ -284,7 +284,7 @@ def get_subopinion(topic):
 def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微博内容
     weibo_dict = {}
     #a = json.dumps(opinion)
-    opinion = '圣保罗_班底_巴西_康熙'
+    #opinion = '圣保罗_班底_巴西_康熙'
     query_body = {
         'query':{
             'bool':{
