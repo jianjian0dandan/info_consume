@@ -164,7 +164,7 @@ function Draw_geo_graph(data){
         city_data['value']=data[key][d_key];
         city_data['name']=d_key+'市';
         geo_data.push(city_data);
-  //      console.log(city_data);
+        console.log(geo_data);
         }
      }
      }
@@ -292,6 +292,7 @@ function Draw_active_page(data){
  
 function g_act_load(g_name,s_user){
  var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
+
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
  console.log('g_act_load url:'+activity_url);
 }
