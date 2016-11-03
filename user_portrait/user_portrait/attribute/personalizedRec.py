@@ -14,6 +14,8 @@ from influence_appendix import weiboinfo2url
 from new_search import ip2city
 
 
+from search import search_preference_attribute
+
 def adsRec(uid):
     results = []
     weibo_list = []
