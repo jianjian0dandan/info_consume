@@ -28,6 +28,8 @@ from personal_influence import get_user_influence, influenced_detail, influenced
 from description import conclusion_on_influence
 from info_new_search import info_new_get_user_social
 
+from personalizedRec import adsRec
+
 # use to test 13-09-08
 test_time = datetime2ts(RUN_TEST_TIME)
 
@@ -783,9 +785,9 @@ def ajax_summary_influence():
 @mod.route("/adsRec/")
 def ajax_adsRec():
     uid = request.args.get('uid', '')
-    sort_type = request.args.get('sort_type', 'timestamp')
-    results = new_get_user_weibo(uid, sort_type)
-    if not results:
+    #sort_type = request.args.get('sort_type', 'timestamp')
+    results = adsRec(uid)
+    if  results is None:
         results = []
     return json.dumps(results)
 
