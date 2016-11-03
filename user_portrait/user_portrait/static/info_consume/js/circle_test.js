@@ -34,7 +34,8 @@
        $("#circle-analysis").slideDown();
        $('#basic_tab').tab('show')
        document.getElementById('myContainer').scrollIntoView()
-       var html=""+data;
+       var html="您当前正在分析圈子："+data;
+        $('#current').html('');
         $('#current').append(html);
        console.log("g_name:"+g_name);
       //切换不同tab

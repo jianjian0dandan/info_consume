@@ -1668,6 +1668,7 @@ def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
     end_ts = start_ts + time_segment
     time_date = ts2datetime(start_ts)
     flow_text_index_name = flow_text_index_name_pre + time_date
+    print flow_text_index_name
     query = []
     query.append({'term': {'uid': uid}})
     if sentiment != '2':
@@ -1675,6 +1676,7 @@ def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
     else:
         query.append({'terms':{'sentiment': SENTIMENT_SECOND}})
     query.append({'range':{'timestamp':{'gte':start_ts, 'lt':end_ts}}})
+    print query
     try:
         flow_text_es_result = es_flow_text.search(index=flow_text_index_name, doc_type=flow_text_index_type, body={'query':{'bool':{'must': query}}, 'sort':'timestamp', 'size':1000000})['hits']['hits']
     except:
