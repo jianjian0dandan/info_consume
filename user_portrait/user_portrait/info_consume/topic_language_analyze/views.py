@@ -5,6 +5,7 @@ from user_portrait.global_config import db
 from utils import get_during_keywords,get_topics_river,get_weibo_content,get_subopinion,get_symbol_weibo,get_topics
 from utils import submit,get_key_topics,delete,get_sen_ratio
 import json
+from user_portrait.info_consume.topic_sen_analyze.views import sen_time_count
 
 mod = Blueprint('topic_language_analyze',__name__,url_prefix='/topic_language_analyze')
 
@@ -123,3 +124,10 @@ def sen_ratio():
     start_ts = long(start_ts)
     time_count = get_sen_ratio(topic,start_ts,end_ts)
     return json.dumps(time_count)
+
+
+@mod.route('/test/')
+def test():
+    key_topics_data = key_topics() 
+    sen_time_count()
+    return key_topics_data
