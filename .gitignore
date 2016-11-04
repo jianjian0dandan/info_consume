@@ -99,3 +99,10 @@ ENV/
 
 .gitignore
 .idea/
+cron/info_consume/language/public/cluto-2.1.2/MSWIN-x86-openmp/libcluto.lib
+cron/info_consume/language/public/cluto-2.1.2/MSWIN-x86/libcluto.lib
+cron/info_consume/language/public/cluto-2.1.2/MSWIN-x86_64-openmp/libcluto.lib
+cron/info_consume/language/public/cluto-2.1.2/MSWIN-x86_64/test/libcluto.lib
+info_consume/user_rank_info/~
+static/js/bmap/js/.DS_Store
+user_rank/~

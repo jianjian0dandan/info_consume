@@ -8,36 +8,38 @@ import time
 from user_portrait.time_utils import ts2datetime, datetime2ts, ts2date
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, flow_text_index_type, \
-    es_user_profile, profile_index_name, profile_index_type
+    es_user_profile, profile_index_name, profile_index_type,\
+    es_user_portrait, portrait_index_name, portrait_index_type
+
 from user_portrait.parameter import DAY, MAX_VALUE
 from influence_appendix import weiboinfo2url
 from new_search import ip2city
-
+import json
 
 from search import search_preference_attribute
 
 def adsRec(uid):
     results = []
     weibo_list = []
-    now_date = ts2datetime(time.time())
 
-    # run_type
-    if RUN_TYPE == 0:
-        now_date = RUN_TEST_TIME
+    # 运行状态，
+    # 0 ->  当前为2013-9-8
+    # 1 ->  当前时间
+    now_date = ts2datetime(time.time()) if RUN_TYPE == 1 else RUN_TEST_TIME
 
-    # step1:get user name
-    print '708'
-    try:
-        user_profile_result = es_user_profile.get(index=profile_index_name, doc_type=profile_index_type, \
-                                                  id=uid, _source=False, fields=['nick_name'])
-    except:
-        user_profile_result = {}
-    print '714', len(user_profile_result)
-    if user_profile_result:
-        uname = user_profile_result['fields']['nick_name'][0]
-    else:
-        uname = ''
-    #step2:get user weibo
+    # 获取用户的偏好
+    user_portrait_result = es_user_portrait.\
+        get_source(index=portrait_index_name, doc_type=profile_index_type,id=uid)
+
+    keywords_items = sorted(json.loads(user_portrait_result["keywords"]),
+                            key = lambda kw: kw[1],
+                            reverse = True)
+    topic_items = sorted(json.loads(user_portrait_result["topic"]).items(),
+                         key=lambda kw: kw[1],
+                         reverse = True)
+
+
+
     index_list = []
     for i in range(7, 0, -1):
         if RUN_TYPE == 1:
