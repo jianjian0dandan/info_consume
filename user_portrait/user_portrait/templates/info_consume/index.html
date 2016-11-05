@@ -418,15 +418,15 @@ homepageinfo.prototype = {
        Verfi.innerHTML = "否";
        if(verf == -1){
          Verf_type.innerHTML = personalData.verified_type_ch;
-         drawVerfi.innerHTML = personalData.verified_type_ch;
+         drawVerfi.innerHTML = "认证类型："+personalData.verified_type_ch;
        }else{
          Verf_type.innerHTML = "无";
-         drawVerfi.innerHTML = "未知";
+         drawVerfi.innerHTML = "认证类型：未知";
        }
    }else{
        Verfi.innerHTML = "是";
      Verf_type.innerHTML = personalData.verified_type_ch;
-     drawVerfi.innerHTML = personalData.verified_type_ch;
+     drawVerfi.innerHTML = "认证类型："+personalData.verified_type_ch;
    }
 
 
@@ -512,10 +512,10 @@ homepageinfo.prototype = {
     {
       var drawGeo = document.getElementById('draw_p4');
         if(data.all_top[0][0] !=""){
-            drawGeo.innerHTML = data.all_top[0][0];
+            drawGeo.innerHTML = "最常登录："+data.all_top[0][0];
             console.log(data.all_top[0][0]);
         }else{
-            drawGeo.innerHTML = '未知';
+            drawGeo.innerHTML = '最常登录：未知';
         }
     },
 
@@ -545,7 +545,7 @@ homepageinfo.prototype = {
       if(othernum == 0){
         topdomain = domain[1];
       }  
-      document.getElementById('draw_p2').innerHTML = topdomain;
+      document.getElementById('draw_p2').innerHTML ="活跃领域："+ topdomain;
       console.log("topdomain="+topdomain);
     },
 
@@ -554,10 +554,10 @@ homepageinfo.prototype = {
     {
       var drawFriend = document.getElementById('draw_p3');
         if(data[0].uname !=""){
-            drawFriend.innerHTML = data[0].uname;
+            drawFriend.innerHTML = "亲密好友："+data[0].uname;
             console.log(data[0].uname);
         }else{
-            drawFriend.innerHTML = '未知';
+            drawFriend.innerHTML = '亲密好友：未知';
         }
     },
     // 微博数据
