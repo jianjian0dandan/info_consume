@@ -72,7 +72,8 @@
                   });
                 </script>
               <li><a href="/index/boot_test" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>圈子发现</a></li>
-              <li><a href="/index/weiborecommand" class="news-icon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>微博那些事</a></li>
+              <li><a href="/index/weiborecommand" class="news-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>微博那些事</a></li>
+              
               </ul>
               <!-- script-for-menu -->
                 <script>
@@ -87,7 +88,7 @@
                   <ul class="nav2">
                     <li><a href="#" class="facebook"> </a></li>
                     <li><a href="#" class="facebook twitter"> </a></li>
-                    <li><a href="#" class="facebook chrome"> </a></li>
+                    <li><a href="/index/weiborecommand" class="facebook chrome"> </a></li>
                     <li><a href="#" class="facebook dribbble"> </a></li>
                   </ul>
                 </div>
@@ -166,7 +167,8 @@
               <div class="progress bk-margin-off-bottom" style="height: 15px;">
                 <div class="progress thin progress-striped active">
                   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;" id="percentBar">
-                    <span class="sr-only">35% Complete</span>
+                  <a href="/index/myzone/#influ_chart" target="_blank">
+                    <span class="sr-only">35% Complete</span></a>
                   </div>
                   </div>
                 </div>
@@ -185,10 +187,10 @@
         <div class="panel-heading">
           贴心天气
         </div>
-         <div style="margin:2px 15px;">
+          <div style="margin:2px 15px;">
           <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="150" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
          </iframe> 
-        </div> 
+        </div>  
       </div>
 
 
@@ -292,19 +294,11 @@
 
                   <label class="demo--label">
                     <li style="float:left;margin-left:5px;">
-                      <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                      <input class="demo--radio" type="radio" name="mode_choose" value="retweet_count">
                       <span class="mode demo--radioInput" style=""></span>转发数
                     </li> 
                   </label>
 
-<!--                   <li  style="float:left;">
-                    <input type="radio" name="mode_choose" value="comment_count" >
-                    <span class="mode" style="">评论数</span>
-                  </li>
-                  <li style="float:left;">
-                    <input type="radio" name="mode_choose" value="retweet_count">
-                    <span class="mode" style="">转发数</span>
-                  </li> -->
                 </ul>
               </div>
             <!--
@@ -526,10 +520,33 @@ homepageinfo.prototype = {
     },
 
     domain:function(data){
-      var str = data;
-      //console.log(str.split("&")[0]);
-      document.getElementById('draw_p2').innerHTML = str.split("&")[0];
-      //console.log(topdomain);
+      // var str = data;
+      // console.log(str.split("&")[0]);
+      // document.getElementById('draw_p2').innerHTML = str.split("&")[0];
+      var i;
+      //将此人涉及领域从数据库取出，
+      var domain = new Array();
+      var num = new Array();
+      
+      for (i=0;i<data.in_topic.length;i++) 
+      {
+        domain[i]=data.in_topic[i][0];
+        num[i]=data.in_topic[i][1];
+      }
+
+      var topdomain = domain[0];
+      var othernum;
+      for (var j = 0; j < data.in_topic.length; j++) {
+        if (domain[j] == "其他类") {
+          othernum = j;
+          break;
+        }
+      }
+      if(othernum == 0){
+        topdomain = domain[1];
+      }  
+      document.getElementById('draw_p2').innerHTML = topdomain;
+      console.log("topdomain="+topdomain);
     },
 
     //亲密度排行
@@ -565,18 +582,39 @@ function openurl(){
 $(function(){
   $('#modechoose').click(function(){
   var box = document.getElementsByName('mode_choose');
-  //console.log(box);
+  var com_flag = false;
+  var tim_flag = false;
+  var ret_flag = false;
+
   for(var i=0;i<box.length;i++){
-    if(box[i].checked){
-      sort_type = box[i].value;
+    if(box[i].value == "comment_count" && com_flag == false){
+      $('#per_onload').css('display', 'block');
+      $('#group_influ_weibo').css('display', 'none')
+      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=comment_count";
+      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
+      com_flag = true;
+    };
+
+    if(box[i].value == "retweet_count" && ret_flag == false){
+      $('#per_onload').css('display', 'block');
+      $('#group_influ_weibo').css('display', 'none')
+      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=retweet_count";
+      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
+      com_flag = true;
     }
+
+    if(box[i].value == "timestamp" && tim_flag == false){
+      $('#per_onload').css('display', 'block');
+      $('#group_influ_weibo').css('display', 'none')
+      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
+      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
+
+      com_flag = true;
     }
-$('#per_onload').css('display', 'block');
-$('#group_influ_weibo').css('display', 'none')
-  var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
-  //console.log('ddd',url);
-    Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-  //console.log(weiboData);
+    
+  }
   });
 });
 
@@ -782,7 +820,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
             //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';    
             html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
             html += '<span style="float:right;padding-right: 10px;color:#858585"><span>转发数('+ retweet_count +')&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>评论数('+ comment_count +')</span></span>';
-            html += '<span style="float:left"><u>'+date+'</u> - <a color:#e0e0e0 target="_blank"  href="'+tweet_ulr+'">' + '微博' + '</a>-<a target="_blank" href="/index/personal_detail/?uid=' + uid + '">用户详情</a></span>';
+            html += '<span style="float:left"><u>'+date+'</u> - <a color:#e0e0e0 target="_blank"  href="'+tweet_ulr+'">' + '微博' + '</a>-<a target="_blank" href="/index/viewinformation/?uid=' + uid + '">用户详情</a></span>';
             html += '</p>';
       html += '</div>';
         

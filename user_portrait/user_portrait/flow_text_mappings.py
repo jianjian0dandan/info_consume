@@ -18,9 +18,9 @@ def get_graph_mappings(index_name):
                     'properties':{
                         'name':{
                             'type': 'string',
-                            'index': 'not_analyzed'
-                            },
-                        
+                           'index': 'not_analyzed'
+                           },
+                       
                         'gexf':{
                             'type': 'string',
                             'index': 'no'

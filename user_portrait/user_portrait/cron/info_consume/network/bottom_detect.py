@@ -66,13 +66,13 @@ def find_bottom(lis, n):
         # the first if control the minmize is not the first or the last
         if rank[count]!=0 and rank[count]!=len(new)-1:
             if i<=lis[rank[count]-1] and i<=lis[rank[count]+1]:
-                print 'i:', i
+                #print 'i:', i
                 bottom_list.append(rank[count])
         count += 1
         # bottoms = [index1, index2....]
-        print 'bottoms:', bottom_list
+        #print 'bottoms:', bottom_list
         bottoms = filter_continues(bottom_list)
-        print 'filter_continues:', bottoms
+        #print 'filter_continues:', bottoms
     return bottoms[:n]
 
 def max_variation(lis, dur, form):

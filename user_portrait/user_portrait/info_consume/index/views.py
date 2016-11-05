@@ -1,8 +1,9 @@
 #-*- coding:utf-8: -*-
-from flask import Blueprint,render_template,request
+from flask import Blueprint,render_template,request,url_for,redirect,Flask
 from flask.ext.security import login_required
-
+from user_portrait.info_consume.topic_language_analyze.utils import get_topics
 mod = Blueprint('index', __name__, url_prefix='/index')
+import urllib2
 
 @mod.route('/home/')
 @login_required
@@ -59,3 +60,11 @@ def circle_test():
 def myzone():
     return render_template('/info_consume/myzone.html')
 
+@mod.route('/test_api/')
+def test_api():
+    app =  Flask('jln_try')
+    #return redirect(url_for('topic_language_analyze.topics'))
+    with app.test_request_context():
+        print  url_for('topic_language_analyze.topics')
+    return '1'
+    
