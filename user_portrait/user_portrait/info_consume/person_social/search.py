@@ -598,6 +598,47 @@ def search_user_info(es,index_name,doc_type,uid,result_name):
         return None
 
 
+def search_weibo(root_uid,uid,mtype):
+    query_body = {
+        #'query':{
+            'filter':{
+                'bool':{
+                    'must':[{'term':{'uid':uid}},
+                            {'term':{'message_type':mtype}}],
+                    'should':[{'term':{'root_uid':root_uid}},
+                              {'term':{'directed_uid':root_uid}}],
+                }
+            }
+        #}
+    }
+    index_list = []
+    for i in range(7, 0, -1):
+        if RUN_TYPE == 1:
+            iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
+        else:
+            iter_date = ts2datetime(datetime2ts(RUN_TEST_TIME) - i * DAY) 
+        index_list.append(flow_text_index_name_pre + iter_date)
+    results = es_flow_text.search(index=index_list,doc_type=flow_text_index_type,body=query_body)['hits']['hits']
+    weibo = {}
+    f_result = []
+    if len(results) > 0:
+        for result in results:
+            #print type(result),result
+            weibo['last_text'] = result['_source']['text']
+            mid = result['_source']['root_mid']
+            len_pre = len(flow_text_index_name_pre)
+            index = result['_index'][len_pre:]
+            root_index = []
+            for j in range(0,7):   #一周的，一个月的话就0,30
+                iter_date = ts2datetime(datetime2ts(index) - j * DAY) 
+                root_index.append(flow_text_index_name_pre + iter_date)
+            results = es_flow_text.search(index=root_index,doc_type=flow_text_index_type,body={'query':{'term':{'mid':mid}}})['hits']['hits']
+            if len(results)>0:
+                for result in results:
+                    weibo['ori_text'] = result['_source']['text']
+            f_result.append(weibo)
+    return f_result
+
 if __name__=='__main__':
     uid = '1843990885'
     now_ts = 1377964800 + 3600 * 24 * 4

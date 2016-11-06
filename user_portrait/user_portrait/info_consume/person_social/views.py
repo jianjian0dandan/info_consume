@@ -5,7 +5,7 @@ import time
 import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
 from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention,\
-                    search_attention,search_comment
+                    search_attention,search_comment,search_weibo
 
 '''
 from search import delete_action, search_identify_uid, get_activeness_trend
@@ -148,4 +148,14 @@ def ajax_attention():
     results = search_attention(uid, top_count)
     if not results:
         results = {}
+    return json.dumps(results)
+
+@mod.route('/get_weibo/')
+def get_weibo():
+    root_uid = request.args.get('root_uid','')
+    uid = request.args.get('uid','')
+    mtype = request.args.get('mtype','')
+    results = search_weibo(root_uid,uid,mtype)
+    if not results:
+        results = []
     return json.dumps(results)
