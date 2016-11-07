@@ -24,6 +24,10 @@ EXTRA_EMOTIONWORD_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'emotionlist.txt')
 EXTRA_ONE_WORD_WHITE_LIST_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'one_word_white_list.txt')
 EXTRA_BLACK_LIST_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'black.txt')
 
+def load_black_words():
+    one_words = [line.strip('\r\n') for line in file(EXTRA_BLACK_LIST_PATH)]
+    return one_words
+
 def load_scws():
     s = scws.Scws()
     s.set_charset(SCWS_ENCODING)
