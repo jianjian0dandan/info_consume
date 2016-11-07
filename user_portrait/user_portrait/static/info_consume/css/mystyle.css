@@ -339,7 +339,7 @@ ul.nav.nav-sidebar li a{
 }
 #account {
   width: 300px;
-  height: 350px;
+  /*height: 350px;*/
   float: left;
   position: relative;
 }
