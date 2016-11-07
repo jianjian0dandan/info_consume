@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
 import os
@@ -261,3 +262,24 @@ def svm_predict(y, x, m, options=""):
 
     return pred_labels, (ACC, MSE, SCC), pred_values
 
+
+def svm_predict_single(x,m):
+    '''
+    预测单个值
+    :param x:特征值
+    :param m:模型
+    :return:p_labels
+    '''
+    svm_type = m.get_svm_type()
+    is_prob_model = m.is_probability_model()
+    nr_class = m.get_nr_class()
+
+
+    if svm_type in (ONE_CLASS, EPSILON_SVR, NU_SVC):
+        nr_classifier = 1
+    else:
+        nr_classifier = nr_class * (nr_class - 1) // 2
+    dec_values = (c_double * nr_classifier)()
+    xi, idx = gen_svm_nodearray(x, isKernel=(m.param.kernel_type == PRECOMPUTED))
+    label = libsvm.svm_predict_values(m, xi, dec_values)
+    return label
