@@ -624,7 +624,7 @@ def search_weibo(root_uid,uid,mtype):
     if len(results) > 0:
         for result in results:
             #print type(result),result
-            weibo['last_text'] = result['_source']['text']
+            weibo['last_text'] = [result['_source']['text'],result['_source']['text'],result['_source']['timestamp']]
             mid = result['_source']['root_mid']
             len_pre = len(flow_text_index_name_pre)
             index = result['_index'][len_pre:]
@@ -635,7 +635,7 @@ def search_weibo(root_uid,uid,mtype):
             results = es_flow_text.search(index=root_index,doc_type=flow_text_index_type,body={'query':{'term':{'mid':mid}}})['hits']['hits']
             if len(results)>0:
                 for result in results:
-                    weibo['ori_text'] = result['_source']['text']
+                    weibo['ori_text'] = [result['_source']['text'],result['_source']['timestamp']]
             f_result.append(weibo)
     return f_result
 
