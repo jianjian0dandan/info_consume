@@ -55,7 +55,7 @@
              $(function(){
                  var influ_scope = 'all_nolimit'; 
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
-                 console.log(influ_url);               
+                 console.log("influ_url:"+influ_url);               
                function init_table(data){
                 $('#table-user').bootstrapTable({
                   //url: influ_url,
