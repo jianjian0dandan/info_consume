@@ -188,6 +188,95 @@ def search_attention(uid, top_count):
     #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
 
 
+
+def search_yangshi_follower(uid, top_count):
+    results = {}
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = be_retweet_index_name_pre + str(db_number)
+    center_uid = uid
+    try:
+        retweet_result = es_retweet.get(index=index_name, doc_type=be_retweet_index_type, id=uid)['_source']
+    except:
+        return None
+    print retweet_result
+    if retweet_result:
+        retweet_dict = json.loads(retweet_result['uid_be_retweet'])
+        uid_list = retweet_dict.keys()
+        portrait_result = []
+        try:
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
+        except:
+            user_result = []
+
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                if uname == '':
+                    uname = u'未知'
+
+            else:
+                uname = u'未知'
+
+
+            #retweet_count = int(retweet_dict[uid])
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'count':count,'uname':uname})#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
+    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+
+
+def search_yangshi_attention(uid, top_count):
+
+    results = {}
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = retweet_index_name_pre + str(db_number)
+    center_uid = uid
+    print es_retweet,index_name,retweet_index_type,uid
+    try:
+        retweet_result = es_retweet.get(index=index_name, doc_type=retweet_index_type, id=uid)['_source']
+    except:
+        return None
+    if retweet_result:
+        retweet_dict = json.loads(retweet_result['uid_retweet'])
+        uid_list = retweet_dict.keys()
+        portrait_result = []
+        try:
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
+        except:
+            user_result = []
+
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                if uname == '':
+                    uname = u'未知'
+
+            else:
+                uname = u'未知'
+
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'count':count,'uname':uname,})#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
+    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+
+
+
 #search:now_ts , uid return 7day at uid list  {uid1:count1, uid2:count2}
 #{'at_'+Date:{str(uid):'{at_uid:count}'}}
 #return results:{at_uid:[uname,count]}

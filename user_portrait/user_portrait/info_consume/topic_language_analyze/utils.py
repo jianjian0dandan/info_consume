@@ -400,7 +400,7 @@ def get_sen_ratio(topic,start_ts,end_ts):
     print query_body
     result = es_flow_text.search(index = flow_text_index_name_pre+date,doc_type=flow_text_index_type,body=query_body)\
             ['aggregations']['all_interests']['buckets']
-
+    print result
     return result
 
 
