@@ -8,7 +8,7 @@ import csv
 import sys
 import json
 from textrank4zh import TextRank4Keyword, TextRank4Sentence
-from config import load_scws,load_black_words,re_cut
+from config_ys import load_scws,load_black_words,re_cut
 
 black = load_black_words()
 tr4w = TextRank4Keyword()

@@ -40,6 +40,8 @@ from user_portrait.parameter import SENTIMENT_DICT,  ACTIVENESS_TREND_TAG_VECTOR
 from user_portrait.parameter import SENTIMENT_SECOND
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.keyword_filter import keyword_filter
+sys.path.append('./user_portrait/cron/flow_text/')
+from keyword_extraction import get_weibo_single
 
 r_beigin_ts = datetime2ts(R_BEGIN_TIME)
 
@@ -2017,15 +2019,21 @@ def search_preference_attribute(uid):
         
     except:
         return None
+    try:
+        filter_keywords_dict  = json.loads(portrait_result['filter_keywords'])
+    except:
+        keywords_item_dict = portrait_result['keywords_string']
+        filter_keywords_dict = get_weibo_single(keywords_item_dict,n_count=40)
     #keywords
-    keywords_item_dict = json.loads(portrait_result['keywords'])
+    # keywords_item_dict = json.loads(portrait_result['keywords'])
     # keywords_dict = dict()
     # for item in keywords_item_dict:
     #     keywords_dict[item[0]] = item[1]
 
     # filter_keywords_dict = keyword_filter(keywords_dict)
-    # sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
-    sort_keywords = sorted(keywords_item_dict, key=lambda x:x[1], reverse=True)[:50]
+    sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
+
+    #sort_keywords = sorted(keywords_item_dict, key=lambda x:x[1], reverse=True)[:50]
     results['keywords'] = sort_keywords
     #hashtag
     if portrait_result['hashtag_dict']:

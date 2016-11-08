@@ -6,7 +6,7 @@ import csv
 import scws
 import re
 import heapq
-from config import re_cut,DZ_DICT,DZ_COUNT
+from config_ys import re_cut,DZ_DICT,DZ_COUNT
 
 class TopkHeap(object):
     def __init__(self, k):
