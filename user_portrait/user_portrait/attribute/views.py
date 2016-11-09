@@ -7,7 +7,7 @@ from flask import Blueprint, url_for, render_template, request, abort, flash, se
 from search import search_attribute_portrait, search_location, search_ip, search_mention, search_activity,\
                    search_attention, search_follower, search_portrait, get_geo_track, get_geo_track_ip, get_online_pattern
 from search import delete_action, search_identify_uid, get_activeness_trend
-from search import get_activity_weibo, search_comment, search_be_comment
+from search import get_activity_weibo, search_comment, search_be_comment,search_yangshi_preference_attribute
 from search import search_bidirect_interaction, search_preference_attribute, search_sentiment_trend, search_tendency_psy
 from search import search_sentiment_weibo, get_influence_trend, search_remark, edit_remark
 from search import search_character_psy
@@ -165,6 +165,17 @@ def ajax_preference():
     uid = request.args.get('uid', '')
     uid = str(uid)
     results = search_preference_attribute(uid)
+    if not results:
+        results = {}
+    return json.dumps(results)
+
+
+#jln yangshi
+@mod.route('/get_preference/')
+def ajax_get_preference():
+    uid = request.args.get('uid', '')
+    uid = str(uid)
+    results = search_yangshi_preference_attribute(uid)
     if not results:
         results = {}
     return json.dumps(results)

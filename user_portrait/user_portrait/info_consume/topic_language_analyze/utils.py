@@ -6,13 +6,16 @@ from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_ty
 
 from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
 
+from user_portrait.parameter import RUN_TYPE,RUN_TEST_TIME
 from user_portrait.info_consume.model import CityTopicCount,CityWeibos
 import math,time
 import json
-import re
+import re,sys
 from xpinyin import Pinyin
 from user_portrait.global_utils import R_ADMIN as r
-from user_portrait.global_utils import topic_queue_name
+from user_portrait.global_utils import topic_queue_name,es_flow_text,flow_text_index_name_pre,flow_text_index_type
+sys.path.append('./user_portrait/cron/flow_text/')
+from keyword_extraction import get_weibo
 # from cp_global_config import db,es_user_profile,profile_index_name,profile_index_type,\
 #                             topics_river_index_name,topics_river_index_type,\
 #                             subopinion_index_name,subopinion_index_type
@@ -55,7 +58,7 @@ def get_topics(user):
             }
         },
         'sort':{'submit_ts':{'order':'desc'}},
-        'size':5
+        'size':1000
         
     }
     topics = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
@@ -73,7 +76,8 @@ def get_topics(user):
                     'term':{'submit_user':user}
                 }
             }
-        }
+        },
+        "size": 1000
     }
     own_topics =  weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_own)
     if own_topics:
@@ -84,7 +88,7 @@ def get_topics(user):
             except:
                 results['own'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
 
-            print results
+            #print results
     return json.dumps(results)
 
 
@@ -156,8 +160,11 @@ def submit(topic,start_ts,end_ts,submit_user):
 
 def delete(en_name,start_ts,end_ts,submit_user):
     task_id = start_ts+'_'+end_ts+'_'+en_name+'_'+submit_user
+    #print weibo_es,task_id
     try:
-        return weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+        result = weibo_es.delete(index=topic_index_name,doc_type=topic_index_type,id=task_id)['found']
+        print result
+        return result
     except:
         return -1
 
@@ -181,7 +188,12 @@ def get_during_keywords(topic,start_ts,end_ts):  #关键词云,unit=MinInterval
         'size':MAX_LANGUAGE_WEIBO
     }
     keywords_dict = {}
+    weibo_text = []
     keyword_weibo = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)['hits']['hits']   
+    for key_weibo in keyword_weibo:
+        weibo_text.append(key_weibo['_source']['text'].encode('utf-8'))
+    keywords_dict = get_weibo(weibo_text,n_gram=2,n_count=100)
+    '''
     print keyword_weibo
     for key_weibo in keyword_weibo:
         keywords_dict_list = json.loads(key_weibo['_source']['keywords_dict'])  #
@@ -191,6 +203,7 @@ def get_during_keywords(topic,start_ts,end_ts):  #关键词云,unit=MinInterval
                 keywords_dict[k] += v
             except:
                 keywords_dict[k] = v
+    '''
     word_results = sorted(keywords_dict.iteritems(),key=lambda x:x[1],reverse=True)[:MAX_FREQUENT_WORDS]   
     return json.dumps(word_results)      
 
@@ -281,7 +294,7 @@ def get_subopinion(topic):
 def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微博内容
     weibo_dict = {}
     #a = json.dumps(opinion)
-    opinion = '圣保罗_班底_巴西_康熙'
+    #opinion = '圣保罗_班底_巴西_康熙'
     query_body = {
         'query':{
             'bool':{
@@ -360,6 +373,36 @@ def cul_key_weibo_time_count(topic,news_topics,start_ts,over_ts,during):
 
             key_weibo_time_count[clusterid] = sorted(time_dict.items(),key=lambda x:x[0])
     return key_weibo_time_count
+
+
+def get_sen_ratio(topic,start_ts,end_ts):
+    query_body = {
+        'query':{
+            'bool':{
+                'must':[
+                    {'wildcard':{'text':'*'+topic+'*'}},
+                    {'range':{'timestamp':{'lte':end_ts,'gte':start_ts}}}
+                ]
+            }
+        },
+        'aggs':{
+            'all_interests':{
+                'terms':{
+                    'field': 'sentiment',
+                }
+            }
+        }
+    } 
+    if RUN_TYPE == 0 :
+        date = '2013-09-07'
+    else:
+        date = ts2datetime(time.time())
+    print query_body
+    result = es_flow_text.search(index = flow_text_index_name_pre+date,doc_type=flow_text_index_type,body=query_body)\
+            ['aggregations']['all_interests']['buckets']
+    print result
+    return result
+
 
 
 if __name__ == '__main__':

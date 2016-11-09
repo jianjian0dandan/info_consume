@@ -23,10 +23,10 @@
 
 
 	<script type="text/javascript" src="../../static/info_consume/js/jquery.js"></script>
-	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="../../static/info_consume/js/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/moment.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/moment-with-locales.min.js"></script>
-	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="../../static/info_consume/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/bootstrap-datetimepicker.min.js"></script>
 
  	<!-- <script type="text/javascript" src="../../static/info_consume/js/echarts/doc/asset/js/esl.js"></script> -->
@@ -64,14 +64,13 @@
 		   <li class="active"><a href="#time" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/time.png">
 		   		时间</a></li>
-		   <li><a href="#place" data-toggle="tab" id="menu_font">
-		   <!-- <li><a href="#place" data-toggle="tab" id="menu_font"  onclick="go_to_place();"> -->
+		   <li onclick="place_load()"><a href="#place" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/place.png">
 		   		地域</a></li>
-		   <li><a href="#network" data-toggle="tab" id="menu_font">
+		   <li onclick="network_load()"><a href="#network" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/network.png">
 		   		网络</a></li>
-		   <li><a href="#emotion" data-toggle="tab" id="menu_font">
+		   <li onclick="emotion_load()"><a href="#emotion" data-toggle="tab" id="menu_font">
 		   		<img class="menu_img" id="menu_img" src="../../static/info_consume/image/emotion.png">
 		   		情绪</a></li>
 		   <li><a href="#meaning" data-toggle="tab" id="menu_font">
@@ -81,7 +80,7 @@
 		<script type="text/javascript">
 
 		function go_to_place(){
-			console.log('1234567');
+			
 			// document.getElementById('meaning').style.display="block"; 
 			window.location.href="/topic_geo_analyze/place";
 		}
@@ -92,12 +91,13 @@
 	 		<img class="topic_img" id="topic_img" src="../../static/info_consume/image/topic.png">
 	 		
 	 		<script type="text/javascript">
-	 			var topic_name_on_detail = "{{topic_name}}";
+	 			var topic_name_on_detail = "{{en_name}}";
+	 			var topic_name_on_detail_ch = "{{topic_name}}";
 	 			console.log(topic_name_on_detail);
  	 			var html = '';
-	 			html += '<p class="topic_text">#'+topic_name_on_detail+'#</p>';
-
+	 			html += '<p class="topic_text">#'+topic_name_on_detail_ch+'#</p>';
 	 			$('#myTabContent').append(html);
+	 			
 	 		</script>
 		    
 		    <p class="topic_time">日期:</p>
@@ -136,46 +136,12 @@
 
 				</div>
 				<script type="text/javascript">
-					// $(function(){
-					// 	$('#commit').click(function(){
-							var date_time_from = "{{date_from}}";
-							var date_time_to = "{{date_to}}";
-							
-							if(date_time_from && date_time_to){
-								$("#datetimepicker9_input").val(date_time_from);
-								$("#datetimepicker10_input").val(date_time_to);
-							}
-					// 	});
-					// });
+					
 						
 				    $(function () {
 				        $('#datetimepicker9').datetimepicker();
 				        $('#datetimepicker10').datetimepicker();
-				        // $('#datetimepicker9').data("DateTimePicker").maxDate(e.date);
-				        // $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
-				        // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				        // // $('#datetimepicker10').data("DateTimePicker").minDate(e.date);
-				        // $('#datetimepicker10').data("DateTimePicker").maxDate(date_time_to);
-				  //       $("#datetimepicker9").datetimepicker({
-						//         minDate:date_time_from
-						//         maxDate: date_time_to
-						// });
-						// $("#datetimepicker10").datetimepicker({
-						//         minDate:date_time_from
-						//         maxDate: date_time_to
-						// });
-
-
-						//首次选择日期的时候设置限制
-						// $("#datetimepicker9").on("dp.generate",function (e) {
-				  //           $('#datetimepicker10').data("DateTimePicker").minDate(date_time_from);
-				    
-				  //       });
-				  //       $("#datetimepicker10").on("dp.generate",function (e) {
-				            
-				  //           $('#datetimepicker9').data("DateTimePicker").maxDate(date_time_to);
-
-				  //       });
+				  
 
 				        //改变日期的时候设置限制
 				        $("#datetimepicker9").on("dp.change",function (e) {
@@ -189,6 +155,49 @@
 				            // $('#datetimepicker9').data("DateTimePicker").minDate(date_time_from);
 				        });
 				    });
+
+				    var date_time_from = "{{date_from}}";
+					var date_time_to = "{{date_to}}";
+					
+						function format(shijianchuo)
+						{
+							//shijianchuo不是整数，要parseInt转换
+						
+							var time = new Date(parseInt(shijianchuo) * 1000);
+							
+							var y = time.getFullYear();
+							var m = time.getMonth()+1;
+							var d = time.getDate();
+							var h = time.getHours();
+							var mm = time.getMinutes();
+							var s = time.getSeconds();
+							var apm = 'AM';
+							if(h>12){
+								h=h-12;
+								apm='PM';
+							}
+							return m+'/'+d+'/'+y+' '+h+':'+mm+' '+apm;
+						}
+					
+					var start_time = format(date_time_from);
+      				var end_time = format(date_time_to);
+      				
+
+					if(date_time_from && date_time_to){
+						$("#datetimepicker9_input").val(start_time);
+						$("#datetimepicker10_input").val(end_time);
+					}
+
+					$(function(){
+						$('#commit').click(function(){
+							Draw_time_trend_line_result();
+							Draw_blog_scan_area_order_result();
+							place_load();
+							network_load();
+							emotion_load();
+							meaning_load();
+						});
+					});
 				</script>
 	<!-- 分割线 -->
 			<div class="halving_line"></div>
@@ -217,6 +226,7 @@
 <!-- 情绪 -->
 <div class="tab-pane fade" id="emotion">
 	{% include "info_consume/date_emotion.html"%}
+	
 </div>
 
 
@@ -233,11 +243,18 @@
 
 </body>
 
+
  	<script type="text/javascript" src="../../static/info_consume/js/date_time.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_place.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_network.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_meaning.js"></script>
  	<script type="text/javascript" src="../../static/info_consume/js/date_emotion.js"></script>
-	
+
+ 	<!-- <script type="text/javascript">
+ 		function time_commit(){
+
+ 		}
+ 	</script>
+	 -->
 
 </html>

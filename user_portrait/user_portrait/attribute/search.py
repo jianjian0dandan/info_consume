@@ -27,7 +27,7 @@ from user_portrait.global_utils import copy_portrait_index_name, copy_portrait_i
 from user_portrait.global_utils import R_RECOMMENTATION as r_recomment
 from user_portrait.global_utils import es_bci_history, bci_history_index_name, bci_history_index_type
 from user_portrait.global_config import R_BEGIN_TIME
-from user_portrait.parameter import DAY, WEEK, MAX_VALUE, HALF_HOUR, FOUR_HOUR, GEO_COUNT_THRESHOLD, PATTERN_THRESHOLD
+from user_portrait.parameter import DAY, WEEK, MAX_VALUE,HOUR, HALF_HOUR, FOUR_HOUR, GEO_COUNT_THRESHOLD, PATTERN_THRESHOLD
 from user_portrait.parameter import PSY_DESCRIPTION_FIELD, psy_en2ch_dict, psy_description_dict
 from user_portrait.search_user_profile import search_uid2uname
 from user_portrait.filter_uid import all_delete_uid
@@ -40,6 +40,8 @@ from user_portrait.parameter import SENTIMENT_DICT,  ACTIVENESS_TREND_TAG_VECTOR
 from user_portrait.parameter import SENTIMENT_SECOND
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.keyword_filter import keyword_filter
+sys.path.append('./user_portrait/cron/flow_text/')
+from keyword_extraction import get_weibo_single
 
 r_beigin_ts = datetime2ts(R_BEGIN_TIME)
 
@@ -1608,7 +1610,7 @@ def search_activity(now_ts, uid):
                 week_weibo_count.append((time_seg, 0))
     sort_week_weibo_count = sorted(week_weibo_count, key=lambda x:x[0])
     sort_segment_list = sorted(segment_result.items(), key=lambda x:x[1], reverse=True)
-    #description, active_type = active_time_description(segment_result)
+    description, active_type = active_time_description(segment_result)
     
     activity_result['day_trend'] = day_time_count
     activity_result['week_trend'] = sort_week_weibo_count
@@ -1668,6 +1670,7 @@ def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
     end_ts = start_ts + time_segment
     time_date = ts2datetime(start_ts)
     flow_text_index_name = flow_text_index_name_pre + time_date
+    print flow_text_index_name
     query = []
     query.append({'term': {'uid': uid}})
     if sentiment != '2':
@@ -1675,6 +1678,7 @@ def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
     else:
         query.append({'terms':{'sentiment': SENTIMENT_SECOND}})
     query.append({'range':{'timestamp':{'gte':start_ts, 'lt':end_ts}}})
+    print query
     try:
         flow_text_es_result = es_flow_text.search(index=flow_text_index_name, doc_type=flow_text_index_type, body={'query':{'bool':{'must': query}}, 'sort':'timestamp', 'size':1000000})['hits']['hits']
     except:
@@ -1686,6 +1690,7 @@ def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
 
 #abandon in version: 15-12-08
 '''
+
 #search: now_ts, uid return 7day activity trend list {time_segment:weibo_count}
 # redis:{'activity_'+Date:{str(uid): '{time_segment: weibo_count}'}}
 # return :{time_segment:count}
@@ -2015,15 +2020,21 @@ def search_preference_attribute(uid):
         
     except:
         return None
+    try:
+        filter_keywords_dict  = json.loads(portrait_result['filter_keywords'])
+    except:
+        keywords_item_dict = portrait_result['keywords_string']
+        filter_keywords_dict = get_weibo_single(keywords_item_dict,n_count=40)
     #keywords
-    keywords_item_dict = json.loads(portrait_result['keywords'])
+    # keywords_item_dict = json.loads(portrait_result['keywords'])
     # keywords_dict = dict()
     # for item in keywords_item_dict:
     #     keywords_dict[item[0]] = item[1]
 
     # filter_keywords_dict = keyword_filter(keywords_dict)
-    # sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
-    sort_keywords = sorted(keywords_item_dict, key=lambda x:x[1], reverse=True)[:50]
+    sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
+
+    #sort_keywords = sorted(keywords_item_dict, key=lambda x:x[1], reverse=True)[:50]
     results['keywords'] = sort_keywords
     #hashtag
     if portrait_result['hashtag_dict']:
@@ -2071,6 +2082,75 @@ def search_preference_attribute(uid):
     return {'results': results, 'description':description, 'tag_vector': tag_vector_list}
 
 
+#央视 jln
+def search_yangshi_preference_attribute(uid):
+    results = {}
+    try:
+        #print '???',es_user_portrait,portrait_index_name
+        portrait_result = es_user_portrait.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid)['_source']
+        
+    except:
+        return None
+    try:
+        filter_keywords_dict  = json.loads(portrait_result['filter_keywords'])
+    except:
+        keywords_item_dict = portrait_result['keywords_string']
+        filter_keywords_dict = get_weibo_single(keywords_item_dict,n_count=40)
+    #keywords
+    # keywords_item_dict = json.loads(portrait_result['keywords'])
+    # keywords_dict = dict()
+    # for item in keywords_item_dict:
+    #     keywords_dict[item[0]] = item[1]
+
+    # filter_keywords_dict = keyword_filter(keywords_dict)
+    sort_keywords = sorted(filter_keywords_dict.items(), key=lambda x:x[1], reverse=True)
+
+    #sort_keywords = sorted(keywords_item_dict, key=lambda x:x[1], reverse=True)[:50]
+    results['keywords'] = sort_keywords
+    #hashtag
+    if portrait_result['hashtag_dict']:
+        hashtag_dict = json.loads(portrait_result['hashtag_dict'])
+    else:
+        hashtag_dict = {}
+    sort_hashtag = sorted(hashtag_dict.items(), key=lambda x:x[1], reverse=True)[:50]
+    results['hashtag'] = sort_hashtag
+    #domain
+    domain_v3 = json.loads(portrait_result['domain_v3'])
+    domain_v3_list = [domain_en2ch_dict[item] for item in domain_v3]
+    domain = portrait_result['domain']
+    results['domain'] = [domain_v3_list, domain]
+    #topic
+    topic_en_dict = json.loads(portrait_result['topic'])
+    topic_ch_dict = {}
+    for topic_en in topic_en_dict:
+        if topic_en != 'life':
+            topic_ch = topic_en2ch_dict[topic_en]
+            topic_ch_dict[topic_ch] = topic_en_dict[topic_en]
+    sort_topic_ch_dict = sorted(topic_ch_dict.items(), key=lambda x:x[1], reverse=True)
+    #results['topic'] = topic_ch_dict
+    results['topic'] = sort_topic_ch_dict
+
+    #add school information
+    
+    # is_school = portrait_result['is_school']
+    # school_string= portrait_result['school_string']
+    # results['is_school'] = is_school
+    # results['school_string'] = school_string
+    
+    try:
+        top_hashtag = sort_hashtag[0][0]
+    except:
+        top_hashtag = ''
+    try:
+        top_topic = sort_topic_ch_dict[0][0]
+    except:
+        top_topic = ''
+    tag_vector_list = [[u'hashtag',top_hashtag], [u'领域',domain], [u'话题', top_topic]]
+    print 'yes_pr'
+    return {'results': results, 'tag_vector': tag_vector_list}
+
+
+
 #use to get user sentiment trend by time_type: day or week
 #write in version: 15-12-08
 #input: uid, time_type
@@ -2081,6 +2161,7 @@ def search_sentiment_trend(uid, time_type, now_ts):
     sentiment_list = ['1', '2', '0']
     now_date = ts2datetime(now_ts)
     now_date_ts = datetime2ts(now_date)
+
     if time_type=='day':
         flow_text_index_name = flow_text_index_name_pre + now_date
         try:
@@ -2092,7 +2173,9 @@ def search_sentiment_trend(uid, time_type, now_ts):
         for flow_text_item in flow_text_count:
             source = flow_text_item['_source']
             timestamp = source['timestamp']
-            time_segment = int((timestamp - now_date_ts) / HALF_HOUR) * HALF_HOUR + now_date_ts
+            #time_segment = int((timestamp - now_date_ts) / HALF_HOUR) * HALF_HOUR + now_date_ts
+            time_segment = int((timestamp - now_date_ts) / HOUR) * HOUR + now_date_ts
+            
             sentiment = str(source['sentiment'])
             if sentiment != '0' and sentiment != '1':
                 sentiment = '2'
@@ -2100,8 +2183,11 @@ def search_sentiment_trend(uid, time_type, now_ts):
                 results[str(sentiment)][time_segment] += 1
             except:
                 results[str(sentiment)][time_segment] = 1
-        max_end_time = int(time.time())
-        time_list = [item for item in range(now_date_ts, max_end_time, HALF_HOUR)]
+        if RUN_TYPE==1:
+            max_end_time = int(time.time())
+        else:
+            max_end_time = now_date_ts+DAY
+        time_list = [item for item in range(now_date_ts, max_end_time, HOUR)]
         results['time_list'] = time_list
         for time_segment in time_list:
             for sentiment in sentiment_list:

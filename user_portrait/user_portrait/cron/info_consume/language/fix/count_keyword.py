@@ -154,8 +154,14 @@ def subopinion_content(topic,start_ts,end_ts,weibo_limit):
         text_weibo = key_weibo['_source']['text']
         mid_weibo = key_weibo['_source']['mid']
         timestamp = key_weibo['_source']['timestamp']
-        comment = key_weibo['_source']['comment']
-        retweeted = key_weibo['_source']['retweeted']
+        try:
+            comment = key_weibo['_source']['comment']
+        except:
+            comment = 0
+        try:
+            retweeted = key_weibo['_source']['retweeted']
+        except:
+            retweeted = 0
         uid = key_weibo['_source']['uid']
         normal_list.append({'news_id':'weibo','content':text_weibo,'id':mid_weibo,'datetime':ts2datetime_full(timestamp),'comment':comment,'retweeted':retweeted,'uid':uid})
     return normal_list    

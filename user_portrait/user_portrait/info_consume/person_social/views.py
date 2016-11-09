@@ -5,7 +5,7 @@ import time
 import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
 from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention,\
-                    search_attention,search_comment
+                    search_attention,search_comment,search_weibo,search_yangshi_follower,search_yangshi_attention
 
 '''
 from search import delete_action, search_identify_uid, get_activeness_trend
@@ -63,6 +63,30 @@ def ajax_follower():
         results = {}
     return json.dumps(results)
 
+
+#央视
+@mod.route('/get_follower/')
+def ajax_get_follower():
+    uid = request.args.get('uid', '')
+    uid = str(uid)
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    results = search_yangshi_follower(uid, top_count)
+    if not results:
+        results = {}
+    return json.dumps(results)
+
+@mod.route('/get_attention/')
+def ajax_get_attention():
+    uid = request.args.get('uid', '')
+    top_count = request.args.get('top_count', SOCIAL_DEFAULT_COUNT)
+    uid = str(uid)
+    top_count = int(top_count)
+    print uid
+    results = search_yangshi_attention(uid, top_count)
+    if not results:
+        results = {}
+    return json.dumps(results)
 
 #use to get user mention @ user
 #write in version:15-12-08
@@ -148,4 +172,14 @@ def ajax_attention():
     results = search_attention(uid, top_count)
     if not results:
         results = {}
+    return json.dumps(results)
+
+@mod.route('/get_weibo/')
+def get_weibo():
+    root_uid = request.args.get('root_uid','')
+    uid = request.args.get('uid','')
+    mtype = request.args.get('mtype','')
+    results = search_weibo(root_uid,uid,mtype)
+    if not results:
+        results = []
     return json.dumps(results)
