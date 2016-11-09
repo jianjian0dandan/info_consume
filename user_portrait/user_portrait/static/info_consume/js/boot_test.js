@@ -466,7 +466,7 @@
               if(data.flag == true){
                 alert('恭喜！您成功创建了一个兴趣圈！但这需要一点时间才能查看结果哦~');
                 var task_url = '/influence_sort/search_task/?username='+username;
-                console.log(task_url);
+                console.log("task_url:"+task_url);
                $('#topic-task').bootstrapTable('refresh',{url:task_url});
                $('#topic-manage').collapse('show');
               //  call_sync_ajax_request(task_url, draw_topic_tasks);
