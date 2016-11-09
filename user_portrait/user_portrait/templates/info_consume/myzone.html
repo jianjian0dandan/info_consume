@@ -77,6 +77,11 @@
       overflow-y: auto;
       height: 395px;
    }
+   #locatSun {
+    display: inline-block!important;
+    margin-top: 25px!important;
+    margin-left: 0!important;
+   }
   </style>
   <script type="text/javascript">
     function person_call_ajax_request(url, callback){
@@ -161,7 +166,7 @@
   <!--我的发帖-->
     <div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
     <!--微博动态-->
-        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:45%;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
           <div class="panel-heading" style="float:left;width: 100%;height:40px;">
             <h3 class="panel-title">最近动态</h3>
           
@@ -190,14 +195,14 @@
               </ul>
             </div>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" style="padding: 15px 15px 26px;">
             <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;" >
             <!-- weiboData -->
               <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;"><center>正在努力加载中...</center></div>
               <div class="tang-scrollpanel-content" style="margin-top:10px;">
-               <div id='group_influ_weibo' style='overflow-x:hidden;width:500px;float:left;'>
-               <div id="group_influ_weibo_result" style="float:left;width:85%;"></div>
-                     <div id="pageGro" class="cb" style="display:none;float:left;width:80%;margin-left:-5px;margin-top:5px;line-height:23px;">
+               <div id='group_influ_weibo' style=''>
+               <div id="group_influ_weibo_result" style=""></div>
+                     <div id="pageGro" class="cb" style="display:none;float:left;margin-left:-5px;margin-top:5px;line-height:23px;">
                          <span class="pageUp" style="float:left;">上一页</span>
                          <span class="pageList" style="float:left;">
                              <ul>
@@ -219,7 +224,7 @@
        </div>
   
       <!--我最爱说-->
-      <div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+      <div class="panel panel-success" style="width:45%;height:488px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
         </div>
@@ -306,9 +311,13 @@
             <div style="height:40px;"><!-- 名字 -->
               <img src="/static/info_consume/image/icon_influ_skill.png" width="30px" height="30px" style="float:left;">
               <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >我的影响力技能</span></div>
-            <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;">
-            <div style="font-size:16px;margin-left:120px;">要点亮更多技能，你的这些方面还需要提升<span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span></div>
+            <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;display:inline-block;">
             <img id='locatSun' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;">
+            <div style="font-size:16px;margin-left:120px;">
+              要点亮更多技能，你的这些方面还需要提升
+              <span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span>
+            </div>
+            
           </div>
 
         </div>
