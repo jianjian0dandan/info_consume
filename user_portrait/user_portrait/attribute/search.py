@@ -27,7 +27,7 @@ from user_portrait.global_utils import copy_portrait_index_name, copy_portrait_i
 from user_portrait.global_utils import R_RECOMMENTATION as r_recomment
 from user_portrait.global_utils import es_bci_history, bci_history_index_name, bci_history_index_type
 from user_portrait.global_config import R_BEGIN_TIME
-from user_portrait.parameter import DAY, WEEK, MAX_VALUE, HALF_HOUR, FOUR_HOUR, GEO_COUNT_THRESHOLD, PATTERN_THRESHOLD
+from user_portrait.parameter import DAY, WEEK, MAX_VALUE,HOUR, HALF_HOUR, FOUR_HOUR, GEO_COUNT_THRESHOLD, PATTERN_THRESHOLD
 from user_portrait.parameter import PSY_DESCRIPTION_FIELD, psy_en2ch_dict, psy_description_dict
 from user_portrait.search_user_profile import search_uid2uname
 from user_portrait.filter_uid import all_delete_uid
@@ -2173,7 +2173,9 @@ def search_sentiment_trend(uid, time_type, now_ts):
         for flow_text_item in flow_text_count:
             source = flow_text_item['_source']
             timestamp = source['timestamp']
-            time_segment = int((timestamp - now_date_ts) / HALF_HOUR) * HALF_HOUR + now_date_ts
+            #time_segment = int((timestamp - now_date_ts) / HALF_HOUR) * HALF_HOUR + now_date_ts
+            time_segment = int((timestamp - now_date_ts) / HOUR) * HOUR + now_date_ts
+            
             sentiment = str(source['sentiment'])
             if sentiment != '0' and sentiment != '1':
                 sentiment = '2'
@@ -2185,7 +2187,7 @@ def search_sentiment_trend(uid, time_type, now_ts):
             max_end_time = int(time.time())
         else:
             max_end_time = now_date_ts+DAY
-        time_list = [item for item in range(now_date_ts, max_end_time, HALF_HOUR)]
+        time_list = [item for item in range(now_date_ts, max_end_time, HOUR)]
         results['time_list'] = time_list
         for time_segment in time_list:
             for sentiment in sentiment_list:
