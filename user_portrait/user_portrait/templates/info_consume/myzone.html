@@ -77,11 +77,6 @@
       overflow-y: auto;
       height: 395px;
    }
-   #locatSun {
-    display: inline-block!important;
-    margin-top: 25px!important;
-    margin-left: 0!important;
-   }
   </style>
   <script type="text/javascript">
     function person_call_ajax_request(url, callback){
@@ -156,7 +151,7 @@
 
 <ul id="zone_tab" class="nav nav-tabs">
    <li id="zone_left_tab" class="active" style="margin-left:50px;">
-      <a href="#mysteward" data-toggle="tab">我的信息</a>
+      <a href="#mysteward" data-toggle="tab">我的管家</a>
   </li>
     <li><a href="/index/my_friend" >我的好友</a></li>
 </ul>
@@ -166,7 +161,7 @@
   <!--我的发帖-->
     <div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
     <!--微博动态-->
-        <div class="panel panel-success" style="width:45%;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
           <div class="panel-heading" style="float:left;width: 100%;height:40px;">
             <h3 class="panel-title">最近动态</h3>
           
@@ -188,21 +183,21 @@
 
                 <label class="demo--label">
                   <li style="float:left;margin-left:5px;background-color:transparent;">
-                    <input class="demo--radio" type="radio" name="mode_choose" value="retweet_count">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
                     <span class="mode demo--radioInput" style=""></span>转发数
                   </li> 
                 </label>
               </ul>
             </div>
           </div>
-          <div class="panel-body" style="padding: 15px 15px 26px;">
+          <div class="panel-body">
             <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;" >
             <!-- weiboData -->
               <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;"><center>正在努力加载中...</center></div>
               <div class="tang-scrollpanel-content" style="margin-top:10px;">
-               <div id='group_influ_weibo' style=''>
-               <div id="group_influ_weibo_result" style=""></div>
-                     <div id="pageGro" class="cb" style="display:none;float:left;margin-left:-5px;margin-top:5px;line-height:23px;">
+               <div id='group_influ_weibo' style='overflow-x:hidden;width:500px;float:left;'>
+               <div id="group_influ_weibo_result" style="float:left;width:85%;"></div>
+                     <div id="pageGro" class="cb" style="display:none;float:left;width:80%;margin-left:-5px;margin-top:5px;line-height:23px;">
                          <span class="pageUp" style="float:left;">上一页</span>
                          <span class="pageList" style="float:left;">
                              <ul>
@@ -224,7 +219,7 @@
        </div>
   
       <!--我最爱说-->
-      <div class="panel panel-success" style="width:45%;height:488px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+      <div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
         </div>
@@ -297,12 +292,12 @@
             </div>
             <div style="height:40px;width:100%;">
               <div class="influ_table_title" style="margin-left:170px;">全网用户排行</div>
-              <div class="influ_table_title" style="margin-left:25%;"><span id="domainSort"></span>领域排行</div>
+              <div class="influ_table_title" style="margin-left:225px;"><span id="domainSort"></span>领域排行</div>
             </div>  
             <!-- 领域排名-全网 -->
             <div style="float:none;"> 
               <table border="0" id="influ_all" class="table" style="margin-left:40px;"></table>
-              <table id="influ_domain" class="table" style="position:relative;margin-left:5%;"></table>
+              <table id="influ_domain" class="table" style="position:relative;margin-left:500px;margin-top:-460px;"></table>
             </div>  
           </div>
 
@@ -311,20 +306,16 @@
             <div style="height:40px;"><!-- 名字 -->
               <img src="/static/info_consume/image/icon_influ_skill.png" width="30px" height="30px" style="float:left;">
               <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >我的影响力技能</span></div>
-            <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;display:inline-block;">
-            <img id='locatSun' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;">
-            <div style="font-size:16px;margin-left:120px;">
-              要点亮更多技能，你的这些方面还需要提升
-              <span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span>
-            </div>
-            
+            <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;">
+            <div style="font-size:16px;margin-left:120px;">要点亮更多技能，你的这些方面还需要提升<span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span></div>
+            <img id='locatSun' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="margin-left:690px;z-index:30;">
           </div>
 
         </div>
       </div>
 
       <!--我的足迹-->
-        <div id="zuji" class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的足迹</h3>
         </div>
@@ -429,8 +420,6 @@
 <script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/map.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/thought.js"></script>
-<script src="../../static/info_consume/js/echarts-map.js"></script>
-
 <script type="text/javascript">//微博展示
 function homepageinfo() {
   this.ajax_method = 'GET';
@@ -680,7 +669,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     if(text.length>50){
       text = text.substr(0,50)+'...';
     }
-            html += '<a target="_blank" href="'+tweet_ulr+'"'+ uid + '"><font color=black>' + text + '</font></a>';    
+            html += '<a target="_blank" href="/index/personal/?uid=' + uid + '"><font color=black>' + text + '</font></a>';    
             //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';    
             html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
             html += '<span style="float:left;margin-left: 60%;"><u>'+date+'</u>';

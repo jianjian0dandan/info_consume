@@ -1,8 +1,12 @@
-
-
 // var topic = 'aoyunhui';
 // var start_ts = 1468426500;
 // var end_ts = 1468459800;
+// var pointInterval = 3600;
+
+var topic = 'aoyunhui';
+var start_ts = 1468426500;
+// var end_ts = 1468442700;
+var end_ts = 1468459800;
 var pointInterval = 3600;
 var sort_item = 'timestamp';
 
@@ -74,6 +78,29 @@ function set_order_type_time(type){
 	}
 }
 
+// function loading_more(){
+// 	loading_more.innerHTML = '<div class="loading"></div>';
+// }
+
+
+// function add0(m){return m<10?'0'+m:m }
+// function format(shijianchuo)
+// {
+// //shijianchuo是整数，否则要parseInt转换
+// var time = new Date(shijianchuo);
+// var y = time.getFullYear();
+// var m = time.getMonth()+1;
+// var d = time.getDate();
+// var h = time.getHours();
+// var mm = time.getMinutes();
+// var s = time.getSeconds();
+// return {
+// 	formate_data_time:y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s),
+// 	formate_data:y+'-'+add0(m)+'-'+add0(d)
+// };
+// // return y+'-'+add0(m)+'-'+add0(d);
+// }
+
 //上一页
 function up_time(){
      //首先 你页面上要有一个标志  标志当前是第几页
@@ -133,7 +160,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: true,
+      async: false,
       success:callback
     });
   },
@@ -160,7 +187,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		y_item_comment.push(item[key]['3']);
 	}
 
-	
+
  	var myChart = echarts.init(document.getElementById('main_time'));
 	//Chart.showLoading({text: '正在努力的读取数据中...'  });
 	var option = {
@@ -186,7 +213,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		    type : 'category',
 		    boundaryGap : false,
 		    data : x_item
-		  
+		    //data: ['周一','周二','周三','周四','周五','周六','周日','周五','周六','周日']
 		        }
 		],
 		yAxis : [
@@ -202,19 +229,51 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		    name:'原创',
 		    type:'line',
 		    data:y_item_origin,
-		   
+		    //data:[56,25,19,39,58,62,8,17,53,65],
+		    // markPoint : {
+		    //     data : [
+		    //         {type : 'max', name: '最大值'},
+		    //         {type : 'min', name: '最小值'}
+		    //     ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name: '平均值'}
+		    //     ]
+		    // }
 		    },
 		    {
 		    name:'评论',
 		    type:'line',
 		    data:y_item_comment,
-		 
+		    //data:[21,0,3,20,30,36,4,8,31,11],
+		    // markPoint : {
+		    //     data : [
+		    //         {name : '最小值', value : -2, xAxis: 1, yAxis: -1.5}
+		    //     ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name : '平均值'}
+		    //     ]
+		    // }
 		    },
 		    {
 		    name:'转发',
 		    type:'line',
 		    data:y_item_forwarding,
-		    
+		    //data:[17,2,4,19,34,34,5,11,30,14],
+		    // markPoint : {
+		    // data : [
+		    //     {type : 'max', name: '最大值'},
+		    //     {type : 'min', name: '最小值'}
+		    // ]
+		    // },
+		    // markLine : {
+		    //     data : [
+		    //         {type : 'average', name: '平均值'}
+		    //     ]
+		    // }
 		    }
 		]
     };
@@ -227,21 +286,19 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
   	// $('#blog_time').remove();
   	$('#blog_scan_area_time').empty();
   	// document.getElementById("blog_time").parentNode.removeChild(document.getElementById("blog_time"));
-    
     var item = data;
 	var html = '';
 		//var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
 		
+	var blog_num_max_local_time = Math.min(100,item.length);
 	
+	blog_num_max_global_time = blog_num_max_local_time;
+
 	if (!item){
 		html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
 	}else{
-		var blog_num_max_local_time = Math.min(100,item.length);
-	
-	    blog_num_max_global_time = blog_num_max_local_time;
-
 		var num_page = Math.ceil(blog_num_max_local_time/10);  //num_page表示微博数据共有多少页
 		var item_i_time = no_page_time*10;
 		
@@ -264,17 +321,17 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 			html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
 			html +=	'<div>';
 			//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
-			html += '<a target="_blank" href="/index/viewinformation/?uid='+item[i][1].uid+'" class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
+			html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
 			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
 			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
 			html += '</div>';
 			html += '<div class="blog_text">'
 			//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
-			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 6%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
+			html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
 			html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
 			//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 			//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-			html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
+			html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
 			//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
 			html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
 			//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
@@ -289,7 +346,23 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 	       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 	       html += '</div>'
 
-	
+		// html += '<ul class="pager">';
+		// html += '<li class="previous" ><a style="font-size: 16px;" onclick="up()">&larr; 上一页</a></li>'
+		// html += '<li class="next"><a style="font-size: 16px;" onclick="down()">下一页 &rarr;</a></li>';
+		// html += '</ul>'
+		
+		// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
+	 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	 //    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+	 //    html += '<span id="S_First" class="disabled" onmouseover="first()">首页</span>'
+	 //    html += '<span id="S_Prev"  class="disabled" onmouseover="up()">上一页</span>'
+	 //    html += '<span id="S_navi"><!--页号导航--></span>'
+	 //    html += '<span id="S_Next"  class="disabled" onmouseover="down()">下一页</span>'
+	 //    html += '<span id="S_Last"  class="disabled" onmouseover="last()">末页</span>'
+	 //    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
+	 //    html += '<span id="P_GO" >GO</span>'
+		// html += '</div>'
 	}
 	
 	$('#blog_scan_area_time').append(html);
@@ -304,28 +377,16 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 var topic_analysis_time = new topic_analysis_time();
  
 function Draw_time_trend_line_result(){
-	topic = topic_name_on_detail;
-	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-	// var topic = 'aoyunhui';
-	// var start_ts = 1468426500;
-	// var end_ts = 1468459800;
-	// console.log(topic);
-	console.log(start_ts);
-	console.log(end_ts);
-	console.log(pointInterval);
+	start_ts = 1468426500;
+	end_ts = 1468459800;
     url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
  	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
 }		
 
 function Draw_blog_scan_area_order_result(){
-	topic = topic_name_on_detail;
-	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-	// var topic = 'aoyunhui';
-	// var start_ts = 1468426500;
-	// var end_ts = 1468459800;
+	start_ts = 1468426500;
+	end_ts = 1468459800;
     url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
  	console.log(url_order);
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);

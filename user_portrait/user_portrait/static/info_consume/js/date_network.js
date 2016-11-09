@@ -120,26 +120,16 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: true,
+      async: false,
       success:callback
     });
   },
 
   Draw_network_pic:function(data){
-    $('#main_network').empty();
     var item = data;
-    console.log(item);
     var nodes_new = [];
     var nodes_label = [];
-    // console.log(item['nodes'].length);
-    // console.log(item['links'].length);
-    item_links=[];
-    for (k=0;k<1000;k++){
-      item_links.push(item['links'][k]);
-    }
-    console.log(item_links.length);
-
-    for(i=0;i<1000;i++){
+    for(i=0;i<item['nodes'].length;i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }
@@ -231,8 +221,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
                   roam: 'move',
                   //nodes:item['nodes'],
                   nodes:nodes_new,
-		              // links:item['links']
-                  links:item_links
+		              links:item['links']
                   
               }
           ]
@@ -272,7 +261,6 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   },
 
   Draw_trend_maker:function(data){
-    $('#right_col_title_2_network').empty();
     var item = data;
     var html = '';
 
@@ -313,10 +301,10 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   },
 
   Draw_trend_pusher:function(data){
-    $('#right_col_title_2_network').empty();
     var item = data;
     var html = '';
 
+   
     html += '<table id="table_photo">';
     for(i=0;i<Math.min(7,item.length);i=i+1){
   
@@ -372,17 +360,17 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         html += '<div><img class="img-circle" src="'+item[i]._source.photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
         html += '<div>';
         //html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
-        html += '<a target="_blank" href="/index/viewinformation/?uid='+item[i]._source.uid+'" class="user_name" style="float:left;">'+item[i]._source.uname+'</a>';
+        html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i]._source.uname+'</a>';
         //html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
         //html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
         html += '</div>';
         html += '<div class="blog_text">'
         //html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
-        html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 6%;font-family: Microsoft YaHei;"><font color="black">'+item[i]._source.text+'</font></p>';
+        html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i]._source.text+'</font></p>';
         html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
         //html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
         //html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-        html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
+        html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
         //html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i]._source.retweeted+')&nbsp;|&nbsp;</span>';
         html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
         //html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i]._source.comment+')</span>';
@@ -421,12 +409,6 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
 topic_analysis_network = new topic_analysis_network();
 
 function Draw_network_pic_result(){
-  // start_ts = 1467648000;
-  // end_ts = 1470844800;
-  topic = topic_name_on_detail;
-  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-
   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
@@ -434,37 +416,24 @@ function Draw_network_pic_result(){
 }
 
 function Draw_trend_maker_result(){
-  // start_ts = 1467648000;
-  // end_ts = 1470844800;
-
-  topic = topic_name_on_detail;
-  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-
+  start_ts = 1467648000;
+  end_ts = 1470844800;
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_maker);
 }
 
 function Draw_trend_pusher_result(){
-  // start_ts = 1467648000;
-  // end_ts = 1470844800;
-  topic = topic_name_on_detail;
-  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-
+  start_ts = 1467648000;
+  end_ts = 1470844800;
   url = "/topic_network_analyze/get_trend_pusher/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_pusher);
 }
  
 function Draw_blog_scan_area_network_result(){
-  // start_ts = 1467648000;
-  // end_ts = 1470844800;
-  topic = topic_name_on_detail;
-  start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
-  end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-  
+  start_ts = 1467648000;
+  end_ts = 1470844800;
   if(sort_item_network=='timestamp' && blog_type_network == 'maker'){
 
     url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts; 
@@ -488,12 +457,13 @@ function Draw_blog_scan_area_network_result(){
 }   
 
 
-function network_load(){
-  Draw_network_pic_result();
-  Draw_trend_maker_result();
-  Draw_blog_scan_area_network_result();
-}
 
 
 
+Draw_network_pic_result();
+
+
+Draw_trend_maker_result();
+// Draw_trend_pusher_result();
+Draw_blog_scan_area_network_result();
 
