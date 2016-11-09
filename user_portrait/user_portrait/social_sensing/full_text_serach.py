@@ -149,7 +149,7 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
                     temp.append(iter_text['message_type'])
                 #jln 提取关键词
                 f_key = get_weibo_single(iter_text['text'])
-                temp.append(f_key)
+                temp.append(sorted(f_key.iteritems(),key=lambda x:x[1],reverse=True))
                 
                 temp.append(item[2])
                 temp.append(item[3])
