@@ -50,8 +50,9 @@ weiborecommend.prototype=
 		//将推荐的内容拆分成单个词语
 		// for(var i=0;i<5;i++)
 		// {
-		var keyword1=value[0][0][8].split('&');
-		console.log(keyword1)
+		console.log(value[0][0][8].length)
+		// var keyword1=value[0][0][8].split('&');
+		
 		// }	
 		for(var i=0;i<keyword1.length;i++)
 		{
@@ -60,7 +61,7 @@ weiborecommend.prototype=
 			$('#keyword_recommend1').append(html);		
 		}
 
-		var keyword2=value[1][0][8].split('&');
+		// var keyword2=value[1][0][8].split('&');
 		console.log(keyword2)
 		// }	
 		for(var i=0;i<keyword2.length;i++)
@@ -70,7 +71,7 @@ weiborecommend.prototype=
 			$('#keyword_recommend2').append(html);		
 		}
 
-		var keyword3=value[2][0][8].split('&');
+		// var keyword3=value[2][0][8].split('&');
 		console.log(keyword3)
 		// }	
 		for(var i=0;i<keyword3.length;i++)
@@ -80,7 +81,7 @@ weiborecommend.prototype=
 			$('#keyword_recommend3').append(html);		
 		}
 
-		var keyword4=value[3][0][8].split('&');
+		// var keyword4=value[3][0][8].split('&');
 		console.log(keyword4)
 		// }	
 		for(var i=0;i<keyword4.length;i++)
@@ -90,7 +91,7 @@ weiborecommend.prototype=
 			$('#keyword_recommend4').append(html);		
 		}
 
-		var keyword5=value[4][0][8].split('&');
+		// var keyword5=value[4][0][8].split('&');
 		console.log(keyword5)
 		// }	
 		for(var i=0;i<keyword5.length;i++)

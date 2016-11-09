@@ -22,7 +22,6 @@ Thought.prototype = {   //获取数据，重新画表
             $('#select_time').append(html0);
             var index = $('input[name="time-type"]:checked').val();
             var url_content = '/attribute/sentiment_weibo/?uid='+uid+'&start_ts='+times_init+'&time_type='+index+'&sentiment=0';
-            console.log("url_content:"+url_content);
             person_call_ajax_request(url_content,th_draw_content);
         }   
         $('#emotion_onload').css('display','none');
@@ -164,3 +163,4 @@ console.log('运行thought');
 $('#thought_load_admin').ready((function(){
     thought_load();
 }));
+
