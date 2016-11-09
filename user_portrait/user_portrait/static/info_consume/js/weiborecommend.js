@@ -45,59 +45,65 @@ weiborecommend.prototype=
 		},
 	key_recommend:function(data)
 	{
-		console.log(data)
 		var value=eval(data);
 		//将推荐的内容拆分成单个词语
 		// for(var i=0;i<5;i++)
 		// {
-		console.log(value[0][0][8].length)
-		// var keyword1=value[0][0][8].split('&');
-		
+		console.log(value[0][0][8])
+		var keyword1=value[0][0][8];
+		//第一条热门微博的关键词推荐
 		// }	
 		for(var i=0;i<keyword1.length;i++)
 		{
 			var html ='';
-			html+='<a href="/index/date_index">'+keyword1[i]+'</a>                 ';
+			var key1=keyword1[i][0];
+			// 	 window.open("/index/date_index/?topic_name="+topic_name);
+			// '<a href="/index/viewinformation/?uid='+data[i]['uid']+'">'
+			html+='<a href="/index/date_index/?topic_name='+key1+'">'+keyword1[i][0]+'</a>                 ';
 			$('#keyword_recommend1').append(html);		
 		}
-
-		// var keyword2=value[1][0][8].split('&');
-		console.log(keyword2)
+		
+		var keyword2=value[1][0][8];
+		// console.log(keyword2)
 		// }	
 		for(var i=0;i<keyword2.length;i++)
 		{
 			var html ='';
-			html+='<a href="/index/date_index">'+keyword2[i]+'</a>                 ';
+			var key2=keyword2[i][0];
+			html+='<a href="/index/date_index/?topic_name='+key2+'">'+keyword2[i][0]+'</a>                 ';
 			$('#keyword_recommend2').append(html);		
 		}
 
-		// var keyword3=value[2][0][8].split('&');
-		console.log(keyword3)
+		var keyword3=value[2][0][8];
+		// console.log(keyword3)
 		// }	
 		for(var i=0;i<keyword3.length;i++)
 		{
 			var html ='';
-			html+='<a href="/index/date_index">'+keyword3[i]+'</a>                 ';
+			var key3=keyword3[i][0];
+			html+='<a href="/index/date_index/?topic_name='+key3+'">'+keyword3[i][0]+'</a>                 ';
 			$('#keyword_recommend3').append(html);		
 		}
 
-		// var keyword4=value[3][0][8].split('&');
-		console.log(keyword4)
+		var keyword4=value[3][0][8];
+		// console.log(keyword4)
 		// }	
 		for(var i=0;i<keyword4.length;i++)
 		{
 			var html ='';
-			html+='<a href="/index/date_index">'+keyword4[i]+'</a>                 ';
+			var key4=keyword4[i][0];
+			html+='<a href="/index/date_index/?topic_name='+key4+'">'+keyword4[i][0]+'</a>                 ';
 			$('#keyword_recommend4').append(html);		
 		}
 
-		// var keyword5=value[4][0][8].split('&');
-		console.log(keyword5)
+		var keyword5=value[4][0][8];
+		// console.log(keyword5)
 		// }	
 		for(var i=0;i<keyword5.length;i++)
 		{
 			var html ='';
-			html+='<a href="/index/date_index">'+keyword5[i]+'</a>                 ';
+			var key5=keyword5[i][0];
+			html+='<a href="/index/date_index/?topic_name='+key5+'">'+keyword5[i][0]+'</a>                 ';
 			$('#keyword_recommend5').append(html);		
 		}
 	}
@@ -107,7 +113,11 @@ weiborecommend.prototype=
 	//11：时间戳  12：敏感度 13：mid
 	function callback(data)
 	{		
-		var value=eval(data);		
+	
+		
+		var value=eval(data);
+
+		
 		// console.log(value);
 		var i;
 		for (i=0;i<5;i++) 
