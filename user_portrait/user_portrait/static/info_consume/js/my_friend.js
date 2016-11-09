@@ -398,7 +398,7 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('transmit'));
         option = {
         title : {
-        text: '转发关系网络',
+        //text: '转发关系网络',
         // subtext: '圈圈的大小表示转发的次数哟',
         x:'right',
         y:'bottom'
@@ -407,14 +407,14 @@ my_friend.prototype =
             trigger: 'item',
             formatter: '{b}'
         },
-        toolbox: {
-            show : true,
-            feature : {
-                restore : {show: true},
-                magicType: {show: true, type: ['force', 'chord']},
-                saveAsImage : {show: true}
-            }
-        },
+        // toolbox: {
+        //     show : true,
+        //     feature : {
+        //         restore : {show: true},
+        //         magicType: {show: true, type: ['force', 'chord']},
+        //         saveAsImage : {show: true}
+        //     }
+        // },
         legend: {
             x: 'left',
             data:['核心用户','好友']
@@ -465,8 +465,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 15,
-                maxRadius : 25,
+                minRadius : 30,
+                maxRadius : 55,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -584,7 +584,7 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
         title : {
-        text: '提及关系网络',
+        //text: '提及关系网络',
         x:'right',
         y:'bottom'
    		},
@@ -592,14 +592,14 @@ my_friend.prototype =
             trigger: 'item',
             formatter: '{b}'
         },
-        toolbox: {
-            show : true,
-            feature : {
-                restore : {show: true},
-                magicType: {show: true, type: ['force', 'chord']},
-                saveAsImage : {show: true}
-            }
-        },
+        // toolbox: {
+        //     show : true,
+        //     feature : {
+        //         restore : {show: true},
+        //         magicType: {show: true, type: ['force', 'chord']},
+        //         saveAsImage : {show: true}
+        //     }
+        // },
         legend: {
             x: 'left',
             data:['核心用户','好友']
@@ -649,8 +649,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 15,
-                maxRadius : 25,
+                minRadius : 45,
+                maxRadius : 65,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -765,7 +765,7 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
         title : {
-        text: '评论关系网络',
+        //text: '评论关系网络',
         x:'right',
         y:'bottom'
    		},
@@ -773,14 +773,14 @@ my_friend.prototype =
             trigger: 'item',
             formatter: ' {b}'
         },
-        toolbox: {
-            show : true,
-            feature : {
-                restore : {show: true},
-                magicType: {show: true, type: ['force', 'chord']},
-                saveAsImage : {show: true}
-            }
-        },
+        // toolbox: {
+        //     show : true,
+        //     feature : {
+        //         restore : {show: true},
+        //         magicType: {show: true, type: ['force', 'chord']},
+        //         saveAsImage : {show: true}
+        //     }
+        // },
         legend: {
             x: 'left',
             data:['核心用户','好友']
@@ -830,8 +830,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 15,
-                maxRadius : 25,
+                minRadius : 45,
+                maxRadius : 65,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -938,7 +938,7 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('interaction'));
         option = {
         title : {
-        text: '交互关系网络',
+        //text: '交互关系网络',
         x:'right',
         y:'bottom'
    		},
@@ -946,14 +946,14 @@ my_friend.prototype =
             trigger: 'item',
             formatter: '{b}'
         },
-        toolbox: {
-            show : true,
-            feature : {
-                restore : {show: true},
-                magicType: {show: true, type: ['force', 'chord']},
-                saveAsImage : {show: true}
-            }
-        },
+        // toolbox: {
+        //     show : true,
+        //     feature : {
+        //         restore : {show: true},
+        //         magicType: {show: true, type: ['force', 'chord']},
+        //         saveAsImage : {show: true}
+        //     }
+        // },
         legend: {
             x: 'left',
             data:['核心用户','好友']
@@ -1003,8 +1003,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 15,
-                maxRadius : 25,
+                minRadius : 45,
+                maxRadius : 65,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
