@@ -136,16 +136,6 @@ ul.nav.nav-sidebar li a{
   position: relative;
   top: 10px;
 }
-.wel_count #weibo{
-  background: url(../image/icon_weibo.png) no-repeat scroll 0% 0% transparent;
-}
-.wel_count #fans {
-  background: url(../image/icon_fans.png) no-repeat scroll 0% 0% transparent;
-}
-
-.wel_count #focus{
-  background: url(../image/icon_focus.png) no-repeat scroll 0% 0% transparent;
-}
 
 .wel_count ul li a {
   margin-left:20px; 
@@ -161,7 +151,7 @@ ul.nav.nav-sidebar li a{
 /*形象画板*/
 .content_dashboard {
   padding: 15px 15px;
-  background-color:#4AFBC1;
+  background-color:#C74AFB;
 }
 .dashboard {
   overflow: hidden;
@@ -349,7 +339,7 @@ ul.nav.nav-sidebar li a{
 }
 #account {
   width: 300px;
-  height: 350px;
+  /*height: 350px;*/
   float: left;
   position: relative;
 }
@@ -358,7 +348,7 @@ ul.nav.nav-sidebar li a{
 }
 #his_vis {
   width: 300px;
-  height: 350px;
+  /*height: 350px;*/
   float: left;
   position: relative;
 }
@@ -366,7 +356,7 @@ ul.nav.nav-sidebar li a{
 /*最近交互*/
 #his_vis {
   width: 300px;
-  height: 300px;
+  /*height: 308px;*/
   background-color: #ffffff;
   position: relative;
 }

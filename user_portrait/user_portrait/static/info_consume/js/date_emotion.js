@@ -1,13 +1,11 @@
-var topic = 'aoyunhui';
-var start_ts = 1468166400;
-// var start_ts = 1468944000;
-var end_ts = 1468949400;
-// var end_ts = 1471622400;
+// var topic = 'aoyunhui';
+// var start_ts = 1468166400;
+// var end_ts = 1468949400;
 var pointInterval=3600;
 var case_val = 1;
-var province = '陕西';
+
 var sort_item_emotion = 'timestamp';
-var sen = 0;
+var sen = 1;
 
 var no_page_emotion = 0;
 var blog_num_max_global_emotion = 0;
@@ -34,7 +32,7 @@ function set_order_type_emotion(type){
 
 function get_per_time_emotion(val) {
 	pointInterval = val;
-	console.log(pointInterval);
+	// console.log(pointInterval);
 	
 	Draw_emotion_trend_line_result();
 }
@@ -77,8 +75,8 @@ function up_emotion(){
          return false;
      }else{
  		no_page_emotion--;
- 		console.log(no_page_emotion);
- 		console.log('执行了上一页操作');
+ 		// console.log(no_page_emotion);
+ 		// console.log('执行了上一页操作');
  		Draw_blog_scan_area_emotion_result();
  		
      }
@@ -90,12 +88,12 @@ function down_emotion(){
      
      if(no_page_emotion==Math.min(9,Math.ceil(blog_num_max_global_emotion/10)-1)){
          alert("当前已经是最后一页!");
-         console.log(no_page_emotion);
+         // console.log(no_page_emotion);
          return false;
      }else{
  		no_page_emotion++;
- 		console.log(no_page_emotion);
- 		console.log('执行了下一页操作');
+ 		// console.log(no_page_emotion);
+ 		// console.log('执行了下一页操作');
  		Draw_blog_scan_area_emotion_result();
  		
      }
@@ -130,12 +128,13 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
 
   Draw_emotion_trend_line:function(data){
+  		// $('#main_emotion_1').empty();
   		var x_item = [];
 	 	var y_item_pos = [];
 		var y_item_neu = [];
@@ -144,17 +143,10 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		var y_item_sad = [];
 		var y_item_hate = [];
 		var y_item_otherneg = [];
-		console.log(data);
+		// console.log(data);
 
 	 	for (var key in data){
-	 		console.log(data[key][0]);
-	 		console.log(data[key][1]);
-	 		console.log(data[key][2]);
-	 		console.log(data[key][3]);
-	 		console.log(data[key][4]);
-	 		console.log(data[key][5]);
-	 		console.log(data[key][6]);
-	 		//console.log(key);
+	 		
 			//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
 			key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 			//console.log(key_datetime);
@@ -184,8 +176,8 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		            magicType : {show: true, type: ['line', 'bar']},
 		            restore : {show: true},
 		            saveAsImage : {show: true}
-	        }
-	    },
+		        }
+		    },
 	   		calculable : true,
 	    	xAxis : [
 	        {
@@ -203,56 +195,57 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 	        }
 	    	],
 	    	series : [
-	        {
-	            name:'积极',
-	            type:'line',
-	            data:y_item_pos,
-	            
-	        },
-	        {
-	            name:'中立',
-	            type:'line',
-	            data:y_item_neu,
-	            
-	        },
-	        {
-	            name:'生气',
-	            type:'line',
-	            data:y_item_angry,
-	            
-	        },
-	        {
-	            name:'焦虑',
-	            type:'line',
-	            data:y_item_anxiety,
-	            
-	        },
-	      	{
-	            name:'悲伤',
-	            type:'line',
-	            data:y_item_sad,
-	        
-	        },
-	        {
-	            name:'厌恶',
-	            type:'line',
-	            data:y_item_hate,
-	        
-	        },
-	      	{
-	            name:'消极其他',
-	            type:'line',
-	            data:y_item_otherneg,
-	        
-	        }
-	    ]
-	};
-		myChart.setOption(option) ;     
+		        {
+		            name:'积极',
+		            type:'line',
+		            data:y_item_pos,
+		            
+		        },
+		        {
+		            name:'中立',
+		            type:'line',
+		            data:y_item_neu,
+		            
+		        },
+		        {
+		            name:'生气',
+		            type:'line',
+		            data:y_item_angry,
+		            
+		        },
+		        {
+		            name:'焦虑',
+		            type:'line',
+		            data:y_item_anxiety,
+		            
+		        },
+		      	{
+		            name:'悲伤',
+		            type:'line',
+		            data:y_item_sad,
+		        
+		        },
+		        {
+		            name:'厌恶',
+		            type:'line',
+		            data:y_item_hate,
+		        
+		        },
+		      	{
+		            name:'消极其他',
+		            type:'line',
+		            data:y_item_otherneg,
+		        
+		        }
+	        ]
+	    };
+		myChart.setOption(option);     
 
   },
 
   Draw_emotion_map:function(data){
-  		
+  		$('#main_emotion_2').empty();
+  		$('#top15_content_emotion').empty();
 		var item = data;
 	 	var item_json = [];
 	 	var item_province_json_pos = [];
@@ -626,19 +619,13 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		rank_html += '<table id="table" style="table-layout:fixed">';
         for(var k=0;k<Math.min(15,item_item_rank.length);k++){
 			
-    //         if (item_item[k].name=='unknown'){
-				// 	item_item[k].name='地域不详'
-				// }
-            
 			rank_html += '<tr>';	
 			rank_html += '<td class="td" align="center" style="width:80px;height:32px;">'+(k+1)+'</td>';
 			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_item_rank[k].name+'</td>';
 			rank_html += '<td class="td" align="right" style="width:60px;height:32px;">'+item_item_rank[k].value+'</td>';			
 			rank_html += '</tr>';		
-			
-			
-            }
-            $('#top15_content_emotion').append(rank_html);
+        }
+        $('#top15_content_emotion').append(rank_html);
 
   },
 
@@ -676,17 +663,17 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				html += '<div><img class="img-circle" src="'+item[i][1].photo_url+'" style="width: 30px;height: 30px;position: relative;margin-left: 2%;margin-top: 2%;float:left;"></div>';
 				html +=	'<div>';
 				//html += '<a target="_blank" href=" " class="user_name" style="float:left;">央视新闻</a>';
-				html += '<a target="_blank" href=" " class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
+				html += '<a target="_blank" href="/index/viewinformation/?uid='+item[i][1].uid+'" class="user_name" style="float:left;">'+item[i][1].uname+'</a>';
 				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
 				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: -4%;margin-left: 13%;font-family: Microsoft YaHei;float:left;">(中国&nbsp;北京)</p>';
 				html += '</div>';
 				html += '<div class="blog_text">'
 				//html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">【投票：奥运闭幕式 你期待谁当中国旗手？】里约奥运明日闭幕，闭幕式中国代表团旗手是谁？有报道说乒乓球双料冠军丁宁是一个可能，女排夺冠，女排姑娘也是一个可能。你期待闭幕式中国代表团旗手是谁？</font></p>';
-				html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 3%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
+				html += '<p style="text-align:left;width: 92%;position: relative;margin-top: 15%;margin-left: 6%;font-family: Microsoft YaHei;"><font color="black">'+item[i][1].text+'</font></p>';
 				html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
 				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-				html += '<span style="float:left;margin-top: -3%;">'+item_timestamp_datetime+'</span>';
+				html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
 				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
@@ -724,8 +711,13 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 var topic_analysis_emotion = new topic_analysis_emotion();
 
 function Draw_emotion_trend_line_result(){
-	start_ts = 1468166400;
- 	end_ts = 1468949400;
+	// start_ts = 1468166400;
+ // 	end_ts = 1468949400;
+
+ 	topic = topic_name_on_detail;
+    start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+    end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
 	url = "/topic_sen_analyze/sen_time_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
  	console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_trend_line);
@@ -733,11 +725,12 @@ function Draw_emotion_trend_line_result(){
 
 function Draw_emotion_map_result(){
 
-	var start_ts=1468944000;
-	var end_ts=1471622400;
+	// start_ts=1468944000;
+	// end_ts=1471622400;
 
-	console.log(start_ts);
-	console.log(end_ts);
+	topic = topic_name_on_detail;
+  	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+  	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
     url = "/topic_sen_analyze/sen_province_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
  	console.log(url);
@@ -745,15 +738,20 @@ function Draw_emotion_map_result(){
 }
 
 function Draw_blog_scan_area_emotion_result(){
-	start_ts = 1468166400;
- 	end_ts = 1468949400;
+	// start_ts = 1468166400;
+ // 	end_ts = 1468949400;
+    topic = topic_name_on_detail;
+    start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+    end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
     url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item_emotion+'&sen='+sen;
  	console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
 
+function emotion_load(){
+	Draw_emotion_trend_line_result();
+	Draw_emotion_map_result();
+	Draw_blog_scan_area_emotion_result();
+}
 
-
-Draw_emotion_trend_line_result();
-Draw_emotion_map_result();
-Draw_blog_scan_area_emotion_result();
