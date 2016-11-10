@@ -31,59 +31,75 @@ class adsClassify:
             self.model = svmutil.svm_train(y, x, '-c 4')
             svmutil.svm_save_model(SAVED_MODEL,self.model)
 
-    def adsPredict(self,weiboList):
+        # y, x = svmutil.svm_read_problem(train_feature_file)
+        # print svmutil.svm_predict(y, x, self.model)
+
+    def adsPredict(self, weiboList):
+        '''
+        :param weiboList: 微博列表
+        :return: 返回被判定为广告的微博id以及其对应的分词结果
+        '''
         jieba.load_userdict(USER_DICT_FILE)
         feature_word_dict = self.loadfeature_word_dict()
-        ads_mid = []
+        ads_midWordsMap = dict()
         for weiboInfo in weiboList:
-            if self.makePredict(weiboInfo[1],feature_word_dict):
-                ads_mid.append(weiboInfo[0])
+            try:
+                text = weiboInfo["_source"]["text"].decode("utf-8")
+            except:
+                text = weiboInfo["_source"]["text"]
 
-        return ads_mid
+            wordCount = self.makePredict(text, feature_word_dict)
 
-
-
+            if wordCount is not None:
+                ads_midWordsMap[weiboInfo["_source"]["mid"]] = set(wordCount.keys())
+        return ads_midWordsMap
 
     def loadfeature_word_dict(self):
         with open(WORD_FEATURE_MAP_FILE) as f:
             reader = csv.reader(f)
             word_dict = dict()
             for line in reader:
-                word_dict[line[0]] = line[1]
+                # 中文以utf-8编码,line[1]为特征编号，不用编码
+                word_dict[line[0].decode("utf-8")] = line[1]
             return word_dict
 
     def makePredict(self,text,feature_word_dict):
-        if str(text).count('@') >= 5:
-            return False
-        text = cut_filter(text)
-        if len(text) == 0 or text == '转发微博':
-            return False
+        '''
+        :param text: 微博文本
+        :param feature_word_dict: feature的字典
+        :return: None表示非广告，如果是广告返回分词后的结果
+        '''
+        if text.count('@') >= 5 or (u"新浪微博" in text and u"客户端" in text):
+            return None
+        text = self.cut_filter(text)
+        if len(text) == 0 or text == u'转发微博':
+            return None
 
         wordsList = jieba.cut(text)
         wordCount = dict()
         for word in wordsList:
             if word in feature_word_dict.keys():
                 if word in wordCount.keys():
-                    wordCount[word] += + 1
+                    wordCount[int(feature_word_dict[word])] += 1
                 else:
-                    wordCount[word] = 0
+                    wordCount[int(feature_word_dict[word])] = 1
+        # print(wordCount)
+        label = svmutil.svm_predict_single(wordCount, self.model)
+        # print label
+        return wordCount if label > 0.5 else None
 
-        label, _, __  = svmutil.svm_predict([1], [wordCount], self.model)
-        print label, _, __
-
-        return True if label>1 else False
-
-
-
-def cut_filter(text):
-    pattern_list = [r'\（分享自 .*\）', r'http://\w*']
-    for i in pattern_list:
-        p = re.compile(i)
-        text = p.sub('', text)
-    return text
-
+    def cut_filter(self, text):
+        pattern_list = [r'\（分享自 .*\）', r'http://\w*']
+        for i in pattern_list:
+            p = re.compile(i)
+            text = p.sub('', text)
+        return text
 
 if __name__ == '__main__':
     a = adsClassify()
-    weiboList = [[0,"爽啊玛雅，开学我抽奖，地址是"],[1,"你好我是谁"]]
-    a.adsPredict(weiboList)
+    weiboList = []
+    with open(DATA_PATH+"/aaaa.txt") as f:
+          for line in f:
+              weiboList.append(line.split("   "))
+    weiboList = [[123,u"没有失败只有暂时没有成功 @尼姑可爱多 @木子坊红酒 @傻乎乎飞白  地址：http://t.cn/z8xXuQh"]]
+    print a.adsPredict(weiboList)
