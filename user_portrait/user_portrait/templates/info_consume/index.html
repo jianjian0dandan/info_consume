@@ -1,12 +1,21 @@
 {% extends "info_consume/daohang_public.html" %}
-{% block title %}我的地盘{% endblock %}
-{% block part_name %}我的地盘{% endblock %}
+{% block title %}首页{% endblock %}
+{% block part_name %}形象画板{% endblock %}
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
   <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
   <style>
+   body {
+    /*background-color: #FCF8E3!important;*/
+    background-color: #e3fafc!important;
+    /*background: url(/static/info_consume/image/pp.jpg) no-repeat!important;
+    background-size: cover!important;*/
+   }
+   .up_box {
+    margin-left: 185px;
+   }
     .wel_count #weibo{
       background: url(/static/info_consume/image/icon_weibo.png) no-repeat scroll 0% 0% transparent;
     }
@@ -26,15 +35,6 @@
       width: 0;
       height: 0;
     }*/
-
-    span.glyphicon.glyphicon-user {
-    color: #CACACA;
-    font-size: 1em !important;
-    line-height: 1.3em;
-  }
-  span.glyphicon {
-    margin-right:  10px !important;
-  }
   </style>
 {% endblock %}
 
@@ -102,7 +102,7 @@
       </div>
 
       <!--最近交互-->
-      <div class="panel panel-success boxshadow" id="his_vis" style="height:350px;top:50px;left:0px;">
+      <div class="panel panel-success boxshadow" id="his_vis" style="top:50px;left:0px;">
         <div class="panel-heading">
           <ul id="myTab" class="nav nav-tabs panel-title">
              <li class="active">
@@ -111,7 +111,18 @@
              <li><a href="#retweet_out" data-toggle="tab">我关注谁</a></li>
           </ul>
         </div>
-          
+          <style type="text/css">
+            #tweeted_out div,#retweet_out div {
+              display: inline-block!important;
+              position: relative;
+              top: 10px;
+              width: 60px!important;
+            } 
+            #tweeted_out div {
+              margin-left: 165px!important;
+              left: -60px;
+            }
+          </style>
         <div id="myTabContent" class="tab-content">
            <div class="tab-pane fade in active" id="tweeted_out">
              <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
@@ -160,27 +171,9 @@
                 //   });
                 //   });
                  </script>
-               <li><a href="/index/boot_test" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>圈子发现</a></li>
+              <!-- <li><a href="/index/boot_test" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>圈子发现</a></li>
               <li><a href="/index/weiborecommand" class="news-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>微博那些事</a></li>
-              <li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>我的地盘</a></li>
-              <li><a href="#board_title"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>形象画板</a></li>
-
-              <li><a href="/index/myzone/#group_influ_weibo_result"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>最近动态</a></li>
-              <li><a href="/index/myzone/#keyword_cloud" class="song-icon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>我最爱说</a></li>
-              <li><a href="/index/myzone/#domain" class="news-icon"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>我的领域</a></li>
-
-              <li><a href="/index/myzone/#influ_chart" class="news-icon"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>我的影响力</a></li>
-              <li><a href="/index/myzone/#zuji" class="news-icon"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>我的足迹</a></li>
-              <li><a href="/index/myzone/#chos_mod_time" class="news-icon"><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>情绪管家</a></li>
-
-              <li><a href="/index/my_friend/#friend_rank" class="news-icon"><span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>好友排行</a></li>
-
-              <li><a href="/index/my_friend/#intimacy_rank" class="news-icon"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>亲密度排行</a></li>
-
-              <li><a href="/index/my_friend/#myTabContent" class="news-icon"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>社交网络</a></li>
-        
->>>>>>> 67038da87c59677d84a39c2d684b9a539c9e3d77
-             
+              
               </ul> -->
               <!-- script-for-menu -->
                 <script>
@@ -264,11 +257,11 @@
             </ul>
             <div class="r_box" style="width:0;height:0;margin:0;top:-15px;left:200px;">
       
-      <div class="panel panel-success boxshadow weather" style="width: 210px !important;height:144px;margin:0;">
-        <div class="panel-heading" style="width: 40px;height: 142px;padding-top: 33px;">
+      <div class="panel panel-success boxshadow weather" style="width: 210px !important;height:144px;margin:0;overflow:hidden;">
+        <div class="panel-heading" style="width: 40px;padding:31px 10px;">
           贴心天气
         </div>
-          <div style="margin:2px 15px;position: relative;top: -150px;left: 26px;width:152px;height:150px;">
+          <div style="margin:2px 15px;position: relative;top: -151px;left: 26px;width:152px;">
           <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="200" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
          </iframe> 
         </div>  
@@ -279,7 +272,7 @@
     </div>
     
 
-<div class="dashboard content_dashboard boxshadow" style="height:670px;width:650px;left:110px;top:75px;margin:0;padding-left:70px;">
+<div class="dashboard content_dashboard boxshadow" style="height:706px;width:650px;left:110px;top:75px;margin:0;padding-left:70px;">
         <img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
         <h1 id="board_title">我的形象画板</h1>
         <img id="body_board" src="/static/info_consume/image/bodymodel_man.png" rel = "dns-prefetch">
@@ -319,7 +312,7 @@
   </div>
 
 
-  <div class="down_box" style="top:110px;left:-52px;"><!--微博动态-->
+  <div class="down_box" style="top:110px;left:-17px;"><!--微博动态-->
     <div class="panel panel-success" style="margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
       <div class="panel-heading">
         <h3 class="panel-title">最近动态</h3>
