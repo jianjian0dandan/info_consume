@@ -148,8 +148,9 @@ Draw_keywords_cloud:function(data){
     var html = '';
     for (i=0;i<item.length;i++){    
       // item_data.push(item[i][0].replace('\\"',''))
-      item_json.push({name:item[i][0],value:item[i][1],itemStyle: createRandomItemStyle()});
+      item_json.push({name:item[i][0],value:item[i][1]*10000,itemStyle: createRandomItemStyle()});
     }
+    console.log(item_json)
   
   function createRandomItemStyle() {
     return {
@@ -437,6 +438,7 @@ function Draw_keywords_cloud_result(){
 
     url = "/topic_language_analyze/during_keywords/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
     console.log(url);
+    
     topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_keywords_cloud);
 }
 

@@ -17,7 +17,8 @@ from user_portrait.parameter import MAX_VALUE, DAY, FOUR_HOUR, SENTIMENT_SECOND
 from user_portrait.global_utils import group_analysis_queue_name
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.keyword_filter import keyword_filter
-
+sys.path.append('./user_portrait/cron/flow_text/')
+from keyword_extraction import get_weibo_single
 index_name = group_index_name
 index_type = group_index_type
 
@@ -490,7 +491,13 @@ def search_group_results(task_name, module, submit_user):
         #all_geo_list = list(set(main_start_geo_dict.keys()) | set(main_end_geo_dict.keys()))
         #result['geo_lat_lng'] = get_lat_lng(all_geo_list)
     elif module == 'preference':
-        result['keywords'] = json.loads(source['keywords'])
+        try:
+            result['keywords'] = json.loads(source['filter_keyword'])
+        except:
+            f_keyword = json.loads(source['keywords'])
+            key_str = ','.join([key[0] for key in f_keyword])
+            filter_dict = get_weibo_single(key_str,n_count=100)
+            result['keywords'] = sorted(filter_dict.iteritems(),key=lambda x:x[1],reverse= True)
         '''
         keyword_list = json.loads(source['keywords'])
         keyword_dict = dict()
