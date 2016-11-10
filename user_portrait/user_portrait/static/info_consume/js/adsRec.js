@@ -34,7 +34,7 @@ var url = "/attribute/adsRec/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.adsWeiBoData);
 console.log("运行微博数据");
 function DrawWeibo(data, div_name, sub_div_name) {
-    page_num = 6;
+    page_num = 5;
     if (data.length < page_num) {
         console.log('data_length', data.length);
         $('#' + div_name + ' #pageGro .pageUp').css('display', 'none');
@@ -208,17 +208,18 @@ function page_ads_weibo(start_row, end_row, data, sub_div_name) {
     html += '<div class="group_weibo_font" style="margin-right:5px;margin-top:15px;">';
     for (var i = start_row; i < end_row; i += 1) {
         s = (i + 1).toString();
-        var mid = data[i][0];
-        var uid = data[i][1];
-        var geo = data[i][4];
-        var text = data[i][2];
+        var mid = data[i]["mid"];
+        var uid = data[i]["uid"];
+        var geo = data[i]["geo"];
+        var text = data[i]["text"];
 
-        var retweet_count = data[i][7];
-        var comment_count = data[i][8];
+        //var retweet_count = data[i][7];
+        //var comment_count = data[i][8];
         // var mingan_count = data[i][9];
         //var location = data[i][2];
-        var date = data[i][6];
-        var tweet_ulr = data[i][10];
+        var newDate = new Date(data[i]["timestamp"]*1000);
+        var date = newDate.toLocaleString();
+        var weibo_url = data[i]["weibo_url"];
         //date = new Date(parseInt(timestamp)*1000).format("yyyy-MM-dd hh:mm:ss");
         if (i % 2 == 0) {
             html += '<div style="float:left;padding:5px;width: 100%;background:whitesmoke;">';
@@ -229,10 +230,10 @@ function page_ads_weibo(start_row, end_row, data, sub_div_name) {
         if (geo == null) {
             geo = '未知';
         }
-        if (text.length > 50) {
-            text = text.substr(0, 50) + '...';
-        }
-        html += '<a target="_blank" href="/index/personal/?uid=' + uid + '"><font color=black>' + text + '</font></a>';
+        //if (text.length > 50) {
+        //    text = text.substr(0, 50) + '...';
+        //}
+        html += '<a href =' + weibo_url +'><font color=black>' + text + '</font></a>';
         //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';
         html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
         html += '<span style="float:left;margin-left: 60%;"><u>' + date + '</u>';
