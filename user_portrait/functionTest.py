@@ -8,6 +8,8 @@ from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, f
     es_user_profile, profile_index_name, profile_index_type, \
     es_user_portrait, portrait_index_name, portrait_index_type
 from user_portrait.attribute.influence_appendix import weiboinfo2url
+from user_portrait.attribute.personalizedRec import adsRec
+from user_portrait.attribute.ads_classify import adsClassify
 
 import json
 import pprint
@@ -39,7 +41,13 @@ def esUserPortraitTest():
     for (k,v) in topic_items:
         print k,v
 
+def adsTest():
+    result = adsRec(uid)
+    for weibo in result:
+        print weibo["text"]
+
 
 
 if __name__ == '__main__':
-    esUserPortraitTest()
+    #esUserPortraitTest()
+    adsTest()
