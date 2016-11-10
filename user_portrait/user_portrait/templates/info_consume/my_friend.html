@@ -22,8 +22,14 @@
   	 {
 	    overflow-x: auto;
 	    overflow-y: auto;
-	    height: 395px;
+	    /*height: 395px;*/
 	 }
+   .fixed-table-container .table-hover th ,.fixed-table-container .table-hover td {
+    text-align: center;
+   }
+   .nav-tabs {
+    border-bottom: none;
+   }
   </style>
 
 {% endblock %}
@@ -33,7 +39,7 @@
 
 {% block main %}
 <div class='up_box'  style="border:1px #F2F4F8 solid;width:80%;">
-	<img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left;margin-top:-50px;" title="1314608344" >
+	<img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left;margin-top:-50px;margin-left:23px;" title="1314608344" >
 	<span style="font-size:18px;margin-top:0px;margin-left:30px;float:left;">Hi，</span> 
       <sapn id="username" style="font-size:18px;margin-top:0px;float:left;">  </sapn>
       <span style="font-size:18px;margin-top:0px;float:left;">,&nbsp
@@ -82,7 +88,7 @@
 <!--我的好友-->
 <div>
     <ul id="zone_tab" class="nav nav-tabs" style="margin-top: 90px;">
-      <li style="margin-left:50px;"><a href="/index/myzone" >我的管家</a></li>
+      <li style="margin-left:50px;"><a href="/index/myzone" >我的信息</a></li>
       <li id="zone_left_tab" class="active" style="margin-left:0px;">
           <a href="#mysteward" data-toggle="tab">我的好友</a>
       </li>
@@ -90,7 +96,7 @@
 
      <div id="myfriends" >
    <!--好友排行-->
-        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:96%;margin-left:2%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">好友排行</h3>
         </div>
@@ -114,7 +120,7 @@
           </table>
           <div>
             
-            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">查看更多</button>
+            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1" style="margin-left:92%;margin-top:12px;">查看更多</button>
           </div>
         </div>
       </div>
@@ -209,7 +215,7 @@
             
       
       <!--亲密度排行-->
-        <div class="panel panel-success" style="width:35%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:75%;margin-left:12.5%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">亲密度排行</h3>
         </div>
@@ -233,7 +239,7 @@
           </table>
           <div>
             
-            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">查看更多</button>
+            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2" style="margin-left:92%;margin-top:12px;">查看更多</button>
           </div>
            
         </div>
@@ -241,7 +247,7 @@
 
 
        <!--社交网络-->
-        <div class="panel panel-success" style="width:76%;height:700px;margin-top:2%; margin-left:11.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:76%;height:700px;margin-top:2%; margin-left:12.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">社交网络</h3>
         </div>

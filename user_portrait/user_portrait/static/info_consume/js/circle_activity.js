@@ -275,6 +275,7 @@ function Draw_active_page(data){
  
 function g_act_load(g_name,s_user){
  var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
+
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
  console.log('g_act_load url:'+activity_url);
 }
