@@ -1,4 +1,3 @@
-
  function viewinformation() 
  {
   //this.ajax_method='GET'; // body...
@@ -13,7 +12,7 @@ viewinformation.prototype=
           url: url,
           type: 'GET',
           dataType: 'json',
-          async: false,
+          async: true,
           success:callback,
          //  beforeSend: function () 
          //  {  
@@ -61,7 +60,7 @@ function Draw_out(data,div){
         }
 
          // html = html + '<a target="_blank" href="/index/personal/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:5px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
-          html = html + "<a target='_blank' href='/index/viewinformation' class='img-photo' title='"+data[i].uname+": "+data[i].count+"' style='margin-left:20px;margin-top:10px;display:block;float:left;'><img id='portraitImg' style='height:50px;width:50px;' src='"+ data[i].photo_url + "'alt='"+uname_show+"'' width='30' height='30'><span style='height:10px;width:30px;font-size:12px;'>"+uname_show+"</span></a>";
+          html = html + "<a target='_blank' href='/index/viewinformation/?uid=" + data[i].uid + "' class='img-photo' title='"+data[i].uname+": "+data[i].count+"' style='margin-left:20px;margin-top:10px;display:block;float:left;'><img id='portraitImg' style='height:50px;width:50px;' src='"+ data[i].photo_url + "'alt='"+uname_show+"'' width='30' height='30'><span style='height:10px;width:30px;font-size:12px;'>"+uname_show+"</span></a>";
           if(i == 10)
             break;
         }

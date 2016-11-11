@@ -34,7 +34,8 @@
        $("#circle-analysis").slideDown();
        $('#basic_tab').tab('show')
        document.getElementById('myContainer').scrollIntoView()
-       var html=""+data;
+       var html="您当前正在分析圈子："+data;
+        $('#current').html('');
         $('#current').append(html);
        console.log("g_name:"+g_name);
       //切换不同tab
@@ -148,11 +149,13 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter:function(value,row){  
-                        if(value == 0 || value == -1){
+                        if(value == -1){
                           var e = '<span">正在计算</span>';
                         }else if(value == 1){
                          var e = '<span style="cursor:pointer;" onclick="view_analysis(\''+ row.task_name +'\')">点击查看</span> ';
-                        }
+                        }else if(value == 0){
+                           var e = '<span">尚未计算</span>';
+                         }
                           return e;
                      }
                     },
