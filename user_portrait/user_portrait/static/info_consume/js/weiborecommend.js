@@ -19,7 +19,7 @@ weiborecommend.prototype=
 	weibo_hashtag:function(data)
 	{
 		var hashtag=eval(data);
-		// console.log(hashtag[0][0]);
+		// console.log(hashtag);
 
 		//限制打印20个hashtag
 		$('#hashone').append(hashtag[0][0]);				
@@ -47,9 +47,10 @@ weiborecommend.prototype=
 	{
 		var value=eval(data);
 		//将推荐的内容拆分成单个词语
+		console.log(value)
 		// for(var i=0;i<5;i++)
 		// {
-		console.log(value[0][0][8])
+		// console.log(value[0][0][8])
 		var keyword1=value[0][0][8];
 		//第一条热门微博的关键词推荐
 		// }	
