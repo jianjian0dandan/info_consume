@@ -76,15 +76,20 @@ class adsClassify:
             return None
 
         wordsList = jieba.cut(text)
+        # featureCount记录单词特征号的count，用于svm的输入
+        featureCount = dict()
+        # wordCount 记录单词的count，用于结果返回
         wordCount = dict()
         for word in wordsList:
             if word in feature_word_dict.keys():
-                if word in wordCount.keys():
-                    wordCount[int(feature_word_dict[word])] += 1
+                if word in featureCount.keys():
+                    featureCount[int(feature_word_dict[word])] += 1
+                    wordCount[word] += 1
                 else:
-                    wordCount[int(feature_word_dict[word])] = 1
+                    featureCount[int(feature_word_dict[word])] = 1
+                    wordCount[word] = 1
         # print(wordCount)
-        label = svmutil.svm_predict_single(wordCount, self.model)
+        label = svmutil.svm_predict_single(featureCount, self.model)
         # print label
         return wordCount if label > 0.5 else None
 

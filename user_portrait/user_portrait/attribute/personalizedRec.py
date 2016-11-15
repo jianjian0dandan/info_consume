@@ -4,6 +4,8 @@
 '''
 __author__ = 'zxy'
 import time
+import os
+import codecs
 
 from user_portrait.time_utils import ts2datetime, datetime2ts, ts2date
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
@@ -16,9 +18,10 @@ from user_portrait.parameter import DAY, MAX_VALUE, HOUR
 
 from ads_classify import adsClassify
 from user_portrait.attribute.influence_appendix import weiboinfo2url
+from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
 
 
-def adsRec(uid, queryInterval = HOUR*4):
+def adsRec(uid, queryInterval=HOUR * 4):
     '''
     从广告表中读取当前时间点前一段时间queryInterval内的广微博，得到其中的广告部分
     然后根据用户的key_word信息得到推荐的广告。
@@ -36,30 +39,80 @@ def adsRec(uid, queryInterval = HOUR*4):
     user_portrait_result = es_user_portrait. \
         get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
 
-    keywords_items = set(user_portrait_result["keywords_string"].split("&"))
+    user_key_words = set(user_portrait_result["keywords_string"].split("&"))
     # keywords_items = sorted(json.loads(user_portrait_result["keywords"]),
-    #                         key=lambda kw: kw[1],
+    # key=lambda kw: kw[1],
     #                         reverse=True)
     # topic_items = sorted(json.loads(user_portrait_result["topic"]).items(),
     #                      key=lambda kw: kw[1],
     #                      reverse=True)
 
-    # test
+    # test，目前使用的是从原始数据中读取一定时间段内的微博并实时计算的方式得到
+    #
     ads_weibo_index_name = flow_text_index_name_pre + "2013-09-07"
     ads_weibo_all = es_flow_text.search(index=ads_weibo_index_name,
-                                       doc_type=ads_weibo_index_type,
-                                       body={'query': {"filtered": {"filter": {"range": {"timestamp": {"gte": datetime2ts(now_date) - queryInterval}}}}},
-                                             'size': 2000,
-                                       }
+                                        doc_type=ads_weibo_index_type,
+                                        body={'query': {"filtered": {"filter": {
+                                        "range": {"timestamp": {"gte": datetime2ts(now_date) - queryInterval}}}}},
+                                              'size': 2000,
+                                        }
     )['hits']['hits']
-    ads_weibo_prefer = adsPreferred(keywords_items, ads_weibo_all, 30)
+
+    # 根据权重得到不同类别上词语的权重TFIDF
+    topic_word_weight_dic = construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
+
+    # 根据用户发微博的keywords得到用户在广告的topic上的分布
+    # 因为已有的topic不太适合广告的分类
+    user_topic_dic = construct_topic_feature_dic(user_key_words, topic_word_weight_dic)
+
+    ads_weibo_prefer = adsPreferred(user_topic_dic, ads_weibo_all, topic_word_weight_dic, 30)
     return ads_weibo_prefer
 
-def adsPreferred(user_key_words, weibo_all, k):
+
+def construct_topic_word_weight_dic(topic_word_weight_dir):
+    topic_word_weight_dic = dict()
+    for file_name in os.listdir(topic_word_weight_dir):
+        weight_file = os.path.join(topic_word_weight_dir, file_name)
+        if not os.path.isfile(weight_file):
+            continue
+        with codecs.open(weight_file, encoding="utf-8") as f:
+            word_weight_dic = dict()
+            for line in f.readlines():
+                items = line.split(" ")
+                word_weight_dic[items[0]] = float(items[1])
+            # fuck py2!!
+            # listdir出来的是str, 使用的是默认的gbk编码(在windows下),使用GBK解码成Unicode。再次fuck py2!
+            topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
+    return topic_word_weight_dic
+
+
+def construct_topic_feature_dic(words, topic_word_weight_dic):
+    user_prefer_dic = dict()
+    for (topic_name, word_weight_dic) in topic_word_weight_dic.items():
+        user_prefer_dic[topic_name] = 0
+        for word in words:
+            if word in word_weight_dic:
+                user_prefer_dic[topic_name] = user_prefer_dic[topic_name] + word_weight_dic[word]
+    return user_prefer_dic
+
+
+def judge_ads_topic(words, topic_word_weight_dic):
+    ads_feature_dic = construct_topic_feature_dic(words, topic_word_weight_dic)
+    max_topic = None
+    max_value = 0
+    for (topic, value) in ads_feature_dic.items():
+        if value > max_value:
+            max_value = value
+            max_topic = topic
+    return max_topic
+
+
+def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k):
     '''
     :param user_topic: 用户的topic偏好
     :param weibo: weibo/ad_weibo列表
-    :return: 返回用户喜欢的k
+    :param topic_word_weight_dic: 不同类别下word的TFIDF权重值
+    :return: 返回用户喜欢的k个广告微博
     '''
     adsPreferList = []
     weiboMap = dict()
@@ -70,22 +123,22 @@ def adsPreferred(user_key_words, weibo_all, k):
     clf = adsClassify()
     ads_midWordsMap = clf.adsPredict(weibo_all)
     for (mid, words) in ads_midWordsMap.items():
-        ads_midsPrefered[mid] = len(words & user_key_words)
+        ads_topic = judge_ads_topic(words, topic_word_weight_dic)
+        ads_midsPrefered[mid] = user_topic_dic[ads_topic]
 
-    ads_midsPrefered = sorted(ads_midsPrefered.items(),key=lambda ads:ads[1], reverse = True)
+    ads_midsPrefered = sorted(ads_midsPrefered.items(), key=lambda ads: ads[1], reverse=True)
 
-    k = min(30,len(ads_midsPrefered))
+    k = min(30, len(ads_midsPrefered))
 
     for midInfo in ads_midsPrefered[:k]:
         mid = midInfo[0]
         uid = weiboMap[mid]["uid"]
         weiboMap[mid]["weibo_url"] = weiboinfo2url(uid, mid)
         adsPreferList.append(weiboMap[midInfo[0]])
+        # 输出相关度值和微博，测试用
+        # print midInfo[1], weiboMap[mid]["text"]
 
     return adsPreferList
-
-
-
 
 
 if __name__ == '__main__':
