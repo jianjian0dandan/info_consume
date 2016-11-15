@@ -13,7 +13,9 @@ from user_portrait.attribute.ads_classify import adsClassify
 
 import json
 import pprint
-
+import os
+import codecs
+from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
 uid = 1640601392
 
 def esUserProfileTest():
@@ -46,8 +48,22 @@ def adsTest():
     for weibo in result:
         print weibo["text"]
 
+def construct_topic_word_weight_dic(topic_word_weight_dir):
+    topic_word_weight_dic = dict()
+    for file_name in os.listdir(topic_word_weight_dir):
+        weight_file = os.path.join(topic_word_weight_dir, file_name)
+        if not os.path.isfile(weight_file):
+            continue
+        with codecs.open(weight_file, encoding="utf-8") as f:
+            word_weight_dic = dict()
+            for line in f.readlines():
+                items = line.split(" ")
+                word_weight_dic[items[0]] = float(items[1])
+            topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
+    return topic_word_weight_dic
 
 
 if __name__ == '__main__':
     #esUserPortraitTest()
+    # construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
     adsTest()
