@@ -673,11 +673,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
 				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-				html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
+				html += '<span style="display:inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+				html += '<span style="margin-top: -3%;display:inline-block;margin-left: 33%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+				html += '<span style="margin-top: -3%;display:inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				html += '</p>';
 				html += '</div>';							 	
