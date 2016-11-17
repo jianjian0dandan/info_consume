@@ -57,7 +57,7 @@ function datetime_to_timestamp(datetime) {
 
 function get_per_time_time(val) {
 	pointInterval = val;
-	console.log(pointInterval);
+	//console.log(pointInterval);
 	//set_timestamp();
 	Draw_time_trend_line_result();
 }
@@ -274,11 +274,11 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 			html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
 			//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 			//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-			html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
+			html += '<span style="display: inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 			//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-			html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+			html += '<span style="margin-top: -3%;display: inline-block;margin-left: 33%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;|</span>';
 			//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
-			html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+			html += '<span style="margin-top: -3%;display: inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 			//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 			html += '</p>';
 			html += '</div>';							 	
@@ -311,11 +311,11 @@ function Draw_time_trend_line_result(){
 	// var start_ts = 1468426500;
 	// var end_ts = 1468459800;
 	// console.log(topic);
-	console.log(start_ts);
-	console.log(end_ts);
-	console.log(pointInterval);
+	//console.log(start_ts);
+	//console.log(end_ts);
+	//console.log(pointInterval);
     url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_time.call_sync_ajax_request(url,topic_analysis_time.Draw_time_trend_line);
 }		
 
@@ -327,11 +327,15 @@ function Draw_blog_scan_area_order_result(){
 	// var start_ts = 1468426500;
 	// var end_ts = 1468459800;
     url_order = "/topic_time_analyze/time_order_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item;
- 	console.log(url_order);
+ 	//console.log(url_order);
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
+
 }	
 
 
 Draw_time_trend_line_result();
 Draw_blog_scan_area_order_result();
+
+
+
 

@@ -14,7 +14,7 @@ a:link, a:visited {
 body { 
   font: 12px/1.5; 
   color: #666666; 
-  background:#F2F4F8 !important;
+  /*background:#F2F4F8 !important;*/
   font-family:'Microsoft Yahei', 'Simsun' !important;
 }
 img { 

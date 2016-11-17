@@ -128,18 +128,19 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
   Draw_network_pic:function(data){
     $('#main_network').empty();
     var item = data;
-    console.log(item);
+     // console.log(data)
+    //console.log(item);
     var nodes_new = [];
     var nodes_label = [];
     // console.log(item['nodes'].length);
     // console.log(item['links'].length);
     item_links=[];
-    for (k=0;k<1000;k++){
+    for (k=0;k<2000;k++){
       item_links.push(item['links'][k]);
     }
-    console.log(item_links.length);
+    //console.log(item_links.length);
 
-    for(i=0;i<1000;i++){
+    for(i=0;i<2000;i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }
@@ -248,9 +249,9 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           ) { //点击的是边
               var sourceNode = nodes.filter(function (n) {return n.name == data.source})[0];
               var targetNode = nodes.filter(function (n) {return n.name == data.target})[0];
-              console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
+              //console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
           } else { // 点击的是点
-              console.log("选中了" + data.name + '(' + data.value + ')');
+              //console.log("选中了" + data.name + '(' + data.value + ')');
               
               for(i=0;i<item['nodes'].length;i++){
                 if(item['nodes'][i]['label'] == data.name){
@@ -259,7 +260,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
                 }
                 
               }
-              console.log(nodes_uid);
+              //console.log(nodes_uid);
           }
       }
       myChart.on(ecConfig.EVENT.CLICK, focus)
@@ -382,11 +383,11 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
         //html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
         //html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-        html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
+        html += '<span style="display: inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
         //html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i]._source.retweeted+')&nbsp;|&nbsp;</span>';
-        html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+        html += '<span style="margin-top: -3%;display: inline-block;margin-left: 33%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
         //html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i]._source.comment+')</span>';
-        html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+        html += '<span style="margin-top: -3%;display: inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
         //html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
         html += '</p>';
         html += '</div>';               
@@ -428,7 +429,7 @@ function Draw_network_pic_result(){
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-  console.log(url);
+  //console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
 
 }
@@ -442,7 +443,7 @@ function Draw_trend_maker_result(){
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
   url = "/topic_network_analyze/get_trend_maker/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-  console.log(url);
+  //console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_maker);
 }
 
@@ -454,7 +455,7 @@ function Draw_trend_pusher_result(){
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
   url = "/topic_network_analyze/get_trend_pusher/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-  console.log(url);
+  //console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_trend_pusher);
 }
  
@@ -483,7 +484,7 @@ function Draw_blog_scan_area_network_result(){
 
   }
   
-  console.log(url);
+  //console.log(url);
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_blog_scan_area_network);
 }   
 
