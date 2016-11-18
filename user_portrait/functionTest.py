@@ -10,6 +10,7 @@ from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, f
 from user_portrait.attribute.influence_appendix import weiboinfo2url
 from user_portrait.attribute.personalizedRec import adsRec
 from user_portrait.attribute.ads_classify import adsClassify
+from user_portrait.attribute.personalizedRec import personRec
 
 import json
 import pprint
@@ -62,8 +63,16 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
             topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
     return topic_word_weight_dic
 
+def personRec_test():
+    recPerson = personRec(uid)
+    for (_, info) in recPerson.items():
+        print "*"*30
+        for (k, v) in info.items():
+            print k, v
+
 
 if __name__ == '__main__':
     #esUserPortraitTest()
     # construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
-    adsTest()
+    # adsTest()
+    personRec_test()
