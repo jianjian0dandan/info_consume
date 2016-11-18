@@ -65,7 +65,8 @@ def search_follower(uid, top_count):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_be_retweet'])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -134,7 +135,8 @@ def search_attention(uid, top_count):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_retweet'])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -202,7 +204,8 @@ def search_yangshi_follower(uid, top_count):
     print retweet_result
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_be_retweet'])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -247,7 +250,8 @@ def search_yangshi_attention(uid, top_count):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_retweet'])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -635,7 +639,8 @@ def search_user_info(es,index_name,doc_type,uid,result_name):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result[result_name])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
