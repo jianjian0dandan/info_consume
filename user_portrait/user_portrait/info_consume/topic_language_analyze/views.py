@@ -126,8 +126,9 @@ def sen_ratio():
     return json.dumps(time_count)
 
 
-@mod.route('/test/')
+@mod.route('/test/',methods=['GET', 'POST'])
 def test():
-    key_topics_data = key_topics() 
-    sen_time_count()
-    return key_topics_data
+    #topic = request.form['topic']
+    topic = request.args.get('topic','')
+    print topic
+    return topic
