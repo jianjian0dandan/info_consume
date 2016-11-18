@@ -121,11 +121,15 @@
 
         <div class="panel-body">
             <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;">
-                <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;"><center>正在努力加载中...</center></div>
+                <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;">
+                    <center>正在努力加载中...</center>
+                </div>
                 <div class="tang-scrollpanel-content" style="margin-top:10px;">
-                    <div id='ads_recommendation' style="overflow-x: hidden; width: 90%; float:left; margin-left:5%; display: block;">
+                    <div id='ads_recommendation'
+                         style="overflow-x: hidden; width: 90%; float:left; margin-left:5%; display: block;">
                         <div id="ads_recommendation_result" style="float:left;width:100%;"></div>
-                        <div id="pageGro" class="cb" style="display:none;float:left;width:100%;margin-left:-5px;margin-top:5px;line-height:23px;">
+                        <div id="pageGro" class="cb"
+                             style="display:none;float:left;width:100%;margin-left:-5px;margin-top:5px;line-height:23px;">
                             <span class="pageUp" style="float:left;">上一页</span>
                             <span class="pageList" style="float:left;">
                             <ul>
@@ -144,10 +148,40 @@
             </div>
         </div>
     </div>
+
+    <!--最近交互-->
+    <div class="panel panel-success boxshadow" id="his_vis">
+        <div class="panel-heading">
+            <ul id="myTab" class="nav nav-tabs panel-title">
+                <li class="active">
+                    <a href="#tweeted_out" data-toggle="tab">谁关注我</a>
+                </li>
+                <li><a href="#retweet_out" data-toggle="tab">我关注谁</a></li>
+            </ul>
+        </div>
+
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="tweeted_out">
+                <div id="p_so_onload">
+                    <center>正在努力加载，请稍后...</center>
+                </div>
+                <span id="tweeted_out" style="margin-left:0px;float:left;width:110px;"></span>
+            </div>
+
+            <div class="tab-pane fade" id="retweet_out">
+                <div id="p_so_onload">
+                    <center>正在努力加载，请稍后...</center>
+                </div>
+                <span id="retweet_out" style=" margin-left:0px;float:left;width:110px;"></span>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
 
 
 {% block Own_js %}
     <script type="text/javascript" src="/static/info_consume/js/adsRec.js"></script> <!--套用微博展示的js-->
+    <script type="text/javascript" src="/static/info_consume/js/personRec.js"></script> <!--展示-->
 {% endblock %}
 
