@@ -1,5 +1,5 @@
         //当前用户名
-         var s_user = 'admin@qq.com';
+         //var s_user = 'admin@qq.com';
          var  g_name = '';
          // $('#num_btn').tooltip();
          function call_sync_ajax_request(url, method, callback){

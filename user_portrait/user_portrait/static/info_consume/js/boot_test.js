@@ -2,7 +2,7 @@
 //data-ajax="ajaxRequest"
               //var username = $('#username').text();
              
-              var username = 'admin@qq.com';
+              //var username = 'admin@qq.com';
               $('#chase').tooltip();
                      //定义ajax回调函数
             function call_sync_ajax_request(url, callback){
