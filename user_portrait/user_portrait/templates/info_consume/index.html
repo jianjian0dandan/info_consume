@@ -8,14 +8,11 @@
   <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
   <style>
    body {
-
     /*background-color: #FCF8E3!important;*/
     /*background-color: #e3fafc!important;*/
     background: url(/static/info_consume/image/people.jpg) center top no-repeat,
     url(/static/info_consume/image/nv.jpg) center bottom no-repeat;
-    background-size: 100% 50%,100% 52%!important;
-
-    /*background-color: #FCF8E3!important;*/
+    background-size: 100% 50%,100% 51%!important;
    }
    .up_box {
     margin-left: 185px;
@@ -35,7 +32,7 @@
           margin-left: 0!important;
         }
         .down_box {
-          margin: 0!important;
+          margin-left: 0!important;
         }
     }
     /*#account {
@@ -67,7 +64,7 @@
   
 </style>
   <div class="up_box">
-    <div class="l_box" style="">
+    <div class="l_box">
         <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="200px" height="200px" style="margin:0 auto;border-radius:50%;" title="1314608344" >
 <!--Personal acconunt infomation-->
       <div class="panel panel-success boxshadow" id="account" style="top:50px;left:0px;">
@@ -326,7 +323,7 @@
   </div>
 
 
-  <div class="down_box" style="top:110px;left:-17px;"><!--微博动态-->
+  <div class="down_box"><!--微博动态-->
     <div class="panel panel-success" style="margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
       <div class="panel-heading">
         <h3 class="panel-title">最近动态</h3>
@@ -435,7 +432,7 @@ homepageinfo.prototype = {
   },
   personData:function(data){
 
-  console.log("personData"+data);
+  //console.log("personData"+data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
   if(personalData.uid){
@@ -572,7 +569,7 @@ homepageinfo.prototype = {
       var drawGeo = document.getElementById('draw_p4');
         if(data.all_top[0][0] !=""){
             drawGeo.innerHTML = "最常登录："+data.all_top[0][0];
-            console.log(data.all_top[0][0]);
+            //console.log(data.all_top[0][0]);
         }else{
             drawGeo.innerHTML = '最常登录：未知';
         }
@@ -605,7 +602,7 @@ homepageinfo.prototype = {
         topdomain = domain[1];
       }  
       document.getElementById('draw_p2').innerHTML ="活跃领域："+ topdomain;
-      console.log("topdomain="+topdomain);
+      //console.log("topdomain="+topdomain);
     },
 
     //亲密度排行
@@ -614,7 +611,7 @@ homepageinfo.prototype = {
       var drawFriend = document.getElementById('draw_p3');
         if(data[0].uname !=""){
             drawFriend.innerHTML = "亲密好友："+data[0].uname;
-            console.log(data[0].uname);
+            //console.log(data[0].uname);
         }else{
             drawFriend.innerHTML = '亲密好友：未知';
         }

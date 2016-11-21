@@ -55,7 +55,7 @@
              $(function(){
                  var influ_scope = 'all_nolimit'; 
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
-                 console.log(influ_url);               
+                 //console.log(influ_url);
                function init_table(data){
                 $('#table-user').bootstrapTable({
                   //url: influ_url,
@@ -457,7 +457,7 @@
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
-           console.log(user_tasks_url);
+           //console.log(user_tasks_url);
            call_sync_ajax_request(user_tasks_url, draw_topic_tasks);
          })
         //定义提交离线话题搜索任务

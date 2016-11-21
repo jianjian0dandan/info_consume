@@ -104,7 +104,7 @@
 }
 
  function Draw_identi_distri(data){
- 	console.log(data)
+ 	//console.log(data)
 if(data.length==0){
  $('#identi-distri').empty();
  var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
@@ -192,7 +192,7 @@ if(data.length==0){
 }
 
  function Draw_area_distri(data){
- 	console.log(data)
+ 	//console.log(data)
     if(data.length==0){
  $('#area-distri').empty();
  var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
@@ -282,8 +282,6 @@ if(data.length==0){
        myChart.setOption(option);
  }
 }
-
-
   function Draw_basic_page(data){
         Draw_area_distri(data);
         Draw_identi_distri(data);
@@ -296,6 +294,6 @@ function g_bas_load(g_name,s_user){
 
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
  call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
- console.log('basic_url:'+basic_url);
- console.log('influence_url:'+influence_url);
+ //console.log('basic_url:'+basic_url);
+ //console.log('influence_url:'+influence_url);
 }

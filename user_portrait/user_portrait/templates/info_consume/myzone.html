@@ -486,7 +486,7 @@ homepageinfo.prototype = {
    weiboData:function(data){
      weiboData = data;
      var testtext ="hello";
-     console.log(testtext);
+     //console.log(testtext);
     DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
        $('#per_onload').css('display','none');
        $('#group_influ_weibo').css('display', 'block');
@@ -508,20 +508,20 @@ $(function(){
 $('#per_onload').css('display', 'block');
 $('#group_influ_weibo').css('display', 'none')
   var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
-  console.log('ddd',url);
+  //console.log('ddd',url);
     Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-  console.log(weiboData);
+  //console.log(weiboData);
   });
 });
 
 
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-console.log("运行微博数据");
+//console.log("运行微博数据");
 function DrawWeibo(data, div_name, sub_div_name){
     page_num = 5;
     if (data.length < page_num) {
-        console.log('data_length', data.length);
+        //console.log('data_length', data.length);
         $('#'+ div_name + ' #pageGro .pageUp').css('display', 'none');
         $('#'+ div_name + ' #pageGro .pageList').css('display', 'none'); 
         $('#'+ div_name + ' #pageGro .pageDown').css('display', 'none'); 

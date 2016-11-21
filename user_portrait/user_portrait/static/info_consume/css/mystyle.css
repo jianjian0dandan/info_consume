@@ -381,11 +381,9 @@ ul.nav.nav-sidebar li a{
 }
 /*Recenet Activity*/
 .down_box {
-  position:relative;
-  margin: auto;
-  margin-top: 1% !important; 
-  height: 500px;
-  width: 70%;
+    margin-top: 9% !important;
+    margin-left: 183px;
+    width: 70%;
 }
 
 /*footer*/
