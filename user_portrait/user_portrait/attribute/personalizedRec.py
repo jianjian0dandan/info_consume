@@ -150,29 +150,34 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
 '''
 
 
-def personRec(uid):
+def personRec(uid, k=200):
     direct_attention_id_set = search_attention_id(uid, 1)
+    user_used_set = direct_attention_id_set.copy()
     # 候选推荐
     candidate_attention_id_set = set()
     search_queue = Queue.Queue()
     for user_id in direct_attention_id_set:
         search_queue.put(user_id)
 
-    while search_queue.not_empty and candidate_attention_id_set < 200:
-        pass
-
-
-
-    for uid in direct_attention_id_set:
-        candidate_attention_id_set = candidate_attention_id_set | search_attention_id(uid)
+    while search_queue.not_empty and len(candidate_attention_id_set) < k:
+        temp_uid = search_queue.get(block=False)
+        user_attention = search_attention_id(temp_uid)
+        for user_id in user_attention:
+            if user_id not in candidate_attention_id_set and \
+               user_id not in direct_attention_id_set:
+                candidate_attention_id_set.add(user_id)
+                search_queue.put(user_id)
 
     candidate_attention_id_set = candidate_attention_id_set - direct_attention_id_set
-    print len(candidate_attention_id_set)
+    candidate_attention_user_profile = search_user_profile_by_user_ids(candidate_attention_id_set)
+    # dict: {topic: user_id_set}
+    user_recommend_dic = sim_user(uid, candidate_attention_id_set)
+    user_recommend_return_dic = dict()
+    for topic_prefered, user_ids in user_recommend_dic.items():
+        user_ids = user_ids & set(candidate_attention_user_profile.keys())
+        user_recommend_return_dic[topic_prefered] = [candidate_attention_user_profile[user_id] for user_id in user_ids]
 
-    candidate_user_portrait = search_user_portrait_by_user_ids(candidate_attention_id_set)
-    print len(candidate_user_portrait)
-    # return candidate_user_profile
-    return [dict()]
+    return user_recommend_return_dic
 
 def sim_user(uid, candidate_attention_id_set):
     user_portrait = es_user_portrait. \
@@ -180,7 +185,24 @@ def sim_user(uid, candidate_attention_id_set):
 
     candidate_attention_user_portraits = search_user_portrait_by_user_ids(candidate_attention_id_set)
 
+    # user_topic = sorted(json.loads(user_portrait["topic"]).items(), key=lambda x: x[1])
+    user_prefer_topic_list = map(lambda x: x[0],
+                                 sorted(json.loads(user_portrait["topic"]).items(),
+                                        key=lambda x: x[1],
+                                        reverse=True)[:4])
+    user_prefer_dict = dict()
+    for temp_topic in user_prefer_topic_list:
+        user_prefer_dict[temp_topic] = set()
+    # map(lambda x: user_prefer_dict.setdefault(set()), user_prefer_topic_list)
 
+    for temp_uid, temp_portrait in candidate_attention_user_portraits.items():
+        temp_topics = sorted(json.loads(temp_portrait["topic"]).items(), key=lambda x: x[1], reverse=True)
+        for temp_topic in temp_topics:
+            if temp_topic[0] in user_prefer_dict:
+                user_prefer_dict[temp_topic[0]].add(temp_uid)
+                break
+
+    return user_prefer_dict
 
 
 

@@ -17,7 +17,7 @@ import pprint
 import os
 import codecs
 from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
-uid = 1640601392
+uid = 1268043470
 
 def esUserProfileTest():
     user_profile_result = es_user_profile.\
@@ -64,15 +64,19 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
     return topic_word_weight_dic
 
 def personRec_test():
-    recPerson = personRec(uid)
-    for (_, info) in recPerson.items():
-        print "*"*30
-        for (k, v) in info.items():
-            print k, v
+    recPerson = personRec(uid, k=400)
+    for (topic, users) in recPerson.items():
+        print topic
+        print "**"*30
+        for user in users:
+            print user["description"]
+            # for (k, v) in user.items():
+            #     print k, v
+            # print "*"*30
 
 
 if __name__ == '__main__':
-    #esUserPortraitTest()
+    # esUserPortraitTest()
     # construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
     # adsTest()
     personRec_test()
