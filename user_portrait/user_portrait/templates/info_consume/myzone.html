@@ -40,10 +40,10 @@
       margin:auto;
      }
      .table>tbody>tr>td {
-       padding:4px !important;
-       vertical-align: middle !important;
-       border-top: 0px !important;
-       align:center;
+      padding:4px !important;
+      vertical-align: middle !important;
+      border-top: 0px !important;
+      text-align:center;
      }
      .influ_table_title {
       width:200px;
@@ -71,12 +71,54 @@
   <script type="text/javascript" src="/static/info_consume/js/time_for_test.js"></script>
   <style type="text/css">
 
-    .fixed-table-body
-     {
+    .fixed-table-body{
       overflow-x: auto;
       overflow-y: auto;
       height: 395px;
+    }
+   #locatSun {
+    display: inline-block!important;
+    margin-top: 25px!important;
+    margin-left: 0!important;
    }
+   .dongtai {
+    width: 45%;
+   }
+   @media screen and (min-width: 750px)  and (max-width: 1224px) {
+    .lingyu {
+      margin-left: 5%!important;
+    }
+    .dongtai {
+      width: 100%;
+    }
+    .aishuo {
+      width: 100%!important;
+      margin-left: 2%!important;
+    }
+    #keyword_cloud {
+      margin: 0 auto;
+    }
+    .dianji {
+      margin: 0 0 0 100px!important;
+
+    }
+    .yingxiangli {
+      width: 1000px!important;
+
+    }
+    #locatSun {
+      margin-top: -31%!important; 
+      margin-left: 80%!important;
+    }
+    .tisheng {
+      margin-top: -20px;
+    } 
+    #thought_load_admin,#zuji {
+      width: 1000px!important;
+    }
+   }
+
+
   </style>
   <script type="text/javascript">
     function person_call_ajax_request(url, callback){
@@ -100,7 +142,7 @@
 
 
 {% block main %}
-<div class='up_box'  style="border:1px #F2F4F8 solid;width:80%;">
+<div class='up_box'  style="border:1px #fff solid;width:80%;">
   <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left" title="1314608344" >
   <span style="font-size:18px;margin-top:30px;margin-left:30px;float:left;">Hi，</span> 
       <sapn id="username" style="font-size:18px;margin-top:30px;float:left;">  </sapn>
@@ -149,9 +191,9 @@
 
 
 
-<ul id="zone_tab" class="nav nav-tabs">
+<ul id="zone_tab" class="nav nav-tabs" style="border:none;">
    <li id="zone_left_tab" class="active" style="margin-left:50px;">
-      <a href="#mysteward" data-toggle="tab">我的管家</a>
+      <a href="#mysteward" data-toggle="tab">我的信息</a>
   </li>
     <li><a href="/index/my_friend" >我的好友</a></li>
 </ul>
@@ -161,7 +203,7 @@
   <!--我的发帖-->
     <div class="tab-pane fade in active" id="mysteward" style="margin-left:150px;margin-right:150px;">
     <!--微博动态-->
-        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success dongtai" style="margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
           <div class="panel-heading" style="float:left;width: 100%;height:40px;">
             <h3 class="panel-title">最近动态</h3>
           
@@ -190,14 +232,14 @@
               </ul>
             </div>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" style="padding: 15px 15px 26px;">
             <div class="tweetinfo" style="float:left;width:100%;background:#fff;margin-left:10px;" >
             <!-- weiboData -->
               <div id="per_onload" style="height:59px;float:left;margin-left: 35%;margin-top:20px;"><center>正在努力加载中...</center></div>
               <div class="tang-scrollpanel-content" style="margin-top:10px;">
-               <div id='group_influ_weibo' style='overflow-x:hidden;width:500px;float:left;'>
-               <div id="group_influ_weibo_result" style="float:left;width:85%;"></div>
-                     <div id="pageGro" class="cb" style="display:none;float:left;width:80%;margin-left:-5px;margin-top:5px;line-height:23px;">
+               <div id='group_influ_weibo' style=''>
+               <div id="group_influ_weibo_result" style=""></div>
+                     <div id="pageGro" class="cb" style="display:none;float:left;margin-left:-5px;margin-top:5px;line-height:23px;">
                          <span class="pageUp" style="float:left;">上一页</span>
                          <span class="pageList" style="float:left;">
                              <ul>
@@ -219,7 +261,7 @@
        </div>
   
       <!--我最爱说-->
-      <div class="panel panel-success" style="width:45%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+      <div class="panel panel-success aishuo" style="width:45%;height:488px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
         </div>
@@ -235,7 +277,7 @@
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的领域</h3>
         </div>
         <div class="panel-body">
-          <div class="left_chart" style="width:50%;heigth:100%;float:left;">
+          <div class="left_chart" style="width:50%;height:100%;float:left;">
             <div id="p_so_onload1"><center>正在努力为您加载，请稍后...</center></div>
             <div class="panel-body">
               <div id="domain" style="height:350px;margin-top:3px;"><!--雷达图区域--></div>
@@ -246,14 +288,14 @@
             <img src="/static/info_consume/image/crown.png" width="60px" style="float:left;margin-top:25px;margin-left:50px;z-index:10px;"> 
             <span id="topdomain" style="float:left;font-family:'zzgf';font-size:40px;color:#f4c600;margin-top: 19px;margin-left: 5px;"></span>   
             <p style="float:left;margin-top:30px;margin-left:80px;" >想了解其他更多达人的信息吗？</p>
-            <a href="/index/boot_test" target="_blank" class="large button green" style="margin-top:20px;float:left;margin-left:5px;">点击这里</a>
+            <a href="/index/boot_test" target="_blank" class="large button green dianji" style="margin-top:20px;float:left;margin-left:5px;">点击这里</a>
           </div>
         </div>
       </div>
 
 
      <!--我的影响力-->
-     <div class="panel panel-success" style="width:95%;height:1300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+     <div class="panel panel-success yingxiangli" style="width:95%;height:1300px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
         </div>
@@ -292,12 +334,12 @@
             </div>
             <div style="height:40px;width:100%;">
               <div class="influ_table_title" style="margin-left:170px;">全网用户排行</div>
-              <div class="influ_table_title" style="margin-left:225px;"><span id="domainSort"></span>领域排行</div>
+              <div class="influ_table_title lingyu" style="margin-left:25%;"><span id="domainSort"></span>领域排行</div>
             </div>  
             <!-- 领域排名-全网 -->
             <div style="float:none;"> 
               <table border="0" id="influ_all" class="table" style="margin-left:40px;"></table>
-              <table id="influ_domain" class="table" style="position:relative;margin-left:500px;margin-top:-460px;"></table>
+              <table id="influ_domain" class="table" style="position:relative;margin-left:5%;"></table>
             </div>  
           </div>
 
@@ -306,16 +348,20 @@
             <div style="height:40px;"><!-- 名字 -->
               <img src="/static/info_consume/image/icon_influ_skill.png" width="30px" height="30px" style="float:left;">
               <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >我的影响力技能</span></div>
-            <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;">
-            <div style="font-size:16px;margin-left:120px;">要点亮更多技能，你的这些方面还需要提升<span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span></div>
-            <img id='locatSun' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="margin-left:690px;z-index:30;">
+            <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;display:inline-block;">
+            <img id='locatSun' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;">
+            <div class="tisheng" style="font-size:16px;margin-left:120px;">
+              要点亮更多技能，你的这些方面还需要提升
+              <span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span>
+            </div>
+            
           </div>
 
         </div>
       </div>
 
       <!--我的足迹-->
-        <div class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div id="zuji" class="panel panel-success" style="width:95%;height:600px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的足迹</h3>
         </div>
@@ -344,7 +390,7 @@
           </div>
 
           <div id="act_map" style="width:100%;height:460px;">  </div>
-          <span id="des_loc" style="margin-left:100px;float:left;font-size:17px;font-weight:bolder;"></span>
+          <span id="des_loc" style="margin-left:100px;float:left;font-size:17px;font-weight:bolder;display:none;"></span>
         </div>
       </div>
 

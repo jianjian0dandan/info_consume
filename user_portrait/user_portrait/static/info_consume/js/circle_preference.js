@@ -18,7 +18,7 @@ if(data.length == 0){
         $('#'+ div_name).append(html);
 }else{
 var word_num = Math.min(20, data.length);
-
+// console.log(data)
         for (i=0;i<word_num;i++){
             var word = {};
             word['name'] = data[i][0];
@@ -49,8 +49,16 @@ var word_num = Math.min(20, data.length);
                 textRotation : [0, 45, 90, -45],
                 textPadding: 0,
                 autoSize: {
-                    enable: true,
-                    minSize: 14
+                    enable: false,
+                    minSize: 24
+                },
+                itemStyle: {
+                    normal: {
+                        textStyle: {
+                            fontSize:40
+                        },
+                    },
+
                 },
                 data: keyword
             }]

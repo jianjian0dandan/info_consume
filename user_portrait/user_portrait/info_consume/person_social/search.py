@@ -65,7 +65,8 @@ def search_follower(uid, top_count):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_be_retweet'])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -134,7 +135,8 @@ def search_attention(uid, top_count):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_retweet'])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -186,6 +188,97 @@ def search_attention(uid, top_count):
     else:
         return None
     #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+
+
+
+def search_yangshi_follower(uid, top_count):
+    results = {}
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = be_retweet_index_name_pre + str(db_number)
+    center_uid = uid
+    try:
+        retweet_result = es_retweet.get(index=index_name, doc_type=be_retweet_index_type, id=uid)['_source']
+    except:
+        return None
+    print retweet_result
+    if retweet_result:
+        retweet_dict = json.loads(retweet_result['uid_be_retweet'])
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
+        portrait_result = []
+        try:
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
+        except:
+            user_result = []
+
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                if uname == '':
+                    uname = u'未知'
+
+            else:
+                uname = u'未知'
+
+
+            #retweet_count = int(retweet_dict[uid])
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'count':count,'uname':uname})#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
+    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+
+
+def search_yangshi_attention(uid, top_count):
+
+    results = {}
+    now_ts = time.time()
+    db_number = get_db_num(now_ts)
+    index_name = retweet_index_name_pre + str(db_number)
+    center_uid = uid
+    print es_retweet,index_name,retweet_index_type,uid
+    try:
+        retweet_result = es_retweet.get(index=index_name, doc_type=retweet_index_type, id=uid)['_source']
+    except:
+        return None
+    if retweet_result:
+        retweet_dict = json.loads(retweet_result['uid_retweet'])
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
+        portrait_result = []
+        try:
+            user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
+        except:
+            user_result = []
+
+        iter_count = 0
+        out_portrait_list = []
+        for out_user_item in user_result:
+            uid = out_user_item['_id']
+            if out_user_item['found'] == True:
+                source = out_user_item['_source']
+                uname = source['nick_name']
+                if uname == '':
+                    uname = u'未知'
+
+            else:
+                uname = u'未知'
+
+            count = retweet_dict[uid]
+            out_portrait_list.append({'uid':uid,'count':count,'uname':uname,})#location,
+            iter_count += 1
+        return out_portrait_list
+    else:
+        return None
+    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+
 
 
 #search:now_ts , uid return 7day at uid list  {uid1:count1, uid2:count2}
@@ -546,7 +639,8 @@ def search_user_info(es,index_name,doc_type,uid,result_name):
         return None
     if retweet_result:
         retweet_dict = json.loads(retweet_result[result_name])
-        uid_list = retweet_dict.keys()
+        sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
+        uid_list = [i[0] for i in sorted_list]
         portrait_result = []
         try:
             user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':uid_list})['docs']
@@ -597,6 +691,47 @@ def search_user_info(es,index_name,doc_type,uid,result_name):
     else:
         return None
 
+
+def search_weibo(root_uid,uid,mtype):
+    query_body = {
+        #'query':{
+            'filter':{
+                'bool':{
+                    'must':[{'term':{'uid':uid}},
+                            {'term':{'message_type':mtype}}],
+                    'should':[{'term':{'root_uid':root_uid}},
+                              {'term':{'directed_uid':root_uid}}],
+                }
+            }
+        #}
+    }
+    index_list = []
+    for i in range(7, 0, -1):
+        if RUN_TYPE == 1:
+            iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
+        else:
+            iter_date = ts2datetime(datetime2ts(RUN_TEST_TIME) - i * DAY) 
+        index_list.append(flow_text_index_name_pre + iter_date)
+    results = es_flow_text.search(index=index_list,doc_type=flow_text_index_type,body=query_body)['hits']['hits']
+    weibo = {}
+    f_result = []
+    if len(results) > 0:
+        for result in results:
+            #print type(result),result
+            weibo['last_text'] = [result['_source']['text'],result['_source']['text'],result['_source']['timestamp']]
+            mid = result['_source']['root_mid']
+            len_pre = len(flow_text_index_name_pre)
+            index = result['_index'][len_pre:]
+            root_index = []
+            for j in range(0,7):   #一周的，一个月的话就0,30
+                iter_date = ts2datetime(datetime2ts(index) - j * DAY) 
+                root_index.append(flow_text_index_name_pre + iter_date)
+            results = es_flow_text.search(index=root_index,doc_type=flow_text_index_type,body={'query':{'term':{'mid':mid}}})['hits']['hits']
+            if len(results)>0:
+                for result in results:
+                    weibo['ori_text'] = [result['_source']['text'],result['_source']['timestamp']]
+            f_result.append(weibo)
+    return f_result
 
 if __name__=='__main__':
     uid = '1843990885'

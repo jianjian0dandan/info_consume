@@ -22,9 +22,11 @@ def place():
 @mod.route('/geo_weibo_count/')
 def weibo_count():
     topic = request.args.get('topic','')
+    print 'topic',topic
     during = request.args.get('pointInterval',60*60) # 默认查询时间粒度为3600秒
     during = int(during)
     end_ts = request.args.get('end_ts', '')
+    print end_ts
     end_ts = long(end_ts)
     start_ts = request.args.get('start_ts', '')
     start_ts = long(start_ts)

@@ -6,8 +6,8 @@ import csv
 import scws
 import re
 
-sys.path.append('../')
-from parameter import PSY_ABS_PATH as abs_path
+sys.path.append('../../')
+from user_portrait.parameter import PSY_ABS_PATH as abs_path
 
 s_label = ['anger','anx','sad']#第二层分类标签
 f_label = ['negemo','posemo']#第一层分类标签
@@ -24,6 +24,11 @@ EXTRA_STOPWORD_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'stopword.txt')
 EXTRA_EMOTIONWORD_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'emotionlist.txt')
 EXTRA_ONE_WORD_WHITE_LIST_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'one_word_white_list.txt')
 EXTRA_BLACK_LIST_PATH = os.path.join(ABSOLUTE_DICT_PATH, 'black.txt')
+
+
+def load_black_words():
+    one_words = [line.strip('\r\n') for line in file(EXTRA_BLACK_LIST_PATH)]
+    return one_words
 
 def load_scws():
     s = scws.Scws()

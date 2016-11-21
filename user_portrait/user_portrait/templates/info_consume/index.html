@@ -1,12 +1,25 @@
 {% extends "info_consume/daohang_public.html" %}
 {% block title %}首页{% endblock %}
-{% block part_name %}首页{% endblock %}
+{% block part_name %}形象画板{% endblock %}
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
   <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
   <style>
+   body {
+
+    /*background-color: #FCF8E3!important;*/
+    /*background-color: #e3fafc!important;*/
+    background: url(/static/info_consume/image/people.jpg) center top no-repeat,
+    url(/static/info_consume/image/nv.jpg) center bottom no-repeat;
+    background-size: 100% 50%,100% 52%!important;
+
+    /*background-color: #FCF8E3!important;*/
+   }
+   .up_box {
+    margin-left: 185px;
+   }
     .wel_count #weibo{
       background: url(/static/info_consume/image/icon_weibo.png) no-repeat scroll 0% 0% transparent;
     }
@@ -17,6 +30,23 @@
     .wel_count #focus{
       background: url(/static/info_consume/image/icon_focus.png) no-repeat scroll 0% 0% transparent;
     }
+    @media screen and (min-width: 450px) and (max-width: 1124px){
+        .up_box {
+          margin-left: 0!important;
+        }
+        .down_box {
+          margin: 0!important;
+        }
+    }
+    /*#account {
+      width: 0;
+      height: 0;
+    } */
+    /*.basicinfo {
+
+      width: 0;
+      height: 0;
+    }*/
   </style>
 {% endblock %}
 
@@ -32,11 +62,93 @@
 
 
 {% block main %}
-  <div class="up_box">
-    <div class="l_box">
-        <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto;" title="1314608344" >
+<style type="text/css">
 
-        <div class="col-sm-3 col-md-2 sidebar">
+  
+</style>
+  <div class="up_box">
+    <div class="l_box" style="">
+        <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="200px" height="200px" style="margin:0 auto;border-radius:50%;" title="1314608344" >
+<!--Personal acconunt infomation-->
+      <div class="panel panel-success boxshadow" id="account" style="top:50px;left:0px;">
+          <div class="panel-heading">
+            <h3 class="panel-title">账户信息</h3>
+          </div>
+          <div class="panel-body">
+            <div class="basicinfo" style="float:left;width:245px;" >
+              <ul style="padding: 2px; margin-left: 15px;">
+                <li>
+                  <span  style="font-weight:bold;">用户ID：</span>
+                  <span id="uid"></span>
+                </li>
+                <li>
+                  <span style="font-weight:bold;">昵称：</span>
+                  <span id="username"></span>
+                </li>
+                <li>
+                  <span style="font-weight:bold;">是否认证：</span>
+                  <span id="verified"></span>
+                </li>
+                <li>
+                  <span style="font-weight:bold;">认证类型：</span>
+                  <span id="verfType"></span>
+                </li>
+                <li> 
+                  <span style="font-weight:bold;">注册地：</span>
+                  <span id="userLocation"></span>
+                </li>
+                <li style="">
+                  <span style="float:left;font-weight:bold;">个人描述：</span>
+                  <span id="userdes" style="word-break:break-all;width: 150px;"></span></li>
+                <li>
+                  <span style="font-weight:bold;">微博主页：</span>
+                </li>
+                <li style="overflow:hidden;">
+                  <a href="" id="uhome" ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+      </div>
+
+      <!--最近交互-->
+      <div class="panel panel-success boxshadow" id="his_vis" style="top:50px;left:0px;">
+        <div class="panel-heading">
+          <ul id="myTab" class="nav nav-tabs panel-title">
+             <li class="active">
+                <a href="#tweeted_out" data-toggle="tab">谁关注我</a>
+             </li>
+             <li><a href="#retweet_out" data-toggle="tab">我关注谁</a></li>
+          </ul>
+        </div>
+          <style type="text/css">
+            #tweeted_out div,#retweet_out div {
+              display: inline-block!important;
+              position: relative;
+              top: 10px;
+              width: 60px!important;
+            } 
+            #tweeted_out div {
+              margin-left: 165px!important;
+              left: -60px;
+            }
+          </style>
+        <div id="myTabContent" class="tab-content">
+           <div class="tab-pane fade in active" id="tweeted_out">
+             <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
+             <span id="tweeted_out" style="margin-left:0px;float:left;width:110px;"></span>
+           </div>
+
+           <div class="tab-pane fade" id="retweet_out">
+             <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
+             <span id="retweet_out" style=" margin-left:0px;float:left;width:110px;"></span>
+           </div>
+        </div>
+
+      </div>
+        <!-- <div class="col-sm-3 col-md-2 sidebar">
           
             <div class="drop-navigation drop-navigation">
               <ul class="nav nav-sidebar">
@@ -48,8 +160,8 @@
                   <li><a href="/index/myzone">我的影响力</a></li>
                   <li><a href="/index/myzone">我的足迹</a></li>
                   <li><a href="/index/myzone/#chos_mod_time">情绪管家</a></li>
-                </ul>
-                <!-- script-for-menu -->
+                </ul> -->
+                <!-- script-for-menu
                 <script>
                   $( "li a.menu1" ).click(function() {
                   $( "ul.cl-effect-2" ).slideToggle( 300, function() {
@@ -64,26 +176,26 @@
                   <li><a href="/index/my_friend">人际圈</a></li>   
                 </ul>
                 <!-- script-for-menu -->
-                <script>
-                  $( "li a.menu" ).click(function() {
-                  $( "ul.cl-effect-1" ).slideToggle( 300, function() {
-                  // Animation complete.
-                  });
-                  });
-                </script>
-              <li><a href="/index/boot_test" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>圈子发现</a></li>
+                 <script>
+                //   $( "li a.menu" ).click(function() {
+                //   $( "ul.cl-effect-1" ).slideToggle( 300, function() {
+                //   // Animation complete.
+                //   });
+                //   });
+                 </script>
+              <!-- <li><a href="/index/boot_test" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>圈子发现</a></li>
               <li><a href="/index/weiborecommand" class="news-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>微博那些事</a></li>
               
-              </ul>
+              </ul> -->
               <!-- script-for-menu -->
                 <script>
-                  $( ".top-navigation" ).click(function() {
-                  $( ".drop-navigation" ).slideToggle( 300, function() {
-                  // Animation complete.
-                  });
-                  });
+                  // $( ".top-navigation" ).click(function() {
+                  // $( ".drop-navigation" ).slideToggle( 300, function() {
+                  // // Animation complete.
+                  // });
+                  // });
                 </script>
-              <div class="side-bottom">
+              <!-- <div class="side-bottom">
                 <div class="side-bottom-icons">
                   <ul class="nav2">
                     <li><a href="#" class="facebook"> </a></li>
@@ -94,14 +206,21 @@
                 </div>
               </div>
             </div>
-            </div>
+            </div>  -->
+     
+
+
+
+
+
+
       </div>
 
-    <div class="m_box">
+    <div class="m_box" style="top:20px;">
       
-      <span style="font-size:18px;margin-top:5px;">Hi，</span> 
-      <sapn id="username_greet" style="font-size:18px;margin-top:5px;">  </sapn>
-      <span style="font-size:18px;margin-top:5px;">,&nbsp
+      <span style="font-size:18px;margin-top:5px;margin-left:50px;font-weight: 900;color:blue;">Hi，</span> 
+      <sapn id="username_greet" style="font-size:18px;margin-top:5px;font-weight: 900;color:blue;">  </sapn>
+      <span style="font-size:18px;margin-top:5px;font-weight: 900;color:blue;">,&nbsp
            <script>
            　　var enabled = 0; today = new Date();
            　　var day;   
@@ -143,21 +262,38 @@
           </script>
        </span>  
       <div class='wel_count'>   
-            <ul>
-              <li><a id="weibo" href="#" target="_blank">微博<br><span style="font-size:14px; margin-left:-5px;" id="weibosum"></span></a></li>
-              <li><a id="fans" href="#" target="_blank">粉丝<br><span style="font-size:14px; margin-left:-10px;" id="fansum"></span></a></li>
-              <li><a id="focus" href="#" target="_blank">关注<br><span style="font-size:14px; margin-left:1px;" id="attentionsum"></span></a></li>
+            <ul style="top:35px;left:60px;">
+              <li><a id="weibo" href="#" target="_blank" style="font-weight:900;color:yellow;">微博<br><span style="font-size:14px; margin-left:-5px;font-weight:900;color:yellow;" id="weibosum"></span></a></li>
+              <li><a id="fans" href="#" target="_blank" style="font-weight:900;color:yellow;">粉丝<br><span style="font-size:14px; margin-left:-10px;font-weight:900;color:yellow;" id="fansum"></span></a></li>
+              <li><a id="focus" href="#" target="_blank" style="font-weight:900;color:yellow;">关注<br><span style="font-size:14px; margin-left:1px;font-weight:900;color:yellow;" id="attentionsum"></span></a></li>
             </ul>
+            <div class="r_box" style="width:0;height:0;margin:0;top:-15px;left:200px;">
+      
+      <div class="panel panel-success boxshadow weather" style="width: 210px !important;height:144px;margin:0;overflow:hidden;">
+        <div class="panel-heading" style="width: 40px;padding:31px 10px;">
+          贴心天气
+        </div>
+          <div style="margin:2px 15px;position: relative;top: -151px;left: 26px;width:152px;">
+          <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="200" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+
+         </iframe> 
+        
+        </div>  
+      </div>
       </div>
 
-      <div class="dashboard content_dashboard boxshadow">
+       
+    </div>
+    
+
+<div class="dashboard content_dashboard boxshadow" style="height:706px;width:650px;left:110px;top:75px;margin:0;padding-left:70px;">
         <img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
         <h1 id="board_title">我的形象画板</h1>
         <img id="body_board" src="/static/info_consume/image/bodymodel_man.png" rel = "dns-prefetch">
-        <p id="draw_p1"></p><!--interesting word1-->
-        <p id="draw_p2"></p><!--interesting word2-->
-        <p id="draw_p3"></p><!--friends name-->
-        <p id="draw_p4"></p><!--location-->
+        <p id="draw_p1"></p>
+        <p id="draw_p2"></p>
+        <p id="draw_p3"></p>
+        <p id="draw_p4"></p>
 
         <img id="influ_img" src="../../static/info_consume/image/icon_inf.png " width="30px" height="30px" >
         <h1 id="influ_title">我的个人影响力</h1>
@@ -179,102 +315,25 @@
         <img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" > 
         <h1 id="act_title">我的活跃度:<span id="activePower"></span>分</h1>       
         <h1 id="act_text" style="margin-top: 20px;margin-left: 20px;font-size: 20px !important;"> 最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>  
-      </div>  
-    </div>
-    <div class="r_box">
-      
-      <div class="panel panel-success boxshadow weather" style="width: 200px !important;margin-left:40px;">
-        <div class="panel-heading">
-          贴心天气
-        </div>
-          <div style="margin:2px 15px;">
-          <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="150" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
-         </iframe> 
-        </div>  
-      </div>
-
-
+      </div> 
     
 
 
-      <!--Personal acconunt infomation-->
-      <div class="panel panel-success boxshadow" id="account">
-          <div class="panel-heading">
-            <h3 class="panel-title">账户信息</h3>
-          </div>
-          <div class="panel-body">
-            <div class="basicinfo" style="float:left;width:245px;min-height:525px;" >
-              <ul style="padding: 2px; margin-left: 15px;">
-                <li>
-                  <span  style="font-weight:bold;">用户ID：</span>
-                  <span id="uid"></span>
-                </li>
-                <li>
-                  <span style="font-weight:bold;">昵称：</span>
-                  <span id="username"></span>
-                </li>
-                <li>
-                  <span style="font-weight:bold;">是否认证：</span>
-                  <span id="verified"></span>
-                </li>
-                <li>
-                  <span style="font-weight:bold;">认证类型：</span>
-                  <span id="verfType"></span>
-                </li>
-                <li> 
-                  <span style="font-weight:bold;">注册地：</span>
-                  <span id="userLocation"></span>
-                </li>
-                <li>
-                  <span style="float:left;font-weight:bold;">个人描述：</span>
-                  <span id="userdes" style="word-break:break-all;display: block;float: left;width: 150px;"></span></li>
-                <li>
-                  <span style="font-weight:bold;">微博主页：</span>
-                </li>
-                <li>
-                  <a href="" id="uhome" ></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-      </div>
-      <!--最近交互-->
-      <div class="panel panel-success boxshadow" id="his_vis">
-        <div class="panel-heading">
-          <ul id="myTab" class="nav nav-tabs panel-title">
-             <li class="active">
-                <a href="#tweeted_out" data-toggle="tab">谁关注我</a>
-             </li>
-             <li><a href="#retweet_out" data-toggle="tab">我关注谁</a></li>
-          </ul>
-        </div>
-          
-        <div id="myTabContent" class="tab-content">
-           <div class="tab-pane fade in active" id="tweeted_out">
-             <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
-             <span id="tweeted_out" style="margin-left:0px;float:left;width:110px;"></span>
-           </div>
-
-           <div class="tab-pane fade" id="retweet_out">
-             <div id="p_so_onload" ><center>正在努力加载，请稍后...</center></div>
-             <span id="retweet_out" style=" margin-left:0px;float:left;width:110px;"></span>
-           </div>
-        </div>
-
-      </div>
+      
+      
     </div>
     <p class="clear"></p>
   </div>
 
 
-  <div class="down_box"><!--微博动态-->
-    <div class="panel panel-success" style="width:106%;height:150%;margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+  <div class="down_box" style="top:110px;left:-17px;"><!--微博动态-->
+    <div class="panel panel-success" style="margin-left:0%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
       <div class="panel-heading">
         <h3 class="panel-title">最近动态</h3>
       </div>
       <div class="panel-body">
           
-          <div class="tweetinfo" style="float:left;width:900px;background:#fff;margin-left:10px;" >
+          <div class="tweetinfo" style="float:left;width:942px;background:#fff;margin-left:10px;" >
               <div style="width:100%;margin-top:10px;">
                 <span style= "color:#000;font-weight:bold;margin-left:20px;float:left;">排序方式</span>
                 <ul id="modechoose">
@@ -418,15 +477,15 @@ homepageinfo.prototype = {
        Verfi.innerHTML = "否";
        if(verf == -1){
          Verf_type.innerHTML = personalData.verified_type_ch;
-         drawVerfi.innerHTML = personalData.verified_type_ch;
+         drawVerfi.innerHTML = "认证类型："+personalData.verified_type_ch;
        }else{
          Verf_type.innerHTML = "无";
-         drawVerfi.innerHTML = "未知";
+         drawVerfi.innerHTML = "认证类型：未知";
        }
    }else{
        Verfi.innerHTML = "是";
      Verf_type.innerHTML = personalData.verified_type_ch;
-     drawVerfi.innerHTML = personalData.verified_type_ch;
+     drawVerfi.innerHTML = "认证类型："+personalData.verified_type_ch;
    }
 
 
@@ -512,10 +571,10 @@ homepageinfo.prototype = {
     {
       var drawGeo = document.getElementById('draw_p4');
         if(data.all_top[0][0] !=""){
-            drawGeo.innerHTML = data.all_top[0][0];
+            drawGeo.innerHTML = "最常登录："+data.all_top[0][0];
             console.log(data.all_top[0][0]);
         }else{
-            drawGeo.innerHTML = '未知';
+            drawGeo.innerHTML = '最常登录：未知';
         }
     },
 
@@ -545,7 +604,7 @@ homepageinfo.prototype = {
       if(othernum == 0){
         topdomain = domain[1];
       }  
-      document.getElementById('draw_p2').innerHTML = topdomain;
+      document.getElementById('draw_p2').innerHTML ="活跃领域："+ topdomain;
       console.log("topdomain="+topdomain);
     },
 
@@ -554,10 +613,10 @@ homepageinfo.prototype = {
     {
       var drawFriend = document.getElementById('draw_p3');
         if(data[0].uname !=""){
-            drawFriend.innerHTML = data[0].uname;
+            drawFriend.innerHTML = "亲密好友："+data[0].uname;
             console.log(data[0].uname);
         }else{
-            drawFriend.innerHTML = '未知';
+            drawFriend.innerHTML = '亲密好友：未知';
         }
     },
     // 微博数据
