@@ -3,23 +3,25 @@
 用户个性化推荐的后台相关计算模块
 '''
 __author__ = 'zxy'
-import time
-import os
+import Queue
 import codecs
 import json
-import Queue
+import os
+import time
 
-from user_portrait.time_utils import ts2datetime, datetime2ts
+from user_portrait.global_config import R_BEGIN_TIME
+from user_portrait.parameter import DAY, HOUR
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
+from user_portrait.parameter import topic_en2ch_dict
+from user_portrait.time_utils import ts2datetime, datetime2ts
+
+from ads_classify import adsClassify
+from user_portrait.attribute.influence_appendix import weiboinfo2url
 from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, es_user_profile, profile_index_name, \
     profile_index_type, \
     es_user_portrait, portrait_index_name, ads_weibo_index_type, portrait_index_type
-from user_portrait.parameter import DAY, HOUR
-from ads_classify import adsClassify
-from user_portrait.attribute.influence_appendix import weiboinfo2url
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
-from user_portrait.global_config import R_BEGIN_TIME
 from user_portrait.global_utils import retweet_index_name_pre, retweet_index_type, es_retweet
+from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
 
 
 def adsRec(uid, queryInterval=HOUR * 4):
@@ -172,12 +174,15 @@ def personRec(uid, k=200):
     candidate_attention_user_profile = search_user_profile_by_user_ids(candidate_attention_id_set)
     # dict: {topic: user_id_set}
     user_recommend_dic = sim_user(uid, candidate_attention_id_set)
-    user_recommend_return_dic = dict()
+    user_recommend_return_list = []
     for topic_prefered, user_ids in user_recommend_dic.items():
         user_ids = user_ids & set(candidate_attention_user_profile.keys())
-        user_recommend_return_dic[topic_prefered] = [candidate_attention_user_profile[user_id] for user_id in user_ids]
+        for user_id in user_ids:
+            temp_user_profile = candidate_attention_user_profile[user_id]
+            temp_user_profile["topic"] = topic_en2ch_dict[topic_prefered]
+            user_recommend_return_list.append(temp_user_profile)
 
-    return user_recommend_return_dic
+    return user_recommend_return_list
 
 def sim_user(uid, candidate_attention_id_set):
     user_portrait = es_user_portrait. \
