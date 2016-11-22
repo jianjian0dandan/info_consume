@@ -138,7 +138,7 @@ Influence.prototype = {
       }
       i++;
     };
-    console.log('rank of domain is'+rank);
+    //console.log('rank of domain is'+rank);
     // if(domainInflu_data[rank].photo_url == 'unknown'){s
     //   domainInflu_data[rank].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
     // };'rank of domain is'+
@@ -156,7 +156,7 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>";
 
-    console.log('dr'+domain_rank);
+    //console.log('dr'+domain_rank);
     html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+userBci+"</td></tr>";
   
     for(var j=0;j<10;j++){
@@ -174,7 +174,7 @@ Influence.prototype = {
       domain_rank = '未知';
     };
     domain_rank = data;
-    console.log('domainrank='+domain_rank);
+    //console.log('domainrank='+domain_rank);
   },
 
   influ_skill:function(data){
@@ -326,6 +326,5 @@ var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid;
 var influSkill_url = '/influence_application/specified_user_active/?date=2016-05-21&uid=1065618283';
   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
 
-console.log("加载影响力模块");
 
 

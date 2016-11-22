@@ -127,8 +127,5 @@ function show_domain()
  // console.log(url);
   preference.call_sync_ajax_request(url,preference.domain);
 }
-
-
 show_domain();
 
-console.log("加载偏好");

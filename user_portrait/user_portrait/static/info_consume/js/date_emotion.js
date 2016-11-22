@@ -675,7 +675,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
 				html += '<span style="display:inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;display:inline-block;margin-left: 33%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
+				html += '<span id="oule" style="margin-top: -3%;display:inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
 				html += '<span style="margin-top: -3%;display:inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
@@ -719,7 +719,7 @@ function Draw_emotion_trend_line_result(){
     end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
 	url = "/topic_sen_analyze/sen_time_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_trend_line);
 }
 
@@ -733,7 +733,7 @@ function Draw_emotion_map_result(){
   	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
     url = "/topic_sen_analyze/sen_province_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_map);
 }
 
@@ -745,7 +745,7 @@ function Draw_blog_scan_area_emotion_result(){
     end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
     url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item_emotion+'&sen='+sen;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
 

@@ -282,5 +282,5 @@ function Draw_social_page(data){
 function g_soc_load(g_name,s_user){
  var social_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=social';
  call_sync_ajax_request(social_url,'GET',Draw_social_page);
- console.log("social_url:"+social_url);
+ //console.log("social_url:"+social_url);
 }

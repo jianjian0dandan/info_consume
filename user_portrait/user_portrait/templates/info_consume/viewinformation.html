@@ -4,7 +4,26 @@
 	<meta charset="utf-8">
 	<title>{% block title %}微世界{% endblock %}</title>   
 	<style type="text/css">
-	body { font-family:"Microsoft Yahei";background-color: #F2F4F8;}	
+	body { font-family:"Microsoft Yahei";background-color: #F2F4F8;}
+	@media screen and (min-width: 850px) and (max-width: 1300px){
+       .personhead {
+       	margin-left: 14%!important;
+       }
+       .zko,.rkt {
+       	min-width: 354px;
+       	
+       }
+       .zko {
+       	margin-left: 14.5%!important;
+       }
+       .tkb,.zxb {
+       	width: 71%!important;
+       	min-width: 715px;
+       	margin-left: 15%!important;
+       }
+    }
+
+
 	</style>
 
 	<!-- end head 标签 -->
@@ -39,10 +58,10 @@
 <body>
 	 <div class="topnav">	 
   	 <img src="../../static/info_consume/image/title.png">		
-  		<ul id="menu" style="margin-left:40%">
-        <li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">&nbsp&nbsp&nbsp首页</a></li>
+  		<ul id="menu" style="margin-left:50%;width:530px;">
+        <!-- <li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">&nbsp&nbsp&nbsp首页</a></li> -->
 
-  			<li><a href="/index/myzone" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
+  			<li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
 
   				<ul style="margin-left:0px;">
   					<li><a href="/index/myzone" >我的管家</a></li>
@@ -61,10 +80,11 @@
         </li>
 
   			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">商业推荐</a></li>
+  			<li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 100px;">登出</a></li>
   		</ul>
   	</div>
 
-  		<div style="margin-top:5%">
+  		<div style="margin-top:7%">
   			<div><span style="margin-left: 17%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">好友个人空间</span></div>
   			<hr style="width:70%;margin-left: 15%;height:1px;border:none;border-top:2.5px solid #b7b2b2;"/>
   		</div>
@@ -187,7 +207,7 @@
 		</div>
 <!--页面上半部分到此-->
 
-	<div class="panel panel-success" style="width: 33%;height: 450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left:16%; margin-top: 20px;">
+	<div class="panel panel-success zko" style="width: 33%;height: 450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left:16%; margin-top: 20px;">
 	
 		<div class="panel-heading">
 			<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的身份</h3>
@@ -204,7 +224,7 @@
     </div>
 
 
-    <div class="panel panel-success" style="width:33%;height:450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left:12px; margin-top: 20px;">
+    <div class="panel panel-success rkt" style="width:33%;height:450px;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-left:12px; margin-top: 20px;">
 
 		<div class="panel-heading">
 			<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的领域</h3>
@@ -222,7 +242,7 @@
 	<div>
 	
 
-	    <div class="panel panel-success" style="width:67%;height:80%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-top:10px;z-index:30px;">
+	    <div class="panel panel-success tkb" style="width:67%;height:80%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);margin-top:10px;z-index:30px;">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">Ta的社交</h3>
 			</div>
@@ -284,7 +304,7 @@
 			</div>
 		</div>
 
-		    <div class="panel panel-success" style="width:67%;height:150%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+		    <div class="panel panel-success zxb" style="width:67%;height:150%;margin-left:16%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
 		      <div class="panel-heading">
 		        <h3 class="panel-title">最近动态</h3>
 		      </div>
@@ -330,7 +350,7 @@
 		            --><!-- weiboData -->
 		               <div id="per_onload" style="width:100%;height:59px;float:left"><center>正在努力加载中...</center></div>
 		               <div class="tang-scrollpanel-content" style="margin-top:10px;">
-		                <div id='group_influ_weibo' style='overflow-x:hidden;width:890px;float:left;'>
+		                <div id='group_influ_weibo' style='overflow-x:hidden;width:100%;float:left;'>
 		                <div id="group_influ_weibo_result" style="float:left;width:100%;"></div>
 		                      <div id="pageGro" class="cb" style="display:none;float:left;width:600px;height:60px;margin-left:200px;margin-top:40px;line-height:23px;">
 		                          <span class="pageUp" style="float:left;">上一页</span>

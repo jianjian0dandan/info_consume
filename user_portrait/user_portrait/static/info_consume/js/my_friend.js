@@ -1083,7 +1083,7 @@ my_friend.prototype =
                     $.each(node_value,function (index,item) {
                         if(item.name==data.source) {
                             yhm=item.label;
-                            //console.log(zyhum,yhm)
+                            //console.log(zyhum,yhm);
                         }
                     })
 
@@ -1177,15 +1177,8 @@ $.each(oli,function (index,item) {
 });
 
 function get_hua(muid,use1,use2){
-    console.log(muid);
-    //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;
-    // $.each(oli,function (index,item) {
-    //     if ($(item).attr('class')=="one"){
-    //         url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;
-    //     }else {
-    //         url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;
-    //     }
-    // });
+    //console.log(muid);
+    //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;;
     var url = '/info_person_social/get_weibo/?uid=2912277317&root_uid=1694625035&mtype=3';
     //console.log(url);
     my_friend.call_sync_ajax_request(url, my_friend.ajax_method, function(data){wangluo(data,use1,use2)});
