@@ -7,7 +7,7 @@ function my_friend() {
 my_friend.prototype = 
  {
 
-	call_sync_ajax_request:function(url,method,callback) 
+	call_sync_ajax_request:function(url,method,callback)
 	{
 	  $.ajax({
 		url: url,
@@ -1096,7 +1096,7 @@ my_friend.prototype =
                         console.log(param.name);
                         var node_url='/index/viewinformation/?uid='+uid;
                         //console.log(uid)
-                        window.open(node_url);   
+                        window.open(node_url);
                       }else
                       {
                         alert("您点击的是自己哟~~~");

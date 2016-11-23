@@ -1,4 +1,4 @@
- function viewinformation() 
+ function viewinformation()
  {
   //this.ajax_method='GET'; // body...
  }

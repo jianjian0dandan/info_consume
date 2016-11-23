@@ -490,7 +490,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			   html += '<div id="PageTurn" class="pager" style="margin-left:46.5%;height: 40px;margin-bottom: -20px;z-index: 99;">'
 		       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 		       html += '</div>'
-		
+
 		
 		}
 		
@@ -529,7 +529,7 @@ function Draw_blog_scan_area_place_result(){
     url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province+'&sort_item='+sort_item;
  	//console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
-}		
+}
 function place_load(){
 	Draw_geo_map_result();
 	Draw_blog_scan_area_place_result();

@@ -199,47 +199,47 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		            name:'积极',
 		            type:'line',
 		            data:y_item_pos,
-		            
+
 		        },
 		        {
 		            name:'中立',
 		            type:'line',
 		            data:y_item_neu,
-		            
+
 		        },
 		        {
 		            name:'生气',
 		            type:'line',
 		            data:y_item_angry,
-		            
+
 		        },
 		        {
 		            name:'焦虑',
 		            type:'line',
 		            data:y_item_anxiety,
-		            
+
 		        },
 		      	{
 		            name:'悲伤',
 		            type:'line',
 		            data:y_item_sad,
-		        
+
 		        },
 		        {
 		            name:'厌恶',
 		            type:'line',
 		            data:y_item_hate,
-		        
+
 		        },
 		      	{
 		            name:'消极其他',
 		            type:'line',
 		            data:y_item_otherneg,
-		        
+
 		        }
 	        ]
 	    };
-		myChart.setOption(option);     
+		myChart.setOption(option);
 
   },
 
@@ -618,7 +618,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		var rank_html = '';
 		rank_html += '<table id="table" style="table-layout:fixed">';
         for(var k=0;k<Math.min(15,item_item_rank.length);k++){
-			
+
 			rank_html += '<tr>';	
 			rank_html += '<td class="td" align="center" style="width:80px;height:32px;">'+(k+1)+'</td>';
 			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_item_rank[k].name+'</td>';

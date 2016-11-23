@@ -465,7 +465,7 @@ function Draw_blog_scan_area_network_result(){
   topic = topic_name_on_detail;
   start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-  
+
   if(sort_item_network=='timestamp' && blog_type_network == 'maker'){
 
     url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts; 

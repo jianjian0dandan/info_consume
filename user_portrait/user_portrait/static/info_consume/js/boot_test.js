@@ -107,7 +107,7 @@
                           var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+' "target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
                            return e;
                          }
-                       } 
+                       }
                     },
                     {
                         title: "用户ID",
@@ -160,7 +160,7 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value) { 
+                        formatter: function (value) {
                            if(value=="unknown"||value==""||value==null){
                             value = "未知";
                           }
@@ -173,7 +173,7 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value) { 
+                        formatter: function (value) {
                            if(value=="unknown"||value==""||value==null){
                             value = "未知";
                           }
@@ -188,7 +188,7 @@
                         valign: "middle",//垂直
                         formatter: function (value) { 
                         if(value=="unknown"||value==""||value==null){
-                           var e = "未知"  
+                           var e = "未知"
                         }else{
                           var e = new Number(value);
                            e = e.toFixed(2);
