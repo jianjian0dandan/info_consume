@@ -94,6 +94,7 @@ def testmongo():
     return json.dumps(rs, default=json_util.default)
 
 # app run
-#if __name__ == "__main__":
-app.run(host='0.0.0.0', port=options.port)
-#    app.run()
+if __name__ == "__main__":
+    # Create app
+    app.run(host='0.0.0.0', port=options.port)
+

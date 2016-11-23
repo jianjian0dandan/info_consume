@@ -3,7 +3,7 @@
     function Draw_influence_line(data){
     if(data.length==0){
  $('#influen-line').empty();
- var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
+ var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>';
  $('#influen-line').append(html);
 }else{
       var data = data['influence_trend'];
@@ -107,7 +107,7 @@
  	//console.log(data)
 if(data.length==0){
  $('#identi-distri').empty();
- var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+ var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>';
  $('#identi-distri').append(html);
 }else{
    data = data["domain"]
@@ -131,7 +131,7 @@ if(data.length==0){
     for(var j=0;j<domain_data.length;j++){
        	   legend_data.push(domain_data[j]["name"])
        }
-      
+
  var myChart = echarts.init(document.getElementById('identi-distri'),'shine');
       var option = {
     tooltip : {
@@ -195,7 +195,7 @@ if(data.length==0){
  	//console.log(data)
     if(data.length==0){
  $('#area-distri').empty();
- var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+ var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>';
  $('#area-distri').append(html);
 }else{
 	data = data["topic"]
@@ -222,7 +222,7 @@ if(data.length==0){
     for(var j=0;j<domain_data.length;j++){
        	   legend_data.push(domain_data[j]["name"])
        }
-   
+
   //console.log(domain_data)
       var myChart = echarts.init(document.getElementById('area-distri'),'infographic');
       var option = {

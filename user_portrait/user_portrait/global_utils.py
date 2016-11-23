@@ -209,9 +209,23 @@ sensitive_index_type = 'sensitive'
 operation_index_name = 'admin_operation'
 operation_index_type = 'operation'
 
+# 广告微博的地址
+ADS_WEIBO_ES_HOST = "219.224.134.211:9204"
+
+## zxy ads_weibo address 211.224.134.211:9206
+es_ads_weibo = Elasticsearch(ADS_WEIBO_ES_HOST, timeout=600)
+
+# 广告微博的信息  type index
+ads_weibo_index_name = "ads_weibo"
+ads_weibo_index_type = "text"
 
 #use to load balck words of weibo keywords
-BLACK_WORDS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/text_attribute/black.txt'
+# change by zxy for path
+try:
+    from . import zxy_params
+    BLACK_WORDS_PATH = zxy_params.BASE_DIR+"/user_portrait/user_portrait/cron/text_attribute/black.txt"
+except:
+    BLACK_WORDS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/text_attribute/black.txt'
 
 def load_black_words():
     black_words = set([line.strip('\r\n') for line in file(BLACK_WORDS_PATH)])

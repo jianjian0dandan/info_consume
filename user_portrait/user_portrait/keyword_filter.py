@@ -2,7 +2,13 @@
 import codecs
 from textrank4zh import TextRank4Keyword, TextRank4Sentence
 
-EXTRA_BLACK_LIST_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/dict/black.txt'
+
+
+try:
+    from . import zxy_params
+    EXTRA_BLACK_LIST_PATH = zxy_params.BASE_DIR+"/user_portrait/user_portrait/cron/text_attribute/black.txt"
+except:
+    EXTRA_BLACK_LIST_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/dict/black.txt'
 
 def load_black_words():
     one_words = [line.strip('\r\n') for line in file(EXTRA_BLACK_LIST_PATH)]

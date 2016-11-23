@@ -31,7 +31,7 @@ function go_to_datail(topic_name,en_name,date_from,date_to,compute_status){
     }else if(compute_status=='计算完成'){
       window.open('/topic_time_analyze/time/?topic_name='+topic_name+'&en_name='+en_name+'&date_from='+date_from+'&date_to='+date_to);
     }
-    
+
 }
 
 function commit_delete(en_name,start_ts,end_ts,submit_user){
@@ -41,7 +41,7 @@ function commit_delete(en_name,start_ts,end_ts,submit_user){
   if(confirm("确定要删除吗？")){
     //console.log('确定要删除！！！！');
     Delete_task_result(en_name,start_ts,end_ts,submit_user);
-    
+
   }
 }
 

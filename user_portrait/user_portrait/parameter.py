@@ -182,8 +182,13 @@ EVENT_ABS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/mod
 CH_ABS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/model_file/character'
 CHARACTER_TIME_GAP = 7
 
-#jln
-UID_TXT_PATH = '/home/ubuntu2/jiangln/info_consume/user_portrait/user_portrait/info_consume/weibo_hashtag'
+
+try:
+    from . import zxy_params
+    UID_TXT_PATH = zxy_params.BASE_DIR + '/user_portrait/user_portrait/info_consume/weibo_hashtag'
+except:
+    #jln
+    UID_TXT_PATH = '/home/ubuntu2/jiangln/info_consume/user_portrait/user_portrait/info_consume/weibo_hashtag'
 
 # pre-influence index
 pre_influence_index = "bci_"

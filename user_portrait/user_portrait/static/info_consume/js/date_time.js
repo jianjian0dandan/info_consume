@@ -234,12 +234,12 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 		//key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		//console.log(data.length);
 		
-	
+
 	if (!item){
 		html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
 	}else{
 		var blog_num_max_local_time = Math.min(100,item.length);
-	
+
 	    blog_num_max_global_time = blog_num_max_local_time;
 
 		var num_page = Math.ceil(blog_num_max_local_time/10);  //num_page表示微博数据共有多少页
@@ -289,7 +289,7 @@ topic_analysis_time.prototype = {   //获取数据，重新画表
 	       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 	       html += '</div>'
 
-	
+
 	}
 	
 	$('#blog_scan_area_time').append(html);
@@ -330,7 +330,7 @@ function Draw_blog_scan_area_order_result(){
  	//console.log(url_order);
  	topic_analysis_time.call_sync_ajax_request(url_order,topic_analysis_time.Draw_blog_scan_area);
 
-}	
+}
 
 
 Draw_time_trend_line_result();

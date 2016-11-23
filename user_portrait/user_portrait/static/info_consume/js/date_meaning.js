@@ -151,7 +151,7 @@ Draw_keywords_cloud:function(data){
       item_json.push({name:item[i][0],value:item[i][1]*10000,itemStyle: createRandomItemStyle()});
     }
     //console.log(item_json)
-  
+
   function createRandomItemStyle() {
     return {
         normal: {
@@ -244,7 +244,7 @@ Draw_time_line:function(data){
     var item = data;
     var html = '';
     if (item.length == 0){
-    
+
         html += '<div style="background-color: #FFFFFF;width: 96%;height: 100px;position: relative;margin-left: 2%;margin-top: 2%;float: left;"><p style="color: #FF9900;font-size: 16px;font-family: Microsoft YaHei;margin-top: 5%;margin-left: 40%;">呀，暂时还没有数据喔~</p></div>'
     }else{
               //console.log('11111');
@@ -270,7 +270,7 @@ Draw_time_line:function(data){
                         html += '<div class="row">';
                         html += '<div class="events-desc">'+item[key][i].text+'<br>'+item[key][i].datetime+'</div>';                               
                         html += '</div>';
-                       
+
                       }
                       html += '</div>';
                       html += '<div class="events-footer">'; 
@@ -311,7 +311,7 @@ Draw_time_line:function(data){
 
               }
               
-            
+
               html += '</dl>';
               html += '</div>';
               html += '</div>';
@@ -431,14 +431,14 @@ var topic_analysis_meaning = new topic_analysis_meaning();
 function Draw_keywords_cloud_result(){
     // start_ts=1468944000;
     // end_ts=1471622400;
-    
+
     topic = topic_name_on_detail;
     start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
     end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
     url = "/topic_language_analyze/during_keywords/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
     //console.log(url);
-    
+
     topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_keywords_cloud);
 }
 function Draw_event_river_result(){

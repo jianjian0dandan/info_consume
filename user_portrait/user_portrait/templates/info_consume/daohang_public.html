@@ -3,10 +3,10 @@
 <head>
 {% block head_meta %}
   <meta charset="utf-8">
-  <title>{% block title %}微世界{% endblock %}</title>   
+  <title>{% block title %}微世界{% endblock %}</title>
   <style type="text/css">
   body { font-family:"Microsoft Yahei";
-  	background-color:#F2F4F8; }	
+  	background-color:#F2F4F8; }
   @font-face{
     font-family: 'zzgf';
     src:url('/static/info_consume/fonts/zaozigongfang.otf');
@@ -55,11 +55,23 @@
           </ul>
         </li>
 
+            <li><a href="/index/personalizedRec" style="margin-top: 15px;font-size: 20px;width: 120px;">个性化推荐</a></li>
+            <li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 100px;">登出</a></li>
+        </ul>
+    </div>
+
+{% endblock %}
+<!--end 导航-->
+{% block sub_title %}
+    <div style="margin-top:7%">
+        <div><span
+                style="color:#666666;margin-left: 17%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">{% block part_name %}
+            好友个人空间{% endblock %}</span></div>
   			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">商业推荐</a></li>
         <li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 100px;">登出</a></li>
   		</ul>
   </div>
-  
+
   {% endblock %}
   <!--end 导航-->
   {% block sub_title %}
