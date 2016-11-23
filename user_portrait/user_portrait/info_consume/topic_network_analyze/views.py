@@ -35,6 +35,7 @@ def GetGexf():
     raw_data = get_gexf(topic, date, windowsize)
     print type(raw_data),len(raw_data)
     results = gexf_process(raw_data)
+    print results
     return json.dumps(results)
 
 
