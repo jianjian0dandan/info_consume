@@ -10,8 +10,6 @@ var pointInterval = 3600;
 var sort_item = 'timestamp';
 
 
-
-
 // var topic = $('#topic_text').text();
 // //var start_ts = set_timestamp().start_timestamp_return; 
 // //var end_ts = set_timestamp().end_timestamp_return;
@@ -77,10 +75,6 @@ function set_order_type(type){
 // function loading_more(){
 // 	loading_more.innerHTML = '<div class="loading"></div>';
 // }
-
-
-
-
 
 function topic_analysis_time(){
  

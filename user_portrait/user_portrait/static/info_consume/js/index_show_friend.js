@@ -1,5 +1,4 @@
-
- function viewinformation() 
+ function viewinformation()
  {
   //this.ajax_method='GET'; // body...
  }
@@ -8,7 +7,6 @@ viewinformation.prototype=
 {
   call_sync_ajax_request:function(url,callback) 
   {
-    
     $.ajax({
           url: url,
           type: 'GET',
@@ -31,14 +29,14 @@ viewinformation.prototype=
   social_me:function(data){
       //console.log(data);
       Draw_out(data,'retweet_out');
-      console.log('运行转发函数');
+      //console.log('运行转发函数');
   }
 }
 
 function Draw_out(data,div){
-    console.log(div);
+    //console.log(div);
         $('#'+div).empty();
-    console.log(data.length);
+    //console.log(data.length);
     if(data.length==0){
       var html='';
       html=html+'<p style="margin-left:4%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
@@ -46,7 +44,7 @@ function Draw_out(data,div){
         //document.getElementById(div).innerHTML = "";
       // $('#more'+div).css('display','none');
     }else{
-      console.log('else here');
+      //console.log('else here');
       var html = '';
       for(var i=0;i<data.length;i++){
         if(data[i].photo_url=='unknown'){
@@ -61,7 +59,7 @@ function Draw_out(data,div){
         }
 
          // html = html + '<a target="_blank" href="/index/personal/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:5px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
-          html = html + "<a target='_blank' href='/index/viewinformation' class='img-photo' title='"+data[i].uname+": "+data[i].count+"' style='margin-left:20px;margin-top:10px;display:block;float:left;'><img id='portraitImg' style='height:50px;width:50px;' src='"+ data[i].photo_url + "'alt='"+uname_show+"'' width='30' height='30'><span style='height:10px;width:30px;font-size:12px;'>"+uname_show+"</span></a>";
+          html = html + "<a target='_blank' href='/index/viewinformation/?uid=" + data[i].uid + "' class='img-photo' title='"+data[i].uname+": "+data[i].count+"' style='margin-left:20px;margin-top:10px;display:block;float:left;'><img id='portraitImg' style='height:50px;width:50px;' src='"+ data[i].photo_url + "'alt='"+uname_show+"'' width='30' height='30'><span style='height:10px;width:30px;font-size:12px;'>"+uname_show+"</span></a>";
           if(i == 10)
             break;
         }

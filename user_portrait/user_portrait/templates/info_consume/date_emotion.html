@@ -23,7 +23,40 @@
    			</label> -->
 		</div>	
 
+<style type="text/css">
+	#left_line_right_emotion {
+		width: 0;
+		margin-left: 0;
+	}
+	.halving_line_3 {
+		width: 70.5%;
 
+	}
+	#right_col_emotion {
+		margin-left: 4%;
+	}
+	#right_col_title_2 {
+		margin-left: -3%;
+	}
+	#blog_scan_area_emotion_top,#blog_scan_area_emotion,#blog_scan_area_emotion_page {
+		width: 70.5%;
+	}
+	@media screen and (min-width: 850px) and (max-width: 1233px){
+		#main_emotion_bigger {
+			margin-left: 0;
+		}	
+		#right_col_emotion {
+			position: absolute;
+    		left: 96%;
+		}
+		.bo {
+			clear: both;
+		}
+		#oule {
+        	margin-left: 47%!important;
+        }
+    }
+</style>
 		
 		
 
@@ -74,6 +107,7 @@
 <!-- 引入情绪热力图 -->
 <div id="main_emotion_bigger">
 	<div id="main_emotion_2" ></div>
+	
 	<div id="left_line_right_emotion"></div>
 	<div id="right_col_emotion">
 		<div id="right_col_title_1">
@@ -107,13 +141,15 @@
 		<div class="halving_line_3"></div>
 
 <!-- 微博浏览区 -->
-<div>
+<div class='bo'>
 	<div id="blog_scan_title_line1"></div>
 	<p id="blog_scan_title">微博浏览区</p>
 	<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 </div>
 
-<div id="blog_scan_area_emotion_top">
+<div>
+
+<div id="blog_scan_area_emotion_top" style="margin:0 0 0 20.1%;">
 		<div id="blog_scan_title_line2_emotion"></div>
 		<div id="blog_scan_title_line3_emotion"></div>
 		<p id="blog_scan_title2_emotion">排序方式：</p>
@@ -139,7 +175,7 @@
 </div>
 
 <div id="blog_scan_area_emotion">
-		
+		<div id="emotion_loading" style="width:100%;"><center>正在加载，请稍候...</center></div>
 		<!-- 见date_emotion.js文件 -->
 		<!-- <span class="loading_more" onclick="" >加载更多</span> -->
 </div>
@@ -150,3 +186,6 @@
 		<li class="next"  onclick="down_emotion()"><a style="font-size: 16px;">下一页 &rarr;</a></li>
 	</ul>
 </div>
+</div>
+
+

@@ -18,7 +18,7 @@ if(data.length == 0){
         $('#'+ div_name).append(html);
 }else{
 var word_num = Math.min(20, data.length);
-
+// console.log(data)
         for (i=0;i<word_num;i++){
             var word = {};
             word['name'] = data[i][0];
@@ -39,7 +39,7 @@ var word_num = Math.min(20, data.length);
                 formatter:  function (params,ticket,callback){
                     var res  = '';
                     var value_after = params.value/100;
-                    res += '关键词：'+params.name+'<br/>'+'词频：'+value_after.toFixed(2);
+                    res += '关键词：'+params.name+'<br/>'+'重要度：'+value_after.toFixed(2);
                     return res;
                 }
             },
@@ -49,8 +49,16 @@ var word_num = Math.min(20, data.length);
                 textRotation : [0, 45, 90, -45],
                 textPadding: 0,
                 autoSize: {
-                    enable: true,
-                    minSize: 14
+                    enable: false,
+                    minSize: 24
+                },
+                itemStyle: {
+                    normal: {
+                        textStyle: {
+                            fontSize:34
+                        },
+                    },
+
                 },
                 data: keyword
             }]
@@ -65,7 +73,6 @@ var word_num = Math.min(20, data.length);
 
 function Draw_preference_weibo(data){
 
-
 } 
 function Draw_preference_page(data){
        Draw_keyword_cloud(data.keywords,'keyword-cloud');
@@ -73,9 +80,9 @@ function Draw_preference_page(data){
        Draw_preference_weibo(data)
 } 
 
- 
+
  function g_pre_load(g_name,s_user){
  var preference_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=preference';
  call_sync_ajax_request(preference_url,'GET',Draw_preference_page);
- console.log('preference_url:'+preference_url);
+ //console.log('preference_url:'+preference_url);
 }

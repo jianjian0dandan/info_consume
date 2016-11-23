@@ -1,6 +1,36 @@
 
 <!-- 引入本页面的主体内容 -->
-	      
+	<style type="text/css">
+
+		#left_line_right_place {
+			width: 0;
+		}
+		#right_col {
+			margin-left: 4%;
+		}
+		#blog_scan_area_place_top,#blog_scan_area_place,#blog_scan_area_place_page {
+			width: 70.5%;
+		}
+		@media screen and (min-width: 850px) and (max-width: 1245px){
+			.liulan {
+				clear: both;
+				position: relative;
+			}
+			#main_place {
+				margin-left: 0!important;
+				float: none!important;
+			}
+			#right_col {
+				position: absolute;
+    			top: -7%;
+				margin-left: 67%;
+				margin-bottom: 30px;
+			}
+			#oule {
+        		margin-left: 47%!important;
+        	}
+    	}
+	</style>
 <!-- 分析指标——地域热力图 -->
 <div style="margin-top: -7.5%;">
 	<div id="time_trend_title_line1"></div>
@@ -21,19 +51,20 @@
 			<p id="top_10">热力排行榜Top15</p>
 		</div>
 		<div id="right_col_title_2">
-			<div id="right_col_title_2_title">
-				<img id="img_rank" src="../../static/info_consume/image/rank.png">
-				<p id="rank">排名</p>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<img id="img_location" src="../../static/info_consume/image/location.png">
-				<p id="location">地域</p>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<img id="img_publish" src="../../static/info_consume/image/publish.png">
-				<p id="publish">发布量</p>
-				<div id="right_col_title_2_halving_line"></div>
+			<div id="right_col_title_2_title" style="display:inline-block;width:100%;">
+
+				<p id="rank" style="display:inline-block;font-size:16px;margin-left:0;float:none;left:13%;"><img id="img_rank" src="../../static/info_consume/image/rank.png" style="vertical-align:middle;width: 20px;height: 20px;margin:0;
+					float:none;">排名</p>
+				<!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+
+				<p id="location" style="display:inline-block;font-size:16px;float:none;margin:0;left:22%;"><img id="img_location" src="../../static/info_consume/image/location.png" style="vertical-align:middle;width: 20px;height: 20px;margin:0;float:none;">地域</p>
+				<!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+
+				<p id="publish" style="display:inline-block;font-size:16px;float:none;margin:0;left:30%;"><img id="img_publish" src="../../static/info_consume/image/publish.png"  style="vertical-align:middle;width: 20px;height: 20px;margin:0;float:none;">发布量</p>
+				<div id="right_col_title_2_halving_line" style="margin-top:0;width:0;"></div>
 			</div>
 			<div id="top15_content_place">
-				
+				<!-- <div id="emotion_loading" style="width:100%;"><center>正在加载，请稍候...</center></div> -->
 			</div>
 		</div>
 	</div>
@@ -47,13 +78,13 @@
 		<div class="halving_line2"></div>
 
 <!-- 微博浏览区 -->
-	<div>
+	<div class="liulan">
 		<div id="blog_scan_title_line1"></div>
 		<p id="blog_scan_title">微博浏览区</p>
 		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 	</div>
-
-	<div id="blog_scan_area_place_top">
+<div>
+	<div id="blog_scan_area_place_top" style="margin:0 0 0 20.1%;">
 		<div id="blog_scan_title_line2_place"></div>
 		<div id="blog_scan_title_line3_place"></div>
 		<p id="blog_scan_title2_place">排序方式：</p>
@@ -110,6 +141,7 @@
 <div id="blog_scan_area_place">
 	
 	<!-- 见date_place.js文件 -->
+	<div id="emotion_loading" style="width:100%;"><center>正在加载，请稍候...</center></div>
 
 </div>
 <div  id="blog_scan_area_place_page">
@@ -118,5 +150,8 @@
 		<li class="next"  onclick="down_place()"><a style="font-size: 16px;">下一页 &rarr;</a></li>
 	</ul>
 </div>
+
+</div>
+
 
 

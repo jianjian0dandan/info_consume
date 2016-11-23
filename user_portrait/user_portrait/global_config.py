@@ -132,10 +132,10 @@ MAX_FREQUENT_WORDS = 100
 MAX_LANGUAGE_WEIBO = 200
 NEWS_LIMIT = 100
 
-MYSQL_HOST = '219.224.135.222' #47
+MYSQL_HOST = '219.224.134.222' #47
 MYSQL_USER = 'root'
 MYSQL_DB = 'weibocase'
-MONGODB_HOST = '219.224.135.222' #47
+MONGODB_HOST = '219.224.134.222' #47
 MONGODB_PORT = 27019
 SSDB_PORT = 8888
 SSDB_HOST = '219.224.134.222' # SSDB服务器在47
@@ -156,7 +156,7 @@ topic_es = Elasticsearch(TOPIC_ES_HOST,timeout=1000)
 topic_index_name = 'topics'
 topic_index_type ='text'
 
-WEIBO_ES_HOST = '219.224.134.211:9204'
+WEIBO_ES_HOST = '219.224.134.216:9204'
 weibo_es = Elasticsearch(WEIBO_ES_HOST,timeout=1000)
 weibo_index_name = 'weibo'
 weibo_index_type ='text'

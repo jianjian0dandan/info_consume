@@ -8,6 +8,7 @@ from global_config import weibo_es,weibo_index_name,weibo_index_type,topic_index
 from flow_text_mappings import get_mappings
 import datetime,time
 from time_utils import ts2datetime
+import traceback
 '''
 sys.path.append('./geo')
 sys.path.append('./language/fix')
@@ -21,6 +22,7 @@ from cron_topic_propagate import propagateCronTopic
 from cron_topic_sentiment import sentimentTopic
 '''
 from geo.city_repost_search import repost_search
+from geo.cron_topic_city import cityTopic
 from network.cron_topic_identify import compute_network
 from propagate.cron_topic_propagate import propagateCronTopic
 from sentiment.cron_topic_sentiment import sentimentTopic
@@ -48,11 +50,14 @@ def compute_topic_task():
 			#get_topic_weibo(topic,en_name,start_ts,end_ts)
 			if exist_flag:
 				#start compute
-
+				#try:
 				weibo_es.update(index=topic_index_name,doc_type=topic_index_type,id=task_id,body={'doc':{'comput_status':-1}})
 				print 'finish change status'
 				#geo
+				
 				repost_search(en_name, start_ts, end_ts)
+				print 'finish geo_1 analyze'
+				cityTopic(en_name, start_ts, end_ts)
 				print 'finish geo analyze'
 				#language
 				count_fre(en_name, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=MAX_LANGUAGE_WEIBO)
@@ -60,6 +65,7 @@ def compute_topic_task():
 				#time
 				propagateCronTopic(en_name, start_ts, end_ts)
 				print 'finish time analyze'
+
 				#network
 				compute_network(en_name, start_ts, end_ts)
 				print 'finish network analyze'
@@ -70,7 +76,9 @@ def compute_topic_task():
 				#finish compute
 				print weibo_es.update(index=topic_index_name,doc_type=topic_index_type,id=task_id,body={'doc':{'comput_status':1,'finish_ts':int(time.time())}})
 				print 'finish change status done'
-
+				# except:
+				# 	raise
+				# 	break
 			else:
 				pass
 

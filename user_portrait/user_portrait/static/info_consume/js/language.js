@@ -12,7 +12,7 @@ function call_sync_ajax_request(url, method, callback){
 
   var uid = 1640601392; //获取
   var prefrence_url = '/attribute/preference/?uid=' + uid;
-  console.log(prefrence_url);
+  //console.log(prefrence_url);
   call_sync_ajax_request(prefrence_url, ajax_method, show_results);
 
 // $(function() {
@@ -215,5 +215,3 @@ function show_results(data){
     // global_tag_vector.push(tag_vector[i]);
   }
 }
-
-console.log("加载词云图");

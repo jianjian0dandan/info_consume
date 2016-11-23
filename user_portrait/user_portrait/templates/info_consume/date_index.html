@@ -23,7 +23,18 @@
 	<script type="text/javascript" src="../../static/info_consume/js/moment-with-locales.min.js"></script>
 	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../../static/info_consume/js/bootstrap-datetimepicker.min.js"></script>
+	<style type="text/css">
+		@media screen and (min-width: 850px) and (max-width: 1200px){
+		#index_bottom table {
+			min-width: 636px;
+		}
+        .sousuo {
+        	margin-left: 0!important;
+        }
+    }
 
+
+	</style>
 
 	<script type="text/javascript">
         function checkText(){
@@ -35,7 +46,7 @@
     </script>
     <script type="text/javascript">
 	function goto_date_detail() {
-		console.log('123');
+		//console.log('123');
 			var topic_name = $('#input').val();
 			var date_from = $('#input_date_from_create').val();
 			var date_to = $('#input_date_to_create').val();
@@ -60,7 +71,7 @@
 	<img id="date" src="../../static/info_consume/image/date.png">
 
 <!-- 搜索框 -->
-<div style="padding: 100px 100px 10px;position: relative;margin-left: 36%;margin-top: -6%;">
+<div class='sousuo' style="padding: 100px 100px 10px;position: relative;margin-left: 36%;margin-top: -6%;">
    <form class="bs-example bs-example-form" role="form">
       <div class="row">
          <div class="col-lg-4">
@@ -88,6 +99,17 @@
 
 </div>
 
+
+<script language='javascript'>
+   document.onkeydown=function(){
+           if (event.keyCode == 13){
+              Draw_similar_topic_result();
+           }
+           // else{
+           //    alert('你按错了键.');
+           // }
+          }
+</script>
 
 <!-- 模态框：新建任务 -->
 

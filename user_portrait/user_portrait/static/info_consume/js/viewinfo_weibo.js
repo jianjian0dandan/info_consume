@@ -36,7 +36,7 @@ viewinfo_weibo.prototype = {
       }
       else{
           nickName.innerHTML = personalData.nick_name;
-          console.log(personalData.nick_name);
+          //console.log(personalData.nick_name);
       }
   }else{
       nickName.innerHTML = "无此数据";
@@ -93,10 +93,12 @@ viewinfo_weibo.prototype = {
    var Descrip = document.getElementById('userdes');
    if( personalData.description==""){
        personalData.description = "暂无数据";
-       }else if (personalData.description.length>50){
+       }else if (personalData.description.length>20){
+         //console.log("+personalData.description="+personalData.description.length);
        Descrip.innerHTML = personalData.description.substr(0,9)+'...';
            Descrip.title = personalData.description;
       }else{
+        //console.log("+personalData.description="+personalData.description.length);
        Descrip.innerHTML = personalData.description;}
            // var homepage = document.getElementById('uhome');
            // if(!personalData.uid ){
@@ -118,7 +120,7 @@ viewinfo_weibo.prototype = {
 var Personal = new viewinfo_weibo();
 var personalData; // global data
 var weiboData;
-console.log("weibo"+uid);
+// console.log("weibo"+uid);
 function openurl(){
   var ourl = $('#openurl').text();
   window.open(ourl);

@@ -113,7 +113,7 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
 
-    html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td>"+data[rank].uname+"</td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
+    html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + data[i].uid + "'>"+data[rank].uname+"</a></td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
     //全局变量赋值
     userImg_src = data[rank].photo_url;
     uName = data[rank].uname;
@@ -123,7 +123,7 @@ Influence.prototype = {
       var bci_data;
       bci_data = allInflu_data[j].bci;
       bci_data = bci_data.toFixed(2);
-      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+allInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+allInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+allInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + allInflu_data[j].uid + "'>"+allInflu_data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_all').append(html_table);
   },
@@ -138,7 +138,7 @@ Influence.prototype = {
       }
       i++;
     };
-    console.log('rank of domain is'+rank);
+    //console.log('rank of domain is'+rank);
     // if(domainInflu_data[rank].photo_url == 'unknown'){s
     //   domainInflu_data[rank].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
     // };'rank of domain is'+
@@ -156,14 +156,14 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>";
 
-    console.log('dr'+domain_rank);
-    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td>"+uName+"</td><td>"+userBci+"</td></tr>";
+    //console.log('dr'+domain_rank);
+    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+userBci+"</td></tr>";
   
     for(var j=0;j<10;j++){
       var bci_data;
       bci_data = domainInflu_data[j].bci;
       bci_data = bci_data.toFixed(2);
-      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td>"+domainInflu_data[j].uname+"</td><td>"+bci_data+"</td></tr>";
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + domainInflu_data[j].uid + "'>"+domainInflu_data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_domain').append(html_table);
 
@@ -174,7 +174,7 @@ Influence.prototype = {
       domain_rank = '未知';
     };
     domain_rank = data;
-    console.log('domainrank='+domain_rank);
+    //console.log('domainrank='+domain_rank);
   },
 
   influ_skill:function(data){
@@ -198,7 +198,8 @@ Influence.prototype = {
     if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
       stage=1;
       $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-340px");
+      $('#locatSun').css("margin-top","-33%");
+      $('#locatSun').css("margin-left","62%");
       // console.log('111');
     }else{
       if(be_retweet==0) badPart+='原创微博被转发数 ';
@@ -210,7 +211,8 @@ Influence.prototype = {
     if (retweet_retweet==1 && re_re_speed == 1) {
       stage=2;
       $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-285px");
+      $('#locatSun').css("margin-top","-29%");
+      $('#locatSun').css("margin-left","62%");
     }else{
       if(retweet_retweet==0) badPart+='转发微博被转发数 ';
       if (re_re_speed==0) badPart+='转发速度 ';
@@ -219,10 +221,14 @@ Influence.prototype = {
     if (retweet_comment==1 && re_co_speed==1){
       stage=3;
       $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-235px");
+      $('#locatSun').css("margin-top","-24%");
+      $('#locatSun').css("margin-left","62%");
     }else {
       if(retweet_comment==0) badPart+='转发微博评论数 ';
       if (re_co_speed==0) badPart+='评论速度 ';
+      $('#locatSun').css("display","block");
+      $('#locatSun').css("margin-top","-19%");
+      $('#locatSun').css("margin-left","69%");
     };
     $('#badPart').append(badPart);
 
@@ -320,6 +326,5 @@ var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid;
 var influSkill_url = '/influence_application/specified_user_active/?date=2016-05-21&uid=1065618283';
   Influence.call_ajax_request(influSkill_url, Influence.ajax_method, Influence.influ_skill);
 
-console.log("加载影响力模块");
 
 

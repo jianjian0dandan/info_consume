@@ -33,6 +33,7 @@ def GetGexf():
     date = ts2datetime(end_ts)
     windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
     raw_data = get_gexf(topic, date, windowsize)
+    print type(raw_data),len(raw_data)
     results = gexf_process(raw_data)
     return json.dumps(results)
 

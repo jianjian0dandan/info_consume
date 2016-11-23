@@ -120,10 +120,9 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 				print topic,ts,during,mtype,count
 				item = PropagateCount(topic, ts, during, mtype,count)#json.dumps({'other': count})
 				item_exist = db.session.query(PropagateCount).filter(PropagateCount.topic==topic, \
-															PropagateCount.range==during, \
 															PropagateCount.end==ts, \
-															PropagateCount.mtype==mtype).first()
-				print '126'
+															PropagateCount.mtype==mtype).first() #PropagateCount.range==during, \
+				#print '126'
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)
@@ -133,17 +132,16 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 		for time, mtype_dict in results.iteritems():
 			ts = time
 			for k, v in mtype_dict.iteritems():
-				print '135'
+				#print '135'
 				mtype = k
 				kcount = v
 				item = PropagateKeywords(topic, ts, during, mtype, klimit,json.dumps(kcount))
 				#print item
 				item_exist = db.session.query(PropagateKeywords).filter(PropagateKeywords.topic==topic, \
-                                                                PropagateKeywords.range==during, \
                                                                 PropagateKeywords.end==ts, \
-                                                                PropagateKeywords.mtype==mtype, \
-                                                                PropagateKeywords.limit==klimit).first()
-				print '146'
+                                                                PropagateKeywords.mtype==mtype).first()
+																# PropagateKeywords.range==during, \ PropagateKeywords.limit==klimit
+				#print '146'
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)
@@ -157,10 +155,9 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
 				weibo = v
 				item = PropagateTimeWeibos(topic, ts, during, mtype, wlimit, json.dumps(weibo))
 				item_exist = db.session.query(PropagateTimeWeibos).filter(PropagateTimeWeibos.query==topic, 
-                                                                                   PropagateTimeWeibos.range==during, 
                                                                                    PropagateTimeWeibos.end==ts, 
-                                                                                   PropagateTimeWeibos.limit==wlimit, 
-                                                                                   PropagateTimeWeibos.mtype==mtype).first()
+                                                                                   PropagateTimeWeibos.mtype==mtype).first()  
+																				#PropagateTimeWeibos.range==during, PropagateTimeWeibos.limit==wlimit, 
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)

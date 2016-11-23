@@ -86,8 +86,8 @@ function up_place(){
          return false;
      }else{
  		no_page_place--;
- 		console.log(no_page_place);
- 		console.log('执行了上一页操作');
+ 		//console.log(no_page_place);
+ 		//console.log('执行了上一页操作');
  		Draw_blog_scan_area_place_result();
  		
      }
@@ -99,12 +99,12 @@ function down_place(){
      
      if(no_page_place==Math.min(9,Math.ceil(blog_num_max_global_place/10)-1)){
          alert("当前已经是最后一页!");
-         console.log(no_page_place);
+         //console.log(no_page_place);
          return false;
      }else{
  		no_page_place++;
- 		console.log(no_page_place);
- 		console.log('执行了下一页操作');
+ 		//console.log(no_page_place);
+ 		//console.log('执行了下一页操作');
  		Draw_blog_scan_area_place_result();
  		
      }
@@ -246,7 +246,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
@@ -259,7 +259,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 	 	var item_city_json = [];
 	 	var item_city_json_new=[];
 	 	var html = '';
-	 	console.log(item.length);
+	 	//console.log(item.length);
 	 	for (i=0;i<item.length;i++){		
 	 		item_province_json.push({name:item[i][0],value:item[i][1].total});
 	 		for(key in item[i][1]){
@@ -476,11 +476,11 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 				html += '<p style="float: left;width: 100%;position: relative;margin-top: 3%;margin-left: 3%;font-family: Microsoft YaHei;">';
 				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
-				html += '<span style="float:left;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
+				html += '<span style="display: inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;|&nbsp;</span>';
+				html += '<span id="oule" style="margin-top: -3%;display: inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
-				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+				html += '<span style="margin-top: -3%;display: inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				html += '</p>';
 				html += '</div>';							 	
@@ -490,18 +490,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 			   html += '<div id="PageTurn" class="pager" style="margin-left:46.5%;height: 40px;margin-bottom: -20px;z-index: 99;">'
 		       html += '<p style="font-size: 20px;">共<font id="P_RecordCount" style="color:#FF9900;font-size: 20px;">'+num_page+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 		       html += '</div>'
-			// html += '<div id="PageTurn" class="pager" style="margin-left:40%;">'
-		 //    html += '<span >共<font id="P_RecordCount" style="color:#FF9900;">'+item.length+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		 //    html += '<span >第<font id="P_Index" style="color:#FF9900;"></font><font id="P_PageCount" style="color:#FF9900;">'+1+'</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		 //    html += '<span >每页<font id="P_PageSize" style="color:#FF9900;">'+10+'</font>条记录&nbsp;&nbsp;&nbsp;&nbsp;</span>'
-		 //    html += '<span id="S_First" class="disabled" >首页</span>'
-		 //    html += '<span id="S_Prev"  class="disabled" >上一页</span>'
-		 //    html += '<span id="S_navi"><!--页号导航--></span>'
-		 //    html += '<span id="S_Next"  class="disabled" >下一页</span>'
-		 //    html += '<span id="S_Last"  class="disabled" >末页</span>'
-		 //    html += '<input id="Txt_GO" class="cssTxt" name="Txt_GO" type="text" size="1" style="width: 35px;height: 20px;"  /> '
-		 //    html += '<span id="P_GO" >GO</span>'
-			// html += '</div>'
+
 		
 		}
 		
@@ -519,31 +508,28 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 var topic_analysis_place = new topic_analysis_place();
  
 function Draw_geo_map_result(){
-	var start_ts=1468944000;
-	var end_ts=1471622400;
-
+	// var start_ts=1468944000;
+	// var end_ts=1471622400;
+	topic = topic_name_on_detail;
+	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
     url = "/topic_geo_analyze/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
 }	
 
 function Draw_blog_scan_area_place_result(){
-	start_ts = 1468474200;
-	end_ts = 1468495800;
-	console.log(province);
+	// start_ts = 1468474200;
+	// end_ts = 1468495800;
+	// console.log(province);
+	topic = topic_name_on_detail;
+	start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
+	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
+
     url = "/topic_geo_analyze/geo_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province+'&sort_item='+sort_item;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_blog_scan_area_place);
-}		
-
-
-// function Draw_geo_map_result(){
-//     url = "/topic_geo_analyzee/geo_weibo_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&province='+province;
-//  	console.log(url);
-//  	topic_analysis_place.call_sync_ajax_request(url,topic_analysis_place.Draw_geo_map);
-// }		
-
-
+}
 function place_load(){
 	Draw_geo_map_result();
 	Draw_blog_scan_area_place_result();

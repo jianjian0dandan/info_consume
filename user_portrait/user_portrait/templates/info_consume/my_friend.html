@@ -1,6 +1,6 @@
 {% extends 'info_consume/daohang_public.html' %}
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap-table.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap-table.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
@@ -18,12 +18,57 @@
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <style type="text/css">
-  	.fixed-table-body
-  	 {
-	    overflow-x: auto;
-	    overflow-y: auto;
-	    height: 395px;
-	 }
+    .fixed-table-body
+     {
+      overflow-x: auto;
+      overflow-y: auto;
+      /*height: 395px;*/
+   }
+   .fixed-table-container .table-hover th ,.fixed-table-container .table-hover td {
+    text-align: center;
+   }
+   .nav-tabs {
+    border-bottom: none;
+   }
+   #hua {
+    width: 430px;
+    max-width: 430px;
+    max-height: 530px;
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 16%;
+    padding: 10px 15px;
+    background-color: rgb(250, 236, 135);
+   }
+   #hua p {
+    font-size: 18px;
+    font-weight: 700;
+   }
+   #hua .huaone {
+    color: #ff7f50;
+   }
+   #hua .huatwo {
+    color: #87cefa;
+   }
+   .huaxiazi {
+    min-width: 695px;
+   }
+   @media screen and (min-width: 850px) and (max-width: 1245px){
+        #myfriends {
+          min-width: 535px;
+        }
+        .qinmidu {
+          min-width: 626px;
+        }
+        #hua {
+          /*left: 0!important;*/
+          right: 465px!important;
+        }
+        #myTabContent {
+          margin-left: 50px!important;
+        }
+    }
   </style>
 
 {% endblock %}
@@ -32,14 +77,14 @@
 
 
 {% block main %}
-<div class='up_box'  style="border:1px #F2F4F8 solid;width:80%;">
-	<img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left;margin-top:-50px;" title="1314608344" >
-	<span style="font-size:18px;margin-top:0px;margin-left:30px;float:left;">Hi，</span> 
+<div class='up_box'  style="border:1px #fff solid;width:80%;">
+  <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="150px" height="150px" style="margin:auto; float:left;margin-top:-50px;margin-left:23px;" title="1314608344" >
+  <span style="font-size:18px;margin-top:0px;margin-left:30px;float:left;">Hi，</span>
       <sapn id="username" style="font-size:18px;margin-top:0px;float:left;">  </sapn>
       <span style="font-size:18px;margin-top:0px;float:left;">,&nbsp
            <script>
            　　var enabled = 0; today = new Date();
-           　　var day;   
+           　　var day;
                var date;
            　　day = new Date()
            　　hr = day.getHours()
@@ -76,13 +121,13 @@
            　　if (hr==0)
            　　document.write("凌晨了，还不睡？")           　
           </script>
-       </span>  
+       </span>
 </div>
 
 <!--我的好友-->
 <div>
     <ul id="zone_tab" class="nav nav-tabs" style="margin-top: 90px;">
-      <li style="margin-left:50px;"><a href="/index/myzone" >我的管家</a></li>
+      <li style="margin-left:50px;"><a href="/index/myzone" >我的信息</a></li>
       <li id="zone_left_tab" class="active" style="margin-left:0px;">
           <a href="#mysteward" data-toggle="tab">我的好友</a>
       </li>
@@ -90,7 +135,7 @@
 
      <div id="myfriends" >
    <!--好友排行-->
-        <div class="panel panel-success" style="width:45%;height:500px;margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success" style="width:96%;margin-left:2%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">好友排行</h3>
         </div>
@@ -106,22 +151,22 @@
                 <th id="influence">影响力</th>
               </tr>
             </thead>
-            <tbody id="friend_rank"> 
+            <tbody id="friend_rank">
               <tr class="no-records-found">
                 <td colspan="6">正在很努力很努力的加载内容...</td>
-              </tr>             
+              </tr>
               </tbody>
           </table>
           <div>
-            
-            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">查看更多</button>
+
+            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1" style="margin-left:92%;margin-top:12px;">查看更多</button>
           </div>
         </div>
       </div>
   </div>
   <!--好友排行模态框-->
 
-  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" 
+  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
                  aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -147,12 +192,12 @@
                 <th id="influence">影响力</th>
               </tr>
             </thead>
-            <tbody id="friend_rank_detail"> 
+            <tbody id="friend_rank_detail">
               <tr class="no-records-found">
                 <td colspan="6">正在很努力很努力的加载内容...</td>
-              </tr>             
+              </tr>
               </tbody>
-          </table>                           
+          </table>
           </div>
 
           <div class="modal-footer">
@@ -166,7 +211,7 @@
 
   <!--亲密度排行模态框-->
 
-  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" 
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
                  aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -191,12 +236,12 @@
                 <th >提及数</th>
               </tr>
             </thead>
-            <tbody id="intimacy_rank_detail"> 
+            <tbody id="intimacy_rank_detail">
               <tr class="no-records-found">
                 <td colspan="6">正在很努力很努力的加载内容...</td>
-              </tr>             
+              </tr>
               </tbody>
-          </table>                                         
+          </table>
           </div>
 
           <div class="modal-footer">
@@ -206,10 +251,10 @@
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
-            
-      
+
+
       <!--亲密度排行-->
-        <div class="panel panel-success" style="width:35%;height:500px;margin-left:5%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success qinmidu" style="width:75%;margin-left:12.5%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">亲密度排行</h3>
         </div>
@@ -225,37 +270,40 @@
                 <th >提及数</th>
               </tr>
             </thead>
-            <tbody id="intimacy_rank"> 
+            <tbody id="intimacy_rank">
               <tr class="no-records-found">
                 <td colspan="6">正在很努力很努力的加载内容...</td>
-              </tr>             
+              </tr>
               </tbody>
           </table>
           <div>
-            
-            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">查看更多</button>
+
+            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2" style="margin-left:92%;margin-top:12px;">查看更多</button>
           </div>
-           
+
         </div>
       </div>
 
 
        <!--社交网络-->
-        <div class="panel panel-success" style="width:76%;height:700px;margin-top:2%; margin-left:11.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success huaxiazi" style="width:75%;height:700px;margin-top:2%; margin-left:12.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">社交网络</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="position:relative;">
+          <div id='hua'>
+
+          </div>
           <div class="panel-body">
 
             <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#transmit" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">你的微博被谁转发</a></li>
-              <li><a href="#mention" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">你转发了谁的微博</a></li>
-              <li><a href="#comment" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">你评论了谁</a></li>
-              <li><a href="#interaction" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁评论了你</a></li>
+              <li class="active one"><a href="#transmit" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">你的微博被谁转发</a></li>
+              <li class="two"><a href="#mention" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">你转发了谁的微博</a></li>
+              <li class="three"><a href="#comment" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">你评论了谁</a></li>
+              <li class="four"><a href="#interaction" data-toggle="tab" style=" text-align:center;background:#ffffff;color:#000;    border-bottom: 1px solid #ddd;">谁评论了你</a></li>
             </ul>
 
-            <div id="myTabContent" class="tab-content">
+            <div id="myTabContent" class="tab-content" style="margin-left:-120px;margin-top:55px;">
               <div class="tab-pane fade in active" id="transmit" style="height:550px;width:900px;">
               <!--被转发关系图-->
 
@@ -264,8 +312,8 @@
                    小的正在努力的为老大您加载内容，请稍后...
                    </center>
                 </div>
-                
-              
+
+
 
               </div>
 
@@ -298,7 +346,7 @@
                   </div>
 
               </div>
-                        
+
               </div>
 
             </div>

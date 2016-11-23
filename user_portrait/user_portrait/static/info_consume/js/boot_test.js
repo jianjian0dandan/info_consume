@@ -55,7 +55,7 @@
              $(function(){
                  var influ_scope = 'all_nolimit'; 
                  var influ_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+influ_scope+'&all=True';
-                 console.log(influ_url);               
+                 //console.log(influ_url);
                function init_table(data){
                 $('#table-user').bootstrapTable({
                   //url: influ_url,
@@ -100,13 +100,14 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value,row) { 
-                          if(value=="unknown"||value==""){
+                          if(value=="unknown"||value==""||value==null){
                             value = "未知";
-                          }
+                            return value
+                          }else{
                           var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+' "target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
-                            return e;
-       
-                        }
+                           return e;
+                         }
+                       }
                     },
                     {
                         title: "用户ID",
@@ -122,7 +123,7 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
-                           if(value=="unknown"||value==""){
+                           if(value=="unknown"||value==""||value==null){
                             value = "未知";
                           }
                            return value;
@@ -158,14 +159,26 @@
                         field: "fans",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) {
+                           if(value=="unknown"||value==""||value==null){
+                            value = "未知";
+                          }
+                           return value;
+                        }
                     },
                     {
                         title: "微博数",                        
                         field: "weibo_count",
                         sortable: true,
                         align: "center",//水平
-                        valign: "middle"//垂直
+                        valign: "middle",//垂直
+                        formatter: function (value) {
+                           if(value=="unknown"||value==""||value==null){
+                            value = "未知";
+                          }
+                           return value;
+                        }
                     },
                     {
                         title: "活跃度",
@@ -174,9 +187,13 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
+                        if(value=="unknown"||value==""||value==null){
+                           var e = "未知"
+                        }else{
                           var e = new Number(value);
                            e = e.toFixed(2);
-                          return e;
+                         }
+                         return e;
                         },
                         visible: false
                     }]
@@ -229,7 +246,7 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value,row) { 
-                          if(value=="unknown"||value==""){
+                          if(value=="unknown"||value==""||value==null){
                             value = "未知";
                           }
                           var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" href="/index/viewinformation/?uid='+row.uid+'" data-toggle="popover" target="_blank">'+value+'</a>'; 
@@ -252,9 +269,13 @@
                         align: "center",//水平
                         valign: "middle",//垂直
                         formatter: function (value) { 
+                        if(value=="unknown"||value==""||value==null){
+                            value = "未知";
+                          }else{
                           var e = value;
                            e = e.toFixed(2);
                           return e;
+                         }
                         }
                     },
                     {
@@ -436,7 +457,7 @@
 
          $(function(){
            var user_tasks_url = '/influence_sort/search_task/?username='+username;
-           console.log(user_tasks_url);
+           //console.log(user_tasks_url);
            call_sync_ajax_request(user_tasks_url, draw_topic_tasks);
          })
         //定义提交离线话题搜索任务

@@ -259,22 +259,17 @@ myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
     option.title.subtext = mt + ' （滚轮或点击切换）';
     myChart.setOption(option, true);
 });
-
-         
       myChart.setOption(option);
 })
  }
-
- 
 function Draw_active_page(data){
        Draw_activity_line(data.activeness_trend);
        Draw_geo_graph(data.new_geo);
-
 }
 
- 
 function g_act_load(g_name,s_user){
  var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
+
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
- console.log('g_act_load url:'+activity_url);
+ //console.log('g_act_load url:'+activity_url);
 }

@@ -109,12 +109,12 @@ var option = {
             },
             useWorker: false,
             size:'80%',
-            minRadius : 15,
-            maxRadius : 25,
+            minRadius : 25,
+            maxRadius : 35,
             gravity: 1.5,
             scaling: 1.1,
             roam: 'move',
-            symbolSize:5,
+            //symbolSize:35,
             nodes: nodes_total,
             links: links_total,
         }
@@ -245,15 +245,15 @@ var option = {
                 }
             },
             useWorker: false,
-            minRadius : 15,
-            maxRadius : 25,
+            minRadius : 25,
+            maxRadius : 35,
             gravity: 1.5,
             scaling: 1.2,
             steps: 10,
             coolDown: 0.9,
             linkSymbol: 'arrow',
             roam: 'move',
-            symbolSize:5,
+            //symbolSize:5,
             nodes: nodes_total,
             links: links_total,
         }
@@ -282,5 +282,5 @@ function Draw_social_page(data){
 function g_soc_load(g_name,s_user){
  var social_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=social';
  call_sync_ajax_request(social_url,'GET',Draw_social_page);
- console.log("social_url:"+social_url);
+ //console.log("social_url:"+social_url);
 }

@@ -9,7 +9,7 @@
 <!-- 引入微博用户转发网 -->
 <div id="main_network_bigger">
 	<div id="main_network" >
-	
+	<div id="network_loading1" style="width:100%;"><center>正在加载，请稍候...</center></div>
 	</div>
 
 
@@ -23,16 +23,92 @@
 			<span id="trend_maker" onclick="get_trend_type('maker')">重要微博用户</span>
 			
 		</div>
-		<div id="users">
+
+		<div style="display:inline-block;padding-top:3%;">
+<div id="users">
 	      <span class="label place_label" style="color: #868686;" onmouseover="set_trend_type('maker')">发起者</span>
 	      <span class="label place_label" style="color: #868686;" onmouseover="set_trend_type('pusher')">推动者</span>
 	      <div class="halving_line4"></div>
+	      <style type="text/css">
+	      	#main_network_bigger {
+	      		margin-left: 0;
+
+	      	}
+	      	#left_line_right_network {
+	      		width: 0!important;
+	      	}
+	      	.halving_line2,#blog_scan_area_network_top,#blog_scan_area_network,#blog_scan_area_network_page {
+	      		width: 70.5%;
+	      	}
+	      	#right_col_network {
+	      		margin-left: 0;
+	      		margin-top: 3%;
+	      	}
+	      	#right_col_title_2_network {
+	      		margin-left: -14%;
+	      		height: 617px;
+	      		overflow: hidden;
+	      	}
+	      	#table_photo {
+	      		width: 0;
+	      	}
+	      	#table_photo tr {
+	      		display: block;
+	      		margin-top: 10px;
+	      	}
+	      	#users {
+	      		width: 88.5%;
+    			position: relative;
+    			left: -57px;
+    			padding-left: 3%;
+    			padding-top: 2%
+	      	}
+	      	#right_col_title_1_network_blue {
+	      		margin-left: -13%;
+	      	}
+	      	#right_col_title_1_network_green {
+	      		margin-left: -10%;
+	      	}
+	      	#img_person {
+	      		margin-left: -6%;
+	      	}
+	      	@media screen and (min-width: 850px) and (max-width: 1355px){
+				#right_col_network {
+					position: absolute;
+				    left: 85%;
+				    top: 5%;
+				}
+				.liulan {
+					/*position: relative;
+					top: 100px;*/
+					clear: both;
+				}
+				/*.wei {
+					position: relative;
+					top: 100px;
+				}*/
+				#main_network {
+					margin-left: 11%!important;
+
+				}
+				.halving_line2 {
+					margin-top: 17%!important;
+				}
+				#oule {
+		        	margin-left: 47%!important;
+		        }
+    		}
+
+
+	      </style>
 		</div>
 		<div id="right_col_title_2_network">
 			<!-- 用户头像 -->
-			
+			<!-- <div id="network_loading2" style="width:100%;margin-left:-100%;"><center>正在加载，请稍候...</center></div> -->
 			
 		</div>
+		</div>
+
 	</div>
 </div>
 <!-- 网络图见.js文件 -->
@@ -49,16 +125,18 @@
 	
 
 <!-- 分割线 -->
-<div class="halving_line2"></div>
+<div class="halving_line2" style="margin-top:10%;"></div>
 
 <!-- 微博浏览区 -->
-<div>
+<div class='liulan'>
 	<div id="blog_scan_title_line1"></div>
 	<p id="blog_scan_title">微博浏览区</p>
 	<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 </div>
 
-<div id="blog_scan_area_network_top">
+<div class='wei'>
+
+<div id="blog_scan_area_network_top" style="margin:0 0 0 20.1%;">
   <div id="blog_scan_title_line2_network"></div>
   <div id="blog_scan_title_line3_network"></div>
   <p id="blog_scan_title2_network">排序方式：</p>
@@ -84,7 +162,8 @@
 <div id="blog_scan_area_network">
 	
 	<!-- 微博浏览区 -->
-	
+	<div id="emotion_loading" style="width:100%;"><center>正在加载，请稍候...</center></div>
+
 </div>
 
 <div  id="blog_scan_area_network_page">
@@ -93,3 +172,7 @@
 		<li class="next"  onclick="down_network()"><a style="font-size: 16px;">下一页 &rarr;</a></li>
 	</ul>
 </div>
+
+</div>
+
+

@@ -317,7 +317,7 @@ function Draw_group_trend(data){
         var html0 = '';
         var url_content = '/info_group/group_sentiment_weibo/?task_name='+g_name+'&sentiment=0&start_ts='+times_init+'&submit_user='+s_user;
         //var url_content ='/info_group/group_sentiment_weibo/?task_name=冯绍峰&sentiment=0&start_ts=1377964800&submit_user=admin@qq.com';
-       console.log(url_content)
+       //console.log(url_content)
         $('#input-table').empty();
         $('#input-table').css('display', 'none');
         $('#group_emotion_loading').css('display', 'block');
@@ -472,5 +472,5 @@ function Draw_psy_page(data){
  function g_tho_load(g_name,s_user){
  var psy_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=think';
  call_sync_ajax_request(psy_url,'GET',Draw_psy_page);
- console.log("psy_url:"+psy_url);
+ //console.log("psy_url:"+psy_url);
  }

@@ -1,4 +1,41 @@
 
+<style type="text/css">
+	@media screen and (min-width: 850px) and (max-width: 1200px){
+        #myfriends {
+          min-width: 535px;
+        }
+        .qinmidu {
+          min-width: 626px;
+        }
+        #hua {
+          /*left: 0!important;*/
+          right: 465px!important;
+        }
+        .topic_time {
+        	margin-left: 0!important;
+        }
+        #date1 {
+        	float: left;
+        }
+        .topic_time_to {
+        	margin-left: 0!important;
+        	margin-right: 2%;
+        }
+        .btn_commit {
+        	position: relative;
+		    right: -27%;
+		    margin-top: 3.5%!important;
+		    margin-left: 0!important;
+        }
+        .topic_img {
+        	margin-left: 15%!important;
+        }
+        #oule {
+        	margin-left: 47%!important;
+        }
+    }
+
+</style>
 <!-- 分析指标——时间热度图 -->
 		<div>
 			<div id="time_trend_title_line1"></div>
@@ -38,7 +75,8 @@
 		<p id="blog_scan_title">微博浏览区</p>
 		<img id="img_doubt" src="../../static/info_consume/image/doubt.png">
 	</div>
-	<div id="blog_scan_area_time_top" >
+	<div style="">
+<div id="blog_scan_area_time_top" style="width:70.5%;margin:0 0 0 20.1%;">
 		<div id="blog_scan_title_line2_time"></div>
 		<div id="blog_scan_title_line3_time"></div>
 		<p id="blog_scan_title2_time">排序方式：</p>
@@ -53,17 +91,21 @@
 		
 		<div class="halving_line3"></div>
 	</div>
-	<div id="blog_scan_area_time">
+	<div id="blog_scan_area_time" style="width:70.5%;">
 		
 		<!-- 画图，见time_blogscan.js文件（此处移除了所有的） -->
+		<div id="emotion_loading" style="width:100%;"><center>正在加载，请稍候...</center></div>
 
-		
 	</div>
 
-	<div  id="blog_scan_area_time_page">
+	<div  id="blog_scan_area_time_page" style="width:70.5%;">
 		<ul class="pager">
 			<li class="previous" onclick="up_time()"><a style="font-size: 16px;" >&larr; 上一页</a></li>
 			<li class="next"  onclick="down_time()"><a style="font-size: 16px;">下一页 &rarr;</a></li>
 		</ul>
+
 	</div>
+
+	</div>
+
 

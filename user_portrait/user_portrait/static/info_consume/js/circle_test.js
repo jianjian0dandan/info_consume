@@ -34,9 +34,10 @@
        $("#circle-analysis").slideDown();
        $('#basic_tab').tab('show')
        document.getElementById('myContainer').scrollIntoView()
-       var html=""+data;
+       var html="您当前正在分析圈子："+data;
+        $('#current').html('');
         $('#current').append(html);
-       console.log("g_name:"+g_name);
+       //console.log("g_name:"+g_name);
       //切换不同tab
     var g_act_flag = false;
     var g_pre_flag = false;
@@ -78,7 +79,7 @@
          $(function(){
               var current_user = 'admin@qq.com'; //获取
               var task_url = '/info_group/show_task/?submit_user='+current_user;
-              console.log(task_url);
+              //console.log(task_url);
             $('#cicle-task').bootstrapTable({
                   url: task_url,
                   search: true,//是否搜索
