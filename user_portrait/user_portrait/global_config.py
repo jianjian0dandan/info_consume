@@ -156,7 +156,7 @@ topic_es = Elasticsearch(TOPIC_ES_HOST,timeout=1000)
 topic_index_name = 'topics'
 topic_index_type ='text'
 
-WEIBO_ES_HOST = '219.224.134.211:9204'
+WEIBO_ES_HOST = '219.224.134.216:9204'
 weibo_es = Elasticsearch(WEIBO_ES_HOST,timeout=1000)
 weibo_index_name = 'weibo'
 weibo_index_type ='text'
