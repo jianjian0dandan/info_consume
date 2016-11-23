@@ -30,6 +30,15 @@ function getPersonInfo(data) {
 
 function drawPerson(personChoose){
     personChoose = randomChoose(personInfoData,num_show)
+    for (var i = 0; i <= num_show;) {
+        var person = personChoose[i]
+        i = i+1;
+        document.getElementById("userphoto"+i).src=person["photo_url"]
+        document.getElementById("username"+i).innerHTML = person["nick_name"]
+        document.getElementById("userdesc"+i).innerHTML = person["description"]
+        document.getElementById("usertopic"+i).innerHTML = person["topic"]
+        document.getElementById("userhome"+i).href= "http://weibo.com/u/"+person["id"]
+    }
     console.log(personChoose)
 }
 
