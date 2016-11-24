@@ -8,6 +8,7 @@ import csv
 
 thisFilePath = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(thisFilePath,"../cron/util/")))
+# sys.path.append('./libsvm-3.17/python/')
 from svm import svmutil
 
 

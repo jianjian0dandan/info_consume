@@ -792,6 +792,7 @@ def ajax_summary_influence():
     return json.dumps(result)
 
 
+
 # 给用户推荐相应的判定为广告的微博
 @mod.route("/adsRec/")
 def ajax_adsRec():

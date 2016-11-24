@@ -75,8 +75,12 @@ def adsRec(uid, queryInterval=HOUR * 4):
 # 广告分类词的TF-IDF
 def construct_topic_word_weight_dic(topic_word_weight_dir):
     topic_word_weight_dic = dict()
+    # topic_word_weight_dir = topic_word_weight_dir.decode("ascii")
     for file_name in os.listdir(topic_word_weight_dir):
+    	# file_name = file_name.decode("utf-8")
+    	# print file_name
         weight_file = os.path.join(topic_word_weight_dir, file_name)
+        # print weight_file
         if not os.path.isfile(weight_file):
             continue
         with codecs.open(weight_file, encoding="utf-8") as f:
@@ -86,7 +90,9 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
                 word_weight_dic[items[0]] = float(items[1])
             # fuck py2!!
             # listdir出来的是str, 使用的是默认的gbk编码(在windows下),使用GBK解码成Unicode。再次fuck py2!
-            topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
+            # fix 2016.11.24 在上面将topic_word_weight_dir直接decode成Unicode
+            # 使用Unicode路径listdir得到就直接为Unicode
+            topic_word_weight_dic[file_name[:-4].decode("utf-8")] = word_weight_dic
     return topic_word_weight_dic
 
 
