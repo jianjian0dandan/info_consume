@@ -54,7 +54,8 @@ def user_sort():
 @mod.route('/user_topic_sort/')
 def user_topic_sort():
     uid = request.args.get('uid')
-    results = get_sort(uid)
+    field = request.args.get('field')
+    results = get_sort(uid,field)
     return results
 
 @mod.route('/search_task/', methods=['GET', 'POST'])

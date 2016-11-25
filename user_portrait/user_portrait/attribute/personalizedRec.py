@@ -52,7 +52,7 @@ def adsRec(uid, queryInterval=HOUR * 4):
 
     # test，目前使用的是从原始数据中读取一定时间段内的微博并实时计算的方式得到
     #
-    ads_weibo_index_name = flow_text_index_name_pre + "2013-09-07"
+    ads_weibo_index_name = flow_text_index_name_pre + now_date
     ads_weibo_all = es_flow_text.search(index=ads_weibo_index_name,
                                         doc_type=ads_weibo_index_type,
                                         body={'query': {"filtered": {"filter": {
