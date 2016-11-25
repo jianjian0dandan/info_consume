@@ -1052,10 +1052,11 @@ def get_uid(uname):
 username=admin@qq.com&sort_scope=in_limit_topic&arg=教育类&all=False'''
 
 def get_sort(uid,fe):
+    result = {}
     try:
         u_bci = es.get(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE, id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
         #u_bci = es.get(index='user_portrait_1222', doc_type='user', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
-        print u_bci,BCI_INDEX_NAME,BCI_INDEX_TYPE
+        result['in_score'] = u_bci
     except:
         return None
     query_body={
@@ -1071,10 +1072,33 @@ def get_sort(uid,fe):
             }
         }
     }
-    result = es.search(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE,body=query_body)
+    result['in_top'] = es.search(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE,body=query_body)['hits']['total']
+
+
+    try:
+        u_bci = es.get(index='copy_bci_history', doc_type='bci', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
+        #u_bci = es.get(index='user_portrait_1222', doc_type='user', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
+        print u_bci
+    except:
+        return None
+    query_body={
+        'query':{
+            'filtered':{
+                'filter':{
+                    'bool':{
+                        'must':[
+                            {'range':{'bci_week_ave':{'gte':u_bci}}}]
+                    }
+                }
+            }
+        }
+    }
+    result['all_top'] = es.search(index='copy_bci_history', doc_type='bci',body=query_body)['hits']['total']
+
+    
     #result = es.search(index='user_portrait_1222', doc_type='user',body=query_body)
     # return json.dumps([result['hits']['total'],u_bci])
-    return str(result['hits']['total'])
+    return json.dumps(result)
 if __name__=='__main__':
     #test group task
     input_data = {}
