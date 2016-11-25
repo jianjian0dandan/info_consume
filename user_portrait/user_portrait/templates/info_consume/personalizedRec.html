@@ -70,12 +70,9 @@
             color: black;
 
         }
-
-
-
-
-
-
+        a {
+            margin-top: 0!important；
+        }
 
 </style>
 
@@ -93,11 +90,6 @@
             overflow-y: auto;
             height: 395px;
         }
-
-
-
-
-
 
 </style>
 <!--button的样式-->
@@ -119,8 +111,8 @@
 
         li {
             list-style: none;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            /*padding-top: 10px;
+            padding-bottom: 10px;*/
         }
 
         .button, .button:visited {
@@ -217,12 +209,17 @@
         .yellow.button:hover {
             background-color: #fc9200;
         }
-
-
-
-
-
-
+        @media screen and (max-width: 1285px){
+            #qugao {
+                min-width: 540px!important;
+            }
+            #quren {
+                min-width: 762px!important;
+            }
+            #personInfo {
+                min-width: 750px!important;
+            }
+        }
 </style>
 <style type="text/css">
         .rec-show{
@@ -250,19 +247,13 @@
                 success: callback
             });
         }
-
-
-
-
-
-
 </script>
 {% endblock %}
 
 {% block main %}
 <!--感兴趣的广告-->
-<div class="panel panel-success"
-     style="width:60%;height:500px;margin-left:20%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+<div class="panel panel-success" id="qugao"
+     style="width:60%;margin:0 auto;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
     <div class="panel-heading">
         <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">感兴趣的广告</h3>
     </div>
@@ -277,9 +268,9 @@
                      style="overflow-x: hidden; width: 90%; float:left; margin-left:5%; display: block;">
                     <div id="ads_recommendation_result" style="float:left;width:100%;"></div>
                     <div id="pageGro" class="cb"
-                         style="display:none;float:left;width:100%;margin-left:-5px;margin-top:5px;line-height:23px;">
-                        <span class="pageUp" style="float:left;">上一页</span>
-                        <span class="pageList" style="float:left;">
+                         style="display:none;float:left;width:95%;margin-top:15px;text-align:center;">
+                        <span class="pageUp" style="display:inline-block;">上一页</span>
+                        <span class="pageList" style="display:inline-block;position:relative;top:5px;">
                             <ul>
                                 <li>1</li>
                                 <li>2</li>
@@ -288,7 +279,7 @@
                                 <li>5</li>
                             </ul>
                         </span>
-                        <span class="pageDown" style="margin-left:20px;cursor:pointer;">下一页</span>
+                        <span class="pageDown" style="display:inline-block;margin-left:35px;cursor:pointer;">下一页</span>
                     </div>
                 </div>
             </div>
@@ -298,8 +289,8 @@
 </div>
 
 <!--可能感兴趣的人-->
-<div class="panel panel-success"
-     style="width:60%;height:500px;margin-left:20%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+<div class="panel panel-success" id="quren"
+     style="width:60%;margin:30px auto;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
     <div class="panel-heading" style="height: 40px">
         <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">感兴趣的博主</h3>
     </div>
@@ -310,13 +301,13 @@
 
     <div id="person-panel-body"
          class="panel-body"
-         style="height:100%;display:none">
-        <div id="personInfo" style="height:82%">
-            <div id="rec1" class="rec-show" style="margin-top:20px; margin-left:7%">
-                <div style="height:60px;margin-top:20px" align="center">
+         style="display:none">
+        <div id="personInfo" style="width:100%;text-align:center;">
+            <div id="rec1" class="rec-show" style="height:370px;margin-top:20px; margin-left:7%;padding:5px;">
+                <div align="center">
                     <img src="" id="userphoto1" width="75" height="75">
                 </div>
-                <ul style="padding: 2px; margin-left: 5px;margin-right: 5px; margin-top:5px">
+                <ul style="padding: 5px; word-break: break-all;">
                     <li style="padding-top:15px;padding-bottom:5px">
                         <span style="font-weight:bold;float:left">昵称：</span>
                         <span id="username1"></span>
@@ -330,17 +321,17 @@
                         <span id="usertopic1"></span>
                     </li>
                 </ul>
-                <div style="bottom:12px;position:absolute;left:30%">
+                <div style="position:absolute;bottom:10px;width:96%;text-align:center;">
                     <a href="" id="userhome1">
                         <button class="small button blue">我的主页</button>
                     </a>
                 </div>
             </div>
-            <div id="rec2" class="rec-show" style="margin-top:20px; margin-left:7%">
-                <div style="height:60px;margin-top:20px" align="center">
+            <div id="rec2" class="rec-show" style="height:370px;margin-top:20px; margin-left:7%;padding:5px;">
+                <div align="center">
                     <img src="" id="userphoto2" width="75" height="75">
                 </div>
-                <ul style="padding: 2px; margin-left: 5px;margin-right: 5px; margin-top:5px">
+                <ul style="padding: 5px; word-break: break-all;">
                     <li style="padding-top:15px;padding-bottom:5px">
                         <span style="font-weight:bold;float:left">昵称：</span>
                         <span id="username2"></span>
@@ -354,17 +345,17 @@
                         <span id="usertopic2"></span>
                     </li>
                 </ul>
-                <div style="bottom:12px;position:absolute;left:30%">
+                <div style="position:absolute;bottom:10px;width:96%;text-align:center;">
                     <a href="" id="userhome2">
                         <button class="small button blue">我的主页</button>
                     </a>
                 </div>
             </div>
-            <div id="rec3" class="rec-show" style="margin-top:20px; margin-left:7%">
-                <div style="height:60px;margin-top:20px" align="center">
+            <div id="rec3" class="rec-show" style="height:370px;margin-top:20px; margin-left:7%;padding:5px;">
+                <div align="center">
                     <img src="" id="userphoto3" width="75" height="75">
                 </div>
-                <ul style="padding: 2px; margin-left: 5px;margin-right: 5px; margin-top:5px">
+                <ul style="padding: 5px; word-break:break-all;">
                     <li style="padding-top:15px;padding-bottom:5px">
                         <span style="font-weight:bold;float:left">昵称：</span>
                         <span id="username3"></span>
@@ -378,7 +369,7 @@
                         <span id="usertopic3"></span>
                     </li>
                 </ul>
-                <div style="bottom:12px;position:absolute;left:30%">
+                <div style="position:absolute;bottom:10px;width:96%;text-align:center;">
                     <a href="" id="userhome3">
                         <button class="small button blue">我的主页</button>
                     </a>
@@ -388,7 +379,7 @@
 
             <button id="switch-others"
                     class="large button green"
-                    style="width:10%;margin-top: 5px;margin-left:45%"
+                    style="margin: 30px 0;"
                     onclick="">
                 换一批
             </button>

@@ -111,7 +111,7 @@ Influence.prototype = {
       allInflu_data[j] = data[j];  
     };
 
-    var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>"
+    var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>"
 
     html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + data[i].uid + "'>"+data[rank].uname+"</a></td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
     //全局变量赋值
@@ -154,7 +154,7 @@ Influence.prototype = {
       };
     };
 
-    var html_table = "<thead><tr><th>序号</th><th>头像</th><th>昵称</th><th>影响力</th></tr></thead>";
+    var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>";
 
     //console.log('dr'+domain_rank);
     html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+userBci+"</td></tr>";
@@ -295,6 +295,8 @@ function getNowFormatDate() {
     return currentdate;
 }
 
+
+
 var uid = 1640601392;
 var username = 'admin@qq.com';
 //var username = admin@qq.com;
@@ -313,12 +315,19 @@ influence_load();
 var influ_all_table_url= '/influence_sort/user_sort/?username=admin@qq.com&sort_scope=all_nolimit&all=True';
   Influence.call_ajax_request(influ_all_table_url, Influence.ajax_method, Influence.influence_Table_all);
 
-var keyword = '教育类';
-var sort_scope = 'in_limit_topic';
-var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
-  Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
-var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid;
-  Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
+function transfer1(kind) {
+    y_kind1=kind;
+    var sort_scope = 'in_limit_topic';
+    var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+y_kind1+'&all=False';
+    Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
+}
+
+function transfer2(kind) {
+    y_kind2=kind;
+    var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid+'&field='+y_kind2;
+    Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
+}
+
 
 
 // var influSkill_url = '/influence_application/specified_user_active/?date='+currentdate+'&uid='+uid;

@@ -222,10 +222,10 @@ function page_ads_weibo(start_row, end_row, data, sub_div_name) {
         var weibo_url = data[i]["weibo_url"];
         //date = new Date(parseInt(timestamp)*1000).format("yyyy-MM-dd hh:mm:ss");
         if (i % 2 == 0) {
-            html += '<div style="float:left;padding:5px;width: 100%;background:whitesmoke;">';
+            html += '<div style="float:left;padding:15px;width: 100%;background:whitesmoke;">';
         }
         else {
-            html += '<div style="float:left;padding:5px;width: 100%;">';
+            html += '<div style="float:left;padding:15px;width: 100%;">';
         }
         if (geo == null) {
             geo = '未知';
@@ -235,8 +235,8 @@ function page_ads_weibo(start_row, end_row, data, sub_div_name) {
         //}
         html += '<a href =' + weibo_url +'><font color=black>' + text + '</font></a>';
         //html += '<p style="margin-left:10px;">'+s+'、昵称：<a target="_blank" href="/index/personal/?uid=' + uid + '">' + Pname + '</a>&nbsp;&nbsp;发布:<font color=black>' + text + '</font></p>';
-        html += '<p style="float:left;width:100%;margin-top:-5px;margin-left:10px;">';
-        html += '<span style="float:left;margin-left: 60%;"><u>' + date + '</u>';
+        html += '<p style="text-align:right;width:95%;margin:10px;">';
+        html += '<span"><u>' + date + '</u>';
         html += '</p>';
         html += '</div>';
 
