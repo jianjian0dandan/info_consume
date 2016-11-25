@@ -405,23 +405,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('transmit'));
         option = {
         title : {
-        //text: '转发关系网络',
+        text: '点击边可以获取对应的微博内容哦~',
         // subtext: '圈圈的大小表示转发的次数哟',
-        x:'right',
-        y:'bottom'
+        x:'center',
+        y:'top'
    	  	},
         tooltip : {
             trigger: 'item',
             formatter: '{b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -605,22 +605,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
         title : {
-        //text: '提及关系网络',
-        x:'right',
-        y:'bottom'
+            text: '点击边可以获取对应的微博内容哦~',
+            // subtext: '圈圈的大小表示转发的次数哟',
+            x:'center',
+            y:'top'
    		},
         tooltip : {
             trigger: 'item',
             formatter: '{b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -799,22 +800,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
         title : {
-        //text: '评论关系网络',
-        x:'right',
-        y:'bottom'
+        text: '点击边可以获取对应的微博内容哦~',
+        // subtext: '圈圈的大小表示转发的次数哟',
+        x:'center',
+        y:'top'
    		},
         tooltip : {
             trigger: 'item',
             formatter: ' {b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -985,22 +987,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('interaction'));
         option = {
         title : {
-        //text: '交互关系网络',
-        x:'right',
-        y:'bottom'
+            text: '点击边可以获取对应的微博内容哦~',
+            // subtext: '圈圈的大小表示转发的次数哟',
+            x:'center',
+            y:'top'
    		},
         tooltip : {
             trigger: 'item',
             formatter: '{b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -1111,16 +1114,6 @@ my_friend.prototype =
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	},
 
-    // wangluo:function(data) {
-    //     var shuju =eval(data);
-    //     //console.log(shuju);
-    //     $("#hua p").remove();
-    //     for (var i=0;i<data.length;i++) {
-    //         $("#hua").append("<p class='huaone'>"+":"+shuju[i].ori_text[0]+"</p>");
-    //         $("#hua").append("<p class='huatwo'>"+":"+shuju[i].last_text[0]+"</p>");
-    //     }
-    //     $("#hua").slideDown(50);
-    // }
 };
 
 var my_friend=new my_friend();

@@ -1,6 +1,6 @@
 {% extends 'info_consume/daohang_public.html' %}
 
-{% block part_name %}我的地盘{% endblock %}
+{% block part_name %}我的管家{% endblock %}
 {% block css %}
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
@@ -85,9 +85,6 @@
     width: 45%;
    }
    @media screen and (min-width: 750px)  and (max-width: 1224px) {
-    .lingyu {
-      margin-left: 5%!important;
-    }
     .dongtai {
       width: 100%;
     }
@@ -334,7 +331,7 @@
             </div>
             <div style="height:40px;width:100%;">
               <div class="influ_table_title" style="margin-left:170px;">全网用户排行</div>
-              <div class="influ_table_title lingyu" style="margin-left:25%;"><span id="domainSort"></span>领域排行</div>
+              <div class="influ_table_title lingyu" style="margin-left:22%;"><span id="domainSort"></span>领域排行</div>
             </div>  
             <!-- 领域排名-全网 -->
             <div style="float:none;"> 
@@ -450,7 +447,7 @@
 
 
 
- 
+
 
 <script src="/static/info_consume/js/bootstrap-table.js"></script>
 <script src="/static/info_consume/js/bootstrap-table-zh-CN.min.js"></script>
@@ -459,10 +456,11 @@
 
   <!--End js-->
 {% block Own_js %}
+
 <script type="text/javascript" src="/static/info_consume/js/person_detail_show.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/language.js"></script> 
-<script type="text/javascript" src="/static/info_consume/js/preference.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/influence.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/preference.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/map.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/thought.js"></script>
