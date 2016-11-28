@@ -39,7 +39,7 @@ function drawPerson(personChoose){
         document.getElementById("usertopic"+i).innerHTML = person["topic"]
         document.getElementById("userhome"+i).href= "http://weibo.com/u/"+person["id"]
     }
-    console.log(personChoose)
+    //console.log(personChoose)
 }
 
 function randomChoose(personInfoData, k){

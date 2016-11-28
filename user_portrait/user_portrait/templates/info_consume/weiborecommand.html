@@ -24,6 +24,9 @@
 
 
 <style type="text/css">
+ #menu li a {
+    font-weight: 700;
+  }
 /* tab*/
 	body {
 	
@@ -68,7 +71,7 @@
 	border-radius: 4px;
 	font-weight: bold;
 	font-size: 18px;
-		
+	background-color: #56c1db;
 	}
 	/*鼠标放在上面*/
 	#container #title #tag1 a:hover {
@@ -107,7 +110,7 @@
 	display: block;
 	width: 130px;
 	height:35px;
-	background-color: #00BD8E;	
+	background-color: #56c1db;	
 	border-radius: 4px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	}
 	#container #title a .selectspan1 {
@@ -120,7 +123,7 @@
 	display: block;
 	width: 130px;
 	height:35px;
-	background-color: #00BD8E;	
+	background-color: #56c1db;	
 	border-radius: 4px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	
 	}
@@ -133,6 +136,7 @@
 	#container #content {
 	height: 530px;
 	padding: 10px;
+	border: 3px solid #56c1db;
 	}
 	.hidecontent {display:none;}
 /* search*/
@@ -219,18 +223,18 @@
 }
 .webdesigntuts-workshop button {
 	
-	background: linear-gradient(#ccc, #ccc);
+	background: #56c1db;
 	
 	font-weight: bold;
 	border: 1px solid #ccc;
 	border-left-color: #ccc;
 	border-radius: 0 5px 5px 0;
 	/*box-shadow: 0 2px 0 #4cae4c;*/
-	color: #000;
-	
+	color: #fff;
+	font-weight: 700;
 	float: left;
 	font-family: 'Cabin', helvetica, arial, sans-serif;
-	font-size: 13px;	
+	font-size: 14px;	
 	height: 40px;
 	width: 80px;
 }
@@ -559,8 +563,8 @@
   			<li><a href="/index/myzone" style="margin-top: 0px;font-size: 20px;width: 100px;">我的地盘</a>
 
   				<ul style="margin-left:0px;">
-  					<li><a href="/index/home" >形象画板</a></li>
-  					<li><a href="/index/myzone" >我的管家</a></li>
+  					<li style="margin-top:0px;"><a href="/index/home" >形象画板</a></li>
+  					<li style="margin-top:0px;"><a href="/index/myzone" >我的管家</a></li>
   				</ul>
   			</li> 				  
   			
@@ -569,8 +573,8 @@
 
         <li><a href="/index/boot_test" style="margin-top: 0px;font-size: 20px;width: 100px;">圈子推荐</a>
           <ul style="margin-left:0px;">
-            <li><a href="/index/boot_test">圈子探索</a></li>
-            <li><a href="/index/circle_test">圈子追踪</a></li>           
+            <li style="margin-top:0px;"><a href="/index/boot_test">圈子探索</a></li>
+            <li style="margin-top:0px;"><a href="/index/circle_test">圈子追踪</a></li>           
           </ul>
         </li>
 
@@ -611,8 +615,8 @@
 			    <!--版面1的左半部分-->	
 			    <div style="float:left;margin-left:100px;">
 					<img src="/static/info_consume/image/baoman.png" width="200px" height="200px" style="float:left ;margin-top:20%;margin-left:20px;">
-					<p style="margin-left:15%;margin-top:50px;font-size:x-large;font-weight: bold;color:#06D995;">世界辣么大</p>
-					<p style="margin-left:30%;margin-top:20%;font-size:x-large;font-weight: bold;color:#06D995;">我想去看看</p>
+					<p style="margin-left:15%;margin-top:50px;font-size:x-large;font-weight: bold;color:#56c1db;">世界辣么大</p>
+					<p style="margin-left:30%;margin-top:20%;font-size:x-large;font-weight: bold;color:#56c1db;">我想去看看</p>
 			    </div>
 
 				<div id="content1"> 
@@ -624,7 +628,7 @@
 						    <form action="" method="" style="margin-left:150px;">		    
 							<input id="keyword" type="search" onkeydown="if(event.keyCode==13){entersearch1()}"  placeholder="输入你感兴趣的关键词">	
 
-							<button type="button" onclick="tishikuang2()">搜索</button>
+							<button type="button" onclick="tishikuang2()">搜&nbsp;&nbsp;&nbsp;&nbsp;索</button>
 
 
 						    </form>
@@ -695,7 +699,7 @@
 					  	<div id="keyword_recommend1" style="line-height: 30px;float: left;width:400px;margin-left: 80px;">
 					    	<p style="float:left;text-align: center;margin-left:50px;margin-right:50px">你可能感兴趣</p>
 					   </div>
-					   <div id="button1" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#4CAE4C;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
+					   <div id="button1" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#56c1db;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
 
 						<p style="margin-top: -8px;font-size:14px;font-weight:900;padding: 0 5px 5px;">请输入您感兴趣的关键词</p>
 						</div>
@@ -729,7 +733,7 @@
 				      		<div id="keyword_recommend2" style="line-height: 30px;width:400px;margin-left: 80px;float: left;">
 					    		<p style="float:left;text-align: center;margin-left:50px;margin-right:50px">你可能感兴趣</p>
 					    	</div>
-					    	<div id="button2" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#4CAE4C;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
+					    	<div id="button2" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#56c1db;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
 
 					      	<p style="margin-top: -8px;font-size:14px;font-weight:900;padding: 0 5px 5px;">请输入您感兴趣的关键词</p>
 					     </div>
@@ -760,7 +764,7 @@
 				      		<div id="keyword_recommend3" style="line-height: 30px;float:left;width:400px;margin-left: 80px;">
 					    		<p style="float:left;text-align: center;margin-left:50px;margin-right:50px">你可能感兴趣</p>
 					    	</div>
-					    	 <div id="button3" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#4CAE4C;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
+					    	 <div id="button3" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#56c1db;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
 
 							<p style="margin-top: -8px;font-size:14px;font-weight:900;padding: 0 5px 5px;">请输入您感兴趣的关键词</p>
 						   </div>
@@ -794,7 +798,7 @@
 				      		<div id="keyword_recommend4" style="line-height: 30px;float:left;width:400px;margin-left: 80px;">
 					    		<p style="float:left;text-align: center;margin-left:50px;margin-right:50px">你可能感兴趣</p>
 					    	</div>
-				      		<div id="button4" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#4CAE4C;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
+				      		<div id="button4" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#56c1db;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
 					      	<p style="margin-top: -8px;font-size:14px;font-weight:900;padding: 0 5px 5px;">请输入您感兴趣的关键词</p>
 					        </div>
 
@@ -825,7 +829,7 @@
 				      		<div id="keyword_recommend5" style="line-height: 30px;float:left;width:400px;margin-left: 80px;">
 					    		<p style="float:left;text-align: center;margin-left:50px;margin-right:50px">你可能感兴趣</p>
 					    	</div>
-					    	<div id="button5" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#4CAE4C;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
+					    	<div id="button5" class="button button-3d button-action button-pill" data-toggle="modal" data-target="#myModal" style="background-color:#56c1db;height:25px; margin-left:10%;margin-bottom:20px;box-shadow:none;">
 					      	<p style="margin-top: -8px;font-size:14px;font-weight:900;padding: 0 5px 5px;">请输入您感兴趣的关键词</p>
 					       </div>
 
@@ -835,7 +839,7 @@
 			</div>
 			<style type="text/css">
 				#button1:hover,#button2:hover,#button3:hover,#button4:hover,#button5:hover {
-					background-color: #06D995!important;
+					background-color: #065ad9!important;
 				}
 			</style>
 
@@ -882,10 +886,10 @@
 
 </div>
 
-		<footer>
+		<!-- <footer>
 		  <p style="color: #fff; line-height: 24px; background:#ccc;margin-top:5%;margin-bottom:3%;">网民画像系统 Design by Rcsc 京ICP 1234567</p>
 		</footer>
-		
+		 -->
 
 </body>
 </html>

@@ -364,8 +364,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           item[i]._source.photo_url='../../static/info_consume/image/photo_unknown.png'
         }
         if (item[i]._source.uname=='未知'){
-          item[i]._source.uname='未知用户'
-        
+          item[i]._source.uname=item[i]._source.uid;
         }
         var item_timestamp_datetime = new Date(parseInt(item[i]._source.timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         html += '<div class="blog_time">';
