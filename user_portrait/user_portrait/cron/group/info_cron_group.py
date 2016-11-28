@@ -1083,7 +1083,7 @@ def get_attr_evaluate_trend(uid_list):
                 body={'ids':uid_list})['docs']
     except:
         es_user_result = []
-    #print '1086',es_user_result
+    print '1086!!',es_user_result
     for user_dict_item in es_user_result:
         if user_dict_item['found'] == False:
             continue
@@ -1141,6 +1141,9 @@ def get_attr_evaluate_trend(uid_list):
                 body={'ids':uid_list}, _source=False, fields=['uname'])['docs']
     except:
         user_portrait_result = []
+    
+    print 'user_portrait_result!!!!!', user_portrait_result
+    
     for item in user_portrait_result:
         uid = item['_id']
         if item['found'] == False:
@@ -1148,6 +1151,7 @@ def get_attr_evaluate_trend(uid_list):
             #continue
         uname = item['fields']['uname'][0]
         uid2uname[uid] = uname
+    
     sort_activeness_dict = sorted(activeness_dict.items(), key=lambda x:x[0])
     main_max_activeness_dict = {}
     main_min_activeness_dict = {}
