@@ -136,10 +136,10 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
         weiboSource = weibo["_source"]
         uids.add(weiboSource["uid"])
         #  加上retweet和recomment的字段，适配非线上环境
-        if RUN_TYPE == 1:
-            for keytobeadded in ['retweeted','comment']:
-                if keytobeadded not in weiboSource.keys():
-                    weiboSource[keytobeadded] = 0
+        #  去掉RUN_TYPE限制，无论01都查找是否存在转发评论数
+        for keytobeadded in ['retweeted','comment']:
+            if keytobeadded not in weiboSource.keys():
+                weiboSource[keytobeadded] = 0
         weiboMap[weibo["_source"]["mid"]] = weiboSource
 
     # 获取待选微博的用户信息
