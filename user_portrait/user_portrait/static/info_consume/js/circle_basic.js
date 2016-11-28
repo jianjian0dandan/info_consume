@@ -1,6 +1,7 @@
      //近一个月圈子影响力走势;id=influen-line
    
     function Draw_influence_line(data){
+        // console.log(data);
     if(data.length==0){
  $('#influen-line').empty();
  var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>';
@@ -57,27 +58,27 @@
         },
         toolbox: {
             show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
+            // feature : {
+            //     mark : {show: true},
+            //     dataView : {show: true, readOnly: false},
+            //     magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            //     restore : {show: true},
+            //     saveAsImage : {show: true}
+            // }
         },
         calculable : true,
         xAxis : [
             {
-                type : 'category',
-                boundaryGap : false,
-                data : time_data
+                type : 'value',
+                scale: true,
+                name : '影响力分数'
             }
         ],
         yAxis : [
             {
                 type : 'value',
                 scale: true,
-                name : '影响力'
+                name : '人数'
             }
         ],
           series : [

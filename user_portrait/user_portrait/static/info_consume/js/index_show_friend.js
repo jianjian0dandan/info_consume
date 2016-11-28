@@ -36,7 +36,7 @@ viewinformation.prototype=
 function Draw_out(data,div){
     //console.log(div);
         $('#'+div).empty();
-    //console.log(data.length);
+    // console.log(data);
     if(data.length==0){
       var html='';
       html=html+'<p style="margin-left:4%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
@@ -50,8 +50,8 @@ function Draw_out(data,div){
         if(data[i].photo_url=='unknown'){
           data[i].photo_url = "http://tp2.sinaimg.cn/1878376757/50/0/1";
         }
-        if(data[i].uname=='unknown'){
-            data[i].uname = "未知";
+        if(data[i].uname=='未知'){
+            data[i].uname = data[i].uid;
         }
         var uname_show = data[i].uname;
         if (data[i].uname.length>4) {

@@ -654,7 +654,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
 				}
 				if (item[i][1].uname=='unknown'){
-					item[i][1].uname='未知用户'
+					item[i][1].uname=item[i][1].uid
 					//console.log(item[i][1].uname);
 				}
 				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
