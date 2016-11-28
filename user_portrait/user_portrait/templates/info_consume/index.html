@@ -9,10 +9,10 @@
   <style>
    body {
     /*background-color: #FCF8E3!important;*/
-    /*background-color: #e3fafc!important;*/
-    background: url(/static/info_consume/image/people.jpg) center top no-repeat,
+    background-color: #e3fafc!important;
+    /*background: url(/static/info_consume/image/people.jpg) center top no-repeat,
     url(/static/info_consume/image/nv.jpg) center bottom no-repeat;
-    background-size: 100% 50%,100% 51%!important;
+    background-size: 100% 50%,100% 51%!important;*/
    }
    .up_box {
     margin-left: 185px;
@@ -260,14 +260,14 @@
        </span>  
       <div class='wel_count'>   
             <ul style="top:35px;left:60px;">
-              <li><a id="weibo" href="#" target="_blank" style="font-weight:900;color:yellow;">微博<br><span style="font-size:14px; margin-left:-5px;font-weight:900;color:yellow;" id="weibosum"></span></a></li>
-              <li><a id="fans" href="#" target="_blank" style="font-weight:900;color:yellow;">粉丝<br><span style="font-size:14px; margin-left:-10px;font-weight:900;color:yellow;" id="fansum"></span></a></li>
-              <li><a id="focus" href="#" target="_blank" style="font-weight:900;color:yellow;">关注<br><span style="font-size:14px; margin-left:1px;font-weight:900;color:yellow;" id="attentionsum"></span></a></li>
+              <li><a id="weibo" href="#" target="_blank" style="font-weight:900;color:#1217ea;">微博<br><span style="font-size:14px; margin-left:-5px;font-weight:900;color:#1217ea;" id="weibosum"></span></a></li>
+              <li><a id="fans" href="#" target="_blank" style="font-weight:900;color:#1217ea;">粉丝<br><span style="font-size:14px; margin-left:-10px;font-weight:900;color:#1217ea;" id="fansum"></span></a></li>
+              <li><a id="focus" href="#" target="_blank" style="font-weight:900;color:#1217ea;">关注<br><span style="font-size:14px; margin-left:1px;font-weight:900;color:#1217e;" id="attentionsum"></span></a></li>
             </ul>
             <div class="r_box" style="width:0;height:0;margin:0;top:-15px;left:200px;">
 
       <div class="panel panel-success boxshadow weather" style="width: 210px !important;height:144px;margin:0;overflow:hidden;">
-        <div class="panel-heading" style="width: 40px;padding:31px 10px;">
+        <div class="panel-heading" style="color:#000;font-weight:600;width: 40px;padding:31px 10px;">
           贴心天气
         </div>
           <div style="margin:2px 15px;position: relative;top: -151px;left: 26px;width:152px;">
@@ -609,11 +609,11 @@ homepageinfo.prototype = {
     intimacy_rank:function(data)
     {
       var drawFriend = document.getElementById('draw_p3');
-        if(data[0].uname !=""){
+        if(data[0].uname !=="未知"){
             drawFriend.innerHTML = "亲密好友："+data[0].uname;
             //console.log(data[0].uname);
-        }else{
-            drawFriend.innerHTML = '亲密好友：未知';
+        }else if (data[0].uname ="未知") {
+            drawFriend.innerHTML = '亲密好友：'+data[0].uid;
         }
     },
     // 微博数据

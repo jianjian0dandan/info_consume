@@ -32,7 +32,7 @@ var uid = 1640601392;
 
 var url = "/attribute/adsRec/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.adsWeiBoData);
-console.log("运行微博数据");
+//console.log("运行微博数据");
 function DrawWeibo(data, div_name, sub_div_name) {
     page_num = 5;
     if (data.length < page_num) {
@@ -212,7 +212,6 @@ function page_ads_weibo(start_row, end_row, data, sub_div_name) {
         var uid = data[i]["uid"];
         var geo = data[i]["geo"];
         var text = data[i]["text"];
-
         //var retweet_count = data[i][7];
         //var comment_count = data[i][8];
         // var mingan_count = data[i][9];
