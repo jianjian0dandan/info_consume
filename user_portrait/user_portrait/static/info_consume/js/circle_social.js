@@ -49,7 +49,7 @@ var myChart = echarts.init(document.getElementById('out-retwwie'),'shine');
 var ecConfig = require('echarts/config');
 var option = {
     title:{
-      subtext:'节点数值代表用户影响力大小，边数值代表用户交互次数'
+      subtext:'节点数值代表用户影响力大小，边数值代表用户交互次数',
     },
     tooltip : {
         trigger: 'item',
@@ -94,6 +94,9 @@ var option = {
                     },
                     linkStyle: {
                         type: 'curve'
+                    },
+                    subtextStyle: {
+                        padding:[5,20,30,5]
                     }
                 },
                 emphasis: {
@@ -109,8 +112,8 @@ var option = {
             },
             useWorker: false,
             size:'80%',
-            minRadius : 25,
-            maxRadius : 35,
+            minRadius : 5,
+            maxRadius : 10,
             gravity: 1.5,
             scaling: 1.1,
             roam: 'move',
