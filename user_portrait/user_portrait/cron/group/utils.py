@@ -3,7 +3,7 @@ import sys
 import time
 import json
 import math
-from cron_group import get_attr_bci
+from new_cron_group import get_attr_bci
 reload(sys)
 sys.path.append('../../')
 from time_utils import ts2datetime, datetime2ts

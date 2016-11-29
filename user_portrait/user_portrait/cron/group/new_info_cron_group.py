@@ -22,7 +22,9 @@ from global_utils import es_user_portrait, portrait_index_name, portrait_index_t
                          be_comment_index_name_pre, be_comment_index_type ,\
                          es_flow_text, flow_text_index_name_pre, flow_text_index_type,\
                          es_copy_portrait, copy_portrait_index_name, copy_portrait_index_type,\
-                         es_user_profile, profile_index_name, profile_index_type
+                         es_user_profile, profile_index_name, profile_index_type,ES_COPY_USER_PORTRAIT,\
+                         COPY_USER_PORTRAIT_INFLUENCE,COPY_USER_PORTRAIT_INFLUENCE_TYPE,\
+                         COPY_USER_PORTRAIT_ACTIVENESS,COPY_USER_PORTRAIT_ACTIVENESS_TYPE
 
 from global_utils import R_DICT as r_dict
 from global_utils import R_CLUSTER_FLOW2 as r_cluster
@@ -43,6 +45,7 @@ from time_utils import ts2datetime, datetime2ts, datetimestr2ts
 
 r_begin_ts = datetime2ts(R_BEGIN_TIME)
 USER_IN_PATH = '/home/ubuntu2/jiangln/info_consume/user_portrait/user_portrait/cron/text_attribute'
+
 
 #use to merge dict list
 #input: dict_list
@@ -96,8 +99,8 @@ def get_index_rank(index_value, index_name):
     if index_rank['_shards']['successful'] != 0:
        result = index_rank['count']
     else:
-        #print 'es index rank error'
-        results = 0
+        print 'es index rank error'
+        result = 0
     return result
 
 
@@ -118,13 +121,14 @@ def get_attr_portrait(uid_list):
     character_dict = {'character_sentiment':{}, 'character_text':{}}
     activity_geo_distribution_date = dict() # {'date1':{geo1:person_count, geo2:person_count}, 'date2':{geo1:person_count,..}, ..} # one month
     activity_geo_vary = dict() # {'geo2geo': count, ...}  geo2geo='activity_geo1&activity_geo2'
+    main_start_geo = dict()
+    main_end_geo = dict()
+    vary_detail_geo = dict()
     importance_list = []
     influence_list = []
     activeness_list = []
     sentiment_dict_list = []
     tag_dict = {}
-    #jln filter
-    f_keywords_dict = {}
     #get now date to iter activity geo
     #run_type
     if RUN_TYPE == 1:
@@ -142,10 +146,9 @@ def get_attr_portrait(uid_list):
                 body={'ids':iter_uid_list})['docs']
         except:
             iter_user_dict_list = []
-        #pdb.set_trace()
+
         for user_dict in iter_user_dict_list:
-            if user_dict['found'] == False:
-                continue
+            uid = user_dict['_id']
             source = user_dict['_source']
             #attr1: gender ratio:
             gender = source['gender']
@@ -181,18 +184,6 @@ def get_attr_portrait(uid_list):
                     topic_ratio[topic] += 1
                 except:
                     topic_ratio[topic] = 1
-
-            #add   filter keyword
-            try:
-                f_dict = json.loads(source['filter_keywords'])
-                for k,v in f_dict.iteritems():
-                    try:
-                        f_keywords_dict[k] += v
-                    except:
-                        f_keywords_dict[k] = v
-            except:
-                pass
-
             #attr6: keywords_string
             keywords_string = source['keywords_string']
             keywords_list = keywords_string.split('&')
@@ -227,21 +218,40 @@ def get_attr_portrait(uid_list):
                 if date_item != {}:
                     main_date_city = sort_date_item[0][0]
                     try:
-                        last_user_date_main_item = user_date_main_list[-1]
+                        last_user_date_main_item = user_date_main_list[-1][0]
                     except:
                         last_user_date_main_item = ''
                     if main_date_city != last_user_date_main_item:
-                        user_date_main_list.append(main_date_city)
+                        user_date_main_list.append([main_date_city, iter_ts])
 
                 iter_ts += DAY
             #attr8: activity_geo_dict---location vary
             if len(user_date_main_list) > 1:
                 for i in range(1, len(user_date_main_list)):
-                    vary_item = '&'.join(user_date_main_list[i-1:i+1])
+                    vary_city = [geo_ts_item[0] for geo_ts_item in user_date_main_list[i-1:i+1]]
+                    vary_ts = [geo_ts_item[1] for geo_ts_item in user_date_main_list[i-1:i+1]]
+                    vary_item = '&'.join(vary_city)
+                    #vary_item = '&'.join(user_date_main_list[i-1:i+1])
+                    #get activity geo vary for vary table and map
                     try:
                         activity_geo_vary[vary_item] += 1
                     except:
                         activity_geo_vary[vary_item] = 1
+                    #get main start geo
+                    try:
+                        main_start_geo[vary_city[0]] += 1
+                    except:
+                        main_start_geo[vary_city[0]] = 1
+                    #get main end geo
+                    try:
+                        main_end_geo[vary_city[1]] += 1
+                    except:
+                        main_end_geo[vary_city[1]] = 1
+                    #get vary detail geo
+                    try:
+                        vary_detail_geo[vary_item].append([uid, vary_ts[0], vary_ts[1]])
+                    except:
+                        vary_detail_geo[vary_item] = [[uid, vary_ts[0], vary_ts[1]]]
             
             #attr9: influence distribution
             influence = source['influence']
@@ -286,7 +296,6 @@ def get_attr_portrait(uid_list):
     p, t = np.histogram(activeness_list, bins=HIS_BINS_COUNT ,normed=False)
     results['activeness_his'] = json.dumps([p.tolist(), [int(item) for item in t.tolist()]])
     # ave activeness rank
-    #print activeness_list
     ave_activeness_rank = float(sum(activeness_list)) / len(activeness_list)
     try:
         all_user_count = es_user_portrait.count(index=portrait_index_name, doc_type=portrait_index_type,\
@@ -343,6 +352,9 @@ def get_attr_portrait(uid_list):
     results['topic'] = json.dumps(sort_topic_ratio)
     results['activity_geo_distribution'] = json.dumps(activity_geo_distribution_date)
     results['activity_geo_vary'] = json.dumps(activity_geo_vary)
+    results['main_start_geo'] = json.dumps(main_start_geo)
+    results['main_end_geo'] = json.dumps(main_end_geo)
+    results['vary_detail_geo'] = json.dumps(vary_detail_geo)
     #main activity geo
     all_activity_geo = union_dict_list(activity_geo_distribution_date.values())
     sort_all_activity_geo = sorted(all_activity_geo.items(), key=lambda x:x[1], reverse=True)
@@ -354,10 +366,6 @@ def get_attr_portrait(uid_list):
     #tag vector---main hashtag
     sort_hashtag_dict = sorted(hashtag_ratio.items(), key=lambda x:x[1], reverse=True)[:GROUP_HASHTAG_COUNT]
     results['hashtag'] = json.dumps(sort_hashtag_dict)
-
-    sort_f_keyword_dict = sorted(f_keywords_dict.items(), key=lambda x:x[1], reverse=True)[:GROUP_HASHTAG_COUNT]
-    results['filter_keyword'] = json.dumps(sort_f_keyword_dict)
-
     if len(sort_hashtag_dict) != 0:
         tag_vector_result['hashtag'] = [u'hashtag', sort_hashtag_dict[0][0]]
     else:
@@ -566,11 +574,13 @@ def get_attr_social(uid_list, uid2uname):
         retweet_dict = {} #{uid1: {ruid1:count1, ruid2:count2}, uid2:{},...}
         for item in retweet_result:
             uid = item['_id']
+            #tesit for error es
             try:
                 if item['found'] == True:
                     retweet_dict[uid] = json.loads(item['_source']['uid_retweet'])
             except:
                 pass
+
         #step4:mget comment
         try:
             comment_result = es_comment.mget(index=comment_index_name, doc_type=comment_index_type, \
@@ -580,11 +590,8 @@ def get_attr_social(uid_list, uid2uname):
         comment_dict = {} #{uid1:{ruid1:count1, ruid2:count2},...}
         for item in comment_result:
             uid = item['_id']
-            try:
-                if item['found'] == True:
-                    comment_dict[uid] = json.loads(item['_source']['uid_comment'])
-            except:
-                pass
+            if item['found'] == True:
+                comment_dict[uid] = json.loads(item['_source']['uid_comment'])
         #step5:mget be_retweet
         try:
             be_retweet_result = es_comment.mget(index=be_retweet_index_name, doc_type=be_retweet_index_type, \
@@ -594,6 +601,7 @@ def get_attr_social(uid_list, uid2uname):
         be_retweet_dict = dict() #{uid1: {uid_be_retweet dict}, uid2:{},...}
         for item in be_retweet_result:
             uid = item['_id']
+            #test for error es
             try:
                 if item['found'] == True:
                     be_retweet_dict[uid] = json.loads(item['_source']['uid_be_retweet'])
@@ -608,6 +616,7 @@ def get_attr_social(uid_list, uid2uname):
         be_comment_dict = dict() #{uid1:{uid_be_comment dict}, uid2:{},...}
         for item in be_comment_result:
             uid = item['_id']
+            #test for error es
             try:
                 if item['found'] == True:
                     be_comment_dict[uid] = json.loads(item['_source']['uid_be_comment'])
@@ -793,6 +802,7 @@ def get_influence_user(uid_list):
         be_retweet_result = []
     be_retweet_dict_list = []
     for item in be_retweet_result:
+        #test for error es
         try:
             if item['found'] == True:
                 be_retweet_dict_list.append(json.loads(item['_source']['uid_be_retweet']))
@@ -806,6 +816,7 @@ def get_influence_user(uid_list):
         be_comment_result = []
     be_comment_dict_list = []
     for item in be_comment_result:
+        #test for error es
         try:
             if item['found'] == True:
                 be_comment_dict_list.append(json.loads(item['_source']['uid_be_comment']))
@@ -883,14 +894,17 @@ def get_influence_user(uid_list):
                                 fields=['nick_name', 'statusnum', 'friendsnum', 'fansnum'])['docs']
         except:
             profile_result = []
+        #print 'profile_result::::',profile_result
         for profile_item in profile_result:
+            #print 'profile_item:::',profile_item
+            #yuanhuiru try:profile_item
             try:
                 if profile_item['found'] == True:
                     out_friendsnum_list.append(profile_item['fields']['friendsnum'][0])
                     out_statusnum_list.append(profile_item['fields']['statusnum'][0])
                     out_fansnum_list.append(profile_item['fields']['fansnum'][0])
             except:
-                pass
+                continue
         iter_count += GROUP_ITER_COUNT
     #step6: get out user friendsnum/statusnum/fansnum his
     p, t = np.histogram(out_friendsnum_list, bins=HIS_BINS_COUNT, normed=False)
@@ -1071,6 +1085,27 @@ def get_attr_trend(uid_list):
     return result
 
 
+
+# write in version: 16-03-27
+def get_evaluate_ts_dict(history_dict, evaluate_index):
+    ts_evaluate_dict = {} # {ts1: {uid1:index1, uid2:index2,..},...}
+    for user_history_item in history_dict:
+        uid = user_history_item['_id']
+        if user_history_item['found'] == True:
+            source = user_history_item['_source']
+            for item in source:
+                item_list = item.split('_')
+                if len(item_list) == 2 and item_list[0]==evaluate_index:
+                    evaluate_ts = int(item_list[1])
+                    if evaluate_ts in ts_evaluate_dict:
+                        ts_evaluate_dict[evaluate_ts][uid] = source[item]
+                    else:
+                        ts_evaluate_dict[evaluate_ts] = {uid: source[item]}
+                        #print 'ts_evaluate_dict!!!!!',ts_evaluate_dict
+    #print 'ts_evaluate_dict?????',ts_evaluate_dict
+    return ts_evaluate_dict
+
+
 #use to get user evaluate index trend
 #input: uid_list
 #output: evaluate_index_trend
@@ -1078,15 +1113,33 @@ def get_attr_evaluate_trend(uid_list):
     results = {}
     activeness_dict = {} # {ts1:{uid:index, uid:index}, ts2:{}, ts3:{},...}
     influence_dict = {} # {ts1:{uid:index, uid:index}, ts2:{}, ...}
+    #old for abandon
     try:
         es_user_result = es_copy_portrait.mget(index=copy_portrait_index_name, doc_type=copy_portrait_index_type, \
                 body={'ids':uid_list})['docs']
     except:
         es_user_result = []
-    print '1086!!',es_user_result
+    #new for new activeness history
+    try:
+        activeness_history = ES_COPY_USER_PORTRAIT.mget(index=COPY_USER_PORTRAIT_ACTIVENESS,\
+                doc_type=COPY_USER_PORTRAIT_ACTIVENESS_TYPE, body={'ids':uid_list})['docs']
+    except:
+        activeness_history = []
+    #new for new influence trend
+    try:
+        influence_history = ES_COPY_USER_PORTRAIT.mget(index=COPY_USER_PORTRAIT_INFLUENCE,\
+                doc_type=COPY_USER_PORTRAIT_INFLUENCE_TYPE, body={'ids':uid_list})['docs']
+    except:
+        influence_history = []
+    #new for get activeness_dict
+    print 'uid_list!!!!:::::',uid_list
+    print 'es',ES_COPY_USER_PORTRAIT,COPY_USER_PORTRAIT_INFLUENCE,COPY_USER_PORTRAIT_INFLUENCE_TYPE
+    print 'activeness_history::::',activeness_history
+    activeness_dict = get_evaluate_ts_dict(activeness_history, 'activeness')
+    #new for get influence dict
+    influence_dict = get_evaluate_ts_dict(influence_history, 'bci')
+    '''
     for user_dict_item in es_user_result:
-        if user_dict_item['found'] == False:
-            continue
         uid = user_dict_item['_id']
         user_dict = user_dict_item['_source']
         for index_key in user_dict:
@@ -1114,7 +1167,6 @@ def get_attr_evaluate_trend(uid_list):
             #get user influence index
             if len(index_key_list)==1 and index_key != 'uid' and '-' not in index_key:
                 date = index_key # 20130907
-                
                 ts = datetimestr2ts(date)
                 
                 #normal influence key
@@ -1129,7 +1181,7 @@ def get_attr_evaluate_trend(uid_list):
                     influence_dict[ts][uid] = normal_influence_index
                 else:
                     influence_dict[ts] = {uid: normal_influence_index}
-
+    '''
     #get activeness trend--ave_value/min_value/max_value
     activeness_time_list = []
     ave_list = []
@@ -1143,19 +1195,16 @@ def get_attr_evaluate_trend(uid_list):
     except:
         user_portrait_result = []
     
-    print 'user_portrait_result!!!!!', user_portrait_result
+    #print 'user_portrait_result!!!!!!~~~',user_portrait_result
     
     for item in user_portrait_result:
         uid = item['_id']
-        if item['found'] == False:
-            uname = uid
-            #continue
         uname = item['fields']['uname'][0]
         uid2uname[uid] = uname
-    
     sort_activeness_dict = sorted(activeness_dict.items(), key=lambda x:x[0])
     main_max_activeness_dict = {}
     main_min_activeness_dict = {}
+    print 'sort_activeness_dict:::::',sort_activeness_dict
     for ts_item in sort_activeness_dict:
         timestamp = ts_item[0]
         ts_index_dict = ts_item[1]
@@ -1163,28 +1212,46 @@ def get_attr_evaluate_trend(uid_list):
         ave_value = float(sum(ts_index_dict.values())) / len(ts_index_dict)
         sort_ts_index = sorted(ts_index_dict.items(), key=lambda x:x[1], reverse=True)
         ave_list.append(ave_value)
+        print '@@@@@@sort_ts_index',sort_ts_index
+        print '@@@@@@len(sort_ts_index)',len(sort_ts_index)
         #get max/min uid-uname
-        max_uname = uid2uname[sort_ts_index[0][0]]
-        min_uname = uid2uname[sort_ts_index[-1][0]]
-        max_list.append([sort_ts_index[0][0], sort_ts_index[0][1], max_uname])
-        min_list.append([sort_ts_index[-1][0], sort_ts_index[-1][1], min_uname])
-        #get main max uid-uname
-        max_uid_uname = sort_ts_index[0][0] + '&' + max_uname
-        try:
-            main_max_activeness_dict[max_uid_uname] += 1
-        except:
-            main_max_activeness_dict[max_uid_uname] = 1
-        #get main min uid-uname
-        min_uid_uname = sort_ts_index[-1][0] + '&' + min_uname
-        try:
-            main_min_activeness_dict[min_uid_uname] += 1
-        except:
-            main_min_activeness_dict[min_uid_uname] = 1
-    
-    sort_main_max_activeness = sorted(main_max_activeness_dict.items(), key=lambda x:x[1], reverse=True)
-    sort_main_min_activeness = sorted(main_min_activeness_dict.items(), key=lambda x:x[1], reverse=True)
+        for i in range(0,len(sort_ts_index)):
+
+            max_uname = uid2uname[sort_ts_index[i][0]]
+            min_uname = uid2uname[sort_ts_index[-(i+1)][0]]
+            max_list.append([sort_ts_index[i][0], sort_ts_index[i][1], max_uname])
+            min_list.append([sort_ts_index[-(i+1)][0], sort_ts_index[-(i+1)][1], min_uname])
+            #get main max uid-uname
+            max_uid_uname = sort_ts_index[i][0] + '&' + max_uname
+            try:
+                main_max_activeness_dict[max_uid_uname] += 1
+            except:
+                main_max_activeness_dict[max_uid_uname] = 1
+            #get main min uid-uname
+            min_uid_uname = sort_ts_index[-(i+1)][0] + '&' + min_uname
+            try:
+                main_min_activeness_dict[min_uid_uname] += 1
+            except:
+                main_min_activeness_dict[min_uid_uname] = 1
+    print '?????main_max_activeness_dict',main_max_activeness_dict
+    print '?????main_min_activeness_dict',main_min_activeness_dict
+
+
+    sort_main_max_activeness = sorted(main_max_activeness_dict.items(), key=lambda x:x[1], reverse=True)[:5]
+    a = set([i[0] for i in sort_main_max_activeness])
+    #sort_main_min_activeness = sorted(main_min_activeness_dict.items(), key=lambda x:x[1], reverse=True)
+    final_sort_main_min_activeness = []
+    sort_main_min_activeness = sorted(main_min_activeness_dict.items(), key=lambda x:x[1], reverse=False)
+    for i in sort_main_min_activeness:
+        if i[0] in a:
+            continue
+        else:
+            final_sort_main_min_activeness.append(i)
+    print '!!!!!!sort_main_max_activeness',sort_main_max_activeness
+    print '!!!!!!!final_sort_main_min_activeness',final_sort_main_min_activeness
     results['activeness'] =json.dumps({'time_list':activeness_time_list, 'ave_list':ave_list, 'max_list':max_list,\
-            'min_list':min_list, 'main_max':sort_main_max_activeness[:5], 'main_min':sort_main_min_activeness[:5]})
+            'min_list':min_list, 'main_max':sort_main_max_activeness, 'main_min':final_sort_main_min_activeness[:5]})
+    
     #get influence trend--ave_value/min_value/max_value
     influence_time_list = []
     ave_list = []
@@ -1201,8 +1268,6 @@ def get_attr_evaluate_trend(uid_list):
         ave_list.append(ave_value)
         sort_ts_index = sorted(ts_index_dict.items(), key=lambda x:x[1], reverse=True)
         #get max/min uid-uname
-        print uid2uname
-        print 'sort_ts_index!!!',sort_ts_index
         max_uname = uid2uname[sort_ts_index[0][0]]
         min_uname = uid2uname[sort_ts_index[-1][0]]
         max_list.append([sort_ts_index[0][0], sort_ts_index[0][1], max_uname])
@@ -1225,6 +1290,7 @@ def get_attr_evaluate_trend(uid_list):
     results['influence'] = json.dumps({'time_list':influence_time_list, 'ave_list':ave_list, 'max_list':max_list,\
             'min_list':min_list, 'main_max':sort_main_max_influence[:5], 'main_min':sort_main_min_influence[:5]})
     
+    #print 'results!!!@@@@@@',results
     
     return results
 
@@ -1778,6 +1844,43 @@ def add_group_tag(submit_user, task_name, uid_list):
         es_user_portrait.bulk(bulk_action, index=portrait_index_name, doc_type=portrait_index_type)
 
 
+#user to get topic model results
+#version: 16-03-26
+#input: uid_list
+def get_attr_topic_model(uid_list):
+    weibo_list = []
+    results = []
+    #run_type
+    if RUN_TYPE == 1:
+        now_date = ts2datetime(int(time.time()))
+    else:
+        now_date = RUN_TEST_TIME
+    now_date_ts = datetime2ts(now_date)
+    #step1:get user weibo list
+    for i in range(7, 0, -1):
+        iter_date_ts = now_date_ts - i * DAY
+        iter_date = ts2datetime(iter_date_ts)
+        flow_text_index_name = flow_text_index_name_pre + iter_date
+        try:
+            weibo_exist = es_flow_text.search(index=flow_text_index_name, doc_type=flow_text_index_type,\
+                    body={'query':{'filtered':{'filter':{'terms':{'uid': uid_list}}}}, 'size': MAX_VALUE}, _source=False, fields=['text'])['hits']['hits']
+        except:
+            weibo_exist = []
+        for weibo_item in weibo_exist:
+            weibo_text = weibo_item['fields']['text'][0]
+            if isinstance(weibo_text, unicode):
+                weibo_text = weibo_text.encode('utf-8')
+            weibo_list.append(weibo_text)
+    #step2:use lda_main(texts, nt)
+    result_list = topic_lda_main(weibo_list, TOPIC_MODEL_COUNT)
+    #step3: get keywords
+    topic_result = []
+    for result_item in result_list:
+        result_item_list = result_item.split(' + ')
+        word_list = [result_string_item.split('*')[1] for result_string_item in result_item_list]
+        topic_result.append(word_list)
+    return topic_result
+
 #use to compute group task for multi-process
 #version: 16-02-27
 def compute_group_task_v2():
@@ -1786,10 +1889,11 @@ def compute_group_task_v2():
         task = r.rpop(group_analysis_queue_name)
         #test
         #r.lpush(group_analysis_queue_name, task)
+        
         if not task:
             break
         else:
-            print task
+            print 'task!!!!!!',task
 
             results = dict()
             task = json.loads(task)
@@ -1856,11 +1960,12 @@ def compute_group_task_v2():
             #step8: update compute status to completed
             results['status'] = 1
             #step9: save results
-            print save_group_results(results)
+            save_group_results(results)
             #step10: add group tag
             add_group_tag(results['submit_user'], task_name, uid_list)
             #test
             #break
+
 
 def in_uid_list(uid_list):
     uid2uname = {}
@@ -1882,9 +1987,10 @@ def in_uid_list(uid_list):
     #step1: get attr from es_user_portrait--basic/activity_geo/online_pattern/evaluate_index_his/preference/psycho_ratio
     uid_list = uid2uname.keys() #identify the uid is in user_portrait
     return uid_list,uid2uname
+
 #test compute group task
 #input: NULL
-#output: 
+#output:  
 def compute_group_task():
     results = dict()
     task = json.loads(TASK)
@@ -1893,6 +1999,7 @@ def compute_group_task():
     submit_date = task['submit_date']  #submit_date = timestamp
     results['task_type'] = task['task_type']
     results['count'] = len(uid_list)
+    results['task_id'] = task['task_id']
     #get uid2uname dict for other module using
     uid2uname = {}
     try:
@@ -1902,19 +2009,16 @@ def compute_group_task():
         portrait_result = []
     for item in portrait_result:
         uid = item['_id']
-        try:
-            if item['found'] == True:
-                uname = item['fields']['uname'][0]
-                uid2uname[uid] = uname
-        except:
-            pass
+        if item['found'] == True:
+            uname = item['fields']['uname'][0]
+            uid2uname[uid] = uname
     #step1: get attr from es_user_portrait--basic/activity_geo/online_pattern/evaluate_index_his/preference/psycho_ratio
     uid_list = uid2uname.keys()
     attr_in_portrait, tag_vector_result = get_attr_portrait(uid_list)
     results['task_name'] = task_name
     results['uid_list'] = uid_list
     results['submit_date'] = submit_date
-    results['state'] = task['state']
+    results['state'] = task['status']
     results['submit_user'] = task['submit_user']
     results = dict(results, **attr_in_portrait)
     #step2: get attr from social es----es_retweet&es_comment
@@ -1937,12 +2041,16 @@ def compute_group_task():
     user_sentiment_words = get_attr_sentiment_word(uid_list)
     results = dict(results, **user_sentiment_words)
     results['tag_vector'] = json.dumps(tag_vector_result)
+    #step8: get user topic model
+    user_topic_results = get_attr_topic_model(uid_list)
+    results['topic_model'] = json.dumps(user_topic_results)
     #step8: update compute status to completed
     results['status'] = 1
     #step9: save results
     save_group_results(results)
     #print 'results:', results
     return results
+
 
 
 # identify uid to in user_portrait
@@ -1972,6 +2080,7 @@ def new_identify_in(data, date, submit_user):
 
 
 
+
 if __name__=='__main__':
     log_time_ts = time.time()
     log_time_date = ts2datetime(log_time_ts)
@@ -1987,17 +2096,29 @@ if __name__=='__main__':
     #test
     '''
     input_data = {}
-    input_data['task_name'] = u'媒体'
+    input_data['task_name'] = u'媒体2'
     
     input_data['uid_list'] = ['2803301701', '1292808363', '2656274875', '2062994093', '1663937380', \
                               '2651176564', '1999472465', '1855514017', '2127460165', '1887790981', '1639498782', \
                               '1402977920', '1414148492', '3114175427', '2105426467']
+    #topic_model_result = get_attr_topic_model(input_data['uid_list'])
+    #result, tag_vector = get_attr_portrait(input_data['uid_list'])
+    #print 'activity geo vary:',len(json.loads(result['activity_geo_vary']))
+    #print 'main start geo:', result['main_start_geo']
+    #print 'main end geo:', result['main_end_geo']
+    #print 'geo detail vary:', len(json.loads(result['vary_detail_geo']))
+    
     input_data['submit_date'] = datetime2ts('2013-09-08')
     input_data['state'] = u'关注的媒体'
     input_data['submit_user'] = 'admin'
     input_data['task_type'] = 'analysis'
+    input_data['task_id'] = 'admin-媒体2'
     TASK = json.dumps(input_data)
+    #result = get_attr_evaluate_trend(input_data['uid_list'])
     result = compute_group_task()
     #result = get_attr_sentiment_trend(input_data['uid_list'])
-    #print 'result sentiment_trend', result
+    #print 'result activity_geo_detail', result['vary_detail_geo']
+    #print 'result main start geo:', result['main_start_geo']
+    #print 'result main end geo:', result['main_end_geo']
+    #print 'result topic model:', result['topic_model']
     '''

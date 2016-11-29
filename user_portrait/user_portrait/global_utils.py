@@ -169,8 +169,9 @@ comment_index_type = 'user'
 be_comment_index_name_pre = '1225_be_comment_'
 be_comment_index_type = 'user'
 # es for activeness history, influence history and pagerank
-copy_portrait_index_name = 'user_portrait_1222'#'this_is_a_copy_user_portrait'
-copy_portrait_index_type = 'manage'
+#copy_portrait_index_name = 'user_portrait_1222'#'this_is_a_copy_user_portrait'
+copy_portrait_index_name = 'this_is_a_copy_user_portrait'
+copy_portrait_index_type = 'user'
 # es for group detect and analysis
 group_index_name = 'group_manage'
 group_index_type = 'group'
