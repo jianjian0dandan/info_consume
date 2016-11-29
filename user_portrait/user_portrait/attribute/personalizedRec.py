@@ -129,8 +129,21 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
     adsPreferList = []
     weiboMap = dict()
     ads_midsPrefered = dict()
+    # 微博用户的个人信息
+    uids = set()
+    user_info_dict = dict()
     for weibo in weibo_all:
-        weiboMap[weibo["_source"]["mid"]] = weibo["_source"]
+        weiboSource = weibo["_source"]
+        uids.add(weiboSource["uid"])
+        #  加上retweet和recomment的字段，适配非线上环境
+        #  去掉RUN_TYPE限制，无论01都查找是否存在转发评论数
+        for keytobeadded in ['retweeted','comment']:
+            if keytobeadded not in weiboSource.keys():
+                weiboSource[keytobeadded] = 0
+        weiboMap[weibo["_source"]["mid"]] = weiboSource
+
+    # 获取待选微博的用户信息
+    weibo_user_profiles = search_user_profile_by_user_ids(uids)
 
     clf = adsClassify()
     ads_midWordsMap = clf.adsPredict(weibo_all)
@@ -146,6 +159,13 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
         mid = midInfo[0]
         uid = weiboMap[mid]["uid"]
         weiboMap[mid]["weibo_url"] = weiboinfo2url(uid, mid)
+        # 可能出现许多userprofile查不到的情况
+        if uid in weibo_user_profiles:
+            weiboMap[mid]["photo_url"] = weibo_user_profiles[uid]["photo_url"]
+            weiboMap[mid]["nick_name"] = weibo_user_profiles[uid]["nick_name"]
+        else:
+            weiboMap[mid]["photo_url"] = "None"
+            weiboMap[mid]["nick_name"] = "None"
         adsPreferList.append(weiboMap[midInfo[0]])
         # 输出相关度值和微博，测试用
         # print midInfo[1], weiboMap[mid]["text"]

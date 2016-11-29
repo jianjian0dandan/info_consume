@@ -173,3 +173,8 @@ retweet_index_name_pre = '1225_retweet_' # retweet: 'retweet_1' or 'retweet_2'
 retweet_index_type = 'user'
 profile_index_name = 'weibo_user'  # user profile es
 profile_index_type = 'user'
+
+
+#yangshi video data
+VIDEO_PATH='/home/ubuntu2/jiangln/info_consume/user_portrait/user_portrait/info_consume/weibo_hashtag/'
+video_file = '2015-04-30---fixed.json'
