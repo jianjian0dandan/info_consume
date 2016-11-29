@@ -83,6 +83,7 @@ def ajax_show_group_result_basic():
     submit_user = request.args.get('submit_user', 'admin')
     module = request.args.get('module', 'basic')
     results = search_group_results(task_name, module, submit_user)
+    print 'json.dumps(results)!!!!!',json.dumps(results)
     return json.dumps(results)
 
 # show the group weibo result

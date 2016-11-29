@@ -1,5 +1,5 @@
      //近一个月圈子影响力走势;id=influen-line
-   
+ /*  
     function Draw_influence_line(data){
         // console.log(data);
     if(data.length==0){
@@ -103,6 +103,89 @@
        myChart.setOption(option);
 }
 }
+*/
+
+function Draw_influence_line(data){
+    //console.log(data);
+    var influ_his = data['influence_his'];
+    var mychart1 = echarts.init(document.getElementById('influen-line'));
+    var y_axi = influ_his[0];
+    var x_axi = influ_his[1];
+    var xdata = [];
+    var ydata = [];
+    var count_sum = 0;
+    for (var i =0; i < y_axi.length;i++){
+        count_sum += y_axi[i];
+        if(y_axi[i]!=0){
+            xdata.push(influ_his[1][i] + '-' + influ_his[1][i+1]);
+            ydata.push(influ_his[0][i]);
+        }
+    }
+    /*
+    for (i = 0; i< data[1].length-1; i++){
+        xdata.push(data[1][i] + '-' + data[1][i+1]);
+    };
+    */
+    var option = {
+    tooltip : {
+        trigger: 'axis',
+        formatter: "{a}<br/>{b} : {c}"
+    },
+    toolbox: {
+        show : false,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    /*
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            //scale: true,
+            name : '影响力分布',
+            data : ydata
+        }
+    ],
+    */
+
+     xAxis : [
+        {
+            name:'影响力分数',
+            type : 'category',
+            data : xdata
+        }
+    ],
+    yAxis : [
+        {
+            name:'人数',
+            type : 'value'
+        }
+    ],
+
+    series : [
+        {
+            name:'影响力分布',
+            type:'bar',
+            data:ydata
+        }
+    ]
+    };
+    mychart1.setOption(option);
+}
+
+
+
 
  function Draw_identi_distri(data){
  	//console.log(data)
