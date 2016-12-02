@@ -2,6 +2,7 @@
       
       function Draw_activity_line(data){
     //活跃非活跃用户
+    console.log(data)
     var main_active = data.main_max;
     var main_unactive = data.main_min;
     Draw_active_table(main_active, 'activi-users');

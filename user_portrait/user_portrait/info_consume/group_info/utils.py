@@ -524,7 +524,7 @@ def search_group_results(task_name, module, submit_user):
         result['main_end_geo'] = sorted(main_end_geo_dict.items(), key=lambda x:x[1], reverse=True)
         #all_geo_list = list(set(main_start_geo_dict.keys()) | set(main_end_geo_dict.keys()))
         #result['geo_lat_lng'] = get_lat_lng(all_geo_list)
-        #print result
+        print 'result!!!!!!',result
     elif module == 'preference':
         try:
             result['keywords'] = json.loads(source['filter_keyword'])
