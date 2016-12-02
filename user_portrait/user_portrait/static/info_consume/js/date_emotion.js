@@ -199,47 +199,47 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		            name:'积极',
 		            type:'line',
 		            data:y_item_pos,
-		            
+
 		        },
 		        {
 		            name:'中立',
 		            type:'line',
 		            data:y_item_neu,
-		            
+
 		        },
 		        {
 		            name:'生气',
 		            type:'line',
 		            data:y_item_angry,
-		            
+
 		        },
 		        {
 		            name:'焦虑',
 		            type:'line',
 		            data:y_item_anxiety,
-		            
+
 		        },
 		      	{
 		            name:'悲伤',
 		            type:'line',
 		            data:y_item_sad,
-		        
+
 		        },
 		        {
 		            name:'厌恶',
 		            type:'line',
 		            data:y_item_hate,
-		        
+
 		        },
 		      	{
 		            name:'消极其他',
 		            type:'line',
 		            data:y_item_otherneg,
-		        
+
 		        }
 	        ]
 	    };
-		myChart.setOption(option);     
+		myChart.setOption(option);
 
   },
 
@@ -618,7 +618,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		var rank_html = '';
 		rank_html += '<table id="table" style="table-layout:fixed">';
         for(var k=0;k<Math.min(15,item_item_rank.length);k++){
-			
+
 			rank_html += '<tr>';	
 			rank_html += '<td class="td" align="center" style="width:80px;height:32px;">'+(k+1)+'</td>';
 			rank_html += '<td class="autocut" align="center" style="width:80px;height:32px;overflow:hidden;text-overflow:ellipsis;word-break:keep-all">'+item_item_rank[k].name+'</td>';
@@ -654,7 +654,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					item[i][1].photo_url='../../static/info_consume/image/photo_unknown.png'
 				}
 				if (item[i][1].uname=='unknown'){
-					item[i][1].uname='未知用户'
+					item[i][1].uname=item[i][1].uid
 					//console.log(item[i][1].uname);
 				}
 				var item_timestamp_datetime = new Date(parseInt(item[i][1].timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
@@ -675,7 +675,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
 				html += '<span style="display:inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span style="margin-top: -3%;display:inline-block;margin-left: 33%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
+				html += '<span id="oule" style="margin-top: -3%;display:inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
 				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
 				html += '<span style="margin-top: -3%;display:inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
@@ -719,7 +719,7 @@ function Draw_emotion_trend_line_result(){
     end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
 	url = "/topic_sen_analyze/sen_time_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_trend_line);
 }
 
@@ -733,7 +733,7 @@ function Draw_emotion_map_result(){
   	end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
     url = "/topic_sen_analyze/sen_province_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_emotion_map);
 }
 
@@ -745,7 +745,7 @@ function Draw_blog_scan_area_emotion_result(){
     end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
 
     url = "/topic_sen_analyze/sen_weibo_content/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&sort_item='+sort_item_emotion+'&sen='+sen;
- 	console.log(url);
+ 	//console.log(url);
  	topic_analysis_emotion.call_sync_ajax_request(url,topic_analysis_emotion.Draw_blog_scan_area_emotion);
 }		
 

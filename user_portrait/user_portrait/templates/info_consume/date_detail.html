@@ -93,11 +93,11 @@
 	 		<script type="text/javascript">
 	 			var topic_name_on_detail = "{{en_name}}";
 	 			var topic_name_on_detail_ch = "{{topic_name}}";
-	 			console.log(topic_name_on_detail);
+	 			//console.log(topic_name_on_detail);
  	 			var html = '';
 	 			html += '<p class="topic_text">#'+topic_name_on_detail_ch+'#</p>';
 	 			$('#myTabContent').append(html);
-	 			
+
 	 		</script>
 		    
 		    <p class="topic_time">日期:</p>
@@ -136,12 +136,12 @@
 
 				</div>
 				<script type="text/javascript">
-					
+
 						
 				    $(function () {
 				        $('#datetimepicker9').datetimepicker();
 				        $('#datetimepicker10').datetimepicker();
-				  
+
 
 				        //改变日期的时候设置限制
 				        $("#datetimepicker9").on("dp.change",function (e) {
@@ -226,7 +226,7 @@
 <!-- 情绪 -->
 <div class="tab-pane fade" id="emotion">
 	{% include "info_consume/date_emotion.html"%}
-	
+
 </div>
 
 

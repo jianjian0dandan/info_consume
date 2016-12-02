@@ -55,13 +55,17 @@ preference.prototype=
     }
 
     $('#domainSort').append(topdomain);
-    
+
+      transfer1(topdomain);
+      transfer2(topdomain);
+
+    //console.log(chuanlei());
     document.getElementById('topdomain').innerHTML = topdomain + "达人";
     //获取数量数组中的最大值；
     var maxvalue=Math.max.apply(null, num);
     //console.log(maxvalue);
     //console.log(num);
-//console.log(show_domain);
+    //console.log(show_domain);
     var myChart = echarts.init(document.getElementById('domain'));
             option = {              
               tooltip : {
@@ -127,8 +131,5 @@ function show_domain()
  // console.log(url);
   preference.call_sync_ajax_request(url,preference.domain);
 }
-
-
 show_domain();
 
-console.log("加载偏好");

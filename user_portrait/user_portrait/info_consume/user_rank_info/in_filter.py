@@ -109,6 +109,7 @@ def es_search( pre , scope , arg , index_name , type_name  , time , ischange = F
     if sort_field:
         sort = [{ sort_field : { "order": "desc" } }]
     print sort   
+    print must
     if not key_search:
         query = {
             "query": {
@@ -139,12 +140,14 @@ def es_search( pre , scope , arg , index_name , type_name  , time , ischange = F
             "size" : number
         }      
     # print 'its me '
-    # print es,index_name,type_name,number
-    # print query
-
+    print es,index_name,type_name,number
+    print query
+    print 'ssssssssssssssssss'
     result = es.search(index = index_name , doc_type = type_name , body = query)['hits']['hits']
+    print len(result)
     uid_list = []
     for item in result :
         uid_list.append(item['_id'])
+        #print item['_id']
     return uid_list
 

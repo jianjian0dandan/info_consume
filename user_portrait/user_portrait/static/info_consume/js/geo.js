@@ -14,7 +14,6 @@ show_geo.prototype = {
   },
 
   geoData: function(data){
-    console.log(data);
        var geo_data=[]
        var index_mode;
       for (var key in data){
@@ -25,13 +24,13 @@ show_geo.prototype = {
           index_mode = 2; //month
           var province_data={};
           var cityValue = data.all_top[0][1];
-          console.log(data.all_top[0][1]+"---"+data.all_top[0][0]);
+          //console.log(data.all_top[0][1]+"---"+data.all_top[0][0]);
           var cityName=data.all_top[0][0].split("\t");
-          console.log("l--"+cityName[2]);
+          //console.log("l--"+cityName[2]);
           province_data['name']=cityName[2];
           province_data['value']= cityValue;
           geo_data.push(province_data);
-          console.log("geo"+geo_data);
+          //console.log("geo"+geo_data);
         }else{
           index_mode = 3;  //day
         }
@@ -41,11 +40,11 @@ show_geo.prototype = {
 
 
        require(
-       [  
+       [
               'echarts',
               'zrender'
-          ],  
-      function(ec){ 
+          ],
+      function(ec){
       var myChart = echarts.init(document.getElementById('act_map'),'shine');
       var ecConfig = require('echarts/config');
       var zrEvent = require('zrender/tool/event');
@@ -53,13 +52,13 @@ show_geo.prototype = {
       var mapType = [
           'china',
           // 23个省
-          '广东', '青海', '四川', '海南', '陕西', 
+          '广东', '青海', '四川', '海南', '陕西',
           '甘肃', '云南', '湖南', '湖北', '黑龙江',
           '贵州', '山东', '江西', '河南', '河北',
-          '山西', '安徽', '福建', '浙江', '江苏', 
+          '山西', '安徽', '福建', '浙江', '江苏',
           '吉林', '辽宁', '台湾',
           // 5个自治区
-          '新疆', '广西', '宁夏', '内蒙古', '西藏', 
+          '新疆', '广西', '宁夏', '内蒙古', '西藏',
           // 4个直辖市
           '北京', '天津', '上海', '重庆',
           // 2个特别行政区
@@ -98,8 +97,8 @@ show_geo.prototype = {
               data:geo_data
           }
       ]
-  };         
-           
+  };
+
         myChart.setOption(option);
   })
 }
@@ -132,10 +131,8 @@ function click_action_geo(){
         var geo_url = '/attribute/location/?uid='+uid+'&time_type=day';
         show_geo.call_sync_ajax_request(geo_url, show_geo.ajax_method, show_geo.geoData); 
       }
-          console.log("geo_url"+geo_url);
+          //console.log("geo_url"+geo_url);
 
     });
 
 }
-
-console.log("加载地图");

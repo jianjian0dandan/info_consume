@@ -6,7 +6,7 @@
   <title>{% block title %}微世界{% endblock %}</title>   
   <style type="text/css">
   body { font-family:"Microsoft Yahei";
-  	background-color:#F2F4F8; }	
+    background-color:#F2F4F8; } 
   @font-face{
     font-family: 'zzgf';
     src:url('/static/info_consume/fonts/zaozigongfang.otf');
@@ -23,7 +23,11 @@
 
 <!-- 引入js -->
  {% block head_js%}
-
+<style type="text/css">
+  #menu li a {
+    font-weight: 700;
+  }
+</style>
  
 
  {% endblock %}
@@ -32,21 +36,21 @@
 
 <body>
   <!--top nav-->
-  {% block header %}	
-  <div class="topnav">	 
-  	 <a href="#home"><img src="../../static/info_consume/image/title.png"></a>		
-  		<ul id="menu" style="margin-left:50%;width:530px;">
+  {% block header %}  
+  <div class="topnav">   
+     <a href="#home"><img src="../../static/info_consume/image/title.png"></a>    
+      <ul id="menu" style="margin-left:50%;width:530px;">
 
-  			<li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
+        <li><a href="/index/home" style="margin-top: 15px;font-size: 20px;width: 100px;">我的地盘</a>
 
-  				<ul style="margin-left:0px;">
-  					<li><a href="/index/home" >形象画板</a></li>
-  					<li><a href="/index/myzone" >我的管家</a></li>
-  				</ul>
-  			</li> 				  
-  			
+          <ul style="margin-left:0px;">
+            <li><a href="/index/home" >形象画板</a></li>
+            <li><a href="/index/myzone" >我的管家</a></li>
+          </ul>
+        </li>           
+        
 
-  			<li><a href="/index/weiborecommand" style="margin-top: 15px;font-size: 20px;">微博那些事</a></li>
+        <li><a href="/index/weiborecommand" style="margin-top: 15px;font-size: 20px;">微博那些事</a></li>
 
         <li><a href="/index/boot_test" style="margin-top: 15px;font-size: 20px;width: 100px;">圈子推荐</a>
           <ul style="margin-left:0px;">
@@ -55,9 +59,9 @@
           </ul>
         </li>
 
-  			<li><a href="" style="margin-top: 15px;font-size: 20px;width: 100px;">商业推荐</a></li>
-        <li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 100px;">登出</a></li>
-  		</ul>
+        <li><a href="/index/personalizedRec" style="margin-top: 15px;font-size: 20px;width: 120px;">个性化推荐</a></li>
+        <li><a href="/logout" style="margin-top: 15px;font-size: 20px;width: 80px;">登出</a></li>
+      </ul>
   </div>
   
   {% endblock %}
@@ -76,12 +80,12 @@
 
   
     <!-- DIY js -->
-	{% block Own_js %}
+  {% block Own_js %}
 
 
 
-	{% endblock %}
-	<!-- end DIY -->
+  {% endblock %}
+  <!-- end DIY -->
 
 
   </body>

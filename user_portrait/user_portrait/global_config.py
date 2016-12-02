@@ -35,8 +35,10 @@ COMMENT_REDIS_PORT = '6379'
 
 
 #USER_ES_HOST = '219.224.135.97'
-ES_CLUSTER_HOST_FLOW1 = ["219.224.134.213", "219.224.134.211"]
-ES_COPY_USER_PORTAIT_HOST = ["219.224.134.213", "219.224.134.211"]
+#ES_CLUSTER_HOST_FLOW1 = ["219.224.134.213", "219.224.134.211"]
+#ES_COPY_USER_PORTAIT_HOST = ["219.224.134.213", "219.224.134.211"]
+ES_CLUSTER_HOST_FLOW1 = ["219.224.134.213"]
+ES_COPY_USER_PORTAIT_HOST = ["219.224.134.213"]
 ZMQ_VENT_PORT_FLOW1 = '6387'
 ZMQ_CTRL_VENT_PORT_FLOW1 = '5585'
 ZMQ_VENT_HOST_FLOW1 = '219.224.134.213'
@@ -156,7 +158,7 @@ topic_es = Elasticsearch(TOPIC_ES_HOST,timeout=1000)
 topic_index_name = 'topics'
 topic_index_type ='text'
 
-WEIBO_ES_HOST = '219.224.134.211:9204'
+WEIBO_ES_HOST = '219.224.134.216:9204'
 weibo_es = Elasticsearch(WEIBO_ES_HOST,timeout=1000)
 weibo_index_name = 'weibo'
 weibo_index_type ='text'
@@ -171,3 +173,8 @@ retweet_index_name_pre = '1225_retweet_' # retweet: 'retweet_1' or 'retweet_2'
 retweet_index_type = 'user'
 profile_index_name = 'weibo_user'  # user profile es
 profile_index_type = 'user'
+
+
+#yangshi video data
+VIDEO_PATH='/home/ubuntu2/jiangln/info_consume/user_portrait/user_portrait/info_consume/weibo_hashtag/'
+video_file = '2015-04-30---fixed.json'

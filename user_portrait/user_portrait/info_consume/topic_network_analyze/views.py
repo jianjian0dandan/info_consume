@@ -35,6 +35,7 @@ def GetGexf():
     raw_data = get_gexf(topic, date, windowsize)
     print type(raw_data),len(raw_data)
     results = gexf_process(raw_data)
+    print results
     return json.dumps(results)
 
 
@@ -108,4 +109,3 @@ def pusher_weibos_byhot():
     date = ts2datetime(end_ts)
     windowsize = (end_ts - start_ts) / Day # 确定时间跨度的大小
     results = get_pusher_weibos_byhot(topic, date, windowsize)
-    return json.dumps(results)

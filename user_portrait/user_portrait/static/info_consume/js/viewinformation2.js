@@ -191,7 +191,7 @@ viewinformation.prototype=
 		//被转发
 		follower:function(data)
 		{
-			console.log(data);
+			//console.log(data);
 			// console.log(typeof data);
 			Draw_out(data,'follower');
 			// Draw_out(data,'be_comment');
@@ -199,21 +199,21 @@ viewinformation.prototype=
 		},
 		attention:function(data)
 		{
-			console.log(data);
+			//console.log(data);
 			
 			Draw_out(data,'attention');
 			// $('#p_so_onload').css('display','none').siblings().css('display','block');	
 		},
 		comment:function(data)
 		{
-			console.log(data);
+			//console.log(data);
 			// console.log(typeof data);
 			Draw_out(data,'comment');
 			// $('#p_so_onload').css('display','none').siblings().css('display','block');	
 		},
 		be_comment:function(data)
 		{
-			console.log(data);
+			//console.log(data);
 			// console.log(typeof data);
 			Draw_out(data,'be_comment');
 			// $('#p_so_onload').css('display','none').siblings().css('display','block');	

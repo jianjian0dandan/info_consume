@@ -203,7 +203,14 @@ operation_index_type = 'operation'
 
 
 #use to load balck words of weibo keywords
-BLACK_WORDS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/text_attribute/black.txt'
+
+try:
+    import sys
+    sys.path.append("../../")
+    from user_portrait import zxy_params
+    BLACK_WORDS_PATH = zxy_params.BASE_DIR+"/user_portrait/user_portrait/cron/text_attribute/black.txt"
+except:
+    BLACK_WORDS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/text_attribute/black.txt'
 
 def load_black_words():
     black_words = set([line.strip('\r\n') for line in file(BLACK_WORDS_PATH)])

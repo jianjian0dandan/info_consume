@@ -7,7 +7,7 @@ function my_friend() {
 my_friend.prototype = 
  {
 
-	call_sync_ajax_request:function(url,method,callback) 
+	call_sync_ajax_request:function(url,method,callback)
 	{
 	  $.ajax({
 		url: url,
@@ -405,23 +405,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('transmit'));
         option = {
         title : {
-        //text: '转发关系网络',
+        text: '点击边可以获取对应的微博内容哦~',
         // subtext: '圈圈的大小表示转发的次数哟',
-        x:'right',
-        y:'bottom'
+        x:'center',
+        y:'top'
    	  	},
         tooltip : {
             trigger: 'item',
             formatter: '{b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -605,22 +605,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('mention'));
         option = {
         title : {
-        //text: '提及关系网络',
-        x:'right',
-        y:'bottom'
+            text: '点击边可以获取对应的微博内容哦~',
+            // subtext: '圈圈的大小表示转发的次数哟',
+            x:'center',
+            y:'top'
    		},
         tooltip : {
             trigger: 'item',
             formatter: '{b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -799,22 +800,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
         title : {
-        //text: '评论关系网络',
-        x:'right',
-        y:'bottom'
+        text: '点击边可以获取对应的微博内容哦~',
+        // subtext: '圈圈的大小表示转发的次数哟',
+        x:'center',
+        y:'top'
    		},
         tooltip : {
             trigger: 'item',
             formatter: ' {b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -985,22 +987,23 @@ my_friend.prototype =
         var myChart = echarts.init(document.getElementById('interaction'));
         option = {
         title : {
-        //text: '交互关系网络',
-        x:'right',
-        y:'bottom'
+            text: '点击边可以获取对应的微博内容哦~',
+            // subtext: '圈圈的大小表示转发的次数哟',
+            x:'center',
+            y:'top'
    		},
         tooltip : {
             trigger: 'item',
             formatter: '{b}'
         },
-        // toolbox: {
-        //     show : true,
-        //     feature : {
-        //         restore : {show: true},
-        //         magicType: {show: true, type: ['force', 'chord']},
-        //         saveAsImage : {show: true}
-        //     }
-        // },
+        toolbox: {
+            show : true,
+            // feature : {
+            //     restore : {show: true},
+            //     magicType: {show: true, type: ['force', 'chord']},
+            //     saveAsImage : {show: true}
+            // }
+        },
         legend: {
             x: '14%',
             data:['核心用户','好友']
@@ -1083,7 +1086,7 @@ my_friend.prototype =
                     $.each(node_value,function (index,item) {
                         if(item.name==data.source) {
                             yhm=item.label;
-                            //console.log(zyhum,yhm)
+                            //console.log(zyhum,yhm);
                         }
                     })
 
@@ -1096,7 +1099,7 @@ my_friend.prototype =
                         console.log(param.name);
                         var node_url='/index/viewinformation/?uid='+uid;
                         //console.log(uid)
-                        window.open(node_url);   
+                        window.open(node_url);
                       }else
                       {
                         alert("您点击的是自己哟~~~");
@@ -1111,16 +1114,6 @@ my_friend.prototype =
        $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 	},
 
-    // wangluo:function(data) {
-    //     var shuju =eval(data);
-    //     //console.log(shuju);
-    //     $("#hua p").remove();
-    //     for (var i=0;i<data.length;i++) {
-    //         $("#hua").append("<p class='huaone'>"+":"+shuju[i].ori_text[0]+"</p>");
-    //         $("#hua").append("<p class='huatwo'>"+":"+shuju[i].last_text[0]+"</p>");
-    //     }
-    //     $("#hua").slideDown(50);
-    // }
 };
 
 var my_friend=new my_friend();
@@ -1177,15 +1170,8 @@ $.each(oli,function (index,item) {
 });
 
 function get_hua(muid,use1,use2){
-    console.log(muid);
-    //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;
-    // $.each(oli,function (index,item) {
-    //     if ($(item).attr('class')=="one"){
-    //         url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;
-    //     }else {
-    //         url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;
-    //     }
-    // });
+    //console.log(muid);
+    //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;;
     var url = '/info_person_social/get_weibo/?uid=2912277317&root_uid=1694625035&mtype=3';
     //console.log(url);
     my_friend.call_sync_ajax_request(url, my_friend.ajax_method, function(data){wangluo(data,use1,use2)});

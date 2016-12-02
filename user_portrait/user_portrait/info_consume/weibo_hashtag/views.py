@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from flask import Blueprint,render_template,request
-from utils import weibo_get_uid_list,today_time
-import json
+from utils import weibo_get_uid_list,today_time,get_video
+import json,re,jieba
 from user_portrait.global_utils import R_CLUSTER_FLOW2 as r_cluster
 
 mod = Blueprint('weibo_hashtag',__name__,url_prefix='/weibo_hashtag')
@@ -33,3 +33,10 @@ def weibo_count():
     return json.dumps(hashtag_list)
 
 
+@mod.route('/video_recom/')
+def video_recom():
+    a = json.loads(weibo_count())
+    hot = [i[0] for i in a]
+    result = get_video(hot)
+
+    return json.dumps(result)

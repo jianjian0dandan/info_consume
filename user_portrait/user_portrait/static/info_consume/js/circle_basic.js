@@ -1,9 +1,10 @@
      //近一个月圈子影响力走势;id=influen-line
-   
+ /*  
     function Draw_influence_line(data){
+        // console.log(data);
     if(data.length==0){
  $('#influen-line').empty();
- var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>'; 
+ var html = '<div style="margin-left:300px;margin-top:180px;font-size:20px;">暂无数据</div>';
  $('#influen-line').append(html);
 }else{
       var data = data['influence_trend'];
@@ -57,27 +58,27 @@
         },
         toolbox: {
             show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
+            // feature : {
+            //     mark : {show: true},
+            //     dataView : {show: true, readOnly: false},
+            //     magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            //     restore : {show: true},
+            //     saveAsImage : {show: true}
+            // }
         },
         calculable : true,
         xAxis : [
             {
-                type : 'category',
-                boundaryGap : false,
-                data : time_data
+                type : 'value',
+                scale: true,
+                name : '影响力分数'
             }
         ],
         yAxis : [
             {
                 type : 'value',
                 scale: true,
-                name : '影响力'
+                name : '人数'
             }
         ],
           series : [
@@ -102,12 +103,95 @@
        myChart.setOption(option);
 }
 }
+*/
+
+function Draw_influence_line(data){
+    //console.log(data);
+    var influ_his = data['influence_his'];
+    var mychart1 = echarts.init(document.getElementById('influen-line'));
+    var y_axi = influ_his[0];
+    var x_axi = influ_his[1];
+    var xdata = [];
+    var ydata = [];
+    var count_sum = 0;
+    for (var i =0; i < y_axi.length;i++){
+        count_sum += y_axi[i];
+        if(y_axi[i]!=0){
+            xdata.push(influ_his[1][i] + '-' + influ_his[1][i+1]);
+            ydata.push(influ_his[0][i]);
+        }
+    }
+    /*
+    for (i = 0; i< data[1].length-1; i++){
+        xdata.push(data[1][i] + '-' + data[1][i+1]);
+    };
+    */
+    var option = {
+    tooltip : {
+        trigger: 'axis',
+        formatter: "{a}<br/>{b} : {c}"
+    },
+    toolbox: {
+        show : false,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    /*
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            //scale: true,
+            name : '影响力分布',
+            data : ydata
+        }
+    ],
+    */
+
+     xAxis : [
+        {
+            name:'影响力分数',
+            type : 'category',
+            data : xdata
+        }
+    ],
+    yAxis : [
+        {
+            name:'人数',
+            type : 'value'
+        }
+    ],
+
+    series : [
+        {
+            name:'影响力分布',
+            type:'bar',
+            data:ydata
+        }
+    ]
+    };
+    mychart1.setOption(option);
+}
+
+
+
 
  function Draw_identi_distri(data){
- 	console.log(data)
+ 	//console.log(data)
 if(data.length==0){
  $('#identi-distri').empty();
- var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+ var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>';
  $('#identi-distri').append(html);
 }else{
    data = data["domain"]
@@ -131,7 +215,7 @@ if(data.length==0){
     for(var j=0;j<domain_data.length;j++){
        	   legend_data.push(domain_data[j]["name"])
        }
-      
+
  var myChart = echarts.init(document.getElementById('identi-distri'),'shine');
       var option = {
     tooltip : {
@@ -192,10 +276,10 @@ if(data.length==0){
 }
 
  function Draw_area_distri(data){
- 	console.log(data)
+ 	//console.log(data)
     if(data.length==0){
  $('#area-distri').empty();
- var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>'; 
+ var html = '<div style="margin-left:150px;margin-top:90px;font-size:20px;">暂无数据</div>';
  $('#area-distri').append(html);
 }else{
 	data = data["topic"]
@@ -222,7 +306,7 @@ if(data.length==0){
     for(var j=0;j<domain_data.length;j++){
        	   legend_data.push(domain_data[j]["name"])
        }
-   
+
   //console.log(domain_data)
       var myChart = echarts.init(document.getElementById('area-distri'),'infographic');
       var option = {
@@ -282,8 +366,6 @@ if(data.length==0){
        myChart.setOption(option);
  }
 }
-
-
   function Draw_basic_page(data){
         Draw_area_distri(data);
         Draw_identi_distri(data);
@@ -296,6 +378,6 @@ function g_bas_load(g_name,s_user){
 
  call_sync_ajax_request(influence_url,'GET',Draw_influence_line);
  call_sync_ajax_request(basic_url,'GET',Draw_basic_page);
- console.log('basic_url:'+basic_url);
- console.log('influence_url:'+influence_url);
+ //console.log('basic_url:'+basic_url);
+ //console.log('influence_url:'+influence_url);
 }

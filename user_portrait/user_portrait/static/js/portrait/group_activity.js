@@ -616,7 +616,8 @@ function Draw_top_place(start,end){
 
 function draw_active_distribution(data){
     var xdata = [];
-
+    console.log(data)
+    console.log('1111111')
     for (i = 0; i< data[1].length-1; i++){
         xdata.push(data[1][i] + '-' + data[1][i+1])
     };
@@ -809,7 +810,7 @@ function group_activity(data){
 }
 
 function show_activity(data) {
-	//console.log(data);
+	console.log(data);
 	var time_data = [23,3,4,55,22,6]
     // console.log(runtype);
 	//微博走势，点击后显示微博
@@ -1327,7 +1328,7 @@ function Draw2Place(data,div){
 var user = $('#g_useremail').text();
 var group_activity_url = '/group/show_group_result/?module=activity&task_name=' + name+'&submit_user='+user;
 //var group_activity_url = '/group/show_group_result/?module=activity&task_name=mytest030303&submit_user=admin';
-//console.log(group_activity_url);
+console.log(group_activity_url);
 var global_moving_geo;
 function g_act_load(){
 call_sync_ajax_request(group_activity_url,ajax_method, show_activity);

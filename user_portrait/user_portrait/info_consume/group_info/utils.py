@@ -397,6 +397,7 @@ def show_vary_detail(task_name, submit_user, vary_pattern):
 #input: task_name, module
 #output: module_result
 def search_group_results(task_name, module, submit_user):
+    
     result = {}
     if RUN_TYPE == 0:
         #jln
@@ -444,6 +445,41 @@ def search_group_results(task_name, module, submit_user):
         result['activeness_his'] = json.loads(source['activeness_his'])
         result['activeness_description'] = source['activeness_description']
         result['online_pattern'] = json.loads(source['online_pattern'])
+        
+        #yuanhuiru
+        uid_list = source['uid_list']
+        
+        user_photo_result= es_user_portrait.mget(index='user_portrait_1222', doc_type='user', body={'ids':uid_list}, fields=['photo_url'])['docs']
+        influ_value_result= es_user_portrait.mget(index='user_portrait_1222', doc_type='user', body={'ids':uid_list}, fields=['influence'])['docs']
+        result['photo_url']=[]
+        result['influence']=[]
+        for item in user_photo_result:
+            #uid = item['_id']
+            if item['found']==True:
+            
+                source = item['fields']
+                photo_url = source['photo_url']
+            else:
+                photo_url = 'unknown'
+           
+            
+            result['photo_url'].append(photo_url)
+           
+        #print 'user_photo', result['photo_url']
+        
+        for item in influ_value_result:
+            #uid = item['_id']
+            if item['found']==True:
+                source = item['fields']
+                influence = source['influence']
+            else:
+                influence = 'unknown'
+
+            result['influence'].append(influence)
+
+        #print 'influence', result['influence']
+       
+
         new_geo = {}
         for uid,geos in result['activity_geo_disribution'].iteritems():
             for geo,count in geos.iteritems():
@@ -462,16 +498,14 @@ def search_group_results(task_name, module, submit_user):
                     except:
                         new_geo[geo[1]][geo[2]] = count
 
-                # try:
-                #     new_geo[geo] += count
-                # except:
-                #     new_geo[geo] = count
         result['new_geo'] = new_geo
         try:
             vary_detail_geo_dict = json.loads(source['vary_detail_geo'])
         except:
             vary_detail_geo_dict = {}
-        uid_list = source['uid_list']
+        
+        #uid_list = source['uid_list']
+        
         if vary_detail_geo_dict != {}:
             result['vary_detail_geo'] = get_vary_detail_info(vary_detail_geo_dict, uid_list)
         else:
@@ -490,6 +524,7 @@ def search_group_results(task_name, module, submit_user):
         result['main_end_geo'] = sorted(main_end_geo_dict.items(), key=lambda x:x[1], reverse=True)
         #all_geo_list = list(set(main_start_geo_dict.keys()) | set(main_end_geo_dict.keys()))
         #result['geo_lat_lng'] = get_lat_lng(all_geo_list)
+        print 'result!!!!!!',result
     elif module == 'preference':
         try:
             result['keywords'] = json.loads(source['filter_keyword'])

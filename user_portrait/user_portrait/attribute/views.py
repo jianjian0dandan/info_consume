@@ -28,6 +28,8 @@ from personal_influence import get_user_influence, influenced_detail, influenced
 from description import conclusion_on_influence
 from info_new_search import info_new_get_user_social
 
+from personalizedRec import adsRec,personRec
+
 # use to test 13-09-08
 test_time = datetime2ts(RUN_TEST_TIME)
 
@@ -788,3 +790,25 @@ def ajax_summary_influence():
     result = influence_summary(uid, date)
 
     return json.dumps(result)
+
+
+
+# 给用户推荐相应的判定为广告的微博
+@mod.route("/adsRec/")
+def ajax_adsRec():
+    uid = request.args.get('uid', '')
+    #sort_type = request.args.get('sort_type', 'timestamp')
+    results = adsRec(uid)
+    if results is None:
+        results = []
+    return json.dumps(results)
+
+
+# 推荐关注用户
+@mod.route("/personRec/")
+def ajax_personRec():
+    uid = request.args.get('uid','')
+    results = personRec(uid)
+    if results is None:
+        results = []
+    return json.dumps(results)

@@ -16,7 +16,7 @@ def index():
     return render_template('test.html')
 
 
-@mod.route('/login', methods=['GET','POST'])
+@mod.route('/login/', methods=['GET','POST'])
 def login():
     username = request.args.get('username','')
     password = request.args.get('password','')
@@ -26,6 +26,8 @@ def login():
 
     admin = r.hgetall('admin')
     keys = admin.keys()
+    print admin
+    print keys
     if username in set(keys):
         vertify_passwd = admin[username]
         if password == vertify_passwd:

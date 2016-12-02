@@ -364,8 +364,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
           item[i]._source.photo_url='../../static/info_consume/image/photo_unknown.png'
         }
         if (item[i]._source.uname=='未知'){
-          item[i]._source.uname='未知用户'
-        
+          item[i]._source.uname=item[i]._source.uid;
         }
         var item_timestamp_datetime = new Date(parseInt(item[i]._source.timestamp) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
         html += '<div class="blog_time">';
@@ -385,7 +384,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         //html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
         html += '<span style="display: inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
         //html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i]._source.retweeted+')&nbsp;|&nbsp;</span>';
-        html += '<span style="margin-top: -3%;display: inline-block;margin-left: 33%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
+        html += '<span id="oule" style="margin-top: -3%;display: inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
         //html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i]._source.comment+')</span>';
         html += '<span style="margin-top: -3%;display: inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
         //html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
@@ -465,7 +464,7 @@ function Draw_blog_scan_area_network_result(){
   topic = topic_name_on_detail;
   start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
-  
+
   if(sort_item_network=='timestamp' && blog_type_network == 'maker'){
 
     url = "/topic_network_analyze/maker_weibos_byts/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts; 

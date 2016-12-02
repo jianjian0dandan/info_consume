@@ -1,4 +1,4 @@
- function viewinformation() 
+ function viewinformation()
  {
   //this.ajax_method='GET'; // body...
  }
@@ -7,7 +7,6 @@ viewinformation.prototype=
 {
   call_sync_ajax_request:function(url,callback) 
   {
-    
     $.ajax({
           url: url,
           type: 'GET',
@@ -30,14 +29,14 @@ viewinformation.prototype=
   social_me:function(data){
       //console.log(data);
       Draw_out(data,'retweet_out');
-      console.log('运行转发函数');
+      //console.log('运行转发函数');
   }
 }
 
 function Draw_out(data,div){
-    console.log(div);
+    //console.log(div);
         $('#'+div).empty();
-    console.log(data.length);
+    // console.log(data);
     if(data.length==0){
       var html='';
       html=html+'<p style="margin-left:4%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
@@ -45,14 +44,14 @@ function Draw_out(data,div){
         //document.getElementById(div).innerHTML = "";
       // $('#more'+div).css('display','none');
     }else{
-      console.log('else here');
+      //console.log('else here');
       var html = '';
       for(var i=0;i<data.length;i++){
         if(data[i].photo_url=='unknown'){
           data[i].photo_url = "http://tp2.sinaimg.cn/1878376757/50/0/1";
         }
-        if(data[i].uname=='unknown'){
-            data[i].uname = "未知";
+        if(data[i].uname=='未知'){
+            data[i].uname = data[i].uid;
         }
         var uname_show = data[i].uname;
         if (data[i].uname.length>4) {
