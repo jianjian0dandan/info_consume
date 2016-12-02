@@ -61,6 +61,7 @@ domain_ch2en_dict = {u'高校': 'university', u'境内机构':'homeadmin', u'境
 
 
 #attribtue: topic
+'''
 topic_en2ch_dict = {'art':u'娱乐类','computer':u'科技类','economic':u'经济类', \
                     'education':u'教育类','environment':u'自然类', 'medicine':u'健康类',\
                     'military':u'军事类','politics':u'政治类','sports':u'体育类',\
@@ -86,7 +87,7 @@ topic_ch2en_dict = {u'文体类_娱乐': 'art', u'科技类':'computer', u'经�
                     u'民生类_就业':'employment', u'政治类_暴恐':'fear-of-violence',\
                     u'民生类_住房': 'house', u'民生类_法律':'law', u'政治类_地区和平':'peace',\
                     u'政治类_宗教':'religion', u'民生类_社会保障':'social-security'}
-'''
+
 #attribtue:retweet/be_retweet/comment/be_comment/bidirect_interaction
 SOCIAL_DEFAULT_COUNT = '20'
 
