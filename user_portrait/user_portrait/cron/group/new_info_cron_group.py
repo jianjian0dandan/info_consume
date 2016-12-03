@@ -712,7 +712,8 @@ def get_attr_social(uid_list, uid2uname):
         try:
             result_string_list = r_cluster.hmget('at_'+str(iter_ts), uid_list)
         except:
-            result_string = []
+            result_string_list = []
+            continue
         count = 0
         for uid in uid_list:
             result_dict = result_string_list[count]

@@ -397,12 +397,12 @@ def show_vary_detail(task_name, submit_user, vary_pattern):
 #input: task_name, module
 #output: module_result
 def search_group_results(task_name, module, submit_user):
-    
     result = {}
     if RUN_TYPE == 0:
         #jln
-        #task_id = 'mytest030302'
-        task_id = submit_user + '-' + task_name
+        task_id = '媒体'
+        group_index_type='text'
+        #task_id = submit_user + '-' + task_name
         #group_index_type = 'text'
     else:
         task_id = submit_user + '-' + task_name
@@ -411,6 +411,7 @@ def search_group_results(task_name, module, submit_user):
     try:
         source = es_group_result.get(index=group_index_name, doc_type=group_index_type, \
                id=task_id)['_source']
+        print source
     except:
         return 'group task is not exist'
     #step2: identify the task status=1(analysis completed)
