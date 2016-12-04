@@ -17,7 +17,7 @@ from user_portrait.global_utils import R_DICT
 from user_portrait.global_utils import es_user_portrait, portrait_index_name, portrait_index_type
 from user_portrait.global_utils import es_user_profile, profile_index_name, profile_index_type
 from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, flow_text_index_type
-from user_portrait.global_utils import es_retweet, es_comment, es_copy_portrait
+from user_portrait.global_utils import es_retweet, es_comment, es_be_comment, es_copy_portrait
 from user_portrait.global_utils import retweet_index_name_pre, retweet_index_type
 from user_portrait.global_utils import be_retweet_index_name_pre, be_retweet_index_type
 from user_portrait.global_utils import comment_index_name_pre, comment_index_type
@@ -58,6 +58,7 @@ def search_follower(uid, top_count):
     now_ts = time.time()
     db_number = get_db_num(now_ts)
     index_name = be_retweet_index_name_pre + str(db_number)
+    # return search_user_info(es_retweet,index_name,retweet_index_type,uid,'uid_be_retweet')
     center_uid = uid
     try:
         retweet_result = es_retweet.get(index=index_name, doc_type=be_retweet_index_type, id=uid)['_source']
@@ -118,7 +119,7 @@ def search_follower(uid, top_count):
         return out_portrait_list
     else:
         return None
-    #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
+    # #sort_retweet_result = sorted(retweet_dict.items(), key=lambda x:x[1], reverse=True)
 
 
 def search_attention(uid, top_count):
@@ -392,6 +393,7 @@ def search_be_comment(uid, top_count):
     now_ts = time.time()
     db_number = get_db_num(now_ts)
     index_name = be_comment_index_name_pre + str(db_number)
+    print es_comment
     return search_user_info(es_comment,index_name,be_comment_index_type,uid,'uid_be_comment')
 
 
@@ -484,7 +486,6 @@ def search_bidirect_interaction(uid, top_count):
         be_comment_uid_dict = json.loads(be_comment_result['uid_be_comment'])
     else:
         be_comment_uid_dict = {}
-
     #get bidirect_interaction dict
     #all_interaction_dict = union_dict(retweet_inter_dict, comment_inter_dict)
     retweet_comment_result = union_dict(retweet_uid_dict, comment_uid_dict)
@@ -752,3 +753,100 @@ if __name__=='__main__':
     print 'activity:', results5
     '''
     
+def search_fans(uid,top_count):
+    results = {}
+    now_ts = time.time()
+    now_date_ts = datetime2ts(ts2datetime(now_ts))
+    db_number = get_db_num(now_date_ts)
+
+    be_comment_index_name = be_comment_index_name_pre + str(db_number)
+    be_retweet_index_name = be_retweet_index_name_pre + str(db_number)
+    result = {}
+    be_retweet_inter_dict = {}
+    be_comment_inter_dict = {}
+    center_uid = uid
+    try:
+        be_retweet_result = es_retweet.get(index = be_retweet_index_name,doc_type=be_retweet_index_type,id=uid)['_source']
+    except:
+        be_retweet_result = {}
+
+    if be_retweet_result:
+        be_retweet_uid_dict = json.loads(be_retweet_result['uid_be_retweet'])
+    else:
+        be_retweet_uid_dict = {}
+    print "be_retweet_uid_dict", be_retweet_uid_dict
+    try:
+        be_comment_result = es_be_comment.get(index=be_comment_index_name, doc_type=be_comment_index_type, id=uid)['_source']
+    except:
+        be_comment_result = {}
+
+    if be_comment_result:
+        be_comment_uid_dict = json.loads(be_comment_result['uid_be_comment'])
+    else:
+        be_comment_uid_dict = {}
+    print "be_comment_uid_dict", be_comment_uid_dict
+
+    fans_result = union_dict(be_retweet_uid_dict,be_comment_uid_dict)
+    fans_user_set = set(fans_result.keys())
+    fans_list = list(fans_user_set)
+    print "fans_list", fans_list
+    all_fans_dict = {}
+
+    for fans_user in fans_list:
+        if fans_user != center_uid:
+            all_fans_dict[fans_user] = fans_result[fans_user]
+    sort_all_fans_dict = sorted(all_fans_dict.items(), key=lambda x:x[1], reverse=True)
+    all_fans_uid_list = [item[0] for item in sort_all_fans_dict]
+
+    out_portrait_list = all_fans_uid_list
+    #use to get user information from user profile
+    out_portrait_result = {}
+    try:
+        out_user_result = es_user_profile.mget(index=profile_index_name, doc_type=profile_index_type, body={'ids':out_portrait_list})['docs']
+    except:
+        out_user_result = []
+    #add index from bci_history
+    try:
+        bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids': out_portrait_list}, fields=fields)['docs']
+    except:
+        bci_history_result = []
+    iter_count = 0
+    out_portrait_list = []
+    for out_user_item in out_user_result:
+        uid = out_user_item['_id']
+        if out_user_item['found'] == True:
+            source = out_user_item['_source']
+            uname = source['nick_name']
+            photo_url = source['photo_url']
+            if uname == '':
+                uname =  u'未知'
+            location = source['user_location']
+            friendsnum = source['friendsnum']
+        else:
+            uname = u'未知'
+            location = ''
+            friendsnum = ''
+            photo_url = 'unknown'
+        #add index from bci_history
+        try:
+            bci_history_item = bci_history_result[iter_count]
+        except:
+            bci_history_item = {'found': False}
+        print bci_history_item
+        if bci_history_item['found'] == True:
+            fansnum = bci_history_item['fields'][fields[0]][0]
+            user_weibo_count = bci_history_item['fields'][fields[1]][0]
+            user_friendsnum = bci_history_item['fields'][fields[2]][0]
+            influence = bci_history_item['fields'][fields[3]][0]
+        else:
+            fansnum = ''
+            user_weibo_count = ''
+            user_friendsnum = ''
+
+        fans_count = int(all_fans_dict[uid])
+        out_portrait_list.append({'uid':uid,'photo_url':photo_url,'uname':uname, 'count':fans_count, 'fansnum':fansnum,'friendsnum': user_friendsnum,'weibo_count': user_weibo_count})
+        iter_count += 1
+
+    return out_portrait_list
+
+
