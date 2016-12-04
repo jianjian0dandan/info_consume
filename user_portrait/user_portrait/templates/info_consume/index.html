@@ -608,19 +608,28 @@ homepageinfo.prototype = {
     //亲密度排行
     intimacy_rank:function(data)
     {
-      var drawFriend = document.getElementById('draw_p3');
-        if(data[0].uname !=="未知"){
-            drawFriend.innerHTML = "亲密好友："+data[0].uname;
-            //console.log(data[0].uname);
-        }else if (data[0].uname ="未知") {
-            drawFriend.innerHTML = '亲密好友：'+data[0].uid;
-        }
+    	console.log(data.length);
+      	var drawFriend = document.getElementById('draw_p3');
+      	var friendStr;
+      	var intimacyFriID;
+      	for(var i=0;i<=data.length;i++)
+      	{
+      		if(data[i].uname != "未知"){
+      		    friendStr = "亲密好友："+data[i].uname;
+      		    intimacyFriID = data[i].uid;
+      		    //console.log(data[0].uname);
+      		    break;
+      		}else {
+      		    friendStr = '亲密好友：暂无';
+      		}
+      	}
+      	drawFriend.innerHTML = "<a target='_blank' href='/index/viewinformation/?uid="+intimacyFriID+"' style='color:white'>"+friendStr+"</a>";
     },
     // 微博数据
     weiboData:function(data){
       weiboData = data;
       DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
-        $('#per_onload').css('display','none');
+        $('#per_onload').css('display','none')
         $('#group_influ_weibo').css('display', 'block');
     }
 }
