@@ -1,10 +1,15 @@
 {% extends 'info_consume/daohang_public.html' %}
 {% block css %}
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap-table.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/mystyle.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/style.css">
   <link rel="stylesheet" type="text/css" href="/static/info_consume/css/buttonstyle.css">
+  <link href="/static/info_consume/css/bootstrap-select.min.css" rel="stylesheet" >
+  <link href="/static/info_consume/css/font-awesome.min.css" rel="stylesheet" >
   <link href="/static/info_consume/css/dashboard.css" rel="stylesheet">
 
 {% endblock %}
@@ -158,8 +163,8 @@
               </tbody>
           </table>
           <div>
+            <button style="float:left;margin-left:82%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1" style="margin-left:92%;margin-top:12px;">查看更多</button>
 
-            <button style="float:left;margin-left:83%;margin-top:5px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1" style="margin-left:92%;margin-top:12px;">查看更多</button>
           </div>
         </div>
       </div>
@@ -286,7 +291,7 @@
 
 
        <!--社交网络-->
-        <div class="panel panel-success huaxiazi" style="width:75%;height:700px;margin-top:2%; margin-left:12.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+        <div class="panel panel-success huaxiazi" style="width:75%;height:780px;margin-top:2%; margin-left:12.6%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">社交网络</h3>
         </div>
@@ -348,23 +353,58 @@
               </div>
 
               </div>
-
+              
+            <button style="float:left;margin-left:10%;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal3">查看粉丝</button>
             </div>
+
           </div>
         </div>
       </div>
     </div>
 
+  <!--亲密度排行模态框-->
 
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+                             查看我的粉丝
+          </h4>
+         </div>
+        
+          <div class="modal-body">
+             <div id="table-user-contain"><table id="table-user" class="table table-hover"></table></div>
+          </div>
+          <div class="modal-footer">
+            <button style="float: right;margin-left: 20px;" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <div class="btn btn-default" style="margin-left:3px;" onclick="addgroup()" id='zhui' data-toggle="tooltip" title="勾选表中的任意粉丝，系统可对您所选粉丝群体进行全面分析" data-placement="right">粉丝群体分析</div>
+            <a href="/index/circle_test" target="_blank" class="btn btn-default" style="float:right;margin-left:3px;color: black;">查看分析结果</a>
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
 
 </div>
 
 
 <script src="/static/info_consume/js/bootstrap-table.js"></script>
 <script src="/static/info_consume/js/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript">var a ='{{g.user.email}}' ;</script>
+<script src="/static/info_consume/js/jquery-1.11.3.min.js"></script>
+<script src="/static/info_consume/js/bootstrap.min.js"></script>
+<script src="/static/info_consume/js/bootstrap-table.js"></script>
+<script src="/static/info_consume/js/bootstrap-table-zh-CN.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>-->
+<script src="/static/info_consume/js/bootstrap-select.min.js"></script>
 {% endblock %}
 {% block Own_js %}
 <script type="text/javascript" src="/static/info_consume/js/my_friend.js"></script>
+
 <!-- <script type="text/javascript" src="/static/info_consume/js/preference.js"></script> -->
 
 {% endblock %}
