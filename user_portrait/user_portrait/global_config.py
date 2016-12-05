@@ -19,7 +19,7 @@ REDIS_KEYWORD_PORT = '6381'
 
 REDIS_HOST = '219.224.134.212'
 REDIS_PORT = '6381'
-#uname to uid 
+#uname to uid     flow3
 UNAME2UID_HOST = '219.224.134.211'
 UNAME2UID_PORT = '7381'
 # uname2uid in redis: {'weibo_user': {uname:uid, ...}}
