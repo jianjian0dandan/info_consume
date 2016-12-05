@@ -2,6 +2,7 @@
 from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type,\
                             topics_river_index_name,topics_river_index_type,\
                             subopinion_index_name,subopinion_index_type,topic_index_name,topic_index_type
+from user_portrait.global_utils import portrait_index_name,portrait_index_type
 from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
 
 from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
@@ -25,6 +26,8 @@ from keyword_extraction import get_weibo
 
 # from cp_model import CityTopicCount,CityWeibos
 
+verified_value={'0':10,'1':5,'2':5,'3':7,'220':3}
+#fans_value = {10000000:10,1000000:6,100000:3,10000:1,1:0}
 
 Minute = 60
 Fifteenminutes = 15 * Minute
@@ -402,6 +405,25 @@ def get_sen_ratio(topic,start_ts,end_ts):
             ['aggregations']['all_interests']['buckets']
     print result
     return result
+
+def get_person_value(uid):
+    #认证类型
+    static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)['_source']
+    try:
+        ver_calue = verified_value[static['verified_type']]
+    except:
+        ver_calue = 0
+    #账号创建时间
+    times = math.ceil((time.time()-int(static['create_at']))/31536000)
+    #粉丝数
+    person = es_user_profile.get(index = portrait_index_name,doc_type = portrait_index_type,id=uid)['_source']
+    fans_value = (math.log(person['fansnum']+1000000,100000000)-0.75)*4
+    if fans_value>1:
+        fans_value=1.0
+    final= ver_calue*10+times+fans_value*10000
+
+    return final
+    
 
 
 
