@@ -24,7 +24,7 @@ preference.prototype=
 
   domain:function(data)
   {
-    console.log(data.results.topic);
+    //console.log(data.results.topic);
     var i;
     //将此人涉及领域从数据库取出，
     var domain = new Array();
