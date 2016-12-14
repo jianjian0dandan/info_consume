@@ -429,6 +429,7 @@ function Draw_network_pic_result(){
 
   url = "/topic_network_analyze/get_gexf/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
   //console.log(url);
+
   topic_analysis_network.call_sync_ajax_request(url,topic_analysis_network.Draw_network_pic);
 
 }

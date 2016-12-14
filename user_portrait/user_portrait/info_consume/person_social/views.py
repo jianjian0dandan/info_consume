@@ -5,7 +5,7 @@ import time
 import json
 from flask import Blueprint, url_for, render_template, request, abort, flash, session, redirect
 from search import search_be_comment,search_bidirect_interaction,search_follower,search_mention,\
-                    search_attention,search_comment,search_weibo,search_yangshi_follower,search_yangshi_attention
+                    search_attention,search_comment,search_weibo,search_yangshi_follower,search_yangshi_attention,search_fans
 
 '''
 from search import delete_action, search_identify_uid, get_activeness_trend
@@ -182,4 +182,19 @@ def get_weibo():
     results = search_weibo(root_uid,uid,mtype)
     if not results:
         results = []
+    return json.dumps(results)
+
+#use to get user fans:set of follower and be_comment
+#write in version:16-11-28
+#input: uid, top_count
+#output: result
+@mod.route('/get_fans/')
+def ajax_fans():
+    uid = request.args.get('uid','')
+    uid = str(uid)
+    top_count = request.args.get('top_count',SOCIAL_DEFAULT_COUNT)
+    top_count = int(top_count)
+    results = search_fans(uid,top_count)
+    if not results:
+        results = {}
     return json.dumps(results)

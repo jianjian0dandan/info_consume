@@ -27,6 +27,13 @@
     .wel_count #focus{
       background: url(/static/info_consume/image/icon_focus.png) no-repeat scroll 0% 0% transparent;
     }
+    #price2 {
+      display: inline-block;
+      font-size: 22px !important;
+      color: #ffffff;
+      font-weight: 100;
+      margin-left: 5px;
+    }
     @media screen and (min-width: 450px) and (max-width: 1124px){
         .up_box {
           margin-left: 0!important;
@@ -307,10 +314,18 @@
                 </div>
             </div>
           </div>
+        <div style='float:left;'>
+          <img id="price1" src="../../static/info_consume/image/money.png" width="30px" height="30px" style="margin-top: 0px;
+                margin-left: 6px;display: inline-block;">
+          <h1 id="price2" style='display:inline-block;'>我的身价：<span id="money"></span>万元</h1>   
+        </div>
+             <div style='clear:both;'>
 
-
-        <img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" > 
-        <h1 id="act_title">我的活跃度:<span id="activePower"></span>分</h1>       
+<img id="act_img" src="../../static/info_consume/image/icon_act.png " width="30px" height="30px" 
+          style='margin:20px 4px 0 8px;'> 
+        <h1 id="act_title" style='margin-top:22px;'>我的活跃度:<span id="activePower"></span>分</h1>
+             </div>
+               
         <h1 id="act_text" style="margin-top: 20px;margin-left: 20px;font-size: 20px !important;"> 最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>  
       </div>
 
@@ -608,19 +623,28 @@ homepageinfo.prototype = {
     //亲密度排行
     intimacy_rank:function(data)
     {
-      var drawFriend = document.getElementById('draw_p3');
-        if(data[0].uname !=="未知"){
-            drawFriend.innerHTML = "亲密好友："+data[0].uname;
-            //console.log(data[0].uname);
-        }else if (data[0].uname ="未知") {
-            drawFriend.innerHTML = '亲密好友：'+data[0].uid;
-        }
+    	console.log(data.length);
+      	var drawFriend = document.getElementById('draw_p3');
+      	var friendStr;
+      	var intimacyFriID;
+      	for(var i=0;i<=data.length;i++)
+      	{
+      		if(data[i].uname != "未知"){
+      		    friendStr = "亲密好友："+data[i].uname;
+      		    intimacyFriID = data[i].uid;
+      		    //console.log(data[0].uname);
+      		    break;
+      		}else {
+      		    friendStr = '亲密好友：暂无';
+      		}
+      	}
+      	drawFriend.innerHTML = "<a target='_blank' href='/index/viewinformation/?uid="+intimacyFriID+"' style='color:white'>"+friendStr+"</a>";
     },
     // 微博数据
     weiboData:function(data){
       weiboData = data;
       DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
-        $('#per_onload').css('display','none');
+        $('#per_onload').css('display','none')
         $('#group_influ_weibo').css('display', 'block');
     }
 }

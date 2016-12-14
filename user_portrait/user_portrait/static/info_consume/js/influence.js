@@ -2,7 +2,6 @@ function Influence(){
   this.ajax_method = 'GET';
 }
 
-
 function getDate_in(tm){
   var tt = new Date(parseInt(tm)*1000).format("MM-dd");
   return tt;
@@ -95,6 +94,23 @@ Influence.prototype = {
   }
  },
 
+ domain_rank_data:function(data){
+   if (data.in_top == ''){
+     domain_rank = '未知';
+   };
+   if (data.in_score == ''){
+     domain_influence_score = '未知';
+   };
+   // console.log(data);
+   domain_rank = data.in_top;
+      //console.log(domain_rank);
+   domain_influence_score = data.in_score.toFixed(2);
+  // console.log(domain_influence_score);
+   //console.log('domainrank='+domain_rank);
+ },
+
+
+
   influence_Table_all:function(data){
     var i = 0;
     var rank = '未知';
@@ -156,8 +172,10 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>";
 
+   // console.log(domain_rank);
+   // console.log(domain_influence_score);
     //console.log('dr'+domain_rank);
-    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+userBci+"</td></tr>";
+    html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+domain_influence_score+"</td></tr>";
   
     for(var j=0;j<10;j++){
       var bci_data;
@@ -169,13 +187,7 @@ Influence.prototype = {
 
   },
 
-  domain_rank_data:function(data){
-    if (data == ''){
-      domain_rank = '未知';
-    };
-    domain_rank = data;
-    //console.log('domainrank='+domain_rank);
-  },
+
 
   influ_skill:function(data){
     // console.log(data[1]);
@@ -302,6 +314,7 @@ var username = 'admin@qq.com';
 //var username = admin@qq.com;
 var Influence = new Influence();
 var domain_rank = 0;
+var domain_influence_score;
 var userImg_src;
 var uName;
 var userBci;
@@ -315,17 +328,20 @@ influence_load();
 var influ_all_table_url= '/influence_sort/user_sort/?username=admin@qq.com&sort_scope=all_nolimit&all=True';
   Influence.call_ajax_request(influ_all_table_url, Influence.ajax_method, Influence.influence_Table_all);
 
+
 function transfer1(kind) {
+    y_kind2=kind;
+    var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid+'&field='+y_kind2;
+    // console.log(domain_rank_url);
+    Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
+}
+
+function transfer2(kind) {
     y_kind1=kind;
     var sort_scope = 'in_limit_topic';
     var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+y_kind1+'&all=False';
     Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
-}
-
-function transfer2(kind) {
-    y_kind2=kind;
-    var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid+'&field='+y_kind2;
-    Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
+    // console.log(domain_url+"=domain_url");
 }
 
 
