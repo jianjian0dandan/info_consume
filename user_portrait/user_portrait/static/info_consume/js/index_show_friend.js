@@ -31,6 +31,7 @@ viewinformation.prototype=
       Draw_out(data,'retweet_out');
       //console.log('运行转发函数');
   }
+
 }
 
 function Draw_out(data,div){
@@ -65,12 +66,20 @@ function Draw_out(data,div){
         }
   
       html += "<div style='width:50px;height:50px;display:block;margin-left:120px;font-size:12px;'><a target='_blank' href='/index/my_friend'>查看更多</a></div>"
-      //console.log(html);s
+      //console.log(html);
       // $('#more'+div).css('display','none');
       $('#'+div).append(html);
   }
 }
-
+function valueme(data) {
+    //console.log(data);
+    if (!isNaN(data)){
+        //console.log(data.toFixed(2))
+        $('#money').text(data.toFixed(2));
+    }else {
+        $('#money').text('估值中··');
+    }
+}
 
 $('#retweet_out').click(function(){
 viewinformation.social_me.show();//显示
@@ -93,6 +102,12 @@ function show_social(){
   viewinformation.call_sync_ajax_request(url_me,viewinformation.social_me);
 };
 
+var moneyuid = 2816651474;
+function money() {
+    var url='/topic_language_analyze/evaluate_person/?uid='+moneyuid;
+    viewinformation.call_sync_ajax_request(url,valueme);
+}
+money();
 
 // function show_follower()
 // {
