@@ -2,7 +2,6 @@
  {
   //this.ajax_method='GET'; // body...
  }
-
 viewinformation.prototype=
 {
   call_sync_ajax_request:function(url,callback) 
@@ -22,7 +21,7 @@ viewinformation.prototype=
   },
 
   social_be:function(data){
-      //console.log(data);
+      //console.log("follow_data:"+data);
       Draw_out(data,'tweeted_out'); 
     },
     
@@ -94,8 +93,9 @@ viewinformation.social_be.hide();//隐藏
 // });
 
 var viewinformation=new viewinformation();
-var uid = 2029036025;
+var uid = 1640601392;
 function show_social(){
+  console.log("new");
   var url_be = '/info_person_social/follower/?uid='+uid;
   viewinformation.call_sync_ajax_request(url_be,viewinformation.social_be);
   var url_me = '/info_person_social/attention/?uid='+uid;
@@ -121,7 +121,6 @@ money();
 // }
 
 show_social();
-
 // //被转发
 // show_follower();
 // //转发

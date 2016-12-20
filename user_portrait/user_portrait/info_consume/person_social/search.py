@@ -96,6 +96,7 @@ def search_follower(uid, top_count):
                 uname = u'未知'
                 location = ''
                 friendsnum = ''
+                photo_url = ''
 
             #add index from bci_history
             try:
