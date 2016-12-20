@@ -357,7 +357,7 @@ my_friend.prototype =
           sidePagination: "client",//服务端分页
           searchAlign: "left",
           searchOnEnterKey: false,//回车搜索
-          showRefresh: false,//刷新按钮
+          showRefresh: true,//刷新按钮
           showColumns: true,//列选择按钮
           buttonsAlign: "left",//按钮对齐方式
           locale: "zh-CN",//中文支持
@@ -464,6 +464,7 @@ my_friend.prototype =
            }]
         });
         $('#table-user-contain').css("display","block");
+
         $('.user_view').tooltip();
       },
   
@@ -1381,7 +1382,8 @@ function display_grouplist(){
         if (data == '1'){
             alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
             $('#addModal').modal('show');
-            window.location.reload();
+            $('table-user').bootstrapTable('refresh');
+            // window.location.reload();
         }
         if(data == '0'){
             alert('任务提交失败，请重试！');
