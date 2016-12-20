@@ -101,7 +101,7 @@ Influence.prototype = {
    if (data.in_score == ''){
      domain_influence_score = '未知';
    };
-   console.log(data);
+   // console.log(data);
    domain_rank = data.in_top;
       //console.log(domain_rank);
    domain_influence_score = data.in_score.toFixed(2);
@@ -172,10 +172,8 @@ Influence.prototype = {
 
     var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>";
 
-   console.log(domain_rank);
-   console.log(domain_influence_score);
-
-
+   // console.log(domain_rank);
+   // console.log(domain_influence_score);
     //console.log('dr'+domain_rank);
     html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+domain_influence_score+"</td></tr>";
   
@@ -334,7 +332,7 @@ var influ_all_table_url= '/influence_sort/user_sort/?username=admin@qq.com&sort_
 function transfer1(kind) {
     y_kind2=kind;
     var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid+'&field='+y_kind2;
-    console.log(domain_rank_url);
+    // console.log(domain_rank_url);
     Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
 }
 
@@ -343,8 +341,7 @@ function transfer2(kind) {
     var sort_scope = 'in_limit_topic';
     var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+y_kind1+'&all=False';
     Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
-    console.log(domain_url+"=domain_url");
-    
+    // console.log(domain_url+"=domain_url");
 }
 
 

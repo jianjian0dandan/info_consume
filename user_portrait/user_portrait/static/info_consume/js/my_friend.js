@@ -345,7 +345,7 @@ my_friend.prototype =
             //模态框显示所有亲密度排行信息
       my_fans:function(data)
       {
-        console.log("outdata="+data);
+        //console.log("outdata="+data);
 
         $('#table-user').bootstrapTable({
           //url: influ_url,
@@ -1376,9 +1376,9 @@ function display_grouplist(){
     var admin = admin_username;//获取$('#useremail').text();
     var group_analysis_count = 10;//获取
     var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-    console.log(job);
+    //console.log(job);
     function callback(data){
-        console.log("0/1/"+data);
+        //console.log("0/1/"+data);
         if (data == '1'){
             alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
             $('#addModal').modal('show');
