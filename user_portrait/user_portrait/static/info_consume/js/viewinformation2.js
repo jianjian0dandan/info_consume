@@ -30,11 +30,15 @@ viewinformation.prototype=
 		// console.log(identity)
 		
 		for (i=0;i<data.in_domain.length;i++) 
-			{
-				identity[i]=data.in_domain[i][0];
-				num[i]=data.in_domain[i][1];
-				show_identity.push({text:identity[i],max:maxvalue});
+		{
+			if (data[i].photo_url=="" || data[i].photo_url=="unknown") {
+				data.photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
 			}
+			identity[i]=data.in_domain[i][0];
+
+			num[i]=data.in_domain[i][1];
+			show_identity.push({text:identity[i],max:maxvalue});
+		}
 		var maxvalue=Math.max.apply(null, num);
 		if(identity.length!=0)
 		{
@@ -117,7 +121,7 @@ viewinformation.prototype=
 		// if(data.length!=undefined)
 		
 		// {
-			for (i=0;i<data.in_topic.length;i++) 
+		for (i=0;i<data.in_topic.length;i++) 
 		{
 			domain[i]=data.in_topic[i][0];
 			num[i]=data.in_topic[i][1];
@@ -222,10 +226,22 @@ viewinformation.prototype=
 
 function Draw_out(data,div){
 		var count=0;
-			for(var key in data)
-			{
-				count++;
+		console.log(data);
+		for (i=0;i<data.length;i++) 
+		{
+			if (data[i].photo_url=="" || data[i].photo_url=="unknown" ) {
+				photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
 			}
+			if(data[i].uname=="")
+			{
+				uname="无昵称";
+			}	
+		}
+		for(var key in data)
+		{
+			count++;
+		}
+
 		if(count==0)
 		{
 			$('#'+div).empty();
@@ -245,11 +261,11 @@ function Draw_out(data,div){
 			 // $('#p_so_onload').css('display','none').siblings().css('display','block'); 
 			var html = '';
 			for(var i=0;i<data.length;i++){
-			    if(data[i]['photo_url']=='unknown'){
+			    if(data[i].photo_url=="" || data[i].photo_url=="unknown"){
 				    data[i]['photo_url'] = "http://tp2.sinaimg.cn/1878376757/50/0/1";
 				}
 			   // html = html + '<a target="_blank" href="/index/personal/?uid='+data[i][0]+'" class="img-photo" title="'+data[i][1]+'    频数：'+data[i][3]+'" style="margin-left:5px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i][2] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
-			    html = html + '<a target="_blank" href="/index/viewinformation/?uid='+data[i]['uid']+'" class="img-photo" title="'+data[i]['uname']+'    频数：'+data[i]['count']+'" style="margin-left:20px;margin-top:10px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i]['photo_url'] + '"alt="'+data[i][1]+'" width="30" height="30"></a>';
+			    html = html + '<a target="_blank" href="/index/viewinformation/?uid='+data[i]['uid']+'" class="img-photo" title="'+data[i]['uname']+'    频数：'+data[i]['count']+'" style="margin-left:20px;margin-top:10px;display:block;float:left;"><img id="portraitImg" style="height:50px;width:50px;" src="'+ data[i].photo_url+ '"alt="'+data[i][1]+'" width="30" height="30"></a>';
 				if (i==35) {
 					break;
 				};
