@@ -568,7 +568,7 @@
               $('#sports').click(function () {
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
-                  var keyword = '文体类_体育';
+                  var keyword = '体育类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -576,7 +576,7 @@
               $('#amusement').click(function () {
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
-                  var keyword = '文体类_娱乐';
+                  var keyword = '娱乐类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -585,7 +585,7 @@
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   //var keyword = ['environment','medicine','traffic','employment','house','law','social-security'];
-                  var keyword ='民生类_社会保障';
+                  var keyword ='民生类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -594,7 +594,7 @@
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   //var keyword = ['politics','anti-corruption','fear-of-violence','peace','religion'];
-                  var keyword ='政治类_外交';
+                  var keyword ='政治类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -610,7 +610,7 @@
               $('#others').click(function () {
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
-                  var keyword = '其他类';
+                  var keyword = '生活类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);

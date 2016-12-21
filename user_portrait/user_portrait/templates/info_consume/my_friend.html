@@ -354,7 +354,7 @@
 
               </div>
               
-            <button style="float:left;margin-left:10%;" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal3">查看粉丝</button>
+            <button style="float:left;margin-left:10%;" type="button" class="btn btn-success dropdown" data-toggle="modal" data-target="#myModal3">查看粉丝</button>
             </div>
 
           </div>
@@ -364,8 +364,7 @@
 
   <!--亲密度排行模态框-->
 
-  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade dropdown" id="myModal3" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -378,13 +377,13 @@
          </div>
         
           <div class="modal-body">
-             <div id="table-user-contain"><table id="table-user" class="table table-hover"></table></div>
+             <div id="table-user-contain"><table id="table-user" style="z-index:100;" class="table table-hover dropdown" data-page-list = "[10, 25, 50, 100, 200]"></table></div>
           </div>
           <div class="modal-footer">
             <button style="float: right;margin-left: 20px;" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <div class="btn btn-default" style="margin-left:3px;" onclick="addgroup()" id='zhui' data-toggle="tooltip" title="勾选表中的任意粉丝，系统可对您所选粉丝群体进行全面分析" data-placement="right">粉丝群体分析</div>
             <a href="/index/circle_test" target="_blank" class="btn btn-default" style="float:right;margin-left:3px;color: black;">查看分析结果</a>
-
+          </div>
 
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->

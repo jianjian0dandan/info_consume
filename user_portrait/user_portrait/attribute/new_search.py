@@ -738,7 +738,7 @@ def new_get_user_weibo(uid, sort_type):
         if RUN_TYPE == 1:
             iter_date = ts2datetime(datetime2ts(now_date) - i * DAY)
         else:
-            iter_date = '2013-09-01'
+            iter_date = '2016-11-27'
         index_list.append(flow_text_index_name_pre + iter_date)
     print '726'
     try:
