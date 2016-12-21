@@ -23,7 +23,7 @@ viewinfo_weibo.prototype = {
   //     uid_div.innerHTML = "无此数据";
   // }
   var img = document.getElementById('portraitImg');
-  if(personalData.photo_url == "unknown"){
+  if(personalData.photo_url == "" || personalData.photo_url == "unknown"  ){
       img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
   }else{
       img.src = personalData.photo_url;
