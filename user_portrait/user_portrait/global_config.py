@@ -137,15 +137,15 @@ MAX_FREQUENT_WORDS = 100
 MAX_LANGUAGE_WEIBO = 200
 NEWS_LIMIT = 100
 
-MYSQL_HOST = '219.224.134.222' #47
+MYSQL_HOST = '219.224.134.223' #47
 MYSQL_USER = 'root'
 MYSQL_DB = 'weibocase'
-MONGODB_HOST = '219.224.134.222' #47
+MONGODB_HOST = '219.224.134.223' #47
 MONGODB_PORT = 27019
 SSDB_PORT = 8888
 SSDB_HOST = '219.224.134.222' # SSDB服务器在47
 
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:@219.224.134.222/weibocase?charset=utf8'
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:@219.224.134.223/weibocase?charset=utf8'
 # Create application
 app = Flask('xxx')
 # Create dummy secrey key so we can use sessions
