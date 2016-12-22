@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //data:{ username:$("#username").val(), content:$("#content").val() }         
 //data-ajax="ajaxRequest"
               //var username = $('#username').text();
@@ -803,7 +803,6 @@
 
     
 
-=======
 //data:{ username:$("#username").val(), content:$("#content").val() }         
 //data-ajax="ajaxRequest"
               //var username = $('#username').text();
@@ -1420,7 +1419,31 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
-              });  
+              });
+              $('#traffic').click(function () {
+                  $('#table-user-user-contain').css("display","none");
+                  $('#table-user-contain').css("display","block");
+                  var keyword = '交通类';
+                  var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
+                  console.log(area_url);
+                  refresh_area_table(area_url);
+              });
+              $('#nature').click(function () {
+                  $('#table-user-user-contain').css("display","none");
+                  $('#table-user-contain').css("display","block");
+                  var keyword = '自然类';
+                  var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
+                  console.log(area_url);
+                  refresh_area_table(area_url);
+              }); 
+              $('#health').click(function () {
+                  $('#table-user-user-contain').css("display","none");
+                  $('#table-user-contain').css("display","block");
+                  var keyword = '健康类';
+                  var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
+                  console.log(area_url);
+                  refresh_area_table(area_url);
+              });     
 
           })
 
@@ -1610,4 +1633,4 @@
 
     
 
->>>>>>> 8cd0411f8fd4b031c706bdbbc804069fbbcb4771
+
