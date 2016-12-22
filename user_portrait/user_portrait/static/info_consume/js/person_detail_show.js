@@ -35,13 +35,16 @@ personZone.prototype = {
   if(personalData.nick_name){
       if (personalData.nick_name == 'unknown') {
           nickName.innerHTML = '未知';
+          uName = '未知';
       }
       else{
           nickName.innerHTML = personalData.nick_name;
+          uName =  personalData.nick_name;
       }
 
   }else{
       nickName.innerHTML = "无此数据";
+      uName = "无此数据"; 
   }
 }
 }
@@ -58,7 +61,7 @@ function openurl(){
  }
 
 var userImg_src;
-
+var uName;
 var url = "/attribute/new_user_profile/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.personData);
 var url = "/attribute/new_user_evaluate/?uid=" + uid;
