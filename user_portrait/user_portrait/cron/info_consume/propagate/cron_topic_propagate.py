@@ -141,12 +141,10 @@ def save_results(calc, topic, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit
                                                                 PropagateKeywords.end==ts, \
                                                                 PropagateKeywords.mtype==mtype).first()
 																# PropagateKeywords.range==during, \ PropagateKeywords.limit==klimit
-				#print '146'
 				if item_exist:
 					db.session.delete(item_exist)
 				db.session.add(item)
 			db.session.commit()
-
 	if calc == 'weibo':
 		for time,mtype_dict in results.iteritems():
 			ts = time
@@ -289,6 +287,7 @@ if __name__ == '__main__':
 	topic = topic.decode('utf-8')
 	#topic_id = getTopicByName(topic)
 	topic_index_name = getEsIndexName(topic)
+	topic_index_name = 'aoyunhui'
 	'''
 	#话题id异常处理
 	if topic_id == -1:

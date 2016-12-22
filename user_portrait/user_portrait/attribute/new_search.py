@@ -721,13 +721,13 @@ def new_get_user_weibo(uid, sort_type):
         now_date = RUN_TEST_TIME
         sort_type = 'timestamp'
     #step1:get user name
-    print '708'
+    #print '708'
     try:
         user_profile_result = es_user_profile.get(index=profile_index_name, doc_type=profile_index_type,\
                 id=uid, _source=False, fields=['nick_name'])
     except:
         user_profile_result = {}
-    print '714',len(user_profile_result)
+    #print '714',len(user_profile_result)
     if user_profile_result:
         uname = user_profile_result['fields']['nick_name'][0]
     else:
@@ -740,14 +740,14 @@ def new_get_user_weibo(uid, sort_type):
         else:
             iter_date = '2016-11-27'
         index_list.append(flow_text_index_name_pre + iter_date)
-    print '726'
+    #print '726'
     try:
         weibo_result = es_flow_text.search(index=index_list, doc_type=flow_text_index_type,\
                 body={'query':{'filtered':{'filter':{'term': {'uid': uid}}}}, 'size':MAX_VALUE,'sort':{sort_type:{'order':'desc'}}})['hits']['hits']
         #print weibo_result
     except:
         weibo_result = []
-    print '732',len(weibo_result)
+    #print '732',len(weibo_result)
     if weibo_result:
         weibo_list.extend(weibo_result)
     '''
@@ -795,13 +795,26 @@ def new_get_user_weibo(uid, sort_type):
             except:
                 sensitive_score = 0
         else:
-            retweet_count = 0
-            comment_count = 0
-            sensitive_score = 0
+            try:
+                retweet_count = source['retweeted']
+            except:
+                retweet_count = 0
+            try:
+                comment_count = source['comment']
+            except:
+                comment_count = 0
+            try:
+                sensitive_score = source['sensitive']
+            except:
+                sensitive_score = 0
+            # retweet_count = 0
+            # comment_count = 0
+            # sensitive_score = 0
         city = ip2city(ip)
         if mid not in mid_set:
             results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
             mid_set.add(mid)
+    print sort_type
     if sort_type == 'timestamp':
         sort_results = sorted(results, key=lambda x:x[5], reverse=True)
     elif sort_type == 'retweet_count':

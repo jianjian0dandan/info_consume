@@ -16,6 +16,7 @@ from config import xapian_search_user as user_search
 sys.path.append('../../../')
 from flow_text_mappings import get_graph_mappings
 from bulk_insert import gexf2es, es2gexf, save_long_gexf
+from global_utils import es_user_portrait,profile_index_name,profile_index_type
 
 def acquire_topic_id(name, start_ts, end_ts, module="identify"):
     item = db.session.query(TopicStatus).filter_by(topic=name, start=start_ts, end=end_ts, module=module).first()
@@ -42,7 +43,7 @@ def acquire_topic_name(tid, module='identify'): # 将topic_id转化成对应的t
         return None
     return item.topic
 
-
+'''
 def acquire_user_by_id(uid):
     result = user_search.search_by_id(int(uid), fields=['name', 'location', 'followers_count', 'friends_count'])
     user = {}
@@ -53,6 +54,21 @@ def acquire_user_by_id(uid):
         user['count2'] = result['friends_count']
             
     return user
+'''
+
+
+def acquire_user_by_id(uid):
+    try:
+        result = es_user_portrait.get(index=profile_index_name,doc_type=profile_index_type,id=uid)['_source']
+        user = {}
+        if result:
+            user['name'] = result['nick_name']
+            user['location'] = result['user_location']
+            user['count1'] = result['fansnum']
+            user['count2'] = result['friendsnum']                
+        return user
+    except:
+        return None
 
 
 def user_status(uid): 
@@ -310,3 +326,7 @@ def read_attribute_dict(graph_type):
         print e
         return None
     '''
+
+if __name__ == '__main__':
+    a = acquire_user_by_id(3187239504)
+    print a
