@@ -1058,7 +1058,7 @@ def get_sort(uid,fe):
         #u_bci = es.get(index='user_portrait_1222', doc_type='user', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
         result['in_score'] = u_bci
     except:
-        return None
+        result['in_score']="";
     query_body={
         'query':{
             'filtered':{
@@ -1076,11 +1076,15 @@ def get_sort(uid,fe):
 
 
     try:
-        u_bci = es.get(index='copy_bci_history', doc_type='bci', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
-        #u_bci = es.get(index='user_portrait_1222', doc_type='user', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
-        print u_bci
+        u_bci = es.get(index='bci_history', doc_type='bci', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]
+        #u_bci = es.get(index='user_portrait_1222', doc_type='user', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]        
+        print "trymax"
+        bci_max = get_max_value(es_user_profile, "bci_history", "bci")
+        print "max",bci_max
+        result['all_score'] = math.log(u_bci/float(bci_max)*9+1,10)*100 
     except:
-        return None
+        result['all_score']=""
+        result ['all_top']=""
     query_body={
         'query':{
             'filtered':{
@@ -1093,7 +1097,7 @@ def get_sort(uid,fe):
             }
         }
     }
-    result['all_top'] = es.search(index='copy_bci_history', doc_type='bci',body=query_body)['hits']['total']
+    result['all_top'] = es.search(index='bci_history', doc_type='bci',body=query_body)['hits']['total']
 
     
     #result = es.search(index='user_portrait_1222', doc_type='user',body=query_body)
@@ -1112,3 +1116,22 @@ if __name__=='__main__':
     test_task_name = 'testtesttest'
     #status = delete_group_results(test_task_name)
     #print 'status:', status
+
+def get_max_value(es, index_name, _type):
+    query_body = {
+        "query":{
+            "match_all": {}
+        },
+        "sort":{'bci_week_ave':{"order":"desc"}},
+        "size": 1
+    }
+
+    max_value = 1
+    try:
+        result = es.search(index=index_name, doc_type=_type, body=query_body)['hits']['hits']
+    except:
+        result = []
+    if result:
+        max_value = result[0]['_source']['bci_week_ave']
+
+    return max_value

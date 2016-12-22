@@ -1,3 +1,8 @@
+var domain_rank = 0;
+var allfield_rank = 0;
+var domain_influence_score;
+var allfield_influence_socre;
+
 function Influence(){
   this.ajax_method = 'GET';
 }
@@ -94,94 +99,79 @@ Influence.prototype = {
   }
  },
 
- domain_rank_data:function(data){
-   if (data.in_top == ''){
-     domain_rank = '未知';
-   };
-   if (data.in_score == ''){
-     domain_influence_score = '未知';
-   };
-   // console.log(data);
-   domain_rank = data.in_top;
-      //console.log(domain_rank);
-   domain_influence_score = data.in_score.toFixed(2);
-  // console.log(domain_influence_score);
-   //console.log('domainrank='+domain_rank);
+rank_data:function(data){
+	//领域排行
+   	if (data.in_top == '' || data.in_top == 'unknown'){
+   		domain_rank = '未知';
+   	}else{
+   		domain_rank = data.in_top;
+   	};
+   	//全网排行
+   	if (data.all_top == ''){
+     	allfield_rank = '未知';
+   	}else{
+   		allfield_rank = data.all_top;
+   	};
+   	//领域影响力
+   	if (data.in_score == ''){
+   	 	domain_influence_score = '未知';
+   	}else{
+   		domain_influence_score = data.in_score.toFixed(2);
+   	};
+
+   	//全网影响力
+   	if (data.all_score == ''){
+     	allfield_influence_socre = '未知';
+   	}else{
+   		allfield_influence_socre = data.all_score.toFixed(2);
+   	}
+   	console.log("all_rank"+allfield_rank);
+   	console.log("all_influence_socre"+allfield_influence_socre);
  },
 
-
-
   influence_Table_all:function(data){
-    var i = 0;
-    var rank = '未知';
-    while(i<200){
-      if(data[i].uid == uid){
-        rank = i;
-        break;
-      }
-      i++;
-    };
+  	console.log("all_rank"+allfield_rank);
+  	console.log("all_influence_socre"+allfield_influence_socre);
+    var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>";
 
-    var allInflu_data = [];
-    for(var j=0;j<10;j++){
-      allInflu_data[j] = data[j];  
-    };
-
-    var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>"
-
-    html_table += "<tr style='background-color:#76eec6;'><td>"+(rank+1)+"</td><td><img src="+data[rank].photo_url+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + data[i].uid + "'>"+data[rank].uname+"</a></td><td>"+data[rank].bci.toFixed(2)+"</td></tr>";
-    //全局变量赋值
-    userImg_src = data[rank].photo_url;
-    uName = data[rank].uname;
-    userBci = data[rank].bci.toFixed(2);
+    html_table += "<tr style='background-color:#76eec6;'><td>"+allfield_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+allfield_influence_socre+"</td></tr>";
 
     for(var j=0;j<10;j++){
       var bci_data;
-      bci_data = allInflu_data[j].bci;
+      if (data[j].bci=="") 
+      {
+      	data[j].bci="未知";
+      }
+      if (data[j].photo_url=="" || data[j].photo_url=="unknown") 
+      {
+      	data[j].photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
+      }
+      bci_data = data[j].bci;
       bci_data = bci_data.toFixed(2);
-      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+allInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + allInflu_data[j].uid + "'>"+allInflu_data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src='"+data[j].photo_url+"' width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + data[j].uid + "'>"+data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_all').append(html_table);
   },
 
   influence_Table_domain:function(data){
+  	console.log("all_rank"+allfield_rank);
+  	console.log("all_influence_socre"+allfield_influence_socre);
     var i = 0;
-    var rank = '>200';
-    while(i<200){
-      if(data[i].uid == uid){
-        rank = i;
-        break;
-      }
-      i++;
-    };
-    //console.log('rank of domain is'+rank);
-    // if(domainInflu_data[rank].photo_url == 'unknown'){s
-    //   domainInflu_data[rank].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1'
-    // };'rank of domain is'+
-
-    var domainInflu_data = [];
-    for(var j=0;j<10;j++){
-      domainInflu_data[j] = data[j];  
-      if(domainInflu_data[j].photo_url == 'unknown'){
-        domainInflu_data[j].photo_url = 'http://tp2.sinaimg.cn/1878376757/50/0/1';   
-      };
-      if(domainInflu_data[j].uname == 'unknown'){
-        domainInflu_data[j].uname = '未知';   
-      };
-    };
-
     var html_table = "<thead><tr><th style='text-align: center'>序号</th><th>头像</th><th style='text-align: center'>昵称</th><th style='text-align: center'>影响力</th></tr></thead>";
 
-   // console.log(domain_rank);
-   // console.log(domain_influence_score);
-    //console.log('dr'+domain_rank);
     html_table += "<tr style='background-color:#76eec6;'><td>"+domain_rank+"</td><td><img src="+userImg_src+"width=30px height=30px style=''></td><td><a target='_blank' href='/index/viewinformation/?uid=" + uid + "'>"+uName+"</a></td><td>"+domain_influence_score+"</td></tr>";
   
     for(var j=0;j<10;j++){
-      var bci_data;
-      bci_data = domainInflu_data[j].bci;
-      bci_data = bci_data.toFixed(2);
-      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+domainInflu_data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + domainInflu_data[j].uid + "'>"+domainInflu_data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
+      if (data[j].bci=="") 
+      {
+      	data[j].bci="未知";
+      }
+      if (data[j].photo_url=="") 
+      {
+      	data[j].photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
+      }
+      bci_data = data[j].bci.toFixed(2);
+      html_table += "<tr><td>"+(j+1)+"</td><td><img src="+data[j].photo_url+"width=30px height=30px style='border-radius:20px;'></td><td><a target='_blank' href='/index/viewinformation/?uid=" + data[j].uid + "'>"+data[j].uname+"</a></td><td>"+bci_data+"</td></tr>";
     }
     $('#influ_domain').append(html_table);
 
@@ -313,11 +303,6 @@ var uid = 1640601392;
 var username = 'admin@qq.com';
 //var username = admin@qq.com;
 var Influence = new Influence();
-var domain_rank = 0;
-var domain_influence_score;
-var userImg_src;
-var uName;
-var userBci;
 var currentdate;
 var influence_date = choose_time_for_mode();
 var pre_influence_date = new Date(influence_date - 24*60*60*1000);
@@ -325,15 +310,18 @@ var date_str = pre_influence_date.format('yyyy-MM-dd');
 getNowFormatDate();
 influence_load();
 //var influ_all_table_url= '/influence_sort/user_sort/?username='+username+'&sort_scope=all_nolimit&all=True';
-var influ_all_table_url= '/influence_sort/user_sort/?username=admin@qq.com&sort_scope=all_nolimit&all=True';
-  Influence.call_ajax_request(influ_all_table_url, Influence.ajax_method, Influence.influence_Table_all);
 
 
 function transfer1(kind) {
     y_kind2=kind;
     var domain_rank_url = '/influence_sort/user_topic_sort/?uid='+uid+'&field='+y_kind2;
-    // console.log(domain_rank_url);
-    Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.domain_rank_data);
+    console.log(domain_rank_url);
+    Influence.call_ajax_request(domain_rank_url, Influence.ajax_method, Influence.rank_data);
+}
+
+function all_load(){
+	var influ_all_table_url= '/influence_sort/user_sort/?username=admin@qq.com&sort_scope=all_nolimit&all=True';
+  	Influence.call_ajax_request(influ_all_table_url, Influence.ajax_method, Influence.influence_Table_all);
 }
 
 function transfer2(kind) {
@@ -341,7 +329,7 @@ function transfer2(kind) {
     var sort_scope = 'in_limit_topic';
     var domain_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+y_kind1+'&all=False';
     Influence.call_ajax_request(domain_url, Influence.ajax_method, Influence.influence_Table_domain);
-    // console.log(domain_url+"=domain_url");
+    console.log(domain_url+"=domain_url");
 }
 
 
