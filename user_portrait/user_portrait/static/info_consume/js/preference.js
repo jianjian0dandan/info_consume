@@ -24,17 +24,17 @@ preference.prototype=
 
   domain:function(data)
   {
-
+    //console.log(data.results.topic);
     var i;
     //将此人涉及领域从数据库取出，
     var domain = new Array();
     var num = new Array();
     var show_domain = new Array();
     
-    for (i=0;i<data.in_topic.length;i++) 
+    for (i=0;i<data.results.topic.length;i++) 
     {
-      domain[i]=data.in_topic[i][0];
-      num[i]=data.in_topic[i][1];
+      domain[i]=data.results.topic[i][0];
+      num[i]=data.results.topic[i][1];
       show_domain.push({text:domain[i],max:maxvalue});
     }
     // console.log(domain[0]);
@@ -44,7 +44,7 @@ preference.prototype=
     var topdomain = domain[0];
     
     var othernum;
-    for (var j = 0; j < data.in_topic.length; j++) {
+    for (var j = 0; j < data.results.topic.length; j++) {
       if (domain[j] == "其他类") {
         othernum = j;
         break;
@@ -127,7 +127,7 @@ var preference=new preference();
 
 function show_domain()
 {
-  url = '/attribute/new_user_social/?uid='+uid;
+  url = '/attribute/preference/?uid='+uid;
  // console.log(url);
   preference.call_sync_ajax_request(url,preference.domain);
 }

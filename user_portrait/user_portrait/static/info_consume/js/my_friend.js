@@ -31,9 +31,11 @@ my_friend.prototype =
 	  if(personalData.nick_name){
 	      if (personalData.nick_name == 'unknown') {
 	          nickName.innerHTML = '未知';
+            this_username= uid;
 	      }
 	      else{
 	          nickName.innerHTML = personalData.nick_name;
+            this_username= personalData.nick_name;
 	      }
 	  }else{
 	      nickName.innerHTML = "无此数据";
@@ -43,12 +45,12 @@ my_friend.prototype =
 //好友排行
    my_friend_rank:function(data)
    {
-       //console.log(data); 
+      console.log(data); 
       // console.log(data.length);
-      // console.log(data[0]['influence']);
+     // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
-      data.sort(function(a,b){
-            return b.influence-a.influence});
+      // data.sort(function(a,b){
+      //       return b.influence-a.influence});
       //根据后台数据画表
       $('#friend_rank').empty();
       if(data.length==0)
@@ -122,12 +124,12 @@ my_friend.prototype =
    //模态框（显示所有的好友排行信息）
    friend_rank_detail:function(data)
    {
-      // console.log(data); 
+       console.log(data); 
       // console.log(data.length);
       // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
-      data.sort(function(a,b){
-            return b.influence-a.influence});
+      // data.sort(function(a,b){
+      //       return b.influence-a.influence});
       //根据后台数据画表
       $('#friend_rank_detail').empty();
       if(data.length==0)
@@ -340,7 +342,132 @@ my_friend.prototype =
           }
       },
 
+            //模态框显示所有亲密度排行信息
+      my_fans:function(data)
+      {
+        //console.log("outdata="+data);
 
+        $('#table-user').bootstrapTable({
+          //url: influ_url,
+          data:data,
+          search: false,//是否搜索
+          pagination: true,//是否分页
+          pageSize: 20,//单页记录数
+          pageList: [5, 10, 20, 50],//分页步进值
+          sidePagination: "client",//服务端分页
+          searchAlign: "left",
+          searchOnEnterKey: false,//回车搜索
+          showRefresh: true,//刷新按钮
+          showColumns: true,//列选择按钮
+          buttonsAlign: "left",//按钮对齐方式
+          locale: "zh-CN",//中文支持
+          detailView: false,
+          showToggle:true,
+          sortName:'count',
+          sortOrder:"desc",
+          columns: [  
+            {
+                title: "全选",
+                field: "select",
+                checkbox: true,
+                align: "center",//水平
+                valign: "middle"//垂直
+            },
+            {
+                title: "头像",
+                field: "photo_url",
+                sortable: true,
+                align: "center",//水平
+                valign: "middle",//垂直
+                formatter: function (value) {
+                  var photo_url = value;
+                  if(value=="unknown"||value==""||value==null){
+                    photo_url = "http://tva1.sinaimg.cn/default/images/default_avatar_male_50.gif";
+                  }
+                  return '<img  src="'+photo_url+'" class="img-rounded" style="width: 30px;height: 30px;}" >';
+                }
+            },
+            {
+                title: "昵称",
+                field: "uname",
+                align: "center",//水平
+                valign: "middle",//垂直
+                formatter: function (value,row) { 
+                  if(value=="unknown"||value==""||value==null){
+                    value = "未知";
+                    return value
+                  }else{
+                  var e = '<a class="user_view" data-toggle="tooltip" title="看看TA是谁？" data-placement="right" href="/index/viewinformation/?uid='+row.uid+' "target="_blank">'+value+'</a>';   ///index/viewinformation/?uid=\''+row.uid+'\'
+                   return e;
+                 }
+               }
+            },
+            {
+                title: "用户ID",
+                field: "uid",
+                align: "center",//水平
+                valign: "middle",//垂直
+                visible:false
+            },
+            {
+                title: "好友数",                        
+                field: "friendsnum",
+                sortable: true,
+                align: "center",//水平
+                valign: "middle",//垂直
+                formatter: function (value) {
+                   if(value=="unknown"||value==""||value==null){
+                    value = "未知";
+                  }
+                   return value;
+                }
+            },
+            {
+                title: "粉丝数",                        
+                field: "fansnum",
+                sortable: true,
+                align: "center",//水平
+                valign: "middle",//垂直
+                formatter: function (value) {
+                   if(value=="unknown"||value==""||value==null){
+                    value = "未知";
+                  }
+                   return value;
+                }
+            },
+            {
+                title: "微博数",                        
+                field: "weibo_count",
+                sortable: true,
+                align: "center",//水平
+                valign: "middle",//垂直
+                formatter: function (value) {
+                   if(value=="unknown"||value==""||value==null){
+                    value = "未知";
+                  }
+                   return value;
+                }
+            },
+            {
+                title: "交互次数",                        
+                field: "count",
+                sortable: true,
+                align: "center",//水平
+                valign: "middle",//垂直
+                formatter: function (value) {
+                   if(value=="unknown"||value==""||value==null){
+                    value = "未知";
+                  }
+                   return value;
+                }
+
+           }]
+        });
+        $('#table-user-contain').css("display","block");
+
+        $('.user_view').tooltip();
+      },
+  
 
     transmit_relationship:function(data)
     {
@@ -910,7 +1037,7 @@ my_friend.prototype =
                       //如果uid是数字
                       if(!isNaN(uid))
                       {
-                        console.log(param.name);
+                        // console.log(param.name);
                         var node_url='/index/viewinformation/?uid='+uid;
                         window.open(node_url);   
                       }else
@@ -1119,27 +1246,32 @@ my_friend.prototype =
 var my_friend=new my_friend();
 //好友排行
 var uid = 1640601392;
+var this_username;
+var admin_username = 'admin@qq.com';
 var url = "/attribute/new_user_profile/?uid=" + uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.personData);
-var uid_rank=2029036025;
+var uid_rank=1640601392;
 var url ="/info_person_social/follower/?uid="+uid_rank;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_friend_rank);
 //好友排行详细信息
 var url ="/info_person_social/follower/?uid="+uid_rank;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.friend_rank_detail);
 //亲密度排行
-var uid_close=2298571767;
+var uid_close=1640601392;
 var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank);
 //亲密度排行详细信息
 var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank_detail);
+//粉丝详细信息
+var url ="/info_person_social/get_fans/?uid="+uid_rank;
+my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_fans);
 //被转发关系网络
-var uid_transmit=2029036025;
+var uid_transmit=1640601392;
 var url ='/info_person_social/follower/?uid='+uid_transmit;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.transmit_relationship);
 //转发关系网络
-var uid_mention=1831090244;  
+var uid_mention=1640601392;  
 var url ='/info_person_social/attention/?uid='+uid_mention;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.mention_relationship);
 //评论关系网络图
@@ -1147,7 +1279,7 @@ var uid_comment=2298571767;
 var url ='/info_person_social/comment/?uid='+uid_comment;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.comment_relationship);
 //被评论关系网络图
-var uid_interaction=2298571767;  
+var uid_interaction=1640601392;  
 var url ='/info_person_social/be_comment/?uid='+uid_interaction;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.interaction_relationship);
 
@@ -1169,6 +1301,24 @@ $.each(oli,function (index,item) {
     })
 });
 
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
+
 function get_hua(muid,use1,use2){
     //console.log(muid);
     //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;;
@@ -1176,6 +1326,7 @@ function get_hua(muid,use1,use2){
     //console.log(url);
     my_friend.call_sync_ajax_request(url, my_friend.ajax_method, function(data){wangluo(data,use1,use2)});
 }
+
 function wangluo(data,use1,use2) {
     var shuju =eval(data);
     //console.log(shuju);
@@ -1185,5 +1336,72 @@ function wangluo(data,use1,use2) {
         $("#hua").append("<p class='huatwo'>"+use2+":"+shuju[i].last_text[0]+"</p>");
     }
     $("#hua").slideDown(50);
+}
+
+function addgroup(){
+   selected_list = $('#table-user').bootstrapTable('getSelections');
+   if( selected_list.length == 0){
+     alert('您还没有选择用户哦！');
+   }else{
+     display_grouplist();
+  }
+}
+// var group_name;
+// function display_grouplist(){
+//    var group_list_url='/info_group/show_task/?submit_user='+username ;
+//    $.ajax({
+//           type:'GET',
+//           url: group_list_url,
+//           dataType: 'json',
+//           async: true,
+//           success: draw_group_list
+//       }); 
+//     function draw_group_list(data){
+//       jishu = data.length;
+//       group_name = this_username+"的粉丝群"+(jishu+1);
+//    }
+// }
+
+function display_grouplist(){
+    var string = getNowFormatDate();
+    var group_name = this_username+"(创建于："+string+")";
+
+    selected_list = $('#table-user').bootstrapTable('getSelections');
+    var list_length = selected_list.length;
+    var group_uid_list = new Array();
+    for(var i=0;i<list_length;i++){
+      group_uid_list[i]=selected_list[i].uid;
+    }          
+    var group_ajax_url = '/influence_sort/submit_task/';
+    var admin = admin_username;//获取$('#useremail').text();
+    var group_analysis_count = 10;//获取
+    var job = {"submit_user":admin,"task_name":group_name, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
+    //console.log(job);
+    function callback(data){
+        //console.log("0/1/"+data);
+        if (data == '1'){
+            alert('追踪任务已提交！请前往圈子追踪中查看分析进度！');
+            $('#addModal').modal('show');
+            $('table-user').bootstrapTable('refresh');
+            // window.location.reload();
+        }
+        if(data == '0'){
+            alert('任务提交失败，请重试！');
+            $('#addModal').modal('hide');
+        }
+        if(data == 'more than limit'){
+            alert('抱歉！您目前提交任务超出规定数量，请稍后重试！！');
+            $('#addModal').modal('hide');
+        }
+    }
+
+    $.ajax({
+        type:'POST',
+        url: group_ajax_url,
+        contentType:"application/json",
+        data: JSON.stringify(job),
+        dataType: "json",
+        success: callback
+    }); 
 }
 

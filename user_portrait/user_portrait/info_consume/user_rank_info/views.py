@@ -26,8 +26,8 @@ def user_sort():
         start_time = end_time + datetime.timedelta(days=-7)
         start_time_nyr = start_time.strftime('%Y-%m-%d') 
     else:
-        end_time_nyr = '2013-09-07'
-        start_time_nyr = '2013-09-07'
+        end_time_nyr = '2016-11-27'
+        start_time_nyr = '2016-11-21'
     username = request.args.get('username', '') 
     search_time = request.args.get('time', '7')
     sort_norm = request.args.get('sort_norm', 'bci')

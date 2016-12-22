@@ -941,7 +941,7 @@
                         sortable: true,
                         align: "center",//水平
                         valign: "middle",//垂直
-                        formatter: function (value) { 
+                        formatter: function (value) {
                            var e = new Number(value);
                            e = e.toFixed(2);
                           return e;
@@ -1374,7 +1374,7 @@
               $('#sports').click(function () {
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
-                  var keyword = '文体类_体育';
+                  var keyword = '体育类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -1382,7 +1382,7 @@
               $('#amusement').click(function () {
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
-                  var keyword = '文体类_娱乐';
+                  var keyword = '娱乐类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -1391,7 +1391,7 @@
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   //var keyword = ['environment','medicine','traffic','employment','house','law','social-security'];
-                  var keyword ='民生类_社会保障';
+                  var keyword ='民生类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -1400,7 +1400,7 @@
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   //var keyword = ['politics','anti-corruption','fear-of-violence','peace','religion'];
-                  var keyword ='政治类_外交';
+                  var keyword ='政治类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -1416,7 +1416,7 @@
               $('#others').click(function () {
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
-                  var keyword = '其他类';
+                  var keyword = '生活类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
@@ -1458,7 +1458,7 @@
              for(var i=0;i<data.length;i++){
               group_uid_list[i]=data[i]['ID'];
              }
-              console.log('增加前人数：'+group_uid_list.length); //打印不出来，url无数据
+              //console.log('增加前人数：'+group_uid_list.length); //打印不出来，url无数据
 	           var k =group_uid_list.length;
 	           var dupli_uid_list = group_uid_list;
 	           var h = [];
@@ -1471,18 +1471,18 @@
 	          		}
 	            }
 	           }  
-	           console.log(h.length);
+	           //console.log(h.length);
               if(h.length==0){
               	for(var i=0;i<selected_list.length;i++){
                   group_uid_list[k]=selected_list[i].uid;
 	              k = k+1;
               	}
-              	console.log('增加后人数：'+group_uid_list.length);
+              	//console.log('增加后人数：'+group_uid_list.length);
 	            var group_ajax_url = '/influence_sort/submit_task/';
 	            var submit_name =  username;//获取$('#useremail').text();
 	            var group_analysis_count = 10;//获取
 	            var job = {"submit_user":submit_name,"task_name":task, "uid_list":group_uid_list, "task_max_count":group_analysis_count};
-	            console.log(job);
+	            //console.log(job);
 	             function callback(data){
                   if (data == 1){
                       alert('用户已添加到群组！请前往圈子追踪中查看分析进度！');
@@ -1554,7 +1554,9 @@
             var length = data.length;
              $('#group_list').empty();
             for(var i=0;i<length;i++){
-             var htm = '<li style="cursor:pointer;margin-top:10px;margin-left:5px;" onclick="modify_group(this)" value="'+data[i]['task_name']+'">'+data[i]['task_name']+'<span class="badge" style="margin-left:5px;">'+data[i]['group_count']+'</span></li>';
+             var htm = '<li style="cursor:pointer;margin-top:10px;margin-left:5px;" onclick="modify_group(this)" ' +
+                 'value="'+data[i]['task_name']+'">'+data[i]['task_name']+'<span class="badge"' +
+                 ' style="margin-left:5px;">'+data[i]['group_count']+'</span></li>';
              $('#group_list').append(htm);
              }
            }
