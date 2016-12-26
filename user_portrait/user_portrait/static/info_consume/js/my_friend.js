@@ -1,5 +1,3 @@
-
-
 function my_friend() {
 	this.ajax_method = 'GET';
 }
@@ -45,7 +43,7 @@ my_friend.prototype =
 //好友排行
    my_friend_rank:function(data)
    {
-      console.log(data); 
+       // console.log(data);
       // console.log(data.length);
      // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
@@ -1247,7 +1245,8 @@ var my_friend=new my_friend();
 //好友排行
 var uid = 1640601392;
 var this_username;
-var admin_username = 'admin@qq.com';
+var admin_username ='admin@qq.com';
+// var admin_username = uid;
 var url = "/attribute/new_user_profile/?uid=" + uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.personData);
 var uid_rank=1640601392;
@@ -1321,7 +1320,7 @@ function getNowFormatDate() {
 
 function get_hua(muid,use1,use2){
     //console.log(muid);
-    //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;;
+    //var url = '/info_person_social/get_weibo/?uid='+muid+'&root_uid='+mroot_uid+'&mtype='+mtype;;
     var url = '/info_person_social/get_weibo/?uid=2912277317&root_uid=1694625035&mtype=3';
     //console.log(url);
     my_friend.call_sync_ajax_request(url, my_friend.ajax_method, function(data){wangluo(data,use1,use2)});
