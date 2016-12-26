@@ -57,6 +57,7 @@ preference.prototype=
     $('#domainSort').append(topdomain);
 
       transfer1(topdomain);
+      all_load();
       transfer2(topdomain);
 
     //console.log(chuanlei());
@@ -132,4 +133,7 @@ function show_domain()
   preference.call_sync_ajax_request(url,preference.domain);
 }
 show_domain();
+
+
+
 

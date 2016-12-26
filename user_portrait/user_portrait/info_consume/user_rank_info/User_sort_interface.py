@@ -4,10 +4,11 @@ from Offline_task import add_task
 from all_filter import all_sort_filter
 from Keyword_task import key_words_search
 from time_utils import ts2datetime, datetime2ts
-from parameter import DAY, LOW_INFLUENCE_THRESHOULD
+from user_portrait.parameter import DAY, LOW_INFLUENCE_THRESHOULD
 from Makeup_info import make_up_user_info
 import json
-from global_utils import es_user_portrait
+#from global_utils import es_user_portrait
+from user_portrait.global_utils import es_user_portrait
 
 def query_task_number(user_name):
     query_body = {
@@ -21,7 +22,7 @@ def query_task_number(user_name):
                             }},
                             {"term":{
                                 'submit_user' : user_name
-                            }}
+                            }}      
                         ]
                     }
                 }
@@ -87,6 +88,7 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
             return {"flag":True , "search_id" : search_id }
         else:
             #find the scope
+            #in_limit_topic
             user_list = in_sort_filter(time , sort_norm,sort_scope , arg,[], False, number)
             #print user_list
     result = make_up_user_info(user_list,isall , time , sort_norm)
@@ -94,6 +96,6 @@ def user_sort_interface(username , time ,sort_scope , sort_norm , arg = None, st
     return result
     
 if __name__ == "__main__":    
-    print json.dumps(user_sort_interface(username = "kanon", time = 1, sort_scope =  "all_limit_keyword", sort_norm = "bci" , arg = 'hello' , st = "2013-09-01"  ,et =  "2013-09-01" , isall = True) )
+    print json.dumps(user_sort_interface(username = "kanon", time = 1, sort_scope =  "all_limit_keyword", sort_norm = "bci" , arg = 'hello' , st = "2016-11-21"  ,et =  "2016-11-21" , isall = True) )
             
             

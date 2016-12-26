@@ -6,7 +6,7 @@ use to save parameter
 RUN_TYPE = 0 #0 mark run for test; 1 mark run for operation
 #RUN_TEST_TIME = '2016-03-13'
 #RUN_TEST_TIME = '2013-09-08'
-RUN_TEST_TIME = '2013-09-07'
+RUN_TEST_TIME = '2016-11-28'
 
 #for all
 DAY = 24*3600
@@ -61,7 +61,7 @@ domain_ch2en_dict = {u'高校': 'university', u'境内机构':'homeadmin', u'境
 
 
 #attribtue: topic
-'''
+
 topic_en2ch_dict = {'art':u'娱乐类','computer':u'科技类','economic':u'经济类', \
                     'education':u'教育类','environment':u'自然类', 'medicine':u'健康类',\
                     'military':u'军事类','politics':u'政治类','sports':u'体育类',\
@@ -87,7 +87,7 @@ topic_ch2en_dict = {u'文体类_娱乐': 'art', u'科技类':'computer', u'经�
                     u'民生类_就业':'employment', u'政治类_暴恐':'fear-of-violence',\
                     u'民生类_住房': 'house', u'民生类_法律':'law', u'政治类_地区和平':'peace',\
                     u'政治类_宗教':'religion', u'民生类_社会保障':'social-security'}
-
+'''
 #attribtue:retweet/be_retweet/comment/be_comment/bidirect_interaction
 SOCIAL_DEFAULT_COUNT = '20'
 
@@ -177,7 +177,7 @@ ACTIVENESS_TREND_TAG_VECTOR = {
 
 #cron/text_attribute/weibo_api
 # weibo_api.py read_flow_text_sentiment/read_flow_text 
-WEIBO_API_INPUT_TYPE = 1 # 1 mark: need compute sentiment
+WEIBO_API_INPUT_TYPE = 0 # 1 mark: need compute sentiment
                          # 0 mark: not need compute sentiment
 #cron/text_attribute/topic
 TOPIC_ABS_PATH = '/home/ubuntu2/jiangln/jln/user_portrait/user_portrait/cron/model_file/topic'

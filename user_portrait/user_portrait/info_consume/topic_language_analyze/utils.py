@@ -408,7 +408,12 @@ def get_sen_ratio(topic,start_ts,end_ts):
 
 def get_person_value(uid):
     #认证类型
-    static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)['_source']
+    static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)
+    if static['found']:
+        return 'no'
+    else:
+        static = static['_source']
+    print "static",static
     try:
         ver_calue = verified_value[static['verified_type']]
     except:
