@@ -369,7 +369,7 @@ def ajax_get_text_detail():
     task_name = request.args.get('task_name','media') # task_name
     user = request.args.get('user', '')
     order = request.args.get('order', 'total') # total, retweeted, comment
-    ts = int(request.args.get('ts', '1378008000')) # timestamp: 123456789
+    ts = int(request.args.get('ts', '1480176000')) # timestamp: 123456789
     text_type = request.args.get('text_type', 0) # which line
 
     results = get_text_detail(task_name, ts, text_type, user, order)

@@ -48,7 +48,7 @@ def get_sen_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势�
         for i in range(interval, 0, -1):    
             begin_ts = upbound - unit * i
             end_ts = begin_ts + unit
-            print begin_ts,end_ts
+            #print begin_ts,end_ts
             items = db.session.query(SentimentCount.sentiment,func.sum(SentimentCount.count)).filter(SentimentCount.end>begin_ts, \
                                                          SentimentCount.end<=end_ts, \
                                                          SentimentCount.query==topic).group_by(SentimentCount.sentiment).all()

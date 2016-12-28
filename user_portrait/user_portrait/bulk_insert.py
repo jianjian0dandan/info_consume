@@ -60,7 +60,7 @@ def save_long_gexf(topic, identifyDate, identifyWindow, identifyGexf):
 				#}
 			}
 	bulk_action.extend([action,])
-	#print bulk_action
+	print bulk_action
 	auto_id = [str(i)for i in str(identifyDate)+str(identifyWindow) if i.isdigit()]
 	auto_id = ''.join(auto_id)
 	#es.bulk(bulk_action, index=index_name, doc_type='text', timeout=600)
@@ -70,15 +70,14 @@ def read_long_gexf(topic, identifyDate, identifyWindow):
 	name = str(identifyDate)+str(identifyWindow)
 	query_body = {
 		#"term":{"date":identifyDate}
-		"query":{"term":{"name":name}}
+		"query":{"match_phrase":{"name":name}}
 	}
 	index_name = topic+'_gexffile'
-	print query_body,es,index_name
 	try:
 		res = es.search(index=index_name, body=query_body)['hits']['hits']	
 	except:
 		return []
-	print res
+	print es,index_name,query_body
 	if len(res) > 0:
 		#print '!!!!'
 		#print type(json.loads(res[0]['_source']['gexf']))
@@ -121,16 +120,16 @@ def txt2es(filename,name ):
 				bulk_action = []
 				print count
 				#print len(bulk_action)
-			print len(bulk_action)
+			#print len(bulk_action)
 		#print bulk_action
 
 	#print es
-	print name,type(name),name.decode('utf-8')
-	print es.bulk(bulk_action, index=name, doc_type='text', timeout=600)
+	#print name,type(name),name.decode('utf-8')
+	#print es.bulk(bulk_action, index=name, doc_type='text', timeout=600)
 
 if __name__ == '__main__':
 	#write()
-	#txt2es('./laohu-buchong.txt','laohu')
+	#txt2es('/home/ubuntu2/chenyz/anguancenter/socialconsume/cron/result2.txt','aoyunhui')
 	#print es.delete(index='aoyunhui',doc_type='text',id='3995843252444302')
 	# es.index(index='topi-cs',doc_type='text',id='14676d48000_1470900837_aoyunhui_jln',body={'name':'奥运会','en_name':'aoyunhui','end_ts':'1470900837',\
 	# 											'start_ts':'1467648000','submit_user':'jln','comput_status':0})
@@ -147,10 +146,9 @@ if __name__ == '__main__':
 	        }
 	    }
 	}
-	#es.delete(index='topics',doc_type='测试',body=query_body)
+	es.delete(index='topics',doc_type='测试',body=query_body)
 	#es.delete(index='topics',doc_type='text',id='AVZ4jhDGhhg-Qh1aWtw4')
 	#print es.get(index='topics',doc_type='text',id='AVZ4jhC-hhg-Qh1aWtw3',_source=False,fields=['name'])
-	#es=Elasticsearch('219.224.134.213:9200',timeout=1000)
-	#es.update(index='group_manage',doc_type='group',id='admin@qq.com-娱乐',body={'doc':{'status':1}})
+	# es.update(index='topics',doc_type='text',id='14676d48000_1470900837_aoyunhui_jln',body={'doc':{'comput_status':1}})
 	# es.update(index='topics',doc_type='text',id='1467648000_1470900837_laohu_jln',body={'doc':{'comput_status':1}})
 	

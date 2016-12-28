@@ -14,8 +14,7 @@ def weibo_count():
     today = today_time()
     hashtag_list = {}
     for uid in uid_list:
-    	hashtag = r_cluster.hget('hashtag_'+'1378483200',uid)
-    	# print type(hashtag)
+    	hashtag = r_cluster.hget('hashtag_'+'1480176000',uid)
     	if hashtag != None:
     		hashtag = hashtag.encode('utf8')
 	    	hashtag = json.loads(hashtag)

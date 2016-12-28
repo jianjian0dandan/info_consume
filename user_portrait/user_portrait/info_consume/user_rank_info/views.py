@@ -86,6 +86,7 @@ def ajax_imagine():
         uid = re.match(r'[\d]{10}\Z', term).group()
     except:
         try:
+            print 'ddd'
             uid = get_uid(term)
         except:
             uid = ''

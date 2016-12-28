@@ -6,7 +6,7 @@ import math
 import json
 from sqlalchemy import func
 import sys
-from user_portrait.info_consume.model import TrendMaker, TrendPusher
+from user_portrait.info_consume.model import TrendMaker, TrendPusher,TopicIdentification
 from user_portrait.global_config import db, es_user_profile
 #sys.path.append('../../../')
 from user_portrait.bulk_insert import read_long_gexf
@@ -78,9 +78,10 @@ def get_trend_pusher(topic, identifyDate, identifyWindow):
 	#for item in items:
 		#print dir(item)
 	#return items
-	result = {}
+	
 	results = []
 	for item in items:
+		result = {}
 		user_info = json.loads(item.user_info)
 		weibo_info = json.loads(item.weibo_info)
 		result['timestamp'] = item.timestamp
@@ -98,9 +99,11 @@ def get_trend_maker(topic, identifyDate, identifyWindow):
 	items = db.session.query(TrendMaker).filter(TrendMaker.topic==topic ,\
 														TrendMaker.date==identifyDate ,\
 														TrendMaker.windowsize==identifyWindow).all()
-	result = {}
+	
 	results = []
 	for item in items:
+		result = {}
+		#print item.uid
 		user_info = json.loads(item.user_info)
 		weibo_info = json.loads(item.weibo_info)
 		result['timestamp'] = item.timestamp
@@ -204,6 +207,16 @@ def get_maker_weibos_byhot(topic, identifyDate, identifyWindow):
 	#for weibo in sorted_weibos:
 		#print weibo['_source']['retweeted']
 	return sorted_weibos
+
+
+def get_top_pagerank(topic, identifyDate, identifyWindow):
+	items = db.session.query(TopicIdentification).filter(TopicIdentification.topic==topic ,\
+														TopicIdentification.identifyDate==identifyDate ,\
+														TopicIdentification.identifyWindow==identifyWindow).limit(5000)
+	uid_list = [item.userId for item in items]
+	
+
+	return uid_list
 
 if __name__ == '__main__':
 	#get_gexf('aoyunhui', "2016-08-11", 37 )

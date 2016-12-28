@@ -400,10 +400,10 @@ def search_group_results(task_name, module, submit_user):
     result = {}
     if RUN_TYPE == 0:
         #jln
-        task_id = '媒体'
-        group_index_type='text'
-        #task_id = submit_user + '-' + task_name
-        #group_index_type = 'text'
+        #task_id = '媒体'
+        #group_index_type='text'
+        task_id = submit_user + '-' + task_name
+        group_index_type = 'group'
     else:
         task_id = submit_user + '-' + task_name
     #print es_group_result,group_index_name,group_index_type,task_id
