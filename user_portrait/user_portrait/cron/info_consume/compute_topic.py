@@ -148,7 +148,7 @@ def save_es(en_name,result):
 		    if count % 10000 == 0:
 		        te = time.time()
 		        print "index 10000 per %s second" %(te - tb)
-		        tb = ts
+		        tb = te
 	print "all done"
 	if bulk_action:
 	    weibo_es.bulk(bulk_action, index=en_name, doc_type=topic_index_type, timeout=100)

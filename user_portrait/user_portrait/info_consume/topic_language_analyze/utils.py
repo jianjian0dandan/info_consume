@@ -408,8 +408,10 @@ def get_sen_ratio(topic,start_ts,end_ts):
 
 def get_person_value(uid):
     #认证类型
+    #print es_user_profile,profile_index_name,profile_index_type,uid
     static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)
-    if static['found']:
+    #print static['found']
+    if static['found']==False:
         return 'no'
     else:
         static = static['_source']
@@ -421,8 +423,8 @@ def get_person_value(uid):
     #账号创建时间
     times = math.ceil((time.time()-int(static['create_at']))/31536000)
     #粉丝数
-    person = es_user_profile.get(index = portrait_index_name,doc_type = portrait_index_type,id=uid)['_source']
-    fans_value = (math.log(person['fansnum']+1000000,100000000)-0.75)*4
+    #person = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)['_source']
+    fans_value = (math.log(static['fansnum']+1000000,100000000)-0.75)*4
     if fans_value>1:
         fans_value=1.0
     final= ver_calue*10+times+fans_value*10000

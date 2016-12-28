@@ -6,8 +6,8 @@ use to save parameter
 RUN_TYPE = 0 #0 mark run for test; 1 mark run for operation
 #RUN_TEST_TIME = '2016-03-13'
 #RUN_TEST_TIME = '2013-09-08'
-RUN_TEST_TIME = '2016-11-28'
-
+RUN_TEST_TIME = '2016-11-28'#'2016-11-28'
+MYSQL_TOPIC_LEN = 0 #0是20，1是正常
 #for all
 DAY = 24*3600
 Fifteen = 60 * 15

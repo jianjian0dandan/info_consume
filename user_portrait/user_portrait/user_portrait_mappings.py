@@ -164,11 +164,11 @@ index_info = {
 }
 
 
-#es.indices.create(index="user_portrait_1222", body=index_info, ignore=400)
+es.indices.create(index="user_portrait_1222", body=index_info, ignore=400)
 
 
-es.indices.put_mapping(index='user_portrait_1222', doc_type='user', \
-        body={'properties':{'is_school':{'type':'string', 'index':'not_analyzed'}, \
-        'school_string':{'type':'string', 'analyzer':'my_analyzer'}, \
-        'school_dict':{'type':'string', 'index': 'not_analyzed'}}}, ignore=400)
+# es.indices.put_mapping(index='user_portrait_1222', doc_type='user', \
+#         body={'properties':{'is_school':{'type':'string', 'index':'not_analyzed'}, \
+#         'school_string':{'type':'string', 'analyzer':'my_analyzer'}, \
+#         'school_dict':{'type':'string', 'index': 'not_analyzed'}}}, ignore=400)
 
