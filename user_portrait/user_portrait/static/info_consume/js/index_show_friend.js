@@ -1,3 +1,4 @@
+console.log("【好友展示】start load:"+getSystemTime());
  function viewinformation()
  {
   //this.ajax_method='GET'; // body...
@@ -36,7 +37,7 @@ viewinformation.prototype=
 function Draw_out(data,div){
     //console.log(div);
         $('#'+div).empty();
-    console.log(data);
+    //console.log(data);
     if(data.length==0){
       var html='';
       html=html+'<p style="margin-left:4%;margin-top:20px;"> 暂时还没有你想要的数据耶~~~</p>'
@@ -74,9 +75,9 @@ function valueme(data) {
     //console.log(data);
     if (!isNaN(data)){
         //console.log(data.toFixed(2))
-        $('#money').text(data.toFixed(2));
+        $('#money').text(data.toFixed(2)+" 万元");
     }else {
-        $('#money').text('估值中··');
+        $('#money').text('暂无估值');
     }
 }
 
@@ -93,18 +94,16 @@ viewinformation.social_be.hide();//隐藏
 // });
 
 var viewinformation=new viewinformation();
-var uid = 1640601392;
+// var uid = 1640601392;
 function show_social(){
-  console.log("new");
   var url_be = '/info_person_social/follower/?uid='+uid;
   viewinformation.call_sync_ajax_request(url_be,viewinformation.social_be);
   var url_me = '/info_person_social/attention/?uid='+uid;
   viewinformation.call_sync_ajax_request(url_me,viewinformation.social_me);
 };
 
-var moneyuid = 2816651474;
 function money() {
-    var url='/topic_language_analyze/evaluate_person/?uid='+moneyuid;
+    var url='/topic_language_analyze/evaluate_person/?uid='+uid;
     viewinformation.call_sync_ajax_request(url,valueme);
 }
 money();
@@ -125,3 +124,4 @@ show_social();
 // show_follower();
 // //转发
 // show_attention();
+console.log("【好友展示】end load:"+getSystemTime());

@@ -78,7 +78,7 @@ def search_follower(uid, top_count):
             bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
         except:
             bci_history_result = []
-        print bci_history_result
+        # print bci_history_result
         iter_count = 0
         out_portrait_list = []
         for out_user_item in user_result:
@@ -130,7 +130,7 @@ def search_attention(uid, top_count):
     db_number = get_db_num(now_ts)
     index_name = retweet_index_name_pre + str(db_number)
     center_uid = uid
-    print es_retweet,index_name,retweet_index_type,uid
+    # print es_retweet,index_name,retweet_index_type,uid
     try:
         retweet_result = es_retweet.get(index=index_name, doc_type=retweet_index_type, id=uid)['_source']
     except:
@@ -148,7 +148,7 @@ def search_attention(uid, top_count):
             bci_history_result = es_bci_history.mget(index=bci_history_index_name, doc_type=bci_history_index_type, body={'ids':uid_list}, fields=fields)['docs']    
         except:
             bci_history_result = []
-        print bci_history_result
+        # print bci_history_result
         iter_count = 0
         out_portrait_list = []
         for out_user_item in user_result:
@@ -203,7 +203,7 @@ def search_yangshi_follower(uid, top_count):
         retweet_result = es_retweet.get(index=index_name, doc_type=be_retweet_index_type, id=uid)['_source']
     except:
         return None
-    print retweet_result
+    # print retweet_result
     if retweet_result:
         retweet_dict = json.loads(retweet_result['uid_be_retweet'])
         sorted_list = sorted(retweet_dict.iteritems(),key=lambda x:x[1],reverse=True)[:20]
@@ -245,7 +245,7 @@ def search_yangshi_attention(uid, top_count):
     db_number = get_db_num(now_ts)
     index_name = retweet_index_name_pre + str(db_number)
     center_uid = uid
-    print es_retweet,index_name,retweet_index_type,uid
+    # print es_retweet,index_name,retweet_index_type,uid
     try:
         retweet_result = es_retweet.get(index=index_name, doc_type=retweet_index_type, id=uid)['_source']
     except:
@@ -394,7 +394,7 @@ def search_be_comment(uid, top_count):
     now_ts = time.time()
     db_number = get_db_num(now_ts)
     index_name = be_comment_index_name_pre + str(db_number)
-    print es_comment
+    # print es_comment
     return search_user_info(es_comment,index_name,be_comment_index_type,uid,'uid_be_comment')
 
 
@@ -503,9 +503,9 @@ def search_bidirect_interaction(uid, top_count):
     all_interaction_uid_list = [item[0] for item in sort_all_interaction_dict]
     #print all_interaction_uid_list
 
-    if RUN_TYPE == 0:
-        all_interaction_dict = {'2029036025':3,'1282005885':2,'2549228714':2,'1809833450':1}
-        all_interaction_uid_list = ['2029036025', '1282005885', '2549228714', '1809833450']
+    # if RUN_TYPE == 0:
+        # all_interaction_dict = {'2029036025':3,'1282005885':2,'2549228714':2,'1809833450':1}
+        # all_interaction_uid_list = ['2029036025', '1282005885', '2549228714', '1809833450']
 
     out_portrait_list = all_interaction_uid_list
     #use to get user information from user profile
@@ -541,7 +541,7 @@ def search_bidirect_interaction(uid, top_count):
             bci_history_item = bci_history_result[iter_count]
         except:
             bci_history_item = {'found': False}
-        print bci_history_item
+        # print bci_history_item
         if bci_history_item['found'] == True:
             fansnum = bci_history_item['fields'][fields[0]][0]
             user_weibo_count = bci_history_item['fields'][fields[1]][0]
@@ -717,22 +717,26 @@ def search_weibo(root_uid,uid,mtype):
     results = es_flow_text.search(index=index_list,doc_type=flow_text_index_type,body=query_body)['hits']['hits']
     weibo = {}
     f_result = []
+
     if len(results) > 0:
         for result in results:
             #print type(result),result
             weibo['last_text'] = [result['_source']['text'],result['_source']['text'],result['_source']['timestamp']]
             mid = result['_source']['root_mid']
+            print mid
             len_pre = len(flow_text_index_name_pre)
             index = result['_index'][len_pre:]
             root_index = []
             for j in range(0,7):   #一周的，一个月的话就0,30
                 iter_date = ts2datetime(datetime2ts(index) - j * DAY) 
                 root_index.append(flow_text_index_name_pre + iter_date)
-            results = es_flow_text.search(index=root_index,doc_type=flow_text_index_type,body={'query':{'term':{'mid':mid}}})['hits']['hits']
-            if len(results)>0:
-                for result in results:
-                    weibo['ori_text'] = [result['_source']['text'],result['_source']['timestamp']]
-            f_result.append(weibo)
+            results0 = es_flow_text.search(index=root_index,doc_type=flow_text_index_type,body={'query':{'term':{'mid':mid}}})['hits']['hits']
+            if len(results0)>0:
+                for result0 in results0:
+                    weibo['ori_text'] = [result0['_source']['text'],result0['_source']['timestamp']]
+                    print weibo
+                    f_result.append(weibo)
+                    weibo={}
     return f_result
 
 if __name__=='__main__':
@@ -742,7 +746,7 @@ if __name__=='__main__':
     #result = get_evaluate_max()
     
     results1 = search_attention(uid)
-    print 'attention:', results1
+    # print 'attention:', results1
     '''
     results2 = search_follower(uid)
     print 'follow:', results2
@@ -775,7 +779,7 @@ def search_fans(uid,top_count):
         be_retweet_uid_dict = json.loads(be_retweet_result['uid_be_retweet'])
     else:
         be_retweet_uid_dict = {}
-    print "be_retweet_uid_dict", be_retweet_uid_dict
+    # print "be_retweet_uid_dict", be_retweet_uid_dict
     try:
         be_comment_result = es_be_comment.get(index=be_comment_index_name, doc_type=be_comment_index_type, id=uid)['_source']
     except:
@@ -785,12 +789,12 @@ def search_fans(uid,top_count):
         be_comment_uid_dict = json.loads(be_comment_result['uid_be_comment'])
     else:
         be_comment_uid_dict = {}
-    print "be_comment_uid_dict", be_comment_uid_dict
+    # print "be_comment_uid_dict", be_comment_uid_dict
 
     fans_result = union_dict(be_retweet_uid_dict,be_comment_uid_dict)
     fans_user_set = set(fans_result.keys())
     fans_list = list(fans_user_set)
-    print "fans_list", fans_list
+    # print "fans_list", fans_list
     all_fans_dict = {}
 
     for fans_user in fans_list:
@@ -833,7 +837,7 @@ def search_fans(uid,top_count):
             bci_history_item = bci_history_result[iter_count]
         except:
             bci_history_item = {'found': False}
-        print bci_history_item
+        # print bci_history_item
         if bci_history_item['found'] == True:
             fansnum = bci_history_item['fields'][fields[0]][0]
             user_weibo_count = bci_history_item['fields'][fields[1]][0]

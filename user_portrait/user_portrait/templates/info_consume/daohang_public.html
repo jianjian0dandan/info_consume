@@ -21,6 +21,11 @@
 <!-- end css -->
  {% endblock %}
 
+ {% block get_var_js%}
+  <script type="text/javascript">
+      var uid ='{{g.user.email}}';
+  </script>
+ {% endblock %}
 <!-- 引入js -->
  {% block head_js%}
 <style type="text/css">
@@ -33,7 +38,42 @@
  {% endblock %}
  <!-- end js -->
 </head> 
-
+<script type="text/javascript">
+   //获取系统时间，将时间以指定格式显示到页面。  
+    function getSystemTime()  
+    {  
+        //获取系统时间。  
+        var dateTime=new Date();  
+        var hh=dateTime.getHours();  
+        var mm=dateTime.getMinutes();  
+        var ss=dateTime.getSeconds();
+        var dd=dateTime.getDate();
+        var mt=dateTime.getMonth();
+        var yy=dateTime.getFullYear();
+        var mmm=dateTime.getMilliseconds();
+          
+        //分秒时间是一位数字，在数字前补0。  
+        mm = extra(mm);  
+        ss = extra(ss);  
+          
+        //将时间显示到ID为time的位置，时间格式形如：19:18:02  
+        return yy+"-"+mt+"-"+dd+" "+hh+":"+mm+":"+ss+":"+mmm;  
+    }  
+      
+    //补位函数。  
+    function extra(x)  
+    {  
+        //如果传入数字小于10，数字前补一位0。  
+        if(x < 10)  
+        {  
+            return "0" + x;  
+        }  
+        else  
+        {  
+            return x;  
+        }  
+    } 
+</script>
 <body>
   <!--top nav-->
   {% block header %}  
