@@ -719,7 +719,6 @@ def new_get_user_weibo(uid, sort_type):
     #run_type
     if RUN_TYPE == 0:
         now_date = RUN_TEST_TIME
-        sort_type = 'timestamp'
     #step1:get user name
     print '708'
     try:
@@ -743,8 +742,8 @@ def new_get_user_weibo(uid, sort_type):
     print '726'
     try:
         weibo_result = es_flow_text.search(index=index_list, doc_type=flow_text_index_type,\
-                body={'query':{'filtered':{'filter':{'term': {'uid': uid}}}}, 'size':MAX_VALUE,'sort':{sort_type:{'order':'desc'}}})['hits']['hits']
-        #print weibo_result
+                body={'query':{'filtered':{'filter':{'term': {'uid': uid}}}}, 'size':MAX_VALUE,'sort':{'timestamp':{'order':'desc'}}})['hits']['hits']
+        print "weibo_result",weibo_result
     except:
         weibo_result = []
     print '732',len(weibo_result)
@@ -781,32 +780,30 @@ def new_get_user_weibo(uid, sort_type):
         sentiment = source['sentiment']
         weibo_url = weiboinfo2url(uid, mid)
         #run_type
-        if RUN_TYPE == 1:
-            try:
-                retweet_count = source['retweeted']
-            except:
-                retweet_count = 0
-            try:
-                comment_count = source['comment']
-            except:
-                comment_count = 0
-            try:
-                sensitive_score = source['sensitive']
-            except:
-                sensitive_score = 0
-        else:
+        
+        try:
+            retweet_count = source['retweeted']
+        except:
             retweet_count = 0
+        try:
+            comment_count = source['comment']
+        except:
             comment_count = 0
+        try:
+            sensitive_score = source['sensitive']
+        except:
             sensitive_score = 0
+
         city = ip2city(ip)
         if mid not in mid_set:
             results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
             mid_set.add(mid)
+
     if sort_type == 'timestamp':
         sort_results = sorted(results, key=lambda x:x[5], reverse=True)
-    elif sort_type == 'retweet_count':
+    elif sort_type == 'retweeted':
         sort_results = sorted(results, key=lambda x:x[7], reverse=True)
-    elif sort_type == 'comment_count':
+    elif sort_type == 'comment':
         sort_results = sorted(results, key=lambda x:x[8], reverse=True)
     elif sort_type == 'sensitive':
         sort_results = sorted(results, key=lambda x:x[9], reverse=True)
