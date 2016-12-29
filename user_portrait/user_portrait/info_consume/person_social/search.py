@@ -91,7 +91,7 @@ def search_follower(uid, top_count):
                     uname = u'未知'
                 #location = source['user_location']
                 friendsnum = source['friendsnum']
-                photo_url = 'unknown'
+
             else:
                 uname = u'未知'
                 location = ''

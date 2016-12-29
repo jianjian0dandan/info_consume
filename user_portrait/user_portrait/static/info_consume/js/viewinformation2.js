@@ -31,9 +31,6 @@ viewinformation.prototype=
 		
 		for (i=0;i<data.in_domain.length;i++) 
 		{
-			if (data[i].photo_url=="" || data[i].photo_url=="unknown") {
-				data.photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
-			}
 			identity[i]=data.in_domain[i][0];
 
 			num[i]=data.in_domain[i][1];
