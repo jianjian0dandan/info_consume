@@ -72,7 +72,7 @@
 </style>
   <div class="up_box">
     <div class="l_box">
-        <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="200px" height="200px" style="margin:0 auto;border-radius:50%;" title="1314608344" >
+        <img id="portraitImg" src="http://tp2.sinaimg.cn/1878376757/50/0/1" width="200px" height="200px" style="margin:0 auto;border-radius:50%;" >
 <!--Personal acconunt infomation-->
       <div class="panel panel-success boxshadow" id="account" style="top:50px;left:0px;">
           <div class="panel-heading">
@@ -317,7 +317,7 @@
         <div style='float:left;'>
           <img id="price1" src="../../static/info_consume/image/money.png" width="30px" height="30px" style="margin-top: 0px;
                 margin-left: 6px;display: inline-block;">
-          <h1 id="price2" style='display:inline-block;'>我的身价：<span id="money"></span>万元</h1>   
+          <h1 id="price2" style='display:inline-block;'>我的身价：<span id="money"></span></h1>   
         </div>
              <div style='clear:both;'>
 
@@ -358,14 +358,14 @@
 
                   <label class="demo--label">
                     <li style="float:left;margin-left:5px;">
-                      <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                      <input class="demo--radio" type="radio" name="mode_choose" value="comment">
                       <span class="mode demo--radioInput" style=""></span>评论数
                     </li>
                   </label>
 
                   <label class="demo--label">
                     <li style="float:left;margin-left:5px;">
-                      <input class="demo--radio" type="radio" name="mode_choose" value="retweet_count">
+                      <input class="demo--radio" type="radio" name="mode_choose" value="retweeted">
                       <span class="mode demo--radioInput" style=""></span>转发数
                     </li> 
                   </label>
@@ -446,7 +446,6 @@ homepageinfo.prototype = {
   });
   },
   personData:function(data){
-
   //console.log("personData"+data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
@@ -623,7 +622,7 @@ homepageinfo.prototype = {
     //亲密度排行
     intimacy_rank:function(data)
     {
-    	console.log(data.length);
+    	//console.log(data.length);
       	var drawFriend = document.getElementById('draw_p3');
       	var friendStr;
       	var intimacyFriID;
@@ -641,18 +640,20 @@ homepageinfo.prototype = {
       	drawFriend.innerHTML = "<a target='_blank' href='/index/viewinformation/?uid="+intimacyFriID+"' style='color:white'>"+friendStr+"</a>";
     },
     // 微博数据
+
     weiboData:function(data){
+      console.log("【微博展示】start load:"+getSystemTime());
       weiboData = data;
       DrawWeibo(data,'group_influ_weibo', 'group_influ_weibo_result');
         $('#per_onload').css('display','none')
         $('#group_influ_weibo').css('display', 'block');
+      console.log("【微博展示】end load:"+getSystemTime());
     }
 }
 var Personal = new homepageinfo();
 var personalData; // global data
 var overallData;
 var weiboData;
-var uid = 1640601392;
 
 function openurl(){
   var ourl = $('#openurl').text();
@@ -662,39 +663,16 @@ function openurl(){
 $(function(){
   $('#modechoose').click(function(){
   var box = document.getElementsByName('mode_choose');
-  var com_flag = false;
-  var tim_flag = false;
-  var ret_flag = false;
-
   for(var i=0;i<box.length;i++){
-    if(box[i].value == "comment_count" && com_flag == false){
-      $('#per_onload').css('display', 'block');
-      $('#group_influ_weibo').css('display', 'none')
-      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=comment_count";
-      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-
-      com_flag = true;
-    };
-
-    if(box[i].value == "retweet_count" && ret_flag == false){
-      $('#per_onload').css('display', 'block');
-      $('#group_influ_weibo').css('display', 'none')
-      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=retweet_count";
-      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-
-      com_flag = true;
+    if(box[i].checked){
+      sort_type = box[i].value;
     }
-
-    if(box[i].value == "timestamp" && tim_flag == false){
-      $('#per_onload').css('display', 'block');
-      $('#group_influ_weibo').css('display', 'none')
-      var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
-      Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-
-      com_flag = true;
     }
-
-  }
+$('#per_onload').css('display', 'block');
+$('#group_influ_weibo').css('display', 'none')
+  var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type="+sort_type;
+  //console.log('ddd',url);
+        Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
   });
 });
 
@@ -869,7 +847,6 @@ function page_icon(page,count,eq){
 function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     weibo_num = end_row - start_row;
     $('#'+ sub_div_name).empty();
-    //console.log(data);
     var html = "";
     html += '<div class="group_weibo_font" style="margin-right:5px;margin-top:15px;">';
     for (var i = start_row; i < end_row; i += 1){
@@ -909,11 +886,9 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     $('#'+sub_div_name).append(html);
 }
 
-var uid = 1640601392;
 var Personal = new homepageinfo();
 var personalData; // global data
 
-//
 //好友亲密度排行
 var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);
@@ -931,7 +906,7 @@ var url = "/attribute/new_user_evaluate/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.overallData);
 var url = "/attribute/new_user_weibo/?uid="+uid+"&sort_type=timestamp";
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.weiboData);
-console.log("new_user_weibo_url",url);
+//console.log("new_user_weibo_url",url);
 
 //最新update
 

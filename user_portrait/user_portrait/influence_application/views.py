@@ -13,7 +13,8 @@ from search_tag_in_portrait import search_tag
 from user_portrait.global_utils import ES_CLUSTER_FLOW1 as es
 from influence_description import influence_description
 from user_portrait.global_utils import copy_portrait_index_name, copy_portrait_index_type, portrait_index_name, portrait_index_type
-from user_portrait.parameter import pre_influence_index, influence_doctype
+from user_portrait.parameter import pre_influence_index, influence_doctype,RUN_TYPE,RUN_TEST_TIME,DAY
+from user_portrait.time_utils import ts2datetime, datetime2ts
 
 portrait_index = copy_portrait_index_name
 portrait_type = copy_portrait_index_type
@@ -81,6 +82,10 @@ def ajax_specified_user_active():
     results = []
 
     if date and uid:
+        if RUN_TYPE==0:
+            timetemp = datetime2ts(RUN_TEST_TIME)-DAY
+            date = ts2datetime(timetemp)
+        print date
         index_name = pre_influence_index + date.replace('-','')
         list_1 = []
         uid_list = [item for item in uid.split(',')]

@@ -1,6 +1,5 @@
 var Personal = new homepageinfo();
 var personInfoData;
-var uid = 1640601392;
 // var uid=uid;
 var url = "/attribute/personRec/?uid=" + uid;
 //每次展示三个人
