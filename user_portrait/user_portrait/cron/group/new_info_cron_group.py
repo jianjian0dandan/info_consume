@@ -1893,11 +1893,11 @@ def compute_group_task_v2():
         task = r.rpop(group_analysis_queue_name)
         #test
         #r.lpush(group_analysis_queue_name, task)
-        task=json.dumps({"status": 0, "count": 20, "task_type": "analysis", "task_id": "admin@qq.com-娱乐", "submit_date": 1482308510, "submit_user": "admin@qq.com", "detect_process": "", "detect_type": "", "task_name": "娱乐", "task_max_count": 10, "uid_list": ["2891529877", "1644395354", "1886419032", "1738932247", "1830442653", "1134796120", "2929571482", "1742566624", "3460516424", "2396815443", "2860954042", "2709577332", "2365961811", "1642591402", "3218586493", "1337970873", "2316673484", "2141823055", "2391322817", "3201433533"]})
+        #task=json.dumps({"status": 0, "count": 20, "task_type": "analysis", "task_id": "admin@qq.com-娱乐", "submit_date": 1482308510, "submit_user": "admin@qq.com", "detect_process": "", "detect_type": "", "task_name": "娱乐", "task_max_count": 10, "uid_list": ["2891529877", "1644395354", "1886419032", "1738932247", "1830442653", "1134796120", "2929571482", "1742566624", "3460516424", "2396815443", "2860954042", "2709577332", "2365961811", "1642591402", "3218586493", "1337970873", "2316673484", "2141823055", "2391322817", "3201433533"]})
         if not task:
             break
         else:
-            #print 'task!!!!!!',task
+            print 'task!!!!!!',task
             results = dict()
             task = json.loads(task)
             task_name = task['task_name']

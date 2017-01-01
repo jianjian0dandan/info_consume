@@ -6,6 +6,7 @@ import random
 
 AB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'libsvm-3.17/python/')
 sys.path.append(AB_PATH)
+
 from sta_ad import start
 
 def ad_classifier(rlist):

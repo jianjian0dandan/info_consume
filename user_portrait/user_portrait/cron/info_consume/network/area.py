@@ -199,11 +199,14 @@ def make_network_graph(current_date, topic_pinyin_name, window_size, all_uid_pr,
     partition = community.best_partition(p_gg)
     #ds_partition = community.best_partition(p_ds_udg) # 将直接上级转发网络进行社区划分！！！！！！！！！！！！
     
-    
-    print 'start snowball sampling'
-    new_G, new_gg = SnowballSampling(G, gg, topic_pinyin_name, network_type)
-    #ds_new_G, ds_new_gg = SnowballSampling(ds_dg, ds_udg, topic, ds_network_type)
-    print 'sampling complicated'
+    if N>1000:
+    #1227 jln for 
+        print 'start snowball sampling'
+        new_G, new_gg = SnowballSampling(G, gg, topic_pinyin_name, network_type)
+        #ds_new_G, ds_new_gg = SnowballSampling(ds_dg, ds_udg, topic, ds_network_type)
+        print 'sampling complicated'
+    else:
+        new_G, new_gg = G, gg
     
     # Local Bridge的算法需要提升效率，此处先不显示
     '''

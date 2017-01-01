@@ -10,7 +10,7 @@ from dynamic_xapian_weibo import getXapianWeiboByTopic
 from parameter import user_fields_list, field_list, TOPIC, START, END ,\
          domain_list, USER_DOMAIN, Minute, Fifteenminutes, Hour, Day ,\
          MinInterval , fu_tr_during, trend_maker_count, trend_pusher_count ,\
-         fu_tr_unit, fu_tr_top_keyword, p_during
+         fu_tr_unit, fu_tr_top_keyword, p_during,MYSQL_TOPIC_LEN
 from parameter import weibo_topic2xapian, weibo_fields_list
 from bottom_detect import detect_bottom
 from get_first_user import get_user_info
@@ -20,6 +20,7 @@ from model import PropagateCount, PropagateKeywords, TrendKeyUser, TrendMaker, T
 from time_utils import datetime2ts, ts2datetime, ts2date
 from global_config import db, REDIS_HOST, REDIS_PORT,\
         weibo_es, weibo_index_type
+#from parameter import MYSQL_TOPIC_LEN
 #改动 这里不要啦
 #from global_config import xapian_search_user as user_search
 
@@ -91,14 +92,17 @@ def get_interval_count(topic, date, windowsize):
     end_ts = datetime2ts(date)
     interval = (end_ts - start_ts) / during
     print 'interval:', interval
+    print topic
+    if MYSQL_TOPIC_LEN == 0:
+    	topic0 = topic[:20]
     for i in range(interval, 0, -1):
         #print 'i:', i
         begin_ts = end_ts - during * i
         over_ts = begin_ts + during
-        #print 'begin_ts:', ts2date(begin_ts)
-        #print 'over_ts:', ts2date(over_ts)
+        #print 'begin_ts:', begin_ts#ts2date(begin_ts)
+        #print 'over_ts:', over_ts#ts2date(over_ts)
         ts_list.append(over_ts)
-        items = db.session.query(PropagateCount).filter(PropagateCount.topic==topic ,\
+        items = db.session.query(PropagateCount).filter(PropagateCount.topic==topic0 ,\
                                                         PropagateCount.end<=over_ts ,\
                                                         PropagateCount.end>begin_ts ,\
                                                         PropagateCount.range==unit).all()
@@ -285,8 +289,11 @@ def get_keyword(topic, begin_ts, end_ts, top):
     #unit = 900 # PropagateKeywords unit=900
     #limit = 50
     limit = fu_tr_top_keyword
+    if MYSQL_TOPIC_LEN == 0:
+    	topic=topic[:20]
     #print 'get_keywords begin_ts:', begin_ts
     #print 'get_keywords end_ts:', end_ts
+    print topic,unit,limit
     items = db.session.query(PropagateKeywords).filter(PropagateKeywords.end>begin_ts ,\
                                                        PropagateKeywords.end<=end_ts ,\
                                                        PropagateKeywords.topic==topic ,\
@@ -314,7 +321,7 @@ def sort_makers(keyword_data, begin_ts, end_ts, ts_list, topic):
     
     begin_ts = begin_ts - Hour
     #query_dict = {'timestamp':{'$gt': begin_ts, '$lt': end_ts}}
-
+    print '323',begin_ts,end_ts,topic
     query_body = {
             'query': {
                 'bool': {
@@ -342,6 +349,7 @@ def sort_makers(keyword_data, begin_ts, end_ts, ts_list, topic):
         }
     es_search_weibos = weibo_es.search(index=topic, doc_type=weibo_index_type, body=query_body)['hits']['hits']
     num = 0
+    print 'len(es_search_weibos):',len(es_search_weibos)
     if len(es_search_weibos) == 0:
         return []
     weibo_term = {}
@@ -402,9 +410,10 @@ def get_pushers(topic, new_peaks, new_bottom, ts_list):
     #try:
     print results
     print p_ts_list
-    max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
-    #except:
-
+    try:
+        max_k_timestamp = get_max_k_timestamp(results, p_ts_list) # 获取增速最快的时间点
+    except:
+        max_k_timestamp = end_ts
     #save max_k_timestamp
     # save_mak_k(max_k_timestamp)
     end = max_k_timestamp
