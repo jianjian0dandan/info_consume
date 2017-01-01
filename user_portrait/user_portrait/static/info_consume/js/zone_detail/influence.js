@@ -190,13 +190,9 @@ rank_data:function(data){
     var influ_des;
     var badPart =':';
 
-    $('#locatSun').css("display","none");
-
     if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
       stage=1;
-      $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-33%");
-      $('#locatSun').css("margin-left","62%");
+      $('#locatSun4').css("display","block");
       // console.log('111');
     }else{
       if(be_retweet==0) badPart+='原创微博被转发数 ';
@@ -207,9 +203,7 @@ rank_data:function(data){
 
     if (retweet_retweet==1 && re_re_speed == 1) {
       stage=2;
-      $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-29%");
-      $('#locatSun').css("margin-left","62%");
+      $('#locatSun3').css("display","block");
     }else{
       if(retweet_retweet==0) badPart+='转发微博被转发数 ';
       if (re_re_speed==0) badPart+='转发速度 ';
@@ -217,18 +211,24 @@ rank_data:function(data){
     
     if (retweet_comment==1 && re_co_speed==1){
       stage=3;
-      $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-24%");
-      $('#locatSun').css("margin-left","62%");
+      $('#locatSun2').css("display","block");
     }else {
       if(retweet_comment==0) badPart+='转发微博评论数 ';
       if (re_co_speed==0) badPart+='评论速度 ';
-      $('#locatSun').css("display","block");
-      $('#locatSun').css("margin-top","-19%");
-      $('#locatSun').css("margin-left","69%");
+      if (stage==1 || stage==2 || stage==3) {
+        $('#locatSun1').css("display","none");
+      }else{
+        $('#locatSun1').css("display","block");
+      }      
     };
-    $('#badPart').append(badPart);
-
+    if(badPart==':'){
+      $('#tisheng').css('display','none');
+      $('#badPart').css('display','none');
+    }else{
+      $('#tisheng').css('display','block');
+      $('#badPart').append(badPart);
+      $('#badPart').css('display','block');
+    }
     //原来递增式的判断模型
     // if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
     //   stage=1;

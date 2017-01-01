@@ -22,7 +22,7 @@ viewinformation.prototype=
   },
 
   social_be:function(data){
-      //console.log("follow_data:"+data);
+      console.log(data);
       Draw_out(data,'tweeted_out'); 
     },
     

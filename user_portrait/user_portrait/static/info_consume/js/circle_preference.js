@@ -1,3 +1,4 @@
+console.log("【兴趣特征】start load:"+getSystemTime());
 //关键词词云;id=keyword-cloud
 function Draw_keyword_cloud(data,div_name){
 function createRandomItemStyle() {
@@ -86,3 +87,4 @@ function Draw_preference_page(data){
  call_sync_ajax_request(preference_url,'GET',Draw_preference_page);
  //console.log('preference_url:'+preference_url);
 }
+console.log("【兴趣特征】end load:"+getSystemTime());

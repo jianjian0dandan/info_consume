@@ -1,4 +1,5 @@
 //出
+console.log("【情绪特征】start load:"+getSystemTime());
 function Draw_weibo_table(data){
               $('#group_emotion_loading').css('display', 'none');
               $('#input-table').css('display', 'block');
@@ -477,3 +478,4 @@ function Draw_psy_page(data){
  call_sync_ajax_request(psy_url,'GET',Draw_psy_page);
  //console.log("psy_url:"+psy_url);
  }
+ console.log("【情绪特征】end load:"+getSystemTime());
