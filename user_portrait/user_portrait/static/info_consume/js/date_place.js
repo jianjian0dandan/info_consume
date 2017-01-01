@@ -283,6 +283,8 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		// console.log(item_province_json);
 		// console.log(item_city_json_new);
 		// console.log(item_json);
+        item_province_json.sort(function(a,b){
+            return b.value-a.value});
 
 	 	var myChart = echarts.init(document.getElementById('main_place'));
 
@@ -378,8 +380,9 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 					    },
 					    dataRange: {
 					        min: 0,
-					        max: 100,
-					        color:['orange','yellow'],
+					        //max: 100,
+					        max:item_province_json[0].value,
+					        color:['orange','white'],
 					        text:['高','低'],           // 文本，默认为数值文本
 					        calculable : true
 					    },
@@ -406,8 +409,7 @@ topic_analysis_place.prototype = {   //获取数据，重新画表
 		)	
 		
 
-		item_province_json.sort(function(a,b){
-            return b.value-a.value});
+		
 		// console.log(item_json);
 		var rank_html = '';
 		rank_html += '<table id="table">';

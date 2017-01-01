@@ -36,7 +36,7 @@ def adsRec(uid, queryInterval=HOUR * 4):
     # 运行状态，
     # 0 ->  当前为2013-9-8 00:00:00
     # 1 ->  当前时间
-    now_date = ts2datetime(time.time()) if RUN_TYPE == 1 else RUN_TEST_TIME
+    now_date = ts2datetime(time.time()) if RUN_TYPE == 1 else ts2datetime(datetime2ts(RUN_TEST_TIME)-DAY)
 
     # 获取用户的偏好
     user_portrait_result = es_user_portrait. \

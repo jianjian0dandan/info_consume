@@ -22,7 +22,7 @@ class Topics(db.Model):
 #sentiment部分
 class SentimentKeywords(db.Model):#情绪关键词---已改
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    query = db.Column(db.String(20))
+    query = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
@@ -39,7 +39,7 @@ class SentimentKeywords(db.Model):#情绪关键词---已改
 
 class SentimentWeibos(db.Model):#情绪微博--已改
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    query = db.Column(db.String(20))
+    query = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
@@ -56,7 +56,7 @@ class SentimentWeibos(db.Model):#情绪微博--已改
 
 class SentimentPoint(db.Model):#情绪拐点
     id = db.Column(db.Integer, primary_key=True)
-    topic = db.Column(db.String(20))#话题名
+    topic = db.Column(db.String(100))#话题名
     stype = db.Column(db.String(20))#拐点情绪类型标签（'happy','angry','sad'）
     ts = db.Column(db.BigInteger(20, unsigned=True))#拐点时间
 
@@ -67,7 +67,7 @@ class SentimentPoint(db.Model):#情绪拐点
 
 class SentimentCount(db.Model):#情绪绝对数量曲线--已改
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    query = db.Column(db.String(20))
+    query = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     sentiment = db.Column(db.Integer(1, unsigned=True))
@@ -82,7 +82,7 @@ class SentimentCount(db.Model):#情绪绝对数量曲线--已改
 
 class SentimentCountRatio(db.Model):#情绪相对比例曲线--已改
     id = db.Column(db.Integer, primary_key=True)
-    query = db.Column(db.String(20))#话题名
+    query = db.Column(db.String(100))#话题名
     end = db.Column(db.BigInteger(20, unsigned=True))#时间
     range = db.Column(db.BigInteger(10, unsigned=True))
     ratio = db.Column(db.Float)#相对比例
@@ -98,7 +98,7 @@ class SentimentCountRatio(db.Model):#情绪相对比例曲线--已改
 #city模块
 class CityTopicCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     mtype = db.Column(db.Integer(1, unsigned=True))  #message_type:原创-1、转发-2、评论-3
@@ -115,7 +115,7 @@ class CityTopicCount(db.Model):
 
 class CityTopicCountNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     mtype = db.Column(db.Integer(1, unsigned=True))  #message_type:原创-1、转发-2
@@ -133,7 +133,7 @@ class CityTopicCountNews(db.Model):
 class CityRepost(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     original = db.Column(db.Integer(1,unsigned = True))
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     mid = db.Column(db.String(20)) # 微博ID
     ts = db.Column(db.BigInteger(20, unsigned=True))
     origin_location = db.Column(db.Text) # 原始微博发布地点
@@ -150,7 +150,7 @@ class CityRepost(db.Model):
 class CityRepostNews(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     original = db.Column(db.Integer(1,unsigned = True))
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     mid = db.Column(db.String(20)) # 新闻ID
     ts = db.Column(db.BigInteger(20, unsigned=True))
     origin_location = db.Column(db.Text) # 原始新闻发布地点
@@ -166,7 +166,7 @@ class CityRepostNews(db.Model):
 
 class CityWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
@@ -185,7 +185,7 @@ class CityWeibos(db.Model):
 
 class CityNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     limit = db.Column(db.BigInteger(10, unsigned=True), primary_key=True)
@@ -205,7 +205,7 @@ class CityNews(db.Model):
 #时间分析模块
 class PropagateCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     mtype = db.Column(db.Integer(1, unsigned=True))   
@@ -220,7 +220,7 @@ class PropagateCount(db.Model):
 
 class AttentionCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     mtype = db.Column(db.Integer(1, unsigned=True))   
@@ -239,7 +239,7 @@ class AttentionCount(db.Model):
 
 class QuicknessCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     mtype = db.Column(db.Integer(1, unsigned=True))   
@@ -262,7 +262,7 @@ class QuicknessCount(db.Model):
 #以下是语义模块（李文文看）
 class OpinionTopic(db.Model):#话题、观点对应表
     id = db.Column(db.Integer, primary_key=True)
-    topic = db.Column(db.String(20))#话题
+    topic = db.Column(db.String(100))#话题
     opinion = db.Column(db.String(20))#观点
 
     def __init__(self, topic, opinion):
@@ -326,7 +326,7 @@ class OpinionHot(db.Model):#观点热度值
 
 class SentimentGeo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     sentiment = db.Column(db.Integer(1, unsigned=True))  
@@ -342,7 +342,7 @@ class SentimentGeo(db.Model):
 
 class ProvinceWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.BigInteger(10, unsigned=True))
     range = db.Column(db.BigInteger(10, unsigned=True))
     limit = db.Column(db.BigInteger(10, unsigned=True))
