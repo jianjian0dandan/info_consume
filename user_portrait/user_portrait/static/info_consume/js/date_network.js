@@ -132,15 +132,16 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     //console.log(item);
     var nodes_new = [];
     var nodes_label = [];
-    // console.log(item['nodes'].length);
-    // console.log(item['links'].length);
+    console.log(item['nodes'].length);
+    console.log(item['links'].length);
     item_links=[];
-    for (k=0;k<Math.min(item['links'].length,2000);k++){
+    for (k=0;k<Math.min(item['links'].length,20000);k++){
+      console.log()
       item_links.push(item['links'][k]);
     }
     //console.log(item_links.length);
 
-    for(i=0;i<Math.min(item['links'].length,2000);i++){
+    for(i=0;i<Math.min(item['nodes'].length,20000);i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }

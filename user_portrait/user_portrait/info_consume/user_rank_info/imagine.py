@@ -32,6 +32,7 @@ def get_evaluate_max():
 
 def imagine(submit_user, uid, query_fields_dict,index_name=portrait_index_name, doctype=portrait_index_type):
     default_setting_dict = query_fields_dict
+    print es,portrait_index_name,portrait_index_type,uid
     try :
         personal_info = es.get(index=portrait_index_name, doc_type=portrait_index_type, id=uid, _source=True)['_source']
     except:

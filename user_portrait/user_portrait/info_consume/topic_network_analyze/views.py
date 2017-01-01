@@ -129,6 +129,8 @@ def pusher_weibos_byhot():
 @mod.route('/get_pagerank/')
 def get_pagerank():
     topic =request.args.get('topic', '')
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
     end_ts = request.args.get('end_ts', '')     #''代表默认值为空
     end_ts = long(end_ts)
     start_ts = request.args.get('start_ts', '')

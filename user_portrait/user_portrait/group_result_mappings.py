@@ -60,7 +60,7 @@ index_info = {
         }
     }
 
-es = Elasticsearch('10.128.55.69')
+es = Elasticsearch('219.224.134.216:9201')
 
 es.indices.create(index='group_manage_v2', body=index_info, ignore=400)
 
