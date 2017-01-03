@@ -48,11 +48,15 @@ def adsRec(uid, queryInterval=HOUR * 4):
     user_key_words = set(user_portrait_result["keywords_string"].split("&"))
 
     # test，目前使用的是从原始数据中读取一定时间段内的微博并实时计算的方式得到
-    '''
-    RUN_TYPE == 时，为11-28 数据库中最晚为11-27的日志，减一处理
-    !!!! 未考虑最后一位0的情况，可能会出bug！！！
-    '''
-    ads_weibo_index_name = flow_text_index_name_pre + now_date[:-1] + str(int(now_date) - 1)
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+
+    ads_weibo_index_name = []
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        ads_weibo_index_name.append(flow_text_index_name_pre + iter_date)
+
     ads_weibo_all = es_flow_text.search(index=ads_weibo_index_name,
                                         doc_type=ads_weibo_index_type,
                                         body={'query': {"filtered": {"filter": {
@@ -90,7 +94,7 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
                 word_weight_dic[items[0]] = float(items[1])
             # fix 2016.11.24 在上面将topic_word_weight_dir直接decode成Unicode
             # 使用Unicode路径listdir得到就直接为Unicode
-            topic_word_weight_dic[file_name[:-4].decode("utf-8")] = word_weight_dic
+            topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
     return topic_word_weight_dic
 
 
@@ -307,28 +311,38 @@ def localRec(uid, k=200):
         flow_text_index_list.append(flow_text_index_name_pre + iter_date)
 
     # 获取用户地理位置
-    user_geos = get_user_geo(uid)
-    "&".join(user_geos)
-    # 根据位置查询weibo
-    weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
-                                    body={"query":{"bool":{"must":
-                                                                    [{"match":{"keywords_string":"新闻"}},
-                                                                     {"match":{"geo":"合肥"}}
-                                                                     ]}},
-                                               "size": 2000
-                                          })["hits"]["hits"]
+    # user_geos = get_user_geo(uid)
+    # # 根据位置查询weibo
+    # weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
+    #                                 body={"query":{"bool":{"must":
+    #                                                                 [{"match":{"keywords_string":"新闻"}},
+    #                                                                  {"match":{"geo":"合肥"}}
+    #                                                                  ]}},
+    #                                            "size": 200
+    #                                       })["hits"]["hits"]
 
     '''可以直接查询长度大于100的但是很慢
     {"query":{"filtered":{"query":{"bool":{"must":[{"match":{"keywords_string":"新闻"}},{"match":{"geo":"合肥"}}]}},"filter":{"regexp":{"text":{"value":".{100,}"}}}}}}
     '''
+    ip = get_user_ip(uid)
+    ip = ".".join(ip.split(".")[:-2])
+    weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
+                                    body={"query": {"bool": {"must": [{"prefix": { "text.ip": ip}}]}},
+                                          "size":2000 })["hits"]["hits"]
+
 
     local_weibo_rec = []
     weibo_user_uids = [weibo["_source"]["uid"] for weibo in weibo_all]
     user_profiles = search_user_profile_by_user_ids(weibo_user_uids)
+    exists_ip = set()
     for weibo in weibo_all:
         weibo = weibo["_source"]
         weibo_text = weibo["text"]
-        if len(weibo_text) < 50 or weibo_text.count('@') > 3:
+        if weibo["ip"] in exists_ip:
+            continue
+        # 一个ip只选一个
+        exists_ip.add(weibo["ip"])
+        if not is_suit(weibo_text):
             continue
         weibo["len"] = len(weibo_text)
         try:
@@ -346,6 +360,17 @@ def localRec(uid, k=200):
             weibo["nick_name"] = "None"
             local_weibo_rec.append(weibo)
     return local_weibo_rec
+
+
+# 根据微博的text判断微博是否展示效果比较好
+def is_suit(weibo_text):
+    if len(weibo_text) < 50:
+        return False
+    if weibo_text.count('@') > 2:
+        return False
+    if weibo_text.find("@") < 10:
+        return False
+    return True
 
 
 # 如果user portrait中有就直接读取，否则读取用户微博得到位置信息
@@ -388,6 +413,23 @@ def get_user_geo(uid, dropped_geos=u"中国&美国"):
 
     return geos
 
+
+def get_user_ip(uid):
+    flow_text_index_list = []
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        flow_text_index_list.append(flow_text_index_name_pre + iter_date)
+
+    weibo_all = es_flow_text.search(index=flow_text_index_list,
+                                    doc_type=flow_text_index_type,
+                                    body={'query': {'filtered': {'filter': {'term': {'uid': uid}}}},
+                                          'size': 10,
+                                          })['hits']['hits']
+    ip = weibo_all[0]["_source"]["ip"]
+    return ip
 
 if __name__ == '__main__':
     uid = 1640601392

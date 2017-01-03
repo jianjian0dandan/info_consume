@@ -79,4 +79,4 @@ if __name__ == '__main__':
     # construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
     # adsTest()
     for weibo in localRec(uid):
-        print weibo["text"],weibo["len"]
+        print weibo["text"], weibo["ip"]
