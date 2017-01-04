@@ -8,6 +8,8 @@ import codecs
 import json
 import os
 import time
+import jieba
+import random
 
 from elasticsearch.exceptions import NotFoundError
 from user_portrait.attribute.influence_appendix import weiboinfo2url
@@ -25,6 +27,9 @@ from user_portrait.global_utils import \
     es_user_portrait, portrait_index_name, portrait_index_type, \
     ads_weibo_index_type
 from user_portrait.global_utils import retweet_index_name_pre, retweet_index_type, es_retweet
+
+RIO_VIDEO_INFO_FILE = "../cron/trainData/cntv_video/rio.txt"
+TIGER_VIDEO_INFO_FILE = "../cron/trainData/cntv_video/tiger.txt"
 
 
 def adsRec(uid, queryInterval=HOUR * 4):
@@ -430,6 +435,69 @@ def get_user_ip(uid):
                                           })['hits']['hits']
     ip = weibo_all[0]["_source"]["ip"]
     return ip
+
+
+# 视频节目推荐，分为rio和tiger，每个k个
+def rio_video_rec(uid, k=10):
+    flow_text_index_list = []
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        flow_text_index_list.append(flow_text_index_name_pre + iter_date)
+
+    weibo_all = es_flow_text.search(index=flow_text_index_list,
+                                    doc_type=flow_text_index_type,
+                                    body={'query': {'filtered': {'filter': {'term': {'uid': uid}}}},
+                                          'size': 100,
+                                          })['hits']['hits']
+    user_words = set()
+    for weibo in weibo_all:
+        weibo_text = weibo["_source"]["ip"]
+        user_words |= jieba.cut(weibo_text)
+
+    rio_dict = load_topic_video_dict(RIO_VIDEO_INFO_FILE)
+    tiger_videos = load_videos(TIGER_VIDEO_INFO_FILE)
+
+    ret_dict = dict()
+    ret_dict["tiger"] = random.sample(tiger_videos, k)
+
+    user_pref_topic = rio_dict.keys() & weibo_text
+    # 若找不到，随机分配topic
+    if len(user_pref_topic) == 0:
+        user_pref_topic = set(random.sample(rio_dict.keys(), k))
+    ret_dict["rio"] = list()
+    for topic in user_pref_topic:
+        ret_dict["rio"].append(rio_dict[topic])
+        if len(ret_dict["rio"])>10:
+            ret_dict["rio"] = ret_dict["rio"][:10]
+            break
+    return ret_dict
+
+
+
+
+
+
+def load_topic_video_dict(filepath):
+    ret_dict = dict()
+    with open(filepath) as f:
+        lines = f.readlines()
+    for line in lines:
+        words = line.split("||")
+        ret_dict[words[0]] = words[1].split(",")
+    return ret_dict
+
+
+def load_videos(filepath):
+    ret_set = set()
+    with open(filepath) as f:
+        lines = f.readlines()
+    for line in lines:
+        ret_set.add(line.split("||")[1])
+    return ret_set
+
 
 if __name__ == '__main__':
     uid = 1640601392
