@@ -4,9 +4,11 @@ from config import db
 from model import TopicIdentification, DsTopicIdentification
 from collections import Counter
 from snowball_sampling import snowballSamplingEndByNodes, multi_snowballSamplingEndByNodes
-
+from parameter import MYSQL_TOPIC_LEN
 
 def SnowballSampling(di_g, g, topic, network_type):
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
     if network_type==1:
         items_pr = db.session.query(TopicIdentification).filter(TopicIdentification.topic==topic ,\
                                                                 TopicIdentification.rank<=4000).all()

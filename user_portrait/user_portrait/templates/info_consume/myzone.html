@@ -69,6 +69,42 @@
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/static/info_consume/js/time_for_test.js"></script>
+  <script type="text/javascript">
+    //获取系统时间，将时间以指定格式显示到页面。  
+    function getSystemTime()  
+    {  
+        //获取系统时间。  
+        var dateTime=new Date();  
+        var hh=dateTime.getHours();  
+        var mm=dateTime.getMinutes();  
+        var ss=dateTime.getSeconds();
+        var dd=dateTime.getDate();
+        var mt=dateTime.getMonth();
+        var yy=dateTime.getFullYear();
+        var mmm=dateTime.getMilliseconds();
+          
+        //分秒时间是一位数字，在数字前补0。  
+        mm = extra(mm);  
+        ss = extra(ss);  
+          
+        //将时间显示到ID为time的位置，时间格式形如：19:18:02  
+        return yy+"-"+mt+"-"+dd+" "+hh+":"+mm+":"+ss+":"+mmm;  
+    }  
+      
+    //补位函数。  
+    function extra(x)  
+    {  
+        //如果传入数字小于10，数字前补一位0。  
+        if(x < 10)  
+        {  
+            return "0" + x;  
+        }  
+        else  
+        {  
+            return x;  
+        }  
+    } 
+  </script>
   <style type="text/css">
 
     .fixed-table-body{
@@ -215,14 +251,14 @@
 
                 <label class="demo--label">
                   <li style="float:left;margin-left:5px;background-color:transparent;">
-                    <input class="demo--radio" type="radio" name="mode_choose" value="comment_count">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="comment">
                     <span class="mode demo--radioInput" style=""></span>评论数
                   </li>
                 </label>
 
                 <label class="demo--label">
                   <li style="float:left;margin-left:5px;background-color:transparent;">
-                    <input class="demo--radio" type="radio" name="mode_choose" value="retweet_count">
+                    <input class="demo--radio" type="radio" name="mode_choose" value="retweeted">
                     <span class="mode demo--radioInput" style=""></span>转发数
                   </li> 
                 </label>
@@ -263,7 +299,7 @@
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我最爱说</h3>
         </div>
         <div class="panel-body">
-          <div id="keyword_cloud" class="panel-body" style="width:360px;height:400px;"></div>
+          <div id="keyword_cloud" class="panel-body" style="width:440px;height:420px;"></div>
         </div>
       </div>
 
@@ -344,12 +380,17 @@
           <div style="width:100%;margin-top:480px;">
             <div style="height:40px;"><!-- 名字 -->
               <img src="/static/info_consume/image/icon_influ_skill.png" width="30px" height="30px" style="float:left;">
-              <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >我的影响力技能</span></div>
+              <span class="title" style="float:left;font-size:20px;font-weight:900;color:#6ea835;margin-left:2px;" >我的影响力技能</span>
+            </div>
             <img src="/static/info_consume/image/stage.png" width="700px" style="margin-left:70px;display:inline-block;">
-            <img id='locatSun' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;">
-            <div class="tisheng" style="font-size:16px;margin-left:120px;">
-              要点亮更多技能，你的这些方面还需要提升
-              <span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;"></span>
+            <img id='locatSun1' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;display: none;margin-left: 57%;margin-top: -12%;position: absolute;">
+            <img id='locatSun2' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;display: none;margin-left: 51%;margin-top: -16%;position: absolute;">
+            <img id='locatSun3' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;display: none;margin-left: 51%;margin-top: -20%;position: absolute;">
+            <img id='locatSun4' src="/static/info_consume/image/sun.png" width="50px" height="50px" style="z-index:30;display: none;margin-left: 51%;margin-top: -24%;position: absolute;">
+
+            <div style="margin-left:20px;margin-top:10px;position: absolute;width: 69%;">
+              <span id="tisheng" style="font-size:16px;display: none;float: left;">要点亮更多技能，你的这些方面还需要提升</span>
+              <span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;display: none;float: left;"></span>
             </div>
 
           </div>
@@ -387,7 +428,7 @@
           </div>
 
           <div id="act_map" style="width:100%;height:460px;">  </div>
-          <span id="des_loc" style="margin-left:100px;float:left;font-size:17px;font-weight:bolder;display:none;"></span>
+          <span id="des_loc" style="margin-left:100px;float:left;font-size:16px;font-family: Microsoft Yahei;"></span>
         </div>
       </div>
 
@@ -457,13 +498,13 @@
   <!--End js-->
 {% block Own_js %}
 
-<script type="text/javascript" src="/static/info_consume/js/person_detail_show.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/language.js"></script> 
-<script type="text/javascript" src="/static/info_consume/js/influence.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/preference.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/geo.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/zone_detail/person_detail_show.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/zone_detail/language.js"></script> 
+<script type="text/javascript" src="/static/info_consume/js/zone_detail/influence.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/zone_detail/preference.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/zone_detail/geo.js"></script>
 <script type="text/javascript" src="/static/info_consume/js/map.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/thought.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/zone_detail/thought.js"></script>
 <script src="../../static/info_consume/js/echarts-map.js"></script>
 
 <script type="text/javascript">//微博展示
@@ -492,8 +533,6 @@ homepageinfo.prototype = {
 }
 var Personal = new homepageinfo();
 var weiboData;
-var uid = 1640601392;
-
 $(function(){
   $('#modechoose').click(function(){
   var box = document.getElementsByName('mode_choose');

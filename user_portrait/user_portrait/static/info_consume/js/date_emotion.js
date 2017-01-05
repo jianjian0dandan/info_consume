@@ -497,9 +497,11 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 
 		}
 
+        item_item_rank.sort(function(a,b){
+            return b.value-a.value});
 
 	 	var myChart = echarts.init(document.getElementById('main_emotion_2'));
-
+ 
 		require(
 				[
 					'echarts',
@@ -585,8 +587,9 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 					    },
 					    dataRange: {
 					        min: 0,
-					        max: 1000,
-					        color:['orange','yellow'],
+					        //max: 1000,
+					        max:item_item_rank[0].value,
+					        color:['orange','white'],
 					        text:['高','低'],           // 文本，默认为数值文本
 					        calculable : true
 					    },
@@ -613,8 +616,7 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 		)	
 
 		// console.log(item_item);
-		item_item_rank.sort(function(a,b){
-            return b.value-a.value});
+		
 		var rank_html = '';
 		rank_html += '<table id="table" style="table-layout:fixed">';
         for(var k=0;k<Math.min(15,item_item_rank.length);k++){
@@ -674,10 +676,10 @@ topic_analysis_emotion.prototype = {   //获取数据，重新画表
 				//html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
 				//html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
 				html += '<span style="display:inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
-				//html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
-				html += '<span id="oule" style="margin-top: -3%;display:inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
-				//html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
-				html += '<span style="margin-top: -3%;display:inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i][1].retweeted+')&nbsp;|&nbsp;</span>';
+				//html += '<span id="oule" style="margin-top: -3%;display:inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
+				html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i][1].comment+')</span>';
+				//html += '<span style="margin-top: -3%;display:inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
 				//html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				html += '</p>';
 				html += '</div>';							 	

@@ -1,5 +1,3 @@
-
-
 function my_friend() {
 	this.ajax_method = 'GET';
 }
@@ -45,7 +43,7 @@ my_friend.prototype =
 //好友排行
    my_friend_rank:function(data)
    {
-      console.log(data); 
+       // console.log(data);
       // console.log(data.length);
      // console.log(data[0]['influence']);
       //对返回的字典按照影响力进行排序
@@ -114,6 +112,14 @@ my_friend.prototype =
                  }else
                  {
                   html+='<td>'+data[i]['influence']+'</td>';
+                 }
+
+                 if(data[i]['count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else
+                 {
+                  html+='<td>'+data[i]['count']+'</td>';
                  }
                  html+="</tr>";
                 $('#friend_rank').append(html);
@@ -187,6 +193,14 @@ my_friend.prototype =
                  {
                   html+='<td>'+data[i]['influence']+'</td>';
                  }
+
+                 if(data[i]['count']=="")
+                 {
+                  html+='<td >--</td>';
+                 }else{
+                  html+='<td>'+data[i]['count']+'</td>';
+                 }
+
                  html+="</tr>";
                 $('#friend_rank_detail').append(html);
               }    
@@ -639,7 +653,7 @@ my_friend.prototype =
                     $.each(node_value,function (index,item) {
                         if(item.name==data.source) {
                             yhm=item.label;
-                            //console.log(zyhum,yhm)
+                            console.log(zyhum,yhm)
                         }
                     })
 
@@ -833,7 +847,7 @@ my_friend.prototype =
                     $.each(node_value,function (index,item) {
                         if(item.name==data.source) {
                             yhm=item.label;
-                            //console.log(zyhum,yhm)
+                            console.log(zyhum,yhm)
                         }
                     })
 
@@ -1245,48 +1259,47 @@ my_friend.prototype =
 
 var my_friend=new my_friend();
 //好友排行
-var uid = 1640601392;
 var this_username;
-var admin_username = 'admin@qq.com';
+var admin_username ='admin@qq.com';
+// var admin_username = uid;
 var url = "/attribute/new_user_profile/?uid=" + uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.personData);
-var uid_rank=1640601392;
-var url ="/info_person_social/follower/?uid="+uid_rank;
+
+var url ="/info_person_social/follower/?uid="+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_friend_rank);
 //好友排行详细信息
-var url ="/info_person_social/follower/?uid="+uid_rank;
+var url ="/info_person_social/follower/?uid="+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.friend_rank_detail);
 //亲密度排行
-var uid_close=1640601392;
-var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
+var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank);
 //亲密度排行详细信息
-var url ="/info_person_social/bidirect_interaction/?uid="+uid_close;
+var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank_detail);
 //粉丝详细信息
-var url ="/info_person_social/get_fans/?uid="+uid_rank;
+var url ="/info_person_social/get_fans/?uid="+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_fans);
 //被转发关系网络
-var uid_transmit=1640601392;
-var url ='/info_person_social/follower/?uid='+uid_transmit;
+
+var url ='/info_person_social/follower/?uid='+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.transmit_relationship);
 //转发关系网络
-var uid_mention=1640601392;  
-var url ='/info_person_social/attention/?uid='+uid_mention;
+
+var url ='/info_person_social/attention/?uid='+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.mention_relationship);
 //评论关系网络图
-var uid_comment=2298571767;
-var url ='/info_person_social/comment/?uid='+uid_comment;
+
+var url ='/info_person_social/comment/?uid='+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.comment_relationship);
 //被评论关系网络图
-var uid_interaction=1640601392;  
-var url ='/info_person_social/be_comment/?uid='+uid_interaction;
+ 
+var url ='/info_person_social/be_comment/?uid='+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.interaction_relationship);
 
 
 //网络对话
 var mroot_uid=$("#portraitImg").attr('title');
-// var muid;
+var muid = uid;
 var mtype=3;
 var oli=$("#myTab li");
 
@@ -1320,10 +1333,10 @@ function getNowFormatDate() {
 }
 
 function get_hua(muid,use1,use2){
-    //console.log(muid);
-    //var url = '/info_person_social/get_weibo/?uid='+muid+'root_uid='+mroot_uid+'mtype='+mtype;;
-    var url = '/info_person_social/get_weibo/?uid=2912277317&root_uid=1694625035&mtype=3';
-    //console.log(url);
+    console.log(muid);
+    var url = '/info_person_social/get_weibo/?uid='+muid+'&root_uid='+uid+'&mtype='+mtype;;
+    //var url = '/info_person_social/get_weibo/?uid='++'&root_uid='+uid+'&mtype=3';
+    console.log(url);
     my_friend.call_sync_ajax_request(url, my_friend.ajax_method, function(data){wangluo(data,use1,use2)});
 }
 

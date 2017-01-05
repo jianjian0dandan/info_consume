@@ -76,12 +76,13 @@ def count_fre(topic,start_ts,over_ts,news_limit,weibo_limit,during=Fifteenminute
     #新闻类微博：词云、主题河、鱼骨图   主题河：拿到主题后，按时间段查相关微博的数量；鱼骨图：每个主题的一个微博及所有微博
     #    return json.dumps({"features":features, "cluster_dump_dict":cluster_dump_dict})
     taskid = topic+'_'+str(start_ts)+'_'+str(over_ts)
-    normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
-    weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
+    # normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
+    # weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
 
 
 
     news_list = news_content(topic,start_ts,over_ts,news_limit)   #读新闻微博
+    print '85',len(news_list)
     news_classify = json.loads(news_comments_list(taskid,weibo_list=news_list))  #聚类后存到es里
 
     #print news_classify,type(news_classify)

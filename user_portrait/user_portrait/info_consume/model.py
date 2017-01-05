@@ -15,7 +15,7 @@ __all__ = ['Topics', 'SentimentKeywords', 'SentimentGeo','SentimentWeibos', 'Sen
 
 class Topics(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
 
@@ -32,7 +32,7 @@ class Topics(db.Model):
 #sentiment部分
 class SentimentKeywords(db.Model):#情绪关键词---已改
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    query = db.Column(db.String(20))
+    query = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     limit = db.Column(db.Integer())
@@ -53,7 +53,7 @@ class SentimentKeywords(db.Model):#情绪关键词---已改
 
 class SentimentWeibos(db.Model):#情绪微博--已改
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    query = db.Column(db.String(20))
+    query = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     limit = db.Column(db.Integer())
@@ -74,7 +74,7 @@ class SentimentWeibos(db.Model):#情绪微博--已改
 
 class SentimentPoint(db.Model):#情绪拐点
     id = db.Column(db.Integer, primary_key=True)
-    topic = db.Column(db.String(20))#话题名
+    topic = db.Column(db.String(100))#话题名
     stype = db.Column(db.String(20))#拐点情绪类型标签（'happy','angry','sad'）
     ts = db.Column(db.Integer())#拐点时间
 
@@ -89,7 +89,7 @@ class SentimentPoint(db.Model):#情绪拐点
 
 class SentimentCount(db.Model):#情绪绝对数量曲线--已改
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    query = db.Column(db.String(20))
+    query = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     sentiment = db.Column(db.Integer())
@@ -108,7 +108,7 @@ class SentimentCount(db.Model):#情绪绝对数量曲线--已改
 
 class SentimentCountRatio(db.Model):#情绪相对比例曲线--已改
     id = db.Column(db.Integer, primary_key=True)
-    query = db.Column(db.String(20))#话题名
+    query = db.Column(db.String(100))#话题名
     end = db.Column(db.Integer())#时间
     range = db.Column(db.Integer())
     count = db.Column(db.Integer())
@@ -158,7 +158,7 @@ class IndexTopic(db.Model):
 #city模块
 class CityTopicCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())  #message_type:原创-1、转发-2、评论-3
@@ -179,7 +179,7 @@ class CityTopicCount(db.Model):
 
 class CityTopicCountNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())  #message_type:原创-1、转发-2
@@ -201,7 +201,7 @@ class CityTopicCountNews(db.Model):
 class CityRepost(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     original = db.Column(db.Integer())
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     mid = db.Column(db.String(20)) # 微博ID
     ts = db.Column(db.Integer())
     origin_location = db.Column(db.Text) # 原始微博发布地点
@@ -222,7 +222,7 @@ class CityRepost(db.Model):
 class CityRepostNews(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     original = db.Column(db.Integer())
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     mid = db.Column(db.String(20)) # 新闻ID
     ts = db.Column(db.Integer())
     origin_location = db.Column(db.Text) # 原始新闻发布地点
@@ -242,7 +242,7 @@ class CityRepostNews(db.Model):
 
 class CityWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     limit = db.Column(db.Integer(), primary_key=True)
@@ -261,7 +261,7 @@ class CityWeibos(db.Model):
 
 class CityNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     limit = db.Column(db.Integer(), primary_key=True)
@@ -281,7 +281,7 @@ class CityNews(db.Model):
 #时间分析模块
 class PropagateCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())   
@@ -300,7 +300,7 @@ class PropagateCount(db.Model):
 
 class PropagateCountNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())   
@@ -319,7 +319,7 @@ class PropagateCountNews(db.Model):
 
 class AttentionCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())   
@@ -342,7 +342,7 @@ class AttentionCount(db.Model):
 
 class QuicknessCount(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())   
@@ -365,7 +365,7 @@ class QuicknessCount(db.Model):
 
 class PropagateKeywords(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())
@@ -386,7 +386,7 @@ class PropagateKeywords(db.Model):
 
 class PropagateKeywordsNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())
@@ -407,7 +407,7 @@ class PropagateKeywordsNews(db.Model):
 
 class PropagateWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())
@@ -428,7 +428,7 @@ class PropagateWeibos(db.Model):
 
 class PropagateNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())
@@ -492,7 +492,7 @@ class NewTopicStatus(db.Model):
 #网络模块--存放pagerank的计算结果
 class TopicIdentification(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     rank = db.Column(db.Integer)
     userId = db.Column(db.Integer())
     identifyDate = db.Column(db.Date)
@@ -515,7 +515,7 @@ class TopicIdentification(db.Model):
 
 class DsTopicIdentification(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     rank = db.Column(db.Integer)
     userId = db.Column(db.Integer())
     identifyDate = db.Column(db.Date)
@@ -538,7 +538,7 @@ class DsTopicIdentification(db.Model):
 
 class TsRank(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     rank = db.Column(db.Integer)
     uid = db.Column(db.Integer())
     date = db.Column(db.Date)
@@ -559,7 +559,7 @@ class TsRank(db.Model):
 
 class DegreeCentralityUser(db.Model): 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     rank  = db.Column(db.Integer)
@@ -580,7 +580,7 @@ class DegreeCentralityUser(db.Model):
 
 class DsDegreeCentralityUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     rank = db.Column(db.Integer)
@@ -601,7 +601,7 @@ class DsDegreeCentralityUser(db.Model):
 
 class BetweenessCentralityUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     rank  = db.Column(db.Integer)
@@ -622,7 +622,7 @@ class BetweenessCentralityUser(db.Model):
 
 class DsBetweenessCentralityUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     rank = db.Column(db.Integer)
@@ -643,7 +643,7 @@ class DsBetweenessCentralityUser(db.Model):
 
 class ClosenessCentralityUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     rank  = db.Column(db.Integer)
@@ -664,7 +664,7 @@ class ClosenessCentralityUser(db.Model):
 
 class DsClosenessCentralityUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     rank = db.Column(db.Integer)
@@ -686,7 +686,7 @@ class DsClosenessCentralityUser(db.Model):
 '''
 class NodeDegreeUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     sorted_dict = db.Column(db.Text)
@@ -700,7 +700,7 @@ class NodeDegreeUser(db.Model):
 
 class LocalBridge(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     a_node = db.Column(db.Integer())
@@ -721,7 +721,7 @@ class LocalBridge(db.Model):
 
 class Source(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     userid = db.Column(db.Integer())
@@ -738,7 +738,7 @@ class Source(db.Model):
 
 class FirstUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     uid = db.Column(db.Integer())
@@ -763,7 +763,7 @@ class FirstUser(db.Model):
 
 class FirstUserNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     timestamp = db.Column(db.Integer())
@@ -782,7 +782,7 @@ class FirstUserNews(db.Model):
 
 class TrendMakerNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     news_id = db.Column(db.Text)
@@ -805,7 +805,7 @@ class TrendMakerNews(db.Model):
 
 class TrendPusherNews(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     news_id = db.Column(db.Text)
@@ -828,7 +828,7 @@ class TrendPusherNews(db.Model):
 
 class FirstDomainUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     uid = db.Column(db.Integer())
@@ -855,7 +855,7 @@ class FirstDomainUser(db.Model):
 
 class TrendMaker(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     uid = db.Column(db.Integer())
@@ -886,7 +886,7 @@ class TrendMaker(db.Model):
 
 class TrendPusher(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     uid = db.Column(db.Integer())
@@ -913,7 +913,7 @@ class TrendPusher(db.Model):
 
 class TrendKeyUser(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     date = db.Column(db.Date)
     windowsize = db.Column(db.Integer, default=1)
     maker = db.Column(db.Text)
@@ -950,7 +950,7 @@ class AllFrequentUser(db.Model):
 # opinion module used in test
 class OpinionTestTime(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     child_topic = db.Column(db.Text)
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
@@ -967,7 +967,7 @@ class OpinionTestTime(db.Model):
 
 class OpinionTestRatio(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     #ts = db.clumns(db.BigInteger(10),unsigned=True)
     child_topic = db.Column(db.Text)
     ratio = db.Column(db.Float)
@@ -983,7 +983,7 @@ class OpinionTestRatio(db.Model):
 
 class OpinionTestKeywords(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     child_topic = db.Column(db.Text)
     keywords = db.Column(db.Text)
 
@@ -998,8 +998,8 @@ class OpinionTestKeywords(db.Model):
 
 class OpinionTestWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
-    child_topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
+    child_topic = db.Column(db.String(100))
     weibos = db.Column(db.Text)
 
     def __init__(self, topic, child_topic, weibos):
@@ -1013,7 +1013,7 @@ class OpinionTestWeibos(db.Model):
 
 class OpinionWeibosNew(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     child_topic = db.Column(db.Text)
     weight = db.Column(db.Float)
     mid = db.Column(db.String(20))
@@ -1043,7 +1043,7 @@ class OpinionWeibosNew(db.Model):
 # Quota_system Module
 class QuotaAttention(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     domain = db.Column(db.String(20))
@@ -1063,7 +1063,7 @@ class QuotaAttention(db.Model):
 # 关注度经验值QuotaAttentionExp
 class QuotaAttentionExp(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     exp = db.Column(db.Text) # exp={'media':x1, 'other':x2, 'opinion_leader':x3, 'oversea':x4, 'folk':x5}
@@ -1082,7 +1082,7 @@ class QuotaAttentionExp(db.Model):
 # 分为两个：QuotaMediaImportance, QuotaGeoPenetration
 class QuotaMediaImportance(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     media_importance = db.Column(db.Float)
@@ -1099,7 +1099,7 @@ class QuotaMediaImportance(db.Model):
 
 class QuotaGeoPenetration(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     pcount = db.Column(db.Text)
@@ -1127,7 +1127,7 @@ class GeoWeight(db.Model):
 
 class QuotaQuickness(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     domain = db.Column(db.String(20))
@@ -1146,7 +1146,7 @@ class QuotaQuickness(db.Model):
 
 class QuotaSentiment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     sratio = db.Column(db.Text)
@@ -1163,7 +1163,7 @@ class QuotaSentiment(db.Model):
 
 class QuotaDuration(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     duration = db.Column(db.Float)
@@ -1181,7 +1181,7 @@ class QuotaDuration(db.Model):
 # 持续度经验值QuotaDurationExp
 class QuotaPersonSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     pr = db.Column(db.Float)
@@ -1198,7 +1198,7 @@ class QuotaPersonSensitivity(db.Model):
 
 class PersonSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     person = db.Column(db.Text)
@@ -1215,7 +1215,7 @@ class PersonSensitivity(db.Model):
 
 class QuotaDurationExp(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     exp = db.Column(db.Float)
@@ -1232,7 +1232,7 @@ class QuotaDurationExp(db.Model):
 
 class QuotaSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     classfication = db.Column(db.Integer()) # ['category':1, 'word':2, 'place':3]
@@ -1252,7 +1252,7 @@ class QuotaSensitivity(db.Model):
 # 类型敏感词表、词汇敏感词表、地点敏感词表
 class ClassSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     words = db.Column(db.Text)
@@ -1269,7 +1269,7 @@ class ClassSensitivity(db.Model):
 
 class WordSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     words = db.Column(db.Text)
@@ -1286,7 +1286,7 @@ class WordSensitivity(db.Model):
 
 class PlaceSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     words = db.Column(db.Text)
@@ -1303,7 +1303,7 @@ class PlaceSensitivity(db.Model):
 
 class QuotaImportance(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     score = db.Column(db.Float)
@@ -1333,7 +1333,7 @@ class QuotaWeight(db.Model):
 
 class CoverageExp(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts= db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     coverage_exp = db.Column(db.Integer)
@@ -1350,7 +1350,7 @@ class CoverageExp(db.Model):
 
 class QuotaCoverage(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     coverage = db.Column(db.Float)
@@ -1366,7 +1366,7 @@ class QuotaCoverage(db.Model):
 
 class QuotaFSensitivity(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     f_sensitivity = db.Column(db.Float)
@@ -1383,7 +1383,7 @@ class QuotaFSensitivity(db.Model):
 
 class PropagateTimeWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     mtype = db.Column(db.Integer())
@@ -1404,7 +1404,7 @@ class PropagateTimeWeibos(db.Model):
 
 class QuotaFSentiment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     f_sentiment = db.Column(db.Float)
@@ -1421,7 +1421,7 @@ class QuotaFSentiment(db.Model):
 
 class QuotaFTransmission(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts =db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     f_transmission = db.Column(db.Float)
@@ -1438,7 +1438,7 @@ class QuotaFTransmission(db.Model):
 
 class QuotaFInvolved(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     f_involved = db.Column(db.Float)
@@ -1455,7 +1455,7 @@ class QuotaFInvolved(db.Model):
 
 class QuotaIndex(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     start_ts = db.Column(db.Integer())
     end_ts = db.Column(db.Integer())
     index = db.Column(db.Float)
@@ -1473,7 +1473,7 @@ class QuotaIndex(db.Model):
 #以下是语义模块（李文文看）#话题、观点对应表
 class OpinionTopic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    topic = db.Column(db.String(20))#话题
+    topic = db.Column(db.String(100))#话题
     opinion = db.Column(db.String(20))#观点
 
     def __init__(self, topic, opinion):
@@ -1557,7 +1557,7 @@ class OpinionHot(db.Model):
 
 class SentimentGeo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     sentiment = db.Column(db.Integer())  
@@ -1575,7 +1575,7 @@ class SentimentGeo(db.Model):
 
 class ProvinceWeibos(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    topic = db.Column(db.String(20))
+    topic = db.Column(db.String(100))
     end = db.Column(db.Integer())
     range = db.Column(db.Integer())
     limit = db.Column(db.Integer())

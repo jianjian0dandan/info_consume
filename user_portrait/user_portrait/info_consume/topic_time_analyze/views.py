@@ -3,6 +3,7 @@
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
 from utils import  get_weibo_by_time,get_time_count
+from user_portrait.parameter import MYSQL_TOPIC_LEN
 import json
 
 mod = Blueprint('topic_time_analyze',__name__,url_prefix='/topic_time_analyze')
@@ -35,6 +36,8 @@ def time():
 @mod.route('/mtype_count/')
 def MtypeCount():      #每类微博的数量
     topic = request.args.get('topic','')
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
     during = request.args.get('pointInterval', Fifteenminutes)   #默认查询时间粒度为900秒
     during = int(during)
     end_ts = request.args.get('end_ts', '')     #''代表默认值为空

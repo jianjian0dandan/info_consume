@@ -1,3 +1,5 @@
+console.log("【基本特征】start load:"+getSystemTime());
+
      //近一个月圈子影响力走势;id=influen-line
  /*  
     function Draw_influence_line(data){
@@ -381,3 +383,4 @@ function g_bas_load(g_name,s_user){
  //console.log('basic_url:'+basic_url);
  //console.log('influence_url:'+influence_url);
 }
+console.log("【基本特征】end load:"+getSystemTime());

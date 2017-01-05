@@ -1,7 +1,7 @@
 //data:{ username:$("#username").val(), content:$("#content").val() }         
 //data-ajax="ajaxRequest"
               //var username = $('#username').text();
-             
+            console.log("【查看圈子】start load:"+getSystemTime());
               var username = 'admin@qq.com';
               $('#chase').tooltip();
                      //定义ajax回调函数
@@ -304,7 +304,7 @@
                     }]
              });
          })
-        
+        console.log("【查看圈子】end load:"+getSystemTime());
         
 
 

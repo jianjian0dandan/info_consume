@@ -132,15 +132,16 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     //console.log(item);
     var nodes_new = [];
     var nodes_label = [];
-    // console.log(item['nodes'].length);
-    // console.log(item['links'].length);
+    console.log(item['nodes'].length);
+    console.log(item['links'].length);
     item_links=[];
-    for (k=0;k<Math.min(item['links'].length,2000);k++){
+    for (k=0;k<Math.min(item['links'].length,20000);k++){
+      console.log()
       item_links.push(item['links'][k]);
     }
     //console.log(item_links.length);
 
-    for(i=0;i<Math.min(item['links'].length,2000);i++){
+    for(i=0;i<Math.min(item['nodes'].length,20000);i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }
@@ -383,10 +384,10 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
         //html += '<span class="time_info" style="padding-right: 10px;color:#858585">';
         //html += '<span style="float:left">2016-08-19 21:11:46&nbsp;&nbsp;</span>';
         html += '<span style="display: inline-block;margin-top: -3%;margin-left: 3%;">'+item_timestamp_datetime+'</span>';
-        //html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i]._source.retweeted+')&nbsp;|&nbsp;</span>';
-        html += '<span id="oule" style="margin-top: -3%;display: inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
-        //html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i]._source.comment+')</span>';
-        html += '<span style="margin-top: -3%;display: inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
+        html += '<span style="margin-top: -3%;float: left;margin-left: 50%;">转发数('+item[i]._source.retweeted+')&nbsp;|&nbsp;</span>';
+        //html += '<span id="oule" style="margin-top: -3%;display: inline-block;margin-left: 54%;">转发数('+Math.round(Math.random()*1000)+')&nbsp;&nbsp;&nbsp;&nbsp;|</span>';
+        html += '<span style="margin-top: -3%;float: left;margin-left: 59.5%;" >评论数('+item[i]._source.comment+')</span>';
+        //html += '<span style="margin-top: -3%;display: inline-block;" >&nbsp;&nbsp;&nbsp;&nbsp;评论数('+Math.round(Math.random()*1000)+')</span>';
         //html += '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
         html += '</p>';
         html += '</div>';               

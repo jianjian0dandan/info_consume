@@ -46,7 +46,6 @@ from keyword_extraction import get_weibo_single
 r_beigin_ts = datetime2ts(R_BEGIN_TIME)
 
 WEEK = 7
-
 emotion_mark_dict = {'126': 'positive', '127':'negative', '128':'anxiety', '129':'angry'}
 link_ratio_threshold = [0, 0.5, 1]
 
@@ -2052,9 +2051,9 @@ def search_preference_attribute(uid):
     topic_en_dict = json.loads(portrait_result['topic'])
     topic_ch_dict = {}
     for topic_en in topic_en_dict:
-        if topic_en != 'life':
-            topic_ch = topic_en2ch_dict[topic_en]
-            topic_ch_dict[topic_ch] = topic_en_dict[topic_en]
+        # if topic_en != 'life':
+        topic_ch = topic_en2ch_dict[topic_en]
+        topic_ch_dict[topic_ch] = topic_en_dict[topic_en]
     sort_topic_ch_dict = sorted(topic_ch_dict.items(), key=lambda x:x[1], reverse=True)
     #results['topic'] = topic_ch_dict
     results['topic'] = sort_topic_ch_dict

@@ -1,39 +1,39 @@
-<!DOCTYPE html >
-<html >
-<head>
-	<meta charset="utf-8">
-	
-	<title>
-		微博那些事儿
-	</title>
+{% extends "info_consume/daohang_public.html" %}
+{% block title %}微博那些事{% endblock %}
+{% block part_name %}微博那些事{% endblock %}
+{% block css %}
 	<!--引用css-->
-		 <link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan.css">	
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/button.css">
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/static/info_consume/css/daohanglan_yuyuqi.css">
 
+{% endblock %}
+
+{% block head_js %}
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<!-- // <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script> -->
 	<script src="/static/info_consume/js/echarts.js"></script>
 	<script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
     
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
-    <script type="text/javascript" src="/static/info_consume/js/weiborecommend.js"></script>
+      <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
+  <script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
+  <script src="/static/info_consume/js/echarts.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+  <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+{% endblock %}
 
-
+{% block main %}
 <style type="text/css">
- #menu li a {
-    font-weight: 700;
-  }
 /* tab*/
 	body {
 	
 	margin-right: auto;
 	margin-bottom: 10px;
 	margin-left: auto;
-	text-align: center;
 	height: auto;
 	width: auto;
 	font-size: 12px;
@@ -324,269 +324,7 @@
   
 </style>
 
-		<script language="javascript">
-			function switchTag(tag,content)
-			{
-			//	alert(tag);
-			//	alert(content);
-				for(i=1; i <3; i++)
-				{
-					if ("tag"+i==tag)
-						{
-						document.getElementById(tag).getElementsByTagName("a")[0].className="selectli"+i;
-						document.getElementById(tag).getElementsByTagName("a")[0].getElementsByTagName("span")
-						[0].className="selectspan"+i;
-						}
-						else
-							{
-							document.getElementById("tag"+i).getElementsByTagName("a")[0].className="";
-							document.getElementById("tag"+i).getElementsByTagName("a")[0].getElementsByTagName("span")
-							//[0].className="";
-							}
-					if ("content"+i==content)
-						{
-							document.getElementById(content).className="";
-						}
-						else
-						{
-							document.getElementById("content"+i).className="hidecontent";
-						}
-						document.getElementById("content").className=content;
-				}
-			}
-		</script>
-
-	<script type="text/javascript" >
-		/*弹出对话框*/
-			function tishikuang()
-			{
-				var topic_name=document.getElementById("guanjianci").value;
-				if (topic_name!=null&&topic_name!="")
-				{
-					if (!isNaN(topic_name)) 
-						{
-							alert('关键词不能为数字');
-						}
-					else
-					{
-						window.open("/index/date_index/?topic_name="+topic_name);
-					}
-				}else
-				 {
- 					alert('关键字不能为空');
-				 }
-			}
-		</script>
-
-		<script type="text/javascript" >
-		/*弹出对话框*/
-			function tishikuang2()
-			{
-				var topic_name=document.getElementById("keyword").value;
-				if (topic_name!=null&&topic_name!="")
-				{
-					if (!isNaN(topic_name)) 
-						{
-							alert('关键词不能为数字');
-						}
-					else
-					{
-						// alert(window.location.href);
-						window.open("/index/date_index/?topic_name="+topic_name);
-					}
-				}else
-				 {
- 					alert('关键字不能为空');
-				 }
-			}
-		</script>
-
-		<script type="text/javascript">
-			function entersearch1()
-			{
-				var topic_name=document.getElementById("keyword").value;
-					if (topic_name!=null&&topic_name!="")
-				{
-					if (!isNaN(topic_name)) 
-						{
-							alert('关键词不能为数字');
-						}
-					else
-					{
-						
-						window.open("/index/date_index/?topic_name="+topic_name);
-						
-					}
-				}else
-				 {
- 					alert('关键字不能为空');
-				 }
-			}
-		</script>
-
-		<script type="text/javascript">
-			function entersearch2()
-			{
-				var topic_name=document.getElementById("guanjianci").value;
-					if (topic_name!=null&&topic_name!="")
-				{
-					if (!isNaN(topic_name)) 
-						{
-							alert('关键词不能为数字');
-						}
-					else
-					{
-						window.open("/index/date_index/?topic_name="+topic_name);
-					}
-				}else
-				 {
- 					alert('关键字不能为空');
-				 }
-			}
-		</script>
 		
-		<script type="text/javascript">
-			function get_hashtag1_name()
-			{
-				var topic_name=document.getElementById("hashone").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag2_name()
-			{
-				var topic_name=document.getElementById("hashtwo").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag3_name()
-			{
-				var topic_name=document.getElementById("hashthree").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag4_name()
-			{
-				var topic_name=document.getElementById("hashfour").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag5_name()
-			{
-				var topic_name=document.getElementById("hashfive").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag6_name()
-			{
-				var topic_name=document.getElementById("hashsix").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag7_name()
-			{
-				var topic_name=document.getElementById("hashseven").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag8_name()
-			{
-				var topic_name=document.getElementById("hasheight").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag9_name()
-			{
-				var topic_name=document.getElementById("hashnine").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag10_name()
-			{
-				var topic_name=document.getElementById("hashten").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag11_name()
-			{
-				var topic_name=document.getElementById("hasheleven").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag12_name()
-			{
-				var topic_name=document.getElementById("hashtwlve").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag13_name()
-			{
-				var topic_name=document.getElementById("hashthirteen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag14_name()
-			{
-				var topic_name=document.getElementById("hashfourteen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag15_name()
-			{
-				var topic_name=document.getElementById("hashfifteen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag16_name()
-			{
-				var topic_name=document.getElementById("hashsixteen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag17_name()
-			{
-				var topic_name=document.getElementById("hashseventeen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag18_name()
-			{
-				var topic_name=document.getElementById("hasheighteen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag19_name()
-			{
-				var topic_name=document.getElementById("hashnineteen").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-			function get_hashtag20_name()
-			{
-				var topic_name=document.getElementById("hashtwenty").innerText;
-				 window.open("/index/date_index/?topic_name="+topic_name);
-			}
-		</script>
-
-		
-
-</head>
-
-
-	
-<body style="background-color:#F2F4F8">
-
-	<div class="topnav">	
-
-		 <img src="../../static/info_consume/image/title.png">		
-  		<ul id="menu" style="margin-left:50%;width:550px;">
-  			<li><a href="/index/myzone" style="margin-top: 0px;font-size: 20px;width: 100px;">我的地盘</a>
-
-  				<ul style="margin-left:0px;">
-  					<li style="margin-top:0px;"><a href="/index/home" >形象画板</a></li>
-  					<li style="margin-top:0px;"><a href="/index/myzone" >我的管家</a></li>
-  				</ul>
-  			</li> 				  
-  			
-
-  			<li><a href="/index/weiborecommand" style="margin-top: 0px;font-size: 20px;">微博那些事</a></li>
-
-        <li><a href="/index/boot_test" style="margin-top: 0px;font-size: 20px;width: 100px;">圈子推荐</a>
-          <ul style="margin-left:0px;">
-            <li style="margin-top:0px;"><a href="/index/boot_test">圈子探索</a></li>
-            <li style="margin-top:0px;"><a href="/index/circle_test">圈子追踪</a></li>           
-          </ul>
-        </li>
-
-  			<li><a href="/index/personalizedRec" style="margin-top: 0px;font-size: 20px;width: 120px;">个性化推荐</a></li>
-  			<li><a href="/logout" style="margin-top: 0px;font-size: 20px;width: 100px;">登出</a></li>
-  		</ul>
-	</div>
-	<div style="margin-top:5%">
-  			<div><span style="color: #666666;margin-left: -56%;font-size: 25px;font-weight: bold;font-family: 微软雅黑;">微博那些事儿</span></div>
-  			<hr style="width: 80%;margin-left: 10%;height:1px;border:none;border-top:2.5px solid #b7b2b2;"/>
-  		</div>
-
 
 <div id="container" style="margin-left:13%;margin-top:2%;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);border: 1px solid transparent;border-radius: 5px">
 
@@ -885,11 +623,238 @@
 				
 
 </div>
+  {% endblock %}
 
-		<!-- <footer>
-		  <p style="color: #fff; line-height: 24px; background:#ccc;margin-top:5%;margin-bottom:3%;">网民画像系统 Design by Rcsc 京ICP 1234567</p>
-		</footer>
-		 -->
+{% block Own_js %}
+<script type="text/javascript" src="/static/info_consume/js/tagcloud.js"></script>
+<script type="text/javascript" src="/static/info_consume/js/weiborecommend.js"></script>
+		<script language="javascript">
+			function switchTag(tag,content)
+			{
+			//	alert(tag);
+			//	alert(content);
+				for(i=1; i <3; i++)
+				{
+					if ("tag"+i==tag)
+						{
+						document.getElementById(tag).getElementsByTagName("a")[0].className="selectli"+i;
+						document.getElementById(tag).getElementsByTagName("a")[0].getElementsByTagName("span")
+						[0].className="selectspan"+i;
+						}
+						else
+							{
+							document.getElementById("tag"+i).getElementsByTagName("a")[0].className="";
+							document.getElementById("tag"+i).getElementsByTagName("a")[0].getElementsByTagName("span")
+							//[0].className="";
+							}
+					if ("content"+i==content)
+						{
+							document.getElementById(content).className="";
+						}
+						else
+						{
+							document.getElementById("content"+i).className="hidecontent";
+						}
+						document.getElementById("content").className=content;
+				}
+			}
+		</script>
 
-</body>
-</html>
+	<script type="text/javascript" >
+		/*弹出对话框*/
+			function tishikuang()
+			{
+				var topic_name=document.getElementById("guanjianci").value;
+				if (topic_name!=null&&topic_name!="")
+				{
+					if (!isNaN(topic_name)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						window.open("/index/date_index/?topic_name="+topic_name);
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+
+		<script type="text/javascript" >
+		/*弹出对话框*/
+			function tishikuang2()
+			{
+				var topic_name=document.getElementById("keyword").value;
+				if (topic_name!=null&&topic_name!="")
+				{
+					if (!isNaN(topic_name)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						// alert(window.location.href);
+						window.open("/index/date_index/?topic_name="+topic_name);
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+
+		<script type="text/javascript">
+			function entersearch1()
+			{
+				var topic_name=document.getElementById("keyword").value;
+					if (topic_name!=null&&topic_name!="")
+				{
+					if (!isNaN(topic_name)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						
+						window.open("/index/date_index/?topic_name="+topic_name);
+						
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+
+		<script type="text/javascript">
+			function entersearch2()
+			{
+				var topic_name=document.getElementById("guanjianci").value;
+					if (topic_name!=null&&topic_name!="")
+				{
+					if (!isNaN(topic_name)) 
+						{
+							alert('关键词不能为数字');
+						}
+					else
+					{
+						window.open("/index/date_index/?topic_name="+topic_name);
+					}
+				}else
+				 {
+ 					alert('关键字不能为空');
+				 }
+			}
+		</script>
+		
+		<script type="text/javascript">
+			function get_hashtag1_name()
+			{
+				var topic_name=document.getElementById("hashone").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag2_name()
+			{
+				var topic_name=document.getElementById("hashtwo").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag3_name()
+			{
+				var topic_name=document.getElementById("hashthree").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag4_name()
+			{
+				var topic_name=document.getElementById("hashfour").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag5_name()
+			{
+				var topic_name=document.getElementById("hashfive").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag6_name()
+			{
+				var topic_name=document.getElementById("hashsix").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag7_name()
+			{
+				var topic_name=document.getElementById("hashseven").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag8_name()
+			{
+				var topic_name=document.getElementById("hasheight").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag9_name()
+			{
+				var topic_name=document.getElementById("hashnine").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag10_name()
+			{
+				var topic_name=document.getElementById("hashten").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag11_name()
+			{
+				var topic_name=document.getElementById("hasheleven").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag12_name()
+			{
+				var topic_name=document.getElementById("hashtwlve").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag13_name()
+			{
+				var topic_name=document.getElementById("hashthirteen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag14_name()
+			{
+				var topic_name=document.getElementById("hashfourteen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag15_name()
+			{
+				var topic_name=document.getElementById("hashfifteen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag16_name()
+			{
+				var topic_name=document.getElementById("hashsixteen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag17_name()
+			{
+				var topic_name=document.getElementById("hashseventeen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag18_name()
+			{
+				var topic_name=document.getElementById("hasheighteen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag19_name()
+			{
+				var topic_name=document.getElementById("hashnineteen").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+			function get_hashtag20_name()
+			{
+				var topic_name=document.getElementById("hashtwenty").innerText;
+				 window.open("/index/date_index/?topic_name="+topic_name);
+			}
+		</script>
+
+		
+
+
+
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
+from user_portrait.parameter import MYSQL_TOPIC_LEN
 from utils import province_weibo_count,city_weibo_count,get_weibo_content
 import json
 
@@ -22,7 +23,8 @@ def place():
 @mod.route('/geo_weibo_count/')
 def weibo_count():
     topic = request.args.get('topic','')
-    print 'topic',topic
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
     during = request.args.get('pointInterval',60*60) # 默认查询时间粒度为3600秒
     during = int(during)
     end_ts = request.args.get('end_ts', '')
@@ -57,6 +59,9 @@ def province_count():
 @mod.route('/geo_weibo_content/')
 def weibo_content():
     topic = request.args.get('topic','')
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
+    print topic
     during = request.args.get('pointInterval',60*60) # 默认查询时间粒度为3600秒
     during = int(during)
     end_ts = request.args.get('end_ts', '')

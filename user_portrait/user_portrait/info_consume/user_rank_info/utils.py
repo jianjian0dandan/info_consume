@@ -1042,8 +1042,8 @@ def edit_state(task_name, submit_user, new_state):
 #get uid by uname
 def get_uid(uname):
     try:
-        portrait_exist_result = es_user_portrait.search(index=portrait_index_name, doc_type=portrait_index_type, \
-            body={"query":{"bool":{"must":{"term":{"uname":uname}}}}})['hits']['hits'][0]['_id']
+        portrait_exist_result = es_user_portrait.search(index=profile_index_name, doc_type=profile_index_type, \
+            body={"query":{"bool":{"must":{"term":{"nick_name":uname}}}}})['hits']['hits'][0]['_id']
     except:
         return None
     return portrait_exist_result

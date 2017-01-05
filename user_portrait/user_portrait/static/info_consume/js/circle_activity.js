@@ -1,3 +1,4 @@
+console.log("【活跃特征】start load:"+getSystemTime());
       //近一个月群体活跃度走势;id=activi-line
       
       function Draw_activity_line(data){
@@ -274,3 +275,4 @@ function g_act_load(g_name,s_user){
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
  //console.log('g_act_load url:'+activity_url);
 }
+console.log("【活跃特征】end load:"+getSystemTime());

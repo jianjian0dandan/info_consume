@@ -16,7 +16,7 @@ DOMAIN_ZH_LIST = [u'文化', u'教育', u'娱乐', u'时尚', u'财经', u'媒�
                   u'高校微博', u'境内机构', u'境外机构', u'境内媒体', u'境外媒体', u'民间组织', u'律师', \
                   u'政府官员', u'媒体人士', u'活跃人士', u'草根', u'其它']
 
-MYSQL_HOST = '219.224.134.222'
+MYSQL_HOST = '219.224.134.223'
 MYSQL_USER = 'root'
 MYSQL_DB = 'weibocase'
 MONGODB_HOST = '219.224.135.47'
@@ -33,7 +33,7 @@ API_SERVER_HOST = '219.224.135.47'
 API_SERVER_PORT = 9115
 
 #增加的db
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:@219.224.134.222/weibocase?charset=utf8'
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:@219.224.134.223/weibocase?charset=utf8'
 
 # Create application
 app = Flask('xxx')

@@ -27,8 +27,6 @@ homepageinfo.prototype = {
 
 var Personal = new homepageinfo();
 var adsWeiBoData;
-var uid = 1640601392;
-
 
 var url = "/attribute/adsRec/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.adsWeiBoData);

@@ -9,6 +9,7 @@ from flow_text_mappings import get_mappings
 import datetime,time
 from time_utils import ts2datetime
 import traceback
+import os
 '''
 sys.path.append('./geo')
 sys.path.append('./language/fix')
@@ -21,18 +22,32 @@ from cron_topic_identify import compute_network
 from cron_topic_propagate import propagateCronTopic
 from cron_topic_sentiment import sentimentTopic
 '''
+'''
 from geo.city_repost_search import repost_search
 from geo.cron_topic_city import cityTopic
 from network.cron_topic_identify import compute_network
 from propagate.cron_topic_propagate import propagateCronTopic
 from sentiment.cron_topic_sentiment import sentimentTopic
 from language.fix.count_keyword import count_fre
+'''
+#from propagate.cron_topic_propagate import propagateCronTopic
+from network.cron_topic_identify import compute_network
+
+
+def get_by_name(name):
+	query_body=query_body = {'query':{'term':{'name':name}}}
+	result = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)['hits']['hits']
+	#print result[0]['_source']
+	return json.dumps(result[0]['_source'])
+
+
 
 def compute_topic_task():
 	print time.time()
 	while  True:
 		#print r.rpop(topic_queue_name)
-		task = r.rpop(topic_queue_name)
+		#task = r.rpop(topic_queue_name)
+		task=get_by_name('叶简明')
 		if not task:
 			break
 		else:
@@ -51,34 +66,35 @@ def compute_topic_task():
 			if exist_flag:
 				#start compute
 				#try:
-				weibo_es.update(index=topic_index_name,doc_type=topic_index_type,id=task_id,body={'doc':{'comput_status':-1}})
-				print 'finish change status'
-				#geo
+				# weibo_es.update(index=topic_index_name,doc_type=topic_index_type,id=task_id,body={'doc':{'comput_status':-1}})
+				# print 'finish change status'
+				# #geo
 				
-				repost_search(en_name, start_ts, end_ts)
-				print 'finish geo_1 analyze'
-				cityTopic(en_name, start_ts, end_ts)
-				print 'finish geo analyze'
-				#language
-				count_fre(en_name, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=MAX_LANGUAGE_WEIBO)
-				print 'finish language analyze'
-				#time
-				propagateCronTopic(en_name, start_ts, end_ts)
-				print 'finish time analyze'
+				# repost_search(en_name, start_ts, end_ts)
+				# print 'finish geo_1 analyze'
+				# cityTopic(en_name, start_ts, end_ts)
+				# print 'finish geo analyze'
+				# # #language
+				# count_fre(en_name, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=MAX_LANGUAGE_WEIBO)
+				# print 'finish language analyze'
+				# #time
+				# propagateCronTopic(en_name, start_ts, end_ts)
+				# print 'finish time analyze'
 
 				#network
 				compute_network(en_name, start_ts, end_ts)
 				print 'finish network analyze'
 
 				#sentiment
-				sentimentTopic(en_name, start_ts=start_ts, over_ts=end_ts)
-				print 'finish sentiment analyze'
+				# sentimentTopic(en_name, start_ts=start_ts, over_ts=end_ts)
+				# print 'finish sentiment analyze'
 				#finish compute
 				print weibo_es.update(index=topic_index_name,doc_type=topic_index_type,id=task_id,body={'doc':{'comput_status':1,'finish_ts':int(time.time())}})
 				print 'finish change status done'
 				# except:
 				# 	raise
 				# 	break
+				break
 			else:
 				pass
 
@@ -148,13 +164,29 @@ def save_es(en_name,result):
 		    if count % 10000 == 0:
 		        te = time.time()
 		        print "index 10000 per %s second" %(te - tb)
-		        tb = ts
+		        tb = te
 	print "all done"
 	if bulk_action:
 	    weibo_es.bulk(bulk_action, index=en_name, doc_type=topic_index_type, timeout=100)
 	return 1
 
+def yejianming():
+	en_name='ye-jian-ming-1482830875'
+	#get_mappings(en_name)
+	result=[]
+	for files in os.listdir('/home/ubuntu2/jiangln/yejianming_retweet'):
+		f=open('/home/ubuntu2/jiangln/yejianming_retweet/'+files,'r')
+		print files
+		result.extend(json.loads(f.read()))
+		#len_f = len(json.loads(f.read()))
+		#print len_f
+		#result.append({files:len_f})
+	#print result
+
+	save_es(en_name,result)
 
 if __name__ == '__main__':
 	compute_topic_task()
 	#get_topic_weibo('画画','huahua','1377964800','1378137600')
+	#yejianming()
+	#et_by_name('叶简明')

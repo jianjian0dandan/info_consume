@@ -61,6 +61,7 @@ R_8 = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=8)
 R_9 = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=9)
 R_10 = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=10)
 R_11 = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=11)
+#bci_history jln
 R_12 = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=12)
 
 R_DICT = {'0':R_0, '1':R_1, '2':R_2, '3':R_3, '4':R_4, '5':R_5, '6':R_6, '7':R_7,\
@@ -79,6 +80,7 @@ r_domain_sentiment_pre = 'sentiment_domain_'
 #use to save topic sentiment trend
 R_TOPIC_SENTIMENT = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=13)
 r_topic_sentiment_pre = 'sentiment_topic_'
+
 
 
 #use to save sentiment keywords task information to redis queue
