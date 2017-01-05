@@ -141,7 +141,7 @@ topic_analysis_network.prototype = {   //获取数据，重新画表
     }
     //console.log(item_links.length);
 
-    for(i=0;i<Math.min(item['nodes'].length,2000);i++){
+    for(i=0;i<Math.min(item['nodes'].length,20000);i++){
       nodes_new.push({name:item['nodes'][i]['label'],symbolSize:item['nodes'][i]['symbolSize'],label:''});
       
     }
