@@ -435,7 +435,7 @@ def get_user_ip(uid):
 
 
 # 视频节目推荐，分为rio和tiger，每个k个
-def cntv_video_rec(uid, k=10):
+def cctv_video_rec(uid, k=10):
     flow_text_index_list = []
     now_timestamp = datetime2ts(ts2datetime(time.time()))
     if RUN_TYPE == 0:
@@ -492,7 +492,8 @@ def load_videos(filepath):
     return ret_set
 
 
-def cntv_item_rec(uid, k=10):
+def cctv_item_rec(uid, k=10):
+    random.seed(int(uid))
     item_set = load_items(CNTV_ITEM_FILE)
     return random.sample(item_set, k)
 

@@ -5,7 +5,7 @@
 __author__ = 'zxy'
 
 from user_portrait.attribute.personalizedRec import \
-    adsRec, personRec, get_user_geo, localRec, cntv_video_rec, cntv_item_rec
+    adsRec, personRec, get_user_geo, localRec, cctv_video_rec, cctv_item_rec
 from user_portrait.global_utils import es_user_profile, profile_index_name, profile_index_type, \
     es_user_portrait, portrait_index_name
 
@@ -79,4 +79,4 @@ if __name__ == '__main__':
     # esUserPortraitTest()
     # construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
     # adsTest()
-    print cntv_item_rec(uid)
+    print cctv_item_rec(uid)

@@ -28,7 +28,7 @@ from personal_influence import get_user_influence, influenced_detail, influenced
 from description import conclusion_on_influence
 from info_new_search import info_new_get_user_social
 
-from personalizedRec import adsRec, personRec, localRec, cntv_video_rec, cntv_item_rec
+from personalizedRec import adsRec, personRec, localRec, cctv_video_rec, cctv_item_rec
 
 # use to test 13-09-08
 test_time = datetime2ts(RUN_TEST_TIME)
@@ -824,20 +824,20 @@ def ajax_personRec():
 
 
 # 央视video推荐，video id
-@mod.route("/cntv_video_rec/")
-def ajax_cntv_video_rec():
+@mod.route("/cctv_video_rec/")
+def ajax_cctv_video_rec():
     uid = request.args.get('uid','')
-    results = cntv_video_rec(uid)
+    results = cctv_video_rec(uid)
     if results is None:
         results = []
     return json.dumps(results)
 
 
 # 央视item推荐，item概念名字
-@mod.route("/cntv_item_rec/")
-def ajax_cntv_video_rec():
+@mod.route("/cctv_item_rec/")
+def ajax_cctv_item_rec():
     uid = request.args.get('uid','')
-    results = cntv_item_rec(uid)
+    results = cctv_item_rec(uid)
     if results is None:
         results = []
     return json.dumps(results)
