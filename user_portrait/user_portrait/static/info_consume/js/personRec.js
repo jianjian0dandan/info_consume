@@ -19,13 +19,13 @@ $("#switch-others").on("click", function(){drawPerson(personInfoData, num_show)}
 
 function getPersonInfo(data) {
     personInfoData = data
-    if(data.length < num_show){
-        $("#person-loading").html("<center>暂无数据</center>");
-    }
+    // if(data.length < num_show){
+    //     $("#person-loading").html("<center>暂无数据</center>");
+    // }
 //    显示
     $('#person-loading').css('display', 'none');
-    $('#person-panel-body').css('display', 'block');
-    drawPerson(personInfoData, num_show)
+    $('#personInfo').css('display', 'block');
+    drawPerson(personInfoData, num_show);
 }
 
 function drawPerson(personChoose){
