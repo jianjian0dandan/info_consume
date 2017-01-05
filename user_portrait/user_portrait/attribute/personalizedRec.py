@@ -8,20 +8,25 @@ import codecs
 import json
 import os
 import time
+import jieba
+import random
 
+from elasticsearch.exceptions import NotFoundError
+from user_portrait.attribute.influence_appendix import weiboinfo2url
 from user_portrait.global_config import R_BEGIN_TIME
 from user_portrait.parameter import DAY, HOUR
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.parameter import topic_en2ch_dict
 from user_portrait.time_utils import ts2datetime, datetime2ts
+from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE, CNTV_ITEM_FILE
 
 from ads_classify import adsClassify
-from user_portrait.attribute.influence_appendix import weiboinfo2url
-from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, es_user_profile, profile_index_name, \
-    profile_index_type, \
-    es_user_portrait, portrait_index_name, ads_weibo_index_type, portrait_index_type
+from user_portrait.global_utils import \
+    es_flow_text, flow_text_index_name_pre, flow_text_index_type, \
+    es_user_profile, profile_index_name, profile_index_type, \
+    es_user_portrait, portrait_index_name, portrait_index_type, \
+    ads_weibo_index_type
 from user_portrait.global_utils import retweet_index_name_pre, retweet_index_type, es_retweet
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
 
 
 def adsRec(uid, queryInterval=HOUR * 4):
@@ -43,23 +48,24 @@ def adsRec(uid, queryInterval=HOUR * 4):
         get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
 
     user_key_words = set(user_portrait_result["keywords_string"].split("&"))
-    # keywords_items = sorted(json.loads(user_portrait_result["keywords"]),
-    # key=lambda kw: kw[1],
-    # reverse=True)
-    # topic_items = sorted(json.loads(user_portrait_result["topic"]).items(),
-    # key=lambda kw: kw[1],
-    # reverse=True)
 
     # test，目前使用的是从原始数据中读取一定时间段内的微博并实时计算的方式得到
-    #
-    ads_weibo_index_name = flow_text_index_name_pre + now_date
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+
+    ads_weibo_index_name = []
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        ads_weibo_index_name.append(flow_text_index_name_pre + iter_date)
+
     ads_weibo_all = es_flow_text.search(index=ads_weibo_index_name,
                                         doc_type=ads_weibo_index_type,
                                         body={'query': {"filtered": {"filter": {
                                             "range": {"timestamp": {"gte": datetime2ts(now_date) - queryInterval}}}}},
-                                              'size': 2000,
+                                            'size': 2000,
                                         }
-    )['hits']['hits']
+                                        )['hits']['hits']
 
     # 根据权重得到不同类别上词语的权重TFIDF
     topic_word_weight_dic = construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
@@ -77,8 +83,8 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
     topic_word_weight_dic = dict()
     # topic_word_weight_dir = topic_word_weight_dir.decode("ascii")
     for file_name in os.listdir(topic_word_weight_dir):
-    	# file_name = file_name.decode("utf-8")
-    	# print file_name
+        # file_name = file_name.decode("utf-8")
+        # print file_name
         weight_file = os.path.join(topic_word_weight_dir, file_name)
         # print weight_file
         if not os.path.isfile(weight_file):
@@ -88,11 +94,9 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
             for line in f.readlines():
                 items = line.split(" ")
                 word_weight_dic[items[0]] = float(items[1])
-            # fuck py2!!
-            # listdir出来的是str, 使用的是默认的gbk编码(在windows下),使用GBK解码成Unicode。再次fuck py2!
             # fix 2016.11.24 在上面将topic_word_weight_dir直接decode成Unicode
             # 使用Unicode路径listdir得到就直接为Unicode
-            topic_word_weight_dic[file_name[:-4].decode("utf-8")] = word_weight_dic
+            topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
     return topic_word_weight_dic
 
 
@@ -131,13 +135,12 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
     ads_midsPrefered = dict()
     # 微博用户的个人信息
     uids = set()
-    user_info_dict = dict()
     for weibo in weibo_all:
         weiboSource = weibo["_source"]
         uids.add(weiboSource["uid"])
         #  加上retweet和recomment的字段，适配非线上环境
         #  去掉RUN_TYPE限制，无论01都查找是否存在转发评论数
-        for keytobeadded in ['retweeted','comment']:
+        for keytobeadded in ['retweeted', 'comment']:
             if keytobeadded not in weiboSource.keys():
                 weiboSource[keytobeadded] = 0
         weiboMap[weibo["_source"]["mid"]] = weiboSource
@@ -192,7 +195,7 @@ def personRec(uid, k=200):
         user_attention = search_attention_id(temp_uid)
         for user_id in user_attention:
             if user_id not in candidate_attention_id_set and \
-               user_id not in direct_attention_id_set:
+                            user_id not in direct_attention_id_set:
                 candidate_attention_id_set.add(user_id)
                 search_queue.put(user_id)
 
@@ -209,6 +212,7 @@ def personRec(uid, k=200):
             user_recommend_return_list.append(temp_user_profile)
 
     return user_recommend_return_list
+
 
 def sim_user(uid, candidate_attention_id_set):
     user_portrait = es_user_portrait. \
@@ -234,7 +238,6 @@ def sim_user(uid, candidate_attention_id_set):
                 break
 
     return user_prefer_dict
-
 
 
 def search_attention_id(uid, k=30):
@@ -293,6 +296,214 @@ def search_user_profile_by_user_ids(users):
             uid = out_user_item['_id']
             user_profile_return[uid] = out_user_item['_source']
     return user_profile_return
+
+
+# 本地的新闻微推荐，先获取本地微博
+def localRec(uid, k=200):
+    # 运行状态，
+    # 0 ->  当前为2016-11-28 00:00:00
+    # 1 ->  当前时间
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+
+    flow_text_index_list = []
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        flow_text_index_list.append(flow_text_index_name_pre + iter_date)
+
+    # 获取用户地理位置
+    # user_geos = get_user_geo(uid)
+    # # 根据位置查询weibo
+    # weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
+    #                                 body={"query":{"bool":{"must":
+    #                                                                 [{"match":{"keywords_string":"新闻"}},
+    #                                                                  {"match":{"geo":"合肥"}}
+    #                                                                  ]}},
+    #                                            "size": 200
+    #                                       })["hits"]["hits"]
+
+    '''可以直接查询长度大于100的但是很慢
+    {"query":{"filtered":{"query":{"bool":{"must":[{"match":{"keywords_string":"新闻"}},{"match":{"geo":"合肥"}}]}},"filter":{"regexp":{"text":{"value":".{100,}"}}}}}}
+    '''
+    ip = get_user_ip(uid)
+    ip = ".".join(ip.split(".")[:-2])
+    weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
+                                    body={"query": {"bool": {"must": [{"prefix": { "text.ip": ip}}]}},
+                                          "size":2000 })["hits"]["hits"]
+
+
+    local_weibo_rec = []
+    weibo_user_uids = [weibo["_source"]["uid"] for weibo in weibo_all]
+    user_profiles = search_user_profile_by_user_ids(weibo_user_uids)
+    exists_ip = set()
+    for weibo in weibo_all:
+        weibo = weibo["_source"]
+        weibo_text = weibo["text"]
+        if weibo["ip"] in exists_ip:
+            continue
+        # 一个ip只选一个
+        exists_ip.add(weibo["ip"])
+        if not is_suit(weibo_text):
+            continue
+        weibo["len"] = len(weibo_text)
+        try:
+            mid = weibo["mid"]
+            uid = weibo["uid"]
+        except:
+            continue
+        weibo["weibo_url"] = weiboinfo2url(uid, mid)
+        # 可能出现许多userprofile查不到的情况
+        if uid in user_profiles:
+            weibo["photo_url"] = user_profiles[uid]["photo_url"]
+            weibo["nick_name"] = user_profiles[uid]["nick_name"]
+        else:
+            weibo["photo_url"] = "None"
+            weibo["nick_name"] = "None"
+            local_weibo_rec.append(weibo)
+    return local_weibo_rec
+
+
+# 根据微博的text判断微博是否展示效果比较好
+def is_suit(weibo_text):
+    if len(weibo_text) < 50:
+        return False
+    if weibo_text.count('@') > 2:
+        return False
+    if weibo_text.find("@") < 10:
+        return False
+    return True
+
+
+# 如果user portrait中有就直接读取，否则读取用户微博得到位置信息
+def get_user_geo(uid, dropped_geos=u"中国&美国"):
+    """
+    :param uid: 用户的id
+    :param dropped_geos: &分割的地点，因为geo中都包含中国
+    :return: geo 位置的set
+    """
+    dropped_geos = set(dropped_geos.split("&"))
+    # 获取用户的偏好
+    try:
+        user_portrait_result = es_user_portrait. \
+            get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
+    except NotFoundError:
+        user_portrait_result = None
+
+    # portrait表中存在geo信息
+    if user_portrait_result and len(user_portrait_result["activity_geo"]) > 0:
+        geos = user_portrait_result["activity_geo"] - dropped_geos
+
+    # 不存在geo信息，获取之前发去的微博提取
+    else:
+        flow_text_index_list = []
+        now_timestamp = datetime2ts(ts2datetime(time.time()))
+        if RUN_TYPE == 0:
+            now_timestamp = datetime2ts(RUN_TEST_TIME)
+        for i in range(7, 0, -1):
+            iter_date = ts2datetime(now_timestamp - DAY * i)
+            flow_text_index_list.append(flow_text_index_name_pre + iter_date)
+
+        weibo_all = es_flow_text.search(index=flow_text_index_list,
+                                        doc_type=flow_text_index_type,
+                                        body={'query': {'filtered': {'filter': {'term': {'uid': uid}}}},
+                                              'size': 2000,
+                                              })['hits']['hits']
+        geos = set()
+        for temp in weibo_all:
+            geos |= set(temp["_source"]["geo"].split("&"))
+
+    return geos
+
+
+def get_user_ip(uid):
+    flow_text_index_list = []
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        flow_text_index_list.append(flow_text_index_name_pre + iter_date)
+
+    weibo_all = es_flow_text.search(index=flow_text_index_list,
+                                    doc_type=flow_text_index_type,
+                                    body={'query': {'filtered': {'filter': {'term': {'uid': uid}}}},
+                                          'size': 10,
+                                          })['hits']['hits']
+    ip = weibo_all[0]["_source"]["ip"]
+    return ip
+
+
+# 视频节目推荐，分为rio和tiger，每个k个
+def cctv_video_rec(uid, k=10):
+    flow_text_index_list = []
+    now_timestamp = datetime2ts(ts2datetime(time.time()))
+    if RUN_TYPE == 0:
+        now_timestamp = datetime2ts(RUN_TEST_TIME)
+    for i in range(7, 0, -1):
+        iter_date = ts2datetime(now_timestamp - DAY * i)
+        flow_text_index_list.append(flow_text_index_name_pre + iter_date)
+
+    weibo_all = es_flow_text.search(index=flow_text_index_list,
+                                    doc_type=flow_text_index_type,
+                                    body={'query': {'filtered': {'filter': {'term': {'uid': uid}}}},
+                                          'size': 100,
+                                          })['hits']['hits']
+    user_words = set()
+    for weibo in weibo_all:
+        weibo_text = weibo["_source"]["ip"]
+        user_words |= set(jieba.cut(weibo_text))
+
+    rio_dict = load_topic_video_dict(RIO_VIDEO_INFO_FILE)
+    tiger_videos = load_videos(TIGER_VIDEO_INFO_FILE)
+
+    ret_dict = dict()
+    ret_dict["tiger"] = random.sample(tiger_videos, k)
+
+    user_pref_topic = set(rio_dict.keys()) & user_words
+    # 若找不到，随机分配topic
+    if len(user_pref_topic) == 0:
+        user_pref_topic = set(random.sample(rio_dict.keys(), k))
+    ret_dict["rio"] = list()
+    for topic in user_pref_topic:
+        ret_dict["rio"].extend(rio_dict[topic])
+        if len(ret_dict["rio"]) >= k:
+            ret_dict["rio"] = ret_dict["rio"][:k]
+            break
+    return ret_dict
+
+
+def load_topic_video_dict(filepath):
+    ret_dict = dict()
+    with open(filepath) as f:
+        lines = f.readlines()
+    for line in lines:
+        words = line.strip().split("||")
+        ret_dict[words[0]] = words[1].split(",")
+    return ret_dict
+
+
+def load_videos(filepath):
+    ret_set = set()
+    with open(filepath) as f:
+        lines = f.readlines()
+    for line in lines:
+        ret_set.add(line.strip().split("||")[1])
+    return ret_set
+
+
+def cctv_item_rec(uid, k=10):
+    random.seed(int(uid))
+    item_set = load_items(CNTV_ITEM_FILE)
+    return random.sample(item_set, k)
+
+
+def load_items(filepath):
+    with open(filepath) as f:
+        lines = f.readlines()
+    item_set = set(map(lambda line:line.strip(), lines))
+    return item_set
+
 
 
 if __name__ == '__main__':
