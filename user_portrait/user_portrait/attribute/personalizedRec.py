@@ -18,7 +18,7 @@ from user_portrait.parameter import DAY, HOUR
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.parameter import topic_en2ch_dict
 from user_portrait.time_utils import ts2datetime, datetime2ts
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
+from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE
 
 from ads_classify import adsClassify
 from user_portrait.global_utils import \
@@ -27,9 +27,6 @@ from user_portrait.global_utils import \
     es_user_portrait, portrait_index_name, portrait_index_type, \
     ads_weibo_index_type
 from user_portrait.global_utils import retweet_index_name_pre, retweet_index_type, es_retweet
-
-RIO_VIDEO_INFO_FILE = "../cron/trainData/cntv_video/rio.txt"
-TIGER_VIDEO_INFO_FILE = "../cron/trainData/cntv_video/tiger.txt"
 
 
 def adsRec(uid, queryInterval=HOUR * 4):
@@ -438,7 +435,7 @@ def get_user_ip(uid):
 
 
 # 视频节目推荐，分为rio和tiger，每个k个
-def rio_video_rec(uid, k=10):
+def cntv_video_rec(uid, k=10):
     flow_text_index_list = []
     now_timestamp = datetime2ts(ts2datetime(time.time()))
     if RUN_TYPE == 0:
@@ -455,7 +452,7 @@ def rio_video_rec(uid, k=10):
     user_words = set()
     for weibo in weibo_all:
         weibo_text = weibo["_source"]["ip"]
-        user_words |= jieba.cut(weibo_text)
+        user_words |= set(jieba.cut(weibo_text))
 
     rio_dict = load_topic_video_dict(RIO_VIDEO_INFO_FILE)
     tiger_videos = load_videos(TIGER_VIDEO_INFO_FILE)
@@ -463,21 +460,17 @@ def rio_video_rec(uid, k=10):
     ret_dict = dict()
     ret_dict["tiger"] = random.sample(tiger_videos, k)
 
-    user_pref_topic = rio_dict.keys() & weibo_text
+    user_pref_topic = set(rio_dict.keys()) & user_words
     # 若找不到，随机分配topic
     if len(user_pref_topic) == 0:
         user_pref_topic = set(random.sample(rio_dict.keys(), k))
     ret_dict["rio"] = list()
     for topic in user_pref_topic:
-        ret_dict["rio"].append(rio_dict[topic])
-        if len(ret_dict["rio"])>10:
-            ret_dict["rio"] = ret_dict["rio"][:10]
+        ret_dict["rio"].extend(rio_dict[topic])
+        if len(ret_dict["rio"]) >= k:
+            ret_dict["rio"] = ret_dict["rio"][:k]
             break
     return ret_dict
-
-
-
-
 
 
 def load_topic_video_dict(filepath):
@@ -485,7 +478,7 @@ def load_topic_video_dict(filepath):
     with open(filepath) as f:
         lines = f.readlines()
     for line in lines:
-        words = line.split("||")
+        words = line.strip().split("||")
         ret_dict[words[0]] = words[1].split(",")
     return ret_dict
 
@@ -495,7 +488,7 @@ def load_videos(filepath):
     with open(filepath) as f:
         lines = f.readlines()
     for line in lines:
-        ret_set.add(line.split("||")[1])
+        ret_set.add(line.strip().split("||")[1])
     return ret_set
 
 
