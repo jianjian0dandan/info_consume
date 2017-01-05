@@ -18,7 +18,7 @@ from user_portrait.parameter import DAY, HOUR
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.parameter import topic_en2ch_dict
 from user_portrait.time_utils import ts2datetime, datetime2ts
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE
+from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE, CNTV_ITEM_FILE
 
 from ads_classify import adsClassify
 from user_portrait.global_utils import \
@@ -490,6 +490,19 @@ def load_videos(filepath):
     for line in lines:
         ret_set.add(line.strip().split("||")[1])
     return ret_set
+
+
+def cntv_item_rec(uid, k=10):
+    item_set = load_items(CNTV_ITEM_FILE)
+    return random.sample(item_set, k)
+
+
+def load_items(filepath):
+    with open(filepath) as f:
+        lines = f.readlines()
+    item_set = set(map(lambda line:line.strip(), lines))
+    return item_set
+
 
 
 if __name__ == '__main__':
