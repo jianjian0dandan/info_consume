@@ -116,7 +116,7 @@ def info_ajax_new_user_social():
 @mod.route('/new_user_weibo/')
 def ajax_new_user_weibo():
     uid = request.args.get('uid', '')
-    sort_type = request.args.get('sort_type', 'timestamp')
+    sort_type = request.args.get('sort_type', '')
     results = new_get_user_weibo(uid, sort_type)
     if not results:
         results = []
