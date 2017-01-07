@@ -27,7 +27,7 @@ homepageinfo.prototype = {
 
 var Personal = new homepageinfo();
 var adsWeiBoData;
-
+// var uid=3842880555;
 var url = "/attribute/adsRec/?uid=" + uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.adsWeiBoData);
 //console.log("运行微博数据");
