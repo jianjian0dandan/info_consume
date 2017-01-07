@@ -2055,8 +2055,11 @@ def search_preference_attribute(uid):
         topic_ch = topic_en2ch_dict[topic_en]
         topic_ch_dict[topic_ch] = topic_en_dict[topic_en]
     sort_topic_ch_dict = sorted(topic_ch_dict.items(), key=lambda x:x[1], reverse=True)
+    sort_topic_en_dict = sorted(topic_en_dict.items(), key=lambda x:x[1], reverse=True)
+   
     #results['topic'] = topic_ch_dict
     results['topic'] = sort_topic_ch_dict
+    results['topic_en'] = sort_topic_en_dict
 
     #add school information
     

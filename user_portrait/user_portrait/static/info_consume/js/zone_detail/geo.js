@@ -26,11 +26,11 @@ show_geo.prototype = {
           var cityValue = data.all_top[0][1];
           //console.log(data.all_top[0][1]+"---"+data.all_top[0][0]);
           var cityName=data.all_top[0][0].split("\t");
-          //console.log("l--"+cityName[2]);
-          province_data['name']=cityName[2];
+          console.log(cityName);
+          province_data['name']=cityName[1];
           province_data['value']= cityValue;
           geo_data.push(province_data);
-          //console.log("geo"+geo_data);
+          console.log(geo_data);
         }else{
           index_mode = 3;  //day
         }
@@ -70,7 +70,6 @@ show_geo.prototype = {
       },
       tooltip : {
           trigger: 'item',
-          formatter: '滚轮切换或点击进入该省<br/>{b}:{c}'
       },
       legend: {
           orient: 'vertical',

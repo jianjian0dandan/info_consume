@@ -110,8 +110,8 @@ function Draw_keyword(data, div_name, more_div, more,title){
     
   	for (var i=0;i<word_num;i++){
   		var word = {};
-        word['name'] = key_name2[i];
-  		word['value'] = key_value2[i]*5;
+      word['name'] = key_name2[i];
+  		word['value'] = key_value2[i]+30;
   		word['itemStyle'] = createRandomItemStyle();
   		keyword.push(word);
   	}

@@ -10,9 +10,7 @@
    body {
     /*background-color: #FCF8E3!important;*/
     background-color: #e3fafc!important;
-    /*background: url(/static/info_consume/image/people.jpg) center top no-repeat,
-    url(/static/info_consume/image/nv.jpg) center bottom no-repeat;
-    background-size: 100% 50%,100% 51%!important;*/
+    background-size: 100% 100% !important;
    }
    .up_box {
     margin-left: 185px;
@@ -590,33 +588,34 @@ homepageinfo.prototype = {
     },
 
     domain:function(data){
-      // var str = data;
-      // console.log(str.split("&")[0]);
-      // document.getElementById('draw_p2').innerHTML = str.split("&")[0];
-      var i;
-      //将此人涉及领域从数据库取出，
-      var domain = new Array();
-      var num = new Array();
-      
-      for (i=0;i<data.in_topic.length;i++) 
-      {
-        domain[i]=data.in_topic[i][0];
-        num[i]=data.in_topic[i][1];
-      }
+       var i;
+       //将此人涉及领域从数据库取出，
+       var domain = new Array();
+       topdomain_en = data.results.topic_en[0][0];
+       console.log(topdomain_en);
+       // $('body').css('style','url(/static/info_consume/image/bgp/'+topdomain_en+'.jpg)');
+       document.body.style.backgroundImage="url('/static/info_consume/image/bgp/"+topdomain_en+".jpg') ";
+       document.body.style.backgroundRepeat = "no-repeat";
+       document.body.style.backgroundAttachment ="fixed";
 
-      var topdomain = domain[0];
-      var othernum;
-      for (var j = 0; j < data.in_topic.length; j++) {
-        if (domain[j] == "其他类") {
-          othernum = j;
-          break;
-        }
-      }
-      if(othernum == 0){
-        topdomain = domain[1];
-      }  
-      document.getElementById('draw_p2').innerHTML ="活跃领域："+ topdomain;
-      //console.log("topdomain="+topdomain);
+       for (i=0;i<data.results.topic.length;i++) 
+       {
+         domain[i]=data.results.topic[i][0];
+       }
+
+       var topdomain = domain[0];
+       var othernum;
+       for (var j = 0; j < data.results.topic.length; j++) {
+         if (domain[j] == "其他类") {
+           othernum = j;
+           break;
+         }
+       }
+       if(othernum == 0){
+         topdomain = domain[1];
+       }
+
+       $('#draw_p2').append("活跃领域："+ topdomain);
     },
 
     //亲密度排行
@@ -888,7 +887,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
 
 var Personal = new homepageinfo();
 var personalData; // global data
-
+var topdomain_en;
 //好友亲密度排行
 var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);
@@ -896,8 +895,10 @@ Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_ran
 var geo_url = '/attribute/location/?uid='+uid+'&time_type=month';
 Personal.call_sync_ajax_request(geo_url, Personal.ajax_method, Personal.geoData);
 //领域
-var url = '/attribute/info_new_user_social/?uid='+uid;
+var url = '/attribute/preference/?uid='+uid;
 Personal.call_sync_ajax_request(url,Personal.ajax_method,Personal.domain);
+
+
 
 //个人画像信息排行
 var url = "/attribute/new_user_profile/?uid=" + uid;
