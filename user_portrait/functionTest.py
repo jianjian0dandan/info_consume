@@ -4,50 +4,49 @@
 '''
 __author__ = 'zxy'
 
-from user_portrait.global_utils import es_flow_text, flow_text_index_name_pre, flow_text_index_type, \
-    es_user_profile, profile_index_name, profile_index_type, \
-    es_user_portrait, portrait_index_name, portrait_index_type
-from user_portrait.attribute.influence_appendix import weiboinfo2url
-from user_portrait.attribute.personalizedRec import adsRec
-from user_portrait.attribute.ads_classify import adsClassify
-from user_portrait.attribute.personalizedRec import personRec
+from user_portrait.attribute.personalizedRec import \
+    adsRec, personRec, get_user_geo, localRec, cctv_video_rec, cctv_item_rec
+from user_portrait.global_utils import es_user_profile, profile_index_name, profile_index_type, \
+    es_user_portrait, portrait_index_name
 
 import json
-import pprint
 import os
 import codecs
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR
+
 uid = 1268043470
 
 def esUserProfileTest():
-    user_profile_result = es_user_profile.\
-        get_source(index=profile_index_name, doc_type=profile_index_type,id=uid)
+    user_profile_result = es_user_profile. \
+        get_source(index=profile_index_name, doc_type=profile_index_type, id=uid)
 
     print user_profile_result
 
+
 def esUserPortraitTest():
-    user_portrait_result = es_user_portrait.\
-        get_source(index=portrait_index_name, doc_type=profile_index_type,id=uid)
+    user_portrait_result = es_user_portrait. \
+        get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
 
     keywords_items = sorted(json.loads(user_portrait_result["keywords"]),
-                            key = lambda kw: kw[1],
-                            reverse = True)
+                            key=lambda kw: kw[1],
+                            reverse=True)
     topic_items = sorted(json.loads(user_portrait_result["topic"]).items(),
                          key=lambda kw: kw[1],
-                         reverse = True)
+                         reverse=True)
 
-    for (k,v) in keywords_items:
-        print k,v
+    for (k, v) in keywords_items:
+        print k, v
 
     print "----------------------------"
 
-    for (k,v) in topic_items:
-        print k,v
+    for (k, v) in topic_items:
+        print k, v
+
 
 def adsTest():
     result = adsRec(uid)
     for weibo in result:
         print weibo["text"]
+
 
 def construct_topic_word_weight_dic(topic_word_weight_dir):
     topic_word_weight_dic = dict()
@@ -63,11 +62,12 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
             topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
     return topic_word_weight_dic
 
+
 def personRec_test():
     recPerson = personRec(uid, k=400)
     for (topic, users) in recPerson.items():
         print topic
-        print "**"*30
+        print "**" * 30
         for user in users:
             print user["description"]
             # for (k, v) in user.items():
@@ -79,4 +79,4 @@ if __name__ == '__main__':
     # esUserPortraitTest()
     # construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
     # adsTest()
-    personRec_test()
+    print cctv_item_rec(uid)
