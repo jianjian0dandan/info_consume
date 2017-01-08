@@ -18,28 +18,34 @@ $.ajax({
 $("#switch-others").on("click", function(){drawPerson(personInfoData, num_show)})
 
 function getPersonInfo(data) {
-    personInfoData = data
-    if(data.length < num_show){
-        $("#person-loading").html("<center>暂无数据</center>");
-    }
+    personInfoData = data;
+    // if(data.length < num_show){
+    //     $("#person-loading").html("<center>暂无数据</center>");
+    // }
 //    显示
     $('#person-loading').css('display', 'none');
-    $('#person-panel-body').css('display', 'block');
+    $('#personInfo').css('display', 'block');
     drawPerson(personInfoData, num_show)
 }
 
 function drawPerson(personChoose){
+
     personChoose = randomChoose(personInfoData,num_show)
-    for (var i = 0; i <= num_show;) {
-        var person = personChoose[i]
+    for (var i = 0; i < num_show;) {
+        var person = personChoose[i];
+        var shuo;
+        if (person["description"]==''){
+            shuo='无';
+        }else {
+            shuo=person["description"];
+        }
         i = i+1;
-        document.getElementById("userphoto"+i).src=person["photo_url"]
-        document.getElementById("username"+i).innerHTML = person["nick_name"]
-        document.getElementById("userdesc"+i).innerHTML = person["description"]
-        document.getElementById("usertopic"+i).innerHTML = person["topic"]
-        document.getElementById("userhome"+i).href= "http://weibo.com/u/"+person["id"]
+        document.getElementById("userphoto"+i).src=person["photo_url"];
+        document.getElementById("username"+i).innerHTML = person["nick_name"];
+        document.getElementById("userdesc"+i).innerHTML = shuo;
+        document.getElementById("usertopic"+i).innerHTML = person["topic"];
+        document.getElementById("userhome"+i).href= "http://weibo.com/u/"+person["id"];
     }
-    //console.log(personChoose)
 }
 
 function randomChoose(personInfoData, k){
