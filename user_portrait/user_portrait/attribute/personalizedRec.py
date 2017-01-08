@@ -96,7 +96,7 @@ def construct_topic_word_weight_dic(topic_word_weight_dir):
                 word_weight_dic[items[0]] = float(items[1])
             # fix 2016.11.24 在上面将topic_word_weight_dir直接decode成Unicode
             # 使用Unicode路径listdir得到就直接为Unicode
-            topic_word_weight_dic[file_name[:-4].decode("gbk")] = word_weight_dic
+            topic_word_weight_dic[file_name[:-4].decode("utf-8")] = word_weight_dic
     return topic_word_weight_dic
 
 
