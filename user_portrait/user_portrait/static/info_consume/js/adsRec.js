@@ -1,9 +1,6 @@
-
-
 function homepageinfo() {
     this.ajax_method = 'GET';
-}
-
+};
 homepageinfo.prototype = {
     call_sync_ajax_request: function (url, method, callback) {
         $.ajax({
@@ -17,6 +14,7 @@ homepageinfo.prototype = {
     // 微博数据
     adsWeiBoData: function (data) {
         adsWeiBoData = data;
+        console.log(adsWeiBoData);
         // var testtext ="hello";
         // console.log(testtext);
         DrawWeibo(data, 'ads_recommendation', 'ads_recommendation_result');
@@ -44,7 +42,7 @@ function DrawWeibo(data, div_name, sub_div_name) {
             $('#' + sub_div_name).css('height', '300px');
         } else {
             $('#' + div_name + ' #pageGro').css('display', 'block');
-            page_num = data.length
+            page_num = data.length;
             page_ads_weibo(0, page_num, data, sub_div_name);
         }
     } else {
@@ -118,7 +116,7 @@ function DrawWeibo(data, div_name, sub_div_name) {
                 $("#" + div_name + " #pageGro ul li").eq(index + 1).addClass("on");
             }
         }
-        page = parseInt($("#" + div_name + " #pageGro li.on").html())
+        page = parseInt($("#" + div_name + " #pageGro li.on").html());
         //console.log(page);
         start_row = (page - 1) * page_num;
         end_row = start_row + page_num;
@@ -169,7 +167,6 @@ function pageUp(pageNum, pageCount) {
     }
 }
 
-
 function pageDown(pageNum, pageCount) {
     switch (pageNum) {
         case 1:
@@ -193,7 +190,7 @@ function page_icon(page, count, eq) {
     var ul_html = "";
     for (var i = page; i <= count; i++) {
         ul_html += "<li>" + i + "</li>";
-    }
+    };
     $("#pageGro ul").html(ul_html);
     $("#pageGro ul li").eq(eq).addClass("on");
 }
@@ -212,7 +209,7 @@ function page_ads_weibo(start_row, end_row, data, sub_div_name) {
         var text = data[i]["text"];
         //var retweet_count = data[i][7];
         //var comment_count = data[i][8];
-        // var mingan_count = data[i][9];
+        //var mingan_count = data[i][9];
         //var location = data[i][2];
         var newDate = new Date(data[i]["timestamp"]*1000);
         var date = newDate.toLocaleString();

@@ -1,5 +1,3 @@
-
-
 function homepageinfo() {
     this.ajax_method = 'GET';
 }
