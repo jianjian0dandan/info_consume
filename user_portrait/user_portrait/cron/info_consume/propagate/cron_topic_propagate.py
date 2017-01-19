@@ -210,9 +210,11 @@ def compute_mtype_count(topic, begin_ts, end_ts):
 				}
 			}
 		}
+
 		weibo_mtype_count = weibo_es.search(index=topic, doc_type=weibo_index_type,body=query_body)\
 							['aggregations']['all_interests']['buckets']
 		#print weibo_mtype_count
+		print begin_ts,end_ts,len(weibo_mtype_count)
 		iter_mtype_dict = {}
 		for mtype_item in weibo_mtype_count:
 			mtype = mtype_item['key']
@@ -281,12 +283,12 @@ if __name__ == '__main__':
 
 	#测试用代码
 	topic = '奥运会'
-	start_date = '2016-07-14'
-	end_date = '2016-07-16'
+	start_date = '2016-08-03'
+	end_date = '2016-08-10'
 
 	topic = topic.decode('utf-8')
 	#topic_id = getTopicByName(topic)
-	topic_index_name = getEsIndexName(topic)
+	#topic_index_name = getEsIndexName(topic)
 	topic_index_name = 'aoyunhui'
 	'''
 	#话题id异常处理

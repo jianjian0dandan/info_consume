@@ -22,9 +22,9 @@ def scan_compute_redis():
         status = user_list[1]
         if status == '2': #imme
             #test
-            count += 1
-            if count >= 3:
-                break
+            #count += 1
+            #if count >= 3:
+            #    break
             iter_user_list.append(uid)
             mapping_dict[uid] = json.dumps([in_date, '3']) # mark status:3 computing
         if len(iter_user_list) % 100 == 0 and len(iter_user_list) != 0:

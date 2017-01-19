@@ -120,6 +120,51 @@ def get_key_topics(keyword):
                 result[topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
     return json.dumps(result)
 
+
+def search_topics(keyword):
+    result = []
+    query_body = {
+        'query': {
+            'bool': {
+                'should': [
+                        {'wildcard':{'en_name':'*'+keyword+'*'}},
+                        {'wildcard':{'name':'*'+keyword+'*'}}
+                        ]
+                }
+            }
+    }
+    print query_body
+    results = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
+    if results:
+        topics = results['hits']['hits']
+        for topic in topics:
+            result.append(topic['_source'])
+            #try:
+            #    result[topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
+            #except:
+            #    result[topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
+    return json.dumps(result)
+
+def search_topic_by_topic(topic):
+    result = []
+    query_body = {
+        'query': {
+            'term': {
+                'name':topic
+                }
+            }
+    }
+    results = weibo_es.search(index=topic_index_name,doc_type=topic_index_type,body=query_body)
+    if results:
+        topics = results['hits']['hits']
+        for topic in topics:
+            result.append(topic['_source'])
+            #try:
+            #    result[topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
+            #except:
+    return json.dumps(result)
+
+
 def submit(topic,start_ts,end_ts,submit_user):
     # print str(topic.decode('utf-8'))
     query_body={
@@ -215,6 +260,7 @@ def get_during_keywords(topic,start_ts,end_ts):  #关键词云,unit=MinInterval
 
 
 def get_topics_river(topic,start_ts,end_ts,unit=MinInterval):#主题河
+    #topic='event'
     query_body = {
         'query':{
             'bool':{
@@ -226,6 +272,8 @@ def get_topics_river(topic,start_ts,end_ts,unit=MinInterval):#主题河
             }
         }
     }
+    #print '????',query_body
+    print weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits']
     news_topics = json.loads(weibo_es.search(index=topics_river_index_name,doc_type=topics_river_index_type,body=query_body)['hits']['hits'][0]['_source']['features'])
     zhutihe_results = cul_key_weibo_time_count(topic,news_topics,start_ts,end_ts,unit)
     results = {}
@@ -409,8 +457,11 @@ def get_sen_ratio(topic,start_ts,end_ts):
 def get_person_value(uid):
     #认证类型
     #print es_user_profile,profile_index_name,profile_index_type,uid
-    static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)
-    #print static['found']
+    try:
+	    static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)
+    except:
+    	return 'no'
+   	#print static['found']
     if static['found']==False:
         return 'no'
     else:

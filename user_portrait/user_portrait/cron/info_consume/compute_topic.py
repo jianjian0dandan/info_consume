@@ -174,8 +174,8 @@ def yejianming():
 	en_name='ye-jian-ming-1482830875'
 	#get_mappings(en_name)
 	result=[]
-	for files in os.listdir('/home/ubuntu2/jiangln/yejianming_retweet'):
-		f=open('/home/ubuntu2/jiangln/yejianming_retweet/'+files,'r')
+	for files in os.listdir('/home/ubuntu2/jiangln/yejianming_17'):
+		f=open('/home/ubuntu2/jiangln/yejianming_17/'+files,'r')
 		print files
 		result.extend(json.loads(f.read()))
 		#len_f = len(json.loads(f.read()))
@@ -183,10 +183,35 @@ def yejianming():
 		#result.append({files:len_f})
 	#print result
 
-	save_es(en_name,result)
+	save_es_ye(en_name,result)
+
+
+def save_es_ye(en_name,result):
+	bulk_action = []
+	count = 0
+	tb = time.time()
+	for weibos in result:
+		#try:
+		source = weibos
+		action = {'index':{'_id':weibos['mid']}}
+		bulk_action.extend([action,source])
+		count += 1
+		if count % 1000 == 0:
+		    weibo_es.bulk(bulk_action, index=en_name, doc_type=topic_index_type, timeout=100)
+		    bulk_action = []
+		    print count
+		    if count % 10000 == 0:
+		        te = time.time()
+		        print "index 10000 per %s second" %(te - tb)
+		        tb = te
+	print "all done"
+	if bulk_action:
+	    weibo_es.bulk(bulk_action, index=en_name, doc_type=topic_index_type, timeout=100)
+	return 1
+
 
 if __name__ == '__main__':
-	compute_topic_task()
+	#compute_topic_task()
 	#get_topic_weibo('画画','huahua','1377964800','1378137600')
-	#yejianming()
+	yejianming()
 	#et_by_name('叶简明')
