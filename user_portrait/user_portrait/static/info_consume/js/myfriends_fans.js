@@ -1,9 +1,4 @@
-/**
- * Created by Administrator on 2016/12/5.
- */
-function fans() {
-    //this.ajax_method='GET'; // body...
-}
+
 fans.prototype= {
     call_request:function(url,callback) {
         $.ajax({
@@ -134,60 +129,14 @@ function friendfans(data) {
     });
 
 }
-
-var uid = 2029036025;
-
 var fans=new fans();
 function nums() {
     var url = '/info_person_social/get_fans/?uid='+uid;
     fans.call_request(url,friendfans);
 }
-nums();
-// console.log(data);
-// for (var i=0;i<data.length;i++){
-//     console.log(data[i].count);
-//     var content ='<tr>';
-//     //头像
-//     if (data[i].photo_url==''||data[i].photo_url=='unknown'){
-//         content+='<td style="text-align: center">'+data[i].uid+'</td><td style="text-align: center"><img ' +
-//             'style="width:20px;height: 20px;display: inline-block;margin-right: 10px;" src="../../static/info_consume/image/haha.png">';
-//     }else {
-//         content+='<td style="text-align: center">'+data[i].uid+'</td><td style="text-align: center"><img ' +
-//             'style="width:20px;height: 20px;display: inline-block;margin-right: 10px;" src="'+data[i].photo_url+'">';
-//     }
-//     //用户名昵称
-//     if (data[i].uname==''||data[i].uname=='未知'){
-//         content+=data[i].uid+'</td>';
-//     }else {
-//         content+=data[i].uname+'</td>';
-//     }
-//     //好友数
-//     if (data[i].friendsnum==''){
-//         content+='<td style="text-align: center">-</td>';
-//     }else {
-//         content+='<td style="text-align: center">'+data[i].friendsnum+'</td>';
-//     }
-//     //粉丝数
-//     if (data[i].fansnum==''){
-//         content+='<td style="text-align: center">-</td>';
-//     }else {
-//         content+='<td style="text-align: center">'+data[i].fansnum+'</td>';
-//     }
-//     //微博数
-//     if (data[i].weibo_count==''){
-//         content+='<td style="text-align: center">-</td>';
-//     }else {
-//         content+='<td style="text-align: center">'+data[i].weibo_count+'</td>';
-//     }
-//     //互动次数
-//     if (data[i].count==''){
-//         content+='<td style="text-align: center">-</td>';
-//     }else {
-//         content+='<td style="text-align: center">'+data[i].count+'</td>';
-//     }
-//     content+='</tr>';
-//
-//     $('#fansnum').append(content);
-//
-// }
+
+$('#fan_btn').click(function(){
+    nums();
+    console.log("点击加载");
+});
 
