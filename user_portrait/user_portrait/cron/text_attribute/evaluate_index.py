@@ -115,7 +115,7 @@ def get_influence(uid_list):
     except Exception, e:
         raise e
     for es_item in es_result:
-        #print es_item
+        print es_item
         uid = es_item['_id']
         if es_item['found'] == True:
             result[uid] = es_item['_source']['user_index']

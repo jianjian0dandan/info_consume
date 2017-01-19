@@ -134,7 +134,7 @@ topic_analysis_meaning.prototype = {   //获取数据，重新画表
       url: url,
       type: 'GET',
       dataType: 'json',
-      async: false,
+      async: true,
       success:callback
     });
   },
@@ -239,7 +239,7 @@ Draw_event_river:function(data){
 Draw_time_line:function(data){
     $('#container_time_line').empty();
    //console.log('timeline');
-   //console.log(data);
+   console.log(data);
 
     var item = data;
     var html = '';
@@ -267,7 +267,7 @@ Draw_time_line:function(data){
                       html += '<div class="events-header">'+key+'</div>';
                       html += '<div class="events-body">';
                       for(i=0;i<Math.min(3,item[key].length);i++){
-                        html += '<div class="row">';
+                        html += '<div class="row" style="display:block">';
                         html += '<div class="events-desc">'+item[key][i].text+'<br>'+item[key][i].datetime+'</div>';                               
                         html += '</div>';
 
@@ -292,7 +292,7 @@ Draw_time_line:function(data){
                       html += '<div class="events-header">'+key+'</div>';
                       html += '<div class="events-body">';
                       for(i=0;i<Math.min(3,item[key].length);i++){
-                        html += '<div class="row">';
+                        html += '<div class="row"  style="display:block">';
                         html += '<div class="events-desc">'+item[key][i].text+'<br>'+item[key][i].datetime+'</div>';                               
                         html += '</div>';
                       }
@@ -327,7 +327,7 @@ Draw_time_line:function(data){
         });
         //console.log('34343434');
         $('#container_time_line').append(html);
-        //console.log('56565656');
+
 },
 
 
@@ -351,7 +351,9 @@ Draw_blog_opinion:function(data){
 
     }
     // console.log(opinion);
-    
+    opinion = item[0];
+    Draw_blog_scan_area_meaning_result();
+
     $('#opinions').append(html);
 },
 
@@ -360,7 +362,7 @@ Draw_blog_scan_area_meaning:function(data){
     $('#blog_scan_area_meaning').empty();
     var item = data;
     var html = '';
-    //console.log(data);
+    console.log(data);
     //var key_datetime = new Date(key*1000).format('yyyy/MM/dd hh:mm');
     //key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
     //console.log(data.length);
@@ -459,7 +461,7 @@ function Draw_time_line_result(){
   start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
   url = "/topic_language_analyze/symbol_weibos/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts;
-  //console.log(url);
+  console.log(url);
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_time_line);
 }
 function Draw_blog_opinion_result(){
@@ -479,7 +481,7 @@ function Draw_blog_scan_area_meaning_result(){
   start_ts = datetime_to_timestamp($("#datetimepicker9_input").val());
   end_ts = datetime_to_timestamp($("#datetimepicker10_input").val());
   url = "/topic_language_analyze/weibo_content/?topic="+topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&opinion='+opinion+'&sort_item='+sort_item;
-  //console.log(url);
+  console.log(url);
   topic_analysis_meaning.call_sync_ajax_request(url,topic_analysis_meaning.Draw_blog_scan_area_meaning);
 }
  // Draw_time_line_result();
@@ -488,6 +490,6 @@ function Draw_blog_scan_area_meaning_result(){
   Draw_event_river_result();
   Draw_time_line_result();
   Draw_blog_opinion_result();
-  Draw_blog_scan_area_meaning_result();
+  //Draw_blog_scan_area_meaning_result();
 // }
 

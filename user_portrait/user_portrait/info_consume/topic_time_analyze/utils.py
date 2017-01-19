@@ -189,6 +189,7 @@ def get_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势的�
                                                          PropagateCount.topic==topic).group_by(PropagateCount.mtype).all()
             count[end_ts] = {}
             for item in items:
+                print item
                 try:
                     count[end_ts][item[0]] += item[1]
                 except:

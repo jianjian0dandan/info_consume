@@ -432,7 +432,7 @@ def test_cron_text_attribute_v2(user_keywords_dict, user_weibo_dict, online_patt
         bulk_action.extend([action, results])
         
     #status = save_user_results(bulk_action)
-    status = es_km.bulk(bulk_action, index='km_user_portrait', doc_type="user", timeout=60)
+    status = es_km.bulk(bulk_action, index='user_portrait', doc_type="user", timeout=60)
     
     return True
 

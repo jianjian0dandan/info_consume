@@ -212,8 +212,8 @@ def get_maker_weibos_byhot(topic, identifyDate, identifyWindow):
 def get_top_pagerank(topic, identifyDate, identifyWindow):
 	items = db.session.query(TopicIdentification).filter(TopicIdentification.topic==topic ,\
 														TopicIdentification.identifyDate==identifyDate ,\
-														TopicIdentification.identifyWindow==identifyWindow).limit(5000)
-	uid_list = [item.userId for item in items]
+														TopicIdentification.identifyWindow==identifyWindow).limit(50)
+	uid_list = [(item.userId,item.pr) for item in items]
 	
 
 	return uid_list
