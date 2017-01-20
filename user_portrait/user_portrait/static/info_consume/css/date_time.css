@@ -16,7 +16,7 @@
 
 #myTab {
 	position: relative;
-	margin-left: 31%;
+	margin-left: 27%;
 	margin-top: 0.9%;
 	/*margin-bottom: 0px;*/
 	/*background-color: #D7D7D7;*/
@@ -201,6 +201,15 @@ position: absolute;
 }*/
 
 #main_time {
+	width:800px;
+	height:400px;
+	position: relative;
+	margin-left: 22%;
+	margin-top: 3.5%;
+}
+
+
+#main_predict {
 	width:800px;
 	height:400px;
 	position: relative;
