@@ -2,7 +2,7 @@
 
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
-from utils import  get_weibo_by_time,get_time_count
+from utils import  get_weibo_by_time,get_time_count,get_predict_count
 from user_portrait.parameter import MYSQL_TOPIC_LEN
 import json
 
@@ -19,6 +19,26 @@ MinInterval = Fifteenminutes
 # def date_detail():
 #     topic_name_on_detail = request.args.get('topic_name','')
 #     return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail)
+
+
+@mod.route('/truth_predict/')
+def Predict():
+    topic = request.args.get('topic','')
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
+    print topic
+    during = request.args.get('pointInterval', Fifteenminutes)
+    during = int(during)
+    end_ts = request.args.get('end_ts', '')
+    end_ts = long(end_ts)
+    start_ts = request.args.get('start_ts', '')
+    start_ts = long(start_ts)
+    ts_arr = []
+    results = get_predict_count(topic,start_ts,end_ts,during)
+
+    return json.dumps(results)
+
+
 
 @mod.route('/date_time')
 def date_time():
