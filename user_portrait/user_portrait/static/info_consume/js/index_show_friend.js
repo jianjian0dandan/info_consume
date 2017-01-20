@@ -48,7 +48,7 @@ function Draw_out(data,div){
       //console.log('else here');
       var html = '';
       for(var i=0;i<data.length;i++){
-        if(data[i].photo_url==""){
+        if(data[i].photo_url=="" || data[i].photo_url == "unknown"){
           data[i].photo_url = "http://tp2.sinaimg.cn/1878376757/50/0/1";
         }
         if(data[i].uname==""){
