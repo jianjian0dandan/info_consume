@@ -238,7 +238,7 @@ Draw_event_river:function(data){
 
 Draw_time_line:function(data){
     $('#container_time_line').empty();
-   //console.log('timeline');
+   console.log('timeline');
    console.log(data);
 
     var item = data;
@@ -254,6 +254,9 @@ Draw_time_line:function(data){
               html += '<dl style="margin-left:-18%;">';
               html += '<dt>'+date+'</dt>';
               var k=0;
+              //console.log('item！！')
+              //console.log(item)
+
               for(var key in item){
                   k++;
                  
@@ -266,6 +269,8 @@ Draw_time_line:function(data){
                       html += '<div class="events">';
                       html += '<div class="events-header">'+key+'</div>';
                       html += '<div class="events-body">';
+                      //console.log('左侧栏！')
+                      //console.log(item[key])
                       for(i=0;i<Math.min(3,item[key].length);i++){
                         html += '<div class="row" style="display:block">';
                         html += '<div class="events-desc">'+item[key][i].text+'<br>'+item[key][i].datetime+'</div>';                               
@@ -276,8 +281,11 @@ Draw_time_line:function(data){
                       html += '<div class="events-footer">'; 
                       html += '<ol>';
                       html += '<li data-target="0" class="active"></li>';
-                      html += '<li data-target="1" class=""></li>';
-                      html += '<li data-target="2" class=""></li>';
+                      if(item[key].length > 1){
+                          for(i=1;i<Math.min(2,item[key].length);i++){
+                          html += '<li data-target="'+i+'" class=""></li>';
+                          }
+                      }
                       html += '</ol>'; 
                       html += '</div>';                             
                       html += '</div>';
@@ -299,9 +307,14 @@ Draw_time_line:function(data){
                       html += '</div>';
                       html += '<div class="events-footer">'; 
                       html += '<ol>';
-                      html += '<li data-target="0" class=""></li>';
-                      html += '<li data-target="1" class=""></li>';
-                      html += '<li data-target="2" class="active"></li>';
+                      html += '<li data-target="0" class="active"></li>';
+                      if(item[key].length > 1){
+                          for(i=1;i<Math.min(2,item[key].length);i++){
+                          html += '<li data-target="'+i+'" class=""></li>';
+                          }
+                      }
+                      
+                      
                       html += '</ol>'; 
                       html += '</div>';                  
                       html += '</div>';
@@ -322,7 +335,7 @@ Draw_time_line:function(data){
         $(document).ready(function () {
             $('.VivaTimeline').vivaTimeline({
                 carousel: true,
-                carouselTime: 3000
+                carouselTime: 300
             });
         });
         //console.log('34343434');

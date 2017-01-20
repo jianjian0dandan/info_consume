@@ -53,6 +53,24 @@ def time():
     return render_template('/info_consume/date_detail.html',topic_name=topic_name_on_detail,en_name=topic_name_on_detail_ch,date_from=date_from,date_to=date_to)
     # return render_template('/info_consume/date_detail.html')
 
+@mod.route('/truth_predict/')
+
+def Predict():
+    topic = request.args.get('topic','')
+    if MYSQL_TOPIC_LEN == 0:
+        topic = topic[:20]
+    print topic
+    during = request.args.get('pointInterval', Fifteenminutes)   #默认查询时间粒度为900秒
+    during = int(during)
+    end_ts = request.args.get('end_ts', '')     #''代表默认值为空
+    end_ts = long(end_ts)
+    start_ts = request.args.get('start_ts', '')
+    start_ts = long(start_ts)
+    ts_arr = []
+    results = get_predict_count(topic,start_ts,end_ts,during)
+    return json.dumps(results)
+
+
 @mod.route('/mtype_count/')
 def MtypeCount():      #每类微博的数量
     topic = request.args.get('topic','')

@@ -356,7 +356,7 @@
 
               </div>
               
-            <button style="float:left;margin-left:10%;" type="button" class="btn btn-success dropdown" data-toggle="modal" data-target="#myModal3">查看粉丝</button>
+            <button id="fan_btn" style="float:left;margin-left:10%;" type="button" class="btn btn-success dropdown" data-toggle="modal" data-target="#myModal3">查看粉丝</button>
             </div>
 
           </div>
@@ -379,7 +379,12 @@
          </div>
         
           <div class="modal-body">
-             <div id="table-user-contain"><table id="table-user" style="z-index:100;" class="table table-hover dropdown" data-page-list = "[10, 25, 50, 100, 200]"></table></div>
+            <div id="p_so_onload" display="block" >
+              <center>
+                您的粉丝较多，正在加载，请稍后...
+              </center>
+           </div>
+            <div id="table-user-contain"><table id="table-user" style="z-index:100;" class="table table-hover dropdown" data-page-list = "[10, 25, 50, 100, 200]"></table></div>
           </div>
           <div class="modal-footer">
             <button style="float: right;margin-left: 20px;" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
