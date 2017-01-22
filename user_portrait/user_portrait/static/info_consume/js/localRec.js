@@ -1,5 +1,3 @@
-
-
 function homepageinfo() {
     this.ajax_method = 'GET';
 }
@@ -35,20 +33,20 @@ function DrowLocalWeiBo(data, div_name, sub_div_name) {
     page_num = 5;
     if (data.length < page_num) {
         console.log('data_length', data.length);
-        $('#' + div_name + ' #pageGro .pageUp').css('display', 'none');
-        $('#' + div_name + ' #pageGro .pageList').css('display', 'none');
-        $('#' + div_name + ' #pageGro .pageDown').css('display', 'none');
+        $('#' + div_name + ' #pageGro2 .pageUp').css('display', 'none');
+        $('#' + div_name + ' #pageGro2 .pageList').css('display', 'none');
+        $('#' + div_name + ' #pageGro2 .pageDown').css('display', 'none');
         if (data.length == 0) {
             $('#' + sub_div_name).empty();
             $('#' + sub_div_name).append('暂无数据');
             $('#' + sub_div_name).css('height', '300px');
         } else {
-            $('#' + div_name + ' #pageGro_local').css('display', 'block');
+            $('#' + div_name + ' #pageGro2_local').css('display', 'block');
             page_num = data.length
             page_ads_weibo(0, page_num, data, sub_div_name);
         }
     } else {
-        $('#' + div_name + ' #pageGro').css('display', 'block');
+        $('#' + div_name + ' #pageGro2').css('display', 'block');
         page_ads_weibo(0, page_num, data, sub_div_name);
         var total_pages = 0;
         if (data.length % page_num == 0) {
@@ -66,15 +64,15 @@ function DrowLocalWeiBo(data, div_name, sub_div_name) {
         page_icon(1, pageCount, 0, div_name);
     }
 
-    $("#" + div_name + " #pageGro").on("click", "li", function () {
+    $("#" + div_name + " #pageGro2").on("click", "li", function () {
         if (pageCount > 5) {
             var pageNum = parseInt($(this).html());
-            pageGroup(pageNum, pageCount);
+            pageGro2up(pageNum, pageCount);
         } else {
             $(this).addClass("on");
             $(this).siblings("li").removeClass("on");
         }
-        page = parseInt($("#" + div_name + " #pageGro li.on").html())
+        page = parseInt($("#" + div_name + " #pageGro2 li.on").html())
         //console.log('page', page);
         start_row = (page - 1) * page_num;
         end_row = start_row + page_num;
@@ -86,18 +84,18 @@ function DrowLocalWeiBo(data, div_name, sub_div_name) {
         page_ads_weibo(start_row, end_row, data, sub_div_name);
     });
 
-    $("#" + div_name + " #pageGro .pageUp").off('click').click(function () {
+    $("#" + div_name + " #pageGro2 .pageUp").off('click').click(function () {
         if (pageCount > 5) {
-            var pageNum = parseInt($("#" + div_name + " #pageGro li.on").html());
+            var pageNum = parseInt($("#" + div_name + " #pageGro2 li.on").html());
             pageUp(pageNum, pageCount);
         } else {
-            var index = $("#" + div_name + " #pageGro ul li.on").index();
+            var index = $("#" + div_name + " #pageGro2 ul li.on").index();
             if (index > 0) {
-                $("#" + div_name + " #pageGro li").removeClass("on");
-                $("#" + div_name + " #pageGro ul li").eq(index - 1).addClass("on");
+                $("#" + div_name + " #pageGro2 li").removeClass("on");
+                $("#" + div_name + " #pageGro2 ul li").eq(index - 1).addClass("on");
             }
         }
-        page = parseInt($("#" + div_name + " #pageGro li.on").html())
+        page = parseInt($("#" + div_name + " #pageGro2 li.on").html())
         //console.log(page);
         start_row = (page - 1) * page_num;
         end_row = start_row + page_num;
@@ -107,18 +105,18 @@ function DrowLocalWeiBo(data, div_name, sub_div_name) {
         page_ads_weibo(start_row, end_row, data, sub_div_name);
     });
 
-    $("#" + div_name + " #pageGro .pageDown").off('click').click(function () {
+    $("#" + div_name + " #pageGro2 .pageDown").off('click').click(function () {
         if (pageCount > 5) {
-            var pageNum = parseInt($("#" + div_name + " #pageGro li.on").html());
+            var pageNum = parseInt($("#" + div_name + " #pageGro2 li.on").html());
             pageDown(pageNum, pageCount);
         } else {
-            var index = $("#" + div_name + " #pageGro ul li.on").index();
+            var index = $("#" + div_name + " #pageGro2 ul li.on").index();
             if (index + 1 < pageCount) {
-                $("#" + div_name + " #pageGro li").removeClass("on");
-                $("#" + div_name + " #pageGro ul li").eq(index + 1).addClass("on");
+                $("#" + div_name + " #pageGro2 li").removeClass("on");
+                $("#" + div_name + " #pageGro2 ul li").eq(index + 1).addClass("on");
             }
         }
-        page = parseInt($("#" + div_name + " #pageGro li.on").html())
+        page = parseInt($("#" + div_name + " #pageGro2 li.on").html())
         //console.log(page);
         start_row = (page - 1) * page_num;
         end_row = start_row + page_num;
@@ -130,7 +128,7 @@ function DrowLocalWeiBo(data, div_name, sub_div_name) {
 
 }
 
-function pageGroup(pageNum, pageCount) {
+function pageGro2up(pageNum, pageCount) {
     switch (pageNum) {
         case 1:
             page_icon(1, 5, 0);
@@ -194,8 +192,8 @@ function page_icon(page, count, eq) {
     for (var i = page; i <= count; i++) {
         ul_html += "<li>" + i + "</li>";
     }
-    $("#pageGro ul").html(ul_html);
-    $("#pageGro ul li").eq(eq).addClass("on");
+    $("#pageGro2 ul").html(ul_html);
+    $("#pageGro2 ul li").eq(eq).addClass("on");
 }
 
 function page_ads_weibo(start_row, end_row, data, sub_div_name) {

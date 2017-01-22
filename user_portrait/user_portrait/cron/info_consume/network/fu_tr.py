@@ -95,6 +95,8 @@ def get_interval_count(topic, date, windowsize):
     print topic
     if MYSQL_TOPIC_LEN == 0:
     	topic0 = topic[:20]
+    else:
+        topic0=topic
     for i in range(interval, 0, -1):
         #print 'i:', i
         begin_ts = end_ts - during * i

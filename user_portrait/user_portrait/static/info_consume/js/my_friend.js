@@ -478,7 +478,7 @@ my_friend.prototype =
            }]
         });
         $('#table-user-contain').css("display","block");
-
+        $('#p_so_onload_1').css('display','none').siblings().css('display','block'); 
         $('.user_view').tooltip();
       },
   
@@ -812,8 +812,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 45,
-                maxRadius : 65,
+                minRadius : 30,
+                maxRadius : 45,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -1007,8 +1007,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 45,
-                maxRadius : 65,
+                minRadius : 30,
+                maxRadius : 45,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -1194,8 +1194,8 @@ my_friend.prototype =
                     }
                 },
                 useWorker: false,
-                minRadius : 45,
-                maxRadius : 65,
+                minRadius : 30,
+                maxRadius : 45,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -1277,8 +1277,12 @@ my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_
 var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.intimacy_rank_detail);
 //粉丝详细信息
-var url ="/info_person_social/get_fans/?uid="+uid;
-my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_fans);
+$('#fan_btn').click(function(){
+    var url ="/info_person_social/get_fans/?uid="+uid;
+    my_friend.call_sync_ajax_request(url, my_friend.ajax_method, my_friend.my_fans);
+    console.log("点击加载粉丝");
+});
+
 //被转发关系网络
 
 var url ='/info_person_social/follower/?uid='+uid;

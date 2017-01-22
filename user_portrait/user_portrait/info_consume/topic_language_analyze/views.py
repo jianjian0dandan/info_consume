@@ -3,7 +3,7 @@
 from flask import Blueprint,render_template,request
 from user_portrait.global_config import db
 from utils import get_during_keywords,get_topics_river,get_weibo_content,get_subopinion,get_symbol_weibo,get_topics
-from utils import submit,get_key_topics,delete,get_sen_ratio,get_person_value
+from utils import submit,get_key_topics,delete,get_sen_ratio,get_person_value,search_topics,search_topic_by_topic
 import json
 from user_portrait.info_consume.topic_sen_analyze.views import sen_time_count
 
@@ -23,6 +23,18 @@ def topics():
     topics = get_topics(user)
     return topics
 
+@mod.route('/search_topic/')
+def search_topic():
+    keyword = request.args.get('keyword','')
+    topics = search_topics(keyword)
+    return topics
+
+@mod.route('/search_topic_by_topic/')
+def search_topic_bytopic():
+    topic = request.args.get('topic','')
+    topics = search_topic_by_topic(topic)
+    return topics
+    
 @mod.route('/key_topics/')
 def key_topics():
     keyword = request.args.get('keyword','')

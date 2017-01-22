@@ -1926,13 +1926,15 @@ def compute_group_task_v2():
             print out_uid_list
             if len(out_uid_list) > 0:
                 date = ts2datetime(submit_date)
-                new_identify_in([[date,uid] for uid in out_uid_list], date, submit_user)
+                identify_in([[date,uid,'1'] for uid in out_uid_list])
+                
+                #new_identify_in([[date,uid] for uid in out_uid_list], date, submit_user)
                 #let out user in 
-                os.system('python %s/scan_compute_redis_imm.py' % USER_IN_PATH)
+                os.system('python %s/scan_compute_redis.py' % USER_IN_PATH)
                 check_list,check_uid2uname = in_uid_list(out_uid_list)
                 uid_list.extend(check_list)
                 uid2uname.update(check_uid2uname)
-                print uid_list
+                print '1937,uid_list',uid_list
             attr_in_portrait, tag_vector_result = get_attr_portrait(uid_list)
             results['task_name'] = task_name
             results['uid_list'] = uid_list
@@ -2084,7 +2086,25 @@ def new_identify_in(data, date, submit_user):
         r_recom.hset(submit_user_recomment, uid, "0")
     return True
 
-
+def identify_in(data):
+    in_status = 1
+    compute_status = 0
+    compute_hash_name = 'compute'
+    for item in data:
+        date = item[0] # identify the date form '2013-09-01' with web
+        uid = item[1]
+        status = item[2]
+        value_string = []
+        identify_in_hashname = "identify_in_" + str(date)
+        r_recom.hset(identify_in_hashname, uid, in_status)
+        if status == '1':
+            in_date = date
+            compute_status = '1'
+        elif status == '2':
+            in_date = date
+            compute_status = '2'
+        r_recom.hset(compute_hash_name, uid, json.dumps([in_date, compute_status]))
+    return True
 
 
 if __name__=='__main__':

@@ -465,6 +465,34 @@ footer {
     float:left;
 }
 
+#pageGro2 .pageUp{
+    text-indent:23px;
+    /*border:1px solid #999;*/
+    cursor:pointer;
+}
+#pageGro2 span ul li.on{
+    color:#fff;
+    background:#76EEC6;
+    border:1px solid #76EEC6;
+}
+#pageGro2 span ul li{
+    width:22px;
+    text-align:center;
+    border:1px solid #999;
+    cursor:pointer;
+    margin-left:20px;
+}
+#pageGro2 .pageDown{
+    text-indent:5px;
+    width:63px;
+    /*border:1px solid #999;*/
+    cursor:poointer;
+}
+
+#pageGro2 span ul li{
+    float:left;
+}
+
 .demo--label {
   display:inline-block
 }

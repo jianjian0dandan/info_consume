@@ -104,8 +104,8 @@ class adsClassify:
 if __name__ == '__main__':
     a = adsClassify()
     weiboList = []
-    with open(DATA_PATH+"/aaaa.txt") as f:
-          for line in f:
-              weiboList.append(line.split("   "))
+    #with open(DATA_PATH+"/aaaa.txt") as f:
+    #      for line in f:
+    #          weiboList.append(line.split("   "))
     weiboList = [[123,u"没有失败只有暂时没有成功 @尼姑可爱多 @木子坊红酒 @傻乎乎飞白  地址：http://t.cn/z8xXuQh"]]
     print a.adsPredict(weiboList)

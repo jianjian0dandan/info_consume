@@ -16,7 +16,7 @@ sixHour = Hour * 6
 Day = Hour * 24
 
 
-MYSQL_TOPIC_LEN = 0
+MYSQL_TOPIC_LEN = 1
 
 #cron_topic_identify
 MODULE_T_S = 'identify'

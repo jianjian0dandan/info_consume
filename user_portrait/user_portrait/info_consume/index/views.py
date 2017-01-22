@@ -69,5 +69,6 @@ def test_api():
     return '1'
     
 @mod.route('/personalizedRec/')
+@login_required
 def personalizedRec():
     return render_template('/info_consume/personalizedRec.html')

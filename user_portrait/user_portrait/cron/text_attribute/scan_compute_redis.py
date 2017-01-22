@@ -19,12 +19,13 @@ def scan_compute_redis():
         user_list = json.loads(results[uid])
         in_date = user_list[0]
         status = user_list[1]
-        print status
+        #print status
         if status == '1':#'3': #'1'
             iter_user_list.append(uid)
             mapping_dict[uid] = json.dumps([in_date, '3']) # mark status:3 computing
         #print len(iter_user_list)
         if len(iter_user_list) % 100 == 0 and len(iter_user_list) != 0:
+        #if len(iter_user_list) % 5 == 0 and len(iter_user_list) != 0:        
             #mark status from 1 to 3 as identify_compute to computing
             r.hmset('compute', mapping_dict)
             #acquire bulk user weibo data
@@ -44,7 +45,6 @@ def scan_compute_redis():
             
             iter_user_list = []
             mapping_dict = {}
-            
     if iter_user_list != [] and mapping_dict != {}:
         r.hmset('compute', mapping_dict)
         #acquire bulk user weibo date

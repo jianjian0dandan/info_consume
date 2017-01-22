@@ -589,8 +589,6 @@ def union_dict(*objs):
     return _total
 
 
-
-
 #use to search user_portrait by lots of condition 
 def search_portrait(condition_num, query, sort, size):
     user_result = []
@@ -723,7 +721,7 @@ def search_weibo(root_uid,uid,mtype):
             #print type(result),result
             weibo['last_text'] = [result['_source']['text'],result['_source']['text'],result['_source']['timestamp']]
             mid = result['_source']['root_mid']
-            print mid
+            # print mid
             len_pre = len(flow_text_index_name_pre)
             index = result['_index'][len_pre:]
             root_index = []
@@ -734,7 +732,6 @@ def search_weibo(root_uid,uid,mtype):
             if len(results0)>0:
                 for result0 in results0:
                     weibo['ori_text'] = [result0['_source']['text'],result0['_source']['timestamp']]
-                    print weibo
                     f_result.append(weibo)
                     weibo={}
     return f_result
@@ -801,7 +798,17 @@ def search_fans(uid,top_count):
         if fans_user != center_uid:
             all_fans_dict[fans_user] = fans_result[fans_user]
     sort_all_fans_dict = sorted(all_fans_dict.items(), key=lambda x:x[1], reverse=True)
-    all_fans_uid_list = [item[0] for item in sort_all_fans_dict]
+    all_fans_uid_list=[]
+    all_fans_uid_list_all = [item[0] for item in sort_all_fans_dict]
+
+    print all_fans_uid_list_all
+    count = 0
+    for i in all_fans_uid_list_all:
+        count += 1
+        all_fans_uid_list.append(i)
+        if count == 1000:
+            break
+    print all_fans_uid_list
 
     out_portrait_list = all_fans_uid_list
     #use to get user information from user profile

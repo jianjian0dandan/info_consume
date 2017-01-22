@@ -344,10 +344,13 @@ def test_cron_text_attribute_v2(user_keywords_dict, user_weibo_dict, online_patt
     print 'get register result'
     register_result = get_profile_information(uid_list)
     print 'register result len:', len(register_result)
+    #print user_keywords_dict
     
     #get user topic and domain by bulk action
     print 'get topic and domain'
     topic_results_dict, topic_results_label = topic_classfiy(uid_list, user_keywords_dict)
+    print topic_results_dict,topic_results_label
+
     domain_results = domain_classfiy(uid_list, user_keywords_dict)
     domain_results_dict = domain_results[0]
     domain_results_label = domain_results[1]

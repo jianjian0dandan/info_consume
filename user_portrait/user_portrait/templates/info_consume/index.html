@@ -10,9 +10,7 @@
    body {
     /*background-color: #FCF8E3!important;*/
     background-color: #e3fafc!important;
-    /*background: url(/static/info_consume/image/people.jpg) center top no-repeat,
-    url(/static/info_consume/image/nv.jpg) center bottom no-repeat;
-    background-size: 100% 50%,100% 51%!important;*/
+    background-size: 100% 100% !important;
    }
    .up_box {
     margin-left: 185px;
@@ -290,7 +288,7 @@
     </div>
 
 
-<div class="dashboard content_dashboard boxshadow" style="height:706px;width:650px;left:110px;top:75px;margin:0;padding-left:70px;">
+<div class="dashboard content_dashboard boxshadow" style="height:706px;width:650px;left:110px;top:56px;margin:0;padding-left:70px;">
         <img id="draw_img" src="../../static/info_consume/image/icon_draw.png" width="30px" height="30px" >
         <h1 id="board_title">我的形象画板</h1>
         <img id="body_board" src="/static/info_consume/image/bodymodel_man.png" rel = "dns-prefetch">
@@ -304,14 +302,15 @@
           <div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left bk-vcenter text-center">
               <small style=" font: 16px/1.5 'Microsoft Yahei';color:#ffffff;">影响力得分：<span id="influencePower"></span>分</small>
+              <a href="/index/myzone/#influ_chart" target="_blank">
               <div class="progress bk-margin-off-bottom" style="height: 15px;">
                 <div class="progress thin progress-striped active">
                   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;" id="percentBar">
-                  <a href="/index/myzone/#influ_chart" target="_blank">
-                    <span class="sr-only">35% Complete</span></a>
+                    <span class="sr-only">35% Complete</span>
                   </div>
                   </div>
                 </div>
+              </a>
             </div>
           </div>
         <div style='float:left;'>
@@ -326,7 +325,7 @@
         <h1 id="act_title" style='margin-top:22px;'>我的活跃度:<span id="activePower"></span>分</h1>
              </div>
                
-        <h1 id="act_text" style="margin-top: 20px;margin-left: 20px;font-size: 20px !important;"> 最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>  
+        <h1 id="act_text" style="margin-top: 20px;margin-left: 20px;font-size: 20px !important;width: 400px;"> 最近活跃度有所下降哦，宝宝不开心了￣へ￣</h1>  
       </div>
 
 
@@ -446,7 +445,8 @@ homepageinfo.prototype = {
   });
   },
   personData:function(data){
-  //console.log("personData"+data);
+  console.log("personData");
+  console.log(data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
   if(personalData.uid){
@@ -456,10 +456,16 @@ homepageinfo.prototype = {
       uid_div.innerHTML = "无此数据";
   }
   var img = document.getElementById('portraitImg');
-  if(personalData.photo_url == "unknown"){
-      img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
+  img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
+  if(personalData.photo_url){
+      if (personalData.photo_url == 'unknown'|| personalData.photo_url=="") {
+          img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
+      }
+      else{
+      	img.src = personalData.photo_url;
+      }
   }else{
-      img.src = personalData.photo_url;
+      img.src =  "http://tp2.sinaimg.cn/1878376757/50/0/1";
   }
 
   var nickName = document.getElementById('username');
@@ -590,54 +596,65 @@ homepageinfo.prototype = {
     },
 
     domain:function(data){
-      // var str = data;
-      // console.log(str.split("&")[0]);
-      // document.getElementById('draw_p2').innerHTML = str.split("&")[0];
-      var i;
-      //将此人涉及领域从数据库取出，
-      var domain = new Array();
-      var num = new Array();
-      
-      for (i=0;i<data.in_topic.length;i++) 
-      {
-        domain[i]=data.in_topic[i][0];
-        num[i]=data.in_topic[i][1];
-      }
+       var i;
+       //将此人涉及领域从数据库取出，
+       var domain = new Array();
+       topdomain_en = data.results.topic_en[0][0];
+       console.log(topdomain_en);
+       // $('body').css('style','url(/static/info_consume/image/bgp/'+topdomain_en+'.jpg)');
+       document.body.style.backgroundImage="url('/static/info_consume/image/bgp/"+topdomain_en+".jpg') ";
+       document.body.style.backgroundRepeat = "no-repeat";
+       document.body.style.backgroundAttachment ="fixed";
 
-      var topdomain = domain[0];
-      var othernum;
-      for (var j = 0; j < data.in_topic.length; j++) {
-        if (domain[j] == "其他类") {
-          othernum = j;
-          break;
-        }
-      }
-      if(othernum == 0){
-        topdomain = domain[1];
-      }  
-      document.getElementById('draw_p2').innerHTML ="活跃领域："+ topdomain;
-      //console.log("topdomain="+topdomain);
+       for (i=0;i<data.results.topic.length;i++) 
+       {
+         domain[i]=data.results.topic[i][0];
+       }
+
+       var topdomain = domain[0];
+       var othernum;
+       for (var j = 0; j < data.results.topic.length; j++) {
+         if (domain[j] == "其他类") {
+           othernum = j;
+           break;
+         }
+       }
+       if(othernum == 0){
+         topdomain = domain[1];
+       }
+
+       $('#draw_p2').append("活跃领域："+ topdomain);
     },
 
     //亲密度排行
     intimacy_rank:function(data)
-    {
-    	//console.log(data.length);
-      	var drawFriend = document.getElementById('draw_p3');
-      	var friendStr;
-      	var intimacyFriID;
-      	for(var i=0;i<=data.length;i++)
-      	{
-      		if(data[i].uname != "未知"){
-      		    friendStr = "亲密好友："+data[i].uname;
-      		    intimacyFriID = data[i].uid;
-      		    //console.log(data[0].uname);
-      		    break;
-      		}else {
-      		    friendStr = '亲密好友：暂无';
-      		}
-      	}
-      	drawFriend.innerHTML = "<a target='_blank' href='/index/viewinformation/?uid="+intimacyFriID+"' style='color:white'>"+friendStr+"</a>";
+    { 
+      var drawFriend = document.getElementById('draw_p3');
+      var friendStr;
+      var intimacyFriID;
+    	console.log(data);
+      if (data.length>0){
+        console.log("有");
+        for(var i=0;i<=data.length;i++)
+         {
+          if(data[i].uname != "" && data[i].uname != "unknown"){
+              friendStr = "亲密好友："+data[i].uname;
+              intimacyFriID = data[i].uid;
+              //console.log(data[0].uname);
+              break;
+          }else {
+              friendStr = '亲密好友：暂无';
+          }
+         }
+         drawFriend.innerHTML = "<a target='_blank' href='/index/viewinformation/?uid="+intimacyFriID+"' style='color:white'>"+friendStr+"</a>";
+
+      }else{
+        console.log("无");
+        friendStr = '亲密好友：暂无';
+        intimacyFriID =0;
+        drawFriend.innerHTML = friendStr;
+      }
+      //lalallal
     },
     // 微博数据
 
@@ -888,7 +905,7 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
 
 var Personal = new homepageinfo();
 var personalData; // global data
-
+var topdomain_en;
 //好友亲密度排行
 var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);
@@ -896,8 +913,10 @@ Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_ran
 var geo_url = '/attribute/location/?uid='+uid+'&time_type=month';
 Personal.call_sync_ajax_request(geo_url, Personal.ajax_method, Personal.geoData);
 //领域
-var url = '/attribute/info_new_user_social/?uid='+uid;
+var url = '/attribute/preference/?uid='+uid;
 Personal.call_sync_ajax_request(url,Personal.ajax_method,Personal.domain);
+
+
 
 //个人画像信息排行
 var url = "/attribute/new_user_profile/?uid=" + uid;
