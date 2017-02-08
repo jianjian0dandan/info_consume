@@ -8,7 +8,7 @@ from optparse import OptionParser
 from user_portrait import create_app
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
             UserMixin, RoleMixin, login_required
-from user_portrait.extensions import db, user_datastore, mongo
+from user_portrait.extensions import db, user_datastore, mongo 
 
 optparser = OptionParser()
 optparser.add_option('-p', '--port', dest='port', help='Server Http Port Number', default=9001, type='int')

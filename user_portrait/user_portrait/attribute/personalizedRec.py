@@ -45,6 +45,7 @@ def adsRec(uid, queryInterval=HOUR * 24):
 
     # 获取用户的偏好
     try:
+        print uid
         user_portrait_result = es_user_portrait. \
             get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
     except:

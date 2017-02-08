@@ -10,6 +10,9 @@ def unix2hadoop_date(ts):
 def ts2date_hour(ts):
     return time.strftime('%Y-%m-%d %H', time.localtime(ts))
 
+def ts2hour(ts):
+    return int(time.strftime('%H', time.localtime(ts)))
+
 def date_hour2ts(date):
     return int(time.mktime(time.strptime(date, '%Y-%m-%d %H')))
 

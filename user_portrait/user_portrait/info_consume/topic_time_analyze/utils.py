@@ -2,6 +2,7 @@
 from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type
 from user_portrait.info_consume.model import PropagateCount, PropagateWeibos,PropagateTimeWeibos
 from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type
+from user_portrait.global_utils import es_prediction
 import math
 import json
 from sqlalchemy import func
@@ -195,6 +196,50 @@ def get_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势的�
                 except:
                     count[end_ts][item[0]] = item[1]
     return count
+
+def get_predict_count(topic,start_ts,end_ts,during):
+    task_name = "micro_prediction_" + topic
+    start_ts = int(start_ts)
+    end_ts = int(end_ts)
+    print start_ts, end_ts, task_name
+    query_body = {
+        "query":{
+            "range":{
+                "update_time":{
+                    "gte": start_ts,
+                    "lte": end_ts
+                }
+            }
+        },
+        "sort":{"update_time":{"order":"asc"}},
+        "size":100000
+    }
+
+    results = es_prediction.search(index=task_name, doc_type="micro_task", body=query_body)["hits"]["hits"]
+    
+    return_list = []
+    truth_value_list = []
+    prediction_value_list = []
+    ts_list = []
+    for item in results:
+        truth_value = item["_source"]["total_count"]
+        truth_value_list.append(truth_value)
+        try:
+            prediction_value = item["_source"]["prediction_value"]
+            prediction_value_list.append(prediction_value)
+        except:
+            pass
+        ts = item["_source"]["update_time"]
+        ts_list.append(ts)
+    print len(truth_value_list), len(ts_list), len(prediction_value_list)
+
+    prediction_value_list.insert(0,truth_value_list[0])
+    for i in range(len(ts_list)):
+        return_list.append([ts_list[i], truth_value_list[i], prediction_value_list[i]])
+          
+    return json.dumps(return_list)
+    
+
 
 if __name__ == '__main__':
 	#all_weibo_count('aoyunhui',1468166400,1468170900)
