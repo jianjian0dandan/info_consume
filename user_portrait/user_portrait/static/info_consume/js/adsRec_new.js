@@ -22,6 +22,7 @@ function territory2(data) {
 var place=new homepageinfo();
 function nums() {
     var url = "/attribute/adsRec/?uid=" + uid;
+    console.log(uid);
     place.call_request(url,territory2);
 }
 nums();

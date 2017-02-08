@@ -25,11 +25,11 @@ from user_portrait.global_utils import \
     es_flow_text, flow_text_index_name_pre, flow_text_index_type, \
     es_user_profile, profile_index_name, profile_index_type, \
     es_user_portrait, portrait_index_name, portrait_index_type, \
-    ads_weibo_index_type
+    es_ads_weibo, ads_weibo_index_name, ads_weibo_index_type
 from user_portrait.global_utils import retweet_index_name_pre, retweet_index_type, es_retweet
 
 
-def adsRec(uid, queryInterval=HOUR * 4):
+def adsRec(uid, queryInterval=HOUR * 24):
     '''
     从广告表中读取当前时间点前一段时间queryInterval内的广微博，得到其中的广告部分
     然后根据用户的key_word信息得到推荐的广告。
@@ -44,22 +44,17 @@ def adsRec(uid, queryInterval=HOUR * 4):
     now_date = ts2datetime(time.time()) if RUN_TYPE == 1 else ts2datetime(datetime2ts(RUN_TEST_TIME)-DAY)
 
     # 获取用户的偏好
-    user_portrait_result = es_user_portrait. \
-        get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
+    try:
+        print uid
+        user_portrait_result = es_user_portrait. \
+            get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
+    except:
+        return None
 
     user_key_words = set(user_portrait_result["keywords_string"].split("&"))
 
-    # test，目前使用的是从原始数据中读取一定时间段内的微博并实时计算的方式得到
-    now_timestamp = datetime2ts(ts2datetime(time.time()))
-    if RUN_TYPE == 0:
-        now_timestamp = datetime2ts(RUN_TEST_TIME)
-
-    ads_weibo_index_name = []
-    for i in range(7, 0, -1):
-        iter_date = ts2datetime(now_timestamp - DAY * i)
-        ads_weibo_index_name.append(flow_text_index_name_pre + iter_date)
-
-    ads_weibo_all = es_flow_text.search(index=ads_weibo_index_name,
+    # 直接从广告表中读取并计算
+    ads_weibo_all = es_ads_weibo.search(index=ads_weibo_index_name,
                                         doc_type=ads_weibo_index_type,
                                         body={'query': {"filtered": {"filter": {
                                             "range": {"timestamp": {"gte": datetime2ts(now_date) - queryInterval}}}}},
@@ -114,7 +109,7 @@ def construct_topic_feature_dic(words, topic_word_weight_dic):
 # 判断广告类别
 def judge_ads_topic(words, topic_word_weight_dic):
     ads_feature_dic = construct_topic_feature_dic(words, topic_word_weight_dic)
-    max_topic = None
+    max_topic = u"IT"
     max_value = 0
     for (topic, value) in ads_feature_dic.items():
         if value > max_value:
@@ -135,24 +130,24 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
     ads_midsPrefered = dict()
     # 微博用户的个人信息
     uids = set()
+
+    # 这里的微博已经是ads
     for weibo in weibo_all:
         weiboSource = weibo["_source"]
         uids.add(weiboSource["uid"])
+        mid = weiboSource["mid"]
+        words = weiboSource["ads_keywords"]
+        ads_topic = judge_ads_topic(words, topic_word_weight_dic)
+        ads_midsPrefered[mid] = user_topic_dic[ads_topic]
+
         #  加上retweet和recomment的字段，适配非线上环境
-        #  去掉RUN_TYPE限制，无论01都查找是否存在转发评论数
         for keytobeadded in ['retweeted', 'comment']:
             if keytobeadded not in weiboSource.keys():
                 weiboSource[keytobeadded] = 0
-        weiboMap[weibo["_source"]["mid"]] = weiboSource
+        weiboMap[mid] = weiboSource
 
     # 获取待选微博的用户信息
     weibo_user_profiles = search_user_profile_by_user_ids(uids)
-
-    clf = adsClassify()
-    ads_midWordsMap = clf.adsPredict(weibo_all)
-    for (mid, words) in ads_midWordsMap.items():
-        ads_topic = judge_ads_topic(words, topic_word_weight_dic)
-        ads_midsPrefered[mid] = user_topic_dic[ads_topic]
 
     ads_midsPrefered = sorted(ads_midsPrefered.items(), key=lambda ads: ads[1], reverse=True)
 
@@ -170,8 +165,6 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
             weiboMap[mid]["photo_url"] = "None"
             weiboMap[mid]["nick_name"] = "None"
         adsPreferList.append(weiboMap[midInfo[0]])
-        # 输出相关度值和微博，测试用
-        # print midInfo[1], weiboMap[mid]["text"]
 
     return adsPreferList
 

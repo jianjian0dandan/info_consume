@@ -94,22 +94,27 @@ topic_analysis_predict.prototype = {   //获取数据，重新画表
 // //设置ajax访问后台填充折线图
 
   Draw_time_trend_line: function(data){
- 	
- 	var item = data;
+ 	console.log('预测值data！！')
+ 	//console.log(json.loads(data))
+ 	//console.log(type(json.loads(data)))
+ 	//console.log(data)
+ 	var items = data;
  	var x_item = [];
  	var y_item_truth = [];
 	var y_item_predict = [];
 	
- 	for (var key in item){
- 		//console.log(key);
+ 	for(k=0;k<items.length;k++){
+ 		//console.log(items[k]);
 		//key_datetime = new Date(parseInt(key)*1000).format('yyyy/MM/dd hh:mm');
-		key_datetime = new Date(parseInt(key) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+		key_datetime = new Date(parseInt(items[k][0]) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 		// key_datetime = format(parseInt(key).formate_data);
 		//console.log(key_datetime);
 		x_item.push(key_datetime);	
-		y_item_truth.push(item[key]['1']);
-		y_item_predict.push(item[key]['2']);
+		y_item_truth.push(items[k][1]);
+		y_item_predict.push(items[k][2]);
 	}
+	//console.log(y_item_truth)
+	//console.log(y_item_predict)
 
 	
  	var myChart = echarts.init(document.getElementById('main_predict'));
@@ -182,8 +187,8 @@ function Draw_time_trend_line_result(){
 	// var end_ts = 1468459800;
 	//console.log(end_ts);
 	//console.log(pointInterval);
-    url = "/topic_time_analyze/mtype_count/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
- 	//console.log(url);
+    url = "/topic_time_analyze/truth_predict/?topic=" + topic+'&start_ts='+start_ts+'&end_ts='+end_ts+'&pointInterval='+pointInterval;
+ 	console.log(url);
  	topic_analysis_predict.call_sync_ajax_request(url,topic_analysis_predict.Draw_time_trend_line);
 }		
 
