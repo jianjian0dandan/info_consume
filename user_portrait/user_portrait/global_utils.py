@@ -104,6 +104,8 @@ group_analysis_queue_name = 'group_analysis_task'
 # social sensing redis
 R_SOCIAL_SENSING = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=14)
 
+r_micro = R_SOCIAL_SENSING
+
 # use to recomment 
 #two types hash
 #type1:{recomment_2013-09-01:{uid:status, uid:status}} status:0 not in  status:1 have in
@@ -139,6 +141,7 @@ es_bci_history = Elasticsearch(USER_PROFILE_ES_HOST, timeout=600)
 es_sensitive = Elasticsearch(USER_PROFILE_ES_HOST, timeout=600)
 es_user_portrait = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 6000)
 es_social_sensing = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 600)
+es_prediction = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 600)
 es_flow_text = Elasticsearch(FLOW_TEXT_ES_HOST, timeout=600)
 es_group_result = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout=1000)
 es_retweet = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 600)
@@ -211,13 +214,13 @@ operation_index_name = 'admin_operation'
 operation_index_type = 'operation'
 
 # 广告微博的地址
-ADS_WEIBO_ES_HOST = "219.224.134.211:9204"
+ADS_WEIBO_ES_HOST = "219.224.134.216:9201"
 
 ## zxy ads_weibo address 211.224.134.211:9206
 es_ads_weibo = Elasticsearch(ADS_WEIBO_ES_HOST, timeout=600)
 
 # 广告微博的信息  type index
-ads_weibo_index_name = "ads_weibo"
+ads_weibo_index_name = "ads"
 ads_weibo_index_type = "text"
 
 #use to load balck words of weibo keywords
