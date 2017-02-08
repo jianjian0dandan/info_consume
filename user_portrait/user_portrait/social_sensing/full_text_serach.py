@@ -34,7 +34,7 @@ day_time = 24*3600
 def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
     _id = user + '-' + task_name
     task_detail = es_user_portrait.get(index=index_sensing_task, doc_type=_id, id=ts)['_source']
-
+    print '37',index_sensing_task,_id
     mid_value = json.loads(task_detail['mid_topic_value'])
     duplicate_dict = json.loads(task_detail['duplicate_dict'])
     tmp_duplicate_dict = dict()
@@ -111,12 +111,12 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
                 else:
                     portrait_dict[item['_id']] = {"nick_name": item['_id'], "photo_url":""}
 
-        if order == "total":
-            sorted_list = sorted(weibo_detail_list, key=lambda x:x[1], reverse=True)
+        if order == "total":#jln :10 for 863
+            sorted_list = sorted(weibo_detail_list, key=lambda x:x[1], reverse=True)[:10]
         elif order == "retweeted":
-            sorted_list = sorted(weibo_detail_list, key=lambda x:x[2], reverse=True)
+            sorted_list = sorted(weibo_detail_list, key=lambda x:x[2], reverse=True)[:10]
         elif order == "comment":
-            sorted_list = sorted(weibo_detail_list, key=lambda x:x[3], reverse=True)
+            sorted_list = sorted(weibo_detail_list, key=lambda x:x[3], reverse=True)[:10]
         else:
             sorted_list = weibo_detail_list
 
