@@ -46,7 +46,7 @@ def adsRec(uid, queryInterval=HOUR * 4):
     # 获取用户的偏好
     user_portrait_result = es_user_portrait. \
         get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
-
+    print uid
     user_key_words = set(user_portrait_result["keywords_string"].split("&"))
 
     # test，目前使用的是从原始数据中读取一定时间段内的微博并实时计算的方式得到
