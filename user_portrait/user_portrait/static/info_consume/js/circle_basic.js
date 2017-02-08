@@ -1,4 +1,3 @@
-console.log("【基本特征】start load:"+getSystemTime());
 
      //近一个月圈子影响力走势;id=influen-line
  /*  
@@ -371,10 +370,13 @@ if(data.length==0){
   function Draw_basic_page(data){
         Draw_area_distri(data);
         Draw_identi_distri(data);
+         console.log("【基本特征】end load:"+getSystemTime());
+
     }
 
  
 function g_bas_load(g_name,s_user){
+  console.log("【基本特征】start load:"+getSystemTime());
  var influence_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=influence';
  var basic_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=basic';
 
@@ -383,4 +385,4 @@ function g_bas_load(g_name,s_user){
  //console.log('basic_url:'+basic_url);
  //console.log('influence_url:'+influence_url);
 }
-console.log("【基本特征】end load:"+getSystemTime());
+

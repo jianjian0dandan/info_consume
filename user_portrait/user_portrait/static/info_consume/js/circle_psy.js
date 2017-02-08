@@ -1,5 +1,4 @@
 //出
-console.log("【情绪特征】start load:"+getSystemTime());
 function Draw_weibo_table(data){
               $('#group_emotion_loading').css('display', 'none');
               $('#input-table').css('display', 'block');
@@ -471,11 +470,12 @@ myChart.on(ecConfig.EVENT.CLICK, function (param){
 function Draw_psy_page(data){
        Draw_sentiment_pie(data.sentiment_pie);
        Draw_group_trend(data);
+       console.log("【情绪特征】end load:"+getSystemTime());
 } 
 
  function g_tho_load(g_name,s_user){
- var psy_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=think';
- call_sync_ajax_request(psy_url,'GET',Draw_psy_page);
- //console.log("psy_url:"+psy_url);
+  console.log("【情绪特征】start load:"+getSystemTime());
+  var psy_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=think';
+  call_sync_ajax_request(psy_url,'GET',Draw_psy_page);
+  //console.log("psy_url:"+psy_url);
  }
- console.log("【情绪特征】end load:"+getSystemTime());
