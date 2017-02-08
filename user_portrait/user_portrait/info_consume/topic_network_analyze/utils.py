@@ -4,6 +4,7 @@
 import re
 import math
 import json
+import datetime
 from sqlalchemy import func
 import sys
 from user_portrait.info_consume.model import TrendMaker, TrendPusher,TopicIdentification
@@ -23,7 +24,7 @@ def gexf_process(data):
 	results = {}
 	#print type(data)
 	data = json.loads(data)
-	#print type(data)
+
 	comp = re.compile('<node id=\\\"(\d*)\\\"')
 	id_list = comp.findall(data)
 	comp = re.compile('<attvalue for=\\\"name\\\" value=\\\"(.*)\\\"/>')
@@ -37,25 +38,30 @@ def gexf_process(data):
 	comp = re.compile('target=\\\"(\d*)\\\"/>\\n')
 	target = comp.findall(data)
 
+
+	nodes_dict = {}
 	nodes = []
 	for i in range(len(id_list)):
 		iter_item = {}
-		iter_item['name'] = id_list[i]
-		iter_item['symbolSize'] = size[i]
 		iter_item['label'] = name_list[i]
-		iter_item['uid'] = uid[i]
-		nodes.append(iter_item)
+
+		iter_item_node = {}
+		iter_item_node['name'] = id_list[i]
+		iter_item_node['symbolSize'] = size[i]
+		iter_item_node['label'] = name_list[i]
+		iter_item_node['uid'] = uid[i]
+
+		nodes.append(iter_item_node)
+		nodes_dict[id_list[i]]=iter_item
+
 	links = []
+	
 	for i in range(len(source)):
 		iter_item = {}
-		source_id = source[i]
-		target_id = target[i]
-		for node in nodes:
-			if node['name'] == source_id:
-				iter_item['source'] = node['label']
-			if node['name'] == target_id:
-				iter_item['target'] = node['label']
-		 
+
+		iter_item['source'] = nodes_dict[source[i]]['label']
+		iter_item['target'] = nodes_dict[target[i]]['label']
+
 		links.append(iter_item)
 	results = {}
 	results['nodes'] = nodes

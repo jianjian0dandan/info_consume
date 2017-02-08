@@ -111,7 +111,8 @@ def get_origin_weibo_detail(ts, user, task_name, size, order, message_type=1):
                 else:
                     portrait_dict[item['_id']] = {"nick_name": item['_id'], "photo_url":""}
 
-        if order == "total":#jln :10 for 863
+
+        if order == "total":
             sorted_list = sorted(weibo_detail_list, key=lambda x:x[1], reverse=True)[:10]
         elif order == "retweeted":
             sorted_list = sorted(weibo_detail_list, key=lambda x:x[2], reverse=True)[:10]
