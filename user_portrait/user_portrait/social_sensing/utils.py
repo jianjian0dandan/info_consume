@@ -32,7 +32,7 @@ def get_text_detail(task_name, ts, text_type, user, order, size=100):
     _id = user + '-' + task_name
     task_detail = es.get(index=index_manage_sensing_task, doc_type=task_doc_type, id=_id)["_source"]
     social_sensors = json.loads(task_detail["social_sensors"])
-
+    
     #print social_sensors
     if int(text_type) == 0: # 热门原创微博
         results = get_origin_weibo_detail(ts, user, task_name, size, order, 1)

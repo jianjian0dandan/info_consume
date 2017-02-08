@@ -478,6 +478,7 @@ my_friend.prototype =
            }]
         });
         $('#table-user-contain').css("display","block");
+        $('#table-user-contain .pull-right').css("margin-right","125px");
         $('#p_so_onload_1').css('display','none').siblings().css('display','block'); 
         $('.user_view').tooltip();
       },
