@@ -23,13 +23,17 @@ show_geo.prototype = {
         }else if(key=="all_top"){
           index_mode = 2; //month
           var province_data={};
-          var cityValue = data.all_top[0][1];
-          //console.log(data.all_top[0][1]+"---"+data.all_top[0][0]);
-          var cityName=data.all_top[0][0].split("\t");
-          //console.log("l--"+cityName[2]);
-          province_data['name']=cityName[2];
-          province_data['value']= cityValue;
-          geo_data.push(province_data);
+          var cityValue;
+          var cityName;
+          for(i=0;i<=data.all_top.length){
+              cityValue = data.all_top[i][1];
+              //console.log(data.all_top[0][1]+"---"+data.all_top[0][0]);
+              cityName=data.all_top[i][0].split("\t");
+              province_data['name']=cityName[2];
+              province_data['value']= cityValue;
+              geo_data.push(province_data);
+          }
+          //console.log("l--"+cityName[2]);   
           //console.log("geo"+geo_data);
         }else{
           index_mode = 3;  //day
