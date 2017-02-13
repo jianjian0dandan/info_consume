@@ -19,24 +19,79 @@ show_geo.prototype = {
       for (var key in data){
         if(key=="week_geo_track"){
           index_mode = 1; //week
+          var province_data;
+          var cityValue;
+          var cityName;
 
+          for(i=0;i<data.week_top.length;i++){
+              province_data={};
+              //console.log(data.all_top[i][1]+"---"+data.all_top[i][0]);
+              cityName=data.week_top[i][0].split("\t");
+              cityValue =data.week_top[i][1];
+              province_data['value']= cityValue;
+              // if (cityName[2]) {
+              //   province_data['name']=cityName[2]+"市";
+              // }else{
+              //   province_data['name']=cityName[1]+"市";
+              // }
+              province_data['name']=cityName[1];
+              geo_data.push(province_data);
+          }
+            if(data.week_top=[])
+                document.getElementById('des_loc').innerHTML="暂无数据";
+            else
+                document.getElementById('des_loc').innerHTML="";
         }else if(key=="all_top"){
           index_mode = 2; //month
-          var province_data={};
-          var cityValue = data.all_top[0][1];
-          //console.log(data.all_top[0][1]+"---"+data.all_top[0][0]);
-          var cityName=data.all_top[0][0].split("\t");
-          console.log(cityName);
-          province_data['name']=cityName[1];
-          province_data['value']= cityValue;
-          geo_data.push(province_data);
-          console.log(geo_data);
-        }else{
+          var province_data;
+          var cityValue;
+          var cityName;
+
+          for(i=0;i<data.all_top.length;i++){
+              province_data={};
+              //console.log(data.all_top[i][1]+"---"+data.all_top[i][0]);
+              cityName=data.all_top[i][0].split("\t");
+              cityValue =data.all_top[i][1];
+              province_data['value']= cityValue;
+              // if (cityName[2]) {
+              //   province_data['name']=cityName[2]+"市";
+              // }else{
+              //   province_data['name']=cityName[1]+"市";
+              // }
+              province_data['name']=cityName[1]; 
+              geo_data.push(province_data);
+          }   
+          if(data.all_top)
+              document.getElementById('des_loc').innerHTML=(data.description);
+          else
+              document.getElementById('des_loc').innerHTML="暂无数据";
+
+        }else if(key=="day_ip_count"){
           index_mode = 3;  //day
+          for(i=0;i<data.sort_results.length;i++){
+              province_data={};
+              //console.log(data.all_top[i][1]+"---"+data.all_top[i][0]);
+              cityName=data.sort_results[i][0].split("\t");
+              cityValue =data.sort_results[i][1];
+              province_data['value']= cityValue;
+              // if (cityName[2]) {
+              //   province_data['name']=cityName[2]+"市";
+              // }else{
+              //   province_data['name']=cityName[1]+"市";
+              // }
+              province_data['name']=cityName[1]; 
+              geo_data.push(province_data);
+          }
+          console.log(data.sort_results);
+          if(data.sort_results)
+              document.getElementById('des_loc').innerHTML="";
+          else
+              document.getElementById('des_loc').innerHTML="暂无数据";
+
         }
       }
+      console.log(geo_data);
 
-      document.getElementById('des_loc').innerHTML=(data.description);
 
 
        require(
