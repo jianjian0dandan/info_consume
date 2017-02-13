@@ -71,7 +71,7 @@
         <div style="margin:40px auto 0 auto;width:400px;padding:20px;border-radius: 10px;height:270px;background-color: rgba(21, 21, 21, 0.56);">
 			{% from "security/_macros.html" import render_field_with_errors, render_field %}
 			{% include "security/_messages.html" %}
-			<h2 style="color:#fff;">用户登陆 </h2>
+			<h2 style="color:#fff;margin-left:37%">用户登录 </h2>
 			<hr style="width:100%;">
 			<form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
 			  {{ login_user_form.hidden_tag() }}

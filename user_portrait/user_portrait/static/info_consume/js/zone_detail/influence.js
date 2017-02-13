@@ -175,7 +175,7 @@ rank_data:function(data){
 
 
   influ_skill:function(data){
-    // console.log(data[1]);
+    console.log(data[1]);
     var re_re_speed = data[1].re_re_speed; 
     var comment_speed = data[1].comment_speed;
     var retweet_speed = data[1].retweet_speed;
@@ -188,7 +188,17 @@ rank_data:function(data){
 
     var stage=0;
     var influ_des;
-    var badPart =':';
+    var badPart ='';
+    var influ_desc_de;
+    influ_desc_de='原创微博被转发数 '+data[0].origin_weibo_retweeted_top_number+'<br>'+
+      '原创微博被评论数 '+data[0].origin_weibo_comment_top_number+'<br>'+
+      '转发次数 '+data[0].retweeted_weibo_number+'<br>'+
+      '评论次数 '+data[0].comment_weibo_number+'<br>'+
+      '转发微博被转发数 '+data[0].retweeted_weibo_retweeted_total_number+'<br>'+
+      '转发速度 '+data[0].origin_weibo_retweeted_brust_n+'<br>'+
+      '转发微博评论数 '+data[0].retweeted_weibo_comment_brust_average+'<br>'+
+      '评论速度 '+data[0].origin_weibo_comment_brust_average.toFixed(2);
+    $('#influ_desc_de').append(influ_desc_de);
 
     if (be_retweet==1 && be_comment == 1 && retweet_speed == 1 && comment_speed == 1) {
       stage=1;
