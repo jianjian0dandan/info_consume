@@ -65,7 +65,7 @@ show_geo.prototype = {
               province_data['name']=cityName[1]; 
               geo_data.push(province_data);
           }   
-          if(data.all_top==[])
+          if(data.all_top.length==0 || (data.all_top[0][0]=='局域网	局域网'&&data.all_top.length==1))
               document.getElementById('des_loc').innerHTML="暂无数据";
           else
               document.getElementById('des_loc').innerHTML=(data.description);
