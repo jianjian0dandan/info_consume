@@ -38,7 +38,7 @@ show_geo.prototype = {
               geo_data.push(province_data);
           }
           	console.log(data.week_top);
-            if(data.week_top.length==0 || (data.week_top[0][0]=='局域网	局域网'&&data.week_top.length==1) ){
+            if(data.week_top.length==0 || (data.week_top[0][0]=='局域网	局域网'&&data.week_top.length==1) || (cityName[0]!='中国'&&data.week_top.length==1) ){
                 document.getElementById('des_loc').innerHTML="暂无数据";
             	console.log("1");}
             else{
@@ -87,7 +87,7 @@ show_geo.prototype = {
               geo_data.push(province_data);
           }
           console.log(data.sort_results);
-          if(data.sort_results.length==0 || (data.sort_results[0][0]=='局域网	局域网'&&data.sort_results.length==1))
+          if(data.sort_results.length==0 || (data.sort_results[0][0]=='局域网	局域网'&&data.sort_results.length==1)|| (cityName[0]!='中国'&&data.sort_results.length==1) )
               document.getElementById('des_loc').innerHTML="暂无数据";
           else
               document.getElementById('des_loc').innerHTML="";
