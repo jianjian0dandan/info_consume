@@ -530,18 +530,20 @@ my_friend.prototype =
       
         //定义node的值；
         var node_value=new Array();
-        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
+        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:65,label:user_name});
         for(var i=0;i<data.length;i++)
         {
         	node_value.push({category:1,name:user_id[i],value:transmit_num[i],label:name[i]});
         }
+        console.log("hello!");
         //console.log(node_value);
 
         //定义线的值
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-        	line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i],name:'转发次数'+' : '+transmit_num[i]});
+        	line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:transmit_num[i]
+            *2,name:'转发次数'+' : '+transmit_num[i]});
         }
        // {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿'},
         var myChart = echarts.init(document.getElementById('transmit'));
@@ -617,7 +619,7 @@ my_friend.prototype =
                 },
                 useWorker: false,
                 minRadius : 30,
-                maxRadius : 55,
+                maxRadius : 45,
                 gravity: 1.1,
                 scaling: 1.1,
                 roam: 'move',
@@ -926,7 +928,7 @@ my_friend.prototype =
       //console.log(user_id);
         //定义node的值；
         var node_value=new Array();
-        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
+        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:40,label:user_name});
         for(var i=0;i<data.length;i++)
         {
           node_value.push({category:1,name:user_id[i],value:comment_num[i],label:name[i]});
@@ -937,7 +939,7 @@ my_friend.prototype =
         var line_value=new Array();   
         for(var i=0;i<data.length;i++)
         {
-          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i],name:'评论次数'+' : '+comment_num[i]});
+          line_value.push({source:user_id[i],target:'核心用户'+' : '+user_name,weight:comment_num[i]*1.5,name:'评论次数'+' : '+comment_num[i]});
         }
         var myChart = echarts.init(document.getElementById('comment'));
         option = {
@@ -1110,11 +1112,11 @@ my_friend.prototype =
 
         //定义node的值；
         var node_value=new Array();
-        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:10,label:user_name});
+        node_value.push({category:0,name:'核心用户'+' : '+user_name,value:40,label:user_name});
         for(var i=0;i<data.length;i++)
         {
           //'uid'+' : '+
-          node_value.push({category:1,name:user_id[i],value:interaction_num[i],label:name[i]});
+          node_value.push({category:1,name:user_id[i],value:interaction_num[i]*1.5,label:name[i]});
         }
 
 

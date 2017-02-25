@@ -565,8 +565,12 @@ homepageinfo.prototype = {
       //  console.log(1);
       }else if (personalData.sex == 2) {
         userImg.src = "/static/info_consume/image/bodymodel_woman.png";
-        userImg.style = "width: 350px;margin-left: -77px;float: none;margin-top: 60px;display: block;opacity:0.8;";
-       // console.log(2);
+        userImg.style = "width: 350px !important;margin-left: -77px;float: none;margin-top: 60px;display: block;opacity:0.8;";
+        $('#draw_p1').css('margin-top','-285px');
+        $('#draw_p2').css('margin-top','-217px');
+        $('#draw_p3').css('margin-top','-117px');
+        $('#draw_p4').css('margin-top','-55px');
+        console.log(2);
       } 
    
    },
