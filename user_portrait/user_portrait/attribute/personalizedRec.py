@@ -18,7 +18,8 @@ from user_portrait.parameter import DAY, HOUR
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.parameter import topic_en2ch_dict
 from user_portrait.time_utils import ts2datetime, datetime2ts
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE, CNTV_ITEM_FILE
+from user_portrait.zxy_params import \
+    ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE, CCTV_ITEM_FILE, CCTV_LIVE_VIDEO_FILE
 
 from ads_classify import adsClassify
 from user_portrait.global_utils import \
@@ -444,7 +445,7 @@ def cctv_video_rec(uid, k=10):
                                           })['hits']['hits']
     user_words = set()
     for weibo in weibo_all:
-        weibo_text = weibo["_source"]["ip"]
+        weibo_text = weibo["_source"]["text"]
         user_words |= set(jieba.cut(weibo_text))
 
     rio_dict = load_topic_video_dict(RIO_VIDEO_INFO_FILE)
@@ -485,9 +486,22 @@ def load_videos(filepath):
     return ret_set
 
 
+# cctv的直播节目推荐
+def cctv_live_video_rec(uid, k=20):
+    ret_video_list = []
+    with open(CCTV_LIVE_VIDEO_FILE) as f:
+        live_videos = f.readlines()
+    selected_indexed = random.sample(range(len(live_videos)), k)
+    selected_indexed = sorted(selected_indexed)
+    for i in selected_indexed:
+        ret_video_list.append(live_videos[i].split("||")[0])
+    return ret_video_list
+
+
+# cctv的商品推荐
 def cctv_item_rec(uid, k=10):
     random.seed(int(uid))
-    item_set = load_items(CNTV_ITEM_FILE)
+    item_set = load_items(CCTV_ITEM_FILE)
     return random.sample(item_set, k)
 
 
@@ -496,7 +510,6 @@ def load_items(filepath):
         lines = f.readlines()
     item_set = set(map(lambda line:line.strip(), lines))
     return item_set
-
 
 
 if __name__ == '__main__':
