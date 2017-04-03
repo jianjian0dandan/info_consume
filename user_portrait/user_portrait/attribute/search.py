@@ -1663,7 +1663,7 @@ def get_activity_weibo(uid, time_type, start_ts):
 def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
     weibo_list = []
     if time_type=='day':
-        time_segment = HALF_HOUR
+        time_segment = HOUR#HALF_HOUR
     else:
         time_segment = DAY
     end_ts = start_ts + time_segment
@@ -1676,7 +1676,7 @@ def search_sentiment_weibo(uid, start_ts, time_type, sentiment):
         query.append({'term': {'sentiment': sentiment}})
     else:
         query.append({'terms':{'sentiment': SENTIMENT_SECOND}})
-    query.append({'range':{'timestamp':{'gte':start_ts, 'lt':end_ts}}})
+    query.append({'range':{'timestamp':{'gte':start_ts, 'lte':end_ts}}})
     print query
     try:
         flow_text_es_result = es_flow_text.search(index=flow_text_index_name, doc_type=flow_text_index_type, body={'query':{'bool':{'must': query}}, 'sort':'timestamp', 'size':1000000})['hits']['hits']

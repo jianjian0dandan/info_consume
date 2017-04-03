@@ -323,13 +323,15 @@ def localRec(uid, k=200):
     '''
     ip = get_user_ip(uid)
     ip = ".".join(ip.split(".")[:-2])
+    print '326'
     weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
                                     body={"query": {"bool": {"must": [{"prefix": {"text.ip": ip}}]}},
                                           "size": 2000})["hits"]["hits"]
 
     local_weibo_rec = []
     weibo_user_uids = [weibo["_source"]["uid"] for weibo in weibo_all]
-    user_profiles = search_user_profile_by_user_ids(weibo_user_uids)
+    print '332',len(weibo_all)
+    # user_profiles = search_user_profile_by_user_ids(weibo_user_uids)
     exists_ip = set()
     for weibo in weibo_all:
         weibo = weibo["_source"]
@@ -348,13 +350,14 @@ def localRec(uid, k=200):
             continue
         weibo["weibo_url"] = weiboinfo2url(uid, mid)
         # 可能出现许多userprofile查不到的情况
-        if uid in user_profiles:
-            weibo["photo_url"] = user_profiles[uid]["photo_url"]
-            weibo["nick_name"] = user_profiles[uid]["nick_name"]
-        else:
-            weibo["photo_url"] = "None"
-            weibo["nick_name"] = "None"
-            local_weibo_rec.append(weibo)
+        # if uid in user_profiles:
+        #     weibo["photo_url"] = user_profiles[uid]["photo_url"]
+        #     weibo["nick_name"] = user_profiles[uid]["nick_name"]
+        # else:
+        #     weibo["photo_url"] = "None"
+        #     weibo["nick_name"] = "None"
+        #     local_weibo_rec.append(weibo)
+        local_weibo_rec.append(weibo)
     return local_weibo_rec
 
 
