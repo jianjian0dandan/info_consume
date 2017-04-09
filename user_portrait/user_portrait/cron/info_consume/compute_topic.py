@@ -43,14 +43,23 @@ def compute_topic_task():
     print time.time()
     while  True:
         query_body = {
-            'name':'朴槿惠',
-            'en_name':'pu-jin-hui-1491486370',
-            'start_ts':'1479044700',
-            'end_ts':'1480254300',
-            'submit_user':'1709157165',
+            'name':'叶简明',
+            'en_name':'ye-jian-ming-1482830875',
+            'start_ts':'1480176000',
+            'end_ts':'1482681600',
+            'submit_user':'admin@qq.com',
             'comput_status':0,
             'submit_ts': 1491486370
         }
+        # query_body = {
+        #     'name':'朴槿惠',
+        #     'en_name':'pu-jin-hui-1491486370',
+        #     'start_ts':'1479044700',
+        #     'end_ts':'1480254300',
+        #     'submit_user':'1709157165',
+        #     'comput_status':0,
+        #     'submit_ts': 1491486370
+        # }
         # query_body = {
         #     'name':'金马奖',
         #     'en_name':'jin-ma-jiang-1491492608',
@@ -79,7 +88,7 @@ def compute_topic_task():
             task_id = str(start_ts)+'_'+str(end_ts)+'_'+en_name+'_'+submit_user
             
             exist_flag = exist(task_id)
-            get_topic_weibo(topic,en_name,start_ts,end_ts)
+            # get_topic_weibo(topic,en_name,start_ts,end_ts)
             if exist_flag:
                 #start compute
                 #try:
