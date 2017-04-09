@@ -139,6 +139,9 @@ rank_data:function(data){
       {
       	data[j].bci="未知";
       }
+      if (data[j].uname=="unknown") {
+      	data[j].uname=data[j].uid;
+      }
       if (data[j].photo_url=="" || data[j].photo_url=="unknown") 
       {
       	data[j].photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
@@ -161,7 +164,10 @@ rank_data:function(data){
       {
       	data[j].bci="未知";
       }
-      if (data[j].photo_url=="") 
+      if (data[j].uname=="unknown") {
+      	data[j].uname=data[j].uid;
+      }
+      if (data[j].photo_url=="" || data[j].photo_url=="unknown") 
       {
       	data[j].photo_url="http://tp2.sinaimg.cn/1878376757/50/0/1";
       }

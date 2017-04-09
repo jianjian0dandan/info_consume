@@ -75,10 +75,12 @@ viewinfo_weibo.prototype = {
        Attentionsum.innerHTML = personalData.friendsnum;
 
   var Focusum = document.getElementById('focusum');
-  if( personalData.favoritesnum==""){
-      personalData.favoritesnum = "暂无数据";
-  }
+  if(personalData.favoritesnum){  
       Focusum.innerHTML = personalData.favoritesnum;
+  }else{
+      Focusum.innerHTML ="暂无数据";
+  }
+      
 
    var Weibosum = document.getElementById('weibosumview');
    if( personalData.statusnum==""){
