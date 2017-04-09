@@ -53,7 +53,7 @@ def top_weibos(get_results, top=TOP_WEIBOS_LIMIT):
 
 def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wlimit=TOP_WEIBOS_LIMIT):
     if calc == 'count':    #{时间段：{情绪1：值1,情绪2，值2}}{时间段：{情绪1：值1,情绪2，值2}}
-        #print results
+        # print 'count',len(results)
         for time, sen_dict in results.iteritems():
             #sentiment = k
             #ts, count = v
@@ -62,10 +62,11 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 sentiment = k
                 count = v
                 item = SentimentCount(query, during, ts, sentiment, count)
-                #print item
+                # print item,query,db
                 item_exist = db.session.query(SentimentCount).filter(SentimentCount.query==query, \
                                                                          SentimentCount.end==ts, \
                                                                          SentimentCount.sentiment==sentiment).first() #SentimentCount.range==during, \
+                # print item_exist
                 if item_exist:
                     db.session.delete(item_exist)
                 db.session.add(item)
@@ -92,6 +93,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
         db.session.commit()
 
     if calc == 'weibos':    #{'时间戳'：{'情绪1'：[{微博字段},{微博字段}],'情绪2'：[]}}
+        # print 'weibos',len(results)
         for time,sen_dict in results.iteritems():
             ts = time
             for k,v in sen_dict.iteritems():
@@ -107,6 +109,7 @@ def save_rt_results(calc, query, results, during, klimit=TOP_KEYWORDS_LIMIT, wli
                 db.session.add(item)
         db.session.commit()
     if calc == 'geo_count': # 地理位置 #{'sentiment':[shijian,{['province':('provice':cishu),()],'city':[(city:cishu)}]}
+        # print 'geo_count',len(results)
         #print results
         for sentiment, v in results.items():
             ts = v[0]
@@ -307,7 +310,7 @@ def compute_sentiment_weibo(topic,begin_ts,end_ts,k_limit,w_limit,during):
 
         else:
         	continue
-#原有的存微博的
+    #原有的存微博的
     results[end_ts] = all_sen_weibo
     #print len(results)
     save_rt_results('weibos', topic, results, during, k_limit, w_limit)  
