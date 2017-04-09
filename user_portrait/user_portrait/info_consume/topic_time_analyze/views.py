@@ -24,8 +24,8 @@ MinInterval = Fifteenminutes
 @mod.route('/truth_predict/')
 def Predict():
     topic = request.args.get('topic','')
-    if MYSQL_TOPIC_LEN == 0:
-        topic = topic[:20]
+    # if MYSQL_TOPIC_LEN == 0:
+    #     topic = topic[:20]
     print topic
     during = request.args.get('pointInterval', Fifteenminutes)
     during = int(during)

@@ -76,8 +76,8 @@ def count_fre(topic,start_ts,over_ts,news_limit,weibo_limit,during=Fifteenminute
     #新闻类微博：词云、主题河、鱼骨图   主题河：拿到主题后，按时间段查相关微博的数量；鱼骨图：每个主题的一个微博及所有微博
     #    return json.dumps({"features":features, "cluster_dump_dict":cluster_dump_dict})
     taskid = topic+'_'+str(start_ts)+'_'+str(over_ts)
-    # normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
-    # weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
+    normal_list = subopinion_content(topic,start_ts,over_ts,weibo_limit) #读主观微博
+    weibo_classify = json.loads(weibo_comments_list(taskid,weibo_list=normal_list))  #
 
 
 
@@ -478,9 +478,10 @@ def weibo_comments_list(taskid,weibo_list,cluster_num=-1,cluster_eva_min_size=de
         keys = ('_').join(features[key])
         index_body={'name':task[0],'start_ts':task[1],'end_ts':task[2],'ratio':json.dumps(ratio_results),'cluster':json.dumps(key),'features':json.dumps(features),'keys':keys,'cluster_dump_dict':json.dumps(cluster_dump_dict[key])}
         #print index_body
-        #print subopinion_index_type,subopinion_index_name
+        print subopinion_index_type,subopinion_index_name
         #jln  0907
-        weibo_es.index(index=subopinion_index_name,doc_type=subopinion_index_type,id=key,body=index_body)
+        print 'dddddddddddddddddddd'
+        print weibo_es.index(index=subopinion_index_name,doc_type=subopinion_index_type,id=key,body=index_body)
 
 
     return json.dumps({"features":features,"ratio": ratio_results,"cluster_dump_dict":cluster_dump_dict})#features关键词和类的对应
@@ -506,7 +507,7 @@ if __name__ == '__main__':
     start_ts = datetime2ts(start_date)
     end_ts = datetime2ts(end_date)
 
-    # start_ts = 1469680510
-    # end_ts = 1469680515
+    start_ts = 1469028540
+    end_ts = 1470842940
     print 'topic: ', topic, 'from %s to %s' % (start_ts, end_ts)    
     count_fre(topic, start_ts=start_ts, over_ts=end_ts,news_limit=NEWS_LIMIT,weibo_limit=2000)#w_limit=MAX_FREQUENT_WORDS,weibo_limit=MAX_LANGUAGE_WEIBO

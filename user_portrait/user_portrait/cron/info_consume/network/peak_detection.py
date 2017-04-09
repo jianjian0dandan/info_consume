@@ -115,7 +115,9 @@ def save_macro(lis,cursor,dur=6):
 
 
 def find_topN(lis,topN):
-	new,rank = sort_list(lis)	
+	new,rank = sort_list(lis)
+	print '119::::::new:::::::::',new
+	print '120::::::rank::::::::',rank	
 	peak_x = []
 	cursor = 0
 	for y in new:
@@ -123,7 +125,9 @@ def find_topN(lis,topN):
 			if y >= lis[rank[cursor]+1] and y >= lis[rank[cursor]-1]:
 				peak_x.append(rank[cursor])
 		cursor += 1
+	print 'peak_x:::::::',peak_x
 	peaks = filter_continuous(peak_x)
+	print 'peaks::::::::::',peaks
 	return peaks[:topN]
 
 def filter_micro_macro(lis,peaks,micro_dur=3,macro_dur=6,form=0):
@@ -150,7 +154,7 @@ def detect_peaks(lis,topN=10,form=0,micro_dur=5,macro_dur=10):
 		return [0]
 	else:
 		peaks = find_topN(lis,topN)
-		# print peaks,'step1 top'+str(topN)+'nodes'
+		print peaks,'step1 top'+str(topN)+'nodes'
 		if lis[0] > lis[1]:
 			peaks.append(0)
 		if lis[-1] > lis[-2]:

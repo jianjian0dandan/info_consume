@@ -141,7 +141,7 @@ def mtype_count(topic,start_ts,end_ts,mtype,unit=MinInterval):
         #                                                PropagateCount.topic==topic,\
         #                                                PropagateCount.mtype==mtype).all()
         items = db.session.query(PropagateCount).filter(PropagateCount.topic==topic).all()
-        #print 'I choose method 1'
+        #print 'I choose method 1' 
     else:
         upbound = long((start_ts / unit) * unit)
         lowbound = long((start_ts / unit) * unit)
@@ -190,7 +190,7 @@ def get_time_count(topic,start_ts,end_ts,unit=MinInterval):#按时间趋势的�
                                                          PropagateCount.topic==topic).group_by(PropagateCount.mtype).all()
             count[end_ts] = {}
             for item in items:
-                print item
+                print 'item::::::::',item
                 try:
                     count[end_ts][item[0]] += item[1]
                 except:
@@ -231,9 +231,9 @@ def get_predict_count(topic,start_ts,end_ts,during):
             pass
         ts = item["_source"]["update_time"]
         ts_list.append(ts)
-    print len(truth_value_list), len(ts_list), len(prediction_value_list)
 
     prediction_value_list.insert(0,truth_value_list[0])
+    print len(truth_value_list), len(ts_list), len(prediction_value_list)
     for i in range(len(ts_list)):
         return_list.append([ts_list[i], truth_value_list[i], prediction_value_list[i]])
           
@@ -244,6 +244,7 @@ def get_predict_count(topic,start_ts,end_ts,during):
 if __name__ == '__main__':
 	#all_weibo_count('aoyunhui',1468166400,1468170900)
     #print get_weibo_content('aoyunhui',1468167300,1468167300,u'陕西')
-    mtype_count('aoyunhui',1468166400,1468170900,1)
-    print get_weibo_by_time('aoyunhui',1468166400,1468170900)
-    print get_weibo_by_hot('aoyunhui',1468166400,1468170900)
+    #mtype_count('aoyunhui',1468166400,1468170900,1)
+    get_time_count('aoyunhui',1468166400,1468170900,unit=MinInterval)
+    #print get_weibo_by_time('aoyunhui',1468166400,1468170900)
+    #print get_weibo_by_hot('aoyunhui',1468166400,1468170900)

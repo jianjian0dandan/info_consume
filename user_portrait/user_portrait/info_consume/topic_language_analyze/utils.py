@@ -69,9 +69,9 @@ def get_topics(user):
         topics = topics['hits']['hits']
         for topic in topics:
             try:
-                results['recommend'][topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
+                results['recommend'][topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status'],topic['_source']['submit_user']])
             except:
-                results['recommend'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
+                results['recommend'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status'],topic['_source']['submit_user']]]
     query_own = {
         'query':{
             'filtered':{
@@ -87,9 +87,9 @@ def get_topics(user):
         topics = own_topics['hits']['hits']
         for topic in topics:
             try:
-                results['own'][topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']])
+                results['own'][topic['_source']['en_name']].append([topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['comput_status'],topic['_source']['end_ts']])
             except:
-                results['own'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['end_ts'],topic['_source']['comput_status']]]
+                results['own'][topic['_source']['en_name']] = [[topic['_source']['name'],topic['_source']['start_ts'],topic['_source']['comput_status'],topic['_source']['end_ts']]]
 
             #print results
     return json.dumps(results)
@@ -309,9 +309,9 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
             title = re.findall(r'【.*】',i['content'].encode('utf8'))[0]
             if ts >= start_ts and ts <= end_ts and title not in content:  #start_ts应该改成begin_ts，现在近15分钟没数据，所以用所有的
                 try:
-                    weibos[features[clusterid][0]].append(i)
+                    weibos[','.join(features[clusterid][:5])].append(i)
                 except:
-                    weibos[features[clusterid][0]] = [i]
+                    weibos[','.join(features[clusterid][:5])] = [i]
                 content.add(title)
                 j += 1
             #print content
@@ -321,18 +321,23 @@ def get_symbol_weibo(topic,start_ts,end_ts,unit=MinInterval):  #鱼骨图
     return weibos
 
 
-def get_subopinion(topic):
+def get_subopinion(topic,start_ts,end_ts):
     query_body = {
         'query':{
             'filtered':{
                 'filter':{
-                    'term':{
-                        'name':topic
+                    'bool':{
+                        'must':[
+                            {'term':{'name':topic}},
+                            {'term':{'start_ts':start_ts}},
+                            {'term':{'end_ts':end_ts}}
+                        ]
                     }
                 }
             }
         }
     }
+    print '6666666666',topic
     features = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
     if features:
         feature = json.loads(features[0]['_source']['features'])
@@ -346,6 +351,9 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
     weibo_dict = {}
     #a = json.dumps(opinion)
     #opinion = '圣保罗_班底_巴西_康熙'
+    print 'opinion:::::::::',opinion
+    print 'topic:::::::;:::',topic
+    print type(start_ts),type(end_ts)
     query_body = {
         'query':{
             'bool':{
@@ -358,6 +366,7 @@ def get_weibo_content(topic,start_ts,end_ts,opinion,sort_item='timestamp'): #微
             }
         }
     }  #没有查到uid   每次的id不一样   
+    print query_body
     weibos = weibo_es.search(index=subopinion_index_name,doc_type=subopinion_index_type,body=query_body)['hits']['hits']
     #print weibo_es,subopinion_index_name,subopinion_index_type,query_body
     print len(weibos)

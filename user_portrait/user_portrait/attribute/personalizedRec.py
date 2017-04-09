@@ -64,6 +64,10 @@ def adsRec(uid, queryInterval=HOUR * 24):
                                         }
                                         )['hits']['hits']
 
+
+    random.shuffle(ads_weibo_all)
+    ads_weibo_all = ads_weibo_all[:800]
+
     # 根据权重得到不同类别上词语的权重TFIDF
     topic_word_weight_dic = construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
 
