@@ -1,4 +1,3 @@
-console.log("【社交特征】start load:"+getSystemTime());
 function Draw_retwwie_out(data){
 var nodes_total = [];
 var links_total = [];
@@ -280,12 +279,13 @@ function Draw_social_page(data){
        Draw_retwwie_in(data.social_in_record);
        Draw_retwwie_out(data.social_out_record);
        Draw_retwwie_weibo(data);
+       console.log("【社交特征】end load:"+getSystemTime());
 } 
 
  
 function g_soc_load(g_name,s_user){
- var social_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=social';
- call_sync_ajax_request(social_url,'GET',Draw_social_page);
- //console.log("social_url:"+social_url);
+  console.log("【社交特征】start load:"+getSystemTime());
+  var social_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=social';
+  call_sync_ajax_request(social_url,'GET',Draw_social_page);
+  //console.log("social_url:"+social_url);
 }
-console.log("【社交特征】end load:"+getSystemTime());

@@ -37,7 +37,7 @@ def GetGexf():
     raw_data = get_gexf(topic, date, windowsize)
     print type(raw_data),len(raw_data)
     results = gexf_process(raw_data)
-    print results
+    # print results
     return json.dumps(results)
 
 
@@ -74,6 +74,7 @@ def GetPusherWeibosByts():
     topic =request.args.get('topic', '')
     if MYSQL_TOPIC_LEN == 0:
         topic = topic[:20]
+    print topic
     end_ts = request.args.get('end_ts', '')     #''代表默认值为空
     end_ts = long(end_ts)
     start_ts = request.args.get('start_ts', '')

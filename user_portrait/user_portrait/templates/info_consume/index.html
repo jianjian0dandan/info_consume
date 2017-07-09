@@ -56,10 +56,10 @@
   <script type="text/javascript" src='/static/info_consume/js/jquery.js'></script>
   <script type="text/javascript" src='/static/info_consume/js/jquery.min.js'></script>
   <script src="/static/info_consume/js/echarts.js"></script>
-  <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script>
+<!--   <script type="text/javascript" src="/static/info_consume/js/echarts-all.js"></script> -->
   <script type="text/javascript" src="/static/info_consume/js/sliders.js"></script>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>  
 {% endblock %}
 
 
@@ -275,11 +275,26 @@
         <div class="panel-heading" style="color:#000;font-weight:600;width: 40px;padding:31px 10px;">
           贴心天气
         </div>
-          <div style="margin:2px 15px;position: relative;top: -151px;left: 26px;width:152px;">
-          <iframe name="sinaWeatherTool" src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=%E5%8C%97%E4%BA%AC" width="200" height="200" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+        <script>
 
-         </iframe>
+        </script>
+        <div style="margin:2px 15px;position: relative;top: -151px;left: 26px;width:152px;">
+          <iframe id="weatherPanel" name="sinaWeatherTool" width="200" height="200" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+          </iframe>
+          <script type="text/javascript">
+            var myCity;
+            $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js', function(_result){  
+              if (remote_ip_info.ret == '1'){   
+                // console.log('IP 详细信息：', '国家：'+remote_ip_info.country+'省份：'+remote_ip_info.    province+'城市：'+remote_ip_info.city+'区：'+remote_ip_info.district+'ISP：'+   remote_ip_info.isp+'类型：'+remote_ip_info.type+'其他：'+remote_ip_info.desc);   
 
+                document.getElementById("weatherPanel").src="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city="+remote_ip_info.city;
+
+              } else {   
+                console.log('错误', '没有找到匹配的 IP 地址信息！默认显示北京市');   
+                weatherPanel.location.href="http://weather.news.sina.com.cn/chajian/iframe/weatherStyle30.html?city=北京";
+              }       
+            });
+         </script>
         </div>
       </div>
       </div>
@@ -445,8 +460,8 @@ homepageinfo.prototype = {
   });
   },
   personData:function(data){
-  console.log("personData");
-  console.log(data);
+  //console.log("personData");
+  //console.log(data);
   personalData = data ;
   var uid_div = document.getElementById('uid');
   if(personalData.uid){
@@ -550,8 +565,12 @@ homepageinfo.prototype = {
       //  console.log(1);
       }else if (personalData.sex == 2) {
         userImg.src = "/static/info_consume/image/bodymodel_woman.png";
-        userImg.style = "width: 350px;margin-left: -77px;float: none;margin-top: 60px;display: block;opacity:0.8;";
-       // console.log(2);
+        userImg.style = "width: 350px !important;margin-left: -77px;float: none;margin-top: 60px;display: block;opacity:0.8;";
+        $('#draw_p1').css('margin-top','-285px');
+        $('#draw_p2').css('margin-top','-217px');
+        $('#draw_p3').css('margin-top','-117px');
+        $('#draw_p4').css('margin-top','-55px');
+        console.log(2);
       } 
    
    },
@@ -600,7 +619,7 @@ homepageinfo.prototype = {
        //将此人涉及领域从数据库取出，
        var domain = new Array();
        topdomain_en = data.results.topic_en[0][0];
-       console.log(topdomain_en);
+       // console.log(topdomain_en);
        // $('body').css('style','url(/static/info_consume/image/bgp/'+topdomain_en+'.jpg)');
        document.body.style.backgroundImage="url('/static/info_consume/image/bgp/"+topdomain_en+".jpg') ";
        document.body.style.backgroundRepeat = "no-repeat";
@@ -632,9 +651,8 @@ homepageinfo.prototype = {
       var drawFriend = document.getElementById('draw_p3');
       var friendStr;
       var intimacyFriID;
-    	console.log(data);
+    	// console.log(data);
       if (data.length>0){
-        console.log("有");
         for(var i=0;i<=data.length;i++)
          {
           if(data[i].uname != "" && data[i].uname != "unknown"){
@@ -649,7 +667,6 @@ homepageinfo.prototype = {
          drawFriend.innerHTML = "<a target='_blank' href='/index/viewinformation/?uid="+intimacyFriID+"' style='color:white'>"+friendStr+"</a>";
 
       }else{
-        console.log("无");
         friendStr = '亲密好友：暂无';
         intimacyFriID =0;
         drawFriend.innerHTML = friendStr;
@@ -903,9 +920,22 @@ function page_group_influ_weibo(start_row,end_row,data, sub_div_name){
     $('#'+sub_div_name).append(html);
 }
 
+// function getIP(){
+//   $.ajax({  
+//     url: 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',
+//     type: 'GET',
+//     dataType:'json',
+//     async:true,
+//     success:(function(data){
+//       console.log(data);
+//     })
+//   });
+// }
+// getIP();
 var Personal = new homepageinfo();
 var personalData; // global data
 var topdomain_en;
+var myCity;
 //好友亲密度排行
 var url ="/info_person_social/bidirect_interaction/?uid="+uid;
 Personal.call_sync_ajax_request(url, Personal.ajax_method, Personal.intimacy_rank);

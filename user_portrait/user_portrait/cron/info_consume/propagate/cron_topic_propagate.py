@@ -90,7 +90,7 @@ def compute_mtype_keywords(topic, begin_ts, end_ts ,k_limit):
 
 		show_keywords_dict = weibo_es.search(index=topic,doc_type=weibo_index_type,body=query_body)\
 						['aggregations']['all_interests']['buckets']
-		#print show_keywords_dict
+		print 'show_keywords_dict::::::::::::::::::::',show_keywords_dict
 
 		keyword_dict = {}
 		for keyword in show_keywords_dict:
@@ -213,7 +213,8 @@ def compute_mtype_count(topic, begin_ts, end_ts):
 
 		weibo_mtype_count = weibo_es.search(index=topic, doc_type=weibo_index_type,body=query_body)\
 							['aggregations']['all_interests']['buckets']
-		#print weibo_mtype_count
+		print 'weibo_mtype_count:::::::::::::::::',weibo_mtype_count
+		
 		print begin_ts,end_ts,len(weibo_mtype_count)
 		iter_mtype_dict = {}
 		for mtype_item in weibo_mtype_count:

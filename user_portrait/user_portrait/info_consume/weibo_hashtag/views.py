@@ -27,8 +27,8 @@ def weibo_count():
     	#r_cluster.hget('hashtag_'+str(a))
 
 
-    hashtag_list = sorted(hashtag_list.items(),key=lambda x:x[1],reverse=True)
-
+    hashtag_list = sorted(hashtag_list.items(),key=lambda x:x[1],reverse=True)[:20]
+    
     return json.dumps(hashtag_list)
 
 

@@ -769,6 +769,7 @@ def new_get_user_weibo(uid, sort_type):
     '''
     #sort_weibo_list = sorted(weibo_list, key=lambda x:x['_source'][sort_type], reverse=True)[:100]
     mid_set = set()
+    text_set = set()
     for weibo_item in weibo_list:
         source = weibo_item['_source']
         mid = source['mid']
@@ -794,9 +795,10 @@ def new_get_user_weibo(uid, sort_type):
             sensitive_score = 0
 
         city = ip2city(ip)
-        if mid not in mid_set:
+        if mid not in mid_set and text not in text_set:
             results.append([mid, uid, text, ip, city,timestamp, date, retweet_count, comment_count, sensitive_score, weibo_url])
             mid_set.add(mid)
+            text_set.add(text)
     if sort_type == 'timestamp':
         sort_results = sorted(results, key=lambda x:x[5], reverse=True)
     elif sort_type == 'retweeted':

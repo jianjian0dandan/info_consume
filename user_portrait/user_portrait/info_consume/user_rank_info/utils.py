@@ -1073,7 +1073,8 @@ def get_sort(uid,fe):
         }
     }
     result['in_top'] = es.search(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE,body=query_body)['hits']['total']
-
+    print 'essearch'
+    print es.search(index=BCI_INDEX_NAME, doc_type=BCI_INDEX_TYPE,body=query_body)
 
     try:
         u_bci = es.get(index='bci_history', doc_type='bci', id=uid,fields=['bci_week_ave'])['fields']['bci_week_ave'][0]

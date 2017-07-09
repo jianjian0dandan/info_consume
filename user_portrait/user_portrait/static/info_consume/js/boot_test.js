@@ -542,46 +542,58 @@
                   $('#table-user').bootstrapTable('showColumn', 'weibo_count');                   
               });
               $('#education').click(function () {
+                  console.log("【教育圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '教育类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【教育圈名人榜】end load:"+getSystemTime());
               });
               $('#military').click(function () {
+                  console.log("【军事圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '军事类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【军事圈名人榜】end load:"+getSystemTime());
+
               });
               $('#tech').click(function () {
+                  console.log("【科技圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '科技类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【科技圈名人榜】end load:"+getSystemTime());
               });
               $('#sports').click(function () {
+                  console.log("【体育圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '体育类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【体育圈名人榜】end load:"+getSystemTime());
               });
               $('#amusement').click(function () {
+                  console.log("【娱乐圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '娱乐类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【娱乐圈名人榜】end load:"+getSystemTime());
               });
               $('#livehood').click(function () {
+                  console.log("【民生圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   //var keyword = ['environment','medicine','traffic','employment','house','law','social-security'];
@@ -589,8 +601,10 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【民生圈名人榜】end load:"+getSystemTime());
               });
               $('#politics').click(function () {
+                  console.log("【政治圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   //var keyword = ['politics','anti-corruption','fear-of-violence','peace','religion'];
@@ -598,48 +612,58 @@
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【政治圈名人榜】end load:"+getSystemTime());
               });
               $('#business').click(function () {
+                  console.log("【经济圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '经济类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【经济圈名人榜】end load:"+getSystemTime());
               }); 
               $('#others').click(function () {
+                  console.log("【生活圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '生活类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【生活圈名人榜】end load:"+getSystemTime());
               });
               $('#traffic').click(function () {
+                  console.log("【交通圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '交通类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【交通圈名人榜】end load:"+getSystemTime());
               }); 
               $('#nature').click(function () {
+                  console.log("【自然圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '自然类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【自然圈名人榜】end load:"+getSystemTime());
               }); 
               $('#health').click(function () {
+                  console.log("【健康圈名人榜】start load:"+getSystemTime());
                   $('#table-user-user-contain').css("display","none");
                   $('#table-user-contain').css("display","block");
                   var keyword = '健康类';
                   var area_url = '/influence_sort/user_sort/?username='+username+'&sort_scope='+sort_scope+'&arg='+keyword+'&all=False';
                   console.log(area_url);
                   refresh_area_table(area_url);
+                  console.log("【健康圈名人榜】end load:"+getSystemTime());
               });   
-
           })
 
 

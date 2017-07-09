@@ -328,7 +328,7 @@
 
 
      <!--我的影响力-->
-     <div class="panel panel-success yingxiangli" style="width:95%;height:1350px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+     <div class="panel panel-success yingxiangli" style="width:95%;height:1400px;margin-top:2%; margin-left:2%;float:left;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
         <div class="panel-heading">
           <h3 class="panel-title" style="font-family: 微软雅黑;font-size: 18px;">我的影响力</h3>
         </div>
@@ -392,10 +392,36 @@
               <span id="tisheng" style="font-size:16px;display: none;float: left;">要点亮更多技能，你的这些方面还需要提升</span>
               <span id="badPart" style="font-weight:bolder;color:#f4c600;font-size:18px !important;display: none;float: left;"></span>
             </div>
-
+            <div style="margin-top:60px;">
+              <button id="influ_detail_btn" style="margin-top:10px;margin-left:10%;" type="button" class="btn btn-success dropdown" data-toggle="modal" data-target="#myModa_influe">查看详细</button>
+            </div>
           </div>
 
         </div>
+      </div>
+      
+        <div class="modal fade dropdown" id="myModa_influe" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                      &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                                   查看影响力技能详情
+                </h4>
+               </div>
+              
+                <div class="modal-body">
+                    <span id="influ_desc_de"></span>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+
       </div>
 
       <!--我的足迹-->
@@ -428,7 +454,7 @@
           </div>
 
           <div id="act_map" style="width:100%;height:460px;">  </div>
-          <span id="des_loc" style="margin-left:100px;float:left;font-size:16px;font-family: Microsoft Yahei;"></span>
+          <span id="des_loc" style="margin-left:100px;float:left;font-size:16px;font-family: Microsoft Yahei;" ></span>
         </div>
       </div>
 

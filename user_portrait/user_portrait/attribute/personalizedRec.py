@@ -10,6 +10,7 @@ import os
 import time
 import jieba
 import random
+from collections import namedtuple
 
 from elasticsearch.exceptions import NotFoundError
 from user_portrait.attribute.influence_appendix import weiboinfo2url
@@ -18,7 +19,8 @@ from user_portrait.parameter import DAY, HOUR
 from user_portrait.parameter import RUN_TYPE, RUN_TEST_TIME
 from user_portrait.parameter import topic_en2ch_dict
 from user_portrait.time_utils import ts2datetime, datetime2ts
-from user_portrait.zxy_params import ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE, CNTV_ITEM_FILE
+from user_portrait.zxy_params import \
+    ADS_TOPIC_TFIDF_DIR, RIO_VIDEO_INFO_FILE, TIGER_VIDEO_INFO_FILE, CCTV_ITEM_FILE, CCTV_LIVE_VIDEO_FILE
 
 from ads_classify import adsClassify
 from user_portrait.global_utils import \
@@ -41,10 +43,11 @@ def adsRec(uid, queryInterval=HOUR * 24):
     # 运行状态，
     # 0 ->  当前为2013-9-8 00:00:00
     # 1 ->  当前时间
-    now_date = ts2datetime(time.time()) if RUN_TYPE == 1 else ts2datetime(datetime2ts(RUN_TEST_TIME)-DAY)
+    now_date = ts2datetime(time.time()) if RUN_TYPE == 1 else ts2datetime(datetime2ts(RUN_TEST_TIME) - DAY)
 
     # 获取用户的偏好
     try:
+        print uid
         user_portrait_result = es_user_portrait. \
             get_source(index=portrait_index_name, doc_type=profile_index_type, id=uid)
     except:
@@ -60,6 +63,10 @@ def adsRec(uid, queryInterval=HOUR * 24):
                                             'size': 2000,
                                         }
                                         )['hits']['hits']
+
+
+    random.shuffle(ads_weibo_all)
+    ads_weibo_all = ads_weibo_all[:800]
 
     # 根据权重得到不同类别上词语的权重TFIDF
     topic_word_weight_dic = construct_topic_word_weight_dic(ADS_TOPIC_TFIDF_DIR)
@@ -321,14 +328,15 @@ def localRec(uid, k=200):
     '''
     ip = get_user_ip(uid)
     ip = ".".join(ip.split(".")[:-2])
+    print '326'
     weibo_all = es_flow_text.search(index=flow_text_index_list, doc_type=ads_weibo_index_type,
-                                    body={"query": {"bool": {"must": [{"prefix": { "text.ip": ip}}]}},
-                                          "size":2000 })["hits"]["hits"]
-
+                                    body={"query": {"bool": {"must": [{"prefix": {"text.ip": ip}}]}},
+                                          "size": 2000})["hits"]["hits"]
 
     local_weibo_rec = []
     weibo_user_uids = [weibo["_source"]["uid"] for weibo in weibo_all]
-    user_profiles = search_user_profile_by_user_ids(weibo_user_uids)
+    print '332',len(weibo_all)
+    # user_profiles = search_user_profile_by_user_ids(weibo_user_uids)
     exists_ip = set()
     for weibo in weibo_all:
         weibo = weibo["_source"]
@@ -347,13 +355,14 @@ def localRec(uid, k=200):
             continue
         weibo["weibo_url"] = weiboinfo2url(uid, mid)
         # 可能出现许多userprofile查不到的情况
-        if uid in user_profiles:
-            weibo["photo_url"] = user_profiles[uid]["photo_url"]
-            weibo["nick_name"] = user_profiles[uid]["nick_name"]
-        else:
-            weibo["photo_url"] = "None"
-            weibo["nick_name"] = "None"
-            local_weibo_rec.append(weibo)
+        # if uid in user_profiles:
+        #     weibo["photo_url"] = user_profiles[uid]["photo_url"]
+        #     weibo["nick_name"] = user_profiles[uid]["nick_name"]
+        # else:
+        #     weibo["photo_url"] = "None"
+        #     weibo["nick_name"] = "None"
+        #     local_weibo_rec.append(weibo)
+        local_weibo_rec.append(weibo)
     return local_weibo_rec
 
 
@@ -444,7 +453,7 @@ def cctv_video_rec(uid, k=10):
                                           })['hits']['hits']
     user_words = set()
     for weibo in weibo_all:
-        weibo_text = weibo["_source"]["ip"]
+        weibo_text = weibo["_source"]["text"]
         user_words |= set(jieba.cut(weibo_text))
 
     rio_dict = load_topic_video_dict(RIO_VIDEO_INFO_FILE)
@@ -485,18 +494,98 @@ def load_videos(filepath):
     return ret_set
 
 
+# cctv的直播节目推荐
+def cctv_live_video_rec(uid):
+    # 获取推荐的视频列表, 还是直接返回
+    rec_video_dict = cctv_video_rec(uid, 20)
+    rec_video_list = [] + rec_video_dict["rio"] + rec_video_dict["tiger"]
+    random.shuffle(rec_video_list)
+
+    # 载入视频信息
+    # 10840000000||CCTV新闻频道||东方时空精切||53
+    video_info_dict = dict()
+    attrs = namedtuple("attrs", ["channel", "title", "duration"])
+    with open(CCTV_LIVE_VIDEO_FILE) as f:
+        for line in f.readlines():
+            videoID, channel, title, duration = line.split("||")
+            video_info_dict[videoID] = attrs(channel, title, int(duration))
+
+    # 堆成返回的直播格式
+    live_video_ret = []
+
+    # HumanTime类，用于将秒数转换成hour:minute的时间
+    class HumanTime:
+        def __init__(self, start_time = 0):
+            self._now_second = start_time
+
+        # 将秒数补全至整数分钟
+        def _add_to_integer_minute(self):
+            if self._now_second%60 == 0:
+                return
+            else:
+                self._now_second += (60-self._now_second%60)
+
+        def __iadd__(self, other):
+            self._now_second += other
+            self._add_to_integer_minute()
+            return self
+
+        @property
+        def formatted(self):
+            time = self._now_second
+            hour = str(time / 3600)
+            if len(hour) == 1: hour = "0" + hour
+            time %= 3600
+            minute = str(time / 60)
+            if len(minute) == 1: minute = "0" + minute
+            return hour + ":" + minute
+
+        @property
+        def finished(self):
+            if self._now_second>3600*24:
+                return True
+            else:
+                return False
+
+    start_time = HumanTime()
+    for videoID in rec_video_list:
+        video_attrs = video_info_dict[videoID]
+        live_video_ret.append({"videoID": videoID,
+                               "start_time": start_time.formatted,
+                               "channel": video_attrs.channel,
+                               "title": video_attrs.title})
+        start_time += video_attrs.duration
+        if start_time.finished:
+            break
+
+    # 推荐的不够，补齐
+    rec_video_set = set(rec_video_list)
+    if start_time < 24*3600:
+        for videoID in video_info_dict.keys():
+            if videoID not in rec_video_set:
+                video_attrs = video_info_dict[videoID]
+                live_video_ret.append({"videoID": videoID,
+                                       "start_time": start_time.formatted,
+                                       "channel": video_attrs.channel,
+                                       "title": video_attrs.title})
+                start_time += video_attrs.duration
+                if start_time.finished:
+                    break
+
+    return live_video_ret
+
+# cctv的商品推荐
 def cctv_item_rec(uid, k=10):
     random.seed(int(uid))
-    item_set = load_items(CNTV_ITEM_FILE)
+    item_set = load_items(CCTV_ITEM_FILE)
     return random.sample(item_set, k)
 
 
 def load_items(filepath):
     with open(filepath) as f:
         lines = f.readlines()
-    item_set = set(map(lambda line:line.strip(), lines))
+    item_set = set(map(lambda line: line.strip(), lines))
     return item_set
-
 
 
 if __name__ == '__main__':

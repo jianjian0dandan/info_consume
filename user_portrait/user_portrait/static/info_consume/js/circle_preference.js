@@ -1,4 +1,4 @@
-console.log("【兴趣特征】start load:"+getSystemTime());
+
 //关键词词云;id=keyword-cloud
 function Draw_keyword_cloud(data,div_name){
 function createRandomItemStyle() {
@@ -76,15 +76,17 @@ function Draw_preference_weibo(data){
 
 } 
 function Draw_preference_page(data){
-       Draw_keyword_cloud(data.keywords,'keyword-cloud');
-       Draw_keyword_cloud(data.hashtag,'topic-cloud');
-       Draw_preference_weibo(data)
+    Draw_keyword_cloud(data.keywords,'keyword-cloud');
+    Draw_keyword_cloud(data.hashtag,'topic-cloud');
+    Draw_preference_weibo(data)
+    console.log("【兴趣特征】end load:"+getSystemTime());
 } 
 
 
  function g_pre_load(g_name,s_user){
- var preference_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=preference';
- call_sync_ajax_request(preference_url,'GET',Draw_preference_page);
- //console.log('preference_url:'+preference_url);
+    console.log("【兴趣特征】start load:"+getSystemTime());
+    var preference_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=preference';
+    call_sync_ajax_request(preference_url,'GET',Draw_preference_page);
+    //console.log('preference_url:'+preference_url);
 }
-console.log("【兴趣特征】end load:"+getSystemTime());
+

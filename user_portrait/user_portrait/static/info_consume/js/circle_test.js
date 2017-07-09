@@ -46,10 +46,9 @@
     g_bas_load(g_name,s_user);
     $(".feature_tab").click(function(){
         var x = $(this).attr("title");
-        g_bas_load(g_name,s_user);
+        
         if(x=='基本特征'){
-           //$("#g_bas").css({"display":"block"}).siblings().css({"display":"none"});
-           //$("#qxtz").css({"background-color":"#3351B7"})
+          // g_bas_load(g_name,s_user);
         }else if(x=='活跃特征'){
            if(g_act_flag==false){
            g_act_load(g_name,s_user);

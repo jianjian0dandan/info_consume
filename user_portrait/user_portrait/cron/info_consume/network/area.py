@@ -352,11 +352,12 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
         for weibo in get_statuses_results:
             results_list.append([weibo['_source']['mid'],weibo['_source']['text']])
         scount, data_wid = ad_classifier(results_list)
-        #print data_wid
+        print 'scount::',scount
+        #print '355 data_wid::::::',data_wid
     else:
         data_wid = []
         scount = 0
-    print 'count_after_nad:', scount
+    #print 'count_after_nad:', scount
 
     new_attribute_dict = {} # 星形源头转发网络需要添加的节点对应的text、reposts_count、comment_count、 attitude_count
     map_dict = {} # map_dict = {retweeted_mid:[retweeted_uid, user, timestamp],...} 保存_id timestamp与其对应的retweeted_mid之间的对应关系
@@ -420,11 +421,11 @@ def make_network(topic, date, window_size, max_size=100000, attribute_add = Fals
                     map_dict[r_mid] = [r_uid, nad_uid, status['timestamp']]
             except (TypeError, KeyError):
                 continue
-    print g
+    #print g
     return g , gg, new_attribute_dict
     
     
-    print 'step_1:g', len(g)
+    #print 'step_1:g', len(g)
     #print 'step_1:ds_dg', len(ds_dg)
 
 def get_ds_info(text, userid, topic, timestamp_add, DEFAULT_INTERVAL, topic_xapian_id): # timestamp_add 表示最终极转发用户发表微博的时间戳
@@ -463,10 +464,20 @@ def check_attribute(attribute_dict , query_dict, map_dict): # 当批量查询没
     return attribute_dict
 
 if __name__=='__main__':
+    '''
     topic_id = 595
     TOPK = 10000
     date = '2013-09-08'
     window_size = 6
     topicname = u'东盟,博览会'
     real_topic_id = 227
-    pagerank_rank(TOPK, date, topic_id, window_size, topicname, real_topic_id)
+    '''
+    #pagerank_rank(TOPK, date, topic_id, window_size, topicname, real_topic_id)
+    task=['雾霾','type','1480003100','1480176000','1483500427743']
+    topic = 'event-'+str(1480003100)+'-'+str(1480176000)+'-'+str(1483500427743)
+    window_size = 2
+    #2016/11/24 23:58:20
+    #2016/11/27 0:0:0
+    date = '2016-11-27'
+
+    make_network(topic, date, window_size, max_size=100000, attribute_add = False)

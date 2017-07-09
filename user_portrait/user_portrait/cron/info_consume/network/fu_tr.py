@@ -92,7 +92,7 @@ def get_interval_count(topic, date, windowsize):
     end_ts = datetime2ts(date)
     interval = (end_ts - start_ts) / during
     print 'interval:', interval
-    print topic
+    print topic.encode('utf-8')
     if MYSQL_TOPIC_LEN == 0:
     	topic0 = topic[:20]
     else:
@@ -185,16 +185,16 @@ def save_trend_maker(topic, date, windowsize, trend_maker):
             'size': 1000000  # 返回条数限制 待删
         }
         weibo_info = weibo_es.search(index=topic, doc_type=weibo_index_type, body=query_body)['hits']['hits']
-        print 'trend_maker weibo_info:', weibo_info
+        #print 'trend_maker weibo_info:', weibo_info
         #domain = uid2domain(uid)
         domain = 'Unknown'
         timestamp = int(weibo_info[0]['_source']['timestamp'])
         # 修改model
         item = TrendMaker(topic, date, windowsize, uid, timestamp, json.dumps(user_info), json.dumps(weibo_info), domain, rank,json.dumps(value), json.dumps(key_item))
-        print item
+        #print item
         db.session.add(item)
     db.session.commit()
-    print 'save_trend_maker success'
+    #print 'save_trend_maker success'
 
 
 # save trend_pusher
@@ -267,10 +267,10 @@ def get_makers(topic, new_peaks, new_bottom, ts_list):
 def parseKcount(kcount):
     kcount_dict = {}
     kcount = json.loads(kcount)
-
+    #print 'kcount::::::',kcount
     for k ,v in kcount:
         kcount_dict[k] = v
-
+    #print 'kcount_dict::::::::',kcount_dict
     return kcount_dict 
 
 def _top_keywords(kcount_dict, top=fu_tr_top_keyword):
@@ -295,13 +295,13 @@ def get_keyword(topic, begin_ts, end_ts, top):
     	topic=topic[:20]
     #print 'get_keywords begin_ts:', begin_ts
     #print 'get_keywords end_ts:', end_ts
-    print topic,unit,limit
+    print '298 topic:::',topic.encode('utf-8'),unit,limit
     items = db.session.query(PropagateKeywords).filter(PropagateKeywords.end>begin_ts ,\
                                                        PropagateKeywords.end<=end_ts ,\
                                                        PropagateKeywords.topic==topic ,\
                                                        PropagateKeywords.range==unit ,\
                                                        PropagateKeywords.limit==limit).all()
-    
+    #print 'items:::::',items
     if items:
         for item in items:
             kcount_dict = parseKcount(item.kcount)
@@ -323,7 +323,7 @@ def sort_makers(keyword_data, begin_ts, end_ts, ts_list, topic):
     
     begin_ts = begin_ts - Hour
     #query_dict = {'timestamp':{'$gt': begin_ts, '$lt': end_ts}}
-    print '323',begin_ts,end_ts,topic
+    print '323',begin_ts,end_ts,topic.encode('utf-8')
     query_body = {
             'query': {
                 'bool': {
@@ -372,7 +372,9 @@ def sort_makers(keyword_data, begin_ts, end_ts, ts_list, topic):
             key_term.append(item)
             key_term_count.append(terms_dict[item])
         weibo_term[uid] = [wid, key_term_count, key_term]
+    #print 'weibp_term:::::::::::::',weibo_term
     sort_weibo_term = sorted(weibo_term.items(), key=lambda x:x[1][1], reverse=True)
+
     return sort_weibo_term[:fu_tr_top_keyword]
 
 #trend_pusher
@@ -565,11 +567,12 @@ def get_tsu(new_peaks, new_bottom, ts_list, topic_xapian_id):
 
 
 if __name__=='__main__':
-    '''
+    
     topic = u'高校思想宣传'
     date = '2015-02-01'
     windowsize = 9
     topic_xapian_id = '54ccbfab5a220134d9fc1b37'
+    
     '''
     topic = TOPIC
     date = END
@@ -578,5 +581,6 @@ if __name__=='__main__':
     #windowsize = (end_ts - start_ts) / Day
     windowsize = (end_ts - start_ts) / Day /2
     topic_xapian_id = weibo_topic2xapian(topic, start_ts, end_ts)
-    get_interval_count(topic, date, windowsize, topic_xapian_id)
+    '''
+    get_interval_count(topic, date, windowsize)
     

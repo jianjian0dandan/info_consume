@@ -7,7 +7,7 @@ RUN_TYPE = 0 #0 mark run for test; 1 mark run for operation
 #RUN_TEST_TIME = '2016-03-13'
 #RUN_TEST_TIME = '2013-09-08'
 RUN_TEST_TIME = '2016-11-28'#'2016-11-28'
-MYSQL_TOPIC_LEN = 1 #0是20，1是正常
+MYSQL_TOPIC_LEN = 0 #0是20，1是正常
 #for all
 DAY = 24*3600
 Fifteen = 60 * 15
@@ -391,3 +391,15 @@ str2segment = {'fifteen': 900, 'hour': 3600, 'day':3600*24}
 sentiment_type_list = ['0', '1', '7']
 
 topic_value_dict = {"art": 1, "computer":2, "economic":7, "education":7.5, "environment":8.7, "medicine":7.8,"military":7.4, "politics":10, "sports":4, "traffic":6.9, "life":1.8, "anti-corruption":9.5, "employment":6, "fear-of-violence":9.3, "house":6.4, "law":8.6, "peace":5.5, "religion":7.6, "social-security":8.6}
+
+
+
+# micro prediction
+minimal_time_interval = 3600
+pre_flow_text = "flow_text_"
+type_flow_text = "text"
+data_order = ["total_fans_number", "origin_weibo_number", "retweeted_weibo_number", "comment_weibo_number",\
+"origin_important_user_number", "retweet_important_user_count",\
+"average_origin_imp_hour", "average_retweet_imp_hour", "total_count", "uid_number",\
+"average_origin_ts", "average_retweet_ts"]
+K = 6

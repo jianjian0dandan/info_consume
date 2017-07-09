@@ -104,6 +104,8 @@ group_analysis_queue_name = 'group_analysis_task'
 # social sensing redis
 R_SOCIAL_SENSING = _default_redis(host=REDIS_HOST, port=REDIS_PORT, db=14)
 
+r_micro = R_SOCIAL_SENSING
+
 # use to recomment 
 #two types hash
 #type1:{recomment_2013-09-01:{uid:status, uid:status}} status:0 not in  status:1 have in
@@ -139,6 +141,7 @@ es_bci_history = Elasticsearch(USER_PROFILE_ES_HOST, timeout=600)
 es_sensitive = Elasticsearch(USER_PROFILE_ES_HOST, timeout=600)
 es_user_portrait = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 6000)
 es_social_sensing = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 600)
+es_prediction = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 600)
 es_flow_text = Elasticsearch(FLOW_TEXT_ES_HOST, timeout=600)
 es_group_result = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout=1000)
 es_retweet = Elasticsearch(USER_PORTRAIT_ES_HOST, timeout = 600)

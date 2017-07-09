@@ -1,4 +1,3 @@
-console.log("【hashtag展示】start load:"+getSystemTime());
 function weiborecommend() {
 	//this.ajax_method='GET';	// body...
 }
@@ -107,8 +106,6 @@ weiborecommend.prototype= {
 	//0:uid  1:media  2:photo_url  3:text 4:情绪 5:time  6:gro
 	//7：文本类型（1为原创微博）8:转发  9:评论 10：情绪
 	//11：时间戳  12：敏感度 13：mid
-	console.log("【hashtag展示】end load:"+getSystemTime());
-	console.log("【微博推荐】start load:"+getSystemTime());
 	function callback(data)
 	{
 
@@ -390,23 +387,26 @@ function callback(data) {
 		}
 	}
 }
-console.log("【微博推荐】end load:"+getSystemTime());
 
 var weiborecommend=new weiborecommend();
 
 function get_hot_text(){
+	console.log("【突如其来】start load:"+getSystemTime());
 	url = '/social_sensing/get_text_detail/';
 	weiborecommend.call_sync_ajax_request(url,callback);
 }
 
 function get_weibo_hashtag(){
+	console.log("【hashtag】start load:"+getSystemTime());
 	url = '/weibo_hashtag/get_weibo_hashtag/';
 	weiborecommend.call_sync_ajax_request(url,weiborecommend.weibo_hashtag);
+	console.log("【hashtag】end load:"+getSystemTime());
 }
 
 function get_keyword_recommend() {
 	url = '/social_sensing/get_text_detail/';
 	weiborecommend.call_sync_ajax_request(url,weiborecommend.key_recommend);
+	console.log("【突如其来】end load:"+getSystemTime());
 }
 
 get_hot_text();

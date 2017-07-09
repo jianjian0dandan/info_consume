@@ -1,7 +1,5 @@
-console.log("【活跃特征】start load:"+getSystemTime());
-      //近一个月群体活跃度走势;id=activi-line
-      
-      function Draw_activity_line(data){
+//近一个月群体活跃度走势;id=activi-line 
+function Draw_activity_line(data){
     //活跃非活跃用户
     console.log(data)
     var main_active = data.main_max;
@@ -267,12 +265,14 @@ myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
 function Draw_active_page(data){
        Draw_activity_line(data.activeness_trend);
        Draw_geo_graph(data.new_geo);
+       console.log("【活跃特征】end load:"+getSystemTime());
 }
 
 function g_act_load(g_name,s_user){
+    console.log("【活跃特征】start load:"+getSystemTime());
  var activity_url = '/info_group/show_group_result/?task_name='+g_name+'&submit_user='+s_user+'&module=activity';
 
  call_sync_ajax_request(activity_url,'GET',Draw_active_page);
  //console.log('g_act_load url:'+activity_url);
 }
-console.log("【活跃特征】end load:"+getSystemTime());
+

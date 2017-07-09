@@ -107,13 +107,16 @@ def symbol_weibos():
 @mod.route('/subopinion/')
 def subopinion():
     topic = request.args.get('topic','')
-    results = get_subopinion(topic)
+    start_ts = long(request.args.get('start_ts','1469028540'))
+    end_ts = long(request.args.get('end_ts','1470842940'))
+    results = get_subopinion(topic,start_ts,end_ts)
     return json.dumps(results)
 
 @mod.route('/weibo_content/')
 def weibo_content():
     topic = request.args.get('topic','')
     opinion0 = request.args.get('opinion','') # 默认查询时间粒度为3600秒
+    print 'opinion0::::::::::',opinion0
     opinion = '_'.join(opinion0.split(','))
     # print opinion,type(opinion[0]),
     # opinion1=["看客", "纹身", "高度", "人生", "健力宝"]
