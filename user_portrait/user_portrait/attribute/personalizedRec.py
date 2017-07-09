@@ -137,6 +137,7 @@ def adsPreferred(user_topic_dic, weibo_all, topic_word_weight_dic, k=30):
         mid = weiboSource["mid"]
         words = weiboSource["ads_keywords"]
         ads_topic = judge_ads_topic(words, topic_word_weight_dic)
+        weiboSource["ads_topic"] = ads_topic
         ads_midsPrefered[mid] = user_topic_dic[ads_topic]
 
         #  加上retweet和recomment的字段，适配非线上环境
