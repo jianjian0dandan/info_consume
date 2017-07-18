@@ -2,7 +2,7 @@
 from user_portrait.global_config import db,es_user_profile,profile_index_name,profile_index_type,\
                             topics_river_index_name,topics_river_index_type,\
                             subopinion_index_name,subopinion_index_type,topic_index_name,topic_index_type
-from user_portrait.global_utils import portrait_index_name,portrait_index_type
+from user_portrait.global_utils import portrait_index_name,portrait_index_type,bci_history_index_type,bci_history_index_name,es_bci_history,es_user_portrait,portrait_index_name,portrait_index_type
 from user_portrait.global_config import weibo_es,weibo_index_name,weibo_index_type,MAX_FREQUENT_WORDS,MAX_LANGUAGE_WEIBO
 
 from user_portrait.time_utils import ts2HourlyTime,datetime2ts,full_datetime2ts,ts2datetime
@@ -467,15 +467,19 @@ def get_person_value(uid):
     #认证类型
     #print es_user_profile,profile_index_name,profile_index_type,uid
     try:
+	    value_static = es_bci_history.get(index = bci_history_index_name,doc_type = bci_history_index_type,id=uid)
+	    value_inf = es_user_portrait.get(index = portrait_index_name,doc_type = portrait_index_type,id=uid)
 	    static = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)
     except:
     	return 'no'
+    fans_max = es_bci_history.search(index = bci_history_index_name,doc_type = bci_history_index_type,body={'query':{'match_all':{}},'sort':{'user_fansnum':{'order':'desc'}},'size':1})['hits']['hits'][0]['_source']['user_fansnum']
+    print 'max:',fans_max
    	#print static['found']
     if static['found']==False:
         return 'no'
     else:
         static = static['_source']
-    print "static",static
+    #print "static",static
     try:
         ver_calue = verified_value[static['verified_type']]
     except:
@@ -484,11 +488,14 @@ def get_person_value(uid):
     times = math.ceil((time.time()-int(static['create_at']))/31536000)
     #粉丝数
     #person = es_user_profile.get(index = profile_index_name,doc_type = profile_index_type,id=uid)['_source']
-    fans_value = (math.log(static['fansnum']+1000000,100000000)-0.75)*4
-    if fans_value>1:
-        fans_value=1.0
-    final= ver_calue*10+times+fans_value*10000
-
+    fans_value = math.log(float(value_static['_source']['user_fansnum'])/float(fans_max)*9+1,10)
+    #fans_value = (math.log(static['fansnum']+1000000,100000000)-0.75)*4
+    #if fans_value>1:
+    #    fans_value=1.0
+    influence_max = es_user_portrait.search(index = portrait_index_name,doc_type = portrait_index_type,body={'query':{'match_all':{}},'sort':{'influence':{'order':'desc'}},'size':1})['hits']['hits'][0]['_source']['influence']
+    influence_value = math.log(float(value_inf['_source']['influence'])/float(influence_max)*9+1,10)
+    final= (ver_calue*0.1+times*0.1+fans_value*0.3+influence_value*0.5)*50
+    print ver_calue,times,fans_value,influence_value
     return final
     
 
