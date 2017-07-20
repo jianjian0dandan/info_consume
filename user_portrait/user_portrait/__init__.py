@@ -37,6 +37,7 @@ from info_consume.user_rank_info.views import mod as infoUserrankModule
 from info_consume.group_info.views import mod as infoGroupModule
 from info_consume.weibo_hashtag.views import mod as weiboHashtagModule
 from info_consume.person_social.views import mod as personSocialModule
+from info_consume.save_csv.views import mod as saveCSV
 
 
 def create_app():
@@ -76,7 +77,7 @@ def create_app():
     app.register_blueprint(infoGroupModule)
     app.register_blueprint(weiboHashtagModule)
     app.register_blueprint(personSocialModule)
-
+    app.register_blueprint(saveCSV)
     
     # the debug toolbar is only enabled in debug mode
     app.config['DEBUG'] = True
