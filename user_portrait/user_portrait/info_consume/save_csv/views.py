@@ -13,7 +13,7 @@ Hour = 3600
 SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
-label_list = ["topic_id", "topic_status", "topic_name", "propagate_keywords", "start_ts", "end_ts", "topic_area", "topic_subject", "first_lable", "second_label", "identify_firstuser", "identify_trendpusher", "identify_pagerank", "moodlens_sentiment", "topic_abstract", "propagate_peak", "propagate_peak_news"]
+label_list = ["topic_id", "topic_status", "topic_name", "propagate_keywords", "start_ts", "end_ts", "topic_area", "topic_subject", "first_label", "second_label", "identify_firstuser", "identify_trendpusher", "identify_pagerank", "moodlens_sentiment", "topic_abstract", "propagate_peak", "propagate_peak_news"]
 @mod.route('/save_to_csv')
 def save_to_csv():
     topic_id = request.args.get('topic_id', '')

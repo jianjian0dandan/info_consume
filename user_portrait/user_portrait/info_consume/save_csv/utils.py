@@ -23,7 +23,7 @@ Hour = 3600
 SixHour = Hour * 6
 Day = Hour * 24
 MinInterval = Fifteenminutes
-label_list = ["topic_id", "topic_status", "topic_name", "propagate_keywords", "start_ts", "end_ts", "topic_area", "topic_subject", "first_lable", "second_label", "identify_firstuser", "identify_trendpusher", "identify_pagerank", "moodlens_sentiment", "topic_abstract", "propagate_peak", "propagate_peak_news"]
+label_list = ["topic_id", "topic_status", "topic_name", "propagate_keywords", "start_ts", "end_ts", "topic_area", "topic_subject", "first_label", "second_label", "identify_firstuser", "identify_trendpusher", "identify_pagerank", "moodlens_sentiment", "topic_abstract", "propagate_peak", "propagate_peak_news"]
 results = dict.fromkeys(label_list, '')
 emotions = {"0": "中立", "1": "正向", "2": "生气", "3": "焦虑", "4": "悲伤", "5": "厌恶", "6": "消极及其他"}
 
@@ -178,9 +178,13 @@ def export_to_csv(topic_id, start_ts, end_ts):
     results["top15_keywords"] = keywords_count
 
     # print u"该事件的舆情信息起始于" + results["start_ts"] + u",终止于" +　results["end_ts"]
-    results["topic_abstract"] = u" ".join(["该事件的舆情信息起始于", results["start_ts"], "，终止于", results["end_ts"], "，共 ", results["total_user"], " 人参与信息发布与传播，舆情信息累计 ", results["total_count"], " 条。参与人群集中于", "，".join(results["top15_province"]), "，网民的情绪分布情况为：", "，".join(["：".join(item) for item in results["sen_ratio"].iteritems()])])
+    results["topic_abstract"] = u" ".join(["该事件的舆情信息起始于", results["start_ts"], "，终止于", results["end_ts"], "，共", results["total_user"], " 人参与信息发布与传播，舆情信息累计", results["total_count"], " 条。参与人群集中于", "，".join(results["top15_province"]), "。 前15个关键词是：", "，".join(results["top15_keywords"]), "。网民的情绪分布情况为：", "，".join(["：".join(item) for item in results["sen_ratio"].iteritems()]), "。"])
                    
 
     return results
+
+
+if __name__ == '__main__':
+    export_to_csv(topic_id="ye-jian-ming-1482830875", start_ts=1480176000, end_ts=1482681600)
 
 
