@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+from train import load_first_classifier, load_second_classifier, text_first_classifier, text_second_classifier
 from detect_peak import detect_peaks
 from elasticsearch import Elasticsearch
 from user_portrait.parameter import MYSQL_TOPIC_LEN
@@ -25,7 +26,20 @@ Day = Hour * 24
 MinInterval = Fifteenminutes
 label_list = ["topic_id", "topic_status", "topic_name", "propagate_keywords", "start_ts", "end_ts", "topic_area", "topic_subject", "first_label", "second_label", "identify_firstuser", "identify_trendpusher", "identify_pagerank", "moodlens_sentiment", "topic_abstract", "propagate_peak", "propagate_peak_news"]
 results = dict.fromkeys(label_list, '')
-emotions = {"0": "中立", "1": "正向", "2": "生气", "3": "焦虑", "4": "悲伤", "5": "厌恶", "6": "消极及其他"}
+emotions = {"0": "中立", "1": "积极", "2": "生气", "3": "焦虑", "4": "悲伤", "5": "厌恶", "6": "消极及其他"}
+classify_label = {"safe_and_stable":["traffic", "land_resources", "hostile_force", "natural_disaster", "public_safety", "rights_petition", "military_defense"], "industrial_information": ["Information_industry", "information_security", "industrial_enterprise", "network_security"], "politics": ["party_affair", "national_government_affair", "diplomatic"
+"Political_legal_supervision", "integrated_party", "HongKong_Taiwan"], "culture_health": ["health_food", "sport", "culture", "travel_services"], "social_livelihood": ["employment_social_security", "Population_family_planning", "agricultural_rural_areas", "housing_construction", "environmental_protection", "energy", "education", "technology"], "economic_and_financial": ["commercial_trade", "macroeconomic", "finance"]}
+classify_label_zn = {}
+fold = 3
+clf = load_first_classifier("/home/ubuntu2/GuoJia/info_consume/info_consume/user_portrait/user_portrait/info_consume/save_csv/cv_%s_model" % fold)
+lfeatures = load_second_classifier("/home/ubuntu2/GuoJia/info_consume/info_consume/user_portrait/user_portrait/info_consume/save_csv/cv_%s" % fold)
+
+with open("./user_portrait/info_consume/save_csv/label_zn.txt") as f:
+    for line in f:
+        if len(line.strip()) > 0:
+            item = line.strip().split()
+            classify_label_zn[item[1]] = item[0].decode("utf-8")
+
 
 def search_es(topic_id):
     '''
@@ -148,6 +162,34 @@ def get_basic_info(topic_id):
     return [count, user]
 
 
+def get_topic_text(topic_id, count):
+    if count > 10000:
+        size = 10000
+    else:
+        size = count
+
+    query_body = {
+        "_source":{
+            "include":[
+                "text"
+            ]
+        },
+        "query":{
+            "match_all":{}
+        },
+        "size": size
+    }
+    try:
+        res = es.search(index=topic_id, doc_type="text", body=query_body)["hits"]["hits"]
+    except:
+        res = []
+
+    text = ''
+    for item in res:
+        text += item["_source"]["text"]
+
+    return text
+
 
 def export_to_csv(topic_id, start_ts, end_ts):
     results["topic_id"] = topic_id
@@ -179,12 +221,16 @@ def export_to_csv(topic_id, start_ts, end_ts):
 
     # print u"该事件的舆情信息起始于" + results["start_ts"] + u",终止于" +　results["end_ts"]
     results["topic_abstract"] = u" ".join(["该事件的舆情信息起始于", results["start_ts"], "，终止于", results["end_ts"], "，共", results["total_user"], " 人参与信息发布与传播，舆情信息累计", results["total_count"], " 条。参与人群集中于", "，".join(results["top15_province"]), "。 前15个关键词是：", "，".join(results["top15_keywords"]), "。网民的情绪分布情况为：", "，".join(["：".join(item) for item in results["sen_ratio"].iteritems()]), "。"])
-                   
+
+
+    text = get_topic_text(topic_id, total_count)
+    print "+++++++++++++++++++++++++++++++",len(text)
+    predictfirstlabel = text_first_classifier(text, clf)
+    predictsecondlabel = text_second_classifier(text, predictfirstlabel, lfeatures)
+
+    results["first_label"] = classify_label_zn[predictfirstlabel] 
+    results["second_label"] = classify_label_zn[predictsecondlabel] 
 
     return results
 
-
-if __name__ == '__main__':
-    export_to_csv(topic_id="ye-jian-ming-1482830875", start_ts=1480176000, end_ts=1482681600)
-
-
+    #/save_csv/save_to_csv?topic_id=da-lai-meng-gu-1492166854&start_ts=1478995200&end_ts=1480204800

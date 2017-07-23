@@ -22,7 +22,7 @@ def save_to_csv():
     start_ts = request.args.get('start_ts', '')
     start_ts = int(start_ts)
     result = export_to_csv(topic_id, start_ts, end_ts)
-    with open("case.csv", "w") as fw:
+    with open(topic_id + ".csv", "w") as fw:
         for key in label_list:
             fw.write(json.dumps(key,ensure_ascii=False))
             fw.write(",")
